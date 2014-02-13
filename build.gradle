@@ -124,6 +124,7 @@ task createChangelog(type: ChangelogTask) {
 	
 	if (System.getenv("BUILD_NUMBER") != null) {
 		version = ".${System.getenv("BUILD_NUMBER")}";
+		buildNumber = "${System.getenv("BUILD_NUMBER")}";
 		setServerRoot(new DelayedString(project, 'http://ci.calclavia.com/'))
 		setJobName(new DelayedString(project, jobName.replaceAll(' ','%20').toString()));
 		setAuthName(new DelayedString(project, 'console_script'));
