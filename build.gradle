@@ -41,12 +41,22 @@ minecraft {
 	replace "@MAJOR@", config.version.mod.major
 	replace "@MINOR@", config.version.mod.minor
 	replace "@REVIS@", config.version.mod.revis
-	replace "@BUILD@", System.getenv("BUILD_NUMBER")
+	
+	if (System.getenv("BUILD_NUMBER") != null) {
+		replace "@BUILD@", System.getenv("BUILD_NUMBER")
+	}
+	else
+	{
+		replace "@BUILD@", "[CUSTOM]"
+	}
 }
 
-if (System.getenv("BUILD_NUMBER") != null)
-    version += ".${System.getenv("BUILD_NUMBER")}"
-
+if (System.getenv("BUILD_NUMBER") != null) {
+    version += ".${System.getenv("BUILD_NUMBER")}";
+}
+else {
+	version += "[CUSTOM]";
+}
 
 processResources {
 	from 'build.properties'
@@ -104,20 +114,29 @@ import net.minecraftforge.gradle.common.Constants
 import net.minecraftforge.gradle.delayed.*
  
 task createChangelog(type: ChangelogTask) {
-    def jobName = "${System.getenv().JOB_NAME}"
-    def buildNumber = "${System.getenv().BUILD_NUMBER}"
+    def jobName = "${System.getenv().JOB_NAME}";
+    def buildNumber = "1";
 	
 	if (jobName?.trim())
 	{
-		jobName = "Mad%20Science";
+		jobName = "Mad Science";
 	}
 	
-    setServerRoot(new DelayedString(project, 'http://ci.calclavia.com/'))
-    setJobName(new DelayedString(project, jobName.replaceAll(' ','%20').toString()));
-    setAuthName(new DelayedString(project, 'console_script'));
-    setAuthPassword(new DelayedString(project, '625d2ac53190be3422faa0c474fb299b'));
-    setTargetBuild({buildNumber.toString()});
-    setOutput(new DelayedFile(project, 'output/' + jobName.replaceAll('%20',' ') + "-${project.version}" + '-changelog' + '.txt'));
+	if (System.getenv("BUILD_NUMBER") != null) {
+		version = ".${System.getenv("BUILD_NUMBER")}";
+		setServerRoot(new DelayedString(project, 'http://ci.calclavia.com/'))
+		setJobName(new DelayedString(project, jobName.replaceAll(' ','%20').toString()));
+		setAuthName(new DelayedString(project, 'console_script'));
+		setAuthPassword(new DelayedString(project, '625d2ac53190be3422faa0c474fb299b'));
+		setTargetBuild({buildNumber.toString()});
+		setOutput(new DelayedFile(project, 'output/' + jobName.replaceAll('%20',' ') + "-${project.version}" + '-changelog' + '.txt'));
+	}
 }
- 
-build.dependsOn "apiZip", "copyBuildXml", "createChangelog"
+
+if (System.getenv("BUILD_NUMBER") != null) {
+	build.dependsOn "apiZip", "copyBuildXml", "createChangelog"
+}
+else
+{
+	build.dependsOn "apiZip", "copyBuildXml"
+}
