@@ -135,7 +135,7 @@ task createChangelog(type: ChangelogTask) {
 		jobName.replaceAll(' ','%20')
 		buildNumber = "${System.getenv("BUILD_NUMBER")}";
 		setServerRoot(new DelayedString(project, 'http://madsciencemod.com:8080/'))
-		setJobName(new DelayedString(project, jobName.jobName.replaceAll(' ','%20').toString()));
+		setJobName(new DelayedString(project, jobName.replaceAll(' ','%20').toString()));
 		setAuthName(new DelayedString(project, 'MadScienceMod'));
 		setAuthPassword(new DelayedString(project, '8f21231364fb9aa2371d5dbed5ca2fba'));
 		setTargetBuild({buildNumber.toString()});
