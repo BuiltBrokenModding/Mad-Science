@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 /build
 /bin
 eclipse/
@@ -8,3 +10,15 @@ output/
 *.properties
 *.classpath
 *.prefs
+=======
+=======
+>>>>>>> 6d281c8d56d0c977c598d1a0da54d8c84f1750ff
+bin/
+.gradle/
+build/
+eclipse/
+.settings/
+<<<<<<< HEAD
+>>>>>>> Created master and develop branches.
+=======
+>>>>>>> 6d281c8d56d0c977c598d1a0da54d8c84f1750ff
