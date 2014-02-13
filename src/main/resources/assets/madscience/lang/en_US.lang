@@ -1,0 +1,139 @@
+# Mad Science Language Properties
+# @author Maxwolf Goodliffe
+
+# Creative Tab
+itemGroup.tabMadScience=Mad Science
+
+# Tile Entities
+tile.dnaExtractor.name=DNA Extractor
+tile.needleSanitizer.name=Syringe Sanitizer
+tile.computerMainframe.name=Computer Mainframe
+tile.genomeSequencer.name=Gene Sequencer
+tile.cryoFreezer.name=Crogenic Freezer
+tile.genomeIncubator.name=Genome Incubator
+tile.meatCube.name=Disgusting Meat Cube
+tile.cryoTube.name=Cryogenic Tube
+tile.thermosonicBonder.name=Thermosonic Bonder
+tile.dataDuplicator.name=Data Reel Duplicator
+tile.maddna.name=Liquid DNA
+tile.maddnamutant.name=Liquid Mutant DNA
+tile.abominationEgg.name=Abomination Egg
+
+# GMO Mobs
+entity.gmoWerewolf.name=Spawn Werewolf
+entity.gmoCreeperCow.name=Spawn Creeper Cow
+entity.gmoWoolyCow.name=Spawn Wooly Cow
+entity.gmoShoggoth.name=Spawn Shoggoth
+entity.gmoAbomination.name=Spawn Abomination
+entity.gmoEnderSquid.name=Spawn Ender Squid
+item.meatCube.name=Spawn Disgusting Meat Cube
+
+# GMO Genomes
+item.genomeCreeperCow.name=Creeper Cow Genome
+item.genomeWoolyCow.name=Wooly Cow Genome
+item.genomeShoggoth.name=Shoggoth Genome
+item.genomeAbomination.name=Abomination Genome
+item.genomeWitherSkeleton.name=Wither Skeleton Genome
+item.genomeVillagerZombie.name=Villager Genome
+item.genomeSkeletonHorse.name=Skeleton Horse Genome
+item.genomeZombieHorse.name=Zombie Horse Genome
+item.genomeEnderSquid.name=Ender Squid Genome
+item.genomeWerewolf.name=Werewolf Genome
+
+# Memories
+item.memoryMonsterPlacername.Priest.name=Priest Memory Reel
+item.memoryMonsterPlacername.Farmer.name=Farmer Memory Reel
+item.memoryMonsterPlacername.Butcher.name=Butcher Memory Reel
+item.memoryMonsterPlacername.Blacksmith.name=Blacksmith Memory Reel
+item.memoryMonsterPlacername.Librarian.name=Librarian Memory Reel
+
+# Components
+item.componentCase.name=Case Component
+item.componentCPU.name=CPU Component
+item.componentFan.name=Fan Component
+item.componentPowerSupply.name=Power Supply Component
+item.componentRAM.name=RAM Component
+item.componentSiliconWafer.name=Silicon Wafer Component
+item.componentComputer.name=Computer Component
+item.componentScreen.name=Screen Component
+item.componentTransistor.name=Transistor Component
+item.componentFusedQuartz.name=Fused Quartz Component
+item.componentMagneticTape.name=Magnetic Tape Component
+item.circuitComparator.name=Comparator Circuit Component
+item.circuitDiamond.name=Diamond Circuit Component
+item.circuitEmerald.name=Emerald Circuit Component
+item.circuitEnderEye.name=Ender Eye Circuit Component
+item.circuitEnderPearl.name=Ender Pearl Circuit Component
+item.circuitGlowstone.name=Glowstone Circuit Component
+item.circuitRedstone.name=Redstone Circuit Component
+item.circuitSpiderEye.name=Spider Eye Circuit Component
+item.madDNABucket.name=Bucket of Liquid DNA
+item.madDNAMutantBucket.name=Bucket of Liquid Mutant DNA
+item.dataReelEmpty.name=Empty Data Reel
+
+# Needles
+item.needleEmpty.name=
+item.needleCaveSpider.name=
+item.needleChicken.name=
+item.needleCow.name=
+item.needleCreeper.name=
+item.needleBat.name=
+item.needleEnderman.name=
+item.needleHorse.name=
+item.needleMushroomCow.name=
+item.needleOcelot.name=
+item.needlePig.name=
+item.needleSheep.name=
+item.needleSpider.name=
+item.needleSquid.name=
+item.needleVillager.name=
+item.needleWitch.name=
+item.needleWolf.name=
+item.needleZombie.name=
+item.needleMutant.name=
+item.needleDirty.name=
+
+# DNA Samples
+item.dnaCaveSpider.name=
+item.dnaChicken.name=
+item.dnaCow.name=
+item.dnaCreeper.name=
+item.dnaBat.name=
+item.dnaEnderman.name=
+item.dnaGhast.name=
+item.dnaHorse.name=
+item.dnaMushroomCow.name=
+item.dnaOcelot.name=
+item.dnaPig.name=
+item.dnaSheep.name=
+item.dnaSkeleton.name=
+item.dnaSpider.name=
+item.dnaSlime.name=
+item.dnaSquid.name=
+item.dnaVillager.name=
+item.dnaWitch.name=
+item.dnaWolf.name=
+item.dnaZombie.name=
+
+# Genomes
+item.genomeCaveSpider.name=
+item.genomeChicken.name=
+item.genomeCow.name=
+item.genomeCreeper.name=
+item.genomeBat.name=
+item.genomeEnderman.name=
+item.genomeGhast.name=
+item.genomeHorse.name=
+item.genomeMushroomCow.name=
+item.genomeOcelot.name=
+item.genomePig.name=
+item.genomePigZombie.name=
+item.genomeSheep.name=
+item.genomeSkeleton.name=
+item.genomeSpider.name=
+item.genomeSlime.name=
+item.genomeSquid.name=
+item.genomeVillager.name=
+item.genomeWitch.name=
+item.genomeWolf.name=
+item.genomeZombie.name=

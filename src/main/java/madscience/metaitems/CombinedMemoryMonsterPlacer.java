@@ -120,16 +120,16 @@ public class CombinedMemoryMonsterPlacer extends Item
 
         return this.itemIcon;
     }
-
+    
     @Override
-    public String getItemDisplayName(ItemStack par1ItemStack)
+    public String getUnlocalizedName(ItemStack stack)
     {
-        String theDefault = "item." + MadEntities.COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME;
+        String theDefault = "item." + MadEntities.COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME + "name";
 
         // Memory profiles are hard coded.
-        if (par1ItemStack != null)
+        if (stack != null)
         {
-            switch (par1ItemStack.getItemDamage())
+            switch (stack.getItemDamage())
             {
             case 32:
                 return theDefault + ".Priest";

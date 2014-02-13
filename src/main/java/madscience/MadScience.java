@@ -50,6 +50,10 @@ public class MadScience
     public static final String CHANNEL_NAME = ID;
     public static final String NAME = "Mad Science";
     public static final String VERSION = "@MAJOR@.@MINOR@.@REVIS@@BUILD@";
+    
+    // Directories definition
+	public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
+	public static final String LANGUAGE_DIRECTORY = RESOURCE_DIRECTORY + "languages/";
 
     // Protection from the unknown!
     public static final String FINGERPRINT = "@FINGERPRINT@";
