@@ -1,7 +1,9 @@
 package madscience;
 
 import java.awt.Color;
+import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import madscience.mobs.abomination.AbominationMobEntity;
@@ -23,6 +25,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -72,9 +75,33 @@ public class MadScience
 
     /** @param event */
     @EventHandler
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static void postInit(FMLPostInitializationEvent event)
     {
-        // Handle interaction with other mods!
+    	// Interface with NEI and attempt to call functions from it if it exists.
+    	// Note: This method was given by Alex_hawks, buy him a beer if you see him!
+        if (Loader.isModLoaded("NotEnoughItems"))
+        {
+            try
+            {
+                Class clazz = Class.forName("codechicken.nei.api.API");
+                Method m = clazz.getMethod("hideItem", Integer.TYPE);
+
+                m.invoke(null, MadFurnaces.CRYOTUBEGHOST.blockID);
+            }
+            catch (Throwable e)
+            {
+            	logger.log(Level.WARNING, "NEI Integration has failed...");
+            	logger.log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Spamming console to make more obvious...");
+                for (int i = 0; i < 15; i++)
+                {
+                	logger.log(Level.WARNING, "Something Broke. See above.");
+                }
+            }
+            
+        }
     }
 
     /** @param event */

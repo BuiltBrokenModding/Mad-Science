@@ -1,0 +1,10 @@
+/build
+/bin
+eclipse/
+output/
+*.project
+*.bin
+*.lock
+*.properties
+*.classpath
+*.prefs

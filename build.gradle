@@ -95,6 +95,6 @@ repositories {
 dependencies {
 	compile group: 'universalelectricity', name: 'Universal-Electricity', version: "${config.version.universalelectricity}", classifier: "dev"
     //compile name: 'ForgeMultipart', version: "${config.version.minecraft}-${config.FMP_version}", ext: 'jar'
-    compile name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.CCLIB_version}", ext: 'jar'
-    compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
+    //compile name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.CCLIB_version}", ext: 'jar'
+    //compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
 }
