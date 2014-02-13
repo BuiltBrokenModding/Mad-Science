@@ -107,12 +107,22 @@ task createChangelog(type: ChangelogTask) {
     def jobName = "${System.getenv().JOB_NAME}"
     def buildNumber = "${System.getenv().BUILD_NUMBER}"
     
+	if (buildNumber?.trim())
+	{
+		buildNumber = "1";
+	}
+	
+	if (jobName?.trim())
+	{
+		jobName = "Mad%20Science";
+	}
+	
     setServerRoot(new DelayedString(project, 'http://ci.calclavia.com/'))
-    setJobName(new DelayedString(project, jobName.toString()));
+    setJobName(new DelayedString(project, jobName.replaceAll(' ','%20').toString()));
     setAuthName(new DelayedString(project, 'console_script'));
     setAuthPassword(new DelayedString(project, 'ec813e0489c1ec3ad6d173891e7a8842'));
     setTargetBuild({buildNumber.toString()});
-    setOutput(new DelayedFile(project, 'output/' + jobName + "-${project.version}" + '-changelog' + '.txt'));
+    setOutput(new DelayedFile(project, 'output/' + jobName.replaceAll('%20',' ') + "-${project.version}" + '-changelog' + '.txt'));
 }
  
 build.dependsOn "apiZip", "copyBuildXml", "createChangelog"
