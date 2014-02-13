@@ -114,8 +114,8 @@ task createChangelog(type: ChangelogTask) {
 	
     setServerRoot(new DelayedString(project, 'http://ci.calclavia.com/'))
     setJobName(new DelayedString(project, jobName.replaceAll(' ','%20').toString()));
-    //setAuthName(new DelayedString(project, 'console_script'));
-    //setAuthPassword(new DelayedString(project, '625d2ac53190be3422faa0c474fb299b'));
+    setAuthName(new DelayedString(project, 'console_script'));
+    setAuthPassword(new DelayedString(project, '625d2ac53190be3422faa0c474fb299b'));
     setTargetBuild({buildNumber.toString()});
     setOutput(new DelayedFile(project, 'output/' + jobName.replaceAll('%20',' ') + "-${project.version}" + '-changelog' + '.txt'));
 }
