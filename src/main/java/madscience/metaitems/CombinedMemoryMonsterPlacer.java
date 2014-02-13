@@ -124,7 +124,7 @@ public class CombinedMemoryMonsterPlacer extends Item
     @Override
     public String getItemDisplayName(ItemStack par1ItemStack)
     {
-        String theDefault = MadEntities.COMBINEDMEMORY_MONSTERPLACER_DISPLAYNAME;
+        String theDefault = "item." + MadEntities.COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME;
 
         // Memory profiles are hard coded.
         if (par1ItemStack != null)
@@ -132,17 +132,15 @@ public class CombinedMemoryMonsterPlacer extends Item
             switch (par1ItemStack.getItemDamage())
             {
             case 32:
-                return theDefault + " Priest";
+                return theDefault + ".Priest";
             case 64:
-                return theDefault + " Farmer";
+                return theDefault + ".Farmer";
             case 128:
-                return theDefault + " Butcher";
+                return theDefault + ".Butcher";
             case 256:
-                return theDefault + " Blacksmith";
+                return theDefault + ".Blacksmith";
             case 512:
-                return theDefault + " Librarian";
-            default:
-                return theDefault;
+                return theDefault + ".Librarian";
             }
         }
 

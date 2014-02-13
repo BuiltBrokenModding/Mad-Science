@@ -2,7 +2,6 @@ package madscience;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import madscience.blocks.abominationegg.AbominationEggBlock;
 import madscience.blocks.abominationegg.AbominationEggMobSpawnerTileEntity;
 import net.minecraft.block.Block;
@@ -24,7 +23,7 @@ public class MadBlocks
         GameRegistry.registerTileEntity(AbominationEggMobSpawnerTileEntity.class, ABOMINATIONEGGBLOCK.getUnlocalizedName());
 
         // Proper name for our tile entity for player to see.
-        LanguageRegistry.addName(ABOMINATIONEGGBLOCK, ABOMINATIONEGG_DISPLAYNAME);
+        //LanguageRegistry.addName(ABOMINATIONEGGBLOCK, ABOMINATIONEGG_DISPLAYNAME);
         
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);

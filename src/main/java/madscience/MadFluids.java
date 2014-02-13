@@ -19,7 +19,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MadFluids
 {
@@ -81,8 +80,8 @@ public class MadFluids
         GameRegistry.registerItem(LIQUIDDNA_BUCKET_ITEM, LIQUIDDNA_BUCKET_ITEM.getUnlocalizedName());
 
         // Create friendly display names for fluids and their containers.
-        LanguageRegistry.addName(LIQUIDDNA_BLOCK, LIQUIDDNA_DISPLAYNAME);
-        LanguageRegistry.addName(LIQUIDDNA_BUCKET_ITEM, LIQUIDDNA_BUCKET_DISPLAYNAME);
+        //LanguageRegistry.addName(LIQUIDDNA_BLOCK, LIQUIDDNA_DISPLAYNAME);
+        //LanguageRegistry.addName(LIQUIDDNA_BUCKET_ITEM, LIQUIDDNA_BUCKET_DISPLAYNAME);
 
         // Register our class as a valid container for our fluid.
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(LIQUIDDNA.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(LIQUIDDNA_BUCKET_ITEM), new ItemStack(Item.bucketEmpty)));
@@ -108,8 +107,8 @@ public class MadFluids
         LIQUIDDNA_MUTANT_BUCKET_ITEM =  (LiquidDNAMutantBucket) new LiquidDNAMutantBucket(bucketItemID, 10).setUnlocalizedName(LIQUIDDNA_MUTANT_BUCKET_INTERNALNAME);
         GameRegistry.registerBlock(LIQUIDDNA_MUTANT_BLOCK, LIQUIDDNA_MUTANT.getUnlocalizedName());
         GameRegistry.registerItem(LIQUIDDNA_MUTANT_BUCKET_ITEM, LIQUIDDNA_MUTANT_BUCKET_ITEM.getUnlocalizedName());
-        LanguageRegistry.addName(LIQUIDDNA_MUTANT_BLOCK, LIQUIDDNA_MUTANT_DISPLAYNAME);
-        LanguageRegistry.addName(LIQUIDDNA_MUTANT_BUCKET_ITEM, LIQUIDDNA_MUTANT_BUCKET_DISPLAYNAME);
+        //LanguageRegistry.addName(LIQUIDDNA_MUTANT_BLOCK, LIQUIDDNA_MUTANT_DISPLAYNAME);
+        //LanguageRegistry.addName(LIQUIDDNA_MUTANT_BUCKET_ITEM, LIQUIDDNA_MUTANT_BUCKET_DISPLAYNAME);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(LIQUIDDNA_MUTANT.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(LIQUIDDNA_MUTANT_BUCKET_ITEM), new ItemStack(Item.bucketEmpty)));
         MinecraftForge.EVENT_BUS.register(new LiquidDNAMutantBucketEvent());
         MadScience.proxy.registerRenderingHandler(blockFluidID);

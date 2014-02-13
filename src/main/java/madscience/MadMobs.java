@@ -27,7 +27,6 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MadMobs
 {
@@ -106,11 +105,11 @@ public class MadMobs
     {        
         // Add mob to genetically modified mob list so it can be spawned.
         GMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, eggDisplayName, spawnData, primaryColor, secondaryColor));
-        LanguageRegistry.instance().addStringLocalization("entity." + eggInternalName + ".name", eggDisplayName);
+        //LanguageRegistry.instance().addStringLocalization("entity." + eggInternalName + ".name", eggDisplayName);
 
         // Add mob to combined genome entity list so it can be created.
         GenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, genomeInternalName, eggDisplayName, primaryColor, secondaryColor));
-        LanguageRegistry.instance().addStringLocalization("entity." + genomeInternalName + ".name", eggDisplayName);
+        //LanguageRegistry.instance().addStringLocalization("entity." + genomeInternalName + ".name", eggDisplayName);
 
         // Get a free and unique entity ID for our mob.
         int freeMobID = EntityRegistry.findGlobalUniqueEntityId();
@@ -129,11 +128,11 @@ public class MadMobs
     public static void createVanillaGMOMob(int metaID, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, String eggDisplayName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome, int mainframeComputeTime)
     {
         GMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, eggDisplayName, spawnData, primaryColor, secondaryColor));
-        LanguageRegistry.instance().addStringLocalization("entity." + eggInternalName + ".name", eggDisplayName);
+        //LanguageRegistry.instance().addStringLocalization("entity." + eggInternalName + ".name", eggDisplayName);
 
         // Add mob to combined genome entity list so it can be created.
         GenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, genomeInternalName, eggDisplayName, primaryColor, secondaryColor));
-        LanguageRegistry.instance().addStringLocalization("entity." + genomeInternalName + ".name", eggDisplayName);
+        //LanguageRegistry.instance().addStringLocalization("entity." + genomeInternalName + ".name", eggDisplayName);
 
         // Recipes for creating this vanilla mob.
         MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);

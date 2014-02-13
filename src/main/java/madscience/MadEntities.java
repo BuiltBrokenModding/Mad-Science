@@ -12,7 +12,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MadEntities
 {
@@ -53,7 +52,7 @@ public class MadEntities
         };
 
         // Add custom name for our creative tab.
-        LanguageRegistry.instance().addStringLocalization("itemGroup." + tabInternalName, "en_US", tabDisplayName);
+        //LanguageRegistry.instance().addStringLocalization("itemGroup." + tabInternalName, "en_US", tabDisplayName);
     }
 
     public static void createEmptyDataReel(int itemID)
@@ -61,7 +60,7 @@ public class MadEntities
         // Empty Genome Data Reel
         DATAREEL_EMPTY = (ItemDataReelEmpty) new ItemDataReelEmpty(itemID, 3515848, 3515848).setUnlocalizedName(DATAREEL_EMPTY_INTERNALNAME);
         GameRegistry.registerItem(DATAREEL_EMPTY, DATAREEL_EMPTY_INTERNALNAME);
-        LanguageRegistry.addName(DATAREEL_EMPTY, DATAREEL_EMPTY_DISPLAYNAME);
+        //LanguageRegistry.addName(DATAREEL_EMPTY, DATAREEL_EMPTY_DISPLAYNAME);
         
         // Data Reel
         GameRegistry.addRecipe(new ItemStack(DATAREEL_EMPTY, 1), new Object[]
@@ -81,7 +80,7 @@ public class MadEntities
         GENETICALLYMODIFIED_MONSTERPLACER.setUnlocalizedName(GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setTextureName(MadScience.ID + ":" + GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setCreativeTab(tabMadScience);
-        LanguageRegistry.addName(GENETICALLYMODIFIED_MONSTERPLACER, GENETICALLYMODIFIED_MONSTERPLACER_DISPLAYNAME);
+        //LanguageRegistry.addName(GENETICALLYMODIFIED_MONSTERPLACER, GENETICALLYMODIFIED_MONSTERPLACER_DISPLAYNAME);
         GameRegistry.registerItem(GENETICALLYMODIFIED_MONSTERPLACER, GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
     }
 
@@ -93,7 +92,7 @@ public class MadEntities
         COMBINEDMEMORY_MONSTERPLACER.setUnlocalizedName(COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
         COMBINEDMEMORY_MONSTERPLACER.setTextureName(MadScience.ID + ":" + COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
         COMBINEDMEMORY_MONSTERPLACER.setCreativeTab(tabMadScience);
-        LanguageRegistry.addName(COMBINEDMEMORY_MONSTERPLACER, COMBINEDMEMORY_MONSTERPLACER_DISPLAYNAME);
+        //LanguageRegistry.addName(COMBINEDMEMORY_MONSTERPLACER, COMBINEDMEMORY_MONSTERPLACER_DISPLAYNAME);
         GameRegistry.registerItem(COMBINEDMEMORY_MONSTERPLACER, COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
 
         // Creates the various memory tiers, making their internal ID the amount of power we want them to create.
@@ -110,7 +109,7 @@ public class MadEntities
         COMBINEDGENOME_MONSTERPLACER.setUnlocalizedName(COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
         COMBINEDGENOME_MONSTERPLACER.setTextureName(MadScience.ID + ":" + COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
         COMBINEDGENOME_MONSTERPLACER.setCreativeTab(tabMadScience);
-        LanguageRegistry.addName(COMBINEDGENOME_MONSTERPLACER, COMBINEDGENOME_MONSTERPLACER_DISPLAYNAME);
+        //LanguageRegistry.addName(COMBINEDGENOME_MONSTERPLACER, COMBINEDGENOME_MONSTERPLACER_DISPLAYNAME);
         GameRegistry.registerItem(COMBINEDGENOME_MONSTERPLACER, COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
     }
 }

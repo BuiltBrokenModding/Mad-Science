@@ -7,29 +7,18 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.GenomeRegistry;
 import madscience.MadEntities;
-import madscience.MadGenomes;
 import madscience.MadScience;
+import madscience.metaitems.MainframeComponentsMetadata;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingData;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.Facing;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 
 public class CombinedGenomeMonsterPlacer extends Item
 {
@@ -49,35 +38,8 @@ public class CombinedGenomeMonsterPlacer extends Item
         this.maxStackSize = 1;
     }
 
-    public String getItemDisplayName(ItemStack stack)
-    {
-        String name = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
-        MadGenomeInfo info = GenomeRegistry.getGenomeInfo((short) stack.getItemDamage());
-
-        if (info == null)
-            return name;
-
-        String mobID = info.mobID;
-        String displayName = info.displayName;
-
-        if (stack.hasTagCompound())
-        {
-            NBTTagCompound compound = stack.getTagCompound();
-            if (compound.hasKey("mobID"))
-                mobID = compound.getString("mobID");
-            if (compound.hasKey("displayName"))
-                displayName = compound.getString("displayName");
-        }
-
-        if (displayName == null)
-            name += ' ' + attemptToTranslate("entity." + mobID + ".name", mobID);
-        else
-            name += ' ' + attemptToTranslate("eggdisplay." + displayName, displayName);
-
-        return name;
-    }
-
-    public int getColorFromItemStack(ItemStack stack, int par2)
+    @Override
+	public int getColorFromItemStack(ItemStack stack, int par2)
     {
         MadGenomeInfo info = GenomeRegistry.getGenomeInfo((short) stack.getItemDamage());
 
@@ -172,7 +134,33 @@ public class CombinedGenomeMonsterPlacer extends Item
         return this.itemIcon;
     }
 
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list)
+    @Override
+    public String getUnlocalizedName(ItemStack stack)
+    {
+        String name = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
+        MadGenomeInfo info = GenomeRegistry.getGenomeInfo((short) stack.getItemDamage());
+
+        if (info == null)
+            return name;
+
+        String mobID = info.mobID;
+        String displayName = info.displayName;
+
+        if (stack.hasTagCompound())
+        {
+            NBTTagCompound compound = stack.getTagCompound();
+            if (compound.hasKey("mobID"))
+                mobID = compound.getString("mobID");
+            if (compound.hasKey("displayName"))
+                displayName = compound.getString("displayName");
+        }
+
+        name = "item." + mobID;
+        return name;
+    }
+
+    @Override
+	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list)
     {
         for (MadGenomeInfo info : GenomeRegistry.getGenomeInfoList())
             list.add(new ItemStack(par1, 1, info.genomeID));
@@ -207,11 +195,5 @@ public class CombinedGenomeMonsterPlacer extends Item
         this.genomeReelLayer2 = par1IconRegister.registerIcon(MadScience.ID + ":genomeDataReel2");
 
         this.iconString = itemIcon.getIconName();
-    }
-
-    public static String attemptToTranslate(String key, String _default)
-    {
-        String result = StatCollector.translateToLocal(key);
-        return (result.equals(key)) ? _default : result;
     }
 }

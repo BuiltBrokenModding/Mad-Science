@@ -65,7 +65,7 @@ public class MainframeComponents extends Item
     public String getUnlocalizedName(ItemStack itemstack)
     {
         // References external list for internal name based on damage value.
-        return MainframeComponentsMetadata.getInternalNameFromDamage[itemstack.getItemDamage()];
+        return "item." + MainframeComponentsMetadata.getInternalNameFromDamage[itemstack.getItemDamage()];
     }
 
     @Override

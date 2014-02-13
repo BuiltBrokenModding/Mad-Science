@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class MadComponents
 {
@@ -127,14 +126,14 @@ public class MadComponents
         // Create instance of this metadata item which contains many items.
         MAINFRAME_COMPONENTS_METAITEM = new MainframeComponents(itemID);
         GameRegistry.registerItem(MAINFRAME_COMPONENTS_METAITEM, "Component");
-        LanguageRegistry.addName(MAINFRAME_COMPONENTS_METAITEM, MAINFRAME_COMPONENTS_INTERNALNAME);
+        //LanguageRegistry.addName(MAINFRAME_COMPONENTS_METAITEM, MAINFRAME_COMPONENTS_INTERNALNAME);
 
         // Add the names of our meta items to the game registry in the proper
         // order.
         for (int i = 0; i < MainframeComponentsMetadata.getInternalNameFromDamage.length; i++)
         {
             ItemStack tempItem = new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, i);
-            LanguageRegistry.addName(tempItem.copy(), MainframeComponentsMetadata.getDisplayNameFromDamage[i]);
+            //LanguageRegistry.addName(tempItem.copy(), MainframeComponentsMetadata.getDisplayNameFromDamage[i]);
 
             // Case
             if (tempItem.getUnlocalizedName() == COMPONENT_CASE_INTERNALNAME)

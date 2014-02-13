@@ -5,8 +5,8 @@ import java.util.List;
 
 import madscience.GMORegistry;
 import madscience.MadEntities;
-import madscience.MadGenomes;
 import madscience.MadScience;
+import madscience.metaitems.MainframeComponentsMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -14,8 +14,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,8 +42,9 @@ public class GeneticallyModifiedMonsterPlacer extends Item
         // We may stack the same amount as normal spawn eggs.
         this.maxStackSize = 64;
     }
-
-    public String getItemDisplayName(ItemStack stack)
+    
+    @Override
+    public String getUnlocalizedName(ItemStack stack)
     {
         String name = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
         MadSpawnEggInfo info = GMORegistry.getEggInfo((short) stack.getItemDamage());
@@ -64,16 +63,14 @@ public class GeneticallyModifiedMonsterPlacer extends Item
             if (compound.hasKey("displayName"))
                 displayName = compound.getString("displayName");
         }
-
-        if (displayName == null)
-            name += ' ' + attemptToTranslate("entity." + mobID + ".name", mobID);
-        else
-            name += ' ' + attemptToTranslate("eggdisplay." + displayName, displayName);
+       
+        name = "entity." + mobID;
 
         return name;
     }
 
-    public int getColorFromItemStack(ItemStack stack, int par2)
+    @Override
+	public int getColorFromItemStack(ItemStack stack, int par2)
     {
         MadSpawnEggInfo info = GMORegistry.getEggInfo((short) stack.getItemDamage());
 
@@ -94,7 +91,8 @@ public class GeneticallyModifiedMonsterPlacer extends Item
         return color;
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10)
+    @Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10)
     {
         if (world.isRemote)
             return true;
@@ -121,7 +119,8 @@ public class GeneticallyModifiedMonsterPlacer extends Item
 
     }
 
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    @Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
         if (world.isRemote)
             return stack;
@@ -228,23 +227,27 @@ public class GeneticallyModifiedMonsterPlacer extends Item
         entity.readFromNBT(newTag);
     }
 
-    public boolean requiresMultipleRenderPasses()
+    @Override
+	public boolean requiresMultipleRenderPasses()
     {
         return true;
     }
 
-    public Icon getIconFromDamageForRenderPass(int par1, int par2)
+    @Override
+	public Icon getIconFromDamageForRenderPass(int par1, int par2)
     {
         return par2 > 0 ? icon : super.getIconFromDamageForRenderPass(par1, par2);
     }
 
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list)
+    @Override
+	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list)
     {
         for (MadSpawnEggInfo info : GMORegistry.getEggInfoList())
             list.add(new ItemStack(par1, 1, info.eggID));
     }
 
-    public void registerIcons(IconRegister iconRegister)
+    @Override
+	public void registerIcons(IconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon(MadScience.ID + ":gmoMonsterPlacer");
         icon = iconRegister.registerIcon(MadScience.ID + ":gmoMonsterPlacer_overlay");
