@@ -1,0 +1,87 @@
+# Mad Science Language Properties
+# @Slovenščina Codebracker0!
+# Creative Tab
+itemGroup.tabMadScience=Nora Znanost
+# Tile Entities
+tile.dnaExtractor.name=DNK Ekstraktor
+tile.needleSanitizer.name=Čistilec Igel
+tile.computerMainframe.name=Računalniški Server
+tile.genomeSequencer.name=Naprava Za Sekvenciranje Genov
+tile.cryoFreezer.name=Laboratorijski Zamrzovalnik
+tile.genomeIncubator.name=Genomski Inkubator
+tile.meatCube.name=Ogabna Kocka Mesa
+tile.cryoTube.name=Epruveta Za Zamrzovanje
+tile.thermosonicBonder.name=Termozvočni Vezalec
+tile.dataDuplicator.name=Podvojevalnik Spominskih Trakov
+tile.maddna.name=Tekoč DNK
+tile.maddnamutant.name=Tekoč Mutiran DNK
+tile.abominationEgg.name=Jajce Grozote
+# GMO Mobs
+entity.gmoWerewolf.name=Ustvari Volkodlaka
+entity.gmoCreeperCow.name=Ustvari Creeper Kravo
+entity.gmoWoolyCow.name=Ustvari Volneno Kravo
+entity.gmoShoggoth.name=Ustvari Shoggoth
+entity.gmoAbomination.name=Ustvari Grozoto
+entity.gmoEnderSquid.name=Ustvari Končnega Lignja
+item.meatCube.name=Ustvari Ogabno Kocko Mesa
+# GMO Genomes
+item.genomeCreeperCow.name=Genom Creeper Krave
+item.genomeWoolyCow.name=Genom Volnene Krave
+item.genomeShoggoth.name=Genom Shoggoth
+item.genomeAbomination.name=Genom Grozote
+item.genomeWitherSkeleton.name=Genom Ovenelega Okostnjaka
+item.genomeVillagerZombie.name=Genom Vaščana
+item.genomeSkeletonHorse.name=Genom Okostnelega Konja
+item.genomeZombieHorse.name=Genom Zombi Konja
+item.genomeEnderSquid.name=Genom Končnega Lignja
+item.genomeWerewolf.name=Genom Volkodlaka
+# Memories
+item.memoryMonsterPlacername.Priest.name=Spominski trak Duhovnika
+item.memoryMonsterPlacername.Farmer.name=Spominski trak Kmeta
+item.memoryMonsterPlacername.Butcher.name=Spominski trak Mesarja
+item.memoryMonsterPlacername.Blacksmith.name=Spominski trak Kovača
+item.memoryMonsterPlacername.Librarian.name=Spominski trak Knjižničarja
+# Components
+item.componentCase.name=Komponenta Škatla
+item.componentCPU.name=CPU Komponenta
+item.componentFan.name=Komponenta Ventilator
+item.componentPowerSupply.name=Komponenta Baterija
+item.componentRAM.name=RAM Komponenta
+item.componentSiliconWafer.name=Komponenta Silicijeva Rezina
+item.componentComputer.name=Komponenta Računalnik
+item.componentScreen.name=Komponenta Ekran
+item.componentTransistor.name=Komponenta Tranzistor
+item.componentFusedQuartz.name=Komponenta Zlit Kvarc
+item.componentMagneticTape.name=Komponenta Magnetni Trak
+item.circuitComparator.name=Komponenta Primerjalno Vezje
+item.circuitDiamond.name=Komponenta Diamantno Vezje
+item.circuitEmerald.name=Komponenta Smaragdno Vezje
+item.circuitEnderEye.name=Komponenta Vezje Enderjevega Očesa
+item.circuitEnderPearl.name=Komponenta Vezje Enderjeve Perle
+item.circuitGlowstone.name=Komponenta Vezje Svetlečega kamna
+item.circuitRedstone.name=Komponenta Redstone Vezje
+item.circuitSpiderEye.name=Komponenta Vezje Pajkovega Očesa
+item.madDNABucket.name=Vedro Tekoče DNK
+item.madDNAMutantBucket.name=Vedro Mutirane Tekoče DNK
+item.dataReelEmpty.name=Prazen Spominski trak
+# Needles
+item.needleEmpty.name=Prazna Igla
+item.needleCaveSpider.name=Igla Polna DNK Jamskega Pajka
+item.needleChicken.name=Igla Polna DNK Kokoši
+item.needleCow.name=Igla Polna DNK Krave
+item.needleCreeper.name=Igla Polna DNK Creeperja
+item.needleBat.name=Igla Polna DNK Netopirja
+item.needleEnderman.name=Igla Polna DNK Endermana
+item.needleHorse.name=Igla Polna DNK Konja
+item.needleMushroomCow.name=Igla Polna DNK Gobrave
+item.needleOcelot.name=Igla Polna DNK Ocelota
+item.needlePig.name=Igla Polna DNK Pujsa
+item.needleSheep.name=Igla Polna DNK Ovce
+item.needleSpider.name=Igla Polna DNK Pajka
+item.needleSquid.name=Igla Polna DNK Lignja
+item.needleVillager.name=Igla Polna DNK Vaščana
+item.needleWitch.name=Igla Polna DNK Čarovnice
+item.needleWolf.name=Igla Polna DNK Volka
+item.needleZombie.name=Igla Polna DNK Zombija
+item.needleMutant.name=Igla Polna Mutirane DNK
+item.needleDirty.name=Umazana Igla
