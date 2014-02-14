@@ -139,7 +139,7 @@ task createChangelog(type: ChangelogTask) {
 		setAuthName(new DelayedString(project, 'MadScienceMod'));
 		setAuthPassword(new DelayedString(project, 'Xp8k8BkF9UjVsR75A58c82RK'));
 		setTargetBuild({buildNumber.toString()});
-		setOutput(new DelayedFile(project, 'output/' + jobName.replaceAll(' ','').toString() + "-${project.version}" + '-changelog' + '.txt'));
+		setOutput(new DelayedFile(project, 'output/' + jobName.toString() + "-${project.version}" + '-changelog' + '.txt'));
 	}
 }
 
