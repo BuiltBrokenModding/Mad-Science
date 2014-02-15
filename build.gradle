@@ -97,24 +97,14 @@ repositories {
 		name 'Calclavia Maven'
 		url 'http://calclavia.com/maven'
 	}
-    ivy {
-        name 'CB FS'
-        artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
-    }
     maven {
         name 'ForgeFS'
         url 'http://files.minecraftforge.net/maven'
      }
-    ivy {
-        name 'Forge FS legacy'
-        artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
-    }
 }
+
 dependencies {
 	compile group: 'universalelectricity', name: 'Universal-Electricity', version: "${config.version.universalelectricity}", classifier: "dev"
-    //compile name: 'ForgeMultipart', version: "${config.version.minecraft}-${config.FMP_version}", ext: 'jar'
-    //compile name: 'CodeChickenLib', version: "${config.version.minecraft}-${config.CCLIB_version}", ext: 'jar'
-    //compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
 }
 
 import net.minecraftforge.gradle.tasks.dev.ChangelogTask
@@ -131,7 +121,6 @@ task createChangelog(type: ChangelogTask) {
 	}
 	
 	if (System.getenv("BUILD_NUMBER") != null) {
-		version = ".${System.getenv("BUILD_NUMBER")}";
 		buildNumber = "${System.getenv("BUILD_NUMBER")}";
 		setServerRoot(new DelayedString(project, 'http://madsciencemod.com:8080/'));
 		setJobName(new DelayedString(project, jobName.replaceAll("\\s+","%20").toString()));
