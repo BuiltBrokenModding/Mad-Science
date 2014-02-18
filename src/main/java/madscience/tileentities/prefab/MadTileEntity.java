@@ -134,9 +134,18 @@ public abstract class MadTileEntity extends MadTileEntityRedstone implements IEn
     }
 
     @Override
-    public boolean canConnect(ForgeDirection direction)
+    public boolean canConnect(ForgeDirection direction, Object obj)
     {
-        return true;
+        if (obj instanceof IEnergyInterface)
+        {
+                if (direction == null || direction.equals(ForgeDirection.UNKNOWN))
+                {
+                        return false;
+                }
+
+                return this.getInputDirections().contains(direction) || this.getOutputDirections().contains(direction);
+        }
+        return false;
     }
 
     /** The electrical input direction.
