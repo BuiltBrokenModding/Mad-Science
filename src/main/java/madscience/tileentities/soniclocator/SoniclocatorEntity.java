@@ -1,5 +1,7 @@
 package madscience.tileentities.soniclocator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import madscience.MadConfig;
@@ -8,12 +10,17 @@ import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.ForgeDirection;
@@ -113,7 +120,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         {
             return false;
         }
-        
+
         // Check if output slot is same as target slot and if it is at maximum stack size or not.
         if (soniclocatorOutput[0] != null && !soniclocatorInput[1].isItemEqual(soniclocatorOutput[0]))
         {
@@ -126,13 +133,13 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         {
             return true;
         }
-        
+
         // Check if output slot 1 is above item stack limit.
         if (this.soniclocatorOutput[0] != null && soniclocatorOutput[0].stackSize >= soniclocatorOutput[0].getMaxStackSize())
         {
             return false;
         }
-        
+
         return true;
     }
 
@@ -368,13 +375,13 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
         return false;
     }
-    
+
     @Override
     public void initiate()
     {
         // Ensure the class below us is called.
         super.initiate();
-        
+
         // Sound that is played when we are placed into the world.
         this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_PLACE, 1.0F, 1.0F);
     }
@@ -497,6 +504,9 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             return;
         }
 
+        // Apply wither effect to players and hurt non-players.
+        damageNearbyCreatures(16);
+
         // Add target block to output slot 1.
         if (this.soniclocatorOutput[0] == null)
         {
@@ -517,6 +527,50 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_FINISH, 1.0F, 1.0F);
     }
 
+    public void damageNearbyCreatures(int range)
+    {
+        double px = this.xCoord;
+        double py = this.yCoord;
+        double pz = this.zCoord;
+
+        List l = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, 
+                AxisAlignedBB.getBoundingBox(px - range, py - range, pz - range, px + range, py + range, pz + range));
+
+        if (l != null && l.isEmpty())
+        {
+            //MadScience.logger.info("No nearby players detected!");
+            return;
+        }
+
+        for (int i = 0; i < l.size(); ++i)
+        {
+            try
+            {
+                if (l.get(i) instanceof EntityLivingBase)
+                {
+                    EntityLivingBase x = (EntityLivingBase) l.get(i);
+                    if (x != null)
+                    {
+                        x.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
+                    }
+                }
+                else if (l.get(i) instanceof EntityLiving)
+                {
+                    EntityLiving x = (EntityLiving) l.get(i);
+                    if (x != null)
+                    {
+                        x.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+                MadScience.logger.info("Attempted to poison living creature and failed!");
+            }
+        }
+    }
+
     private ItemStack locateTargetBlock(ItemStack targetItem, ItemStack replacementItem)
     {
         // Skip client worlds.
@@ -524,24 +578,16 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         {
             return null;
         }
-        
+
         Chunk chunk = worldObj.getChunkFromBlockCoords(xCoord, zCoord);
-        ExtendedBlockStorage storageArray = chunk.getBlockStorageArray()[yCoord >> 4];
 
-        if (storageArray == null)
-        {
-            ExtendedBlockStorage[] storageArrays = chunk.getBlockStorageArray();
-            storageArrays[yCoord >> 4] = new ExtendedBlockStorage(storageArrays[(yCoord >> 4) - 1].getYLocation() + 16, !worldObj.provider.hasNoSky);
-            storageArray = chunk.getBlockStorageArray()[yCoord >> 4];
-        }
-
-        // If the chunk is empty then don't waste the tick time.
-        if (storageArray.isEmpty())
+        // If we cannot find the chunk then return nothing.
+        if (chunk == null)
         {
             return null;
         }
-        
-        // Loop through chunk we are in looking for target block.
+
+        // Loop through chunk we are in looking for target block(s).
         for (int i = 0; i < 16; ++i)
         {
             for (int j = 0; j < 16; ++j)
@@ -551,29 +597,30 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                     int l = 0;
                     try
                     {
-                        l = storageArray.getExtBlockID(i, j, k);
-                        
+                        l = chunk.getBlockID(i, j, k);
                         if (l > 0)
                         {
                             // Valid block, check if equal to target block.
-                            ItemStack compareChucnkItem = new ItemStack(Block.blocksList[l]);
-                            //MadScience.logger.info("Inspecting block at " + String.valueOf(i) + "x" + String.valueOf(j) + "x" + String.valueOf(k));
-                            
-                            if (compareChucnkItem.isItemEqual(targetItem))
+                            ItemStack compareChunkItem = new ItemStack(Block.blocksList[l]);
+                            if (compareChunkItem.isItemEqual(targetItem))
                             {
                                 // Located a target block.
-                                MadScience.logger.info("Found a target block at " + String.valueOf(i & 15) + "x" + String.valueOf(j & 15) + "x" + String.valueOf(k & 15));
-                                //MadScience.logger.info("Updating global coords " + String.valueOf(i *= 16) + "x" + String.valueOf(j & 15) + "x" + String.valueOf(k *= 16));
-                                
-                                // Grab the instance of this item we are about to transpose it.
-                                storageArray.setExtBlockID(i & 15, j & 15, k & 15, replacementItem.itemID);
+                                int targetX = (i);
+                                int targetY = (j);
+                                int targetZ = (k);
+
+                                // Convert chunk-coords into global-coords via bitshifting.
+                                int targetXGlobal = chunk.xPosition * 16 + targetX;
+                                int targetZGlobal = chunk.zPosition * 16 + targetZ;
+                                MadScience.logger.info("Target Block: " + String.valueOf(targetXGlobal) + "x" + String.valueOf(targetY) + "x" + String.valueOf(targetZGlobal));
 
                                 // Update the lighting engine about our changes to the chunk.
-                                worldObj.updateAllLightTypes(i *= 16, j & 15, k *= 16);
-                                worldObj.markBlockForUpdate(i *= 16, j & 15, k *= 16);
-                                
+                                worldObj.setBlock(targetXGlobal, targetY, targetZGlobal, replacementItem.itemID, 0, 3);
+                                worldObj.updateAllLightTypes(targetXGlobal, targetY, targetZGlobal);
+                                worldObj.markBlockForUpdate(targetXGlobal, targetY, targetZGlobal);
+
                                 // Return the ItemStack that we found!
-                                return compareChucnkItem;
+                                return compareChunkItem;
                             }
                         }
                     }
@@ -584,7 +631,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                 }
             }
         }
-        
+
         // Default response is we don't find our target item and there is a state for this (empty).
         return null;
     }
@@ -660,7 +707,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             {
                 // We want the soniclocator to take the same amount of time between each pulse.
                 currentHeatMaximum = (MadScience.SECOND_IN_TICKS * 20);
-                
+
                 // Start the powerup sound.
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_WORK, 1.0F, 1.0F);
 

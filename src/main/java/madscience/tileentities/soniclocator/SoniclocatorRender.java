@@ -60,8 +60,9 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         case ENTITY:
         case EQUIPPED:
         case EQUIPPED_FIRST_PERSON:
-        case INVENTORY:
             return true;
+        case INVENTORY:
+            return false;
         default:
             return false;
         }

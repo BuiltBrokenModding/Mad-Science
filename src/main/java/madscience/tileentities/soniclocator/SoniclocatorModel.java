@@ -34,6 +34,10 @@ public class SoniclocatorModel extends ModelBase
     ModelRenderer BaseBottom2;
     ModelRenderer BaseBottom3;
     ModelRenderer BaseBottom4;
+    ModelRenderer PlugLeft;
+    ModelRenderer PlugRight;
+    ModelRenderer PlugBack;
+    ModelRenderer PlugFront;
 
     public SoniclocatorModel()
     {
@@ -66,19 +70,19 @@ public class SoniclocatorModel extends ModelBase
           setRotation(ShieldMiddle, 0F, 0F, 0F);
           WarningTrimLeft = new ModelRenderer(this, 82, 75);
           WarningTrimLeft.addBox(0F, 0F, 0F, 2, 2, 12);
-          WarningTrimLeft.setRotationPoint(-8F, 16F, -5.533333F);
+          WarningTrimLeft.setRotationPoint(-8F, 11F, -5.533333F);
           WarningTrimLeft.setTextureSize(128, 128);
           WarningTrimLeft.mirror = true;
           setRotation(WarningTrimLeft, 0F, 0F, 0.7853982F);
           WarningTrimRight = new ModelRenderer(this, 82, 90);
           WarningTrimRight.addBox(0F, 0F, 0F, 2, 2, 12);
-          WarningTrimRight.setRotationPoint(8F, 16F, -5.5F);
+          WarningTrimRight.setRotationPoint(8F, 11F, -5.5F);
           WarningTrimRight.setTextureSize(128, 128);
           WarningTrimRight.mirror = true;
           setRotation(WarningTrimRight, 0F, 0F, 0.7853982F);
           WarningTrimBack = new ModelRenderer(this, 86, 35);
           WarningTrimBack.addBox(0F, 0F, 0F, 14, 2, 2);
-          WarningTrimBack.setRotationPoint(-7F, 17.5F, 6.5F);
+          WarningTrimBack.setRotationPoint(-7F, 12.5F, 6.5F);
           WarningTrimBack.setTextureSize(128, 128);
           WarningTrimBack.mirror = true;
           setRotation(WarningTrimBack, 0.7853982F, 0F, 0F);
@@ -202,6 +206,30 @@ public class SoniclocatorModel extends ModelBase
           BaseBottom4.setTextureSize(128, 128);
           BaseBottom4.mirror = true;
           setRotation(BaseBottom4, 0F, -0.7853982F, 0F);
+          PlugLeft = new ModelRenderer(this, 102, 1);
+          PlugLeft.addBox(0F, 0F, 0F, 1, 4, 4);
+          PlugLeft.setRotationPoint(-8F, 14F, -2F);
+          PlugLeft.setTextureSize(128, 128);
+          PlugLeft.mirror = true;
+          setRotation(PlugLeft, 0F, 0F, 0F);
+          PlugRight = new ModelRenderer(this, 102, 1);
+          PlugRight.addBox(0F, 0F, 0F, 1, 4, 4);
+          PlugRight.setRotationPoint(8F, 14F, 2F);
+          PlugRight.setTextureSize(128, 128);
+          PlugRight.mirror = true;
+          setRotation(PlugRight, 0F, 3.141593F, 0F);
+          PlugBack = new ModelRenderer(this, 102, 1);
+          PlugBack.addBox(0F, 0F, 0F, 1, 4, 4);
+          PlugBack.setRotationPoint(-2F, 14F, 8F);
+          PlugBack.setTextureSize(128, 128);
+          PlugBack.mirror = true;
+          setRotation(PlugBack, 0F, 1.570796F, 0F);
+          PlugFront = new ModelRenderer(this, 102, 1);
+          PlugFront.addBox(0F, 0F, 0F, 1, 4, 4);
+          PlugFront.setRotationPoint(2F, 14F, -8F);
+          PlugFront.setTextureSize(128, 128);
+          PlugFront.mirror = true;
+          setRotation(PlugFront, 0F, -1.570796F, 0F);
     }
 
     @Override
@@ -236,6 +264,10 @@ public class SoniclocatorModel extends ModelBase
         BaseBottom2.render(f5);
         BaseBottom3.render(f5);
         BaseBottom4.render(f5);
+        PlugLeft.render(f5);
+        PlugRight.render(f5);
+        PlugBack.render(f5);
+        PlugFront.render(f5);
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z)
