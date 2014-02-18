@@ -18,6 +18,7 @@ import madscience.server.ExampleServerCommand;
 import madscience.network.MadGUI;
 import madscience.network.MadPacketHandler;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.LogWrapper;
@@ -280,6 +281,7 @@ public class MadScience
         MadFurnaces.createCryotubeGhostTileEntity(MadConfig.CRYOTUBEGHOST);
         MadFurnaces.createThermosonicBonderTileEntity(MadConfig.THERMOSONIC);
         MadFurnaces.createDataReelDuplicatorTileEntity(MadConfig.DATADUPLICATOR);
+        MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
 
         // --------------------
         // MONSTER PLACER ITEMS
@@ -295,16 +297,14 @@ public class MadScience
 
         // Werewolf [Villager + Wolf]
         MadMobs.createGMOMob(MadConfig.GMO_WEREWOLF_METAID, WerewolfMobEntity.class, new NBTTagCompound(),
-                MadMobs.GMO_WEREWOLF_INTERNALNAME, MadMobs.GENOME_WEREWOLF_INTERNALNAME, MadMobs.GMO_WEREWOLF_DISPLAYNAME,
-                MadColors.villagerEgg(), MadColors.wolfEgg(), MadGenomes.GENOME_VILLAGER, MadGenomes.GENOME_WOLF, MadConfig.GMO_WEREWOLF_COOKTIME);
+                MadMobs.GMO_WEREWOLF_INTERNALNAME, MadMobs.GENOME_WEREWOLF_INTERNALNAME, MadColors.villagerEgg(), MadColors.wolfEgg(), MadGenomes.GENOME_VILLAGER, MadGenomes.GENOME_WOLF, MadConfig.GMO_WEREWOLF_COOKTIME);
 
         // Disgusting Meatcube [Slime + Cow,Pig,Chicken]
         MadFurnaces.createMeatcubeTileEntity(MadConfig.MEATCUBE, MadConfig.GMO_MEATCUBE_METAID, MadColors.slimeEgg(), MadColors.pigEgg(), MadConfig.GMO_MEATCUBE_COOKTIME);
         
         // Creeper Cow [Creeper + Cow]
         MadMobs.createGMOMob(MadConfig.GMO_CREEPERCOW_METAID, CreeperCowMobEntity.class, new NBTTagCompound(),
-                MadMobs.GMO_CREEPERCOW_INTERNALNAME, MadMobs.GENOME_CREEPERCOW_INTERNALNAME, MadMobs.GMO_CREEPERCOW_DISPLAYNAME,
-                MadColors.creeperEgg(), MadColors.cowEgg(), MadGenomes.GENOME_CREEPER, MadGenomes.GENOME_COW, MadConfig.GMO_CREEPERCOW_COOKTIME);
+                MadMobs.GMO_CREEPERCOW_INTERNALNAME, MadMobs.GENOME_CREEPERCOW_INTERNALNAME, MadColors.creeperEgg(), MadColors.cowEgg(), MadGenomes.GENOME_CREEPER, MadGenomes.GENOME_COW, MadConfig.GMO_CREEPERCOW_COOKTIME);
 
         // --------------------------
         // Bart74(bart.74@hotmail.fr)
@@ -312,8 +312,7 @@ public class MadScience
 
         // Wooly cow [Cow + Sheep]
         MadMobs.createGMOMob(MadConfig.GMO_WOOLYCOW_METAID, WoolyCowMobEntity.class, new NBTTagCompound(),
-                MadMobs.GMO_WOOLYCOW_INTERNALNAME, MadMobs.GENOME_WOOLYCOW_INTERNALNAME, MadMobs.GMO_WOOLYCOW_DISPLAYNAME,
-                MadColors.cowEgg(), MadColors.sheepEgg(), MadGenomes.GENOME_COW, MadGenomes.GENOME_SHEEP, MadConfig.GMO_WOOLYCOW_COOKTIME);
+                MadMobs.GMO_WOOLYCOW_INTERNALNAME, MadMobs.GENOME_WOOLYCOW_INTERNALNAME, MadColors.cowEgg(), MadColors.sheepEgg(), MadGenomes.GENOME_COW, MadGenomes.GENOME_SHEEP, MadConfig.GMO_WOOLYCOW_COOKTIME);
 
         // ----------------------------------------
         // Deuce_Loosely(captainlunautic@yahoo.com)
@@ -321,8 +320,7 @@ public class MadScience
 
         // Shoggoth [Slime + Squid]
         MadMobs.createGMOMob(MadConfig.GMO_SHOGGOTH_METAID, ShoggothMobEntity.class, new NBTTagCompound(),
-                MadMobs.GMO_SHOGGOTH_INTERNALNAME, MadMobs.GENOME_SHOGGOTH_INTERNALNAME, MadMobs.GMO_SHOGGOTH_DISPLAYNAME,
-                MadColors.slimeEgg(), MadColors.squidEgg(), MadGenomes.GENOME_SLIME, MadGenomes.GENOME_SQUID, MadConfig.GMO_SHOGGOTH_COOKTIME);
+                MadMobs.GMO_SHOGGOTH_INTERNALNAME, MadMobs.GENOME_SHOGGOTH_INTERNALNAME, MadColors.slimeEgg(), MadColors.squidEgg(), MadGenomes.GENOME_SLIME, MadGenomes.GENOME_SQUID, MadConfig.GMO_SHOGGOTH_COOKTIME);
 
         // ------------------------------------
         // monodemono(coolplanet3000@gmail.com)
@@ -330,8 +328,7 @@ public class MadScience
 
         // The Abomination [Enderman + Spider]
         MadMobs.createGMOMob(MadConfig.GMO_ABOMINATION_METAID, AbominationMobEntity.class, new NBTTagCompound(),
-                MadMobs.GMO_ABOMINATION_INTERNALNAME, MadMobs.GENOME_ABOMINATION_INTERNALNAME, MadMobs.GMO_ABOMINATION_DISPLAYNAME,
-                MadColors.endermanEgg(), MadColors.spiderEgg(), MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SPIDER, MadConfig.GMO_ABOMINATION_COOKTIME);
+                MadMobs.GMO_ABOMINATION_INTERNALNAME, MadMobs.GENOME_ABOMINATION_INTERNALNAME, MadColors.endermanEgg(), MadColors.spiderEgg(), MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SPIDER, MadConfig.GMO_ABOMINATION_COOKTIME);
         
         // Add Forge hook for Abomination so we can know when it kills another mob so we can lay an egg.
         MinecraftForge.EVENT_BUS.register(new AbominationMobLivingHandler());
@@ -342,23 +339,19 @@ public class MadScience
 
         // Wither Skeleton [Enderman + Skeleton]
         MadMobs.createVanillaGMOMob(MadConfig.GMO_WITHERSKELETON_METAID, MadTags.witherSkeleton(), 
-                EntityList.getStringFromID(51), MadMobs.GENOME_WITHERSKELETON_INTERNALNAME, MadMobs.GMO_WITHERSKELETON_DISPLAYNAME,
-                MadColors.endermanEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SKELETON, MadConfig.GMO_WITHERSKELETON_COOKTIME);
+                EntityList.getStringFromID(51), MadMobs.GENOME_WITHERSKELETON_INTERNALNAME, MadColors.endermanEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SKELETON, MadConfig.GMO_WITHERSKELETON_COOKTIME);
 
         // Villager Zombie [Villager + Zombie]
         MadMobs.createVanillaGMOMob(MadConfig.GMO_VILLAGERZOMBIE_METAID, MadTags.villagerZombie(), 
-                EntityList.getStringFromID(54), MadMobs.GENOME_VILLAGERZOMBIE_INTERNALNAME, MadMobs.GMO_VILLAGERZOMBIE_DISPLAYNAME,
-                MadColors.villagerEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_VILLAGER, MadGenomes.GENOME_ZOMBIE, MadConfig.GMO_VILLAGERZOMBIE_COOKTIME);
+                EntityList.getStringFromID(54), MadMobs.GENOME_VILLAGERZOMBIE_INTERNALNAME, MadColors.villagerEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_VILLAGER, MadGenomes.GENOME_ZOMBIE, MadConfig.GMO_VILLAGERZOMBIE_COOKTIME);
 
         // Skeleton Horse [Horse + Skeleton]
         MadMobs.createVanillaGMOMob(MadConfig.GMO_SKELETONHORSE_METAID, MadTags.horseType(4),
-                EntityList.getStringFromID(100), MadMobs.GENOME_SKELETONHORSE_INTERNALNAME, MadMobs.GMO_SKELETONHORSE_DISPLAYNAME,
-                MadColors.horseEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_HORSE, MadGenomes.GENOME_SKELETON, MadConfig.GMO_SKELETONHORSE_COOKTIME);
+                EntityList.getStringFromID(100), MadMobs.GENOME_SKELETONHORSE_INTERNALNAME, MadColors.horseEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_HORSE, MadGenomes.GENOME_SKELETON, MadConfig.GMO_SKELETONHORSE_COOKTIME);
 
         // Zombie Horse [Zombie + Horse]
         MadMobs.createVanillaGMOMob(MadConfig.GMO_ZOMBIEHORSE_METAID, MadTags.horseType(3),
-                EntityList.getStringFromID(100), MadMobs.GENOME_ZOMBIEHORSE_INTERNALNAME, MadMobs.GMO_ZOMBIEHORSE_DISPLAYNAME,
-                MadColors.horseEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_ZOMBIE, MadGenomes.GENOME_HORSE, MadConfig.GMO_ZOMBIEHORSE_COOKTIME);
+                EntityList.getStringFromID(100), MadMobs.GENOME_ZOMBIEHORSE_INTERNALNAME, MadColors.horseEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_ZOMBIE, MadGenomes.GENOME_HORSE, MadConfig.GMO_ZOMBIEHORSE_COOKTIME);
 
         // ---------------------------------
         // TheTechnician(tallahlf@gmail.com)
@@ -366,8 +359,7 @@ public class MadScience
 
         // Ender Squid [Enderman + Squid]
         MadMobs.createGMOMob(MadConfig.GMO_ENDERSQUID_METAID, EnderSquidMobEntity.class, new NBTTagCompound(),
-                MadMobs.GMO_ENDERSQUID_INTERNALNAME, MadMobs.GENOME_ENDERSQUID_INTERNALNAME, MadMobs.GMO_ENDERSQUID_DISPLAYNAME,
-                MadColors.endermanEgg(), MadColors.squidEgg(), MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SQUID, MadConfig.GMO_ENDERSQUID_COOKTIME);
+                MadMobs.GMO_ENDERSQUID_INTERNALNAME, MadMobs.GENOME_ENDERSQUID_INTERNALNAME, MadColors.endermanEgg(), MadColors.squidEgg(), MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SQUID, MadConfig.GMO_ENDERSQUID_COOKTIME);
 
         // ---------
         // DONE INIT

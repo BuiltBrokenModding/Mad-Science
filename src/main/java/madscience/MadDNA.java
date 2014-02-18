@@ -33,102 +33,82 @@ public class MadDNA
 
     // DNA Sample of Cave Spider
     public static DNACaveSpider DNA_CAVESPIDER;
-    public static final String DNA_CAVESPIDER_DISPLAYNAME = "Sample of Cave Spider DNA";
     public static final String DNA_CAVESPIDER_INTERNALNAME = "dnaCaveSpider";
 
     // DNA Sample of Chicken.
     public static DNAChicken DNA_CHICKEN;
-    public static final String DNA_CHICKEN_DISPLAYNAME = "Sample of Chicken DNA";
     public static final String DNA_CHICKEN_INTERNALNAME = "dnaChicken";
 
     // DNA Sample of Cow.
     public static DNACow DNA_COW;
-    public static final String DNA_COW_DISPLAYNAME = "Sample of Cow DNA";
     public static final String DNA_COW_INTERNALNAME = "dnaCow";
 
     // DNA Sample of Creeper.
     public static DNACreeper DNA_CREEPER;
-    public static final String DNA_CREEPER_DISPLAYNAME = "Sample of Creeper DNA";
     public static final String DNA_CREEPER_INTERNALNAME = "dnaCreeper";
 
     // DNA Sample of Enderman.
     public static DNAEnderman DNA_ENDERMAN;
-    public static final String DNA_ENDERMAN_DISPLAYNAME = "Sample of Enderman DNA";
     public static final String DNA_ENDERMAN_INTERNALNAME = "dnaEnderman";
 
     // DNA Sample of Ghast.
     public static DNAGhast DNA_GHAST;
-    public static final String DNA_GHAST_DISPLAYNAME = "Sample of Ghast DNA";
     public static final String DNA_GHAST_INTERNALNAME = "dnaGhast";
 
     // DNA Sample of Horse.
     public static DNAHorse DNA_HORSE;
-    public static final String DNA_HORSE_DISPLAYNAME = "Sample of Horse DNA";
     public static final String DNA_HORSE_INTERNALNAME = "dnaHorse";
 
     // DNA Sample of Mushroom Cow.
     public static DNAMushroomCow DNA_MUSHROOMCOW;
-    public static final String DNA_MUSHROOMCOW_DISPLAYNAME = "Sample of Mushrom Cow DNA";
     public static final String DNA_MUSHROOMCOW_INTERNALNAME = "dnaMushroomCow";
 
     // DNA Sample of Ocelot.
     public static DNAOcelot DNA_OCELOT;
-    public static final String DNA_OCELOT_DISPLAYNAME = "Sample of Ocelot DNA";
     public static final String DNA_OCELOT_INTERNALNAME = "dnaOcelot";
 
     // DNA Sample of Pig.
     public static DNAPig DNA_PIG;
-    public static final String DNA_PIG_DISPLAYNAME = "Sample of Pig DNA";
     public static final String DNA_PIG_INTERNALNAME = "dnaPig";
 
     // DNA Sample of Sheep.
     public static DNASheep DNA_SHEEP;
-    public static final String DNA_SHEEP_DISPLAYNAME = "Sample of Sheep DNA";
     public static final String DNA_SHEEP_INTERNALNAME = "dnaSheep";
 
     // DNA Sample of Skeleton.
     public static DNASkeleton DNA_SKELETON;
-    public static final String DNA_SKELETON_DISPLAYNAME = "Sample of Skeleton DNA";
     public static final String DNA_SKELETON_INTERNALNAME = "dnaSkeleton";
 
     // DNA Sample of Spider.
     public static DNASpider DNA_SPIDER;
-    public static final String DNA_SPIDER_DISPLAYNAME = "Sample of Spider DNA";
     public static final String DNA_SPIDER_INTERNALNAME = "dnaSpider";
 
     // DNA Sample of Squid.
     public static DNASquid DNA_SQUID;
-    public static final String DNA_SQUID_DISPLAYNAME = "Sample of Squid DNA";
     public static final String DNA_SQUID_INTERNALNAME = "dnaSquid";
 
     // DNA Sample of Villager.
     public static DNAVillager DNA_VILLAGER;
-    public static final String DNA_VILLAGER_DISPLAYNAME = "Sample of Villager DNA";
     public static final String DNA_VILLAGER_INTERNALNAME = "dnaVillager";
 
     // DNA Sample of Witch.
     public static DNAWitch DNA_WITCH;
-    public static final String DNA_WITCH_DISPLAYNAME = "Sample of Witch DNA";
     public static final String DNA_WITCH_INTERNALNAME = "dnaWitch";
 
     // DNA Sample of Wolf.
     public static DNAWolf DNA_WOLF;
-    public static final String DNA_WOLF_DISPLAYNAME = "Sample of Wolf DNA";
     public static final String DNA_WOLF_INTERNALNAME = "dnaWolf";
 
     // DNA Sample of Zombie.
     public static DNAZombie DNA_ZOMBIE;
-    public static final String DNA_ZOMBIE_DISPLAYNAME = "Sample of Zombie DNA";
     public static final String DNA_ZOMBIE_INTERNALNAME = "dnaZombie";
 
     // DNA Sample of Bat.
     public static DNABat DNA_BAT;
-    public static String DNA_BAT_DISPLAYNAME = "Sample of Bat DNA";
     public static String DNA_BAT_INTERNALNAME = "dnaBat";
 
     // DNA Sample of Slime.
     public static Item DNA_SLIME;
-    public static String DNA_SLIME_DISPLAYNAME = "Sample of Slime DNA";
     public static String DNA_SLIME_INTERNALNAME = "dnaSlime";
 
     // -----------------------

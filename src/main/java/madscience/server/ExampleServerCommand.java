@@ -21,21 +21,18 @@ public class ExampleServerCommand implements ICommand
     @Override
     public List addTabCompletionOptions(ICommandSender icommandsender, String[] astring)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean canCommandSenderUseCommand(ICommandSender icommandsender)
     {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public int compareTo(Object arg0)
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
@@ -60,7 +57,6 @@ public class ExampleServerCommand implements ICommand
     @Override
     public boolean isUsernameIndex(String[] astring, int i)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 

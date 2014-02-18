@@ -26,27 +26,4 @@ public class MainframeComponentsMetadata
         MadComponents.CIRCUIT_REDSTONE_INTERNALNAME,
         MadComponents.CIRCUIT_SPIDEREYE_INTERNALNAME,
     };
-
-    public static final String[] getDisplayNameFromDamage =
-    {       
-        MadComponents.COMPONENT_CASE_DISPLAYNAME,
-        MadComponents.COMPONENT_CPU_DISPLAYNAME,
-        MadComponents.COMPONENT_FAN_DISPLAYNAME,
-        MadComponents.COMPONENT_POWERSUPPLY_DISPLAYNAME,
-        MadComponents.COMPONENT_RAM_DISPLAYNAME,
-        MadComponents.COMPONENT_SILICONWAFER_DISPLAYNAME,
-        MadComponents.COMPONENT_COMPUTER_DISPLAYNAME,
-        MadComponents.COMPONENT_SCREEN_DISPLAYNAME,
-        MadComponents.COMPONENT_TRANSISTOR_DISPLAYNAME,
-        MadComponents.COMPONENT_FUSEDQUARTZ_DISPLAYNAME,
-        MadComponents.COMPONENT_MAGNETICTAPE_DISPLAYNAME,
-        MadComponents.CIRCUIT_COMPARATOR_DISPLAYNAME,
-        MadComponents.CIRCUIT_DIAMOND_DISPLAYNAME,
-        MadComponents.CIRCUIT_EMERALD_DISPLAYNAME,
-        MadComponents.CIRCUIT_ENDEREYE_DISPLAYNAME,
-        MadComponents.CIRCUIT_ENDERPEARL_DISPLAYNAME,
-        MadComponents.CIRCUIT_GLOWSTONE_DISPLAYNAME,
-        MadComponents.CIRCUIT_REDSTONE_DISPLAYNAME,
-        MadComponents.CIRCUIT_SPIDEREYE_DISPLAYNAME,
-    };
 }

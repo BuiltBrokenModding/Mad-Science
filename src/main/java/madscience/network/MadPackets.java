@@ -10,6 +10,7 @@ import madscience.tileentities.mainframe.MainframePackets;
 import madscience.tileentities.meatcube.MeatcubePackets;
 import madscience.tileentities.sanitizer.SanitizerPackets;
 import madscience.tileentities.sequencer.SequencerPackets;
+import madscience.tileentities.soniclocator.SoniclocatorPackets;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
@@ -63,6 +64,9 @@ public abstract class MadPackets
         
         // Thermosonic Bonder
         builder.put(Integer.valueOf(9), ThermosonicBonderPackets.class);
+        
+        // Soniclocator Device
+        builder.put(Integer.valueOf(10), SoniclocatorPackets.class);
         
         idMap = builder.build();
     }

@@ -23,97 +23,78 @@ public class MadComponents
 
     // Case
     public static int COMPONENT_CASE_METAID;
-    public static final String COMPONENT_CASE_DISPLAYNAME = "Case Component";
     public static final String COMPONENT_CASE_INTERNALNAME = "componentCase";
 
     // CPU
     public static int COMPONENT_CPU_METAID;
-    public static final String COMPONENT_CPU_DISPLAYNAME = "CPU Component";
     public static final String COMPONENT_CPU_INTERNALNAME = "componentCPU";
 
     // Fan
     public static int COMPONENT_FAN_METAID;
-    public static final String COMPONENT_FAN_DISPLAYNAME = "Fan Component";
     public static final String COMPONENT_FAN_INTERNALNAME = "componentFan";
 
     // Power Supply
     public static int COMPONENT_POWERSUPPLY_METAID;
-    public static final String COMPONENT_POWERSUPPLY_DISPLAYNAME = "Power Supply Component";
     public static final String COMPONENT_POWERSUPPLY_INTERNALNAME = "componentPowerSupply";
 
     // RAM
     public static int COMPONENT_RAM_METAID;
-    public static final String COMPONENT_RAM_DISPLAYNAME = "RAM Component";
     public static final String COMPONENT_RAM_INTERNALNAME = "componentRAM";
 
     // Silicon Wafer
     public static int COMPONENT_SILICONWAFER_METAID;
-    public static final String COMPONENT_SILICONWAFER_DISPLAYNAME = "Silicon Wafer Component";
     public static final String COMPONENT_SILICONWAFER_INTERNALNAME = "componentSiliconWafer";
 
     // Computer
     public static int COMPONENT_COMPUTER_METAID;
-    public static final String COMPONENT_COMPUTER_DISPLAYNAME = "Computer Component";
     public static final String COMPONENT_COMPUTER_INTERNALNAME = "componentComputer";
 
     // Screen
     public static int COMPONENT_SCREEN_METAID;
-    public static final String COMPONENT_SCREEN_DISPLAYNAME = "Screen Component";
     public static final String COMPONENT_SCREEN_INTERNALNAME = "componentScreen";
 
     // Transistor
     public static int COMPONENT_TRANSISTOR_METAID;
-    public static final String COMPONENT_TRANSISTOR_DISPLAYNAME = "Transistor Component";
     public static final String COMPONENT_TRANSISTOR_INTERNALNAME = "componentTransistor";
 
     // Fused Quartz
     public static int COMPONENT_FUSEDQUARTZ_METAID;
-    public static final String COMPONENT_FUSEDQUARTZ_DISPLAYNAME = "Fused Quartz Component";
     public static final String COMPONENT_FUSEDQUARTZ_INTERNALNAME = "componentFusedQuartz";
     
     // Magnetic Tape
     public static int COMPONENT_MAGNETICTAPE_METAID;
-    public static final String COMPONENT_MAGNETICTAPE_DISPLAYNAME = "Magnetic Tape Component";
     public static final String COMPONENT_MAGNETICTAPE_INTERNALNAME = "componentMagneticTape";
 
     // Circuit Comparator
     public static int CIRCUIT_COMPARATOR_METAID;
-    public static final String CIRCUIT_COMPARATOR_DISPLAYNAME = "Circuit Comparator";
     public static final String CIRCUIT_COMPARATOR_INTERNALNAME = "circuitComparator";
 
     // Circuit Diamond
     public static int CIRCUIT_DIAMOND_METAID;
-    public static final String CIRCUIT_DIAMOND_DISPLAYNAME = "Circuit Diamond";
     public static final String CIRCUIT_DIAMOND_INTERNALNAME = "circuitDiamond";
 
     // Circuit Emerald
     public static int CIRCUIT_EMERALD_METAID;
-    public static final String CIRCUIT_EMERALD_DISPLAYNAME = "Circuit Emerald";
     public static final String CIRCUIT_EMERALD_INTERNALNAME = "circuitEmerald";
 
     // Circuit Ender Eye
     public static int CIRCUIT_ENDEREYE_METAID;
-    public static final String CIRCUIT_ENDEREYE_DISPLAYNAME = "Circuit Ender Eye";
     public static final String CIRCUIT_ENDEREYE_INTERNALNAME = "circuitEnderEye";
 
     // Circuit Ender Pearl
     public static int CIRCUIT_ENDERPEARL_METAID;
-    public static final String CIRCUIT_ENDERPEARL_DISPLAYNAME = "Circuit Ender Pearl";
     public static final String CIRCUIT_ENDERPEARL_INTERNALNAME = "circuitEnderPearl";
 
     // Circuit Glowstone
     public static int CIRCUIT_GLOWSTONE_METAID;
-    public static final String CIRCUIT_GLOWSTONE_DISPLAYNAME = "Circuit Glowstone";
     public static final String CIRCUIT_GLOWSTONE_INTERNALNAME = "circuitGlowstone";
 
     // Circuit Redstone
     public static int CIRCUIT_REDSTONE_METAID;
-    public static final String CIRCUIT_REDSTONE_DISPLAYNAME = "Circuit Redstone";
     public static final String CIRCUIT_REDSTONE_INTERNALNAME = "circuitRedstone";
 
     // Circuit Spider Eye
     public static int CIRCUIT_SPIDEREYE_METAID;
-    public static final String CIRCUIT_SPIDEREYE_DISPLAYNAME = "Circuit Spider Eye";
     public static final String CIRCUIT_SPIDEREYE_INTERNALNAME = "circuitSpiderEye";
 
     // --------------

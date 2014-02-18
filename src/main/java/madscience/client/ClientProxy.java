@@ -50,6 +50,8 @@ import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderRender;
 import madscience.tileentities.sequencer.SequencerEntity;
 import madscience.tileentities.sequencer.SequencerRender;
+import madscience.tileentities.soniclocator.SoniclocatorEntity;
+import madscience.tileentities.soniclocator.SoniclocatorRender;
 import madscience.tileentities.sanitizer.SanitizerEntity;
 import madscience.tileentities.sanitizer.SanitizerRender;
 import madscience.tileentities.meatcube.MeatcubeEntity;
@@ -166,6 +168,14 @@ public class ClientProxy extends CommonProxy
             RenderingRegistry.registerBlockHandler(MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID, new DataDuplicatorRender());
             ClientRegistry.bindTileEntitySpecialRenderer(DataDuplicatorEntity.class, new DataDuplicatorRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new DataDuplicatorRender());            
+        }
+        
+        // Soniclocator Device
+        if (blockID == MadConfig.SONICLOCATOR)
+        {
+            RenderingRegistry.registerBlockHandler(MadFurnaces.SONICLOCATOR_TILEENTITY.blockID, new SoniclocatorRender());
+            ClientRegistry.bindTileEntitySpecialRenderer(SoniclocatorEntity.class, new SoniclocatorRender());
+            MinecraftForgeClient.registerItemRenderer(blockID, new SoniclocatorRender());            
         }
 
         // ----

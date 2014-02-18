@@ -135,7 +135,7 @@ public class MainframeGUI extends GuiContainer
     {
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
-        String s = "     " + MadFurnaces.MAINFRAME_DISPLAYNAME;
+        String s = "     " + MadFurnaces.MAINFRAME_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

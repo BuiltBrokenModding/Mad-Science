@@ -8,7 +8,6 @@ public class NeedleMushroomCow extends ItemDecayNeedle
     public NeedleMushroomCow(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        // TODO Auto-generated constructor stub
     }
 
 }

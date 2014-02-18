@@ -615,6 +615,13 @@ public class MadConfig
     public static @CfgEnergy long DATADUPLICATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy long DATADUPLICATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
     public static @CfgEnergy long DATADUPLICATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    
+    // Soniclocator
+    public final static int SONICLOCATOR_DEFAULT = ++madBlockIDs;
+    public static @CfgId(block = true) int SONICLOCATOR = SONICLOCATOR_DEFAULT;
+    public static @CfgEnergy long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // -----------------
     // FLUID DECLARATION

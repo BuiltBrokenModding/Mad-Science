@@ -198,6 +198,6 @@ public class ItemDecay extends Item
 
     public void replaceItemStack(ItemStack stack, Entity entity)
     {
-        MadScience.logger.info("Converting " + this.getUnlocalizedName() + " into " + MadNeedles.NEEDLEDIRTY_ITEM_DISPLAYNAME);
+        MadScience.logger.info(this.getUnlocalizedName() + " have expired!");
     }
 }

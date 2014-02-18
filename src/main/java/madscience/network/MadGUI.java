@@ -28,6 +28,9 @@ import madscience.tileentities.sanitizer.SanitizerGUI;
 import madscience.tileentities.sequencer.SequencerContainer;
 import madscience.tileentities.sequencer.SequencerEntity;
 import madscience.tileentities.sequencer.SequencerGUI;
+import madscience.tileentities.soniclocator.SoniclocatorContainer;
+import madscience.tileentities.soniclocator.SoniclocatorEntity;
+import madscience.tileentities.soniclocator.SoniclocatorGUI;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderContainer;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderGUI;
@@ -103,6 +106,12 @@ public class MadGUI implements IGuiHandler
         {
             return new DataDuplicatorGUI(player.inventory, (DataDuplicatorEntity) tile_entity);
         }
+        
+        // Soniclocator Device
+        if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
+        {
+            return new SoniclocatorGUI(player.inventory, (SoniclocatorEntity) tile_entity);
+        }
 
         // Default response is to return nothing.
         return null;
@@ -173,6 +182,12 @@ public class MadGUI implements IGuiHandler
         {
             return new DataDuplicatorContainer(player.inventory, (DataDuplicatorEntity) tile_entity);
         }
+        
+        // Soniclocator Device
+        if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
+        {
+            return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tile_entity);
+        }        
 
         // Default response is to return nothing.
         return null;

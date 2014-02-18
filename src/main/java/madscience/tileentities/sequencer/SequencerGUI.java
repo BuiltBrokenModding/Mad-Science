@@ -68,7 +68,7 @@ public class SequencerGUI extends GuiContainer
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
         // Name displayed above the GUI, typically name of the furnace.
-        String s = MadFurnaces.SEQUENCER_DISPLAYNAME;
+        String s = MadFurnaces.SEQUENCER_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

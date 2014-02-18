@@ -11,6 +11,7 @@ import madscience.MadScience;
 import madscience.metaitems.MainframeComponentsMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -144,7 +145,7 @@ public class CombinedGenomeMonsterPlacer extends Item
             return name;
 
         String mobID = info.mobID;
-        String displayName = info.displayName;
+        String displayName = I18n.getString(info.mobID);
 
         if (stack.hasTagCompound())
         {

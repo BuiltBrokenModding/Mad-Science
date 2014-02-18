@@ -17,22 +17,18 @@ public class MadEntities
 {
     // Genetically Modified Monster Placer
     public static GeneticallyModifiedMonsterPlacer GENETICALLYMODIFIED_MONSTERPLACER;
-    public static final String GENETICALLYMODIFIED_MONSTERPLACER_DISPLAYNAME = "Spawn";
     public static final String GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME = "gmoMonsterPlacer";
 
     // Combined Genome Monster Placer
     public static CombinedGenomeMonsterPlacer COMBINEDGENOME_MONSTERPLACER;
-    public static final String COMBINEDGENOME_MONSTERPLACER_DISPLAYNAME = "Genome Data Reel";
     public static final String COMBINEDGENOME_MONSTERPLACER_INTERNALNAME = "genomeMonsterPlacer";
 
     // Combined Memory Monster Placer
     public static CombinedMemoryMonsterPlacer COMBINEDMEMORY_MONSTERPLACER;
-    public static final String COMBINEDMEMORY_MONSTERPLACER_DISPLAYNAME = "Memory Data Reel";
     public static final String COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME = "memoryMonsterPlacer";
 
     // Empty Data Reel
     public static ItemDataReelEmpty DATAREEL_EMPTY;
-    public static final String DATAREEL_EMPTY_DISPLAYNAME = "Data Reel Empty";
     public static final String DATAREEL_EMPTY_INTERNALNAME = "dataReelEmpty";
 
     // Allows mod to store all it's items under its own tab in creative mode.

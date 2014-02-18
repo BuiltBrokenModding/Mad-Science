@@ -8,7 +8,6 @@ public class NeedleOcelot extends ItemDecayNeedle
     public NeedleOcelot(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        // TODO Auto-generated constructor stub
     }
 
 }

@@ -37,107 +37,86 @@ public class MadGenomes
 
     // Cave Spider Genome Data Reel
     public static GenomeCaveSpider GENOME_CAVESPIDER;
-    public static final String GENOME_CAVESPIDER_DISPLAYNAME = "Genome Data Reel Cave Spider";
     public static final String GENOME_CAVESPIDER_INTERNALNAME = "genomeCaveSpider";
 
     // Chicken Genome Data Reel
     public static GenomeChicken GENOME_CHICKEN;
-    public static final String GENOME_CHICKEN_DISPLAYNAME = "Genome Data Reel Chicken";
     public static final String GENOME_CHICKEN_INTERNALNAME = "genomeChicken";
 
     // Cow Genome Data Reel
     public static GenomeCow GENOME_COW;
-    public static final String GENOME_COW_DISPLAYNAME = "Genome Data Reel Cow";
     public static final String GENOME_COW_INTERNALNAME = "genomeCow";
 
     // Creeper Genome Data Reel
     public static GenomeCreeper GENOME_CREEPER;
-    public static final String GENOME_CREEPER_DISPLAYNAME = "Genome Data Reel Creeper";
     public static final String GENOME_CREEPER_INTERNALNAME = "genomeCreeper";
 
     // Enderman Genome Data Reel
     public static GenomeEnderman GENOME_ENDERMAN;
-    public static final String GENOME_ENDERMAN_DISPLAYNAME = "Genome Data Reel Enderman";
     public static final String GENOME_ENDERMAN_INTERNALNAME = "genomeEnderman";
 
     // Ghast Genome Data Reel
     public static GenomeGhast GENOME_GHAST;
-    public static final String GENOME_GHAST_DISPLAYNAME = "Genome Data Reel Ghast";
     public static final String GENOME_GHAST_INTERNALNAME = "genomeGhast";
 
     // Horse Genome Data Reel
     public static GenomeHorse GENOME_HORSE;
-    public static final String GENOME_HORSE_DISPLAYNAME = "Genome Data Reel Horse";
     public static final String GENOME_HORSE_INTERNALNAME = "genomeHorse";
 
     // Mushroom Cow Genome Data Reel
     public static GenomeMushroomCow GENOME_MUSHROOMCOW;
-    public static final String GENOME_MUSHROOMCOW_DISPLAYNAME = "Genome Data Reel Mushroom Cow";
     public static final String GENOME_MUSHROOMCOW_INTERNALNAME = "genomeMushroomCow";
 
     // Ocelot Genome Data Reel
     public static GenomeOcelot GENOME_OCELOT;
-    public static final String GENOME_OCELOT_DISPLAYNAME = "Genome Data Reel Ocelot";
     public static final String GENOME_OCELOT_INTERNALNAME = "genomeOcelot";
 
     // Pig Genome Data Reel
     public static GenomePig GENOME_PIG;
-    public static final String GENOME_PIG_DISPLAYNAME = "Genome Data Reel Pig";
     public static final String GENOME_PIG_INTERNALNAME = "genomePig";
 
     // Pig Zombie Genome Data Reel
     public static GenomePigZombie GENOME_PIGZOMBIE;
-    public static final String GENOME_PIGZOMBIE_DISPLAYNAME = "Genome Data Reel Pig Zombie";
     public static final String GENOME_PIGZOMBIE_INTERNALNAME = "genomePigZombie";
 
     // Sheep Genome Data Reel
     public static GenomeSheep GENOME_SHEEP;
-    public static final String GENOME_SHEEP_DISPLAYNAME = "Genome Data Reel Sheep";
     public static final String GENOME_SHEEP_INTERNALNAME = "genomeSheep";
 
     // Skeleton Genome Data Reel
     public static GenomeSkeleton GENOME_SKELETON;
-    public static final String GENOME_SKELETON_DISPLAYNAME = "Genome Data Reel Skeleton";
     public static final String GENOME_SKELETON_INTERNALNAME = "genomeSkeleton";
 
     // Squid Genome Data Reel
     public static GenomeSquid GENOME_SQUID;
-    public static final String GENOME_SQUID_DISPLAYNAME = "Genome Data Reel Squid";
     public static final String GENOME_SQUID_INTERNALNAME = "genomeSquid";
 
     // Spider Genome Data Reel
     public static GenomeSpider GENOME_SPIDER;
-    public static final String GENOME_SPIDER_DISPLAYNAME = "Genome Data Reel Spider";
     public static final String GENOME_SPIDER_INTERNALNAME = "genomeSpider";
 
     // Villager Genome Data Reel
     public static GenomeVillager GENOME_VILLAGER;
-    public static final String GENOME_VILLAGER_DISPLAYNAME = "Genome Data Reel Villager";
     public static final String GENOME_VILLAGER_INTERNALNAME = "genomeVillager";
 
     // Witch Genome Data Reel
     public static GenomeWitch GENOME_WITCH;
-    public static final String GENOME_WITCH_DISPLAYNAME = "Genome Data Reel Witch";
     public static final String GENOME_WITCH_INTERNALNAME = "genomeWitch";
 
     // Wolf Genome Data Reel
     public static GenomeWolf GENOME_WOLF;
-    public static final String GENOME_WOLF_DISPLAYNAME = "Genome Data Reel Wolf";
     public static final String GENOME_WOLF_INTERNALNAME = "genomeWolf";
 
     // Zombie Genome Data Reel
     public static GenomeZombie GENOME_ZOMBIE;
-    public static final String GENOME_ZOMBIE_DISPLAYNAME = "Genome Data Reel Zombie";
     public static final String GENOME_ZOMBIE_INTERNALNAME = "genomeZombie";
 
     // Bat Genome Data Reel
     public static GenomeBat GENOME_BAT;
-    public static final String GENOME_BAT_DISPLAYNAME = "Genome Data Reel Bat";
     public static final String GENOME_BAT_INTERNALNAME = "genomeBat";
 
     // Slime Genome Data Reel
     public static GenomeSlime GENOME_SLIME;
-    public static final String GENOME_SLIME_DISPLAYNAME = "Genome Data Reel Slime";
     public static final String GENOME_SLIME_INTERNALNAME = "genomeSlime";
 
     // -----------------

@@ -32,12 +32,10 @@ public class MadFluids
     // Liquid DNA
     public static LiquidDNA LIQUIDDNA;
     public static LiquidDNABlock LIQUIDDNA_BLOCK;
-    public static final String LIQUIDDNA_DISPLAYNAME = "Liquid DNA Source";
     public static final String LIQUIDDNA_INTERNALNAME = "maddna";
 
     // Liquid DNA Bucket
     public static LiquidDNABucket LIQUIDDNA_BUCKET_ITEM;
-    public static final String LIQUIDDNA_BUCKET_DISPLAYNAME = "Bucket of Liquid DNA";
     public static final String LIQUIDDNA_BUCKET_INTERNALNAME = "madDNABucket";
     
     // LIQUID MUTANT DNA
@@ -46,12 +44,10 @@ public class MadFluids
     // Liquid DNA Mutant
     public static LiquidDNAMutant LIQUIDDNA_MUTANT;
     public static LiquidDNAMutantBlock LIQUIDDNA_MUTANT_BLOCK;
-    public static final String LIQUIDDNA_MUTANT_DISPLAYNAME = "Liquid Mutant DNA Source";
     public static final String LIQUIDDNA_MUTANT_INTERNALNAME = "maddnamutant";
     
     // Liquid DNA Mutant Bucket
     public static LiquidDNAMutantBucket LIQUIDDNA_MUTANT_BUCKET_ITEM;
-    public static final String LIQUIDDNA_MUTANT_BUCKET_DISPLAYNAME = "Bucket of Liquid Mutant DNA";
     public static final String LIQUIDDNA_MUTANT_BUCKET_INTERNALNAME = "madDNAMutantBucket";
 
     // -------------
@@ -78,10 +74,6 @@ public class MadFluids
 
         // Register fluid container item.
         GameRegistry.registerItem(LIQUIDDNA_BUCKET_ITEM, LIQUIDDNA_BUCKET_ITEM.getUnlocalizedName());
-
-        // Create friendly display names for fluids and their containers.
-        //LanguageRegistry.addName(LIQUIDDNA_BLOCK, LIQUIDDNA_DISPLAYNAME);
-        //LanguageRegistry.addName(LIQUIDDNA_BUCKET_ITEM, LIQUIDDNA_BUCKET_DISPLAYNAME);
 
         // Register our class as a valid container for our fluid.
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(LIQUIDDNA.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(LIQUIDDNA_BUCKET_ITEM), new ItemStack(Item.bucketEmpty)));

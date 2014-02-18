@@ -18,15 +18,16 @@ tile.dataDuplicator.name=Data Reel Duplicator
 tile.maddna.name=Liquid DNA
 tile.maddnamutant.name=Liquid Mutant DNA
 tile.abominationEgg.name=Abomination Egg
+tile.soniclocator.name=Soniclocator Device
 
 # GMO Mobs
-entity.gmoWerewolf.name=Spawn Werewolf
-entity.gmoCreeperCow.name=Spawn Creeper Cow
-entity.gmoWoolyCow.name=Spawn Wooly Cow
-entity.gmoShoggoth.name=Spawn Shoggoth
-entity.gmoAbomination.name=Spawn Abomination
-entity.gmoEnderSquid.name=Spawn Ender Squid
-item.meatCube.name=Spawn Disgusting Meat Cube
+entity.gmoWerewolf.name=Werewolf
+entity.gmoCreeperCow.name=Creeper Cow
+entity.gmoWoolyCow.name=Wooly Cow
+entity.gmoShoggoth.name=Shoggoth
+entity.gmoAbomination.name=Abomination
+entity.gmoEnderSquid.name=Ender Squid
+item.meatCube.name=Disgusting Meat Cube
 
 # GMO Genomes
 item.genomeCreeperCow.name=Creeper Cow Genome

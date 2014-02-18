@@ -36,102 +36,82 @@ public class MadNeedles
 
     // Empty needle.
     public static NeedleEmptyItem NEEDLE_ITEM;
-    public static final String NEEDLE_ITEM_DISPLAYNAME = "Empty Syringe";
     public static final String NEEDLE_ITEM_INTERNALNAME = "needleEmpty";
 
     // Dirty needle.
     public static NeedleDirtyItem NEEDLE_DIRTY;
-    public static final String NEEDLEDIRTY_ITEM_DISPLAYNAME = "Dirty Syringe";
     public static final String NEEDLEDIRTY_ITEM_INTERNALNAME = "needleDirty";
 
     // Needle with cave spider DNA.
     public static NeedleCaveSpider NEEDLE_CAVESPIDER;
-    public static final String NEEDLE_CAVESPIDER_DISPLAYNAME = "Syringe of Cave Spider DNA";
     public static final String NEEDLE_CAVESPIDER_INTERNALNAME = "needleCaveSpider";
 
     // Needle with chicken DNA.
     public static NeedleChicken NEEDLE_CHICKEN;
-    public static final String NEEDLE_CHICKEN_DISPLAYNAME = "Syringe of Chicken DNA";
     public static final String NEEDLE_CHICKEN_INTERNALNAME = "needleChicken";
 
     // Needle with cow DNA.
     public static NeedleCow NEEDLE_COW;
-    public static final String NEEDLE_COW_DISPLAYNAME = "Syringe of Cow DNA";
     public static final String NEEDLE_COW_INTERNALNAME = "needleCow";
 
     // Needle with creeper DNA.
     public static NeedleCreeper NEEDLE_CREEPER;
-    public static final String NEEDLE_CREEPER_DISPLAYNAME = "Syringe of Creeper DNA";
     public static final String NEEDLE_CREEPER_INTERNALNAME = "needleCreeper";
 
     // Needle with enderman DNA.
     public static NeedleEnderman NEEDLE_ENDERMAN;
-    public static final String NEEDLE_ENDERMAN_DISPLAYNAME = "Syringe of Enderman DNA";
     public static final String NEEDLE_ENDERMAN_INTERNALNAME = "needleEnderman";
 
     // Needle with horse DNA.
     public static NeedleHorse NEEDLE_HORSE;
-    public static final String NEEDLE_HORSE_DISPLAYNAME = "Syringe of Horse DNA";
     public static final String NEEDLE_HORSE_INTERNALNAME = "needleHorse";
 
     // Needle with mushroom cow DNA.
     public static NeedleMushroomCow NEEDLE_MUSHROOMCOW;
-    public static final String NEEDLE_MUSHROOMCOW_DISPLAYNAME = "Syringe of Mushroom Cow DNA";
     public static final String NEEDLE_MUSHROOMCOW_INTERNALNAME = "needleMushroomCow";
 
     // Needle with ocelot DNA.
     public static NeedleOcelot NEEDLE_OCELOT;
-    public static final String NEEDLE_OCELOT_DISPLAYNAME = "Syringe of Ocelot DNA";
     public static final String NEEDLE_OCELOT_INTERNALNAME = "needleOcelot";
 
     // Needle with pig DNA.
     public static NeedlePig NEEDLE_PIG;
-    public static final String NEEDLE_PIG_DISPLAYNAME = "Syringe of Pig DNA";
     public static final String NEEDLE_PIG_INTERNALNAME = "needlePig";
 
     // Needle with sheep DNA.
     public static NeedleSheep NEEDLE_SHEEP;
-    public static final String NEEDLE_SHEEP_DISPLAYNAME = "Syringe of Sheep DNA";
     public static final String NEEDLE_SHEEP_INTERNALNAME = "needleSheep";
 
     // Needle with spider DNA.
     public static NeedleSpider NEEDLE_SPIDER;
-    public static final String NEEDLE_SPIDER_DISPLAYNAME = "Syringe of Spider DNA";
     public static final String NEEDLE_SPIDER_INTERNALNAME = "needleSpider";
 
     // Needle with squid DNA.
     public static NeedleSquid NEEDLE_SQUID;
-    public static final String NEEDLE_SQUID_DISPLAYNAME = "Syringe of Squid DNA";
     public static final String NEEDLE_SQUID_INTERNALNAME = "needleSquid";
 
     // Needle with villager DNA.
     public static NeedleVillager NEEDLE_VILLAGER;
-    public static final String NEEDLE_VILLAGER_DISPLAYNAME = "Syringe of Villager DNA";
     public static final String NEEDLE_VILLAGER_INTERNALNAME = "needleVillager";
 
     // Needle with witch DNA.
     public static NeedleWitch NEEDLE_WITCH;
-    public static final String NEEDLE_WITCH_DISPLAYNAME = "Syringe of Witch DNA";
     public static final String NEEDLE_WITCH_INTERNALNAME = "needleWitch";
 
     // Needle with wolf DNA.
     public static NeedleWolf NEEDLE_WOLF;
-    public static final String NEEDLE_WOLF_DISPLAYNAME = "Syringe of Wolf DNA";
     public static final String NEEDLE_WOLF_INTERNALNAME = "needleWolf";
 
     // Needle with zombie DNA.
     public static NeedleZombie NEEDLE_ZOMBIE;
-    public static final String NEEDLE_ZOMBIE_DISPLAYNAME = "Syringe of Zombie DNA";
     public static final String NEEDLE_ZOMBIE_INTERNALNAME = "needleZombie";
 
     // Needle with mutant DNA.
     public static NeedleMutant NEEDLE_MUTANT;
-    public static final String NEEDLE_MUTANT_DISPLAYNAME = "Syringe of Mutant DNA";
     public static final String NEEDLE_MUTANT_INTERNALNAME = "needleMutant";
 
     // Needle with bat DNA.
     public static NeedleBat NEEDLE_BAT;
-    public static String NEEDLE_BAT_DISPLAYNAME = "Syringe of Bat DNA";
     public static String NEEDLE_BAT_INTERNALNAME = "needleBat";
 
     // -------------------

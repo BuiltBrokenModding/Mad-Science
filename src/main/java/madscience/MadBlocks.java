@@ -10,7 +10,6 @@ import net.minecraft.block.BlockContainer;
 public class MadBlocks
 {
     public static Block ABOMINATIONEGGBLOCK;
-    public static final String ABOMINATIONEGG_DISPLAYNAME = "Abomination Egg";
     public static final String ABOMINATIONEGG_INTERNALNAME = "abominationEgg";
     
     public static void createAbominationEgg(int blockID)

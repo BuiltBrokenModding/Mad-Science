@@ -8,7 +8,6 @@ public class NeedleWolf extends ItemDecayNeedle
     public NeedleWolf(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        // TODO Auto-generated constructor stub
     }
 
 }

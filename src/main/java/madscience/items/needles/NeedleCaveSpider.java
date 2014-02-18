@@ -8,6 +8,5 @@ public class NeedleCaveSpider extends ItemDecayNeedle
     public NeedleCaveSpider(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        // TODO Auto-generated constructor stub
     }
 }

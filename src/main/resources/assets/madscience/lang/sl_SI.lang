@@ -16,6 +16,7 @@ tile.dataDuplicator.name=Podvojevalnik Spominskih Trakov
 tile.maddna.name=Tekoč DNK
 tile.maddnamutant.name=Tekoč Mutiran DNK
 tile.abominationEgg.name=Jajce Grozote
+tile.soniclocator.name=Soniclocator Device
 # GMO Mobs
 entity.gmoWerewolf.name=Ustvari Volkodlaka
 entity.gmoCreeperCow.name=Ustvari Creeper Kravo
