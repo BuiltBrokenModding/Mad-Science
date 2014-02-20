@@ -2,6 +2,7 @@ package madscience.mobs.abomination;
 
 import java.util.Random;
 
+import madscience.MadConfig;
 import madscience.MadSounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -411,6 +412,11 @@ public class AbominationMobEntity extends EntityMob
     /** Teleport the enderman to a random nearby position */
     protected boolean teleportRandomly()
     {
+        if (!MadConfig.ABOMINATION_TELEPORTS)
+        {
+            return false;
+        }
+        
         double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
         double d1 = this.posY + (this.rand.nextInt(64) - 32);
         double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
@@ -420,6 +426,11 @@ public class AbominationMobEntity extends EntityMob
     /** Teleport the enderman */
     protected boolean teleportTo(double par1, double par3, double par5)
     {
+        if (!MadConfig.ABOMINATION_TELEPORTS)
+        {
+            return false;
+        }
+        
         EnderTeleportEvent event = new EnderTeleportEvent(this, par1, par3, par5, 0);
         if (MinecraftForge.EVENT_BUS.post(event))
         {
@@ -498,6 +509,11 @@ public class AbominationMobEntity extends EntityMob
     /** Teleport the enderman to another entity */
     protected boolean teleportToEntity(Entity par1Entity)
     {
+        if (!MadConfig.ABOMINATION_TELEPORTS)
+        {
+            return false;
+        }
+        
         Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX - par1Entity.posX, this.boundingBox.minY + this.height / 2.0F - par1Entity.posY + par1Entity.getEyeHeight(), this.posZ - par1Entity.posZ);
         vec3 = vec3.normalize();
         double d0 = 16.0D;

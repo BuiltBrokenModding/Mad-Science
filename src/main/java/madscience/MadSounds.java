@@ -120,11 +120,14 @@ public class MadSounds
     public static final String DATADUPLICATOR_START = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Start";
     
     // Soniclocator Device
-    public static final String SONICLOCATOR_WORK = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Work";
     public static final String SONICLOCATOR_PLACE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Place";
     public static final String SONICLOCATOR_IDLE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Idle";
+    public static final String SONICLOCATOR_IDLECHARGED = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".IdleCharged";
     public static final String SONICLOCATOR_FINISH = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Finish";
     public static final String SONICLOCATOR_EMPTY = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Empty";
+    public static final String SONICLOCATOR_THUMP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Thump";
+    public static final String SONICLOCATOR_THUMPCHARGE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpCharge";
+    public static final String SONICLOCATOR_THUMPSTART = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpStart";
 
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
@@ -416,6 +419,9 @@ public class MadSounds
             // Idle
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Idle.ogg");
             
+            // Idle Charged
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/IdleCharged.ogg");
+            
             // Work
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Work1.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Work2.ogg");
@@ -428,7 +434,16 @@ public class MadSounds
             
             // Finish
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Finish.ogg");
-
+            
+            // Thump
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump1.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump2.ogg");
+            
+            // Thump Charge
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/ThumpCharge.ogg");
+            
+            // Thump Start
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/ThumpStart.ogg");
         }
         catch (Exception err)
         {

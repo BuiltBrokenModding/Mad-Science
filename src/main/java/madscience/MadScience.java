@@ -282,6 +282,7 @@ public class MadScience
         MadFurnaces.createThermosonicBonderTileEntity(MadConfig.THERMOSONIC);
         MadFurnaces.createDataReelDuplicatorTileEntity(MadConfig.DATADUPLICATOR);
         MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
+        MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
 
         // --------------------
         // MONSTER PLACER ITEMS

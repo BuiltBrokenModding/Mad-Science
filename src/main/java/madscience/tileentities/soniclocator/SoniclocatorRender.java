@@ -274,7 +274,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
                 if (model.Thumper1.offsetY < thumperYCoord)
                 {
                     model.Thumper1.offsetY += 0.03F;
-                    MadScience.logger.info("THUMPERS: " + model.Thumper1.offsetY + " / " + thumperYCoord);
+                    //MadScience.logger.info("THUMPERS: " + model.Thumper1.offsetY + " / " + thumperYCoord);
                 }
                 else if (model.Thumper1.offsetY > thumperYCoord)
                 {

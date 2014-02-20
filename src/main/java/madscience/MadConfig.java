@@ -622,6 +622,10 @@ public class MadConfig
     public static @CfgEnergy long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
     public static @CfgEnergy long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    
+    // Soniclocator 'Ghost Block'
+    public final static int SONICLOCATORGHOST_DEFAULT = ++madBlockIDs;
+    public static @CfgId(block = true) int SONICLOCATOREGHOST = SONICLOCATORGHOST_DEFAULT;
 
     // -----------------
     // FLUID DECLARATION
@@ -649,6 +653,12 @@ public class MadConfig
     // ----------------
     // FEATURE SWITCHES
     // ----------------
+    
+    // Determines if 'The Abomination' should lay eggs.
+    public static @CfgBool boolean ABOMINATION_LAYSEGGS = true;
+    
+    // Determines if 'The Abomination' is allowed to teleport.
+    public static @CfgBool boolean ABOMINATION_TELEPORTS = true;
     
     // Needles decay into dirty ones. 
     public static @CfgBool boolean DECAY_BLOODWORK = true;

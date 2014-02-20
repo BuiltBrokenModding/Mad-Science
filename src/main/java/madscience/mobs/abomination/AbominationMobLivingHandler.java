@@ -1,6 +1,7 @@
 package madscience.mobs.abomination;
 
 import madscience.MadBlocks;
+import madscience.MadConfig;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -11,6 +12,12 @@ public class AbominationMobLivingHandler
     public void onEntityLivingDeath(LivingDeathEvent event)
     {
         if (event.entityLiving.worldObj.isRemote)
+        {
+            return;
+        }
+        
+        // Only lay eggs if our config files allow it.
+        if (!MadConfig.ABOMINATION_LAYSEGGS)
         {
             return;
         }

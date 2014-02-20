@@ -3,5 +3,5 @@ echo  ================================
 echo  CONFIGURES ECLIPSE PROJECT FILES
 echo  ================================
 pause
-gradlew setupDevWorkspace eclipse
+gradlew --refresh-dependencies setupDevWorkspace eclipse
 pause

@@ -24,6 +24,7 @@ import madscience.tileentities.sanitizer.SanitizerEntity;
 import madscience.tileentities.sequencer.SequencerBlock;
 import madscience.tileentities.sequencer.SequencerEntity;
 import madscience.tileentities.soniclocator.SoniclocatorBlock;
+import madscience.tileentities.soniclocator.SoniclocatorBlockGhost;
 import madscience.tileentities.soniclocator.SoniclocatorEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderBlock;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
@@ -92,6 +93,10 @@ public class MadFurnaces
     // Soniclocator Device
     public static BlockContainer SONICLOCATOR_TILEENTITY;
     public static final String SONICLOCATOR_INTERNALNAME = "soniclocator";
+    
+    // Soniclocator 'Ghost Block'
+    public static Block SONICLOCATORGHOST;
+    public static final String SONICLOCATORGHOST_INTERNALNAME = "ghostSoniclocator";    
     
     // Meat Cube [Slime + Cow,Pig,Chicken]
     public static BlockContainer MEATCUBE_TILEENTITY;
@@ -424,13 +429,13 @@ public class MadFurnaces
         });
     }
 
-	public static void createSoniclocatorTileEntity(int blockID) 
-	{
-		// Transposes block types in exchange for others using sonic waves.
+    public static void createSoniclocatorTileEntity(int blockID) 
+    {
+	// Transposes block types in exchange for others using sonic waves.
         SONICLOCATOR_TILEENTITY = (BlockContainer) new SoniclocatorBlock(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
         GameRegistry.registerBlock(SONICLOCATOR_TILEENTITY, MadScience.ID + SONICLOCATOR_TILEENTITY.getUnlocalizedName().substring(5));
         GameRegistry.registerTileEntity(SoniclocatorEntity.class, SONICLOCATOR_TILEENTITY.getUnlocalizedName());
-
+    
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
         
@@ -438,5 +443,12 @@ public class MadFurnaces
         MadScience.proxy.registerRenderingHandler(blockID);
         
         // TODO: Add recipe for Soniclocator.
-	}
+    }
+
+    public static void createSoniclocatorGhostTileEntity(int blockID)
+    {
+        // Acts as a collision box for upper two blocks of Soniclocator device.
+        SONICLOCATORGHOST = (Block) new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
+        GameRegistry.registerBlock(SONICLOCATORGHOST, MadScience.ID + SONICLOCATORGHOST.getUnlocalizedName().substring(5));
+    }
 }

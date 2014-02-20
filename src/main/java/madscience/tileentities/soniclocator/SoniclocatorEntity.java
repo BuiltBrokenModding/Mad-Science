@@ -173,14 +173,18 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             {
                 if (l.get(i) instanceof EntityLivingBase)
                 {
+                    // Players
                     EntityLivingBase x = (EntityLivingBase) l.get(i);
                     if (x != null)
                     {
                         x.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
+                        x.addPotionEffect(new PotionEffect(Potion.blindness.id, 60));
+                        x.addPotionEffect(new PotionEffect(Potion.confusion.id, 200));
                     }
                 }
                 else if (l.get(i) instanceof EntityLiving)
                 {
+                    // Mobs
                     EntityLiving x = (EntityLiving) l.get(i);
                     if (x != null)
                     {
@@ -412,12 +416,6 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         }
 
         return false;
-    }
-
-    public boolean isHeated()
-    {
-        // Returns true if the heater has reached it's optimal temperature.
-        return this.getHeatAmount() >= this.getMaxHeatAmount();
     }
 
     /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
@@ -660,12 +658,18 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             lastKnownNumberOfTargets = 0;
             return;
         }
+        
+        // First sound is of the thump releasing all the energy in the machine.
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMP, 1.0F, 1.0F);
 
         // Apply wither effect to players and hurt non-players.
         damageNearbyCreatures(16);
         
         // Remove all internal energy from the device.
-        this.setEnergy(ForgeDirection.UNKNOWN, 0);
+        if (this.getEnergy(ForgeDirection.UNKNOWN) > 0)
+        {
+            this.consumeEnergy(this.getEnergy(ForgeDirection.UNKNOWN) / 2);
+        }
 
         // Add target block to output slot 1.
         if (this.soniclocatorOutput[0] == null)
@@ -738,7 +742,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             curFrame = 0;
             soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
         }
-        else if (!canSmelt() && isPowered() && isRedstonePowered() && !isEmptyTargetList() && !cooldownMode)
+        else if (!canSmelt() && isPowered() && isRedstonePowered() && !cooldownMode)
         {
             // Powered up, heater on. Just nothing inside of me!
             if (curFrame <= 8 && worldObj.getWorldTime() % 5L == 0L)
@@ -779,11 +783,6 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             // Normal consumption rate while powered.
             this.consumeEnergy(MadConfig.SONICLOCATOR_CONSUME);
         }
-        else if (this.canSmelt() && this.isPowered() && this.isRedstonePowered())
-        {
-            // Working consumption rate is multiplied by factor of two.
-            this.consumeEnergy(MadConfig.SONICLOCATOR_CONSUME * 2);
-        }
 
         // Update status of the machine if it has redstone power or not.
         checkRedstonePower();
@@ -802,7 +801,9 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                 this.isPowered() && !isEmptyTargetList() && !cooldownMode)
             {
                 // Start the powerup sound.
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_WORK, 1.0F, 1.0F);
+                //this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_WORK, 1.0F, 1.0F);
+                
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPSTART, 1.0F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentHeatValue++;
@@ -856,6 +857,18 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2.3f) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_IDLE, 1.0F, 1.0F);
+        }
+        
+        // Check if we should be changing pitch and volume of idle charging sound.
+        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !this.isEmptyTargetList() && !cooldownMode && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.7f) == 0L)
+        {
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_IDLECHARGED, (this.currentHeatValue * 0.1f), (this.currentHeatValue * 0.1f));
+        }
+        
+        // Check if we should be playing the thumper charging sound.
+        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !cooldownMode && !this.isEmptyTargetList() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+        {
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPCHARGE, 1.0F, 1.0F);
         }
     }
 
