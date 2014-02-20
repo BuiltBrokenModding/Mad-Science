@@ -10,9 +10,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class SoniclocatorSlotOutput extends Slot
 {
+    private int field_75228_b;
     /** The player that is using the GUI where this slot resides. */
     private EntityPlayer thePlayer;
-    private int field_75228_b;
 
     public SoniclocatorSlotOutput(EntityPlayer par1EntityPlayer, IInventory par2IInventory, int par3, int par4, int par5)
     {

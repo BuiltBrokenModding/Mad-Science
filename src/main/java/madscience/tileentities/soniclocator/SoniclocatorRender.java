@@ -25,8 +25,14 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
 {
     private enum TransformationTypes
     {
-        NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
+        DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
+
+    // Refers to location in asset folder with other textures and sounds.
+    private ResourceLocation defaultSoniclocatorTexture = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png");
+
+    // Tile entity that does all the work for this instance of the block.
+    private SoniclocatorEntity lastPlacedTileEntity;
 
     // The model of your block
     private SoniclocatorModel model;
@@ -34,15 +40,18 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
     // Unique ID for our model to render in the world.
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
-    // Tile entity that does all the work for this instance of the block.
-    private SoniclocatorEntity lastPlacedTileEntity;
+    // Maximum amount that we can move on the Y axis.
+    private float thumperCeiling;
 
-    // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation defaultSoniclocatorTexture = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png");
+    // Default Y coordinate for thumper piles.
+    private float thumperYCoord = 0.0F;
 
     public SoniclocatorRender()
     {
         this.model = new SoniclocatorModel();
+
+        // Used as base reference for pile position.
+        thumperYCoord = this.model.Thumper1.offsetY;
     }
 
     @Override
@@ -227,6 +236,72 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         // Flips the model around so it is not upside-down.
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
         GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
+
+        if (lastPlacedTileEntity != null)
+        {
+            // Calculate maximum possible ceiling for all thumper.
+            thumperCeiling = lastPlacedTileEntity.currentHeatMaximum * 0.003F;
+            
+            if (lastPlacedTileEntity.currentHeatValue > 0)
+            {
+                // Thumper Pile 1
+                if (Math.abs(model.Thumper1.offsetY) < thumperCeiling && lastPlacedTileEntity.currentHeatValue > 0)
+                {
+                    model.Thumper1.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
+                    //MadScience.logger.info("THUMPER1: " + Math.abs(model.Thumper1.offsetY) + " / " + thumperCeiling);
+                }
+    
+                // Thumper Pile 2
+                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling &&
+                    Math.abs(model.Thumper2.offsetY) < thumperCeiling)
+                {
+                    model.Thumper2.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
+                    //MadScience.logger.info("THUMPER2: " + Math.abs(model.Thumper2.offsetY) + " / " + thumperCeiling);
+                }
+    
+                // Thumper Pile 3
+                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling &&
+                    Math.abs(model.Thumper2.offsetY) >= thumperCeiling &&
+                    Math.abs(model.Thumper3.offsetY) < thumperCeiling)
+                {
+                    model.Thumper3.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
+                    //MadScience.logger.info("THUMPER3: " + Math.abs(model.Thumper3.offsetY) + " / " + thumperCeiling);
+                }
+            }
+            else
+            {
+                // Thumper 1 Smash!
+                if (model.Thumper1.offsetY < thumperYCoord)
+                {
+                    model.Thumper1.offsetY += 0.03F;
+                    MadScience.logger.info("THUMPERS: " + model.Thumper1.offsetY + " / " + thumperYCoord);
+                }
+                else if (model.Thumper1.offsetY > thumperYCoord)
+                {
+                    model.Thumper1.offsetY = thumperYCoord;
+                }
+                
+                // Thumper 2 Smash!
+                if (model.Thumper2.offsetY < thumperYCoord)
+                {
+                    model.Thumper2.offsetY += 0.03F;
+                }
+                else if (model.Thumper2.offsetY > thumperYCoord)
+                {
+                    model.Thumper2.offsetY = thumperYCoord;
+                }
+                
+                // Thumper 3 Smash!
+                if (model.Thumper3.offsetY < thumperYCoord)
+                {
+                    model.Thumper3.offsetY += 0.03F;
+                }
+                else if (model.Thumper3.offsetY > thumperYCoord)
+                {
+                    model.Thumper3.offsetY = thumperYCoord;
+                }
+            }
+        }
 
         // A reference to your Model file. Again, very important.
         this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);

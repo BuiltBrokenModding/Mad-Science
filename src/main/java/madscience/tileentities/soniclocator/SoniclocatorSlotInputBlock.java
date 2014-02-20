@@ -11,7 +11,7 @@ public class SoniclocatorSlotInputBlock extends Slot
     {
         super(inv, index, x, y);
     }
-    
+
     @Override
     public int getSlotStackLimit()
     {
@@ -21,7 +21,7 @@ public class SoniclocatorSlotInputBlock extends Slot
 
     @Override
     public boolean isItemValid(ItemStack stack)
-    {        
+    {
         // Check if the target block is indeed a block.
         ItemStack compareChucnkItem = new ItemStack(Block.blocksList[stack.getItem().itemID]);
         if (stack != null && compareChucnkItem.isItemEqual(stack))

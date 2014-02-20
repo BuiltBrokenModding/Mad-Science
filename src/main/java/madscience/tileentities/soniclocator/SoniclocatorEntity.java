@@ -14,7 +14,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -22,49 +21,57 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 {
-    public SoniclocatorEntity()
-    {
-        super(MadConfig.SONICLOCATOR_CAPACTITY, MadConfig.SONICLOCATOR_INPUT);
-    }
-
-    private static final int[] slots_top = new int[]
-    { 0 };
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
+
     private static final int[] slots_sides = new int[]
     { 1 };
-
-    /** The ItemStacks that hold the items currently being used in the furnace */
-    private ItemStack[] soniclocatorOutput = new ItemStack[1];
-
-    private ItemStack[] soniclocatorInput = new ItemStack[2];
-
-    /** Current level of heat that the machine has accumulated while powered and active. */
-    public int currentHeatValue;
-
-    /** Maximum allowed heat value and also when the machine is considered ready. */
-    public int currentHeatMaximum = 1000;
-
+    private static final int[] slots_top = new int[]
+    { 0 };
     /** Random number generator used to spit out food stuffs. */
     public Random animRand = new Random();
-
-    /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
-
-    /** Current frame of animation we should use to display in world. */
-    public int curFrame;
 
     /** Name to display on inventory screen. */
     private String containerCustomName;
 
+    /** Current frame of animation we should use to display in world. */
+    public int curFrame;
+
+    /** Maximum allowed heat value and also when the machine is considered ready. */
+    public int currentHeatMaximum = 400;
+
+    /** Current level of heat that the machine has accumulated while powered and active. */
+    public int currentHeatValue;
+
+    /** Stores last known amount of targets this machine found, used for determining empty status */
+    public long lastKnownNumberOfTargets = 0;
+
+    /** Stores total number of thumps this machine has made, used for determining empty status */
+    public long lastKnownNumberOfTotalThumps = 0;
+
+    /** Determines if we currently should be playing animation frames every tick or not. */
+    public boolean shouldPlay;
+
+    private ItemStack[] soniclocatorInput = new ItemStack[2];
+
+    /** The ItemStacks that hold the items currently being used in the furnace */
+    private ItemStack[] soniclocatorOutput = new ItemStack[1];
+
     /** Texture that should be displayed on our model. */
     public String soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+    
+    /** Server only variable that determines if we are in cooldown mode */
+    public boolean cooldownMode = false;
+
+    public SoniclocatorEntity()
+    {
+        super(MadConfig.SONICLOCATOR_CAPACTITY, MadConfig.SONICLOCATOR_INPUT);
+    }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -73,12 +80,10 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // Extract output from the bottom of the block.
         if (slot == 3 && ForgeDirection.getOrientation(side) == ForgeDirection.WEST)
         {
-            // Empty water bucket.
             return true;
         }
         else if (slot == 4 && ForgeDirection.getOrientation(side) == ForgeDirection.WEST)
         {
-            // Clean needle.
             return true;
         }
 
@@ -148,6 +153,49 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     {
     }
 
+    public void damageNearbyCreatures(int range)
+    {
+        double px = this.xCoord;
+        double py = this.yCoord;
+        double pz = this.zCoord;
+
+        List l = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(px - range, py - range, pz - range, px + range, py + range, pz + range));
+
+        if (l != null && l.isEmpty())
+        {
+            // MadScience.logger.info("No nearby players detected!");
+            return;
+        }
+
+        for (int i = 0; i < l.size(); ++i)
+        {
+            try
+            {
+                if (l.get(i) instanceof EntityLivingBase)
+                {
+                    EntityLivingBase x = (EntityLivingBase) l.get(i);
+                    if (x != null)
+                    {
+                        x.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
+                    }
+                }
+                else if (l.get(i) instanceof EntityLiving)
+                {
+                    EntityLiving x = (EntityLiving) l.get(i);
+                    if (x != null)
+                    {
+                        x.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+                MadScience.logger.info("Attempted to poison living creature and failed!");
+            }
+        }
+    }
+
     private ItemStack DecreaseInputSlot(int slot, int numItems)
     {
         // Removes items from input slot 1 or 2.
@@ -204,17 +252,17 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     {
         if (slot == 0)
         {
-            // Input stack 1 - Water bucket.
+            // Input stack 1
             return DecreaseInputSlot(0, numItems);
         }
         else if (slot == 1)
         {
-            // Input stack 2 - Dirty needle.
+            // Input stack 2
             return DecreaseInputSlot(1, numItems);
         }
         else if (slot == 2)
         {
-            // Output stack 1 - Empty bucket.
+            // Output stack 1
             return DecreaseOutputSlot(0, numItems);
         }
 
@@ -286,12 +334,12 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     {
         if (slot == 0)
         {
-            // Input slot 1 - DNA Samples.
+            // Input slot 1 - Block of gravel.
             return this.soniclocatorInput[0];
         }
         else if (slot == 1)
         {
-            // Input slot 2 - Empty of uncompleted genome data reels.
+            // Input slot 2 - Target block we want to locate in the chunk.
             return this.soniclocatorInput[1];
         }
         else if (slot == 2)
@@ -345,6 +393,27 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         return null;
     }
 
+    @Override
+    public void initiate()
+    {
+        // Ensure the class below us is called.
+        super.initiate();
+
+        // Sound that is played when we are placed into the world.
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_PLACE, 1.0F, 1.0F);
+    }
+
+    public boolean isEmptyTargetList()
+    {
+        // Check if we are unable to locate any more target materials in this chunk.
+        if (lastKnownNumberOfTotalThumps > 0 && lastKnownNumberOfTargets <= 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean isHeated()
     {
         // Returns true if the heater has reached it's optimal temperature.
@@ -362,11 +431,11 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack items)
     {
-        // Check if input slot 1 is a fresh egg ready to be encoded.
+        // Check if input slot 1 is a block of gravel ready to replace target block.
         if (slot == 0)
         {
-            // Input slot 1 - fresh egg.
-            ItemStack compareItem = new ItemStack(Item.egg);
+            // Input slot 1 - Gravel.
+            ItemStack compareItem = new ItemStack(Block.gravel);
             if (compareItem.isItemEqual(items))
             {
                 return true;
@@ -376,21 +445,95 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         return false;
     }
 
-    @Override
-    public void initiate()
-    {
-        // Ensure the class below us is called.
-        super.initiate();
-
-        // Sound that is played when we are placed into the world.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_PLACE, 1.0F, 1.0F);
-    }
-
     /** Do not make give this method the name canInteractWith because it clashes with Container */
     @Override
     public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
     {
         return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+    }
+
+    private ItemStack locateTargetBlock(ItemStack targetItem, ItemStack replacementItem)
+    {
+        // Skip client worlds.
+        if (worldObj.isRemote)
+        {
+            return null;
+        }
+
+        Chunk chunk = worldObj.getChunkFromBlockCoords(xCoord, zCoord);
+
+        // If we cannot find the chunk then return nothing.
+        if (chunk == null)
+        {
+            return null;
+        }
+
+        // Create a temporary list to let us sort through the number of targets.
+        List<SoniclocatorTargetBlock> targetList = new ArrayList<SoniclocatorTargetBlock>();
+
+        // Loop through chunk we are in looking for target block(s).
+        for (int i = 0; i < 16; ++i)
+        {
+            for (int j = 0; j < 16; ++j)
+            {
+                for (int k = 0; k < 16; ++k)
+                {
+                    int l = 0;
+                    try
+                    {
+                        l = chunk.getBlockID(i, j, k);
+                        if (l > 0)
+                        {
+                            // Valid block, check if equal to target block.
+                            ItemStack compareChunkItem = new ItemStack(Block.blocksList[l]);
+                            if (compareChunkItem.isItemEqual(targetItem))
+                            {
+                                // Located a target block.
+                                int targetX = (i);
+                                int targetY = (j);
+                                int targetZ = (k);
+
+                                // Convert chunk-coords into global-coords via bitshifting.
+                                int targetXGlobal = chunk.xPosition * 16 + targetX;
+                                int targetZGlobal = chunk.zPosition * 16 + targetZ;
+
+                                // Add the processed item to our list for processing outside this loop.
+                                targetList.add(new SoniclocatorTargetBlock(targetXGlobal, targetY, targetZGlobal, compareChunkItem));
+                            }
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        continue;
+                    }
+                }
+            }
+        }
+
+        // Increase the number of thumps that we have done.
+        lastKnownNumberOfTotalThumps++;
+
+        // No point in moving forward if there is no data to process...
+        if (targetList.size() <= 0)
+        {
+            // Zero our the target list so we can keep track of an empty state in clean way.
+            //MadScience.logger.info("No targets found in this chunk or we have eaten them all!");
+            lastKnownNumberOfTargets = 0;
+            return null;
+        }
+
+        // Alter the number of located targets from zero to something else.
+        lastKnownNumberOfTargets = targetList.size();
+
+        // If we have more than one item we can randomly pick which one to take so it's not predictable.
+        // Note: Fox magic occurred here!
+        SoniclocatorTargetBlock value = targetList.get(worldObj.rand.nextInt(targetList.size()));
+
+        // Update the lighting engine about our changes to the chunk.
+        worldObj.setBlock(value.targetX, value.targetY, value.targetZ, replacementItem.itemID, 0, 3);
+        worldObj.updateAllLightTypes(value.targetX, value.targetY, value.targetZ);
+        worldObj.markBlockForUpdate(value.targetX, value.targetY, value.targetZ);
+        return value.foundItem;
     }
 
     @Override
@@ -448,10 +591,17 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // Path to current texture what should be loaded onto the model.
         this.soniclocatorTexture = nbt.getString("TexturePath");
 
+        // Custom name from anvil.
         if (nbt.hasKey("CustomName"))
         {
             this.containerCustomName = nbt.getString("CustomName");
         }
+
+        // Number of targets known.
+        this.lastKnownNumberOfTargets = nbt.getLong("lastKnownNumberOfTargets");
+
+        // Total number of thumps we have performed.
+        this.lastKnownNumberOfTotalThumps = nbt.getLong("lastKnownNumberOfTotalThumps");
     }
 
     /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
@@ -473,6 +623,10 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     @Override
     public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
     {
+        // Reset the internal counters for thumper control since internal items have been messed with.
+        lastKnownNumberOfTargets = 0;
+        lastKnownNumberOfTotalThumps = 0;
+
         if (par1 == 0)
         {
             this.soniclocatorInput[0] = par2ItemStack;
@@ -501,11 +655,17 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_BREAK, 1.0F, 1.0F);
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
+
+            // We have no targets to find!
+            lastKnownNumberOfTargets = 0;
             return;
         }
 
         // Apply wither effect to players and hurt non-players.
         damageNearbyCreatures(16);
+        
+        // Remove all internal energy from the device.
+        this.setEnergy(ForgeDirection.UNKNOWN, 0);
 
         // Add target block to output slot 1.
         if (this.soniclocatorOutput[0] == null)
@@ -527,150 +687,79 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_FINISH, 1.0F, 1.0F);
     }
 
-    public void damageNearbyCreatures(int range)
-    {
-        double px = this.xCoord;
-        double py = this.yCoord;
-        double pz = this.zCoord;
-
-        List l = this.worldObj.getEntitiesWithinAABBExcludingEntity(null, 
-                AxisAlignedBB.getBoundingBox(px - range, py - range, pz - range, px + range, py + range, pz + range));
-
-        if (l != null && l.isEmpty())
-        {
-            //MadScience.logger.info("No nearby players detected!");
-            return;
-        }
-
-        for (int i = 0; i < l.size(); ++i)
-        {
-            try
-            {
-                if (l.get(i) instanceof EntityLivingBase)
-                {
-                    EntityLivingBase x = (EntityLivingBase) l.get(i);
-                    if (x != null)
-                    {
-                        x.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
-                    }
-                }
-                else if (l.get(i) instanceof EntityLiving)
-                {
-                    EntityLiving x = (EntityLiving) l.get(i);
-                    if (x != null)
-                    {
-                        x.addPotionEffect(new PotionEffect(Potion.wither.id, 200));
-                    }
-                }
-
-            }
-            catch (Exception err)
-            {
-                MadScience.logger.info("Attempted to poison living creature and failed!");
-            }
-        }
-    }
-
-    private ItemStack locateTargetBlock(ItemStack targetItem, ItemStack replacementItem)
-    {
-        // Skip client worlds.
-        if (worldObj.isRemote)
-        {
-            return null;
-        }
-
-        Chunk chunk = worldObj.getChunkFromBlockCoords(xCoord, zCoord);
-
-        // If we cannot find the chunk then return nothing.
-        if (chunk == null)
-        {
-            return null;
-        }
-
-        // Loop through chunk we are in looking for target block(s).
-        for (int i = 0; i < 16; ++i)
-        {
-            for (int j = 0; j < 16; ++j)
-            {
-                for (int k = 0; k < 16; ++k)
-                {
-                    int l = 0;
-                    try
-                    {
-                        l = chunk.getBlockID(i, j, k);
-                        if (l > 0)
-                        {
-                            // Valid block, check if equal to target block.
-                            ItemStack compareChunkItem = new ItemStack(Block.blocksList[l]);
-                            if (compareChunkItem.isItemEqual(targetItem))
-                            {
-                                // Located a target block.
-                                int targetX = (i);
-                                int targetY = (j);
-                                int targetZ = (k);
-
-                                // Convert chunk-coords into global-coords via bitshifting.
-                                int targetXGlobal = chunk.xPosition * 16 + targetX;
-                                int targetZGlobal = chunk.zPosition * 16 + targetZ;
-                                MadScience.logger.info("Target Block: " + String.valueOf(targetXGlobal) + "x" + String.valueOf(targetY) + "x" + String.valueOf(targetZGlobal));
-
-                                // Update the lighting engine about our changes to the chunk.
-                                worldObj.setBlock(targetXGlobal, targetY, targetZGlobal, replacementItem.itemID, 0, 3);
-                                worldObj.updateAllLightTypes(targetXGlobal, targetY, targetZGlobal);
-                                worldObj.markBlockForUpdate(targetXGlobal, targetY, targetZGlobal);
-
-                                // Return the ItemStack that we found!
-                                return compareChunkItem;
-                            }
-                        }
-                    }
-                    catch (Exception err)
-                    {
-                        continue;
-                    }
-                }
-            }
-        }
-
-        // Default response is we don't find our target item and there is a state for this (empty).
-        return null;
-    }
-
-    /**
-     * 
-     */
+    /** Update current frame of animation we should be displaying. */
     private void updateAnimation()
     {
-        // Main state is when all four requirements have been met to cook items.
-        if (canSmelt() && isPowered() && isRedstonePowered())
+        // Cooldown mode that is fired after a thump.
+        if (canSmelt() && isPowered() && isRedstonePowered() && cooldownMode)
         {
-            if (curFrame <= 4 && worldObj.getWorldTime() % 5L == 0L)
+            if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            {
+                if (curFrame >= 5)
+                {
+                    // Check if we have exceeded the ceiling and need to reset.
+                    cooldownMode = false;
+                    curFrame = 4;
+                    currentHeatValue = 0;
+                }
+                
+                // Load this texture onto the entity.
+                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/cooldown" + curFrame + ".png";
+
+                // Update animation frame.
+                ++curFrame;
+                
+                // Keep the thumpers down!
+                currentHeatValue = 0;
+            }
+        }
+        else if (canSmelt() && isPowered() && isRedstonePowered() && isEmptyTargetList() && !cooldownMode)
+        {
+            // Powered, can smelt, but no targets so we enter empty status.
+            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
-                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/work_" + curFrame + ".png";
+                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
+            }
+            else
+            {
+                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/404.png";
+            }
+        }
+        else if (canSmelt() && isPowered() && isRedstonePowered() && !isEmptyTargetList() && !cooldownMode)
+        {
+            // Main state is when all four requirements have been met.
+            soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/charge" + this.getHeatLevelTimeScaled(13) + ".png";
+        }
+        else if (!canSmelt() && isPowered() && !isRedstonePowered())
+        {
+            // Has power but still no redstone signal.
+            currentHeatValue = 0;
+            curFrame = 0;
+            soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+        }
+        else if (!canSmelt() && isPowered() && isRedstonePowered() && !isEmptyTargetList() && !cooldownMode)
+        {
+            // Powered up, heater on. Just nothing inside of me!
+            if (curFrame <= 8 && worldObj.getWorldTime() % 5L == 0L)
+            {
+                // Load this texture onto the entity.
+                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
             }
-            else if (curFrame >= 5)
+            else if (curFrame >= 9)
             {
                 // Check if we have exceeded the ceiling and need to reset.
                 curFrame = 0;
             }
         }
-        else if (!canSmelt() && isPowered() && !isRedstonePowered())
-        {
-            // Has power but still no redstone signal.
-            soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
-        }
-        else if (!canSmelt() && isPowered() && isRedstonePowered())
-        {
-            // Powered up, heater on. Just nothing inside of me!
-            soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
-        }
         else if (!isRedstonePowered())
         {
             // Turned off.
+            currentHeatValue = 0;
+            curFrame = 0;
             soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
         }
     }
@@ -687,7 +776,13 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // Remove power from this device if we have some and also have heater enabled.
         if (this.isPowered() && this.isRedstonePowered())
         {
+            // Normal consumption rate while powered.
             this.consumeEnergy(MadConfig.SONICLOCATOR_CONSUME);
+        }
+        else if (this.canSmelt() && this.isPowered() && this.isRedstonePowered())
+        {
+            // Working consumption rate is multiplied by factor of two.
+            this.consumeEnergy(MadConfig.SONICLOCATOR_CONSUME * 2);
         }
 
         // Update status of the machine if it has redstone power or not.
@@ -703,18 +798,17 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             this.updateSound();
 
             // First tick for new item being cooked in furnace.
-            if (this.currentHeatValue == 0 && this.canSmelt() && this.isPowered())
+            if (this.currentHeatValue == 0 && this.canSmelt() &&
+                this.isPowered() && !isEmptyTargetList() && !cooldownMode)
             {
-                // We want the soniclocator to take the same amount of time between each pulse.
-                currentHeatMaximum = (MadScience.SECOND_IN_TICKS * 20);
-
                 // Start the powerup sound.
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_WORK, 1.0F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentHeatValue++;
             }
-            else if (this.currentHeatValue > 0 && this.canSmelt() && this.isPowered())
+            else if (this.currentHeatValue > 0 && this.canSmelt() &&
+                     this.isPowered() && !isEmptyTargetList() && !cooldownMode)
             {
                 // Run on server when we have items and electrical power.
                 // Note: This is the main work loop for the block!
@@ -728,6 +822,14 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                     // Convert one item into another via 'cooking' process.
                     this.currentHeatValue = 0;
                     this.smeltItem();
+                    
+                    // Turns on a cooldown mode that lasts for five seconds.
+                    cooldownMode = true;
+                    
+                    // Reset the animation counter so it starts at zero.
+                    curFrame = 0;
+                    
+                    // Yes minecraft, things have changed.
                     inventoriesChanged = true;
                 }
             }
@@ -739,7 +841,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
             // Update status of machine to all clients around us.
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new SoniclocatorPackets(this.xCoord, this.yCoord, this.zCoord, getEnergy(ForgeDirection.UNKNOWN),
-                    getEnergyCapacity(ForgeDirection.UNKNOWN), this.currentHeatValue, this.currentHeatMaximum, this.soniclocatorTexture).makePacket());
+                    getEnergyCapacity(ForgeDirection.UNKNOWN), this.currentHeatValue, this.currentHeatMaximum, this.lastKnownNumberOfTargets, this.lastKnownNumberOfTotalThumps, this.soniclocatorTexture).makePacket());
         }
 
         if (inventoriesChanged)
@@ -762,6 +864,12 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
+
+        // Last known number of targets.
+        nbt.setLong("lastKnownNumberOfTargets", this.lastKnownNumberOfTargets);
+
+        // Total number of thumps.
+        nbt.setLong("lastKnownNumberOfTotalThumps", this.lastKnownNumberOfTotalThumps);
 
         // Should play animation status.
         nbt.setBoolean("ShouldPlay", this.shouldPlay);

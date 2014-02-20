@@ -3,7 +3,6 @@ package madscience.tileentities.soniclocator;
 import java.util.List;
 import java.util.Random;
 
-import universalelectricity.api.UniversalElectricity;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -25,19 +24,20 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.api.UniversalElectricity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class SoniclocatorBlock extends BlockContainer
 {
-    // Is the random generator used by furnace to drop the inventory contents in
-    // random directions.
-    private final Random furnaceRand = new Random();
-
     // This flag is used to prevent the furnace inventory to be dropped upon
     // block removal, is used internally when the furnace block changes from
     // idle to active and vice-versa.
     private static boolean keepFurnaceInventory;
+
+    // Is the random generator used by furnace to drop the inventory contents in
+    // random directions.
+    private final Random furnaceRand = new Random();
 
     // Tile entity associated with our block.
     private SoniclocatorEntity lastPlacedTileEntity;
