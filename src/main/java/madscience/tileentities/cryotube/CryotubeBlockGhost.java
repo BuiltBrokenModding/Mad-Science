@@ -1,43 +1,38 @@
 package madscience.tileentities.cryotube;
 
-import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import universalelectricity.api.UniversalElectricity;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class CryotubeBlockGhost extends Block
 {
     public CryotubeBlockGhost(int blockID)
     {
         // 'Ghost' block for Cryotube that serves as physics collision and proxy to GUI.
-        super(blockID, Material.rock);
-        
+        super(blockID, UniversalElectricity.machine);
+
         // Determines how many hits it takes to break the block.
         this.setHardness(3.5F);
 
         // Determines how resistant this block is to explosions.
         this.setResistance(2000.0F);
-        
+
         // Default 1x1x1 bounds that all point to the same type of block and open same GUI.
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void breakBlock(World world, int x, int y, int z, int blockID, int metadata)
     {
         // Breaks the main cryotube block which will destroy all of us!
@@ -50,7 +45,7 @@ public class CryotubeBlockGhost extends Block
             world.setBlockToAir(x, y - 2, z);
             break;
         }
-        
+
         super.breakBlock(world, x, y, z, blockID, metadata);
     }
 

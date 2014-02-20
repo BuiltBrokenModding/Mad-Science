@@ -92,7 +92,11 @@ public class MadScience
                 Class clazz = Class.forName("codechicken.nei.api.API");
                 Method m = clazz.getMethod("hideItem", Integer.TYPE);
 
+                // Cryotube Ghost Block.
                 m.invoke(null, MadFurnaces.CRYOTUBEGHOST.blockID);
+                
+                // Soniclocator Ghost Block.
+                m.invoke(null, MadFurnaces.SONICLOCATORGHOST.blockID);
             }
             catch (Throwable e)
             {

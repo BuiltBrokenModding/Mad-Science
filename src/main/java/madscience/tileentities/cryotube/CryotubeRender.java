@@ -25,20 +25,20 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
 {
     private enum TransformationTypes
     {
-        NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
+        DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
+
+    // Refers to location in asset folder with other textures and sounds.
+    private ResourceLocation cryotubeTextureDefault = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png");
+
+    // Tile Entity that our block inits.
+    private CryotubeEntity lastPlacedTileEntity;
 
     // The model of your block
     private CryotubeModel model;
 
     // Unique ID for our model to render in the world.
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
-
-    // Tile Entity that our block inits.
-    private CryotubeEntity lastPlacedTileEntity;
-
-    // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation cryotubeTextureDefault = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png");
 
     public CryotubeRender()
     {

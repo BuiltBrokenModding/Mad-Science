@@ -47,7 +47,7 @@ public class CryotubeGUI extends GuiContainer
         // ENERGY STORAGE
         // --------------
         int powerRemianingPercentage = this.tileEntity.getPowerRemainingScaled(32);
-        //MadScience.logger.info("POWER: " + powerRemianingPercentage);
+        // MadScience.logger.info("POWER: " + powerRemianingPercentage);
         // Screen Coords: 112x17
         // Filler Coords: 176x56
         // Image Size WH: 18x32

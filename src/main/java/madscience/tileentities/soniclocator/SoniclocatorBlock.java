@@ -57,24 +57,24 @@ public class SoniclocatorBlock extends BlockContainer
         this.setResistance(2000.0F);
 
         // Define how big this item is we make it same size as a default block.
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 3.0F, 1.0F);
     }
 
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */
     @Override
     public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
     {
-        // this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 3.0F, 1.0F);
         super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
     }
 
     /** Called on server worlds only when the block has been replaced by a different block ID, or the same block with a different metadata value, but before the new metadata value is set. Args: World, x, y, z, old block ID, old metadata */
     @Override
-    public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
+    public void breakBlock(World world, int x, int y, int z, int par5, int par6)
     {
         if (!keepFurnaceInventory)
         {
-            SoniclocatorEntity tileentityfurnace = (SoniclocatorEntity) par1World.getBlockTileEntity(par2, par3, par4);
+            SoniclocatorEntity tileentityfurnace = (SoniclocatorEntity) world.getBlockTileEntity(x, y, z);
 
             if (tileentityfurnace != null)
             {
@@ -98,7 +98,7 @@ public class SoniclocatorBlock extends BlockContainer
                             }
 
                             itemstack.stackSize -= k1;
-                            EntityItem entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
+                            EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
 
                             if (itemstack.hasTagCompound())
                             {
@@ -110,16 +110,49 @@ public class SoniclocatorBlock extends BlockContainer
                             entityitem.motionY = (float) this.furnaceRand.nextGaussian() * f3 + 0.2F;
                             entityitem.motionZ = (float) this.furnaceRand.nextGaussian() * f3;
 
-                            par1World.spawnEntityInWorld(entityitem);
+                            world.spawnEntityInWorld(entityitem);
                         }
                     }
                 }
 
-                par1World.func_96440_m(par2, par3, par4, par5);
+                world.func_96440_m(x, y, z, par5);
             }
         }
 
-        super.breakBlock(par1World, par2, par3, par4, par5, par6);
+        super.breakBlock(world, x, y, z, par5, par6);
+
+        // Break all the 'ghost blocks'
+        if (world.getBlockId(x, y + 1, z) == MadFurnaces.SONICLOCATORGHOST.blockID)
+        {
+            world.setBlockToAir(x, y + 1, z);
+        }
+
+        if (world.getBlockId(x, y + 2, z) == MadFurnaces.SONICLOCATORGHOST.blockID)
+        {
+            world.setBlockToAir(x, y + 2, z);
+        }
+    }
+
+    @Override
+    public boolean canBlockStay(World world, int x, int y, int z)
+    {
+        if (world.getBlockMaterial(x, y + 1, z).isSolid())
+        {
+            return false;
+        }
+
+        if (world.getBlockMaterial(x, y + 2, z).isSolid())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean canPlaceBlockAt(World world, int x, int y, int z)
+    {
+        return !super.canPlaceBlockAt(world, x, y, z) ? false : this.canBlockStay(world, x, y, z);
     }
 
     @Override
@@ -237,10 +270,17 @@ public class SoniclocatorBlock extends BlockContainer
     }
 
     @Override
-    public void onBlockAdded(World par1World, int par2, int par3, int par4)
+    public void onBlockAdded(World world, int x, int y, int z)
     {
-        super.onBlockAdded(par1World, par2, par3, par4);
-        this.setDefaultDirection(par1World, par2, par3, par4);
+        super.onBlockAdded(world, x, y, z);
+        this.setDefaultDirection(world, x, y, z);
+
+        if (!world.isRemote)
+        {
+            // Add 'ghost' blocks that makeup upper section of cryotube.
+            world.setBlock(x, y + 1, z, MadFurnaces.SONICLOCATORGHOST.blockID, 1, 3);
+            world.setBlock(x, y + 2, z, MadFurnaces.SONICLOCATORGHOST.blockID, 2, 3);
+        }
     }
 
     @Override

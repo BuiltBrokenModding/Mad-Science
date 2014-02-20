@@ -13,12 +13,14 @@ tile.cryoFreezer.name=Crogenic Freezer
 tile.genomeIncubator.name=Genome Incubator
 tile.meatCube.name=Disgusting Meat Cube
 tile.cryoTube.name=Cryogenic Tube
+tile.ghostCryoTube.name=Cryogenic Tube
 tile.thermosonicBonder.name=Thermosonic Bonder
 tile.dataDuplicator.name=Data Reel Duplicator
 tile.maddna.name=Liquid DNA
 tile.maddnamutant.name=Liquid Mutant DNA
 tile.abominationEgg.name=Abomination Egg
 tile.soniclocator.name=Soniclocator Device
+tile.ghostSoniclocator.name=Soniclocator Device
 
 # GMO Mobs
 entity.gmoWerewolf.name=Werewolf

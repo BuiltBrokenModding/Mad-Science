@@ -11,12 +11,14 @@ tile.cryoFreezer.name=Laboratorijski Zamrzovalnik
 tile.genomeIncubator.name=Genomski Inkubator
 tile.meatCube.name=Ogabna Kocka Mesa
 tile.cryoTube.name=Epruveta Za Zamrzovanje
+tile.ghostCryoTube.name=Epruveta Za Zamrzovanje
 tile.thermosonicBonder.name=Termozvočni Vezalec
 tile.dataDuplicator.name=Podvojevalnik Spominskih Trakov
 tile.maddna.name=Tekoč DNK
 tile.maddnamutant.name=Tekoč Mutiran DNK
 tile.abominationEgg.name=Jajce Grozote
 tile.soniclocator.name=Soniclocator Device
+tile.ghostSoniclocator.name=Soniclocator Device
 # GMO Mobs
 entity.gmoWerewolf.name=Ustvari Volkodlaka
 entity.gmoCreeperCow.name=Ustvari Creeper Kravo

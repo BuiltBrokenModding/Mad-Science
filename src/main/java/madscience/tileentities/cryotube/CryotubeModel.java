@@ -6,9 +6,9 @@ import net.minecraft.entity.Entity;
 
 public class CryotubeModel extends ModelBase
 {
+    ModelRenderer Base;
     // fields
     ModelRenderer Top;
-    ModelRenderer Base;
     ModelRenderer Tube1;
     ModelRenderer Tube2;
     ModelRenderer Tube3;

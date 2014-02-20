@@ -448,7 +448,7 @@ public class MadFurnaces
     public static void createSoniclocatorGhostTileEntity(int blockID)
     {
         // Acts as a collision box for upper two blocks of Soniclocator device.
-        SONICLOCATORGHOST = (Block) new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
+        SONICLOCATORGHOST = (Block) new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATORGHOST_INTERNALNAME);
         GameRegistry.registerBlock(SONICLOCATORGHOST, MadScience.ID + SONICLOCATORGHOST.getUnlocalizedName().substring(5));
     }
 }

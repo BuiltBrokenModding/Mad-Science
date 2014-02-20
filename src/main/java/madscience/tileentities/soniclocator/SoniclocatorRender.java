@@ -241,31 +241,28 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         {
             // Calculate maximum possible ceiling for all thumper.
             thumperCeiling = lastPlacedTileEntity.currentHeatMaximum * 0.003F;
-            
+
             if (lastPlacedTileEntity.currentHeatValue > 0)
             {
                 // Thumper Pile 1
                 if (Math.abs(model.Thumper1.offsetY) < thumperCeiling && lastPlacedTileEntity.currentHeatValue > 0)
                 {
                     model.Thumper1.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
-                    //MadScience.logger.info("THUMPER1: " + Math.abs(model.Thumper1.offsetY) + " / " + thumperCeiling);
+                    // MadScience.logger.info("THUMPER1: " + Math.abs(model.Thumper1.offsetY) + " / " + thumperCeiling);
                 }
-    
+
                 // Thumper Pile 2
-                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling &&
-                    Math.abs(model.Thumper2.offsetY) < thumperCeiling)
+                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling && Math.abs(model.Thumper2.offsetY) < thumperCeiling)
                 {
                     model.Thumper2.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
-                    //MadScience.logger.info("THUMPER2: " + Math.abs(model.Thumper2.offsetY) + " / " + thumperCeiling);
+                    // MadScience.logger.info("THUMPER2: " + Math.abs(model.Thumper2.offsetY) + " / " + thumperCeiling);
                 }
-    
+
                 // Thumper Pile 3
-                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling &&
-                    Math.abs(model.Thumper2.offsetY) >= thumperCeiling &&
-                    Math.abs(model.Thumper3.offsetY) < thumperCeiling)
+                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling && Math.abs(model.Thumper2.offsetY) >= thumperCeiling && Math.abs(model.Thumper3.offsetY) < thumperCeiling)
                 {
                     model.Thumper3.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
-                    //MadScience.logger.info("THUMPER3: " + Math.abs(model.Thumper3.offsetY) + " / " + thumperCeiling);
+                    // MadScience.logger.info("THUMPER3: " + Math.abs(model.Thumper3.offsetY) + " / " + thumperCeiling);
                 }
             }
             else
@@ -274,13 +271,13 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
                 if (model.Thumper1.offsetY < thumperYCoord)
                 {
                     model.Thumper1.offsetY += 0.03F;
-                    //MadScience.logger.info("THUMPERS: " + model.Thumper1.offsetY + " / " + thumperYCoord);
+                    // MadScience.logger.info("THUMPERS: " + model.Thumper1.offsetY + " / " + thumperYCoord);
                 }
                 else if (model.Thumper1.offsetY > thumperYCoord)
                 {
                     model.Thumper1.offsetY = thumperYCoord;
                 }
-                
+
                 // Thumper 2 Smash!
                 if (model.Thumper2.offsetY < thumperYCoord)
                 {
@@ -290,7 +287,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
                 {
                     model.Thumper2.offsetY = thumperYCoord;
                 }
-                
+
                 // Thumper 3 Smash!
                 if (model.Thumper3.offsetY < thumperYCoord)
                 {

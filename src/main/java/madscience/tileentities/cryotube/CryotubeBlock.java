@@ -3,14 +3,11 @@ package madscience.tileentities.cryotube;
 import java.util.List;
 import java.util.Random;
 
-import universalelectricity.api.UniversalElectricity;
-import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,22 +24,23 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.api.UniversalElectricity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class CryotubeBlock extends BlockContainer
 {
+    // This flag is used to prevent the furnace inventory to be dropped upon
+    // block removal, is used internally when the furnace block changes from
+    // idle to active and vice-versa.
+    private static boolean keepFurnaceInventory;
+
     // Is the random generator used by furnace to drop the inventory contents in
     // random directions.
     private final Random cryoTubeTileEntity = new Random();
 
     // Tile entity class that gets instanced in the world.
     private CryotubeEntity lastPlacedTileEntity;
-
-    // This flag is used to prevent the furnace inventory to be dropped upon
-    // block removal, is used internally when the furnace block changes from
-    // idle to active and vice-versa.
-    private static boolean keepFurnaceInventory;
 
     public CryotubeBlock(int id)
     {
@@ -128,17 +126,11 @@ public class CryotubeBlock extends BlockContainer
         {
             world.setBlockToAir(x, y + 1, z);
         }
-        
+
         if (world.getBlockId(x, y + 2, z) == MadFurnaces.CRYOTUBEGHOST.blockID)
         {
             world.setBlockToAir(x, y + 2, z);
         }
-    }
-
-    @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z)
-    {
-        return !super.canPlaceBlockAt(world, x, y, z) ? false : this.canBlockStay(world, x, y, z);
     }
 
     @Override
@@ -155,6 +147,12 @@ public class CryotubeBlock extends BlockContainer
         }
 
         return true;
+    }
+
+    @Override
+    public boolean canPlaceBlockAt(World world, int x, int y, int z)
+    {
+        return !super.canPlaceBlockAt(world, x, y, z) ? false : this.canBlockStay(world, x, y, z);
     }
 
     @Override
@@ -276,7 +274,7 @@ public class CryotubeBlock extends BlockContainer
     {
         super.onBlockAdded(world, x, y, z);
         this.setDefaultDirection(world, x, y, z);
-        
+
         if (!world.isRemote)
         {
             // Add 'ghost' blocks that makeup upper section of cryotube.

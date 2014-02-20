@@ -17,9 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -27,49 +24,49 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class CryotubeEntity extends MadTileEntity implements ISidedInventory, IInventory
 {
-    public CryotubeEntity()
-    {
-        super(MadConfig.CRYOTUBE_CAPACTITY, 0, MadConfig.CRYOTUBE_OUTPUT);
-    }
-
-    private static final int[] slots_top = new int[]
-    { 0 };
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
+
     private static final int[] slots_sides = new int[]
     { 1 };
+    private static final int[] slots_top = new int[]
+    { 0 };
+    /** Name to display on inventory screen. */
+    private String containerCustomName;
+
+    private ItemStack[] cryotubeInput = new ItemStack[3];
 
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] cryotubeOutput = new ItemStack[2];
 
-    private ItemStack[] cryotubeInput = new ItemStack[3];
-
-    /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    /** Path to texture that we would like displayed on this block. */
+    public String cryotubeTexture = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
 
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-    
-    /** Keeps track of what state we are supposed to be in. */
-    public boolean subjectIsAlive = false;
-    
-    // Hatch time.
-    public int hatchTimeMaximum;
     public int hatchTimeCurrentValue;
 
-    // Subject Health.
-    public int subjectMaximumHealth;
-    public int subjectCurrentHealth;
+    // Hatch time.
+    public int hatchTimeMaximum;
 
     // Subject Neural Activity.
     public int neuralActivityMaximum;
     public int neuralActivityValue;
-    
-    /** Path to texture that we would like displayed on this block. */
-    public String cryotubeTexture = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
+
+    /** Determines if we currently should be playing animation frames every tick or not. */
+    public boolean shouldPlay;
+    public int subjectCurrentHealth;
+
+    /** Keeps track of what state we are supposed to be in. */
+    public boolean subjectIsAlive = false;
+    // Subject Health.
+    public int subjectMaximumHealth;
+
+    public CryotubeEntity()
+    {
+        super(MadConfig.CRYOTUBE_CAPACTITY, 0, MadConfig.CRYOTUBE_OUTPUT);
+    }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -131,10 +128,9 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         {
             return false;
         }
-        
+
         // Check if we are full of rotten flesh.
-        if (cryotubeOutput != null && cryotubeOutput[1] != null 
-                && cryotubeOutput[1].stackSize >= cryotubeOutput[1].getMaxStackSize())
+        if (cryotubeOutput != null && cryotubeOutput[1] != null && cryotubeOutput[1].stackSize >= cryotubeOutput[1].getMaxStackSize())
         {
             return false;
         }
@@ -226,9 +222,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         }
     }
 
-    /**
-     * Places a rotton flesh in the output slot for that item.
-     */
+    /** Places a rotton flesh in the output slot for that item. */
     private void createRottenFlesh(int howManyRange)
     {
         // Add some rotten flesh into the output slot for it.
@@ -240,7 +234,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
             {
                 return;
             }
-            
+
             if (this.cryotubeOutput[1] == null)
             {
                 this.cryotubeOutput[1] = rottenFlesh.copy();
@@ -369,12 +363,6 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     {
         return EnumSet.noneOf(ForgeDirection.class);
     }
-    
-    @Override
-    public EnumSet<ForgeDirection> getOutputDirections()
-    {
-        return EnumSet.allOf(ForgeDirection.class);
-    }
 
     /** Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't this more of a set than a get?* */
     @Override
@@ -423,6 +411,12 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         }
 
         return (int) (((float) neuralActivityValue * prgPixels) / neuralActivityMaximum);
+    }
+
+    @Override
+    public EnumSet<ForgeDirection> getOutputDirections()
+    {
+        return EnumSet.allOf(ForgeDirection.class);
     }
 
     public int getSizeInputInventory()
@@ -729,8 +723,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         }
 
         // Dead or full cryotube (full when rotten flesh reaches stack limit).
-        if (!canSmelt() && isRedstonePowered() && cryotubeOutput != null &&
-                cryotubeOutput[1] != null && cryotubeOutput[1].stackSize >= cryotubeOutput[1].getMaxStackSize())
+        if (!canSmelt() && isRedstonePowered() && cryotubeOutput != null && cryotubeOutput[1] != null && cryotubeOutput[1].stackSize >= cryotubeOutput[1].getMaxStackSize())
         {
             if (curFrame <= 1 && worldObj.getWorldTime() % 15L == 0L)
             {
@@ -783,7 +776,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         super.updateEntity();
 
         boolean inventoriesChanged = false;
-        
+
         // Attempt to let other machines draw power from our internal reserves.
         this.produce();
 
@@ -796,7 +789,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 this.resetCryotube();
                 return;
             }
-            
+
             // Animation for block.
             this.updateAnimation();
 
@@ -808,7 +801,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
 
                 // Adds rotten flesh to output slot 2.
                 this.createRottenFlesh(5);
-                
+
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_OFF, 1.0F, 1.0F);
             }
 
@@ -826,10 +819,10 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 // --------------------------
                 // TUBE EMPTY, START HATCHING
                 // --------------------------
-                
+
                 // CRACKING EGG
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_CRACKEGG, 1.0F, 1.0F);
-                
+
                 // Remove a spawn egg from input stack 1 to begin the hatching process.
                 --this.cryotubeInput[0].stackSize;
                 if (this.cryotubeInput[0].stackSize <= 0)
@@ -853,19 +846,19 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_HATCHING, 1.0F, 0.1F);
                 }
-                
+
                 // HATCH NOISES
                 if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L && worldObj.rand.nextBoolean())
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_HATCH, 1.0F, 0.1F);
                 }
-                
+
                 // IDLE
                 if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_IDLE, 1.0F, 1.0F);
                 }
-                
+
                 // Increments the timer to keep hatching process going!
                 this.hatchTimeCurrentValue++;
             }
@@ -884,7 +877,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
 
                     // We don't make as much flesh he because it was not fully grown.
                     this.createRottenFlesh(2);
-                    
+
                     // CRACK EGG
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_CRACKEGG, 1.0F, 0.1F);
                 }
@@ -928,7 +921,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
                 {
                     this.updateNeuralActivity();
-                    
+
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_WORK, 1.0F, 1.0F);
 
                     // Check if we have nether star along with all other required regents to generate power.
@@ -936,7 +929,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                     if (!this.energy.isFull() && this.cryotubeInput[2] != null && this.cryotubeInput[2].isItemEqual(compareNetherStar))
                     {
                         // Generate electrical power.
-                        Long amtRecieved =  Long.valueOf(this.neuralActivityValue) * MadConfig.CRYOTUBE_PRODUCE;
+                        Long amtRecieved = Long.valueOf(this.neuralActivityValue) * MadConfig.CRYOTUBE_PRODUCE;
                         this.produceEnergy(amtRecieved);
                     }
                 }
@@ -952,9 +945,9 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 // ------------
                 // SUBJECT DEAD
                 // ------------
-                
+
                 // STILL BIRTH
-                //if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L)
+                // if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_STILLBIRTH, 1.0F, 0.5F);
                 }
@@ -970,14 +963,9 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 inventoriesChanged = true;
             }
 
-            // We always mark the block for an update along with the other items in the world.            
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new CryotubePackets(this.xCoord, this.yCoord, this.zCoord,
-                            hatchTimeCurrentValue, hatchTimeMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            subjectCurrentHealth, subjectMaximumHealth,
-                            neuralActivityValue, neuralActivityMaximum,
-                            this.cryotubeTexture).makePacket());
+            // We always mark the block for an update along with the other items in the world.
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new CryotubePackets(this.xCoord, this.yCoord, this.zCoord, hatchTimeCurrentValue, hatchTimeMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), subjectCurrentHealth, subjectMaximumHealth, neuralActivityValue, neuralActivityMaximum, this.cryotubeTexture).makePacket());
         }
 
         if (inventoriesChanged)
@@ -986,9 +974,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         }
     }
 
-    /**
-     * Update amount of neural activity the villager inside the tube is experiencing.
-     */
+    /** Update amount of neural activity the villager inside the tube is experiencing. */
     private void updateNeuralActivity()
     {
         if (cryotubeInput == null)
