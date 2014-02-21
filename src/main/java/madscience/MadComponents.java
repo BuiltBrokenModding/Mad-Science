@@ -1,14 +1,11 @@
 package madscience;
 
-import java.awt.Panel;
-
 import madscience.metaitems.MainframeComponents;
 import madscience.metaitems.MainframeComponentsMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadComponents
@@ -60,7 +57,7 @@ public class MadComponents
     // Fused Quartz
     public static int COMPONENT_FUSEDQUARTZ_METAID;
     public static final String COMPONENT_FUSEDQUARTZ_INTERNALNAME = "componentFusedQuartz";
-    
+
     // Magnetic Tape
     public static int COMPONENT_MAGNETICTAPE_METAID;
     public static final String COMPONENT_MAGNETICTAPE_INTERNALNAME = "componentMagneticTape";
@@ -107,14 +104,14 @@ public class MadComponents
         // Create instance of this metadata item which contains many items.
         MAINFRAME_COMPONENTS_METAITEM = new MainframeComponents(itemID);
         GameRegistry.registerItem(MAINFRAME_COMPONENTS_METAITEM, "Component");
-        //LanguageRegistry.addName(MAINFRAME_COMPONENTS_METAITEM, MAINFRAME_COMPONENTS_INTERNALNAME);
+        // LanguageRegistry.addName(MAINFRAME_COMPONENTS_METAITEM, MAINFRAME_COMPONENTS_INTERNALNAME);
 
         // Add the names of our meta items to the game registry in the proper
         // order.
         for (int i = 0; i < MainframeComponentsMetadata.getInternalNameFromDamage.length; i++)
         {
             ItemStack tempItem = new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, i);
-            //LanguageRegistry.addName(tempItem.copy(), MainframeComponentsMetadata.getDisplayNameFromDamage[i]);
+            // LanguageRegistry.addName(tempItem.copy(), MainframeComponentsMetadata.getDisplayNameFromDamage[i]);
 
             // Case
             if (tempItem.getUnlocalizedName() == COMPONENT_CASE_INTERNALNAME)
@@ -241,7 +238,7 @@ public class MadComponents
                 CIRCUIT_SPIDEREYE_METAID = tempItem.getItemDamage();
                 continue;
             }
-            
+
             // Magnetic Tape
             if (tempItem.getUnlocalizedName() == COMPONENT_MAGNETICTAPE_INTERNALNAME)
             {
@@ -270,153 +267,92 @@ public class MadComponents
 
         // Circuit Comparator
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_COMPARATOR_METAID), new Object[]
-        { "TTT",
-          "TCT",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'C', Item.comparator,
-        });
-        
+        { "TTT", "TCT", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'C', Item.comparator, });
+
         // Circuit Diamond
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_DIAMOND_METAID), new Object[]
-        { "TTT",
-          "TDT",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'D', Item.diamond,
-        });
-        
+        { "TTT", "TDT", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'D', Item.diamond, });
+
         // Circuit Emerald
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_EMERALD_METAID), new Object[]
-        { "TTT",
-          "TET",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'E', Item.emerald,
-        });
-        
+        { "TTT", "TET", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'E', Item.emerald, });
+
         // Circuit Ender Eye
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_ENDEREYE_METAID), new Object[]
-        { "TTT",
-          "TET",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'E', Item.eyeOfEnder,
-        });
-        
+        { "TTT", "TET", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'E', Item.eyeOfEnder, });
+
         // Circuit Ender Pearl
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_ENDERPEARL_METAID), new Object[]
-        { "TTT",
-          "TPT",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'P', Item.enderPearl,
-        });
-        
+        { "TTT", "TPT", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'P', Item.enderPearl, });
+
         // Circuit Glowstone
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_GLOWSTONE_METAID), new Object[]
-        { "TTT",
-          "TGT",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'G', Item.glowstone,
-        });
-        
+        { "TTT", "TGT", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'G', Item.glowstone, });
+
         // Circuit Redstone
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_REDSTONE_METAID), new Object[]
-        { "TTT",
-          "TRT",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'R', Item.redstone,
-        });
-        
+        { "TTT", "TRT", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'R', Item.redstone, });
+
         // Circuit Spider Eye
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_SPIDEREYE_METAID), new Object[]
-        { "TTT",
-          "TST",
-          "TTT",
-          
-          'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          'S', Item.spiderEye,
-        });
-        
+        { "TTT", "TST", "TTT",
+
+        'T', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), 'S', Item.spiderEye, });
+
         // -----------------
         // COMPONENT RECIPES
         // -----------------
-        
+
         // Computer
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_COMPUTER_METAID), new Object[]
-        { "ECE",
-          "FBD",
-          "EAE",
-          
-          'A', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_SCREEN_METAID),
-          'B', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_CPU_METAID),
-          'C', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_FAN_METAID),
-          'D', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_POWERSUPPLY_METAID),
-          'E', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_CASE_METAID),
-          'F', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_RAM_METAID),
-        });
-        
+        { "ECE", "FBD", "EAE",
+
+        'A', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_SCREEN_METAID), 'B', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_CPU_METAID), 'C', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_FAN_METAID), 'D',
+                new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_POWERSUPPLY_METAID), 'E', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_CASE_METAID), 'F', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_RAM_METAID), });
+
         // Case
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_CASE_METAID), new Object[]
-        { "121",
-          "2 2",
-          "121",
-          
-          '1', Item.ingotIron,
-          '2', Item.stick
-        });
-        
+        { "121", "2 2", "121",
+
+        '1', Item.ingotIron, '2', Item.stick });
+
         // Screen
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_SCREEN_METAID), new Object[]
-        { "444",
-          "333",
-          "212",
-          
-          '1', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_DIAMOND_METAID),
-          '2', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_REDSTONE_METAID),
-          '3', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          '4', Block.glass,
-        });
-        
+        { "444", "333", "212",
+
+        '1', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_DIAMOND_METAID), '2', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_REDSTONE_METAID), '3', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), '4',
+                Block.glass, });
+
         // Power Supply
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_POWERSUPPLY_METAID), new Object[]
-        { "141",
-          "323",
-          "141",
-          
-          '1', Item.ingotIron,
-          '2', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_REDSTONE_METAID),
-          '3', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID),
-          '4', Block.blockRedstone,
-        });
-        
+        { "141", "323", "141",
+
+        '1', Item.ingotIron, '2', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, CIRCUIT_REDSTONE_METAID), '3', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_TRANSISTOR_METAID), '4', Block.blockRedstone, });
+
         // Fan
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_FAN_METAID), new Object[]
-        { "121",
-          "222",
-          "121",
-          
-          '1', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_CASE_METAID),
-          '2', Item.ingotIron,
-        });
-        
+        { "121", "222", "121",
+
+        '1', new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_CASE_METAID), '2', Item.ingotIron, });
+
         // Magnetic Tape
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_COMPONENTS_METAITEM, 1, COMPONENT_MAGNETICTAPE_METAID), new Object[]
-        { "111",
-          "222",
-          
-          '1', Item.redstone,
-          '2', Item.slimeBall,
-        });
+        { "111", "222",
+
+        '1', Item.redstone, '2', Item.slimeBall, });
     }
 }

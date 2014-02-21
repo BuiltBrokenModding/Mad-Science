@@ -27,7 +27,7 @@ public class MainframeComponents extends Item
 
         // Sets the creative tab the item is in
         setCreativeTab(MadEntities.tabMadScience);
-        
+
         // Sets unlocalized name that showed up in language registry.
         setUnlocalizedName(MadComponents.MAINFRAME_COMPONENTS_INTERNALNAME);
 
@@ -37,7 +37,7 @@ public class MainframeComponents extends Item
         // Makes it so your item doesn't have the damage bar at the bottom of
         // its icon, when "damaged" similar to the Tools.
         setMaxDamage(0);
-        
+
         // No components may be repaired.
         setNoRepair();
     }

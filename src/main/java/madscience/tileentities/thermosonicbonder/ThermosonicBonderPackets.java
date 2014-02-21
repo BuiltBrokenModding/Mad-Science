@@ -1,6 +1,5 @@
 package madscience.tileentities.thermosonicbonder;
 
-import madscience.MadScience;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.ForgeDirection;
@@ -16,7 +15,7 @@ public class ThermosonicBonderPackets extends MadPackets
     private int tilePosX;
     private int tilePosY;
     private int tilePosZ;
-   
+
     // Tile entity this packet is intended for.
     private ThermosonicBonderEntity thermosonicBonderTileEntity;
 
@@ -31,21 +30,22 @@ public class ThermosonicBonderPackets extends MadPackets
     // Heat.
     private int lastHeatValue;
     private int lastHeatMaximum;
-    
+
     // Texture.
     private String lastTexture;
 
-    public ThermosonicBonderPackets(int posX, int posY, int posZ,
-            int cookTime, int cookTimeMax,
-            long energyStored, long energyMax,
-            int heatValue, int heatMax,
-            String tileTexture)
+    public ThermosonicBonderPackets()
+    {
+        // Required for reflection.
+    }
+
+    public ThermosonicBonderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int heatValue, int heatMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;
         tilePosY = posY;
         tilePosZ = posZ;
-        
+
         // Cook time.
         lastItemCookTimeValue = cookTime;
         lastItemCookTimeMaximum = cookTimeMax;
@@ -57,70 +57,9 @@ public class ThermosonicBonderPackets extends MadPackets
         // Heat.
         lastHeatValue = heatValue;
         lastHeatMaximum = heatMax;
-        
+
         // Texture.
         lastTexture = tileTexture;
-    }
-    
-    public ThermosonicBonderPackets()
-    {
-        // Required for reflection.
-    }
-
-    @Override
-    public void write(ByteArrayDataOutput out)
-    {
-        // ------
-        // SERVER
-        // ------
-        
-        // World coordinate information.
-        out.writeInt(tilePosX);
-        out.writeInt(tilePosY);
-        out.writeInt(tilePosZ);
-        
-        // Cook time.
-        out.writeInt(lastItemCookTimeValue);
-        out.writeInt(lastItemCookTimeMaximum);
-
-        // Energy.
-        out.writeLong(lastItemStoredEnergy);
-        out.writeLong(lastItemStoredEnergyMaximum);
-
-        // Heat.
-        out.writeInt(lastHeatValue);
-        out.writeInt(lastHeatMaximum);
-        
-        // Texture.
-        out.writeUTF(lastTexture);
-    }
-
-    @Override
-    public void read(ByteArrayDataInput in) throws ProtocolException
-    {
-        // ------
-        // CLIENT
-        // ------
-        
-        // World coordinate information.
-        this.tilePosX = in.readInt();
-        this.tilePosY = in.readInt();
-        this.tilePosZ = in.readInt();
-        
-        // Cook time.
-        this.lastItemCookTimeValue = in.readInt();
-        this.lastItemCookTimeMaximum = in.readInt();
-
-        // Energy.
-        this.lastItemStoredEnergy = in.readLong();
-        this.lastItemStoredEnergyMaximum = in.readLong();
-
-        // Heat.
-        this.lastHeatValue = in.readInt();
-        this.lastHeatMaximum = in.readInt();
-        
-        // Texture.
-        this.lastTexture = in.readUTF();
     }
 
     @Override
@@ -129,13 +68,14 @@ public class ThermosonicBonderPackets extends MadPackets
         // ------
         // CLIENT
         // ------
-        
+
         // Packet received by client, executing payload.
         if (side.isClient())
         {
             thermosonicBonderTileEntity = (ThermosonicBonderEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (thermosonicBonderTileEntity == null) return;
-            
+            if (thermosonicBonderTileEntity == null)
+                return;
+
             // Cook time.
             this.thermosonicBonderTileEntity.currentItemCookingValue = lastItemCookTimeValue;
             this.thermosonicBonderTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
@@ -147,7 +87,7 @@ public class ThermosonicBonderPackets extends MadPackets
             // Heat.
             this.thermosonicBonderTileEntity.currentHeatValue = lastHeatValue;
             this.thermosonicBonderTileEntity.currentHeatMaximum = lastHeatMaximum;
-            
+
             // Texture.
             this.thermosonicBonderTileEntity.thermosonicbonderTexture = lastTexture;
         }
@@ -155,5 +95,61 @@ public class ThermosonicBonderPackets extends MadPackets
         {
             throw new ProtocolException("Cannot send this packet to the server!");
         }
+    }
+
+    @Override
+    public void read(ByteArrayDataInput in) throws ProtocolException
+    {
+        // ------
+        // CLIENT
+        // ------
+
+        // World coordinate information.
+        this.tilePosX = in.readInt();
+        this.tilePosY = in.readInt();
+        this.tilePosZ = in.readInt();
+
+        // Cook time.
+        this.lastItemCookTimeValue = in.readInt();
+        this.lastItemCookTimeMaximum = in.readInt();
+
+        // Energy.
+        this.lastItemStoredEnergy = in.readLong();
+        this.lastItemStoredEnergyMaximum = in.readLong();
+
+        // Heat.
+        this.lastHeatValue = in.readInt();
+        this.lastHeatMaximum = in.readInt();
+
+        // Texture.
+        this.lastTexture = in.readUTF();
+    }
+
+    @Override
+    public void write(ByteArrayDataOutput out)
+    {
+        // ------
+        // SERVER
+        // ------
+
+        // World coordinate information.
+        out.writeInt(tilePosX);
+        out.writeInt(tilePosY);
+        out.writeInt(tilePosZ);
+
+        // Cook time.
+        out.writeInt(lastItemCookTimeValue);
+        out.writeInt(lastItemCookTimeMaximum);
+
+        // Energy.
+        out.writeLong(lastItemStoredEnergy);
+        out.writeLong(lastItemStoredEnergyMaximum);
+
+        // Heat.
+        out.writeInt(lastHeatValue);
+        out.writeInt(lastHeatMaximum);
+
+        // Texture.
+        out.writeUTF(lastTexture);
     }
 }

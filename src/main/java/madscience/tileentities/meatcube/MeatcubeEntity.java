@@ -4,7 +4,6 @@ import java.util.Random;
 
 import madscience.MadFluids;
 import madscience.MadFurnaces;
-import madscience.MadMobs;
 import madscience.MadScience;
 import madscience.MadSounds;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,21 +12,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFluidHandler
 {
@@ -202,7 +195,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         {
             return false;
         }
-        
+
         // Check if meat cube needs healing or not.
         if (this.currentMeatCubeDamageValue < this.currentMaximumMeatCubeDamage)
         {
@@ -342,10 +335,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
     }
 
-    /**
-     * Returns an integer between 0 and the passed value representing how close the current item is to being completely
-     * cooked
-     */
+    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
     public int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
@@ -603,9 +593,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         }
     }
 
-    /**
-     * Update current texture path we should display on this tile entity.
-     */
+    /** Update current texture path we should display on this tile entity. */
     private void updateAnimation()
     {
         // Check if we should be iterating our frame count.
@@ -664,7 +652,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
 
             // Plays sounds idly and at random times.
             updateSounds();
-            
+
             // Checks to see if we can add a bucket from input slot into
             // internal tank.
             addBucketToInternalTank();
@@ -700,12 +688,8 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
             }
 
             // Send update about tile entity status to all players around us.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new MeatcubePackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            this.internalLiquidDNAMutantTank.getFluidAmount(), this.internalLiquidDNAMutantTank.getCapacity(),
-                            currentMeatCubeDamageValue, currentMaximumMeatCubeDamage,
-                            this.meatcubeTexturePath).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new MeatcubePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    this.internalLiquidDNAMutantTank.getFluidAmount(), this.internalLiquidDNAMutantTank.getCapacity(), currentMeatCubeDamageValue, currentMaximumMeatCubeDamage, this.meatcubeTexturePath).makePacket());
         }
 
         if (inventoriesChanged)
@@ -719,8 +703,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         // Play the sound of a heartbeat every few seconds.
         if (worldObj.getWorldTime() % ((this.currentMeatCubeDamageValue * MadScience.SECOND_IN_TICKS) + MadScience.SECOND_IN_TICKS) == 0L)
         {
-            this.worldObj
-                    .playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MEATCUBE_HEARTBEAT, ((1.0F / this.currentMeatCubeDamageValue) + 0.42F), this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MEATCUBE_HEARTBEAT, ((1.0F / this.currentMeatCubeDamageValue) + 0.42F), this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
     }
 

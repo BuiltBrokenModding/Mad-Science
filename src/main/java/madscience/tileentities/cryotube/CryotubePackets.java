@@ -13,7 +13,7 @@ public class CryotubePackets extends MadPackets
 {
     // Tile entity.
     private CryotubeEntity cryoTubeTileEntity;
-    
+
     // Energy.
     private long lastEnergy;
     private long lastEnergyMax;

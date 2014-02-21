@@ -18,18 +18,18 @@ public class MadSounds
     public static final String WEREWOLF_ATTACK = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Attack";
     public static final String WEREWOLF_IDLE = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Death";
     public static final String WEREWOLF_DEATH = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Snarl";
-    
+
     // Creeper Cow [Creeper + Cow]
     public static final String CREEPERCOW_ATTACK = MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + ".Attack";
     public static final String CREEPERCOW_DEATH = MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + ".Death";
-    public static final String CREEPERCOW_IDLE = MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + ".Idle";    
-    
+    public static final String CREEPERCOW_IDLE = MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + ".Idle";
+
     // Bart74(bart.74@hotmail.fr)
     // Wooly cow [Cow + Sheep]
     public static final String WOOLYCOW_HURT = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".hurt";
     public static final String WOOLYCOW_SAY = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".say";
     public static final String WOOLYCOW_STEP = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".step";
-    
+
     // monodemono(coolplanet3000@gmail.com)
     // The Abomination [Enderman + Spider]
     public static final String ABOMINATION_ATTACK = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".attack";
@@ -41,7 +41,7 @@ public class MadSounds
     public static final String ABOMINATION_EGG = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egg";
     public static final String ABOMINATION_HATCH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egghatch";
     public static final String ABOMINATION_EGGPOP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".eggpop";
-    
+
     // Pyrobrine(haskar.spore@gmail.com)
     // Ender Squid [Enderman + Squid]
     public static final String ENDERSQUID_ATTACK = MadScience.ID + ":" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + ".Attack";
@@ -96,29 +96,29 @@ public class MadSounds
 
     // Needle Sanitizer
     public static final String SANTITIZER_IDLE = MadScience.ID + ":" + MadFurnaces.SANTITIZER_INTERNALNAME + ".Idle";
-    
+
     // Cryogenic Tube
     public static final String CRYOTUBE_STILLBIRTH = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Stillbirth";
     public static final String CRYOTUBE_WORK = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Work";
-    public static final String CRYOTUBE_HATCH = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Hatch";    
+    public static final String CRYOTUBE_HATCH = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Hatch";
     public static final String CRYOTUBE_HATCHING = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Hatching";
     public static final String CRYOTUBE_CRACKEGG = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".CrackEgg";
     public static final String CRYOTUBE_IDLE = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Idle";
     public static final String CRYOTUBE_OFF = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Off";
-    
+
     // Thermosonic Bonder
     public static final String THERMOSONICBONDER_IDLE = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".Idle";
     public static final String THERMOSONICBONDER_LASERSTART = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserStart";
     public static final String THERMOSONICBONDER_LASERSTOP = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserStop";
     public static final String THERMOSONICBONDER_LASERWORK = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserWorking";
     public static final String THERMOSONICBONDER_STAMP = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".Stamp";
-    
+
     // Data Reel Duplicator
     public static final String DATADUPLICATOR_WORK = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Work";
     public static final String DATADUPLICATOR_IDLE = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Idle";
     public static final String DATADUPLICATOR_FINISH = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Finish";
     public static final String DATADUPLICATOR_START = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Start";
-    
+
     // Soniclocator Device
     public static final String SONICLOCATOR_PLACE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Place";
     public static final String SONICLOCATOR_IDLE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Idle";
@@ -128,6 +128,10 @@ public class MadSounds
     public static final String SONICLOCATOR_THUMP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Thump";
     public static final String SONICLOCATOR_THUMPCHARGE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpCharge";
     public static final String SONICLOCATOR_THUMPSTART = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpStart";
+    public static final String SONICLOCATOR_COOLDOWNBEEP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".CooldownBeep";
+    public static final String SONICLOCATOR_COOLDOWN = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Cooldown";
+    public static final String SONICLOCATOR_EXPLODE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Explode";
+    public static final String SONICLOCATOR_OVERLOAD = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Overload";
 
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
@@ -146,12 +150,12 @@ public class MadSounds
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + "/Snarl1.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + "/Snarl2.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + "/Snarl3.ogg");
-            
+
             // Creeper Cow [Creeper + Cow]
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/Attack.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/Death.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/Idle.ogg");
-            
+
             // Bart74(bart.74@hotmail.fr)
             // Wooly cow [Cow + Sheep]
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + "/hurt1.ogg");
@@ -165,7 +169,7 @@ public class MadSounds
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + "/step2.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + "/step3.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + "/step4.ogg");
-            
+
             // monodemono(coolplanet3000@gmail.com)
             // The Abomination [Enderman + Spider]
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/attack.ogg");
@@ -187,7 +191,7 @@ public class MadSounds
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/step3.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/step4.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/eggpop.ogg");
-            
+
             // Pyrobrine(haskar.spore@gmail.com)
             // Ender Squid [Enderman + Squid]
             event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/Attack.ogg");
@@ -333,29 +337,29 @@ public class MadSounds
 
             // Cleaning needle sound.
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SANTITIZER_INTERNALNAME + "/Idle.ogg");
-            
+
             // --------------
             // CRYOGENIC TUBE
             // --------------
-            
+
             // Stillbirth
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Stillbirth.ogg");
-            
+
             // Work
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Work.ogg");
-            
+
             // Cracking Egg
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/CrackEgg.ogg");
-            
+
             // Hatching Loop
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Hatching.ogg");
-            
+
             // Idle working sound when cannot smelt.
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Idle.ogg");
-            
+
             // Sound of cryotube being turned off.
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Off.ogg");
-            
+
             // Hatching Random Noises
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Hatch1.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Hatch2.ogg");
@@ -367,23 +371,23 @@ public class MadSounds
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Hatch8.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Hatch9.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/Hatch10.ogg");
-            
+
             // ------------------
             // THERMOSONIC BONDER
             // ------------------
-            
+
             // Idle
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Idle.ogg");
-            
+
             // Laser Start
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/LaserStart.ogg");
-            
+
             // Laser Stop
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/LaserStop.ogg");
-            
+
             // Laser Working
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/LaserWorking.ogg");
-            
+
             // Stamp (output slot being filled)
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Stamp1.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Stamp2.ogg");
@@ -395,55 +399,65 @@ public class MadSounds
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Stamp8.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Stamp9.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Stamp10.ogg");
-            
+
             // --------------------
             // DATA REEL DUPLICATOR
             // --------------------
-            
+
             // Idle
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/Idle.ogg");
-            
+
             // Work
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/Work.ogg");
-            
+
             // Start
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/Start.ogg");
-            
+
             // Finish
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/Finish.ogg");
-            
+
             // -------------------
             // SONICLOCATOR DEVICE
             // -------------------
-            
+
             // Idle
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Idle.ogg");
-            
+
             // Idle Charged
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/IdleCharged.ogg");
-            
-            // Work
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Work1.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Work2.ogg");
-            
+
             // Place
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Place.ogg");
-            
+
             // Empty
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Empty.ogg");
-            
+
             // Finish
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Finish.ogg");
-            
+
             // Thump
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump1.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump2.ogg");
-            
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump3.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump4.ogg");
+
             // Thump Charge
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/ThumpCharge.ogg");
-            
+
             // Thump Start
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/ThumpStart.ogg");
+            
+            // Cooldown Beep
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/CooldownBeep.ogg");
+            
+            // Cooldown
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Cooldown.ogg");
+            
+            // Explode
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Explode.ogg");
+            
+            // Overload
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Overload.ogg");
         }
         catch (Exception err)
         {

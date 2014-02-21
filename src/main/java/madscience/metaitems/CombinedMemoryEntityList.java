@@ -3,16 +3,8 @@ package madscience.metaitems;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import cpw.mods.fml.common.FMLLog;
 
 public class CombinedMemoryEntityList
 {

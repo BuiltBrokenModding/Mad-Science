@@ -2,12 +2,10 @@ package madscience.mobs.endersquid;
 
 import java.util.Random;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.util.MathHelper;
 
 public class EnderSquidMobModel extends ModelBiped
 {
@@ -74,10 +72,10 @@ public class EnderSquidMobModel extends ModelBiped
         this.bipedBody.rotationPointZ = -0.0F;
         this.bipedRightLeg.rotateAngleX -= 0.0F;
         this.bipedLeftLeg.rotateAngleX -= 0.0F;
-        this.bipedRightArm.rotateAngleX = (float)((double)this.bipedRightArm.rotateAngleX * 0.5D);
-        this.bipedLeftArm.rotateAngleX = (float)((double)this.bipedLeftArm.rotateAngleX * 0.5D);
-        this.bipedRightLeg.rotateAngleX = (float)((double)this.bipedRightLeg.rotateAngleX * 0.5D);
-        this.bipedLeftLeg.rotateAngleX = (float)((double)this.bipedLeftLeg.rotateAngleX * 0.5D);
+        this.bipedRightArm.rotateAngleX = (float) (this.bipedRightArm.rotateAngleX * 0.5D);
+        this.bipedLeftArm.rotateAngleX = (float) (this.bipedLeftArm.rotateAngleX * 0.5D);
+        this.bipedRightLeg.rotateAngleX = (float) (this.bipedRightLeg.rotateAngleX * 0.5D);
+        this.bipedLeftLeg.rotateAngleX = (float) (this.bipedLeftLeg.rotateAngleX * 0.5D);
         float f7 = 0.4F;
 
         if (this.bipedRightArm.rotateAngleX > f7)

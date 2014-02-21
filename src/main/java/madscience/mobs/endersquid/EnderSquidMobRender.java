@@ -1,14 +1,10 @@
 package madscience.mobs.endersquid;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import java.util.Random;
 
 import madscience.MadMobs;
 import madscience.MadScience;
 import net.minecraft.block.Block;
-import net.minecraft.client.model.ModelEnderman;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -19,6 +15,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class EnderSquidMobRender extends RenderLiving
@@ -33,26 +32,22 @@ public class EnderSquidMobRender extends RenderLiving
     public EnderSquidMobRender(EnderSquidMobModel enderSquidMobModel, float f)
     {
         super(enderSquidMobModel, f);
-        this.endermanModel = (EnderSquidMobModel)super.mainModel;
+        this.endermanModel = (EnderSquidMobModel) super.mainModel;
         this.setRenderPassModel(this.endermanModel);
     }
 
-    /**
-     * Renders the enderman
-     */
-    public void renderEnderman(EnderSquidMobEntity par1EntityEnderman, double par2, double par4, double par6, float par8, float par9)
+    /** Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic (Render<T extends
+     * Entity) and this method has signature public void doRender(T entity, double d, double d1, double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that. */
+    @Override
+    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.endermanModel.isCarrying = par1EntityEnderman.getCarried() > 0;
-        this.endermanModel.isAttacking = par1EntityEnderman.isScreaming();
+        this.renderEnderman((EnderSquidMobEntity) par1Entity, par2, par4, par6, par8, par9);
+    }
 
-        if (par1EntityEnderman.isScreaming())
-        {
-            double d3 = 0.02D;
-            par2 += this.rnd.nextGaussian() * d3;
-            par6 += this.rnd.nextGaussian() * d3;
-        }
-
-        super.doRenderLiving(par1EntityEnderman, par2, par4, par6, par8, par9);
+    @Override
+    public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
+    {
+        this.renderEnderman((EnderSquidMobEntity) par1EntityLiving, par2, par4, par6, par8, par9);
     }
 
     protected ResourceLocation getEndermanTextures(EnderSquidMobEntity par1EntityEnderman)
@@ -60,9 +55,14 @@ public class EnderSquidMobRender extends RenderLiving
         return endermanTextures;
     }
 
-    /**
-     * Render the block an enderman is carrying
-     */
+    /** Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture. */
+    @Override
+    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    {
+        return this.getEndermanTextures((EnderSquidMobEntity) par1Entity);
+    }
+
+    /** Render the block an enderman is carrying */
     protected void renderCarrying(EnderSquidMobEntity par1EntityEnderman, float par2)
     {
         super.renderEquippedItems(par1EntityEnderman, par2);
@@ -80,7 +80,7 @@ public class EnderSquidMobRender extends RenderLiving
             int i = par1EntityEnderman.getBrightnessForRender(par2);
             int j = i % 65536;
             int k = i / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.bindTexture(TextureMap.locationBlocksTexture);
@@ -90,9 +90,29 @@ public class EnderSquidMobRender extends RenderLiving
         }
     }
 
-    /**
-     * Render the endermans eyes
-     */
+    /** Renders the enderman */
+    public void renderEnderman(EnderSquidMobEntity par1EntityEnderman, double par2, double par4, double par6, float par8, float par9)
+    {
+        this.endermanModel.isCarrying = par1EntityEnderman.getCarried() > 0;
+        this.endermanModel.isAttacking = par1EntityEnderman.isScreaming();
+
+        if (par1EntityEnderman.isScreaming())
+        {
+            double d3 = 0.02D;
+            par2 += this.rnd.nextGaussian() * d3;
+            par6 += this.rnd.nextGaussian() * d3;
+        }
+
+        super.doRenderLiving(par1EntityEnderman, par2, par4, par6, par8, par9);
+    }
+
+    @Override
+    protected void renderEquippedItems(EntityLivingBase par1EntityLivingBase, float par2)
+    {
+        this.renderCarrying((EnderSquidMobEntity) par1EntityLivingBase, par2);
+    }
+
+    /** Render the endermans eyes */
     protected int renderEyes(EnderSquidMobEntity par1EntityEnderman, int par2, float par3)
     {
         if (par2 != 0)
@@ -120,7 +140,7 @@ public class EnderSquidMobRender extends RenderLiving
             char c0 = 61680;
             int j = c0 % 65536;
             int k = c0 / 65536;
-            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1.0F, (float)k / 1.0F);
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j / 1.0F, k / 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
@@ -128,45 +148,15 @@ public class EnderSquidMobRender extends RenderLiving
         }
     }
 
-    public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
-    {
-        this.renderEnderman((EnderSquidMobEntity)par1EntityLiving, par2, par4, par6, par8, par9);
-    }
-
-    /**
-     * Queries whether should render the specified pass or not.
-     */
-    protected int shouldRenderPass(EntityLivingBase par1EntityLivingBase, int par2, float par3)
-    {
-        return this.renderEyes((EnderSquidMobEntity)par1EntityLivingBase, par2, par3);
-    }
-
-    protected void renderEquippedItems(EntityLivingBase par1EntityLivingBase, float par2)
-    {
-        this.renderCarrying((EnderSquidMobEntity)par1EntityLivingBase, par2);
-    }
-
     public void renderPlayer(EntityLivingBase par1EntityLivingBase, double par2, double par4, double par6, float par8, float par9)
     {
-        this.renderEnderman((EnderSquidMobEntity)par1EntityLivingBase, par2, par4, par6, par8, par9);
+        this.renderEnderman((EnderSquidMobEntity) par1EntityLivingBase, par2, par4, par6, par8, par9);
     }
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
-     */
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    /** Queries whether should render the specified pass or not. */
+    @Override
+    protected int shouldRenderPass(EntityLivingBase par1EntityLivingBase, int par2, float par3)
     {
-        return this.getEndermanTextures((EnderSquidMobEntity)par1Entity);
-    }
-
-    /**
-     * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
-     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
-     * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
-     * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
-     */
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
-    {
-        this.renderEnderman((EnderSquidMobEntity)par1Entity, par2, par4, par6, par8, par9);
+        return this.renderEyes((EnderSquidMobEntity) par1EntityLivingBase, par2, par3);
     }
 }

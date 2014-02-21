@@ -265,15 +265,16 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
                     // MadScience.logger.info("THUMPER3: " + Math.abs(model.Thumper3.offsetY) + " / " + thumperCeiling);
                 }
             }
-            else
-            {
+            else if (lastPlacedTileEntity.currentHeatValue == 0)
+            {                
                 // Thumper 1 Smash!
-                if (model.Thumper1.offsetY < thumperYCoord)
+/*                if (model.Thumper1.offsetY < thumperYCoord)
                 {
                     model.Thumper1.offsetY += 0.03F;
                     // MadScience.logger.info("THUMPERS: " + model.Thumper1.offsetY + " / " + thumperYCoord);
-                }
-                else if (model.Thumper1.offsetY > thumperYCoord)
+                }*/
+                
+                if (model.Thumper1.offsetY < thumperYCoord)
                 {
                     model.Thumper1.offsetY = thumperYCoord;
                 }

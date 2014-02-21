@@ -3,7 +3,6 @@ package madscience.fluids.dnaMutant;
 import net.minecraft.block.Block;
 import net.minecraft.util.Icon;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

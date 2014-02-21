@@ -5,13 +5,11 @@ import madscience.MadEntities;
 import madscience.MadNeedles;
 import madscience.MadScience;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class ItemDecay extends Item
 {
@@ -68,7 +66,7 @@ public class ItemDecay extends Item
         {
             return false;
         }
-        
+
         if (!MadConfig.DECAY_BLOODWORK)
         {
             return false;
@@ -80,21 +78,8 @@ public class ItemDecay extends Item
             return false;
         }
 
-/*        // Check if current biome is cold.
-        try
-        {
-            BiomeGenBase biomegenbase = entityItem.worldObj.getWorldChunkManager().getBiomeGenAt(entityItem.serverPosX, entityItem.serverPosY);
-            float currentTemp = biomegenbase.getFloatTemperature();
-            if (currentTemp < 0.2 || biomegenbase.getEnableSnow())
-            {
-                return false;
-            }
-        }
-        catch (Exception err)
-        {
-            MadScience.logger.info(err.getMessage());
-            return false;
-        }*/
+        /* // Check if current biome is cold. try { BiomeGenBase biomegenbase = entityItem.worldObj.getWorldChunkManager().getBiomeGenAt(entityItem.serverPosX, entityItem.serverPosY); float currentTemp = biomegenbase.getFloatTemperature(); if (currentTemp
+         * < 0.2 || biomegenbase.getEnableSnow()) { return false; } } catch (Exception err) { MadScience.logger.info(err.getMessage()); return false; } */
 
         // Ensure that our item is currently loaded.
         if (!entityItem.addedToChunk)
@@ -140,7 +125,7 @@ public class ItemDecay extends Item
         {
             return;
         }
-        
+
         if (!MadConfig.DECAY_BLOODWORK)
         {
             return;
@@ -162,21 +147,8 @@ public class ItemDecay extends Item
             return;
         }
 
-/*        // Check if current biome is cold.
-        try
-        {
-            BiomeGenBase biomegenbase = world.getWorldChunkManager().getBiomeGenAt(entity.serverPosX, entity.serverPosY);
-            float currentTemp = biomegenbase.getFloatTemperature();
-            if (currentTemp < 0.2 || biomegenbase.getEnableSnow())
-            {
-                return;
-            }
-        }
-        catch (Exception err)
-        {
-            MadScience.logger.info(err.getMessage());
-            return;
-        }*/
+        /* // Check if current biome is cold. try { BiomeGenBase biomegenbase = world.getWorldChunkManager().getBiomeGenAt(entity.serverPosX, entity.serverPosY); float currentTemp = biomegenbase.getFloatTemperature(); if (currentTemp < 0.2 ||
+         * biomegenbase.getEnableSnow()) { return; } } catch (Exception err) { MadScience.logger.info(err.getMessage()); return; } */
 
         // Check if we need to turn into a dirty needle.
         int dmg = stack.getItemDamage();

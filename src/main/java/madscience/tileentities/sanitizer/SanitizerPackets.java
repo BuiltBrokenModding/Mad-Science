@@ -1,6 +1,5 @@
 package madscience.tileentities.sanitizer;
 
-import madscience.MadScience;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.ForgeDirection;
@@ -18,7 +17,7 @@ public class SanitizerPackets extends MadPackets
     private int tilePosX;
     private int tilePosY;
     private int tilePosZ;
-   
+
     // Tile entity in the world.
     private SanitizerEntity sanitizerTileEntity;
 
@@ -33,21 +32,22 @@ public class SanitizerPackets extends MadPackets
     // Water level.
     private int lastWaterLevel;
     private int lastWaterMaximum;
-    
+
     // Last known texture.
     private String lastTexture;
 
-    public SanitizerPackets(int posX, int posY, int posZ,
-            int cookTime, int cookTimeMax,
-            long energyStored, long energyMax,
-            int waterLevel, int waterLevelMaximum,
-            String tileTexture)
+    public SanitizerPackets()
+    {
+        // Required for reflection.
+    }
+
+    public SanitizerPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMaximum, String tileTexture)
     {
         // World position information.
         tilePosX = posX;
         tilePosY = posY;
         tilePosZ = posZ;
-        
+
         // Cook time.
         lastItemCookTimeValue = cookTime;
         lastItemCookTimeMaximum = cookTimeMax;
@@ -59,70 +59,9 @@ public class SanitizerPackets extends MadPackets
         // Water level.
         lastWaterLevel = waterLevel;
         lastWaterMaximum = waterLevelMaximum;
-        
+
         // Last known texture.
         lastTexture = tileTexture;
-    }
-    
-    public SanitizerPackets()
-    {
-        // Required for reflection.
-    }
-
-    @Override
-    public void write(ByteArrayDataOutput out)
-    {
-        // ------
-        // SERVER
-        // ------
-        
-        // World coordinate information.
-        out.writeInt(tilePosX);
-        out.writeInt(tilePosY);
-        out.writeInt(tilePosZ);
-        
-        // Cook time.
-        out.writeInt(lastItemCookTimeValue);
-        out.writeInt(lastItemCookTimeMaximum);
-
-        // Energy.
-        out.writeLong(lastItemStoredEnergy);
-        out.writeLong(lastItemStoredEnergyMaximum);
-
-        // Water level.
-        out.writeInt(lastWaterLevel);
-        out.writeInt(lastWaterMaximum);
-        
-        // Last known texture.
-        out.writeUTF(lastTexture);
-    }
-
-    @Override
-    public void read(ByteArrayDataInput in) throws ProtocolException
-    {
-        // ------
-        // CLIENT
-        // ------
-        
-        // World coordinate information.
-        this.tilePosX = in.readInt();
-        this.tilePosY = in.readInt();
-        this.tilePosZ = in.readInt();
-        
-        // Cook time.
-        lastItemCookTimeValue = in.readInt();
-        lastItemCookTimeMaximum = in.readInt();
-
-        // Energy.
-        lastItemStoredEnergy = in.readLong();
-        lastItemStoredEnergyMaximum = in.readLong();
-
-        // Water level.
-        lastWaterLevel = in.readInt();
-        lastWaterMaximum = in.readInt();
-        
-        // Last known texture.
-        lastTexture = in.readUTF();
     }
 
     @Override
@@ -131,13 +70,14 @@ public class SanitizerPackets extends MadPackets
         // ------
         // CLIENT
         // ------
-        
+
         // Packet received by client, executing payload.
         if (side.isClient())
         {
             sanitizerTileEntity = (SanitizerEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (sanitizerTileEntity == null) return;
-            
+            if (sanitizerTileEntity == null)
+                return;
+
             // Cook time.
             this.sanitizerTileEntity.currentItemCookingValue = lastItemCookTimeValue;
             this.sanitizerTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
@@ -149,7 +89,7 @@ public class SanitizerPackets extends MadPackets
             // Water level.
             this.sanitizerTileEntity.internalWaterTank.setFluid(new FluidStack(FluidRegistry.WATER, lastWaterLevel));
             this.sanitizerTileEntity.internalWaterTank.setCapacity(lastWaterMaximum);
-            
+
             // Last known texture.
             this.sanitizerTileEntity.sanitizerTexturePath = lastTexture;
         }
@@ -157,5 +97,61 @@ public class SanitizerPackets extends MadPackets
         {
             throw new ProtocolException("Cannot send this packet to the server!");
         }
+    }
+
+    @Override
+    public void read(ByteArrayDataInput in) throws ProtocolException
+    {
+        // ------
+        // CLIENT
+        // ------
+
+        // World coordinate information.
+        this.tilePosX = in.readInt();
+        this.tilePosY = in.readInt();
+        this.tilePosZ = in.readInt();
+
+        // Cook time.
+        lastItemCookTimeValue = in.readInt();
+        lastItemCookTimeMaximum = in.readInt();
+
+        // Energy.
+        lastItemStoredEnergy = in.readLong();
+        lastItemStoredEnergyMaximum = in.readLong();
+
+        // Water level.
+        lastWaterLevel = in.readInt();
+        lastWaterMaximum = in.readInt();
+
+        // Last known texture.
+        lastTexture = in.readUTF();
+    }
+
+    @Override
+    public void write(ByteArrayDataOutput out)
+    {
+        // ------
+        // SERVER
+        // ------
+
+        // World coordinate information.
+        out.writeInt(tilePosX);
+        out.writeInt(tilePosY);
+        out.writeInt(tilePosZ);
+
+        // Cook time.
+        out.writeInt(lastItemCookTimeValue);
+        out.writeInt(lastItemCookTimeMaximum);
+
+        // Energy.
+        out.writeLong(lastItemStoredEnergy);
+        out.writeLong(lastItemStoredEnergyMaximum);
+
+        // Water level.
+        out.writeInt(lastWaterLevel);
+        out.writeInt(lastWaterMaximum);
+
+        // Last known texture.
+        out.writeUTF(lastTexture);
     }
 }

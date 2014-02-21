@@ -2,24 +2,15 @@ package madscience.tileentities.prefab;
 
 import java.util.EnumSet;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.oredict.OreDictionary;
 import universalelectricity.api.CompatibilityModule;
 import universalelectricity.api.UniversalClass;
-import universalelectricity.api.electricity.IVoltageInput;
-import universalelectricity.api.electricity.IVoltageOutput;
 import universalelectricity.api.energy.EnergyStorageHandler;
 import universalelectricity.api.energy.IEnergyContainer;
 import universalelectricity.api.energy.IEnergyInterface;
 import universalelectricity.api.vector.Vector3;
-import universalelectricity.api.vector.VectorHelper;
 
 @UniversalClass
 public abstract class MadTileEntity extends MadTileEntityRedstone implements IEnergyInterface, IEnergyContainer
@@ -46,39 +37,12 @@ public abstract class MadTileEntity extends MadTileEntityRedstone implements IEn
         energy = new EnergyStorageHandler(capacity, maxReceive, maxExtract);
     }
 
-    public void consumeEnergy(long amount)
+    @Override
+    public boolean canConnect(ForgeDirection direction, Object obj)
     {
-        if (!this.energy.isEmpty())
-        {
-            this.energy.setEnergy(Math.max((this.energy.getEnergy() - amount), 0));
-        }
+        return true;
     }
 
-    public void produceEnergy(long amount)
-    {
-        if (!this.energy.isFull())
-        {
-            this.energy.setEnergy(this.energy.getEnergy() + amount);
-        }
-    }
-
-    protected void produce()
-    {
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS)
-        {
-            if (this.energy.getEnergy() > 0)
-            {
-                TileEntity tileEntity = new Vector3(this).translate(direction).getTileEntity(this.worldObj);
-
-                if (tileEntity != null)
-                {
-                    long used = CompatibilityModule.receiveEnergy(tileEntity, direction.getOpposite(), this.energy.extractEnergy(this.energy.getEnergy(), false), true);
-                    this.energy.extractEnergy(used, true);
-                }
-            }
-        }
-    }
-    
     protected void consume()
     {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS)
@@ -97,46 +61,24 @@ public abstract class MadTileEntity extends MadTileEntityRedstone implements IEn
         }
     }
 
-    public int getPowerRemainingScaled(int prgPixels)
+    public void consumeEnergy(long amount)
     {
-        Double result = Long.valueOf(this.getEnergy(ForgeDirection.UNKNOWN)).doubleValue() * Long.valueOf(prgPixels).doubleValue() / Long.valueOf(this.getEnergyCapacity(ForgeDirection.UNKNOWN)).doubleValue();
-        return result.intValue();
-    }
-
-    @Override
-    public void updateEntity()
-    {
-        super.updateEntity();
-        
-        // Accept energy if we are allowed to do so.
-        if (this.energy.checkReceive())
+        if (!this.energy.isEmpty())
         {
-            this.consume();
+            this.energy.setEnergy(Math.max((this.energy.getEnergy() - amount), 0));
         }
     }
 
     @Override
-    public long onReceiveEnergy(ForgeDirection from, long receive, boolean doReceive)
+    public long getEnergy(ForgeDirection from)
     {
-        return this.energy.receiveEnergy(receive, doReceive);
+        return this.energy.getEnergy();
     }
 
     @Override
-    public long onExtractEnergy(ForgeDirection from, long extract, boolean doExtract)
+    public long getEnergyCapacity(ForgeDirection from)
     {
-        return this.energy.extractEnergy(extract, doExtract);
-    }
-
-    @Override
-    public void onInventoryChanged()
-    {
-        super.onInventoryChanged();
-    }
-
-    @Override
-    public boolean canConnect(ForgeDirection direction, Object obj)
-    {
-        return true;
+        return this.energy.getEnergyCapacity();
     }
 
     /** The electrical input direction.
@@ -155,10 +97,65 @@ public abstract class MadTileEntity extends MadTileEntityRedstone implements IEn
         return EnumSet.noneOf(ForgeDirection.class);
     }
 
-    @Override
-    public long getEnergyCapacity(ForgeDirection from)
+    public int getPowerRemainingScaled(int prgPixels)
     {
-        return this.energy.getEnergyCapacity();
+        Double result = Long.valueOf(this.getEnergy(ForgeDirection.UNKNOWN)).doubleValue() * Long.valueOf(prgPixels).doubleValue() / Long.valueOf(this.getEnergyCapacity(ForgeDirection.UNKNOWN)).doubleValue();
+        return result.intValue();
+    }
+
+    public boolean isPowered()
+    {
+        return this.energy.getEnergy() > 0;
+    }
+
+    @Override
+    public long onExtractEnergy(ForgeDirection from, long extract, boolean doExtract)
+    {
+        return this.energy.extractEnergy(extract, doExtract);
+    }
+
+    @Override
+    public void onInventoryChanged()
+    {
+        super.onInventoryChanged();
+    }
+
+    @Override
+    public long onReceiveEnergy(ForgeDirection from, long receive, boolean doReceive)
+    {
+        return this.energy.receiveEnergy(receive, doReceive);
+    }
+
+    protected void produce()
+    {
+        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS)
+        {
+            if (this.energy.getEnergy() > 0)
+            {
+                TileEntity tileEntity = new Vector3(this).translate(direction).getTileEntity(this.worldObj);
+
+                if (tileEntity != null)
+                {
+                    long used = CompatibilityModule.receiveEnergy(tileEntity, direction.getOpposite(), this.energy.extractEnergy(this.energy.getEnergy(), false), true);
+                    this.energy.extractEnergy(used, true);
+                }
+            }
+        }
+    }
+
+    public void produceEnergy(long amount)
+    {
+        if (!this.energy.isFull())
+        {
+            this.energy.setEnergy(this.energy.getEnergy() + amount);
+        }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt)
+    {
+        super.readFromNBT(nbt);
+        this.energy.readFromNBT(nbt);
     }
 
     @Override
@@ -172,22 +169,16 @@ public abstract class MadTileEntity extends MadTileEntityRedstone implements IEn
         this.energy.setCapacity(energy);
     }
 
-    public boolean isPowered()
-    {
-        return this.energy.getEnergy() > 0;
-    }
-
     @Override
-    public long getEnergy(ForgeDirection from)
+    public void updateEntity()
     {
-        return this.energy.getEnergy();
-    }
+        super.updateEntity();
 
-    @Override
-    public void readFromNBT(NBTTagCompound nbt)
-    {
-        super.readFromNBT(nbt);
-        this.energy.readFromNBT(nbt);
+        // Accept energy if we are allowed to do so.
+        if (this.energy.checkReceive())
+        {
+            this.consume();
+        }
     }
 
     @Override

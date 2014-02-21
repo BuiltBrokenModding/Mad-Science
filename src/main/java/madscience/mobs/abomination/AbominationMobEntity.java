@@ -416,7 +416,7 @@ public class AbominationMobEntity extends EntityMob
         {
             return false;
         }
-        
+
         double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
         double d1 = this.posY + (this.rand.nextInt(64) - 32);
         double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
@@ -430,7 +430,7 @@ public class AbominationMobEntity extends EntityMob
         {
             return false;
         }
-        
+
         EnderTeleportEvent event = new EnderTeleportEvent(this, par1, par3, par5, 0);
         if (MinecraftForge.EVENT_BUS.post(event))
         {
@@ -513,7 +513,7 @@ public class AbominationMobEntity extends EntityMob
         {
             return false;
         }
-        
+
         Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX - par1Entity.posX, this.boundingBox.minY + this.height / 2.0F - par1Entity.posY + par1Entity.getEyeHeight(), this.posZ - par1Entity.posZ);
         vec3 = vec3.normalize();
         double d0 = 16.0D;

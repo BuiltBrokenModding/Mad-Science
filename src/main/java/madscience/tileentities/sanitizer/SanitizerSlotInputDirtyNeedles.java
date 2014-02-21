@@ -3,7 +3,6 @@ package madscience.tileentities.sanitizer;
 import madscience.MadNeedles;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class SanitizerSlotInputDirtyNeedles extends Slot

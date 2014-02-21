@@ -1,10 +1,8 @@
 package madscience.tileentities.sequencer;
 
 import madscience.items.ItemDecayDNA;
-import madscience.items.ItemDecayNeedle;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class SequencerSlotInputDNASample extends Slot

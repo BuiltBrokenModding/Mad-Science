@@ -25,13 +25,13 @@ public class SoniclocatorPackets extends MadPackets
 
     // Texture to display.
     private String lastTexture;
+    
     // Tile entity from the world.
     private SoniclocatorEntity soniclocatorTileEntity;
 
     // XYZ coordinates of tile entity source.
     private int tilePosX;
     private int tilePosY;
-
     private int tilePosZ;
 
     public SoniclocatorPackets()

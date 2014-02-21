@@ -1,11 +1,7 @@
 package madscience.mobs.shoggoth;
 
-import madscience.MadFluids;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -29,13 +25,13 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
     public ShoggothMobEntity(World par1World)
     {
         super(par1World);
-        
+
         this.yOffset = 0.0F;
         this.slimeJumpDelay = this.rand.nextInt(5) + 10;
-        
+
         int i = 1 << this.rand.nextInt(3);
         this.setSlimeSize(i);
-       
+
         // The below means if possible, it wont walk into water
         this.getNavigator().setAvoidsWater(false);
     }
@@ -43,6 +39,13 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
     protected void alterSquishAmount()
     {
         this.squishAmount *= 0.9F;
+    }
+
+    @Override
+    protected void applyEntityAttributes()
+    {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(15.0D);
     }
 
     /** Indicates weather the slime is able to damage the player (based upon the slime's size) */
@@ -145,7 +148,21 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
     {
         return this.dataWatcher.getWatchableObjectByte(16);
     }
-    
+
+    /** Returns the volume for the sounds this mob makes. */
+    @Override
+    protected float getSoundVolume()
+    {
+        return 0.4F * this.getSlimeSize();
+    }
+
+    /** The speed it takes to move the entityliving's rotationPitch through the faceEntity method. This is only currently use in wolves. */
+    @Override
+    public int getVerticalFaceSpeed()
+    {
+        return 0;
+    }
+
     /** Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig. */
     @Override
     public boolean interact(EntityPlayer par1EntityPlayer)
@@ -169,20 +186,6 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
         {
             return super.interact(par1EntityPlayer);
         }
-    }
-
-    /** Returns the volume for the sounds this mob makes. */
-    @Override
-    protected float getSoundVolume()
-    {
-        return 0.4F * this.getSlimeSize();
-    }
-
-    /** The speed it takes to move the entityliving's rotationPitch through the faceEntity method. This is only currently use in wolves. */
-    @Override
-    public int getVerticalFaceSpeed()
-    {
-        return 0;
     }
 
     /** Returns true if the slime makes a sound when it jumps (based upon the slime's size) */
@@ -302,13 +305,6 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(par1 * par1);
         this.setHealth(this.getMaxHealth());
         this.experienceValue = par1;
-    }
-    
-    @Override
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(15.0D);
     }
 
     @Override

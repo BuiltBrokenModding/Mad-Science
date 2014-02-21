@@ -1,6 +1,5 @@
 package madscience.tileentities.cryofreezer;
 
-import madscience.MadScience;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.ForgeDirection;
@@ -16,10 +15,10 @@ public class CryofreezerPackets extends MadPackets
     private int tilePosX;
     private int tilePosY;
     private int tilePosZ;
-    
+
     // Tile entity reference upon execute.
     private CryofreezerEntity cryoFreezerTileEntity;
-    
+
     // Last known current cook time.
     private int lastItemCookTimeValue;
 
@@ -28,12 +27,17 @@ public class CryofreezerPackets extends MadPackets
 
     // Last known amount of energy stored.
     private long lastItemStoredEnergy;
-    
+
     // Last known maximum amount of energy.
     private long lastItemStoredMaxEnergy;
-    
+
     // Last known texture displayed on the tile entity.
     private String cryofreezerTexture;
+
+    public CryofreezerPackets()
+    {
+        // Required for reflection.
+    }
 
     public CryofreezerPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, String tileTexture)
     {
@@ -41,58 +45,13 @@ public class CryofreezerPackets extends MadPackets
         tilePosX = posX;
         tilePosY = posY;
         tilePosZ = posZ;
-        
+
         // Tile entity specific.
         lastItemCookTimeValue = cookTime;
         lastItemCookTimeMaximum = cookTimeMax;
         lastItemStoredMaxEnergy = energyMax;
         lastItemStoredEnergy = energyStored;
         cryofreezerTexture = tileTexture;
-    }
-    
-    public CryofreezerPackets()
-    {
-        // Required for reflection.
-    }
-
-    @Override
-    public void write(ByteArrayDataOutput out)
-    {
-        // ------
-        // SERVER
-        // ------
-        
-        // World coordinate information.
-        out.writeInt(tilePosX);
-        out.writeInt(tilePosY);
-        out.writeInt(tilePosZ);
-        
-        // Packet being written by server.
-        out.writeInt(lastItemCookTimeValue);
-        out.writeInt(lastItemCookTimeMaximum);
-        out.writeLong(lastItemStoredMaxEnergy);
-        out.writeLong(lastItemStoredEnergy);
-        out.writeUTF(cryofreezerTexture);
-    }
-
-    @Override
-    public void read(ByteArrayDataInput in) throws ProtocolException
-    {
-        // ------
-        // CLIENT
-        // ------
-        
-        // World coordinate information.
-        this.tilePosX = in.readInt();
-        this.tilePosY = in.readInt();
-        this.tilePosZ = in.readInt();
-        
-        // Packet being read by client, verifying integrity.
-        this.lastItemCookTimeValue = in.readInt();
-        this.lastItemCookTimeMaximum = in.readInt();
-        this.lastItemStoredMaxEnergy = in.readLong();
-        this.lastItemStoredEnergy = in.readLong();
-        this.cryofreezerTexture = in.readUTF();
     }
 
     @Override
@@ -101,13 +60,14 @@ public class CryofreezerPackets extends MadPackets
         // ------
         // CLIENT
         // ------
-        
+
         // Packet received by client, executing payload.
         if (side.isClient())
         {
             cryoFreezerTileEntity = (CryofreezerEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (cryoFreezerTileEntity == null) return;
-            
+            if (cryoFreezerTileEntity == null)
+                return;
+
             this.cryoFreezerTileEntity.currentItemCookingValue = lastItemCookTimeValue;
             this.cryoFreezerTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
             this.cryoFreezerTileEntity.setEnergyCapacity(lastItemStoredMaxEnergy);
@@ -118,5 +78,45 @@ public class CryofreezerPackets extends MadPackets
         {
             throw new ProtocolException("Cannot send this packet to the server!");
         }
+    }
+
+    @Override
+    public void read(ByteArrayDataInput in) throws ProtocolException
+    {
+        // ------
+        // CLIENT
+        // ------
+
+        // World coordinate information.
+        this.tilePosX = in.readInt();
+        this.tilePosY = in.readInt();
+        this.tilePosZ = in.readInt();
+
+        // Packet being read by client, verifying integrity.
+        this.lastItemCookTimeValue = in.readInt();
+        this.lastItemCookTimeMaximum = in.readInt();
+        this.lastItemStoredMaxEnergy = in.readLong();
+        this.lastItemStoredEnergy = in.readLong();
+        this.cryofreezerTexture = in.readUTF();
+    }
+
+    @Override
+    public void write(ByteArrayDataOutput out)
+    {
+        // ------
+        // SERVER
+        // ------
+
+        // World coordinate information.
+        out.writeInt(tilePosX);
+        out.writeInt(tilePosY);
+        out.writeInt(tilePosZ);
+
+        // Packet being written by server.
+        out.writeInt(lastItemCookTimeValue);
+        out.writeInt(lastItemCookTimeMaximum);
+        out.writeLong(lastItemStoredMaxEnergy);
+        out.writeLong(lastItemStoredEnergy);
+        out.writeUTF(cryofreezerTexture);
     }
 }

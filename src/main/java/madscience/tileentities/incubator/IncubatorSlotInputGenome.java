@@ -1,8 +1,6 @@
 package madscience.tileentities.incubator;
 
 import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.ItemDecayDNA;
-import madscience.items.ItemDecayNeedle;
 import madscience.items.ItemGenome;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -23,7 +21,7 @@ public class IncubatorSlotInputGenome extends Slot
         {
             return true;
         }
-        
+
         // Check if we are a combined genome (monster from mainframe).
         if (stack != null && stack.getItem() instanceof CombinedGenomeMonsterPlacer)
         {

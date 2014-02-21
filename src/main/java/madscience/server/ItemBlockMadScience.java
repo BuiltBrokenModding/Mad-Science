@@ -12,14 +12,14 @@ public class ItemBlockMadScience extends ItemBlock
     }
 
     @Override
-    public int getMetadata(int i)
-    {
-        return i;
-    }
-
-    @Override
     public String getItemDisplayName(ItemStack itemstack)
     {
         return getUnlocalizedName(itemstack);
+    }
+
+    @Override
+    public int getMetadata(int i)
+    {
+        return i;
     }
 }

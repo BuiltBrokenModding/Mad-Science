@@ -56,7 +56,7 @@ public class WerewolfMobEntity extends EntityMob
         // Makes the mob try and attack the nearest player that it encounters.
         // Note: Change EntityPlayer to another class to have mob target that.
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this,EntityPlayer.class, 0, false,true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, false, true));
 
         // Forces the player to take damage if the mob touches them.
         // this.tasks.addTask(3, new EntityAIAttackOnCollide(this, 1.0D,

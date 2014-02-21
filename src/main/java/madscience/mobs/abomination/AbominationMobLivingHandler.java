@@ -15,7 +15,7 @@ public class AbominationMobLivingHandler
         {
             return;
         }
-        
+
         // Only lay eggs if our config files allow it.
         if (!MadConfig.ABOMINATION_LAYSEGGS)
         {
@@ -24,7 +24,7 @@ public class AbominationMobLivingHandler
 
         if (event.source.getSourceOfDamage() instanceof AbominationMobEntity)
         {
-            //MadScience.logger.info("ABOMINATION KILLED: " + event.entityLiving);
+            // MadScience.logger.info("ABOMINATION KILLED: " + event.entityLiving);
 
             int someBlockID = MadBlocks.ABOMINATIONEGGBLOCK.blockID;
             int x = MathHelper.floor_double(event.entityLiving.posX);

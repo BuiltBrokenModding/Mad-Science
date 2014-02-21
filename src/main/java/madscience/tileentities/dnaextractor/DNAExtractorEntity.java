@@ -17,9 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -33,18 +30,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory, IFluidHandler
 {
-    public DNAExtractorEntity()
-    {
-        super(MadConfig.DNAEXTRACTOR_CAPACTITY, MadConfig.DNAEXTRACTOR_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] furnaceItemStacks = new ItemStack[5];
 
@@ -74,6 +66,11 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
 
     /** Path to current texture that should be displayed on our model. */
     public String dnaExtractorTexture = "models/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/idle.png";
+
+    public DNAExtractorEntity()
+    {
+        super(MadConfig.DNAEXTRACTOR_CAPACTITY, MadConfig.DNAEXTRACTOR_INPUT);
+    }
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid)
@@ -322,7 +319,7 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
         {
-            //MadScience.logger.info("CLIENT: getItemCookTimeScaled() was called with currentItemCookingMaximum being zero!");
+            // MadScience.logger.info("CLIENT: getItemCookTimeScaled() was called with currentItemCookingMaximum being zero!");
             currentItemCookingMaximum = 200;
         }
 
@@ -734,12 +731,8 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
             }
 
             // Send update to clients that require it.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new DNAExtractorPackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            internalLiquidDNAMutantTank.getFluidAmount(), internalLiquidDNAMutantTank.getCapacity(),
-                            this.dnaExtractorTexture).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new DNAExtractorPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), internalLiquidDNAMutantTank.getFluidAmount(), internalLiquidDNAMutantTank.getCapacity(), this.dnaExtractorTexture).makePacket());
         }
 
         if (inventoriesChanged)

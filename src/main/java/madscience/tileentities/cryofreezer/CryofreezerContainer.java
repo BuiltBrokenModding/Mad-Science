@@ -3,22 +3,18 @@ package madscience.tileentities.cryofreezer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class CryofreezerContainer extends Container
 {
     private CryofreezerEntity cryoFreezerTileEntity;
-    
+
     public CryofreezerContainer(InventoryPlayer par1InventoryPlayer, CryofreezerEntity par2TileEntityFurnace)
     {
         // Hook the server world entity.
         this.cryoFreezerTileEntity = par2TileEntityFurnace;
-        
+
         // Our container object.
         this.cryoFreezerTileEntity.container = this;
 

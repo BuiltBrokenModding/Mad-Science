@@ -5,7 +5,6 @@ import madscience.items.ItemDataReelEmpty;
 import madscience.items.ItemGenome;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class MainframeSlotInputGenome extends Slot
@@ -23,13 +22,13 @@ public class MainframeSlotInputGenome extends Slot
         {
             return false;
         }
-        
+
         // Check if we are a genome data reel.
         if (stack != null && stack.getItem() instanceof ItemGenome)
         {
             return true;
         }
-        
+
         // Check if we are a combined genome (monster from mainframe).
         if (stack != null && stack.getItem() instanceof CombinedGenomeMonsterPlacer)
         {

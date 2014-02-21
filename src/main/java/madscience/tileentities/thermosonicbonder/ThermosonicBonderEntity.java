@@ -14,27 +14,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInventory
 {
-    public ThermosonicBonderEntity()
-    {
-        super(MadConfig.THERMOSONIC_CAPACTITY, MadConfig.THERMOSONIC_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] thermosonicbonderOutput = new ItemStack[1];
 
@@ -66,6 +58,11 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
 
     /** Texture that should be displayed on our model. */
     public String thermosonicbonderTexture = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
+
+    public ThermosonicBonderEntity()
+    {
+        super(MadConfig.THERMOSONIC_CAPACTITY, MadConfig.THERMOSONIC_INPUT);
+    }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -281,10 +278,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
     }
 
-    /**
-     * Returns an integer between 0 and the passed value representing how close the current item is to being completely
-     * cooked
-     */
+    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
     public int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
@@ -707,12 +701,8 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
             }
 
             // Send update about block to all other players in the world.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new ThermosonicBonderPackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            currentHeatValue, currentHeatMaximum,
-                            this.thermosonicbonderTexture).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new ThermosonicBonderPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), currentHeatValue, currentHeatMaximum, this.thermosonicbonderTexture).makePacket());
         }
 
         if (inventoriesChanged)

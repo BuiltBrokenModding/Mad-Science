@@ -5,7 +5,6 @@ import java.util.Random;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
-import madscience.MadGenomes;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.tileentities.mainframe.MainframeRecipes.GenomeRecipe;
@@ -16,9 +15,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -34,18 +30,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class MainframeEntity extends MadTileEntity implements ISidedInventory, IFluidHandler
 {
-    public MainframeEntity()
-    {
-        super(MadConfig.MAINFRAME_CAPACTITY, MadConfig.MAINFRAME_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] mainframeOutput = new ItemStack[2];
 
@@ -53,7 +44,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
     public int currentItemCookingMaximum;
-    
+
     /** The number of ticks that the current item has been cooking for */
     public int currentItemCookingValue;
 
@@ -89,6 +80,11 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
 
     /** Determines if debugging information is shown for this object. */
     public boolean showDebuggingInfo = false;
+
+    public MainframeEntity()
+    {
+        super(MadConfig.MAINFRAME_CAPACTITY, MadConfig.MAINFRAME_INPUT);
+    }
 
     private void addBucketToInternalTank()
     {
@@ -243,9 +239,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         return (slot2Result <= getInventoryStackLimit() && slot2Result <= genomeSlotCompare.getMaxStackSize());
     }
 
-    /**
-     * Return current heat level for this machine.
-     */
+    /** Return current heat level for this machine. */
     private void checkHeatLevels()
     {
         // Computer is switched on and has power reserves.
@@ -968,7 +962,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         {
             mainframeOutput[0].stackSize += itemOutputSlot2.stackSize;
         }
-        
+
         // Remove a empty genome data reel from bottom right slot.
         if (mainframeInput != null && mainframeInput[3] != null)
         {
@@ -1175,13 +1169,8 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
             }
 
             // Sends relevant information from server to respective clients that require it.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new MainframePackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            internalWaterTank.getFluidAmount(), internalWaterTank.getCapacity(),
-                            this.currentHeatValue, this.currentHeatMaximum,
-                            this.mainframeTexturePath).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new MainframePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), internalWaterTank.getFluidAmount(), internalWaterTank.getCapacity(), this.currentHeatValue, this.currentHeatMaximum, this.mainframeTexturePath).makePacket());
         }
 
         if (inventoriesChanged)

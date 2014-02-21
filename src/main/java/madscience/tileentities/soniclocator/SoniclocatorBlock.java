@@ -58,6 +58,21 @@ public class SoniclocatorBlock extends BlockContainer
 
         // Define how big this item is we make it same size as a default block.
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 3.0F, 1.0F);
+        
+        // Forces our block to randomly tick like grass or plants would so we can spawn particles around it idly.
+        this.needsRandomTick = true;
+        this.setTickRandomly(true);
+    }
+    
+    @Override
+    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
+    {
+        // Spawns those strange particles that float off Mushroom Cows around the machine.
+        super.randomDisplayTick(par1World, par2, par3, par4, par5Random);
+        if (par5Random.nextInt(10) == 0)
+        {
+            par1World.spawnParticle("townaura", (float)par2 + par5Random.nextInt(5), (float)par3 + 2.0F, (float)par4 + par5Random.nextInt(5), 0.0D, 0.0D, 0.0D);
+        }
     }
 
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */
@@ -131,6 +146,10 @@ public class SoniclocatorBlock extends BlockContainer
         {
             world.setBlockToAir(x, y + 2, z);
         }
+        
+        // Remove ourselves from the location registry for soniclocators.
+        // Note: Causes java.util.ConcurrentModificationException
+        SoniclocatorLocationRegistry.removeLocation(new SoniclocatorLocationItem(x, y, z));
     }
 
     @Override
@@ -272,6 +291,7 @@ public class SoniclocatorBlock extends BlockContainer
     @Override
     public void onBlockAdded(World world, int x, int y, int z)
     {
+        // Called when the object is placed into the world regardless of how it got there (AKA startup).
         super.onBlockAdded(world, x, y, z);
         this.setDefaultDirection(world, x, y, z);
 
@@ -280,17 +300,27 @@ public class SoniclocatorBlock extends BlockContainer
             // Add 'ghost' blocks that makeup upper section of cryotube.
             world.setBlock(x, y + 1, z, MadFurnaces.SONICLOCATORGHOST.blockID, 1, 3);
             world.setBlock(x, y + 2, z, MadFurnaces.SONICLOCATORGHOST.blockID, 2, 3);
+            
+            // Store this information in the location registry.
+            SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(x, y, z));
         }
     }
 
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
+        // Called when a player places the object into the world.
         super.onBlockPlacedBy(world, x, y, z, living, stack);
         lastPlacedTileEntity = (SoniclocatorEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-
+        
+        // Store this information in the location registry.
+        if (!world.isRemote)
+        {
+            SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(x, y, z));
+        }
+       
         if (stack.hasDisplayName() && lastPlacedTileEntity != null)
         {
             lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());

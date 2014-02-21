@@ -14,9 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -31,18 +28,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SanitizerEntity extends MadTileEntity implements ISidedInventory, IFluidHandler
 {
-    public SanitizerEntity()
-    {
-        super(MadConfig.SANTITIZER_CAPACTITY, MadConfig.SANTITIZER_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] sanitizerOutput = new ItemStack[2];
 
@@ -74,6 +66,11 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
 
     /** Path to texture that we want rendered onto our model. */
     public String sanitizerTexturePath = "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png";
+
+    public SanitizerEntity()
+    {
+        super(MadConfig.SANTITIZER_CAPACTITY, MadConfig.SANTITIZER_INPUT);
+    }
 
     private boolean addBucketToInternalTank()
     {
@@ -360,10 +357,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
     }
 
-    /**
-     * Returns an integer between 0 and the passed value representing how close the current item is to being completely
-     * cooked
-     */
+    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
     public int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
@@ -523,6 +517,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         return false;
     }
 
+    @Override
     public boolean isPowered()
     {
         return this.getEnergy(ForgeDirection.UNKNOWN) > 0;
@@ -656,9 +651,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         }
     }
 
-    /**
-     * Update current animation that we should be playing on this tile entity.
-     */
+    /** Update current animation that we should be playing on this tile entity. */
     private void updateAnimation()
     {
         // Active state has many textures based on item cook progress.
@@ -753,12 +746,8 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
             }
 
             // Send update about tile entity to all players around us.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new SanitizerPackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            this.internalWaterTank.getFluidAmount(), this.internalWaterTank.getCapacity(),
-                            this.sanitizerTexturePath).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new SanitizerPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.internalWaterTank.getFluidAmount(), this.internalWaterTank.getCapacity(), this.sanitizerTexturePath).makePacket());
         }
 
         if (inventoriesChanged)

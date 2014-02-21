@@ -1,6 +1,5 @@
 package madscience.items;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class MadSpawnEggInfo

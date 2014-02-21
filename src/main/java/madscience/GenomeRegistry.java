@@ -11,6 +11,21 @@ public class GenomeRegistry
 {
     private static final Map<Short, MadGenomeInfo> genomes = new LinkedHashMap<Short, MadGenomeInfo>();
 
+    public static MadGenomeInfo getGenomeInfo(short id)
+    {
+        return genomes.get(id);
+    }
+
+    public static Collection<MadGenomeInfo> getGenomeInfoList()
+    {
+        return Collections.unmodifiableCollection(genomes.values());
+    }
+
+    public static boolean isValidSpawnGenomeID(short id)
+    {
+        return !genomes.containsKey(id);
+    }
+
     public static void registerGenome(MadGenomeInfo info) throws IllegalArgumentException
     {
         if (info == null)
@@ -24,21 +39,6 @@ public class GenomeRegistry
         }
 
         genomes.put(info.genomeID, info);
-    }
-
-    public static boolean isValidSpawnGenomeID(short id)
-    {
-        return !genomes.containsKey(id);
-    }
-
-    public static MadGenomeInfo getGenomeInfo(short id)
-    {
-        return genomes.get(id);
-    }
-
-    public static Collection<MadGenomeInfo> getGenomeInfoList()
-    {
-        return Collections.unmodifiableCollection(genomes.values());
     }
 
 }

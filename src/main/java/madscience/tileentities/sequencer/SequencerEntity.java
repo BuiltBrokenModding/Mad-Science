@@ -5,7 +5,6 @@ import java.util.Random;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
-import madscience.MadGenomes;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.tileentities.prefab.MadTileEntity;
@@ -14,9 +13,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -24,18 +20,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SequencerEntity extends MadTileEntity implements ISidedInventory
 {
-    public SequencerEntity()
-    {
-        super(MadConfig.SEQUENCER_CAPACTITY, MadConfig.SEQUENCER_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] sequencerOutput = new ItemStack[1];
 
@@ -61,6 +52,11 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
 
     /** Path to texture that we would like displayed on this block. */
     public String sequencerTexture = "models/" + MadFurnaces.SEQUENCER_INTERNALNAME + "/idle.png";
+
+    public SequencerEntity()
+    {
+        super(MadConfig.SEQUENCER_CAPACTITY, MadConfig.SEQUENCER_INPUT);
+    }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -646,11 +642,8 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
             }
 
             // Send update to all players around us about tile entity.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new SequencerPackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            this.sequencerTexture).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new SequencerPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.sequencerTexture).makePacket());
         }
 
         if (inventoriesChanged)

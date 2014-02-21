@@ -1,7 +1,6 @@
 package madscience.tileentities.meatcube;
 
 import madscience.MadFurnaces;
-import madscience.MadMobs;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

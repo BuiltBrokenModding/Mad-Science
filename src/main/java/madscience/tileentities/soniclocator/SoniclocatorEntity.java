@@ -1,17 +1,23 @@
 package madscience.tileentities.soniclocator;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadSounds;
+import madscience.network.MadParticlePacket;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -21,8 +27,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory, IInventory
@@ -406,6 +414,12 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
         // Sound that is played when we are placed into the world.
         this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_PLACE, 1.0F, 1.0F);
+        
+        if (!this.worldObj.isRemote)
+        {
+            // Store this information in the location registry.
+            SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(this.xCoord, this.yCoord, this.zCoord));
+        }
     }
 
     public boolean isEmptyTargetList()
@@ -451,7 +465,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
     }
 
-    private ItemStack locateTargetBlock(ItemStack targetItem, ItemStack replacementItem)
+    private ItemStack locateTargetBlock(ItemStack targetItem, ItemStack replacementItem, int chunkX, int chunkY)
     {
         // Skip client worlds.
         if (worldObj.isRemote)
@@ -459,7 +473,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             return null;
         }
 
-        Chunk chunk = worldObj.getChunkFromBlockCoords(xCoord, zCoord);
+        Chunk chunk = worldObj.getChunkFromBlockCoords(chunkX, chunkY);
 
         // If we cannot find the chunk then return nothing.
         if (chunk == null)
@@ -483,21 +497,39 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                         l = chunk.getBlockID(i, j, k);
                         if (l > 0)
                         {
-                            // Valid block, check if equal to target block.
-                            ItemStack compareChunkItem = new ItemStack(Block.blocksList[l]);
-                            if (compareChunkItem.isItemEqual(targetItem))
+                            // Located a target block.
+                            int targetX = (i);
+                            int targetY = (j);
+                            int targetZ = (k);
+
+                            // Convert chunk-coords into global-coords via bitshifting.
+                            int targetXGlobal = chunk.xPosition * 16 + targetX;
+                            int targetZGlobal = chunk.zPosition * 16 + targetZ;
+
+                            try
                             {
-                                // Located a target block.
-                                int targetX = (i);
-                                int targetY = (j);
-                                int targetZ = (k);
+                                // Valid block, check if equal to target block.
+                                ItemStack compareChucnkItem = new ItemStack(Block.blocksList[l]);
+                                if (compareChucnkItem != null && compareChucnkItem.isItemEqual(targetItem))
+                                {
+                                    // Add the processed item to our list for processing outside this loop.
+                                    targetList.add(new SoniclocatorTargetBlock(targetXGlobal, targetY, targetZGlobal, compareChucnkItem));
+                                    continue;
+                                }
+                            }
+                            catch (Exception err)
+                            {
+                                MadScience.logger.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
+                            }
 
-                                // Convert chunk-coords into global-coords via bitshifting.
-                                int targetXGlobal = chunk.xPosition * 16 + targetX;
-                                int targetZGlobal = chunk.zPosition * 16 + targetZ;
-
-                                // Add the processed item to our list for processing outside this loop.
-                                targetList.add(new SoniclocatorTargetBlock(targetXGlobal, targetY, targetZGlobal, compareChunkItem));
+                            // Check if the target block is inside the OreDictionary if first query fails.
+                            for (ItemStack someItem : OreDictionary.getOres(targetItem.getUnlocalizedName()))
+                            {
+                                if (OreDictionary.itemMatches(someItem, targetItem, false))
+                                {
+                                    targetList.add(new SoniclocatorTargetBlock(targetXGlobal, targetY, targetZGlobal, someItem));
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -527,6 +559,12 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // If we have more than one item we can randomly pick which one to take so it's not predictable.
         // Note: Fox magic occurred here!
         SoniclocatorTargetBlock value = targetList.get(worldObj.rand.nextInt(targetList.size()));
+
+        // Create an explosion at the source of the target block we stole.
+        worldObj.createExplosion(null, value.targetX, value.targetY, value.targetZ, 0.42F, false);
+
+        // Create another explosion at the source tile entity thumper.
+        worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 0.42F, false);
 
         // Update the lighting engine about our changes to the chunk.
         worldObj.setBlock(value.targetX, value.targetY, value.targetZ, replacementItem.itemID, 0, 3);
@@ -647,8 +685,11 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
     public void smeltItem()
     {
+        // Find out if there are any other Soniclocators nearby, and if so kill us all!
+        locateNearbySoniclocators(2600);
+        
         // Output 1 - Locate the target item within the given chunk.
-        ItemStack craftedItem = locateTargetBlock(this.soniclocatorInput[1], this.soniclocatorInput[0]);
+        ItemStack craftedItem = locateTargetBlock(this.soniclocatorInput[1], this.soniclocatorInput[0], this.xCoord, this.yCoord);
 
         if (craftedItem == null)
         {
@@ -692,20 +733,74 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_FINISH, 1.0F, 1.0F);
     }
 
+    private void locateNearbySoniclocators(int maxRange)
+    {
+        try
+        {
+            // Queries our Soniclocator registry for information about other known locations of the devices.
+            Iterator<SoniclocatorLocationItem> listIterator = SoniclocatorLocationRegistry.otherSoniclocators.iterator();
+            while(listIterator.hasNext())
+            {
+                SoniclocatorLocationItem locationItem = (SoniclocatorLocationItem) listIterator.next();
+                if (locationItem == null) 
+                {
+                    return;
+                }
+                
+                long distanceBetweenMachines = Math.abs(SoniclocatorLocationRegistry.queryDistanceBetweenSonicLocators(new SoniclocatorLocationItem(this.xCoord, this.yCoord, this.zCoord), locationItem));
+                MadScience.logger.info("Distance between machines is: " + distanceBetweenMachines);
+                
+                // We got the message to abort and everything is fine!
+                if (distanceBetweenMachines == -1)
+                {
+                    return;
+                }
+                
+                // Another registered Soniclocator device is within range of another, this will cause problems.
+                MadScience.logger.info("DISANCE BETWEEN MACHINES: " + distanceBetweenMachines + " / " + maxRange);
+                
+                // There can never be zero distance between objects, so do not run on zero. -Fox
+                if (distanceBetweenMachines != 0 && distanceBetweenMachines < maxRange)
+                {
+                    this.worldObj.playSoundEffect(locationItem.posX + 0.5D, locationItem.posY + 0.5D, locationItem.posZ + 0.5D, MadSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
+                    this.worldObj.destroyBlock(locationItem.posX, locationItem.posY, locationItem.posZ, false);
+                    this.worldObj.destroyBlock(this.xCoord, this.yCoord, this.zCoord, false);
+                    this.worldObj.createExplosion((Entity)null, locationItem.posX, locationItem.posY, locationItem.posZ, (float)6, true);
+                    this.worldObj.createExplosion((Entity)null, this.xCoord, this.yCoord, this.zCoord, (float)6, true);
+                }
+            }
+        }
+        catch (Exception err)
+        {
+            //MadScience.logger.info("Minecraft has failed me!");
+            return;
+        }
+    }
+
     /** Update current frame of animation we should be displaying. */
     private void updateAnimation()
     {
         // Cooldown mode that is fired after a thump.
         if (canSmelt() && isPowered() && isRedstonePowered() && cooldownMode)
         {
+            // Send a packet saying we want explosion smoke for 200 ticks at this location.
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
+                    worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
+
             if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
+
                 if (curFrame >= 5)
                 {
                     // Check if we have exceeded the ceiling and need to reset.
                     cooldownMode = false;
                     curFrame = 4;
                     currentHeatValue = 0;
+
+                    // Play the scary Event Horizon cooldown effect.
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_COOLDOWN, 1.0F, 1.0F);
                 }
 
                 // Load this texture onto the entity.
@@ -725,6 +820,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             {
                 // Load this texture onto the entity.
                 soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
             }
             else
             {
@@ -801,9 +897,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             if (this.currentHeatValue == 0 && this.canSmelt() && this.isPowered() && !isEmptyTargetList() && !cooldownMode)
             {
                 // Start the powerup sound.
-                // this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_WORK, 1.0F, 1.0F);
-
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPSTART, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPSTART, 0.42F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentHeatValue++;
@@ -861,13 +955,13 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // Check if we should be changing pitch and volume of idle charging sound.
         if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !this.isEmptyTargetList() && !cooldownMode && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.7f) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_IDLECHARGED, (this.currentHeatValue * 0.1f), (this.currentHeatValue * 0.1f));
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_IDLECHARGED, 0.42F, (this.currentHeatValue * 0.1f));
         }
 
         // Check if we should be playing the thumper charging sound.
         if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !cooldownMode && !this.isEmptyTargetList() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPCHARGE, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPCHARGE, 0.42F, 1.0F);
         }
     }
 

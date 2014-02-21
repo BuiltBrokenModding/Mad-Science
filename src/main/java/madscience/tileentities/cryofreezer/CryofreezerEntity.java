@@ -13,28 +13,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
 {
-    public CryofreezerEntity()
-    {
-        super(MadConfig.CRYOFREEZER_CAPACTITY, MadConfig.CRYOFREEZER_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The item that is currently being used to heal the genetic material. */
     private ItemStack[] cryofreezerInput = new ItemStack[1];
 
@@ -55,6 +45,11 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
 
     // Holds all of the slots for the freezer on the server.
     public CryofreezerContainer container;
+
+    public CryofreezerEntity()
+    {
+        super(MadConfig.CRYOFREEZER_CAPACTITY, MadConfig.CRYOFREEZER_INPUT);
+    }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -462,7 +457,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
         if (this.isPowered() && this.canSmelt() && this.worldObj.rand.nextBoolean())
         {
             // Power consumption is not every tick but random.
-            this.consumeEnergy(MadConfig.CRYOFREEZER_CONSUME);            
+            this.consumeEnergy(MadConfig.CRYOFREEZER_CONSUME);
         }
 
         // Update status of the machine if it has redstone power or not.
@@ -506,9 +501,9 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
                 // Reset loop, prepare for next item or closure.
                 this.currentItemCookingValue = 0;
             }
-            
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new CryofreezerPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN),
-                    getEnergyCapacity(ForgeDirection.UNKNOWN), this.cryofreezerTexture).makePacket());
+
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new CryofreezerPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.cryofreezerTexture).makePacket());
         }
 
         if (inventoriesChanged)

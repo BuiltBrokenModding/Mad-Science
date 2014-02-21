@@ -3,12 +3,8 @@ package madscience.tileentities.thermosonicbonder;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ThermosonicBonderContainer extends Container
 {
@@ -45,7 +41,7 @@ public class ThermosonicBonderContainer extends Container
             this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
         }
     }
-    
+
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {

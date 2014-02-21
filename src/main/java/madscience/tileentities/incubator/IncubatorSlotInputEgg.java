@@ -1,6 +1,5 @@
 package madscience.tileentities.incubator;
 
-import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;

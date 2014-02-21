@@ -1,9 +1,13 @@
 package madscience.tileentities.soniclocator;
 
+import java.util.List;
+
+import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class SoniclocatorSlotInputBlock extends Slot
 {
@@ -22,11 +26,24 @@ public class SoniclocatorSlotInputBlock extends Slot
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        // Check if the target block is indeed a block.
-        ItemStack compareChucnkItem = new ItemStack(Block.blocksList[stack.getItem().itemID]);
-        if (stack != null && compareChucnkItem.isItemEqual(stack))
+        try
         {
-            return true;
+            // Check if the target block is indeed a block.
+            ItemStack compareChucnkItem = new ItemStack(Block.blocksList[stack.getItem().itemID]);
+            if (stack != null && compareChucnkItem.isItemEqual(stack))
+            {
+                return true;
+            }
+        }
+        catch (Exception err)
+        {
+            MadScience.logger.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
+        }
+        
+        // Check if the target block is inside the OreDictionary if first query fails.
+        for (ItemStack someItem : OreDictionary.getOres(stack.getUnlocalizedName()))
+        {
+            if (OreDictionary.itemMatches(someItem, stack, false)) return true;
         }
 
         return false;

@@ -13,9 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -23,18 +20,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class IncubatorEntity extends MadTileEntity implements ISidedInventory
 {
-    public IncubatorEntity()
-    {
-        super(MadConfig.INCUBATOR_CAPACTITY, MadConfig.INCUBATOR_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] incubatorOutput = new ItemStack[1];
 
@@ -66,6 +58,11 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
 
     /** Texture that should be displayed on our model. */
     public String incubatorTexture = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/idle.png";
+
+    public IncubatorEntity()
+    {
+        super(MadConfig.INCUBATOR_CAPACTITY, MadConfig.INCUBATOR_INPUT);
+    }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -341,7 +338,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
             // Output slot 1 - Damaged or completed genome data reels.
             return this.incubatorOutput[0];
         }
-        
+
         return null;
     }
 
@@ -688,12 +685,8 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
             }
 
             // Update status of machine to all clients around us.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new IncubatorPackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            this.currentHeatValue, this.currentHeatMaximum,
-                            this.incubatorTexture).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new IncubatorPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.currentHeatValue, this.currentHeatMaximum, this.incubatorTexture).makePacket());
         }
 
         if (inventoriesChanged)

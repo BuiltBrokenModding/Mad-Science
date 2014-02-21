@@ -88,25 +88,25 @@ public class MadGUI implements IGuiHandler
         {
             return new MeatcubeGUI(player.inventory, (MeatcubeEntity) tile_entity);
         }
-        
+
         // Cryogenic Tube
         if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
         {
             return new CryotubeGUI(player.inventory, (CryotubeEntity) tile_entity);
         }
-        
+
         // Thermosonic Bonder
         if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
         {
             return new ThermosonicBonderGUI(player.inventory, (ThermosonicBonderEntity) tile_entity);
         }
-        
+
         // Data Reel Duplicator
         if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
         {
             return new DataDuplicatorGUI(player.inventory, (DataDuplicatorEntity) tile_entity);
         }
-        
+
         // Soniclocator Device
         if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
         {
@@ -164,30 +164,30 @@ public class MadGUI implements IGuiHandler
         {
             return new MeatcubeContainer(player.inventory, (MeatcubeEntity) tile_entity);
         }
-        
+
         // Cryogenic Tube
         if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
         {
             return new CryotubeContainer(player.inventory, (CryotubeEntity) tile_entity);
         }
-        
+
         // Thermosonic Bonder
         if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
         {
             return new ThermosonicBonderContainer(player.inventory, (ThermosonicBonderEntity) tile_entity);
         }
-        
+
         // Data Reel Duplicator
         if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
         {
             return new DataDuplicatorContainer(player.inventory, (DataDuplicatorEntity) tile_entity);
         }
-        
+
         // Soniclocator Device
         if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
         {
             return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tile_entity);
-        }        
+        }
 
         // Default response is to return nothing.
         return null;

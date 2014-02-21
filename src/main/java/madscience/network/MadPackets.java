@@ -14,8 +14,6 @@ import madscience.tileentities.soniclocator.SoniclocatorPackets;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraftforge.common.ForgeDirection;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
@@ -24,11 +22,33 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 
 public abstract class MadPackets
 {
+    public static class ProtocolException extends Exception
+    {
+
+        public ProtocolException()
+        {
+        }
+
+        public ProtocolException(String message)
+        {
+            super(message);
+        }
+
+        public ProtocolException(String message, Throwable cause)
+        {
+            super(message, cause);
+        }
+
+        public ProtocolException(Throwable cause)
+        {
+            super(cause);
+        }
+    }
+
     private static final BiMap<Integer, Class<? extends MadPackets>> idMap;
 
     static
@@ -37,37 +57,40 @@ public abstract class MadPackets
 
         // Cryogenic Freezer
         builder.put(Integer.valueOf(0), CryofreezerPackets.class);
-        
+
         // Cryogenic Tube
         builder.put(Integer.valueOf(1), CryotubePackets.class);
-        
+
         // Data Duplicator
         builder.put(Integer.valueOf(2), DataDuplicatorPackets.class);
-        
+
         // DNA Extractor
         builder.put(Integer.valueOf(3), DNAExtractorPackets.class);
-        
+
         // Genome Incubator
         builder.put(Integer.valueOf(4), IncubatorPackets.class);
-        
+
         // Computer Mainframe
         builder.put(Integer.valueOf(5), MainframePackets.class);
-        
+
         // Disgusting Meat Cube
         builder.put(Integer.valueOf(6), MeatcubePackets.class);
-        
+
         // Syringe Sanitizer
         builder.put(Integer.valueOf(7), SanitizerPackets.class);
-        
+
         // Genetic Sequencer
         builder.put(Integer.valueOf(8), SequencerPackets.class);
-        
+
         // Thermosonic Bonder
         builder.put(Integer.valueOf(9), ThermosonicBonderPackets.class);
-        
+
         // Soniclocator Device
         builder.put(Integer.valueOf(10), SoniclocatorPackets.class);
         
+        // Mad Particle Packet (Can be any particle!)
+        builder.put(Integer.valueOf(11), MadParticlePacket.class);
+
         idMap = builder.build();
     }
 
@@ -84,28 +107,7 @@ public abstract class MadPackets
         }
     }
 
-    public static class ProtocolException extends Exception
-    {
-
-        public ProtocolException()
-        {
-        }
-
-        public ProtocolException(String message, Throwable cause)
-        {
-            super(message, cause);
-        }
-
-        public ProtocolException(String message)
-        {
-            super(message);
-        }
-
-        public ProtocolException(Throwable cause)
-        {
-            super(cause);
-        }
-    }
+    public abstract void execute(EntityPlayer player, Side side) throws ProtocolException;
 
     public final int getPacketId()
     {
@@ -127,9 +129,7 @@ public abstract class MadPackets
         return PacketDispatcher.getPacket(MadScience.CHANNEL_NAME, out.toByteArray());
     }
 
-    public abstract void write(ByteArrayDataOutput out);
-
     public abstract void read(ByteArrayDataInput in) throws ProtocolException;
 
-    public abstract void execute(EntityPlayer player, Side side) throws ProtocolException;
+    public abstract void write(ByteArrayDataOutput out);
 }

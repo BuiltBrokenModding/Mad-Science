@@ -3,30 +3,12 @@ package madscience;
 import madscience.items.ItemGenome;
 import madscience.items.MadGenomeInfo;
 import madscience.items.MadSpawnEggInfo;
-import madscience.items.genomes.GenomePigZombie;
-import madscience.mobs.werewolf.WerewolfMobModel;
-import madscience.mobs.werewolf.WerewolfMobRender;
 import madscience.tileentities.incubator.IncubatorRecipes;
 import madscience.tileentities.mainframe.MainframeRecipes;
-import madscience.tileentities.meatcube.MeatcubeBlock;
-import madscience.tileentities.meatcube.MeatcubeEntity;
-import madscience.tileentities.meatcube.MeatcubeRender;
-import madscience.tileentities.sequencer.SequencerRecipes;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadMobs
 {
@@ -37,7 +19,7 @@ public class MadMobs
     // Werewolf [Wolf + Villager]
     public static final String GMO_WEREWOLF_INTERNALNAME = "gmoWerewolf";
     public static final String GENOME_WEREWOLF_INTERNALNAME = "genomeWerewolf";
-    
+
     // Creeper Cow [Cow + Creeper]
     public static final String GMO_CREEPERCOW_INTERNALNAME = "gmoCreeperCow";
     public static final String GENOME_CREEPERCOW_INTERNALNAME = "genomeCreeperCow";
@@ -89,10 +71,11 @@ public class MadMobs
     // Ender Squid [Enderman + Squid]
     public static final String GMO_ENDERSQUID_INTERNALNAME = "gmoEnderSquid";
     public static final String GENOME_ENDERSQUID_INTERNALNAME = "genomeEnderSquid";
-    
+
     @EventHandler
-    public static void createGMOMob(int metaID, Class mobEntity, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome, int mainframeComputeTime)
-    {        
+    public static void createGMOMob(int metaID, Class mobEntity, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome,
+            int mainframeComputeTime)
+    {
         // Add mob to genetically modified mob list so it can be spawned.
         GMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, spawnData, primaryColor, secondaryColor));
 
@@ -111,7 +94,7 @@ public class MadMobs
         MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);
         IncubatorRecipes.addSmelting(MadEntities.COMBINEDGENOME_MONSTERPLACER.itemID, metaID, new ItemStack(MadEntities.GENETICALLYMODIFIED_MONSTERPLACER, 1, metaID));
     }
-    
+
     @EventHandler
     public static void createVanillaGMOMob(int metaID, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome, int mainframeComputeTime)
     {

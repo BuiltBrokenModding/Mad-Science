@@ -2,7 +2,6 @@ package madscience.tileentities.meatcube;
 
 import madscience.MadFluids;
 import madscience.MadFurnaces;
-import madscience.MadMobs;
 import madscience.MadScience;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;

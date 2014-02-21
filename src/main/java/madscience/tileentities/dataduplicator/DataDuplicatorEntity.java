@@ -16,9 +16,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -26,18 +23,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class DataDuplicatorEntity extends MadTileEntity implements ISidedInventory
 {
-    public DataDuplicatorEntity()
-    {
-        super(MadConfig.DATADUPLICATOR_CAPACTITY, MadConfig.DATADUPLICATOR_INPUT);
-    }
-
     private static final int[] slots_top = new int[]
     { 0 };
+
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
-
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] dataduplicatorOutput = new ItemStack[1];
 
@@ -63,6 +55,11 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
 
     /** Path to texture that we would like displayed on this block. */
     public String dataduplicatorTexture = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
+
+    public DataDuplicatorEntity()
+    {
+        super(MadConfig.DATADUPLICATOR_CAPACTITY, MadConfig.DATADUPLICATOR_INPUT);
+    }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -541,9 +538,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         }
     }
 
-    /**
-     * Update current frame of animation that we should be playing.
-     */
+    /** Update current frame of animation that we should be playing. */
     private void updateAnimation()
     {
         // Active state has many textures based on item cook progress.
@@ -608,7 +603,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
                 // New item pulled from cooking stack to be processed, check how
                 // long this item will take to cook.
                 currentItemCookingMaximum = 2600;
-                
+
                 // Sound of genome reel total completion.
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DATADUPLICATOR_START, 1.0F, 1.0F);
 
@@ -635,11 +630,8 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
                 this.currentItemCookingValue = 0;
             }
 
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId,
-                    new DataDuplicatorPackets(this.xCoord, this.yCoord, this.zCoord,
-                            currentItemCookingValue, currentItemCookingMaximum,
-                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
-                            this.dataduplicatorTexture).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new DataDuplicatorPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.dataduplicatorTexture).makePacket());
         }
 
         if (inventoriesChanged)
@@ -655,7 +647,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DATADUPLICATOR_IDLE, 1.0F, 1.0F);
         }
-        
+
         // Working sound of machine when powered and can smelt.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.8F) == 0L)
         {

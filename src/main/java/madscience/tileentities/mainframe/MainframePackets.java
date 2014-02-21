@@ -1,6 +1,5 @@
 package madscience.tileentities.mainframe;
 
-import madscience.MadScience;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.ForgeDirection;
@@ -18,7 +17,7 @@ public class MainframePackets extends MadPackets
     private int tilePosX;
     private int tilePosY;
     private int tilePosZ;
-    
+
     // Tile entity in the world.
     private MainframeEntity mainframeTileEntity;
 
@@ -29,7 +28,7 @@ public class MainframePackets extends MadPackets
     // Energy.
     private long lastItemStoredEnergy;
     private long lastItemStoredEnergyMaximum;
-    
+
     // Water level.
     private int lastWaterLevel;
     private int lastWaterLevelMaximum;
@@ -37,16 +36,16 @@ public class MainframePackets extends MadPackets
     // Heat level.
     private int lastHeatValue;
     private int lastHeatMaximum;
-   
+
     // Last known texture for mainframe.
     private String lastTexture;
 
-    public MainframePackets(int posX, int posY, int posZ,
-            int cookTime, int cookTimeMax,
-            long energyStored, long energyMax,
-            int waterLevel, int waterLevelMax,
-            int heatLevel, int heatMax,
-            String tileTexture)
+    public MainframePackets()
+    {
+        // Required for reflection.
+    }
+
+    public MainframePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMax, int heatLevel, int heatMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;
@@ -60,7 +59,7 @@ public class MainframePackets extends MadPackets
         // Energy.
         lastItemStoredEnergy = energyStored;
         lastItemStoredEnergyMaximum = energyMax;
-        
+
         // Water level.
         lastWaterLevel = waterLevel;
         lastWaterLevelMaximum = waterLevelMax;
@@ -68,78 +67,9 @@ public class MainframePackets extends MadPackets
         // Heat level.
         lastHeatValue = heatLevel;
         lastHeatMaximum = heatMax;
-       
+
         // Last known texture for mainframe.
         lastTexture = tileTexture;
-    }
-    
-    public MainframePackets()
-    {
-        // Required for reflection.
-    }
-
-    @Override
-    public void write(ByteArrayDataOutput out)
-    {
-        // ------
-        // SERVER
-        // ------
-        
-        // World coordinate information.
-        out.writeInt(tilePosX);
-        out.writeInt(tilePosY);
-        out.writeInt(tilePosZ);
-        
-        // Cook time.
-        out.writeInt(lastItemCookTimeValue);
-        out.writeInt(lastItemCookTimeMaximum);
-
-        // Energy.
-        out.writeLong(lastItemStoredEnergy);
-        out.writeLong(lastItemStoredEnergyMaximum);
-        
-        // Water level.
-        out.writeInt(lastWaterLevel);
-        out.writeInt(lastWaterLevelMaximum);
-
-        // Heat level.
-        out.writeInt(lastHeatValue);
-        out.writeInt(lastHeatMaximum);
-       
-        // Last known texture for mainframe.
-        out.writeUTF(lastTexture);
-    }
-
-    @Override
-    public void read(ByteArrayDataInput in) throws ProtocolException
-    {
-        // ------
-        // CLIENT
-        // ------
-        
-        // World coordinate information.
-        this.tilePosX = in.readInt();
-        this.tilePosY = in.readInt();
-        this.tilePosZ = in.readInt();
-        
-        // Cook time.
-        this.lastItemCookTimeValue = in.readInt();
-        this.lastItemCookTimeMaximum = in.readInt();
-
-        // Energy.
-        this.lastItemStoredEnergy = in.readLong();
-        this.lastItemStoredEnergyMaximum = in.readLong();
-        
-        // Water level.
-        this.lastWaterLevel = in.readInt();
-        this.lastWaterLevelMaximum = in.readInt();
-
-        // Heat level.
-        this.lastHeatValue = in.readInt();
-        this.lastHeatMaximum = in.readInt();
-       
-        // Last known texture for mainframe.
-        this.lastTexture = in.readUTF();
     }
 
     @Override
@@ -148,13 +78,14 @@ public class MainframePackets extends MadPackets
         // ------
         // CLIENT
         // ------
-        
+
         // Packet received by client, executing payload.
         if (side.isClient())
         {
             mainframeTileEntity = (MainframeEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (mainframeTileEntity == null) return;
-            
+            if (mainframeTileEntity == null)
+                return;
+
             // Cook time.
             this.mainframeTileEntity.currentItemCookingValue = lastItemCookTimeValue;
             this.mainframeTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
@@ -162,7 +93,7 @@ public class MainframePackets extends MadPackets
             // Energy.
             this.mainframeTileEntity.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
             this.mainframeTileEntity.setEnergyCapacity(lastItemStoredEnergyMaximum);
-            
+
             // Water level.
             this.mainframeTileEntity.internalWaterTank.setFluid(new FluidStack(FluidRegistry.WATER, lastWaterLevel));
             this.mainframeTileEntity.internalWaterTank.setCapacity(lastWaterLevelMaximum);
@@ -170,7 +101,7 @@ public class MainframePackets extends MadPackets
             // Heat level.
             this.mainframeTileEntity.currentHeatValue = lastHeatValue;
             this.mainframeTileEntity.currentHeatMaximum = lastHeatMaximum;
-           
+
             // Last known texture for mainframe.
             this.mainframeTileEntity.mainframeTexturePath = lastTexture;
         }
@@ -178,5 +109,69 @@ public class MainframePackets extends MadPackets
         {
             throw new ProtocolException("Cannot send this packet to the server!");
         }
+    }
+
+    @Override
+    public void read(ByteArrayDataInput in) throws ProtocolException
+    {
+        // ------
+        // CLIENT
+        // ------
+
+        // World coordinate information.
+        this.tilePosX = in.readInt();
+        this.tilePosY = in.readInt();
+        this.tilePosZ = in.readInt();
+
+        // Cook time.
+        this.lastItemCookTimeValue = in.readInt();
+        this.lastItemCookTimeMaximum = in.readInt();
+
+        // Energy.
+        this.lastItemStoredEnergy = in.readLong();
+        this.lastItemStoredEnergyMaximum = in.readLong();
+
+        // Water level.
+        this.lastWaterLevel = in.readInt();
+        this.lastWaterLevelMaximum = in.readInt();
+
+        // Heat level.
+        this.lastHeatValue = in.readInt();
+        this.lastHeatMaximum = in.readInt();
+
+        // Last known texture for mainframe.
+        this.lastTexture = in.readUTF();
+    }
+
+    @Override
+    public void write(ByteArrayDataOutput out)
+    {
+        // ------
+        // SERVER
+        // ------
+
+        // World coordinate information.
+        out.writeInt(tilePosX);
+        out.writeInt(tilePosY);
+        out.writeInt(tilePosZ);
+
+        // Cook time.
+        out.writeInt(lastItemCookTimeValue);
+        out.writeInt(lastItemCookTimeMaximum);
+
+        // Energy.
+        out.writeLong(lastItemStoredEnergy);
+        out.writeLong(lastItemStoredEnergyMaximum);
+
+        // Water level.
+        out.writeInt(lastWaterLevel);
+        out.writeInt(lastWaterLevelMaximum);
+
+        // Heat level.
+        out.writeInt(lastHeatValue);
+        out.writeInt(lastHeatMaximum);
+
+        // Last known texture for mainframe.
+        out.writeUTF(lastTexture);
     }
 }

@@ -15,7 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
-import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -26,7 +25,7 @@ public class CombinedMemoryMonsterPlacer extends Item
 
     @SideOnly(Side.CLIENT)
     private Icon genomeReelLayer2;
-    
+
     static
     {
         CombinedMemoryEntityList.addMapping("Priest", 32, 5651507, Color.RED.getRGB());
@@ -120,32 +119,6 @@ public class CombinedMemoryMonsterPlacer extends Item
 
         return this.itemIcon;
     }
-    
-    @Override
-    public String getUnlocalizedName(ItemStack stack)
-    {
-        String theDefault = "item." + MadEntities.COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME + "name";
-
-        // Memory profiles are hard coded.
-        if (stack != null)
-        {
-            switch (stack.getItemDamage())
-            {
-            case 32:
-                return theDefault + ".Priest";
-            case 64:
-                return theDefault + ".Farmer";
-            case 128:
-                return theDefault + ".Butcher";
-            case 256:
-                return theDefault + ".Blacksmith";
-            case 512:
-                return theDefault + ".Librarian";
-            }
-        }
-
-        return theDefault;
-    }
 
     @Override
     public int getItemEnchantability()
@@ -179,6 +152,32 @@ public class CombinedMemoryMonsterPlacer extends Item
             EntityEggInfo entityegginfo = (EntityEggInfo) iterator.next();
             par3List.add(new ItemStack(par1, 1, entityegginfo.spawnedID));
         }
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack stack)
+    {
+        String theDefault = "item." + MadEntities.COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME + "name";
+
+        // Memory profiles are hard coded.
+        if (stack != null)
+        {
+            switch (stack.getItemDamage())
+            {
+            case 32:
+                return theDefault + ".Priest";
+            case 64:
+                return theDefault + ".Farmer";
+            case 128:
+                return theDefault + ".Butcher";
+            case 256:
+                return theDefault + ".Blacksmith";
+            case 512:
+                return theDefault + ".Librarian";
+            }
+        }
+
+        return theDefault;
     }
 
     @SideOnly(Side.CLIENT)

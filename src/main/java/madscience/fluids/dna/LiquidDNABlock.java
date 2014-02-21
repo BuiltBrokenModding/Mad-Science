@@ -1,6 +1,5 @@
 package madscience.fluids.dna;
 
-import madscience.MadEntities;
 import madscience.MadFluids;
 import madscience.MadScience;
 import net.minecraft.block.material.Material;
@@ -29,7 +28,7 @@ public class LiquidDNABlock extends BlockFluidClassic
         MadFluids.LIQUIDDNA.setBlockID(id);
 
         // Add the block to the specific tab in creative mode.
-        //this.setCreativeTab(MadEntities.tabMadScience);
+        // this.setCreativeTab(MadEntities.tabMadScience);
     }
 
     @Override
@@ -43,13 +42,8 @@ public class LiquidDNABlock extends BlockFluidClassic
         return super.canDisplace(world, x, y, z);
     }
 
-/*    @Override
-    public int colorMultiplier(IBlockAccess iblockaccess, int i, int j, int k)
-    {
-        // Changes the color of the default minecraft water to be blood red.
-        // Note: HEX color can be changed to any HEX based color code.
-        return 0x8A0707;
-    }*/
+    /*
+     * @Override public int colorMultiplier(IBlockAccess iblockaccess, int i, int j, int k) { // Changes the color of the default minecraft water to be blood red. // Note: HEX color can be changed to any HEX based color code. return 0x8A0707; } */
 
     @Override
     public boolean displaceIfPossible(World world, int x, int y, int z)

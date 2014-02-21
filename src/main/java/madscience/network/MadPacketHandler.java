@@ -1,7 +1,5 @@
 package madscience.network;
 
-import java.util.logging.Logger;
-
 import madscience.MadScience;
 import madscience.network.MadPackets.ProtocolException;
 import net.minecraft.entity.player.EntityPlayer;

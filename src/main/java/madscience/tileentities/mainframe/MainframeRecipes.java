@@ -90,10 +90,9 @@ public final class MainframeRecipes
             {
                 continue;
             }
-            
+
             // Attempt to match-up items inside mainframe with known recipes.
-            if (recipe.ingredient1.isItemEqual(item1) && recipe.ingredient2.isItemEqual(item2) 
-                    || recipe.ingredient1.isItemEqual(item2) && recipe.ingredient2.isItemEqual(item1))
+            if (recipe.ingredient1.isItemEqual(item1) && recipe.ingredient2.isItemEqual(item2) || recipe.ingredient1.isItemEqual(item2) && recipe.ingredient2.isItemEqual(item1))
             {
                 return recipe;
             }
