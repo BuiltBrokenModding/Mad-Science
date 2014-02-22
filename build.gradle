@@ -48,7 +48,7 @@ minecraft {
 	}
 	else
 	{
-		replace "@BUILD@", "[CUSTOM]"
+		replace "@BUILD@", "[NIGHTLY]"
 	}
 	
 	if (project.hasProperty("mad_signature")) {
@@ -60,7 +60,7 @@ if (System.getenv("BUILD_NUMBER") != null) {
     version += ".${System.getenv("BUILD_NUMBER")}";
 }
 else {
-	version = "MC${config.version.minecraft}-F${config.version.forge}_[CUSTOM]"
+	version = "MC${config.version.minecraft}-F${config.version.forge}_[NIGHTLY]"
 }
 
 processResources {
