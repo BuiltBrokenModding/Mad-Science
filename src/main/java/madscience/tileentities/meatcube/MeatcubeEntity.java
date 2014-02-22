@@ -2,6 +2,7 @@ package madscience.tileentities.meatcube;
 
 import java.util.Random;
 
+import madscience.MadConfig;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -688,7 +689,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
             }
 
             // Send update about tile entity status to all players around us.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new MeatcubePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MeatcubePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
                     this.internalLiquidDNAMutantTank.getFluidAmount(), this.internalLiquidDNAMutantTank.getCapacity(), currentMeatCubeDamageValue, currentMaximumMeatCubeDamage, this.meatcubeTexturePath).makePacket());
         }
 

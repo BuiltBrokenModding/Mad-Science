@@ -746,7 +746,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
             }
 
             // Send update about tile entity to all players around us.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new SanitizerPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new SanitizerPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
                     getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.internalWaterTank.getFluidAmount(), this.internalWaterTank.getCapacity(), this.sanitizerTexturePath).makePacket());
         }
 

@@ -964,7 +964,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
             }
 
             // We always mark the block for an update along with the other items in the world.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new CryotubePackets(this.xCoord, this.yCoord, this.zCoord, hatchTimeCurrentValue, hatchTimeMaximum,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new CryotubePackets(this.xCoord, this.yCoord, this.zCoord, hatchTimeCurrentValue, hatchTimeMaximum,
                     getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), subjectCurrentHealth, subjectMaximumHealth, neuralActivityValue, neuralActivityMaximum, this.cryotubeTexture).makePacket());
         }
 

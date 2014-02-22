@@ -1169,7 +1169,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
             }
 
             // Sends relevant information from server to respective clients that require it.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new MainframePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MainframePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
                     getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), internalWaterTank.getFluidAmount(), internalWaterTank.getCapacity(), this.currentHeatValue, this.currentHeatMaximum, this.mainframeTexturePath).makePacket());
         }
 

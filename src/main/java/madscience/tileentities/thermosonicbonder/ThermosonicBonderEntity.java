@@ -701,7 +701,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
             }
 
             // Send update about block to all other players in the world.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new ThermosonicBonderPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new ThermosonicBonderPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
                     getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), currentHeatValue, currentHeatMaximum, this.thermosonicbonderTexture).makePacket());
         }
 

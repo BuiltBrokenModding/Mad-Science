@@ -787,7 +787,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         if (canSmelt() && isPowered() && isRedstonePowered() && cooldownMode)
         {
             // Send a packet saying we want explosion smoke for 200 ticks at this location.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
                     worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
             if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
@@ -936,7 +936,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             }
 
             // Update status of machine to all clients around us.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, 25, worldObj.provider.dimensionId, new SoniclocatorPackets(this.xCoord, this.yCoord, this.zCoord, getEnergy(ForgeDirection.UNKNOWN),
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new SoniclocatorPackets(this.xCoord, this.yCoord, this.zCoord, getEnergy(ForgeDirection.UNKNOWN),
                     getEnergyCapacity(ForgeDirection.UNKNOWN), this.currentHeatValue, this.currentHeatMaximum, this.lastKnownNumberOfTargets, this.lastKnownNumberOfTotalThumps, this.soniclocatorTexture).makePacket());
         }
 
