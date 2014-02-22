@@ -9,7 +9,7 @@ public class ComponentCPU extends ItemComponent
     public ComponentCPU(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+ 
     }
 
 }

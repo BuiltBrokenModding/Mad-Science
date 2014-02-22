@@ -9,7 +9,7 @@ public class CircuitRedstone extends ItemComponent
     public CircuitRedstone(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

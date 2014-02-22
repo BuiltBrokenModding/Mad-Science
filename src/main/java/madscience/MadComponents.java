@@ -10,6 +10,7 @@ import madscience.items.components.ComponentPowerSupply;
 import madscience.items.components.ComponentRAM;
 import madscience.items.components.ComponentScreen;
 import madscience.items.components.ComponentSiliconWafer;
+import madscience.items.components.ComponentThumper;
 import madscience.items.components.ComponentTransistor;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -62,6 +63,10 @@ public class MadComponents
     // Magnetic Tape
     public static ComponentMagneticTape COMPONENT_MAGNETICTAPE;
     public static final String COMPONENT_MAGNETICTAPE_INTERNALNAME = "componentMagneticTape";
+    
+    // Thumper
+    public static ComponentThumper COMPONENT_THUMPER;
+    public static final String COMPONENT_THUMPER_INTERNALNAME = "componentThumper";    
     
     
     public static void createComponentCaseItem(int itemID)
@@ -128,5 +133,11 @@ public class MadComponents
     {
         COMPONENT_TRANSISTOR = (ComponentTransistor) new ComponentTransistor(itemID).setUnlocalizedName(COMPONENT_TRANSISTOR_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_TRANSISTOR, COMPONENT_TRANSISTOR_INTERNALNAME);
+    }
+
+    public static void createComponentThumperItem(int itemID)
+    {
+        COMPONENT_THUMPER = (ComponentThumper) new ComponentThumper(itemID).setUnlocalizedName(COMPONENT_THUMPER_INTERNALNAME);
+        GameRegistry.registerItem(COMPONENT_THUMPER, COMPONENT_THUMPER_INTERNALNAME);
     }
 }

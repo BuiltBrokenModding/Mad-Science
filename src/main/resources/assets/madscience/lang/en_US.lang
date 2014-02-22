@@ -62,6 +62,7 @@ item.componentScreen.name=Screen Component
 item.componentTransistor.name=Transistor Component
 item.componentFusedQuartz.name=Fused Quartz Component
 item.componentMagneticTape.name=Magnetic Tape Component
+item.componentThumper.name=Thumper
 item.circuitComparator.name=Comparator Circuit Component
 item.circuitDiamond.name=Diamond Circuit Component
 item.circuitEmerald.name=Emerald Circuit Component

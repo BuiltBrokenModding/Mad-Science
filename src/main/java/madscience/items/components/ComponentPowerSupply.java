@@ -9,7 +9,7 @@ public class ComponentPowerSupply extends ItemComponent
     public ComponentPowerSupply(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

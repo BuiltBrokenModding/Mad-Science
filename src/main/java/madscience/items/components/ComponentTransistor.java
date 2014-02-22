@@ -9,7 +9,7 @@ public class ComponentTransistor extends ItemComponent
     public ComponentTransistor(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

@@ -161,5 +161,17 @@ public class MadRecipes
         '2', new ItemStack(MadCircuits.CIRCUIT_REDSTONE),
         '3', new ItemStack(MadComponents.COMPONENT_TRANSISTOR),
         '4', Block.glass, });
+        
+        // Thumper
+        GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_THUMPER), new Object[]
+        { "535",
+          "212",
+          "242",
+
+        '1', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
+        '2', new ItemStack(Block.obsidian),
+        '3', new ItemStack(Block.blockRedstone),
+        '4', Block.blockDiamond, // TODO: Replace with creature
+        '5', Block.pistonBase,});
     }
 }

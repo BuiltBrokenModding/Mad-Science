@@ -396,15 +396,15 @@ public class MadFurnaces
 
         // Recipe for Soniclocator.
         GameRegistry.addRecipe(new ItemStack(SONICLOCATOR_TILEENTITY, 1), new Object[]
-        { "535", 
-          "212", 
-          "242",
+        { "111", 
+          "323", 
+          "545",
 
-        '1', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
-        '2', new ItemStack(Block.obsidian),
-        '3', new ItemStack(Block.blockRedstone),
-        '4', new ItemStack(Block.blockDiamond),
-        '5', new ItemStack(Block.pistonBase),
+        '1', new ItemStack(MadComponents.COMPONENT_THUMPER),
+        '2', new ItemStack(MadComponents.COMPONENT_SCREEN),
+        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
+        '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
+        '5', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
         });
     }
 

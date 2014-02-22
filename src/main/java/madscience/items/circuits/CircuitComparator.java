@@ -9,7 +9,6 @@ public class CircuitComparator extends ItemComponent
     public CircuitComparator(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
     }
 
 }

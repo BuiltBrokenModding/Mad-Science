@@ -9,7 +9,6 @@ public class CircuitEnderEye extends ItemComponent
     public CircuitEnderEye(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
     }
 
 }

@@ -43,36 +43,41 @@ import cpw.mods.fml.common.network.NetworkMod;
 { MadScience.CHANNEL_NAME }, packetHandler = MadPacketHandler.class, clientSideRequired = true, serverSideRequired = false)
 public class MadScience
 {
-    // Forge identification.
+    // Used in Forge mod identification below.
     public static final String ID = "madscience";
     public static final String CHANNEL_NAME = ID;
     public static final String NAME = "Mad Science";
     public static final String VERSION = "@MAJOR@.@MINOR@.@REVIS@@BUILD@";
 
-    // Directories definition
+    // Directories definition for assets and localization files.
     public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
     public static final String LANGUAGE_DIRECTORY = RESOURCE_DIRECTORY + "languages/";
 
-    // Protection from the unknown!
+    // Gradle imprints MD5 of source code into this file upon compilation for integrtiy check.
     public static final String FINGERPRINT = "@FINGERPRINT@";
 
     // Excellent reference to how many ticks make up a second.
     public static final int SECOND_IN_TICKS = 20;
 
-    // Canadian ones too!
+    // Hook Forge's standardized logging class so we can report data on the console without stdout.
     public static Logger logger;
 
+    // Proxy that runs commands based on where they are from so we can separate server and client logic easily.
     @SidedProxy(clientSide = "madscience.client.ClientProxy", serverSide = "madscience.server.CommonProxy")
     public static CommonProxy proxy;
 
+    // Public instance of our mod that Forge needs to hook us, based on our internal modid.
     @Instance(ID)
     public static MadScience instance;
 
+    // Public extra data about our mod that Forge uses in the mods listing page for more information.
     @Mod.Metadata(ID)
     public static ModMetadata metadata;
 
+    // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
     public static MadGUI guiHandler = new MadGUI();
 
+    // Link to our configuration file which Forge also handles in a standardized way.
     private static Configuration config;
 
     /** @param event */
@@ -198,6 +203,7 @@ public class MadScience
         MadComponents.createComponentSiliconWaferItem(MadConfig.COMPONENT_SILICONWAFER);
         MadComponents.createComponentTransistorItem(MadConfig.COMPONENT_TRANSISTOR);
         MadComponents.createComponentComputerItem(MadConfig.COMPONENT_COMPUTER);
+        MadComponents.createComponentThumperItem(MadConfig.COMPONENT_THUMPER);
         
         // --------
         // CIRCUITS

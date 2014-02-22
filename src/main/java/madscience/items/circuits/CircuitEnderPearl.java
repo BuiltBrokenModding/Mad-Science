@@ -9,7 +9,6 @@ public class CircuitEnderPearl extends ItemComponent
     public CircuitEnderPearl(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
     }
 
 }

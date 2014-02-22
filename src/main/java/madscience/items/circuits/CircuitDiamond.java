@@ -9,7 +9,6 @@ public class CircuitDiamond extends ItemComponent
     public CircuitDiamond(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
     }
 
 }

@@ -465,7 +465,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
     }
 
-    private ItemStack locateTargetBlock(ItemStack targetItem, ItemStack replacementItem, int chunkX, int chunkY)
+    private ItemStack locateTargetBlock(ItemStack targetItem, ItemStack replacementItem, int chunkX, int chunkZ)
     {
         // Skip client worlds.
         if (worldObj.isRemote)
@@ -473,7 +473,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             return null;
         }
 
-        Chunk chunk = worldObj.getChunkFromBlockCoords(chunkX, chunkY);
+        Chunk chunk = worldObj.getChunkFromBlockCoords(chunkX, chunkZ);
 
         // If we cannot find the chunk then return nothing.
         if (chunk == null)
@@ -689,7 +689,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         locateNearbySoniclocators(2600);
         
         // Output 1 - Locate the target item within the given chunk.
-        ItemStack craftedItem = locateTargetBlock(this.soniclocatorInput[1], this.soniclocatorInput[0], this.xCoord, this.yCoord);
+        ItemStack craftedItem = locateTargetBlock(this.soniclocatorInput[1], this.soniclocatorInput[0], this.xCoord, this.zCoord);
 
         if (craftedItem == null)
         {
@@ -748,19 +748,16 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                 }
                 
                 long distanceBetweenMachines = Math.abs(SoniclocatorLocationRegistry.queryDistanceBetweenSonicLocators(new SoniclocatorLocationItem(this.xCoord, this.yCoord, this.zCoord), locationItem));
-                MadScience.logger.info("Distance between machines is: " + distanceBetweenMachines);
+                //MadScience.logger.info("DISTANCE BETWEEN MACHINES: " + distanceBetweenMachines);
                 
                 // We got the message to abort and everything is fine!
-                if (distanceBetweenMachines == -1)
+                if (distanceBetweenMachines == 0)
                 {
                     return;
                 }
                 
-                // Another registered Soniclocator device is within range of another, this will cause problems.
-                MadScience.logger.info("DISANCE BETWEEN MACHINES: " + distanceBetweenMachines + " / " + maxRange);
-                
                 // There can never be zero distance between objects, so do not run on zero. -Fox
-                if (distanceBetweenMachines != 0 && distanceBetweenMachines < maxRange)
+                if (distanceBetweenMachines < maxRange)
                 {
                     this.worldObj.playSoundEffect(locationItem.posX + 0.5D, locationItem.posY + 0.5D, locationItem.posZ + 0.5D, MadSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);

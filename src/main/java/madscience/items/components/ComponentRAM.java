@@ -9,7 +9,7 @@ public class ComponentRAM extends ItemComponent
     public ComponentRAM(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

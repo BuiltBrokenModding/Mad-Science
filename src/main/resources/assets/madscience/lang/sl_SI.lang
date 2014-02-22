@@ -56,6 +56,7 @@ item.componentScreen.name=Komponenta Ekran
 item.componentTransistor.name=Komponenta Tranzistor
 item.componentFusedQuartz.name=Komponenta Zlit Kvarc
 item.componentMagneticTape.name=Komponenta Magnetni Trak
+item.componentThumper.name=Thumper
 item.circuitComparator.name=Komponenta Primerjalno Vezje
 item.circuitDiamond.name=Komponenta Diamantno Vezje
 item.circuitEmerald.name=Komponenta Smaragdno Vezje

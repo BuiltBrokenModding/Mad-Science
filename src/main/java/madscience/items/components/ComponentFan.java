@@ -9,7 +9,7 @@ public class ComponentFan extends ItemComponent
     public ComponentFan(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

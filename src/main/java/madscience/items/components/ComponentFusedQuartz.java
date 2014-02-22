@@ -9,7 +9,7 @@ public class ComponentFusedQuartz extends ItemComponent
     public ComponentFusedQuartz(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

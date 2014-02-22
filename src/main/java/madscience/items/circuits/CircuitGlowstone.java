@@ -9,7 +9,7 @@ public class CircuitGlowstone extends ItemComponent
     public CircuitGlowstone(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

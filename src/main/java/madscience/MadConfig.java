@@ -322,6 +322,11 @@ public class MadConfig
     public static @CfgComponents
     int COMPONENT_TRANSISTOR = COMPONENT_TRANSISTOR_DEFAULT;
     
+    // Component Thumper
+    public final static int COMPONENT_THUMPER_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_THUMPER = COMPONENT_THUMPER_DEFAULT;
+    
     // -----
     // ITEMS
     // -----

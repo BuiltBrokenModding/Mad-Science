@@ -9,7 +9,7 @@ public class ComponentSiliconWafer extends ItemComponent
     public ComponentSiliconWafer(int itemID)
     {
         super(itemID);
-        // TODO Auto-generated constructor stub
+
     }
 
 }

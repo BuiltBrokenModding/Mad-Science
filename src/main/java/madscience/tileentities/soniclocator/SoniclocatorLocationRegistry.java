@@ -59,18 +59,18 @@ public final class SoniclocatorLocationRegistry
         catch (Exception err)
         {
             MadScience.logger.info("queryDistanceBetweenSonicLocators: Attempted to grab server instance and failed!");
-            return -1;
+            return 0;
         }
         
         // Ensure that out grabbed instance of the server is real.
         if (server == null || world == null)
         {
-            return -1;
+            return 0;
         }
         
         if (world.isRemote)
         {
-            return -1;
+            return 0;
         }
         
         // Now attempt to locate the start and end points in the registry.
@@ -91,7 +91,7 @@ public final class SoniclocatorLocationRegistry
         // Ensure that they are real and not null or empty.
         if (startTile == null || endTile == null)
         {
-            return -1;
+            return 0;
         }
         
         // Perform the distance calculation.
