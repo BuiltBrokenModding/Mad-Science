@@ -23,6 +23,10 @@ public class MadMobs
     // Creeper Cow [Cow + Creeper]
     public static final String GMO_CREEPERCOW_INTERNALNAME = "gmoCreeperCow";
     public static final String GENOME_CREEPERCOW_INTERNALNAME = "genomeCreeperCow";
+    
+    // Enderslime [Enderman + Slime]
+    public static final String GMO_ENDERSLIME_INTERNALNAME = "gmoEnderslime";
+    public static final String GENOME_ENDERSLIME_INTERNALNAME = "genomeEnderslime";
 
     // --------------------------
     // Bart74(bart.74@hotmail.fr)

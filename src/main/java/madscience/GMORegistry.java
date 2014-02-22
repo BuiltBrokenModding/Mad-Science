@@ -35,7 +35,7 @@ public class GMORegistry
 
         if (!isValidSpawnEggID(info.eggID))
         {
-            throw new IllegalArgumentException("Duplicate GMO spawn egg with id " + info.eggID);
+            throw new IllegalArgumentException("Duplicate GMO spawn egg with id " + info.eggID + "(" + info.mobID + ")");
         }
 
         eggs.put(info.eggID, info);

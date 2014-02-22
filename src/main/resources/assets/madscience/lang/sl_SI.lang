@@ -26,6 +26,7 @@ entity.gmoWoolyCow.name=Ustvari Volneno Kravo
 entity.gmoShoggoth.name=Ustvari Shoggoth
 entity.gmoAbomination.name=Ustvari Grozoto
 entity.gmoEnderSquid.name=Ustvari Končnega Lignja
+entity.gmoEnderslime.name=Enderslime
 item.meatCube.name=Ustvari Ogabno Kocko Mesa
 # GMO Genomes
 item.genomeCreeperCow.name=Genom Creeper Krave
@@ -57,6 +58,7 @@ item.componentTransistor.name=Komponenta Tranzistor
 item.componentFusedQuartz.name=Komponenta Zlit Kvarc
 item.componentMagneticTape.name=Komponenta Magnetni Trak
 item.componentThumper.name=Thumper
+item.componentEnderslime.name=Enderslime
 item.circuitComparator.name=Komponenta Primerjalno Vezje
 item.circuitDiamond.name=Komponenta Diamantno Vezje
 item.circuitEmerald.name=Komponenta Smaragdno Vezje

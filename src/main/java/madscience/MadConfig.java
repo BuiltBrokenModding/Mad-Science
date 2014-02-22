@@ -142,6 +142,13 @@ public class MadConfig
     int GMO_CREEPERCOW_METAID = GMO_CREEPERCOW_METAID_DEFAULT;
     public static @CfgProcessing
     int GMO_CREEPERCOW_COOKTIME = COOKTIME_DEFAULT;
+    
+    // Enderslime [Enderman + Slime]
+    public final static int GMO_ENDERSLIME_METAID_DEFAULT = ++madGMOMobIDs;
+    public static @CfgMobs
+    int GMO_ENDERSLIME_METAID = GMO_ENDERSLIME_METAID_DEFAULT;
+    public static @CfgProcessing
+    int GMO_ENDERSLIME_COOKTIME = COOKTIME_DEFAULT;
 
     // --------------------------
     // Bart74(bart.74@hotmail.fr)
@@ -326,6 +333,11 @@ public class MadConfig
     public final static int COMPONENT_THUMPER_DEFAULT = ++madItemIDs;
     public static @CfgComponents
     int COMPONENT_THUMPER = COMPONENT_THUMPER_DEFAULT;
+    
+    // Component Enderslime
+    public final static int COMPONENT_ENDERSLIME_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_ENDERSLIME = COMPONENT_ENDERSLIME_DEFAULT;
     
     // -----
     // ITEMS

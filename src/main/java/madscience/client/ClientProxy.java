@@ -11,6 +11,9 @@ import madscience.mobs.abomination.AbominationMobRender;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
 import madscience.mobs.creepercow.CreeperCowMobModel;
 import madscience.mobs.creepercow.CreeperCowMobRender;
+import madscience.mobs.enderslime.EnderslimeMobEntity;
+import madscience.mobs.enderslime.EnderslimeMobModel;
+import madscience.mobs.enderslime.EnderslimeMobRender;
 import madscience.mobs.endersquid.EnderSquidMobEntity;
 import madscience.mobs.endersquid.EnderSquidMobModel;
 import madscience.mobs.endersquid.EnderSquidMobRender;
@@ -224,8 +227,13 @@ public class ClientProxy extends CommonProxy
         // Creeper Cow [Creeper + Cow]
         if (blockID == MadConfig.GMO_CREEPERCOW_METAID)
         {
-            // Ties together three separate classes to create new mob.
             RenderingRegistry.registerEntityRenderingHandler(CreeperCowMobEntity.class, new CreeperCowMobRender(new CreeperCowMobModel(), 0.5F));
+        }
+        
+        // Enderslime [Enderman + Slime]
+        if (blockID == MadConfig.GMO_ENDERSLIME_METAID)
+        {
+            RenderingRegistry.registerEntityRenderingHandler(EnderslimeMobEntity.class, new EnderslimeMobRender(new EnderslimeMobModel(16), new EnderslimeMobModel(0), 0.25F));
         }
 
         // Bart74(bart.74@hotmail.fr)

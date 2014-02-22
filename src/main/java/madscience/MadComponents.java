@@ -3,6 +3,7 @@ package madscience;
 import madscience.items.components.ComponentCPU;
 import madscience.items.components.ComponentCase;
 import madscience.items.components.ComponentComputer;
+import madscience.items.components.ComponentEnderslime;
 import madscience.items.components.ComponentFan;
 import madscience.items.components.ComponentFusedQuartz;
 import madscience.items.components.ComponentMagneticTape;
@@ -66,8 +67,11 @@ public class MadComponents
     
     // Thumper
     public static ComponentThumper COMPONENT_THUMPER;
-    public static final String COMPONENT_THUMPER_INTERNALNAME = "componentThumper";    
+    public static final String COMPONENT_THUMPER_INTERNALNAME = "componentThumper";
     
+    // Ender Slime
+    public static ComponentEnderslime COMPONENT_ENDERSLIME;
+    public static final String COMPONENT_ENDERSLIME_INTERNALNAME = "componentEnderslime";
     
     public static void createComponentCaseItem(int itemID)
     {
@@ -139,5 +143,11 @@ public class MadComponents
     {
         COMPONENT_THUMPER = (ComponentThumper) new ComponentThumper(itemID).setUnlocalizedName(COMPONENT_THUMPER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_THUMPER, COMPONENT_THUMPER_INTERNALNAME);
+    }
+
+    public static void createComponentEnderslimeItem(int itemID)
+    {
+        COMPONENT_ENDERSLIME = (ComponentEnderslime) new ComponentEnderslime(itemID).setUnlocalizedName(COMPONENT_ENDERSLIME_INTERNALNAME);
+        GameRegistry.registerItem(COMPONENT_ENDERSLIME, COMPONENT_ENDERSLIME_INTERNALNAME);        
     }
 }

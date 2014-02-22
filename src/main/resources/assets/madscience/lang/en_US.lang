@@ -29,6 +29,7 @@ entity.gmoWoolyCow.name=Wooly Cow
 entity.gmoShoggoth.name=Shoggoth
 entity.gmoAbomination.name=Abomination
 entity.gmoEnderSquid.name=Ender Squid
+entity.gmoEnderslime.name=Enderslime
 item.meatCube.name=Disgusting Meat Cube
 
 # GMO Genomes
@@ -63,6 +64,7 @@ item.componentTransistor.name=Transistor Component
 item.componentFusedQuartz.name=Fused Quartz Component
 item.componentMagneticTape.name=Magnetic Tape Component
 item.componentThumper.name=Thumper
+item.componentEnderslime.name=Enderslime
 item.circuitComparator.name=Comparator Circuit Component
 item.circuitDiamond.name=Diamond Circuit Component
 item.circuitEmerald.name=Emerald Circuit Component

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobLivingHandler;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
+import madscience.mobs.enderslime.EnderslimeMobEntity;
 import madscience.mobs.endersquid.EnderSquidMobEntity;
 import madscience.mobs.shoggoth.ShoggothMobEntity;
 import madscience.mobs.werewolf.WerewolfMobEntity;
@@ -151,7 +152,7 @@ public class MadScience
         logger = event.getModLog();
         logger.setParent(FMLLog.getLogger());
 
-        // Read our mod only config.
+        // Read our mod only config, Forge provides a method for getting standardized filename.
         config = new Configuration(event.getSuggestedConfigurationFile());
         MadConfig.load(config);
 
@@ -204,6 +205,7 @@ public class MadScience
         MadComponents.createComponentTransistorItem(MadConfig.COMPONENT_TRANSISTOR);
         MadComponents.createComponentComputerItem(MadConfig.COMPONENT_COMPUTER);
         MadComponents.createComponentThumperItem(MadConfig.COMPONENT_THUMPER);
+        MadComponents.createComponentEnderslimeItem(MadConfig.COMPONENT_ENDERSLIME);
         
         // --------
         // CIRCUITS
@@ -341,6 +343,10 @@ public class MadScience
         // Creeper Cow [Creeper + Cow]
         MadMobs.createGMOMob(MadConfig.GMO_CREEPERCOW_METAID, CreeperCowMobEntity.class, new NBTTagCompound(), MadMobs.GMO_CREEPERCOW_INTERNALNAME, MadMobs.GENOME_CREEPERCOW_INTERNALNAME, MadColors.creeperEgg(), MadColors.cowEgg(),
                 MadGenomes.GENOME_CREEPER, MadGenomes.GENOME_COW, MadConfig.GMO_CREEPERCOW_COOKTIME);
+        
+        // Enderslime [Enderman + Slime]
+        MadMobs.createGMOMob(MadConfig.GMO_ENDERSLIME_METAID, EnderslimeMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ENDERSLIME_INTERNALNAME, MadMobs.GENOME_ENDERSLIME_INTERNALNAME, MadColors.endermanEgg(), MadColors.slimeEgg(),
+                MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SLIME, MadConfig.GMO_ENDERSLIME_COOKTIME);
 
         // --------------------------
         // Bart74(bart.74@hotmail.fr)
