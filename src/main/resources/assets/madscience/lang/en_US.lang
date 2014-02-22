@@ -43,6 +43,7 @@ item.genomeSkeletonHorse.name=Skeleton Horse Genome
 item.genomeZombieHorse.name=Zombie Horse Genome
 item.genomeEnderSquid.name=Ender Squid Genome
 item.genomeWerewolf.name=Werewolf Genome
+item.genomeEnderslime.name=Enderslime Genome
 
 # Memories
 item.memoryMonsterPlacername.Priest.name=Priest Memory Reel
