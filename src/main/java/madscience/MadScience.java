@@ -189,6 +189,9 @@ public class MadScience
         // Abomination Egg
         MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
         
+        // Enderslime Block
+        MadBlocks.createEnderslimeBlock(MadConfig.ENDERSLIMEBLOCK);
+        
         // ----------
         // COMPONENTS
         // ----------

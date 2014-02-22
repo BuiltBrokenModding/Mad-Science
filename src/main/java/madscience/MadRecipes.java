@@ -166,12 +166,19 @@ public class MadRecipes
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_THUMPER), new Object[]
         { "535",
           "212",
-          "242",
+          "222",
 
         '1', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
-        '2', new ItemStack(Block.obsidian),
+        '2', MadBlocks.ENDERSLIMEBLOCK,
         '3', new ItemStack(Block.blockRedstone),
-        '4', Block.blockDiamond, // TODO: Replace with creature
         '5', Block.pistonBase,});
+        
+        // Enderslime Block
+        GameRegistry.addRecipe(new ItemStack(MadBlocks.ENDERSLIMEBLOCK), new Object[]
+        { "111",
+          "111",
+          "111",
+
+        '1', new ItemStack(MadComponents.COMPONENT_ENDERSLIME),});
     }
 }

@@ -21,6 +21,7 @@ tile.maddnamutant.name=Liquid Mutant DNA
 tile.abominationEgg.name=Abomination Egg
 tile.soniclocator.name=Soniclocator Device
 tile.ghostSoniclocator.name=Soniclocator Device
+tile.enderslimeBlock.name=Block of Enderslime
 
 # GMO Mobs
 entity.gmoWerewolf.name=Werewolf

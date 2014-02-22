@@ -841,6 +841,11 @@ public class MadConfig
     public final static int ABOMINATIONEGG_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
     int ABOMINATIONEGG = ABOMINATIONEGG_DEFAULT;
+    
+    // Enderslime Block
+    public final static int ENDERSLIMEBLOCK_DEFAULT = ++madBlockIDs;
+    public static @CfgId(block = true)
+    int ENDERSLIMEBLOCK = ENDERSLIMEBLOCK_DEFAULT;
 
     // ----------------
     // FEATURE SWITCHES

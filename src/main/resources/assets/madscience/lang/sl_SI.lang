@@ -19,6 +19,7 @@ tile.maddnamutant.name=Tekoč Mutiran DNK
 tile.abominationEgg.name=Jajce Grozote
 tile.soniclocator.name=Soniclocator Device
 tile.ghostSoniclocator.name=Soniclocator Device
+tile.enderslimeBlock.name=Block of Enderslime
 # GMO Mobs
 entity.gmoWerewolf.name=Ustvari Volkodlaka
 entity.gmoCreeperCow.name=Ustvari Creeper Kravo
