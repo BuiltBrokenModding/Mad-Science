@@ -548,7 +548,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         if (targetList.size() <= 0)
         {
             // Zero our the target list so we can keep track of an empty state in clean way.
-            MadScience.logger.info("No targets found in this chunk or we have eaten them all!");
+            //MadScience.logger.info("No targets found in this chunk or we have eaten them all!");
             lastKnownNumberOfTargets = 0;
             return null;
         }
@@ -840,6 +840,27 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             currentHeatValue = 0;
             curFrame = 0;
             soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+        }
+        else if (!canSmelt() && !isPowered() && isRedstonePowered())
+        {
+            // Has redstone signal and can smelt but has no power.
+            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            {
+                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
+                
+                // Disable cooldown mode if we encounter it.
+                if (cooldownMode)
+                {
+                    cooldownMode = false;
+                    curFrame = 0;
+                    currentHeatValue = 0;
+                }
+            }
+            else
+            {
+                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/undervolt.png";
+            }
         }
         else if (!canSmelt() && isPowered() && isRedstonePowered() && !cooldownMode)
         {
