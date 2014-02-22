@@ -420,6 +420,19 @@ public class MadFurnaces
 
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
+        
+        // Grab the final sacrifice block from our configuration file.
+        ItemStack finalSacrifice = null;
+        try
+        {
+            finalSacrifice = new ItemStack(MadConfig.THERMOSONICBONDER_FINALSACRIFICE, 1, 0);
+        }
+        catch (Exception err)
+        {
+            MadScience.logger.info("Attempted to load a final sacrifice ID for a block that does not exist, learn to config file better user!");
+            MadScience.logger.info("Setting Thermosonic Bonder final sacrifice item back to a beacon just to spite you!");
+            finalSacrifice = new ItemStack(Block.beacon);
+        }
 
         // Shaped Recipe for Thermosonic Bonder Tile Entity
         GameRegistry.addRecipe(new ItemStack(MadFurnaces.THERMOSONIC_TILEENTITY, 1), new Object[]
@@ -428,7 +441,7 @@ public class MadFurnaces
           "121",
 
         '1', Block.glowStone,
-        '2', Block.beacon,
+        '2', finalSacrifice,
         '3', Block.blockIron,
         '4', Block.blockRedstone,
         '5', Block.blockDiamond });

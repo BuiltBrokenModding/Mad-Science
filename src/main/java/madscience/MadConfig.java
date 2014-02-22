@@ -5,6 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 
+import net.minecraft.block.Block;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.common.Configuration;
 
@@ -871,7 +872,9 @@ public class MadConfig
     public static @CfgInt
     int PACKETSEND_RADIUS = 25;
     
-    
+    // ID that will determine block to be used to 'unlock' thermosonic bonder and thus every other item in the mod.
+    public static @CfgInt
+    int THERMOSONICBONDER_FINALSACRIFICE = 138;
 
     public static void load(Configuration config)
     {
