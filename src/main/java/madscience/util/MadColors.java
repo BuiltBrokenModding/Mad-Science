@@ -1,4 +1,4 @@
-package madscience;
+package madscience.util;
 
 import java.awt.Color;
 

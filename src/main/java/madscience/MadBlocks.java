@@ -19,9 +19,6 @@ public class MadBlocks
         GameRegistry.registerBlock(ABOMINATIONEGGBLOCK, MadScience.ID + ABOMINATIONEGGBLOCK.getUnlocalizedName().substring(5));
         GameRegistry.registerTileEntity(AbominationEggMobSpawnerTileEntity.class, ABOMINATIONEGGBLOCK.getUnlocalizedName());
 
-        // Proper name for our tile entity for player to see.
-        // LanguageRegistry.addName(ABOMINATIONEGGBLOCK, ABOMINATIONEGG_DISPLAYNAME);
-
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
     }

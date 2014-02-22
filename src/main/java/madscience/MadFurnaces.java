@@ -119,10 +119,14 @@ public class MadFurnaces
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(CRYOFREEZER_TILEENTITY, 1), new Object[]
-        { "131", "121", "141",
+        { "131",
+          "121",
+          "141",
 
-        '1', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CASE_METAID), '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_COMPUTER_METAID), '3',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_COMPARATOR_METAID), '4', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_FAN_METAID), });
+        '1', new ItemStack(MadComponents.COMPONENT_CASE),
+        '2', new ItemStack(MadComponents.COMPONENT_COMPUTER),
+        '3', new ItemStack(MadCircuits.CIRCUIT_COMPARATOR),
+        '4', new ItemStack(MadComponents.COMPONENT_FAN), });
     }
 
     public static void createCryotubeGhostTileEntity(int blockID)
@@ -147,10 +151,14 @@ public class MadFurnaces
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(CRYOTUBE_TILEENTITY, 1), new Object[]
-        { "121", "131", "141",
+        { "121",
+          "131",
+          "141",
 
-        '1', Block.blockIron, '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_ENDEREYE_METAID), '3', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_COMPUTER_METAID), '4',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_POWERSUPPLY_METAID), });
+        '1', Block.blockIron,
+        '2', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
+        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
+        '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), });
     }
 
     public static void createDataReelDuplicatorTileEntity(int blockID)
@@ -168,11 +176,16 @@ public class MadFurnaces
 
         // Shaped Recipe for Data Reel Duplicator.
         GameRegistry.addRecipe(new ItemStack(MadFurnaces.DATADUPLICATOR_TILEENTITY, 1), new Object[]
-        { "161", "232", "454",
+        { "161",
+          "232",
+          "454",
 
-        '1', new ItemStack(MadEntities.DATAREEL_EMPTY, 1), '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CASE_METAID), '3', new ItemStack(Item.redstoneRepeater, 1), '4',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_SPIDEREYE_METAID), '5', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_POWERSUPPLY_METAID), '6',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_FAN_METAID) });
+        '1', new ItemStack(MadEntities.DATAREEL_EMPTY, 1),
+        '2', new ItemStack(MadComponents.COMPONENT_CASE),
+        '3', new ItemStack(Item.redstoneRepeater, 1),
+        '4', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE),
+        '5', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
+        '6', new ItemStack(MadComponents.COMPONENT_FAN) });
     }
 
     @EventHandler
@@ -195,10 +208,14 @@ public class MadFurnaces
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(DNAEXTRACTOR_TILEENTITY, 1), new Object[]
-        { "414", "424", "434",
+        { "414",
+          "424",
+          "434",
 
-        '1', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_ENDEREYE_METAID), '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_SPIDEREYE_METAID), '3',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_COMPUTER_METAID), '4', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CASE_METAID), });
+        '1', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
+        '2', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE),
+        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
+        '4', new ItemStack(MadComponents.COMPONENT_CASE), });
     }
 
     @EventHandler
@@ -222,11 +239,16 @@ public class MadFurnaces
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(INCUBATOR_TILEENTITY, 1), new Object[]
-        { "656", "142", "636",
+        { "656",
+          "142",
+          "636",
 
-        '1', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_GLOWSTONE_METAID), '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_COMPARATOR_METAID), '3',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_POWERSUPPLY_METAID), '4', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_COMPUTER_METAID), '5',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_FAN_METAID), '6', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CASE_METAID), });
+        '1', new ItemStack(MadCircuits.CIRCUIT_GLOWSTONE),
+        '2', new ItemStack(MadCircuits.CIRCUIT_COMPARATOR),
+        '3', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), 
+        '4', new ItemStack(MadComponents.COMPONENT_COMPUTER), 
+        '5', new ItemStack(MadComponents.COMPONENT_FAN), 
+        '6', new ItemStack(MadComponents.COMPONENT_CASE), });
     }
 
     @EventHandler
@@ -250,12 +272,18 @@ public class MadFurnaces
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(SEQUENCER_TILEENTITY, 1), new Object[]
-        { "172", "858", "364",
+        { "172",
+          "858",
+          "364",
 
-        '1', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_EMERALD_METAID), '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_COMPARATOR_METAID), '3',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_DIAMOND_METAID), '4', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_ENDEREYE_METAID), '5',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_COMPUTER_METAID), '6', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_POWERSUPPLY_METAID), '7',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_FAN_METAID), '8', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CASE_METAID), });
+        '1', new ItemStack(MadCircuits.CIRCUIT_EMERALD),
+        '2', new ItemStack(MadCircuits.CIRCUIT_COMPARATOR),
+        '3', new ItemStack(MadCircuits.CIRCUIT_DIAMOND),
+        '4', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
+        '5', new ItemStack(MadComponents.COMPONENT_COMPUTER), 
+        '6', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), 
+        '7', new ItemStack(MadComponents.COMPONENT_FAN), 
+        '8', new ItemStack(MadComponents.COMPONENT_CASE), });
     }
 
     @EventHandler
@@ -279,9 +307,12 @@ public class MadFurnaces
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_TILEENTITY, 1), new Object[]
-        { "111", "121", "111",
+        { "111",
+          "121", 
+          "111",
 
-        '1', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_COMPUTER_METAID), '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CASE_METAID), });
+        '1', new ItemStack(MadComponents.COMPONENT_COMPUTER),
+        '2', new ItemStack(MadComponents.COMPONENT_CASE), });
     }
 
     @EventHandler
@@ -331,11 +362,16 @@ public class MadFurnaces
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(SANTITIZER_TILEENTITY, 1), new Object[]
-        { "545", "535", "126",
+        { "545", 
+          "535", 
+          "126",
 
-        '1', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_GLOWSTONE_METAID), '2', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_REDSTONE_METAID), '3',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_POWERSUPPLY_METAID), '4', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_FAN_METAID), '5',
-                new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CASE_METAID), '6', new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.CIRCUIT_ENDERPEARL_METAID), });
+        '1', new ItemStack(MadCircuits.CIRCUIT_GLOWSTONE),
+        '2', new ItemStack(MadCircuits.CIRCUIT_REDSTONE),
+        '3', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), 
+        '4', new ItemStack(MadComponents.COMPONENT_FAN), 
+        '5', new ItemStack(MadComponents.COMPONENT_CASE), 
+        '6', new ItemStack(MadCircuits.CIRCUIT_ENDERPEARL), });
     }
 
     public static void createSoniclocatorGhostTileEntity(int blockID)
@@ -358,7 +394,18 @@ public class MadFurnaces
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
 
-        // TODO: Add recipe for Soniclocator.
+        // Recipe for Soniclocator.
+        GameRegistry.addRecipe(new ItemStack(SONICLOCATOR_TILEENTITY, 1), new Object[]
+        { "535", 
+          "212", 
+          "242",
+
+        '1', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
+        '2', new ItemStack(Block.obsidian),
+        '3', new ItemStack(Block.blockRedstone),
+        '4', new ItemStack(Block.blockDiamond),
+        '5', new ItemStack(Block.pistonBase),
+        });
     }
 
     public static void createThermosonicBonderTileEntity(int blockID)
@@ -376,20 +423,30 @@ public class MadFurnaces
 
         // Shaped Recipe for Thermosonic Bonder Tile Entity
         GameRegistry.addRecipe(new ItemStack(MadFurnaces.THERMOSONIC_TILEENTITY, 1), new Object[]
-        { "343", "353", "121",
+        { "343", 
+          "353", 
+          "121",
 
-        '1', Block.glowStone, '2', Block.beacon, '3', Block.blockIron, '4', Block.blockRedstone, '5', Block.blockDiamond });
+        '1', Block.glowStone,
+        '2', Block.beacon,
+        '3', Block.blockIron,
+        '4', Block.blockRedstone,
+        '5', Block.blockDiamond });
 
         // 1x Fused Quartz = 1x Silicon Wafer.
-        ThermosonicBonderRecipes.addSmelting(MadComponents.MAINFRAME_COMPONENTS_METAITEM.itemID, MadComponents.COMPONENT_FUSEDQUARTZ_METAID, new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_SILICONWAFER_METAID));
+        ThermosonicBonderRecipes.addSmelting(MadComponents.COMPONENT_FUSEDQUARTZ.itemID,
+                                             new ItemStack(MadComponents.COMPONENT_SILICONWAFER));
 
         // 1x Silicon Wafer = 16x Transistors.
-        ThermosonicBonderRecipes.addSmelting(MadComponents.MAINFRAME_COMPONENTS_METAITEM.itemID, MadComponents.COMPONENT_SILICONWAFER_METAID, new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 16, MadComponents.COMPONENT_TRANSISTOR_METAID));
+        ThermosonicBonderRecipes.addSmelting(MadComponents.COMPONENT_SILICONWAFER.itemID,
+                                             new ItemStack(MadComponents.COMPONENT_TRANSISTOR, 16));
 
         // 1x Redstone Circuit = 1x CPU.
-        ThermosonicBonderRecipes.addSmelting(MadComponents.MAINFRAME_COMPONENTS_METAITEM.itemID, MadComponents.CIRCUIT_REDSTONE_METAID, new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_CPU_METAID));
+        ThermosonicBonderRecipes.addSmelting(MadCircuits.CIRCUIT_REDSTONE.itemID,
+                                             new ItemStack(MadComponents.COMPONENT_CPU));
 
         // 1x Glowstone Circuit 1x RAM.
-        ThermosonicBonderRecipes.addSmelting(MadComponents.MAINFRAME_COMPONENTS_METAITEM.itemID, MadComponents.CIRCUIT_GLOWSTONE_METAID, new ItemStack(MadComponents.MAINFRAME_COMPONENTS_METAITEM, 1, MadComponents.COMPONENT_RAM_METAID));
+        ThermosonicBonderRecipes.addSmelting(MadCircuits.CIRCUIT_GLOWSTONE.itemID,
+                                             new ItemStack(MadComponents.COMPONENT_RAM));
     }
 }

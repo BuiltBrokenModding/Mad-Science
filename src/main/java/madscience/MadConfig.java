@@ -63,6 +63,16 @@ public class MadConfig
     private static @interface CfgProcessing
     {
     }
+    
+    @Retention(RetentionPolicy.RUNTIME)
+    private static @interface CfgCircuits
+    {
+    }
+    
+    @Retention(RetentionPolicy.RUNTIME)
+    private static @interface CfgComponents
+    {
+    }
 
     // Header for each configuration section.
     public static final String CATAGORY_MOBS = "mobs";
@@ -72,6 +82,8 @@ public class MadConfig
     public static final String CATAGORY_MEMORIES = "memories";
     public static final String CATAGORY_ENERGY = "energy";
     public static final String CATAGORY_PROCESSING = "processing";
+    public static final String CATAGORY_CIRCUITS = "circuits";
+    public static final String CATAGORY_COMPONENTS = "components";
 
     // Item ID's begin at 5000 range and count up from there.
     private static int madItemIDs = 3840;
@@ -207,23 +219,117 @@ public class MadConfig
     public static @CfgProcessing
     int GMO_ENDERSQUID_COOKTIME = COOKTIME_DEFAULT;
 
-    // --------------
-    // METADATA ITEMS
-    // --------------
+    // --------
+    // CIRCUITS
+    // --------
+    
+    // Circuit Comparator
+    public final static int CIRCUIT_COMPARATOR_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_COMPARATOR = CIRCUIT_COMPARATOR_DEFAULT;
+    
+    // Circuit Diamond
+    public final static int CIRCUIT_DIAMOND_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_DIAMOND = CIRCUIT_DIAMOND_DEFAULT;
+    
+    // Circuit Emerald
+    public final static int CIRCUIT_EMERALD_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_EMERALD = CIRCUIT_EMERALD_DEFAULT;
+    
+    // Circuit Ender Eye
+    public final static int CIRCUIT_ENDEREYE_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_ENDEREYE = CIRCUIT_ENDEREYE_DEFAULT;
+    
+    // Circuit Ender Pearl
+    public final static int CIRCUIT_ENDERPEARL_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_ENDERPEARL = CIRCUIT_ENDERPEARL_DEFAULT;
+    
+    // Circuit Glowstone
+    public final static int CIRCUIT_GLOWSTONE_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_GLOWSTONE = CIRCUIT_GLOWSTONE_DEFAULT;
+    
+    // Circuit Redstone
+    public final static int CIRCUIT_REDSTONE_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_REDSTONE = CIRCUIT_REDSTONE_DEFAULT;
+    
+    // Circuit Spider Eye
+    public final static int CIRCUIT_SPIDEREYE_DEFAULT = ++madItemIDs;
+    public static @CfgCircuits
+    int CIRCUIT_SPIDEREYE = CIRCUIT_SPIDEREYE_DEFAULT;
+    
+    // ----------
+    // COMPONENTS
+    // ----------
+    
+    // Component Case
+    public final static int COMPONENT_CASE_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_CASE = COMPONENT_CASE_DEFAULT;
+    
+    // Component Computer
+    public final static int COMPONENT_COMPUTER_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_COMPUTER = COMPONENT_COMPUTER_DEFAULT;
 
-    // Mainframe Components
-    public final static int MAINFRAME_COMPONENTS_DEFAULT = ++madItemIDs;
-    public static @CfgId
-    int MAINFRAME_COMPONENTS = MAINFRAME_COMPONENTS_DEFAULT;
+    // Component CPU
+    public final static int COMPONENT_CPU_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_CPU = COMPONENT_CPU_DEFAULT;
+    
+    // Component Fan
+    public final static int COMPONENT_FAN_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_FAN = COMPONENT_FAN_DEFAULT;
 
+    // Component Fused Quartz 
+    public final static int COMPONENT_FUSEDQUARTZ_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_FUSEDQUARTZ = COMPONENT_FUSEDQUARTZ_DEFAULT;
+    
+    // Component Magnetic Tape
+    public final static int COMPONENT_MAGNETICTAPE_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_MAGNETICTAPE = COMPONENT_MAGNETICTAPE_DEFAULT;
+    
+    // Component Power Supply
+    public final static int COMPONENT_POWERSUPPLY_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_POWERSUPPLY = COMPONENT_POWERSUPPLY_DEFAULT;
+    
+    // Component RAM
+    public final static int COMPONENT_RAM_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_RAM = COMPONENT_RAM_DEFAULT;
+    
+    // Component Screen
+    public final static int COMPONENT_SCREEN_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_SCREEN = COMPONENT_SCREEN_DEFAULT;
+    
+    // Component Silicon Wafer
+    public final static int COMPONENT_SILICONWAFER_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_SILICONWAFER = COMPONENT_SILICONWAFER_DEFAULT;
+    
+    // Component Transistor
+    public final static int COMPONENT_TRANSISTOR_DEFAULT = ++madItemIDs;
+    public static @CfgComponents
+    int COMPONENT_TRANSISTOR = COMPONENT_TRANSISTOR_DEFAULT;
+    
     // -----
     // ITEMS
     // -----
 
     // Liquid Bucket DNA
-    public final static int EXAMPLE_FLUID_BUCKET_DEFAULT = ++madItemIDs;
+    public final static int LIQUIDDNA_BUCKET_DEFAULT = ++madItemIDs;
     public static @CfgId
-    int LIQUIDDNA_BUCKET = EXAMPLE_FLUID_BUCKET_DEFAULT;
+    int LIQUIDDNA_BUCKET = LIQUIDDNA_BUCKET_DEFAULT;
 
     // Bucket of Liquid Mutant DNA
     public final static int LIQUIDDNA_MUTANT_BUCKET_DEFAULT = ++madItemIDs;
@@ -756,9 +862,21 @@ public class MadConfig
                 CfgNeedles annoNeedles = field.getAnnotation(CfgNeedles.class);
                 CfgEnergy annoEnergy = field.getAnnotation(CfgEnergy.class);
                 CfgProcessing annoCPUTime = field.getAnnotation(CfgProcessing.class);
+                CfgCircuits annoCircuits= field.getAnnotation(CfgCircuits.class);
+                CfgComponents annoComponents = field.getAnnotation(CfgComponents.class);
 
                 // Config property is block or item.
-                if (annoCPUTime == null && annoBlock != null && annoBool == null && annoInt == null && annoMobs == null && annoGenomes == null && annoDNA == null && annoNeedles == null && annoEnergy == null)
+                if (annoBlock != null &&
+                    annoCPUTime == null &&
+                    annoBool == null &&
+                    annoInt == null &&
+                    annoMobs == null &&
+                    annoGenomes == null &&
+                    annoDNA == null &&
+                    annoNeedles == null &&
+                    annoEnergy == null &&
+                    annoCircuits == null &&
+                    annoComponents == null)
                 {
                     int id = field.getInt(null);
                     if (annoBlock.block())
@@ -771,7 +889,17 @@ public class MadConfig
                     }
                     field.setInt(null, id);
                 }
-                else if (annoCPUTime == null && annoBlock == null && annoBool == null && annoInt == null && annoMobs == null && annoGenomes == null && annoDNA == null && annoNeedles == null && annoEnergy != null)
+                else if (annoEnergy != null &&
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoBool == null &&
+                        annoInt == null &&
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoDNA == null &&
+                        annoNeedles == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
                     // Config property is energy long integer.
                     if (field.isAnnotationPresent(CfgEnergy.class))
@@ -781,7 +909,17 @@ public class MadConfig
                         field.setLong(null, someInt.longValue());
                     }
                 }
-                else if (annoCPUTime == null && annoBlock == null && annoBool != null && annoInt == null && annoMobs == null && annoGenomes == null && annoDNA == null && annoNeedles == null && annoEnergy == null)
+                else if (annoBool != null && 
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoInt == null &&
+                        annoMobs == null && 
+                        annoGenomes == null &&
+                        annoDNA == null &&
+                        annoNeedles == null && 
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
                     // Config property is bool.
                     if (field.isAnnotationPresent(CfgBool.class))
@@ -791,7 +929,57 @@ public class MadConfig
                         field.setBoolean(null, bool);
                     }
                 }
-                else if (annoCPUTime == null && annoBlock == null && annoBool == null && annoInt != null && annoMobs == null && annoGenomes == null && annoDNA == null && annoNeedles == null && annoEnergy == null)
+                else if (annoCircuits != null &&
+                        annoInt == null &&
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoBool == null && 
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoDNA == null && 
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoComponents == null)
+                {
+                    // Config property is circuit.
+                    if (field.isAnnotationPresent(CfgCircuits.class))
+                    {
+                        int someInt = field.getInt(null);
+                        someInt = config.get(MadConfig.CATAGORY_CIRCUITS, field.getName(), someInt).getInt(someInt);
+                        field.setInt(null, someInt);
+                    }
+                }
+                else if (annoComponents != null && 
+                        annoInt == null &&
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoBool == null && 
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoDNA == null && 
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoCircuits == null)
+                {
+                    // Config property is component.
+                    if (field.isAnnotationPresent(CfgComponents.class))
+                    {
+                        int someInt = field.getInt(null);
+                        someInt = config.get(MadConfig.CATAGORY_COMPONENTS, field.getName(), someInt).getInt(someInt);
+                        field.setInt(null, someInt);
+                    }
+                }
+                else if (annoInt != null &&
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoBool == null && 
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoDNA == null && 
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
                     // Config property is int.
                     if (field.isAnnotationPresent(CfgInt.class))
@@ -801,7 +989,17 @@ public class MadConfig
                         field.setInt(null, someInt);
                     }
                 }
-                else if (annoCPUTime != null && annoBlock == null && annoBool == null && annoInt == null && annoMobs == null && annoGenomes == null && annoDNA == null && annoNeedles == null && annoEnergy == null)
+                else if (annoCPUTime != null && 
+                        annoBlock == null &&
+                        annoBool == null &&
+                        annoInt == null &&
+                        annoMobs == null && 
+                        annoGenomes == null &&
+                        annoDNA == null &&
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
                     // Config property is mainframe processing time.
                     if (field.isAnnotationPresent(CfgProcessing.class))
@@ -811,7 +1009,17 @@ public class MadConfig
                         field.setInt(null, someInt);
                     }
                 }
-                else if (annoCPUTime == null && annoBlock == null && annoBool == null && annoInt == null && annoMobs != null && annoGenomes == null && annoDNA == null && annoNeedles == null && annoEnergy == null)
+                else if (annoMobs != null &&
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoBool == null &&
+                        annoInt == null &&
+                        annoGenomes == null &&
+                        annoDNA == null &&
+                        annoNeedles == null && 
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
                     // Config property is mobs.
                     if (field.isAnnotationPresent(CfgMobs.class))
@@ -821,7 +1029,17 @@ public class MadConfig
                         field.setInt(null, someInt);
                     }
                 }
-                else if (annoCPUTime == null && annoBlock == null && annoBool == null && annoInt == null && annoMobs == null && annoGenomes != null && annoDNA == null && annoNeedles == null && annoEnergy == null)
+                else if (annoGenomes != null &&
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoBool == null &&
+                        annoInt == null &&
+                        annoMobs == null &&
+                        annoDNA == null && 
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
                     // Config property is genomes.
                     if (field.isAnnotationPresent(CfgGenomes.class))
@@ -831,9 +1049,19 @@ public class MadConfig
                         field.setInt(null, someInt);
                     }
                 }
-                else if (annoCPUTime == null && annoBlock == null && annoBool == null && annoInt == null && annoMobs == null && annoGenomes == null && annoDNA != null && annoNeedles == null && annoEnergy == null)
+                else if (annoDNA != null &&
+                        annoCPUTime == null &&
+                        annoBlock == null && 
+                        annoBool == null && 
+                        annoInt == null && 
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
-                    // Config property is dna.
+                    // Config property is DNA.
                     if (field.isAnnotationPresent(CfgDNA.class))
                     {
                         int someInt = field.getInt(null);
@@ -841,7 +1069,17 @@ public class MadConfig
                         field.setInt(null, someInt);
                     }
                 }
-                else if (annoCPUTime == null && annoBlock == null && annoBool == null && annoInt == null && annoMobs == null && annoGenomes == null && annoDNA == null && annoNeedles != null && annoEnergy == null)
+                else if (annoNeedles != null &&
+                        annoCPUTime == null &&
+                        annoBlock == null && 
+                        annoBool == null &&
+                        annoInt == null &&
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoDNA == null && 
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null)
                 {
                     // Config property is needle.
                     if (field.isAnnotationPresent(CfgNeedles.class))

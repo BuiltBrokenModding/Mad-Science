@@ -152,16 +152,6 @@ public class NeedleEmptyItem extends Item
             return false;
         }
 
-        // ExampleMob
-        if (entity instanceof WerewolfMobEntity)
-        {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_MUTANT)))
-            {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_MUTANT));
-            }
-            return false;
-        }
-
         // ---------
         // BASE MOBS
         // ---------

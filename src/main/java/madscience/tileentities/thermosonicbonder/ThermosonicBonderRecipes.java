@@ -20,9 +20,9 @@ public class ThermosonicBonderRecipes
     }
 
     /** Adds a smelting recipe. */
-    public static void addSmelting(int par1, ItemStack par2ItemStack)
+    public static void addSmelting(int par1, ItemStack itemStack)
     {
-        ThermosonicBonderRecipes.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
+        ThermosonicBonderRecipes.smeltingList.put(Integer.valueOf(par1), itemStack);
     }
 
     /** Grabs the amount of base experience for this item to give when pulled from the furnace slot. */

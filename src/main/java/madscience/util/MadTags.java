@@ -1,4 +1,4 @@
-package madscience;
+package madscience.util;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
