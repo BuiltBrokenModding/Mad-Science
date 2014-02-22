@@ -707,7 +707,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         }
 
         // First sound is of the thump releasing all the energy in the machine.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMP, 1.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMP, 10.0F, 1.0F);
 
         // Apply wither effect to players and hurt non-players.
         damageNearbyCreatures(16);
@@ -735,7 +735,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             this.soniclocatorInput[0] = null;
         }
 
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_FINISH, 1.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_FINISH, 10.0F, 1.0F);
     }
 
     private void locateNearbySoniclocators(int maxRange)
