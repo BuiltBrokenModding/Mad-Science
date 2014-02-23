@@ -2,6 +2,7 @@ package madscience.tileentities.sanitizer;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -12,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
@@ -29,7 +31,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     // The model of your block
-    private SanitizerModel model;
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.SANTITIZER_INTERNALNAME + "/" + MadFurnaces.SANTITIZER_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -37,12 +39,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
     private SanitizerEntity lastPlacedTileEntity;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation sanitizerDefaultTexture = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png");
-
-    public SanitizerRender()
-    {
-        this.model = new SanitizerModel();
-    }
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png");
 
     @Override
     public int getRenderId()
@@ -77,7 +74,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
         GL11.glPushMatrix();
 
         // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(sanitizerDefaultTexture);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
 
         // adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
@@ -88,7 +85,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
             float scale = 1.4F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
@@ -99,7 +96,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.2F, 0.9F, 0.5F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             break;
         }
@@ -107,8 +104,8 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(270.0F, 0.0F, 1.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
             transformationToBeUndone = TransformationTypes.INVENTORY;
             break;
         }
@@ -116,7 +113,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
             transformationToBeUndone = TransformationTypes.DROPPED;
             break;
@@ -126,8 +123,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
         }
 
         // Renders the model in the gameworld at the correct scale.
-        GL11.glTranslatef(0.0F, -1.0F, 0.0F);
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        MODEL.renderAll();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -156,9 +152,8 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
             break;
         }
     }
-
-    @Override
-    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    
+    public void renderAModelAt(SanitizerEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (SanitizerEntity) tileEntity;
@@ -190,7 +185,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
 
         // Left and right positives center the object and the middle one raises
         // it up to connect with bottom of connecting block.
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 
         // Using this and the above select the tile entity will always face the
         // player.
@@ -218,18 +213,21 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
         else
         {
             // Default texture of we have no other reference to make.
-            bindTexture(sanitizerDefaultTexture);
+            bindTexture(TEXTURE);
         }
 
-        // Flips the model around so it is not upside-down.
-        GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
-
-        // A reference to your Model file. Again, very important.
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-
-        // Finish pushing data to OpenGL.
+        GL11.glPushMatrix();
+        MODEL.renderAll();
         GL11.glPopMatrix();
+
+        //MODEL.renderAll();
+        GL11.glPopMatrix();
+    }
+
+    @Override
+    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    {
+        this.renderAModelAt((SanitizerEntity) tileEntity, x, y, z, scale);
     }
 
     @Override

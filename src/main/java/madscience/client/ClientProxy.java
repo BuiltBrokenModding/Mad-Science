@@ -50,10 +50,12 @@ import madscience.tileentities.soniclocator.SoniclocatorEntity;
 import madscience.tileentities.soniclocator.SoniclocatorRender;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderRender;
+import madscience.util.MadTechneModelLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -67,6 +69,11 @@ public class ClientProxy extends CommonProxy
 {
     // Modified from Source
     // http://www.minecraftforge.net/wiki/Reference_Mod_File
+    
+    static
+    {
+        AdvancedModelLoader.registerModelHandler(new MadTechneModelLoader());
+    }
 
     @Override
     public void addLocalization(String s1, String string)

@@ -2,6 +2,7 @@ package madscience.tileentities.soniclocator;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -12,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
@@ -29,13 +31,13 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
     }
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation defaultSoniclocatorTexture = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png");
 
     // Tile entity that does all the work for this instance of the block.
     private SoniclocatorEntity lastPlacedTileEntity;
 
     // The model of your block
-    private SoniclocatorModel model;
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -48,10 +50,8 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
 
     public SoniclocatorRender()
     {
-        this.model = new SoniclocatorModel();
-
         // Used as base reference for pile position.
-        thumperYCoord = this.model.Thumper1.offsetY;
+        thumperYCoord = this.MODEL.parts.get("Thumper1").offsetY;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         GL11.glPushMatrix();
 
         // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(defaultSoniclocatorTexture);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
 
         // adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
@@ -100,7 +100,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
             float scale = 1.4F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
@@ -111,7 +111,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.2F, 0.9F, 0.5F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             break;
         }
@@ -119,8 +119,8 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(270.0F, 0.0F, 1.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
             transformationToBeUndone = TransformationTypes.INVENTORY;
             break;
         }
@@ -128,7 +128,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
             transformationToBeUndone = TransformationTypes.DROPPED;
             break;
@@ -138,8 +138,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         }
 
         // Renders the model in the gameworld at the correct scale.
-        GL11.glTranslatef(0.0F, -1.0F, 0.0F);
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        MODEL.renderAll();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -168,9 +167,8 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
             break;
         }
     }
-
-    @Override
-    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    
+    public void renderAModelAt(SoniclocatorEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (SoniclocatorEntity) tileEntity;
@@ -202,7 +200,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
 
         // Left and right positives center the object and the middle one raises
         // it up to connect with bottom of connecting block.
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 
         // Using this and the above select the tile entity will always face the
         // player.
@@ -230,12 +228,12 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         else
         {
             // Default texture.
-            bindTexture(defaultSoniclocatorTexture);
+            bindTexture(TEXTURE);
         }
-
-        // Flips the model around so it is not upside-down.
-        GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
+        
+        GL11.glPushMatrix();
+        MODEL.renderAll();
+        GL11.glPopMatrix();
 
         if (lastPlacedTileEntity != null)
         {
@@ -245,67 +243,63 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
             if (lastPlacedTileEntity.currentHeatValue > 0)
             {
                 // Thumper Pile 1
-                if (Math.abs(model.Thumper1.offsetY) < thumperCeiling && lastPlacedTileEntity.currentHeatValue > 0)
+                if (Math.abs(MODEL.parts.get("Thumper1").offsetY) < thumperCeiling && lastPlacedTileEntity.currentHeatValue > 0)
                 {
-                    model.Thumper1.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
+                    MODEL.parts.get("Thumper1").offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
                     // MadScience.logger.info("THUMPER1: " + Math.abs(model.Thumper1.offsetY) + " / " + thumperCeiling);
                 }
 
                 // Thumper Pile 2
-                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling && Math.abs(model.Thumper2.offsetY) < thumperCeiling)
+                if (Math.abs(MODEL.parts.get("Thumper1").offsetY) >= thumperCeiling && Math.abs(MODEL.parts.get("Thumper2").offsetY) < thumperCeiling)
                 {
-                    model.Thumper2.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
+                    MODEL.parts.get("Thumper2").offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
                     // MadScience.logger.info("THUMPER2: " + Math.abs(model.Thumper2.offsetY) + " / " + thumperCeiling);
                 }
 
                 // Thumper Pile 3
-                if (Math.abs(model.Thumper1.offsetY) >= thumperCeiling && Math.abs(model.Thumper2.offsetY) >= thumperCeiling && Math.abs(model.Thumper3.offsetY) < thumperCeiling)
+                if (Math.abs(MODEL.parts.get("Thumper1").offsetY) >= thumperCeiling && Math.abs(MODEL.parts.get("Thumper2").offsetY) >= thumperCeiling && Math.abs(MODEL.parts.get("Thumper3").offsetY) < thumperCeiling)
                 {
-                    model.Thumper3.offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
+                    MODEL.parts.get("Thumper3").offsetY -= lastPlacedTileEntity.currentHeatValue * 0.00001F;
                     // MadScience.logger.info("THUMPER3: " + Math.abs(model.Thumper3.offsetY) + " / " + thumperCeiling);
                 }
             }
             else if (lastPlacedTileEntity.currentHeatValue == 0)
-            {                
-                // Thumper 1 Smash!
-/*                if (model.Thumper1.offsetY < thumperYCoord)
+            {                                
+                if (MODEL.parts.get("Thumper1").offsetY < thumperYCoord)
                 {
-                    model.Thumper1.offsetY += 0.03F;
-                    // MadScience.logger.info("THUMPERS: " + model.Thumper1.offsetY + " / " + thumperYCoord);
-                }*/
-                
-                if (model.Thumper1.offsetY < thumperYCoord)
-                {
-                    model.Thumper1.offsetY = thumperYCoord;
+                    MODEL.parts.get("Thumper1").offsetY = thumperYCoord;
                 }
 
                 // Thumper 2 Smash!
-                if (model.Thumper2.offsetY < thumperYCoord)
+                if (MODEL.parts.get("Thumper2").offsetY < thumperYCoord)
                 {
-                    model.Thumper2.offsetY += 0.03F;
+                    MODEL.parts.get("Thumper2").offsetY += 0.03F;
                 }
-                else if (model.Thumper2.offsetY > thumperYCoord)
+                else if (MODEL.parts.get("Thumper2").offsetY > thumperYCoord)
                 {
-                    model.Thumper2.offsetY = thumperYCoord;
+                    MODEL.parts.get("Thumper2").offsetY = thumperYCoord;
                 }
 
                 // Thumper 3 Smash!
-                if (model.Thumper3.offsetY < thumperYCoord)
+                if (MODEL.parts.get("Thumper3").offsetY < thumperYCoord)
                 {
-                    model.Thumper3.offsetY += 0.03F;
+                    MODEL.parts.get("Thumper3").offsetY += 0.03F;
                 }
-                else if (model.Thumper3.offsetY > thumperYCoord)
+                else if (MODEL.parts.get("Thumper3").offsetY > thumperYCoord)
                 {
-                    model.Thumper3.offsetY = thumperYCoord;
+                    MODEL.parts.get("Thumper3").offsetY = thumperYCoord;
                 }
             }
         }
 
-        // A reference to your Model file. Again, very important.
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-
-        // Finish pushing data to OpenGL.
+        MODEL.renderAll();
         GL11.glPopMatrix();
+    }
+
+    @Override
+    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    {
+        this.renderAModelAt((SoniclocatorEntity) tileEntity, x, y, z, scale);
     }
 
     @Override

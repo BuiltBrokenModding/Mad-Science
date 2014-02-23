@@ -53,8 +53,17 @@ public class MadScience
     // Directories definition for assets and localization files.
     public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
     public static final String LANGUAGE_DIRECTORY = RESOURCE_DIRECTORY + "languages/";
+    public static final String BASE_DIRECTORY_NO_SLASH = "madscience/";
+    public static final String BASE_DIRECTORY = "/" + BASE_DIRECTORY_NO_SLASH;
+    public static final String ASSET_DIRECTORY = "/assets/madscience/";
+    public static final String TEXTURE_DIRECTORY = "textures/";
+    public static final String GUI_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
+    public static final String BLOCK_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
+    public static final String ITEM_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "items/";
+    public static final String MODEL_DIRECTORY = "models/";
+    public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
 
-    // Gradle imprints MD5 of source code into this file upon compilation for integrtiy check.
+    // Gradle imprints MD5 of source code into this file upon compilation for integrity check.
     public static final String FINGERPRINT = "@FINGERPRINT@";
 
     // Excellent reference to how many ticks make up a second.

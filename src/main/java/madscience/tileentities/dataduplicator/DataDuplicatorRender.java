@@ -2,6 +2,8 @@ package madscience.tileentities.dataduplicator;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
+import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -12,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
@@ -29,7 +32,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
     }
 
     // The model of your block
-    private DataDuplicatorModel model;;
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -38,12 +41,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
     private DataDuplicatorEntity lastPlacedTileEntity;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation dataduplicatorTextureDefault = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png");
-
-    public DataDuplicatorRender()
-    {
-        this.model = new DataDuplicatorModel();
-    }
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png");
 
     @Override
     public int getRenderId()
@@ -78,7 +76,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         GL11.glPushMatrix();
 
         // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(dataduplicatorTextureDefault);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
 
         // adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
@@ -89,7 +87,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
             float scale = 1.4F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
@@ -100,7 +98,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.2F, 0.9F, 0.5F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             break;
         }
@@ -108,8 +106,8 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(270.0F, 0.0F, 1.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
             transformationToBeUndone = TransformationTypes.INVENTORY;
             break;
         }
@@ -117,7 +115,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
             transformationToBeUndone = TransformationTypes.DROPPED;
             break;
@@ -127,8 +125,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         }
 
         // Renders the model in the gameworld at the correct scale.
-        GL11.glTranslatef(0.0F, -1.0F, 0.0F);
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        MODEL.renderAll();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -158,8 +155,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         }
     }
 
-    @Override
-    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    public void renderAModelAt(DataDuplicatorEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (DataDuplicatorEntity) tileEntity;
@@ -191,7 +187,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
 
         // Left and right positives center the object and the middle one raises
         // it up to connect with bottom of connecting block.
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 
         // Using this and the above select the tile entity will always face the
         // player.
@@ -219,18 +215,21 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         else
         {
             // Default texture to be used if tile entity is not responding.
-            bindTexture(dataduplicatorTextureDefault);
+            bindTexture(TEXTURE);
         }
 
-        // Flips the model around so it is not upside-down.
-        GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
-
-        // A reference to your Model file. Again, very important.
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-
-        // Finish pushing data to OpenGL.
+        GL11.glPushMatrix();
+        MODEL.renderAll();
         GL11.glPopMatrix();
+
+        //MODEL.renderAll();
+        GL11.glPopMatrix();
+    }
+    
+    @Override
+    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    {
+        this.renderAModelAt((DataDuplicatorEntity) tileEntity, x, y, z, scale);
     }
 
     @Override

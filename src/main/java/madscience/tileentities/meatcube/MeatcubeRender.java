@@ -2,6 +2,7 @@ package madscience.tileentities.meatcube;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -12,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
@@ -32,18 +34,12 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
     // The model of your block
-    private MeatcubeModel model;
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".mad");
 
     // Tile Entity that our block inits.
     private MeatcubeEntity lastPlacedTileEntity;
 
-    private ResourceLocation meatcubeTextureDefault = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png");
-
-    public MeatcubeRender()
-    {
-        // Creates a new model but we will tie it to our unique rendering ID.
-        this.model = new MeatcubeModel();
-    }
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png");
 
     @Override
     public int getRenderId()
@@ -79,7 +75,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         GL11.glPushMatrix();
 
         // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(meatcubeTextureDefault);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
 
         // adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
@@ -90,7 +86,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
             float scale = 1.4F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
@@ -101,7 +97,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.2F, 0.9F, 0.5F);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             break;
         }
@@ -109,8 +105,8 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(270.0F, 0.0F, 1.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
             transformationToBeUndone = TransformationTypes.INVENTORY;
             break;
         }
@@ -118,7 +114,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
             transformationToBeUndone = TransformationTypes.DROPPED;
             break;
@@ -128,8 +124,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         }
 
         // Renders the model in the gameworld at the correct scale.
-        GL11.glTranslatef(0.0F, -1.0F, 0.0F);
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        MODEL.renderAll();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -158,9 +153,8 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
             break;
         }
     }
-
-    @Override
-    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    
+    public void renderAModelAt(MeatcubeEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (MeatcubeEntity) tileEntity;
@@ -192,7 +186,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
 
         // Left and right positives center the object and the middle one raises
         // it up to connect with bottom of connecting block.
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 
         // Using this and the above select the tile entity will always face the
         // player.
@@ -219,110 +213,116 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         }
         else
         {
-            bindTexture(meatcubeTextureDefault);
+            bindTexture(TEXTURE);
         }
 
-        // Flips the model around so it is not upside-down.
-        GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-        GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
+        GL11.glPushMatrix();
+        MODEL.renderAll();
+        GL11.glPopMatrix();
 
         // All parts of the meat are hidden by default.
-        model.Meat0.showModel = false;
-        model.Meat1.showModel = false;
-        model.Meat2.showModel = false;
-        model.Meat3.showModel = false;
-        model.Meat4.showModel = false;
-        model.Meat5.showModel = false;
-        model.Meat6.showModel = false;
-        model.Meat7.showModel = false;
-        model.Meat8.showModel = false;
-        model.Meat9.showModel = false;
-        model.Meat10.showModel = false;
-        model.Meat11.showModel = false;
-        model.Meat12.showModel = false;
-        model.Meat13.showModel = false;
-        model.Meat14.showModel = false;
+        MODEL.parts.get("Meat0").showModel = false;
+        MODEL.parts.get("Meat1").showModel = false;
+        MODEL.parts.get("Meat2").showModel = false;
+        MODEL.parts.get("Meat3").showModel = false;
+        MODEL.parts.get("Meat4").showModel = false;
+        MODEL.parts.get("Meat5").showModel = false;
+        MODEL.parts.get("Meat6").showModel = false;
+        MODEL.parts.get("Meat7").showModel = false;
+        MODEL.parts.get("Meat8").showModel = false;
+        MODEL.parts.get("Meat9").showModel = false;
+        MODEL.parts.get("Meat10").showModel = false;
+        MODEL.parts.get("Meat11").showModel = false;
+        MODEL.parts.get("Meat12").showModel = false;
+        MODEL.parts.get("Meat13").showModel = false;
+        MODEL.parts.get("Meat14").showModel = false;
 
         // Display different chunks of the model based on internal health value.
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 0)
         {
-            model.Meat0.showModel = true;
+            MODEL.parts.get("Meat0").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 1)
         {
-            model.Meat1.showModel = true;
+            MODEL.parts.get("Meat1").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 2)
         {
-            model.Meat2.showModel = true;
+            MODEL.parts.get("Meat2").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 3)
         {
-            model.Meat3.showModel = true;
+            MODEL.parts.get("Meat3").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 4)
         {
-            model.Meat4.showModel = true;
+            MODEL.parts.get("Meat4").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 5)
         {
-            model.Meat5.showModel = true;
+            MODEL.parts.get("Meat5").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 6)
         {
-            model.Meat6.showModel = true;
+            MODEL.parts.get("Meat6").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 7)
         {
-            model.Meat7.showModel = true;
+            MODEL.parts.get("Meat7").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 8)
         {
-            model.Meat8.showModel = true;
+            MODEL.parts.get("Meat8").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 9)
         {
-            model.Meat9.showModel = true;
+            MODEL.parts.get("Meat9").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 10)
         {
-            model.Meat10.showModel = true;
+            MODEL.parts.get("Meat10").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 11)
         {
-            model.Meat11.showModel = true;
+            MODEL.parts.get("Meat11").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 12)
         {
-            model.Meat12.showModel = true;
+            MODEL.parts.get("Meat12").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 13)
         {
-            model.Meat13.showModel = true;
+            MODEL.parts.get("Meat13").showModel = true;
         }
 
         if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 14)
         {
-            model.Meat14.showModel = true;
+            MODEL.parts.get("Meat14").showModel = true;
         }
 
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        this.MODEL.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 
-        // Finish pushing data to OpenGL.
+        MODEL.renderAll();
         GL11.glPopMatrix();
+    }
+
+    @Override
+    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
+    {
+        this.renderAModelAt((MeatcubeEntity) tileEntity, x, y, z, scale);
     }
 
     @Override
