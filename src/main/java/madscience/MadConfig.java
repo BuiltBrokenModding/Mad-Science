@@ -5,6 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 
+import madscience.util.IDManager;
 import net.minecraft.block.Block;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.common.Configuration;
@@ -86,33 +87,40 @@ public class MadConfig
     public static final String CATAGORY_CIRCUITS = "circuits";
     public static final String CATAGORY_COMPONENTS = "components";
 
-    // Item ID's begin at 5000 range and count up from there.
-    private static int madItemIDs = 3840;
-
-    // Block ID's begin at 500 range and count up from there.
-    private static int madBlockIDs = 500;
-
     // Mob ID's for genetically modified entity list.
     private static int madGMOMobIDs = 50;
+    
+    /**
+     * Auto-incrementing configuration IDs. Use this to make sure no config ID is the same.
+     */
+    //public static final IDManager idManager = new IDManager(3768, 13768);
+    public static final IDManager idManager = new IDManager(500, 3840);
+
+    public static int getNextBlockID()
+    {
+            return idManager.getNextBlockID();
+    }
+
+    public static int getNextItemID()
+    {
+            return idManager.getNextItemID();
+    }
 
     // ---------------------------
     // CUSTOM MONSTER PLACER ITEMS
     // ---------------------------
 
     // GeneticallyModifiedMonsterPlacer
-    public final static int GENETICALLYMODIFIED_MONSTERPLACER_DEFAULT = ++madItemIDs;
     public static @CfgMobs
-    int GENETICALLYMODIFIED_MONSTERPLACER = GENETICALLYMODIFIED_MONSTERPLACER_DEFAULT;
+    int GENETICALLYMODIFIED_MONSTERPLACER = getNextItemID();
 
     // CombinedGenomeMonsterPlacer
-    public final static int COMBINEDGENOME_MONSTERPLACER_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int COMBINEDGENOME_MONSTERPLACER = COMBINEDGENOME_MONSTERPLACER_DEFAULT;
+    int COMBINEDGENOME_MONSTERPLACER = getNextItemID();
 
     // CombinedMemoryMonsterPlacer
-    public final static int COMBINEDMEMORY_MONSTERPLACER_DEFAULT = ++madItemIDs;
     public static @CfgMemories
-    int COMBINEDMEMORY_MONSTERPLACER = COMBINEDMEMORY_MONSTERPLACER_DEFAULT;
+    int COMBINEDMEMORY_MONSTERPLACER = getNextItemID();
 
     // ---------------------------------
     // GENETICALLY MODIFIED MOB META IDS
@@ -232,459 +240,372 @@ public class MadConfig
     // --------
     
     // Circuit Comparator
-    public final static int CIRCUIT_COMPARATOR_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_COMPARATOR = CIRCUIT_COMPARATOR_DEFAULT;
+    int CIRCUIT_COMPARATOR = getNextItemID();
     
     // Circuit Diamond
-    public final static int CIRCUIT_DIAMOND_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_DIAMOND = CIRCUIT_DIAMOND_DEFAULT;
+    int CIRCUIT_DIAMOND = getNextItemID();
     
     // Circuit Emerald
-    public final static int CIRCUIT_EMERALD_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_EMERALD = CIRCUIT_EMERALD_DEFAULT;
+    int CIRCUIT_EMERALD = getNextItemID();
     
     // Circuit Ender Eye
-    public final static int CIRCUIT_ENDEREYE_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_ENDEREYE = CIRCUIT_ENDEREYE_DEFAULT;
+    int CIRCUIT_ENDEREYE = getNextItemID();
     
     // Circuit Ender Pearl
-    public final static int CIRCUIT_ENDERPEARL_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_ENDERPEARL = CIRCUIT_ENDERPEARL_DEFAULT;
+    int CIRCUIT_ENDERPEARL = getNextItemID();
     
     // Circuit Glowstone
-    public final static int CIRCUIT_GLOWSTONE_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_GLOWSTONE = CIRCUIT_GLOWSTONE_DEFAULT;
+    int CIRCUIT_GLOWSTONE = getNextItemID();
     
     // Circuit Redstone
-    public final static int CIRCUIT_REDSTONE_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_REDSTONE = CIRCUIT_REDSTONE_DEFAULT;
+    int CIRCUIT_REDSTONE = getNextItemID();
     
     // Circuit Spider Eye
-    public final static int CIRCUIT_SPIDEREYE_DEFAULT = ++madItemIDs;
     public static @CfgCircuits
-    int CIRCUIT_SPIDEREYE = CIRCUIT_SPIDEREYE_DEFAULT;
+    int CIRCUIT_SPIDEREYE = getNextItemID();
     
     // ----------
     // COMPONENTS
     // ----------
     
     // Component Case
-    public final static int COMPONENT_CASE_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_CASE = COMPONENT_CASE_DEFAULT;
+    int COMPONENT_CASE = getNextItemID();
     
     // Component Computer
-    public final static int COMPONENT_COMPUTER_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_COMPUTER = COMPONENT_COMPUTER_DEFAULT;
+    int COMPONENT_COMPUTER = getNextItemID();
 
     // Component CPU
-    public final static int COMPONENT_CPU_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_CPU = COMPONENT_CPU_DEFAULT;
+    int COMPONENT_CPU = getNextItemID();
     
     // Component Fan
-    public final static int COMPONENT_FAN_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_FAN = COMPONENT_FAN_DEFAULT;
+    int COMPONENT_FAN = getNextItemID();
 
     // Component Fused Quartz 
-    public final static int COMPONENT_FUSEDQUARTZ_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_FUSEDQUARTZ = COMPONENT_FUSEDQUARTZ_DEFAULT;
+    int COMPONENT_FUSEDQUARTZ = getNextItemID();
     
     // Component Magnetic Tape
-    public final static int COMPONENT_MAGNETICTAPE_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_MAGNETICTAPE = COMPONENT_MAGNETICTAPE_DEFAULT;
+    int COMPONENT_MAGNETICTAPE = getNextItemID();
     
     // Component Power Supply
-    public final static int COMPONENT_POWERSUPPLY_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_POWERSUPPLY = COMPONENT_POWERSUPPLY_DEFAULT;
+    int COMPONENT_POWERSUPPLY = getNextItemID();
     
     // Component RAM
-    public final static int COMPONENT_RAM_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_RAM = COMPONENT_RAM_DEFAULT;
+    int COMPONENT_RAM = getNextItemID();
     
     // Component Screen
-    public final static int COMPONENT_SCREEN_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_SCREEN = COMPONENT_SCREEN_DEFAULT;
+    int COMPONENT_SCREEN = getNextItemID();
     
     // Component Silicon Wafer
-    public final static int COMPONENT_SILICONWAFER_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_SILICONWAFER = COMPONENT_SILICONWAFER_DEFAULT;
+    int COMPONENT_SILICONWAFER = getNextItemID();
     
     // Component Transistor
-    public final static int COMPONENT_TRANSISTOR_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_TRANSISTOR = COMPONENT_TRANSISTOR_DEFAULT;
+    int COMPONENT_TRANSISTOR = getNextItemID();
     
     // Component Thumper
-    public final static int COMPONENT_THUMPER_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_THUMPER = COMPONENT_THUMPER_DEFAULT;
+    int COMPONENT_THUMPER = getNextItemID();
     
     // Component Enderslime
-    public final static int COMPONENT_ENDERSLIME_DEFAULT = ++madItemIDs;
     public static @CfgComponents
-    int COMPONENT_ENDERSLIME = COMPONENT_ENDERSLIME_DEFAULT;
+    int COMPONENT_ENDERSLIME = getNextItemID();
     
     // -----
     // ITEMS
     // -----
 
     // Liquid Bucket DNA
-    public final static int LIQUIDDNA_BUCKET_DEFAULT = ++madItemIDs;
     public static @CfgId
-    int LIQUIDDNA_BUCKET = LIQUIDDNA_BUCKET_DEFAULT;
+    int LIQUIDDNA_BUCKET = getNextItemID();
 
     // Bucket of Liquid Mutant DNA
-    public final static int LIQUIDDNA_MUTANT_BUCKET_DEFAULT = ++madItemIDs;
     public static @CfgId
-    int LIQUIDDNA_MUTANT_BUCKET = LIQUIDDNA_MUTANT_BUCKET_DEFAULT;
+    int LIQUIDDNA_MUTANT_BUCKET = getNextItemID();
 
     // Empty Data Reel
-    public final static int DATAREEL_EMPTY_DEFAULT = ++madItemIDs;
     public static @CfgId
-    int DATAREEL_EMPTY = DATAREEL_EMPTY_DEFAULT;
+    int DATAREEL_EMPTY = getNextItemID();
 
     // -------
     // NEEDLES
     // -------
 
     // NeedleEmptyItem to take DNA from mobs.
-    public final static int NEEDLE_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE = NEEDLE_DEFAULT;
+    int NEEDLE_EMPTY = getNextItemID();
 
     // Cave Spider needle.
-    public final static int NEEDLE_CAVESPIDER_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_CAVESPIDER = NEEDLE_CAVESPIDER_DEFAULT;
+    int NEEDLE_CAVESPIDER = getNextItemID();
 
     // Chicken needle.
-    public final static int NEEDLE_CHICKEN_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_CHICKEN = NEEDLE_CHICKEN_DEFAULT;
+    int NEEDLE_CHICKEN = getNextItemID();
 
     // Cow needle.
-    public final static int NEEDLE_COW_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_COW = NEEDLE_COW_DEFAULT;
+    int NEEDLE_COW = getNextItemID();
 
     // Creeper needle.
-    public final static int NEEDLE_CREEPER_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_CREEPER = NEEDLE_CREEPER_DEFAULT;
+    int NEEDLE_CREEPER = getNextItemID();
 
     // Bat needle.
-    public final static int NEEDLE_BAT_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_BAT = NEEDLE_BAT_DEFAULT;
+    int NEEDLE_BAT = getNextItemID();
 
     // Enderman needle.
-    public final static int NEEDLE_ENDERMAN_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_ENDERMAN = NEEDLE_ENDERMAN_DEFAULT;
+    int NEEDLE_ENDERMAN = getNextItemID();
 
     // Horse needle.
-    public final static int NEEDLE_HORSE_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_HORSE = NEEDLE_HORSE_DEFAULT;
+    int NEEDLE_HORSE = getNextItemID();
 
     // Mushroom Cow needle.
-    public final static int NEEDLE_MUSHROOMCOW_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_MUSHROOMCOW = NEEDLE_MUSHROOMCOW_DEFAULT;
+    int NEEDLE_MUSHROOMCOW = getNextItemID();
 
     // Ocelot needle.
-    public final static int NEEDLE_OCELOT_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_OCELOT = NEEDLE_OCELOT_DEFAULT;
+    int NEEDLE_OCELOT = getNextItemID();
 
     // Pig needle.
-    public final static int NEEDLE_PIG_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_PIG = NEEDLE_PIG_DEFAULT;
+    int NEEDLE_PIG = getNextItemID();
 
     // Sheep needle.
-    public final static int NEEDLE_SHEEP_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_SHEEP = NEEDLE_SHEEP_DEFAULT;
+    int NEEDLE_SHEEP = getNextItemID();
 
     // Spider needle.
-    public final static int NEEDLE_SPIDER_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_SPIDER = NEEDLE_SPIDER_DEFAULT;
+    int NEEDLE_SPIDER = getNextItemID();
 
     // Squid needle.
-    public final static int NEEDLE_SQUID_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_SQUID = NEEDLE_SQUID_DEFAULT;
+    int NEEDLE_SQUID = getNextItemID();
 
     // Villager needle.
-    public final static int NEEDLE_VILLAGER_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_VILLAGER = NEEDLE_VILLAGER_DEFAULT;
+    int NEEDLE_VILLAGER = getNextItemID();
 
     // Witch needle.
-    public final static int NEEDLE_WITCH_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_WITCH = NEEDLE_WITCH_DEFAULT;
+    int NEEDLE_WITCH = getNextItemID();
 
     // Wolf needle.
-    public final static int NEEDLE_WOLF_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_WOLF = NEEDLE_WOLF_DEFAULT;
+    int NEEDLE_WOLF = getNextItemID();
 
     // Zombie needle.
-    public final static int NEEDLE_ZOMBIE_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_ZOMBIE = NEEDLE_ZOMBIE_DEFAULT;
+    int NEEDLE_ZOMBIE = getNextItemID();
 
     // Mutant needle.
-    public final static int NEEDLE_MUTANT_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_MUTANT = NEEDLE_MUTANT_DEFAULT;
+    int NEEDLE_MUTANT = getNextItemID();
 
     // Dirty needle.
-    public final static int NEEDLE_DIRTY_DEFAULT = ++madItemIDs;
     public static @CfgNeedles
-    int NEEDLE_DIRTY = NEEDLE_DIRTY_DEFAULT;
+    int NEEDLE_DIRTY = getNextItemID();
 
     // -----------
     // DNA SAMPLES
     // -----------
 
     // Cave Spider DNA
-    public final static int DNA_CAVESPIDER_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_CAVESPIDER = DNA_CAVESPIDER_DEFAULT;
+    int DNA_CAVESPIDER = getNextItemID();
 
     // Chicken DNA.
-    public final static int DNA_CHICKEN_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_CHICKEN = DNA_CHICKEN_DEFAULT;
+    int DNA_CHICKEN = getNextItemID();
 
     // Cow DNA.
-    public final static int DNA_COW_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_COW = DNA_COW_DEFAULT;
+    int DNA_COW = getNextItemID();
 
     // Creeper DNA.
-    public final static int DNA_CREEPER_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_CREEPER = DNA_CREEPER_DEFAULT;
+    int DNA_CREEPER = getNextItemID();
 
     // Bat DNA.
-    public final static int DNA_BAT_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_BAT = DNA_BAT_DEFAULT;
+    int DNA_BAT = getNextItemID();
 
     // Enderman DNA
-    public final static int DNA_ENDERMAN_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_ENDERMAN = DNA_ENDERMAN_DEFAULT;
+    int DNA_ENDERMAN = getNextItemID();
 
     // Ghast DNA
-    public final static int DNA_GHAST_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_GHAST = DNA_GHAST_DEFAULT;
+    int DNA_GHAST = getNextItemID();
 
     // Horse DNA
-    public final static int DNA_HORSE_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_HORSE = DNA_HORSE_DEFAULT;
+    int DNA_HORSE = getNextItemID();
 
     // Mushroom Cow DNA
-    public final static int DNA_MUSHROOMCOW_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_MUSHROOMCOW = DNA_MUSHROOMCOW_DEFAULT;
+    int DNA_MUSHROOMCOW = getNextItemID();
 
     // Ocelot DNA
-    public final static int DNA_OCELOT_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_OCELOT = DNA_OCELOT_DEFAULT;
+    int DNA_OCELOT = getNextItemID();
 
     // Pig DNA.
-    public final static int DNA_PIG_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_PIG = DNA_PIG_DEFAULT;
+    int DNA_PIG = getNextItemID();
 
     // Pig Zombie DNA
-    public final static int DNA_PIGZOMBIE_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_PIGZOMBIE = DNA_PIGZOMBIE_DEFAULT;
+    int DNA_PIGZOMBIE = getNextItemID();
 
     // Sheep DNA
-    public final static int DNA_SHEEP_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_SHEEP = DNA_SHEEP_DEFAULT;
+    int DNA_SHEEP = getNextItemID();
 
     // Skeleton DNA
-    public final static int DNA_SKELETON_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_SKELETON = DNA_SKELETON_DEFAULT;
+    int DNA_SKELETON = getNextItemID();
 
     // Spider DNA.
-    public final static int DNA_SPIDER_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_SPIDER = DNA_SPIDER_DEFAULT;
+    int DNA_SPIDER = getNextItemID();
 
     // Slime DNA.
-    public final static int DNA_SLIME_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_SLIME = DNA_SLIME_DEFAULT;
+    int DNA_SLIME = getNextItemID();
 
     // Squid DNA
-    public final static int DNA_SQUID_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_SQUID = DNA_SQUID_DEFAULT;
+    int DNA_SQUID = getNextItemID();
 
     // Villager DNA.
-    public final static int DNA_VILLAGER_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_VILLAGER = DNA_VILLAGER_DEFAULT;
+    int DNA_VILLAGER = getNextItemID();
 
     // Witch DNA
-    public final static int DNA_WITCH_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_WITCH = DNA_WITCH_DEFAULT;
+    int DNA_WITCH = getNextItemID();
 
     // Wolf DNA
-    public final static int DNA_WOLF_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_WOLF = DNA_WOLF_DEFAULT;
+    int DNA_WOLF = getNextItemID();
 
     // Zombie DNA.
-    public final static int DNA_ZOMBIE_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_ZOMBIE = DNA_ZOMBIE_DEFAULT;
+    int DNA_ZOMBIE = getNextItemID();
 
     // Mutant DNA (catch all for mutations and other various creatures).
-    public final static int DNA_MUTANT_DEFAULT = ++madItemIDs;
     public static @CfgDNA
-    int DNA_MUTANT = DNA_MUTANT_DEFAULT;
+    int DNA_MUTANT = getNextItemID();
 
     // -----------------
     // GENOME DATA REELS
     // -----------------
 
     // Cave Spider Genome Data Reel
-    public final static int GENOME_CAVESPIDER_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_CAVESPIDER = GENOME_CAVESPIDER_DEFAULT;
+    int GENOME_CAVESPIDER = getNextItemID();
 
     // Chicken Genome Data Reel
-    public final static int GENOME_CHICKEN_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_CHICKEN = GENOME_CHICKEN_DEFAULT;
+    int GENOME_CHICKEN = getNextItemID();
 
     // Cow Genome Data Reel
-    public final static int GENOME_COW_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_COW = GENOME_COW_DEFAULT;
+    int GENOME_COW = getNextItemID();
 
     // Creeper Genome Data Reel
-    public final static int GENOME_CREEPER_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_CREEPER = GENOME_CREEPER_DEFAULT;
+    int GENOME_CREEPER = getNextItemID();
 
     // Bat Genome Data Reel
-    public final static int GENOME_BAT_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_BAT = GENOME_BAT_DEFAULT;
+    int GENOME_BAT = getNextItemID();
 
     // Enderman Genome Data Reel
-    public final static int GENOME_ENDERMAN_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_ENDERMAN = GENOME_ENDERMAN_DEFAULT;
+    int GENOME_ENDERMAN = getNextItemID();
 
     // Ghast Genome Data Reel
-    public final static int GENOME_GHAST_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_GHAST = GENOME_GHAST_DEFAULT;
+    int GENOME_GHAST = getNextItemID();
 
     // Horse Genome Data Reel
-    public final static int GENOME_HORSE_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_HORSE = GENOME_HORSE_DEFAULT;
+    int GENOME_HORSE = getNextItemID();
 
     // Mushroom Cow Genome Data Reel
-    public final static int GENOME_MUSHROOMCOW_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_MUSHROOMCOW = GENOME_MUSHROOMCOW_DEFAULT;
+    int GENOME_MUSHROOMCOW = getNextItemID();
 
     // Ocelot Genome Data Reel
-    public final static int GENOME_OCELOT_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_OCELOT = GENOME_OCELOT_DEFAULT;
+    int GENOME_OCELOT = getNextItemID();
 
     // Pig Genome Data Reel
-    public final static int GENOME_PIG_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_PIG = GENOME_PIG_DEFAULT;
+    int GENOME_PIG = getNextItemID();
 
     // Pig Zombie Data Reel
-    public final static int GENOME_PIGZOMBIE_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_PIGZOMBIE = GENOME_PIGZOMBIE_DEFAULT;
+    int GENOME_PIGZOMBIE = getNextItemID();
 
     // Sheep Genome Data Reel
-    public final static int GENOME_SHEEP_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_SHEEP = GENOME_SHEEP_DEFAULT;
+    int GENOME_SHEEP = getNextItemID();
 
     // Skeleton Genome Data Reel
-    public final static int GENOME_SKELETON_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_SKELETON = GENOME_SKELETON_DEFAULT;
+    int GENOME_SKELETON = getNextItemID();
 
     // Spider Genome Data Reel
-    public final static int GENOME_SPIDER_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_SPIDER = GENOME_SPIDER_DEFAULT;
+    int GENOME_SPIDER = getNextItemID();
 
     // Slime Genome Data Reel
-    public final static int GENOME_SLIME_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_SLIME = GENOME_SLIME_DEFAULT;
+    int GENOME_SLIME = getNextItemID();
 
     // Squid Genome Data Reel
-    public final static int GENOME_SQUID_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_SQUID = GENOME_SQUID_DEFAULT;
+    int GENOME_SQUID = getNextItemID();
 
     // Villager Genome Data Reel
-    public final static int GENOME_VILLAGER_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_VILLAGER = GENOME_VILLAGER_DEFAULT;
+    int GENOME_VILLAGER = getNextItemID();
 
     // Witch Genome Data Reel
-    public final static int GENOME_WITCH_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_WITCH = GENOME_WITCH_DEFAULT;
+    int GENOME_WITCH = getNextItemID();
 
     // Wolf Genome Data Reel
-    public final static int GENOME_WOLF_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_WOLF = GENOME_WOLF_DEFAULT;
+    int GENOME_WOLF = getNextItemID();
 
     // Zombie Genome Data Reel
-    public final static int GENOME_ZOMBIE_DEFAULT = ++madItemIDs;
     public static @CfgGenomes
-    int GENOME_ZOMBIE = GENOME_ZOMBIE_DEFAULT;
+    int GENOME_ZOMBIE = getNextItemID();
 
     // -----------------------
     // TILE ENTITY DECLARATION
@@ -696,9 +617,8 @@ public class MadConfig
     public final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
     // DNA Extractor
-    public final static int DNA_EXTRACTOR_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int DNA_EXTRACTOR = DNA_EXTRACTOR_DEFAULT;
+    int DNA_EXTRACTOR = getNextBlockID();
     public static @CfgEnergy
     long DNAEXTRACTOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -707,9 +627,8 @@ public class MadConfig
     long DNAEXTRACTOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Needle Sanitizer
-    public final static int SANTITIZER_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int SANTITIZER = SANTITIZER_DEFAULT;
+    int SANTITIZER = getNextBlockID();
     public static @CfgEnergy
     long SANTITIZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -718,9 +637,8 @@ public class MadConfig
     long SANTITIZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Computer Mainframe
-    public final static int MAINFRAME_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int MAINFRAME = MAINFRAME_DEFAULT;
+    int MAINFRAME = getNextBlockID();
     public static @CfgEnergy
     long MAINFRAME_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -729,9 +647,8 @@ public class MadConfig
     long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Genetic Sequencer
-    public final static int GENE_SEQUENCER_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int GENE_SEQUENCER = GENE_SEQUENCER_DEFAULT;
+    int GENE_SEQUENCER = getNextBlockID();
     public static @CfgEnergy
     long SEQUENCER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -740,9 +657,8 @@ public class MadConfig
     long SEQUENCER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Cryogenic Freezer
-    public final static int CRYOFREEZER_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int CRYOFREEZER = CRYOFREEZER_DEFAULT;
+    int CRYOFREEZER = getNextBlockID();
     public static @CfgEnergy
     long CRYOFREEZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -751,9 +667,8 @@ public class MadConfig
     long CRYOFREEZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Genome Incubator
-    public final static int INCUBATOR_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int INCUBATOR = INCUBATOR_DEFAULT;
+    int INCUBATOR = getNextBlockID();
     public static @CfgEnergy
     long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -762,14 +677,12 @@ public class MadConfig
     long INCUBATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Meat Cube
-    public final static int MEATCUBE_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int MEATCUBE = MEATCUBE_DEFAULT;
+    int MEATCUBE = getNextBlockID();
 
     // Cryogenic Tube
-    public final static int CRYOTUBE_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int CRYOTUBE = CRYOTUBE_DEFAULT;
+    int CRYOTUBE = getNextBlockID();
     public static @CfgEnergy
     long CRYOTUBE_CAPACTITY = 225120000000L;
     public static @CfgEnergy
@@ -778,14 +691,12 @@ public class MadConfig
     long CRYOTUBE_PRODUCE = 1407000L;
 
     // Cryogenic Tube 'Ghost Block'
-    public final static int CRYOTUBEGHOST_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int CRYOTUBEGHOST = CRYOTUBEGHOST_DEFAULT;
+    int CRYOTUBEGHOST = getNextBlockID();
 
     // Thermosonic Bonder
-    public final static int THERMOSONIC_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int THERMOSONIC = THERMOSONIC_DEFAULT;
+    int THERMOSONIC = getNextBlockID();
     public static @CfgEnergy
     long THERMOSONIC_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -794,9 +705,8 @@ public class MadConfig
     long THERMOSONIC_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Data Reel Duplicator
-    public final static int DATADUPLICATOR_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int DATADUPLICATOR = DATADUPLICATOR_DEFAULT;
+    int DATADUPLICATOR = getNextBlockID();
     public static @CfgEnergy
     long DATADUPLICATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -805,9 +715,8 @@ public class MadConfig
     long DATADUPLICATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Soniclocator
-    public final static int SONICLOCATOR_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int SONICLOCATOR = SONICLOCATOR_DEFAULT;
+    int SONICLOCATOR = getNextBlockID();
     public static @CfgEnergy
     long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
     public static @CfgEnergy
@@ -816,37 +725,33 @@ public class MadConfig
     long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
 
     // Soniclocator 'Ghost Block'
-    public final static int SONICLOCATORGHOST_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int SONICLOCATOREGHOST = SONICLOCATORGHOST_DEFAULT;
+    int SONICLOCATOREGHOST = getNextBlockID();
 
     // -----------------
     // FLUID DECLARATION
     // -----------------
 
     // Liquid DNA
-    public final static int LIQUIDDNA_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int LIQUIDDNA = LIQUIDDNA_DEFAULT;
+    int LIQUIDDNA = getNextBlockID();
 
     // Liquid Mutant DNA
-    public final static int LIQUIDDNA_MUTANT_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int LIQUIDDNA_MUTANT = LIQUIDDNA_MUTANT_DEFAULT;
+    int LIQUIDDNA_MUTANT = getNextBlockID();
 
     // -----------------
     // BLOCK DECLARATION
     // -----------------
 
     // Abomination Egg
-    public final static int ABOMINATIONEGG_DEFAULT = ++madBlockIDs;
     public static @CfgId(block = true)
-    int ABOMINATIONEGG = ABOMINATIONEGG_DEFAULT;
+    int ABOMINATIONEGG = getNextBlockID();
     
     // Enderslime Block
-    public final static int ENDERSLIMEBLOCK_DEFAULT = ++madBlockIDs;
+
     public static @CfgId(block = true)
-    int ENDERSLIMEBLOCK = ENDERSLIMEBLOCK_DEFAULT;
+    int ENDERSLIMEBLOCK = getNextBlockID();
 
     // ----------------
     // FEATURE SWITCHES

@@ -227,7 +227,7 @@ public class MadScience
         // NEEDLES
         // -------
 
-        MadNeedles.createEmptyNeedle(MadConfig.NEEDLE);
+        MadNeedles.createEmptyNeedle(MadConfig.NEEDLE_EMPTY);
         MadNeedles.createDirtyNeedle(MadConfig.NEEDLE_DIRTY);
         MadNeedles.createCaveSpiderNeedle(MadConfig.NEEDLE_CAVESPIDER);
         MadNeedles.createChickenNeedle(MadConfig.NEEDLE_CHICKEN);
