@@ -6,5 +6,5 @@ pause
 echo Removing output directory...
 rmdir /Q /S output
 echo Starting Buildscript...
-gradlew clean build
+gradlew build
 pause
