@@ -211,45 +211,6 @@ public class EnderSquidMobEntity extends EntityMob
         this.lastEntityToAttack = this.entityToAttack;
         int i;
 
-        if (!this.worldObj.isRemote && this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"))
-        {
-            int j;
-            int k;
-            int l;
-
-            if (this.getCarried() == 0)
-            {
-                if (this.rand.nextInt(20) == 0)
-                {
-                    i = MathHelper.floor_double(this.posX - 2.0D + this.rand.nextDouble() * 4.0D);
-                    j = MathHelper.floor_double(this.posY + this.rand.nextDouble() * 3.0D);
-                    k = MathHelper.floor_double(this.posZ - 2.0D + this.rand.nextDouble() * 4.0D);
-                    l = this.worldObj.getBlockId(i, j, k);
-
-                    if (carriableBlocks[l])
-                    {
-                        this.setCarried(this.worldObj.getBlockId(i, j, k));
-                        this.setCarryingData(this.worldObj.getBlockMetadata(i, j, k));
-                        this.worldObj.setBlock(i, j, k, 0);
-                    }
-                }
-            }
-            else if (this.rand.nextInt(2000) == 0)
-            {
-                i = MathHelper.floor_double(this.posX - 1.0D + this.rand.nextDouble() * 2.0D);
-                j = MathHelper.floor_double(this.posY + this.rand.nextDouble() * 2.0D);
-                k = MathHelper.floor_double(this.posZ - 1.0D + this.rand.nextDouble() * 2.0D);
-                l = this.worldObj.getBlockId(i, j, k);
-                int i1 = this.worldObj.getBlockId(i, j - 1, k);
-
-                if (l == 0 && i1 > 0 && Block.blocksList[i1].renderAsNormalBlock())
-                {
-                    this.worldObj.setBlock(i, j, k, this.getCarried(), this.getCarryingData(), 3);
-                    this.setCarried(0);
-                }
-            }
-        }
-
         for (i = 0; i < 2; ++i)
         {
             this.worldObj.spawnParticle("portal", this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height - 0.25D, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width,
