@@ -2,6 +2,7 @@ package madscience.fluids.dnaMutant;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,5 +28,14 @@ public class LiquidDNAMutant extends Fluid
     {
         // Use the same default minecraft icon for water (for now).
         return Block.waterMoving.getIcon(side, meta);
+    }
+
+    /**
+     * Returns the unlocalized name of this fluid.
+     */
+    @Override
+    public String getUnlocalizedName()
+    {
+        return "tile." + this.unlocalizedName + ".name";
     }
 }

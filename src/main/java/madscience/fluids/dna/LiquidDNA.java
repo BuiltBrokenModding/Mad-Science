@@ -29,4 +29,13 @@ public class LiquidDNA extends Fluid
         // Use the same default minecraft icon for water (for now).
         return Block.waterMoving.getIcon(side, meta);
     }
+    
+    /**
+     * Returns the unlocalized name of this fluid.
+     */
+    @Override
+    public String getUnlocalizedName()
+    {
+        return "tile." + this.unlocalizedName + ".name";
+    }
 }

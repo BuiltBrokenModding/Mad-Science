@@ -3,6 +3,7 @@ package madscience.tileentities.dnaextractor;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.util.GUIContainerBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -10,6 +11,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -17,16 +19,15 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class DNAExtractorGUI extends GuiContainer
+public class DNAExtractorGUI extends GUIContainerBase
 {
-    private static final ResourceLocation furnaceGuiTextures = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".png");
-
-    private DNAExtractorEntity furnaceInventory;
+    private DNAExtractorEntity ENTITY;
 
     public DNAExtractorGUI(InventoryPlayer par1InventoryPlayer, DNAExtractorEntity par2TileEntityFurnace)
     {
         super(new DNAExtractorContainer(par1InventoryPlayer, par2TileEntityFurnace));
-        this.furnaceInventory = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
+        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".png");
     }
 
     private void displayGauge(int screenX, int screenY, int line, int col, int squaled)
@@ -78,7 +79,7 @@ public class DNAExtractorGUI extends GuiContainer
 
         // Re-draws gauge lines ontop of scaled fluid amount to make it look
         // like the fluid is behind the gauge lines.
-        mc.renderEngine.bindTexture(furnaceGuiTextures);
+        mc.renderEngine.bindTexture(TEXTURE);
         drawTexturedModalRect(screenX + col, screenY + line, 176, 31, 16, 58);
     }
 
@@ -86,16 +87,11 @@ public class DNAExtractorGUI extends GuiContainer
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(furnaceGuiTextures);
-        int screenX = (this.width - this.xSize) / 2;
-        int screenY = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(screenX, screenY, 0, 0, this.xSize, this.ySize);
-
+        super.drawGuiContainerBackgroundLayer(par1, par2, par3);
+        
         // -----------
         // POWER LEVEL
-        // -----------
-        int powerRemianingPercentage = this.furnaceInventory.getPowerRemainingScaled(14);
+        int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(14);
         // Screen Coords: 10x49
         // Filler Coords: 176x0
         // Image Size WH: 14x14
@@ -104,7 +100,7 @@ public class DNAExtractorGUI extends GuiContainer
         // ---------------------
         // ITEM COOKING PROGRESS
         // ---------------------
-        int powerCookPercentage = this.furnaceInventory.getItemCookTimeScaled(31);
+        int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(31);
         // Screen Coords: 32x31
         // Filler Coords: 176x14
         // Image Size WH: 31x17
@@ -116,13 +112,38 @@ public class DNAExtractorGUI extends GuiContainer
         // Screen Coords: 131x19
         // Filler Coords: 176x31
         // Image Size WH: 16x58
-        displayGauge(screenX, screenY, 19, 131, this.furnaceInventory.getWaterRemainingScaled(58));
+        displayGauge(screenX, screenY, 19, 131, this.ENTITY.getWaterRemainingScaled(58));
     }
 
     /** Draw the foreground layer for the GuiContainer (everything in front of the items) */
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        
+        // Input slot help.
+        if (this.isPointInRegion(9, 32, 18, 18, mouseX, mouseY))
+        {
+                if (this.ENTITY.internalLiquidDNAMutantTank.getFluidAmount() > 0 && this.ENTITY.getStackInSlot(0) == null)
+                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input slot");
+        }
+        
+        // Water bucket input help.
+        if (this.isPointInRegion(152, 61, 18, 18, mouseX, mouseY))
+        {
+                if (this.ENTITY.getStackInSlot(1) == null)
+                {
+                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Place empty bucket.");
+                }
+        }
+        
+        // Mutant DNA tank help.
+        if (this.isPointInRegion(131, 19, 16, 58, mouseX, mouseY) && this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
+        {
+                if (this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
+                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
+        }
+        
         // Name displayed above the GUI, typically name of the furnace.
         String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);

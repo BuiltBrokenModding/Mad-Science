@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -30,7 +31,7 @@ public class LiquidDNAMutantBlock extends BlockFluidClassic
         MadFluids.LIQUIDDNA_MUTANT.setBlockID(id);
 
         // Add the block to the specific tab in creative mode.
-        // this.setCreativeTab(MadEntities.tabMadScience);
+        //this.setCreativeTab(MadEntities.tabMadScience);
     }
 
     @Override
