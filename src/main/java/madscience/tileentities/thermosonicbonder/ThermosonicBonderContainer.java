@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class ThermosonicBonderContainer extends Container
@@ -23,7 +24,7 @@ public class ThermosonicBonderContainer extends Container
         this.addSlotToContainer(new ThermosonicBonderSlotInputComponent(par2TileEntityFurnace, 1, 69, 39));
 
         // Output Slot 1 - Mob egg from genome encoding onto fresh egg.
-        this.addSlotToContainer(new ThermosonicBonderSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 140, 39));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 140, 39));
 
         // Create slots for main player inventory area.
         int i;

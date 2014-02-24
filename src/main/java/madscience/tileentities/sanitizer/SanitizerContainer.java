@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class SanitizerContainer extends Container
@@ -24,10 +25,10 @@ public class SanitizerContainer extends Container
         this.addSlotToContainer(new SanitizerSlotInputDirtyNeedles(par2TileEntityFurnace, 1, 73, 34));
 
         // Output Slot 1 - Cleaned needle.
-        this.addSlotToContainer(new SanitizerSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 134, 34));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 134, 34));
 
         // Output Slot 2 - Empty bucket.
-        this.addSlotToContainer(new SanitizerSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 31, 9));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 31, 9));
 
         // Create slots for main player inventory area.
         int i;

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class DataDuplicatorContainer extends Container
@@ -22,7 +23,7 @@ public class DataDuplicatorContainer extends Container
         this.addSlotToContainer(new DataDuplicatorSlotInputEmptyDataReel(par2TileEntityFurnace, 1, 54, 36));
 
         // Output Slot 1 - Completed duplicate copy of input slot 1.
-        this.addSlotToContainer(new DataDuplicatorSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 133, 36));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 133, 36));
 
         // Create slots for main player inventory area.
         int i;

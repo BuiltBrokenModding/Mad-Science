@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class CryotubeContainer extends Container
@@ -27,10 +28,10 @@ public class CryotubeContainer extends Container
         this.addSlotToContainer(new CryotubeSlotInputNetherStar(par2TileEntityFurnace, 2, 113, 52));
 
         // Output Slot 1 - Memory data reel of given subject.
-        this.addSlotToContainer(new CryotubeSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 144, 22));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 144, 22));
 
         // Output Slot 2 - Rotten flesh from deceased subjects.
-        this.addSlotToContainer(new CryotubeSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 4, 144, 56));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 4, 144, 56));
 
         // Create slots for main player inventory area.
         int i;

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class MeatcubeContainer extends Container
@@ -20,7 +21,7 @@ public class MeatcubeContainer extends Container
         this.addSlotToContainer(new MeatcubeSlotInputWaterBucket(par2TileEntityFurnace, 0, 90, 43));
 
         // Output Slot 2 - Empty bucket.
-        this.addSlotToContainer(new MeatcubeSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 1, 90, 18));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 1, 90, 18));
 
         // Create slots for main player inventory area.
         int i;

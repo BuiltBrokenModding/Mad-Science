@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class SequencerContainer extends Container
@@ -23,7 +24,7 @@ public class SequencerContainer extends Container
         this.addSlotToContainer(new SequencerSlotInputUnfinisihedGenome(par2TileEntityFurnace, 1, 54, 36));
 
         // Output Slot 1 - Genome data reel of given DNA sample.
-        this.addSlotToContainer(new SequencerSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 133, 36));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 133, 36));
 
         // Create slots for main player inventory area.
         int i;

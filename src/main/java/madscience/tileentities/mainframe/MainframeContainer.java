@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class MainframeContainer extends Container
@@ -28,10 +29,10 @@ public class MainframeContainer extends Container
         this.addSlotToContainer(new MainframeSlotInputGenomeEmpty(par2TileEntityFurnace, 3, 115, 55));
 
         // OUTPUT SLOT 1 - MERGED GENOME DATA REEL
-        this.addSlotToContainer(new MainframeSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 4, 148, 38));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 4, 148, 38));
 
         // OUTPUT SLOT 2 - EMPTY BUCKET USED TO FILL INTERNAL TANK.
-        this.addSlotToContainer(new MainframeSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 5, 27, 7));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 5, 27, 7));
 
         // Create slots for main player inventory area.
         int i;

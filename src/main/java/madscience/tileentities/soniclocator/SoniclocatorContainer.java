@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class SoniclocatorContainer extends Container
@@ -22,7 +23,7 @@ public class SoniclocatorContainer extends Container
         this.addSlotToContainer(new SoniclocatorSlotInputBlock(par2TileEntityFurnace, 1, 58, 35));
 
         // Output Slot 1 - Target blocks that the soniclocator has harvested.
-        this.addSlotToContainer(new SoniclocatorSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 127, 35));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 127, 35));
 
         // Create slots for main player inventory area.
         int i;

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
 public class DNAExtractorContainer extends Container
@@ -22,13 +23,13 @@ public class DNAExtractorContainer extends Container
         this.addSlotToContainer(new DNAExtractorSlotInputEmptyBucket(par2TileEntityFurnace, 1, 152, 61));
 
         // Output Slot 1 - DNA sample.
-        this.addSlotToContainer(new DNAExtractorSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 72, 32));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 72, 32));
 
         // Output Slot 2 - Dirty needles.
-        this.addSlotToContainer(new DNAExtractorSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 105, 32));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 105, 32));
 
         // Output Slot 3 - Filled mutant DNA bucket.
-        this.addSlotToContainer(new DNAExtractorSlotOutput(par1InventoryPlayer.player, par2TileEntityFurnace, 4, 152, 36));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 4, 152, 36));
 
         // Create slots for main player inventory area.
         int i;
