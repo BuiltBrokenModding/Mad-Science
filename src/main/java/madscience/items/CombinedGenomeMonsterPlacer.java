@@ -162,15 +162,11 @@ public class CombinedGenomeMonsterPlacer extends Item
             return name;
 
         String mobID = info.mobID;
-        String displayName = I18n.getString(info.mobID);
-
         if (stack.hasTagCompound())
         {
             NBTTagCompound compound = stack.getTagCompound();
             if (compound.hasKey("mobID"))
                 mobID = compound.getString("mobID");
-            if (compound.hasKey("displayName"))
-                displayName = compound.getString("displayName");
         }
 
         name = "item." + mobID;

@@ -88,7 +88,7 @@ public class DNAExtractorGUI extends GUIContainerBase
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
         super.drawGuiContainerBackgroundLayer(par1, par2, par3);
-        
+
         // -----------
         // POWER LEVEL
         int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(14);
@@ -120,30 +120,30 @@ public class DNAExtractorGUI extends GUIContainerBase
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        
+
         // Input slot help.
         if (this.isPointInRegion(9, 32, 18, 18, mouseX, mouseY))
         {
-                if (this.ENTITY.internalLiquidDNAMutantTank.getFluidAmount() > 0 && this.ENTITY.getStackInSlot(0) == null)
-                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input slot");
+            if (this.ENTITY.internalLiquidDNAMutantTank.getFluidAmount() > 0 && this.ENTITY.getStackInSlot(0) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input slot");
         }
-        
+
         // Water bucket input help.
         if (this.isPointInRegion(152, 61, 18, 18, mouseX, mouseY))
         {
-                if (this.ENTITY.getStackInSlot(1) == null)
-                {
-                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Place empty bucket.");
-                }
+            if (this.ENTITY.getStackInSlot(1) == null)
+            {
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Place empty bucket.");
+            }
         }
-        
+
         // Mutant DNA tank help.
         if (this.isPointInRegion(131, 19, 16, 58, mouseX, mouseY) && this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
         {
-                if (this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
-                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
+            if (this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
         }
-        
+
         // Name displayed above the GUI, typically name of the furnace.
         String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
