@@ -48,7 +48,7 @@ public class MadScience
     public static final String ID = "madscience";
     public static final String CHANNEL_NAME = ID;
     public static final String NAME = "Mad Science";
-    public static final String VERSION = "@MAJOR@.@MINOR@.@REVIS@@BUILD@";
+    public static final String VERSION = "@MAJOR@.@MINOR@@REVIS@.@BUILD@";
 
     // Directories definition for assets and localization files.
     public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
