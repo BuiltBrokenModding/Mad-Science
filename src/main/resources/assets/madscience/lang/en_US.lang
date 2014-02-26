@@ -6,22 +6,51 @@ itemGroup.tabMadScience=Mad Science
 
 # Tile Entities
 tile.dnaExtractor.name=DNA Extractor
+tile.dnaExtractor.tooltip=Extracts DNA samples from filled syringes.
+
 tile.needleSanitizer.name=Syringe Sanitizer
+tile.needleSanitizer.tooltip=Cleans dirty needles so they can be reused.
+
 tile.computerMainframe.name=Computer Mainframe
+tile.computerMainframe.tooltip=Combines multiple sequenced genomes together to make new lifeforms.
+
 tile.genomeSequencer.name=Gene Sequencer
+tile.genomeSequencer.tooltip=Reads DNA samples into data reels to create sequenced genomes.
+
 tile.cryoFreezer.name=Cryogenic Freezer
+tile.cryoFreezer.tooltip=Restores filled syringes and dna samples to full health.
+
 tile.genomeIncubator.name=Genome Incubator
+tile.genomeIncubator.tooltip=Reads sequenced genomes and encodes this information onto chicken eggs.
+
 tile.meatCube.name=Disgusting Meat Cube
+tile.meatCube.tooltip=[Slime + Pig,Chicken,Cow]
+
 tile.cryoTube.name=Cryogenic Tube
 tile.ghostCryoTube.name=Cryogenic Tube
+tile.cryoTube.tooltip=Harvests electrical power from Villagers memories!
+
 tile.thermosonicBonder.name=Thermosonic Bonder
+tile.thermosonicBonder.tooltip=Used to electrically interconnect the all-important Silicon Wafers, Transistors, CPU’s, and RAM chips.
+
 tile.dataDuplicator.name=Data Reel Duplicator
+tile.dataDuplicator.tooltip=Creates copies of any data reel.
+
 tile.maddna.name=Liquid DNA
+tile.maddna.tooltip=Blood that comes from mobs that are not mutants.
+
 tile.maddnamutant.name=Liquid Mutant DNA
+tile.maddnamutant.tooltip=Corrupted DNA from a genetically altered organism, or a preexisting freak of nature.
+
 tile.abominationEgg.name=Abomination Egg
+tile.abominationEgg.tooltip=Spawned into the world when The Abomination kills another living creature, mob or player alike.
+
 tile.soniclocator.name=Soniclocator Device
 tile.ghostSoniclocator.name=Soniclocator Device
+tile.soniclocator.tooltip=Replaces target blocks in a given chunk with gravel, and keeps the target block.
+
 tile.enderslimeBlock.name=Block of Enderslime
+tile.enderslimeBlock.tooltip=Oh god, its slimy...
 
 # GMO Mobs
 entity.gmoWerewolf.name=Werewolf

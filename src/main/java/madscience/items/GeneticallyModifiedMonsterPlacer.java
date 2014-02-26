@@ -6,6 +6,7 @@ import java.util.List;
 import madscience.GMORegistry;
 import madscience.MadEntities;
 import madscience.MadScience;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -45,6 +46,17 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     {
         String result = StatCollector.translateToLocal(key);
         return (result.equals(key)) ? _default : result;
+    }
+    
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
+    {
+        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+
+        if (tooltip != null && tooltip.length() > 0)
+        {
+            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
     }
 
     public static Entity spawnCreature(World world, ItemStack stack, double x, double y, double z)

@@ -1,10 +1,13 @@
 package madscience.items;
 
+import java.util.List;
+
 import madscience.MadEntities;
 import madscience.MadNeedles;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.mobs.werewolf.WerewolfMobEntity;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -30,6 +33,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -48,6 +52,17 @@ public class NeedleEmptyItem extends Item
 
         // Maximum amount of damage this item can receive before breaking.
         this.setMaxDamage(10);
+    }
+
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
+    {
+        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+
+        if (tooltip != null && tooltip.length() > 0)
+        {
+            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
     }
 
     @Override

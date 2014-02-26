@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import madscience.MadScience;
 import net.minecraft.item.ItemStack;
 
 import com.google.common.base.Objects;

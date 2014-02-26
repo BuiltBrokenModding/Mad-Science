@@ -1,7 +1,10 @@
 package madscience.items;
 
+import java.util.List;
+
 import madscience.MadEntities;
 import madscience.MadScience;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -9,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -47,6 +51,17 @@ public class ItemGenome extends Item
 
         // Define that we can have normal stack of items.
         this.maxStackSize = 1;
+    }
+    
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
+    {
+        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+
+        if (tooltip != null && tooltip.length() > 0)
+        {
+            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
     }
 
     @Override

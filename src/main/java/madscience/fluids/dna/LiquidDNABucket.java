@@ -1,8 +1,11 @@
 package madscience.fluids.dna;
 
+import java.util.List;
+
 import madscience.MadEntities;
 import madscience.MadFluids;
 import madscience.MadScience;
+import madscience.util.MadUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event;
@@ -27,6 +31,17 @@ public class LiquidDNABucket extends ItemFluidContainer
 
         // Add the block to the specific tab in creative mode.
         this.setCreativeTab(MadEntities.tabMadScience);
+    }
+    
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
+    {
+        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+
+        if (tooltip != null && tooltip.length() > 0)
+        {
+            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
     }
 
     @Override
