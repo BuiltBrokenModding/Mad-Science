@@ -6,6 +6,7 @@ import java.util.List;
 import madscience.GMORegistry;
 import madscience.MadEntities;
 import madscience.MadScience;
+import madscience.util.MadColors;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -51,7 +52,9 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
-        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+        String firstCreature = MadColors.getNameFromColor(this.getColorFromItemStack(par1ItemStack, 0));
+        String secondCreature = MadColors.getNameFromColor(this.getColorFromItemStack(par1ItemStack, 1));
+        String tooltip = "[" + firstCreature + "] - [" + secondCreature + "]";
 
         if (tooltip != null && tooltip.length() > 0)
         {

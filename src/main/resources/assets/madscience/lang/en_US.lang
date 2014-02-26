@@ -77,10 +77,19 @@ item.genomeEnderslime.name=Enderslime Genome
 
 # Memories
 item.memoryMonsterPlacername.Priest.name=Priest Memory Reel
+item.memoryMonsterPlacername.Priest.tooltip=Filled with huge gaps of data and very minimal flow of ideas.
+
 item.memoryMonsterPlacername.Farmer.name=Farmer Memory Reel
+item.memoryMonsterPlacername.Farmer.tooltip=Data set is filled with a the same repeating patterns over and over.
+
 item.memoryMonsterPlacername.Butcher.name=Butcher Memory Reel
+item.memoryMonsterPlacername.Butcher.tooltip=Good data with input from variety of sources, only a few ideas.
+
 item.memoryMonsterPlacername.Blacksmith.name=Blacksmith Memory Reel
+item.memoryMonsterPlacername.Blacksmith.tooltip=High quality data and many ideas and experiences.
+
 item.memoryMonsterPlacername.Librarian.name=Librarian Memory Reel
+item.memoryMonsterPlacername.Librarian.tooltip=Best data recorded, each bit is unique and packed ideas and experiences out of this world.
 
 # Components
 item.componentCase.name=Case Component
@@ -156,7 +165,12 @@ item.dataReelEmpty.name=Empty Data Reel
 item.dataReelEmpty.tooltip=Magnetic tape data storage uses digital recording on magnetic tape to store digital information. This disk is empty and may have any sort of data imprinted onto it.
 
 # Needles
-item.needleEmpty.name=Empty Syringe 
+item.needleEmpty.name=Empty Syringe
+item.needleEmpty.tooltip=Collects DNA samples from mobs or yourself!
+
+item.needleDirty.name=Dirty Syringe
+item.needleDirty.tooltip=Don't play with dirty needles!
+
 item.needleCaveSpider.name=Filled Syringe of Cave Spider DNA
 item.needleChicken.name=Filled Syringe of Chicken DNA
 item.needleCow.name=Filled Syringe of Cow DNA
@@ -175,7 +189,6 @@ item.needleWitch.name=Filled Syringe of Witch DNA
 item.needleWolf.name=Filled Syringe of Wolf DNA
 item.needleZombie.name=Filled Syringe of Zombie DNA
 item.needleMutant.name=Filled Syringe of Mutant DNA
-item.needleDirty.name=Dirty Syringe
 
 # DNA Samples
 item.dnaCaveSpider.name=Sample of Cave Spider DNA

@@ -4,6 +4,127 @@ import java.awt.Color;
 
 public class MadColors
 {
+    public static String getNameFromColor(int colorRGB)
+    {
+        // Accepts color elements that should convert back to mob names.
+        if (colorRGB == batEgg())
+        {
+            return "Bat";
+        }
+        
+        if (colorRGB == blazeEgg())
+        {
+            return "Blaze";
+        }
+        
+        if (colorRGB == caveSpiderEgg())
+        {
+            return "Cave Spider";
+        }
+        
+        if (colorRGB == chickenEgg())
+        {
+            return "Chicken";
+        }
+        
+        if (colorRGB == cowEgg())
+        {
+            return "Cow";
+        }
+        
+        if (colorRGB == creeperEgg())
+        {
+            return "Creeper";
+        }
+        
+        if (colorRGB == endermanEgg())
+        {
+            return "Enderman";
+        }
+        
+        if (colorRGB == ghastEgg())
+        {
+            return "Ghast";
+        }
+        
+        if (colorRGB == horseEgg())
+        {
+            return "Horse";
+        }
+        
+        if (colorRGB == magmaCubeEgg())
+        {
+            return "Magmacube";
+        }
+        
+        if (colorRGB == mooshroomCowEgg())
+        {
+            return "Mooshroom Cow";
+        }
+        
+        if (colorRGB == ocelotEgg())
+        {
+            return "Ocelot";
+        }
+        
+        if (colorRGB == pigEgg())
+        {
+            return "Pig";
+        }
+        
+        if (colorRGB == sheepEgg())
+        {
+            return "Sheep";
+        }
+        
+        if (colorRGB == silverFishEgg())
+        {
+            return "Silver Fish";
+        }
+        
+        if (colorRGB == skeletonEgg())
+        {
+            return "Skeleton";
+        }
+        
+        if (colorRGB == slimeEgg())
+        {
+            return "Slime";
+        }
+        
+        if (colorRGB == spiderEgg())
+        {
+            return "Spider";
+        }
+        
+        if (colorRGB == squidEgg())
+        {
+            return "Squid";
+        }
+        
+        if (colorRGB == villagerEgg())
+        {
+            return "Villager";
+        }
+        
+        if (colorRGB == witchEgg())
+        {
+            return "Witch";
+        }
+        
+        if (colorRGB == wolfEgg())
+        {
+            return "Wolf";
+        }
+        
+        if (colorRGB == zombieEgg())
+        {
+            return "Zombie";
+        }
+        
+        return null;
+    }
+    
     public static int batEgg()
     {
         return new Color(71, 58, 45).getRGB();

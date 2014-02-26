@@ -51,7 +51,7 @@ public class CombinedMemoryMonsterPlacer extends Item
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
-        String tooltip = nameFromDamage(par1ItemStack.getItemDamage());
+        String tooltip = StatCollector.translateToLocal(nameFromDamage(par1ItemStack.getItemDamage()) + ".tooltip");
 
         if (tooltip != null && tooltip.length() > 0)
         {
