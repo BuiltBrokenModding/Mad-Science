@@ -120,6 +120,29 @@ public class DNAExtractorGUI extends GUIContainerBase
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        
+        // Name displayed above the GUI, typically name of the furnace.
+        String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
+        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+
+        // Text that labels player inventory area as "Inventory".
+        String x = I18n.getString("container.inventory");
+        this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+        
+        // Power level
+        if (this.isPointInRegion(10, 49, 14, 14, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
+        }
+        
+        // Cooking progress
+        if (this.isPointInRegion(32, 31, 31, 17, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
+                    powerLevelLiteral);
+        }
 
         // Input slot help.
         if (this.isPointInRegion(9, 32, 18, 18, mouseX, mouseY))
@@ -133,7 +156,7 @@ public class DNAExtractorGUI extends GUIContainerBase
         {
             if (this.ENTITY.getStackInSlot(1) == null)
             {
-                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Place empty bucket.");
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Place empty bucket");
             }
         }
 
@@ -144,12 +167,6 @@ public class DNAExtractorGUI extends GUIContainerBase
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
         }
 
-        // Name displayed above the GUI, typically name of the furnace.
-        String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
-        // Text that labels player inventory area as "Inventory".
-        String x = I18n.getString("container.inventory");
-        this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
     }
 }

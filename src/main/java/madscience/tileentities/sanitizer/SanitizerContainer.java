@@ -10,13 +10,13 @@ import net.minecraft.item.ItemStack;
 public class SanitizerContainer extends Container
 {
     // Tile entity from this world.
-    private SanitizerEntity sanitizerTileEntity;
+    private SanitizerEntity ENTITY;
 
     public SanitizerContainer(InventoryPlayer par1InventoryPlayer, SanitizerEntity par2TileEntityFurnace)
     {
         // Hook the server world entity that is our block so we can get relevant
         // information from it.
-        this.sanitizerTileEntity = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
 
         // Input Slot 1 - Water bucket to clean the needles with.
         this.addSlotToContainer(new SanitizerSlotInputWaterBucket(par2TileEntityFurnace, 0, 31, 34));
@@ -50,7 +50,7 @@ public class SanitizerContainer extends Container
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.sanitizerTileEntity.isUseableByPlayer(par1EntityPlayer);
+        return this.ENTITY.isUseableByPlayer(par1EntityPlayer);
     }
 
     /** Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that. */

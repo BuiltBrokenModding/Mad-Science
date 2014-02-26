@@ -10,12 +10,12 @@ import net.minecraft.item.ItemStack;
 public class SequencerContainer extends Container
 {
     // Tile entity.
-    private SequencerEntity sequencerTileEntity;
+    private SequencerEntity ENTITY;
 
     public SequencerContainer(InventoryPlayer par1InventoryPlayer, SequencerEntity par2TileEntityFurnace)
     {
         // Hook the server world entity.
-        this.sequencerTileEntity = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
 
         // Input Slot 1 - DNA sample.
         this.addSlotToContainer(new SequencerSlotInputDNASample(par2TileEntityFurnace, 0, 22, 36));
@@ -46,7 +46,7 @@ public class SequencerContainer extends Container
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.sequencerTileEntity.isUseableByPlayer(par1EntityPlayer);
+        return this.ENTITY.isUseableByPlayer(par1EntityPlayer);
     }
 
     /** Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that. */

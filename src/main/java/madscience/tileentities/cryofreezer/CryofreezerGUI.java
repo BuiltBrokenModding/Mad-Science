@@ -2,10 +2,12 @@ package madscience.tileentities.cryofreezer;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.util.GUIContainerBase;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -13,39 +15,27 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class CryofreezerGUI extends GuiContainer
+public class CryofreezerGUI extends GUIContainerBase
 {
-    // Texture of the GUI interface that holds all the controls.
-    private static final ResourceLocation furnaceGuiTextures = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + ".png");
-
-    private CryofreezerEntity furnaceInventory;
+    private CryofreezerEntity ENTITY;
 
     public CryofreezerGUI(InventoryPlayer par1InventoryPlayer, CryofreezerEntity par2TileEntityFurnace)
     {
         super(new CryofreezerContainer(par1InventoryPlayer, par2TileEntityFurnace));
-        this.furnaceInventory = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
+        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + ".png");
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        // x of part to be drawn over(top left corner)
-        // y of part to be drawn over
-        // x to draw over
-        // y to draw over
-        // width and height of the overlaid image to be drawn
-
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(furnaceGuiTextures);
-        int screenX = (this.width - this.xSize) / 2;
-        int screenY = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(screenX, screenY, 0, 0, this.xSize, this.ySize);
+        super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 
         // -----------
         // POWER LEVEL
         // -----------
-        int powerRemianingPercentage = this.furnaceInventory.getPowerRemainingScaled(14);
+        int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(14);
         // Screen Coords: 10x56
         // Filler Coords: 176x0
         // Image Size WH: 14x14
@@ -54,7 +44,7 @@ public class CryofreezerGUI extends GuiContainer
         // ---------------------
         // ITEM COOKING PROGRESS
         // ---------------------
-        int powerCookPercentage = this.furnaceInventory.getItemCookTimeScaled(16);
+        int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(16);
         // Screen Coords: 10x14
         // Filler Coords: 176x14
         // Image Size WH: 14x16
@@ -63,8 +53,10 @@ public class CryofreezerGUI extends GuiContainer
 
     /** Draw the foreground layer for the GuiContainer (everything in front of the items) */
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
         String s = "     " + MadFurnaces.CRYOFREEZER_TILEENTITY.getLocalizedName();
@@ -73,5 +65,27 @@ public class CryofreezerGUI extends GuiContainer
         // Text that labels player inventory area as "Inventory".
         String x = I18n.getString("container.inventory");
         this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+        
+        // Power level
+        if (this.isPointInRegion(10, 56, 14, 14, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
+        }
+        
+        // Cooking progress
+        if (this.isPointInRegion(10, 14, 14, 16, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
+                    powerLevelLiteral);
+        }
+        
+        // Input slot help.
+        if (this.isPointInRegion(9, 35, 18, 18, mouseX, mouseY))
+        {
+            if (this.ENTITY.getStackInSlot(0) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input cold blocks and items");
+        }
     }
 }

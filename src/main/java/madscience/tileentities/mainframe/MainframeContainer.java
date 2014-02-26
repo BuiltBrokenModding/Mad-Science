@@ -25,7 +25,7 @@ public class MainframeContainer extends Container
         // INPUT SLOT 3 - GENOME INPUT 2
         this.addSlotToContainer(new MainframeSlotInputGenome(par2TileEntityFurnace, 2, 96, 17));
 
-        // INPUT SLOT 4 - EMPTY GENOME DATA REEL
+        // INPUT SLOT 4 - EMPTY DATA REEL
         this.addSlotToContainer(new MainframeSlotInputGenomeEmpty(par2TileEntityFurnace, 3, 115, 55));
 
         // OUTPUT SLOT 1 - MERGED GENOME DATA REEL

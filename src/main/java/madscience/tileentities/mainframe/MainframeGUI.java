@@ -2,12 +2,14 @@ package madscience.tileentities.mainframe;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.util.GUIContainerBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import org.lwjgl.opengl.GL11;
@@ -16,17 +18,15 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class MainframeGUI extends GuiContainer
+public class MainframeGUI extends GUIContainerBase
 {
-    // Texture of the GUI interface that holds all the controls.
-    private static final ResourceLocation furnaceGuiTextures = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.MAINFRAME_INTERNALNAME + ".png");
-
-    private MainframeEntity furnaceInventory;
+    private MainframeEntity ENTITY;
 
     public MainframeGUI(InventoryPlayer par1InventoryPlayer, MainframeEntity par2TileEntityFurnace)
     {
         super(new MainframeContainer(par1InventoryPlayer, par2TileEntityFurnace));
-        this.furnaceInventory = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.MAINFRAME_INTERNALNAME + ".png");
     }
 
     private void displayGauge(int screenX, int screenY, int line, int col, int squaled)
@@ -66,7 +66,7 @@ public class MainframeGUI extends GuiContainer
 
         // Re-draws gauge lines ontop of scaled fluid amount to make it look
         // like the fluid is behind the gauge lines.
-        mc.renderEngine.bindTexture(furnaceGuiTextures);
+        mc.renderEngine.bindTexture(TEXTURE);
         drawTexturedModalRect(screenX + col, screenY + line, 176, 14, 16, 58);
     }
 
@@ -74,23 +74,12 @@ public class MainframeGUI extends GuiContainer
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        // x of part to be drawn over(top left corner)
-        // y of part to be drawn over
-        // x to draw over
-        // y to draw over
-        // width and height of the overlaid image to be drawn
-
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        // this.mc.getTextureManager().bindTexture(furnaceGuiTextures);
-        mc.renderEngine.bindTexture(furnaceGuiTextures);
-        int screenX = (this.width - this.xSize) / 2;
-        int screenY = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(screenX, screenY, 0, 0, this.xSize, this.ySize);
+        super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 
         // -----------
         // POWER LEVEL
         // -----------
-        int powerRemianingPercentage = this.furnaceInventory.getPowerRemainingScaled(14);
+        int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(14);
         // Screen Coords: 54x57
         // Filler Coords: 176x0
         // Image Size WH: 14x14
@@ -99,7 +88,7 @@ public class MainframeGUI extends GuiContainer
         // ---------------------
         // ITEM COOKING PROGRESS
         // ---------------------
-        int powerCookPercentage = this.furnaceInventory.getItemCookTimeScaled(65);
+        int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(65);
         // Screen Coords: 78x34
         // Filler Coords: 176x112
         // Image Size WH: 65x20
@@ -111,17 +100,17 @@ public class MainframeGUI extends GuiContainer
         // Screen Coords: 7x7
         // Filler Coords: 176x14
         // Image Size WH: 16x58
-        if (furnaceInventory.getWaterRemainingScaled(58) > 0)
+        if (ENTITY.getWaterRemainingScaled(58) > 0)
         {
             // Scale up the stored water amount in the block to match the
             // capacity ratio.
-            displayGauge(screenX, screenY, 7, 7, furnaceInventory.getWaterRemainingScaled(58));
+            displayGauge(screenX, screenY, 7, 7, ENTITY.getWaterRemainingScaled(58));
         }
 
         // ----------
         // HEAT LEVEL
         // ----------
-        int heatLevelPercentage = furnaceInventory.getHeatLevelTimeScaled(40);
+        int heatLevelPercentage = ENTITY.getHeatLevelTimeScaled(40);
         // Screen Coords: 52x15
         // Filler Coords: 176x72
         // Image Size WH: 18x40
@@ -130,8 +119,10 @@ public class MainframeGUI extends GuiContainer
 
     /** Draw the foreground layer for the GuiContainer (everything in front of the items) */
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
         String s = "     " + MadFurnaces.MAINFRAME_TILEENTITY.getLocalizedName();
@@ -140,5 +131,65 @@ public class MainframeGUI extends GuiContainer
         // Text that labels player inventory area as "Inventory".
         String x = I18n.getString("container.inventory");
         this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+        
+        // Power level
+        if (this.isPointInRegion(54, 57, 14, 14, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
+        }
+        
+        // Cooking progress
+        if (this.isPointInRegion(78, 34, 65, 20, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
+                    powerLevelLiteral);
+        }
+        
+        // Heat level
+        if (this.isPointInRegion(52, 15, 18, 40, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.currentHeatValue) + "/" + String.valueOf(this.ENTITY.currentHeatMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Heat " + String.valueOf(this.ENTITY.getHeatLevelTimeScaled(100)) + " %",
+                    powerLevelLiteral);
+        }
+
+        // Input water bucket.
+        if (this.isPointInRegion(27, 27, 18, 18, mouseX, mouseY))
+        {
+            if (this.ENTITY.getStackInSlot(0) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input water bucket");
+        }
+        
+        // Input genome 1
+        if (this.isPointInRegion(71, 17, 18, 18, mouseX, mouseY))
+        {
+            if (this.ENTITY.getStackInSlot(1) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input sequenced genome");
+        }
+        
+        // Input genome 2
+        if (this.isPointInRegion(96, 17, 18, 18, mouseX, mouseY))
+        {
+            if (this.ENTITY.getStackInSlot(2) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input sequenced genome");
+        }
+        
+        // Input empty data reel
+        if (this.isPointInRegion(115, 55, 18, 18, mouseX, mouseY))
+        {
+            if (this.ENTITY.getStackInSlot(3) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input empty data reel");
+        }
+        
+        // Water level
+        if (this.isPointInRegion(7, 7, 16, 58, mouseX, mouseY) && this.ENTITY.internalWaterTank.getFluid() != null)
+        {
+            if (this.ENTITY.internalWaterTank.getFluid() != null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalWaterTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalWaterTank.getFluid().amount + " L");
+        }
+        
+
     }
 }

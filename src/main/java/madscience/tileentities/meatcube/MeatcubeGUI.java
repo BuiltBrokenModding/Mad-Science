@@ -3,6 +3,7 @@ package madscience.tileentities.meatcube;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.util.GUIContainerBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -10,6 +11,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.opengl.GL11;
 
@@ -17,17 +19,15 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class MeatcubeGUI extends GuiContainer
+public class MeatcubeGUI extends GUIContainerBase
 {
-    // Texture of the GUI interface that holds all the controls.
-    private static final ResourceLocation meatCubeGUITexture = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".png");
-
-    private MeatcubeEntity meatCubeTileEntity;
+    private MeatcubeEntity ENTITY;
 
     public MeatcubeGUI(InventoryPlayer thePlayer, MeatcubeEntity meatCubeEntity)
     {
         super(new MeatcubeContainer(thePlayer, meatCubeEntity));
-        this.meatCubeTileEntity = meatCubeEntity;
+        this.ENTITY = meatCubeEntity;
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".png");
     }
 
     private void displayGauge(int screenX, int screenY, int line, int col, int squaled)
@@ -79,7 +79,7 @@ public class MeatcubeGUI extends GuiContainer
 
         // Re-draws gauge lines ontop of scaled fluid amount to make it look
         // like the fluid is behind the gauge lines.
-        mc.renderEngine.bindTexture(meatCubeGUITexture);
+        mc.renderEngine.bindTexture(TEXTURE);
         drawTexturedModalRect(screenX + col, screenY + line, 176, 0, 16, 58);
     }
 
@@ -87,18 +87,7 @@ public class MeatcubeGUI extends GuiContainer
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        // x of part to be drawn over(top left corner)
-        // y of part to be drawn over
-        // x to draw over
-        // y to draw over
-        // width and height of the overlaid image to be drawn
-
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        // this.mc.getTextureManager().bindTexture(furnaceGuiTextures);
-        mc.renderEngine.bindTexture(meatCubeGUITexture);
-        int screenX = (this.width - this.xSize) / 2;
-        int screenY = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(screenX, screenY, 0, 0, this.xSize, this.ySize);
+        super.drawGuiContainerBackgroundLayer(par1, par2, par3);
 
         // ------------
         // PROGRESS BAR
@@ -106,14 +95,16 @@ public class MeatcubeGUI extends GuiContainer
         // Screen Coords: 67x18
         // Filler Coords: 176x0
         // Image Size WH: 16x58
-        displayGauge(screenX, screenY, 18, 67, meatCubeTileEntity.getWaterRemainingScaled(58));
+        displayGauge(screenX, screenY, 18, 67, ENTITY.getWaterRemainingScaled(58));
 
     }
 
     /** Draw the foreground layer for the GuiContainer (everything in front of the items) */
     @Override
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
         String s = MadFurnaces.MEATCUBE_TILEENTITY.getLocalizedName();
@@ -122,5 +113,19 @@ public class MeatcubeGUI extends GuiContainer
         // Text that labels player inventory area as "Inventory".
         String x = I18n.getString("container.inventory");
         this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+
+        // Input water bucket.
+        if (this.isPointInRegion(90, 43, 18, 18, mouseX, mouseY))
+        {
+            if (this.ENTITY.getStackInSlot(0) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input mutant DNA bucket");
+        }
+        
+        // Mutant DNA help
+        if (this.isPointInRegion(67, 18, 16, 58, mouseX, mouseY) && this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
+        {
+            if (this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
+        }
     }
 }

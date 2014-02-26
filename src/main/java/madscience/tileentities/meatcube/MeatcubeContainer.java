@@ -9,13 +9,13 @@ import net.minecraft.item.ItemStack;
 
 public class MeatcubeContainer extends Container
 {
-    private MeatcubeEntity meatcubeTileEntity;
+    private MeatcubeEntity ENTITY;
 
     public MeatcubeContainer(InventoryPlayer par1InventoryPlayer, MeatcubeEntity par2TileEntityFurnace)
     {
         // Hook the server world entity that is our block so we can get relevant
         // information from it.
-        this.meatcubeTileEntity = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
 
         // Input Slot 1 - Water bucket to clean the needles with.
         this.addSlotToContainer(new MeatcubeSlotInputWaterBucket(par2TileEntityFurnace, 0, 90, 43));
@@ -43,7 +43,7 @@ public class MeatcubeContainer extends Container
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.meatcubeTileEntity.isUseableByPlayer(par1EntityPlayer);
+        return this.ENTITY.isUseableByPlayer(par1EntityPlayer);
     }
 
     /** Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that. */

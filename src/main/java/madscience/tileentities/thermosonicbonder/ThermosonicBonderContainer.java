@@ -10,20 +10,20 @@ import net.minecraft.item.ItemStack;
 public class ThermosonicBonderContainer extends Container
 {
     // Tile entity that sits in the world.
-    private ThermosonicBonderEntity thermosonicBonderTileEntity;
+    private ThermosonicBonderEntity ENTITY;
 
     public ThermosonicBonderContainer(InventoryPlayer par1InventoryPlayer, ThermosonicBonderEntity par2TileEntityFurnace)
     {
         // Hook the server world entity that is our block.
-        this.thermosonicBonderTileEntity = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
 
-        // Input Slot 1 - Fresh egg to mutate with our genome.
+        // Input Slot 1 - Gold nugget to infuse into circuits.
         this.addSlotToContainer(new ThermosonicBonderSlotInputGoldNugget(par2TileEntityFurnace, 0, 37, 39));
 
-        // Input Slot 2 - Completed genome data reel to encode onto egg.
+        // Input Slot 2 - Fused Quartz or SiliconWafers or a number of other components.
         this.addSlotToContainer(new ThermosonicBonderSlotInputComponent(par2TileEntityFurnace, 1, 69, 39));
 
-        // Output Slot 1 - Mob egg from genome encoding onto fresh egg.
+        // Output Slot 1 - Completed circuit of component.
         this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 140, 39));
 
         // Create slots for main player inventory area.
@@ -46,7 +46,7 @@ public class ThermosonicBonderContainer extends Container
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.thermosonicBonderTileEntity.isUseableByPlayer(par1EntityPlayer);
+        return this.ENTITY.isUseableByPlayer(par1EntityPlayer);
     }
 
     /** Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that. */
