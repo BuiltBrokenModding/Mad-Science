@@ -53,7 +53,7 @@ public class ItemGenome extends Item
         this.maxStackSize = 1;
     }
     
-    @Override
+/*    @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
         String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
@@ -62,7 +62,7 @@ public class ItemGenome extends Item
         {
             info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
         }
-    }
+    }*/
 
     @Override
     public boolean canHarvestBlock(Block par1Block)
