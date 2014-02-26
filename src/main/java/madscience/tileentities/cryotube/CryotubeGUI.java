@@ -43,9 +43,9 @@ public class CryotubeGUI extends GUIContainerBase
         // Image Size WH: 18x32
         this.drawTexturedModalRect(screenX + 112, screenY + 17, 176, 56, 18, 32 - powerRemianingPercentage);
 
-        // ---------------------
-        // ITEM COOKING PROGRESS
-        // ---------------------
+        // -----------------
+        // HATCHING PROGRESS
+        // -----------------
         int powerCookPercentage = this.ENTITY.getHatchTimeScaled(26);
         // Screen Coords: 35x37
         // Filler Coords: 176x0
@@ -85,11 +85,34 @@ public class CryotubeGUI extends GUIContainerBase
         String x = I18n.getString("container.inventory");
         this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
         
+        //Neural Activity
+        if (this.isPointInRegion(91, 17, 11, 46, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.neuralActivityValue) + "/" + String.valueOf(this.ENTITY.neuralActivityMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Neural " + String.valueOf(this.ENTITY.getNeuralActivityScaled(100)) + " %",
+                    powerLevelLiteral);
+        }
+        
+        // Subject Health
+        if (this.isPointInRegion(68, 17, 11, 46, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.subjectCurrentHealth) + "/" + String.valueOf(this.ENTITY.subjectMaximumHealth);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Health " + String.valueOf(this.ENTITY.getSubjectHealthScaled(100)) + " %",
+                    powerLevelLiteral);
+        }
+        
+        // Hatching progress
+        if (this.isPointInRegion(35, 37, 26, 10, mouseX, mouseY))
+        {
+            String powerLevelLiteral = String.valueOf(this.ENTITY.hatchTimeCurrentValue) + "/" + String.valueOf(this.ENTITY.hatchTimeMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Hatching " + String.valueOf(this.ENTITY.getHatchTimeScaled(100)) + " %", powerLevelLiteral);
+        }
+        
         // Power level
         if (this.isPointInRegion(112, 17, 18, 32, mouseX, mouseY))
         {
-            String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
-            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
+            //String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %");
         }
 
         // Spawn egg input.
