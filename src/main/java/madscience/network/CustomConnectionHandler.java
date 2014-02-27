@@ -68,7 +68,15 @@ public class CustomConnectionHandler implements IConnectionHandler
                     if (jenkinsLastBuild > runningBuild)
                     {
                         long buildDiff = jenkinsLastBuild - runningBuild;
-                        mc.thePlayer.addChatMessage(MadScience.NAME + ": You're " + String.valueOf(buildDiff) + " versions behind. Think of all those new features and mobs...");
+                        
+                        if (buildDiff > 1)
+                        {
+                            mc.thePlayer.addChatMessage(MadScience.NAME + ": You're " + String.valueOf(buildDiff) + " versions behind. Visit madsciencemod.com for updates.");
+                        }
+                        else
+                        {
+                            mc.thePlayer.addChatMessage(MadScience.NAME + ": You're " + String.valueOf(buildDiff) + " version behind. Visit madsciencemod.com for updates.");
+                        }
                     }
                 }
             }
