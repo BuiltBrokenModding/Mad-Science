@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.modstats.ModstatInfo;
+import org.modstats.Modstats;
+
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobLivingHandler;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
@@ -42,6 +45,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 @Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
 @NetworkMod(channels =
 { MadScience.CHANNEL_NAME }, packetHandler = MadPacketHandler.class, clientSideRequired = true, serverSideRequired = false)
+@ModstatInfo(prefix = "madsci")
 public class MadScience
 {
     // Used in Forge mod identification below.
@@ -77,11 +81,11 @@ public class MadScience
     public static CommonProxy proxy;
 
     // Public instance of our mod that Forge needs to hook us, based on our internal modid.
-    @Instance(ID)
+    @Instance(value = CHANNEL_NAME)
     public static MadScience instance;
 
     // Public extra data about our mod that Forge uses in the mods listing page for more information.
-    @Mod.Metadata(ID)
+    @Mod.Metadata(MadScience.ID)
     public static ModMetadata metadata;
 
     // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
@@ -156,7 +160,13 @@ public class MadScience
         // --------------
         // PRE-INT CONFIG
         // --------------
-
+        
+        // Register instance.
+        instance = this;
+        
+        // Modstats for version checking.
+        Modstats.instance().getReporter().registerMod(this);
+        
         // Logging.
         logger = event.getModLog();
         logger.setParent(FMLLog.getLogger());
@@ -171,7 +181,7 @@ public class MadScience
         metadata.description = "Adds machines, items and mobs to create your own laboratory! Remember kids, science has no limits.. no bounds..";
         metadata.url = "http://madsciencemod.com/";
         metadata.logoFile = "assets/madscience/logo.png";
-        metadata.version = "@MAJOR@.@MINOR@";
+        metadata.version = "@MAJOR@.@MINOR@@REVIS@";
         metadata.authorList = Arrays.asList(new String[]
         { "Maxwolf Goodliffe", "Fox Diller" });
         metadata.credits = "Thanks to Prowler for the awesome assets!";
