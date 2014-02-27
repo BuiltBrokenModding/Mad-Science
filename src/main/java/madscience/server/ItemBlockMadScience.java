@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemBlockMadScience extends ItemBlock
 {
-
+    // For registering blocks on the server without fancy tooltips and descriptions.
     public ItemBlockMadScience(int id)
     {
         super(id);

@@ -1,12 +1,17 @@
 package madscience;
 
+import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.modstats.ModstatInfo;
-import org.modstats.Modstats;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobLivingHandler;
@@ -16,18 +21,22 @@ import madscience.mobs.endersquid.EnderSquidMobEntity;
 import madscience.mobs.shoggoth.ShoggothMobEntity;
 import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobEntity;
+import madscience.network.CustomConnectionHandler;
 import madscience.network.MadGUI;
 import madscience.network.MadPacketHandler;
 import madscience.server.CommonProxy;
-import madscience.server.ExampleServerCommand;
 import madscience.util.MadColors;
 import madscience.util.MadTags;
+import madscience.util.MadXML;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityList;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -41,18 +50,24 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
+@Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
 @NetworkMod(channels =
 { MadScience.CHANNEL_NAME }, packetHandler = MadPacketHandler.class, clientSideRequired = true, serverSideRequired = false)
-@ModstatInfo(prefix = "madsci")
 public class MadScience
 {
     // Used in Forge mod identification below.
     public static final String ID = "madscience";
     public static final String CHANNEL_NAME = ID;
     public static final String NAME = "Mad Science";
-    public static final String VERSION = "@MAJOR@.@MINOR@@REVIS@.@BUILD@";
+    
+    // Version identification.
+    public static final String V_MAJOR = "@MAJOR@";
+    public static final String V_MINOR = "@MINOR@";
+    public static final String V_REVIS = "@REVIS@";
+    public static final String V_BUILD = "@BUILD@";
+    public static final String VERSION_FULL = V_MAJOR + "." + V_MINOR + V_REVIS + "." + V_BUILD;
 
     // Directories definition for assets and localization files.
     public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
@@ -136,12 +151,31 @@ public class MadScience
     {
         // Register any custom sounds we want to play (Client only).
         proxy.registerSoundHandler();
+        
+        // Determine if we should check for updates by comparing build numbers in our Jenkins build server.
+        if (MadConfig.UPDATE_CHECKER)
+        {
+            try
+            {
+                // Look for XML response from server for update information.
+                Document docXML = MadXML.loadXMLFromString(MadConfig.UPDATE_URL);
+                Node child = docXML.getFirstChild();
+                String xmlBuildNumber = child.getTextContent();
+                long myXMLLong = new Long(xmlBuildNumber);
+                
+                logger.info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
+                NetworkRegistry.instance().registerConnectionHandler(new CustomConnectionHandler(myXMLLong));
+            }
+            catch (Exception err)
+            {
+                logger.info("Unable to parse XML from Jenkins build server... perhaps it is down!");
+            }
+        }
     }
 
     @EventHandler
     public void invalidFingerprint(FMLFingerprintViolationEvent event)
     {
-
         // Report (log) to the user that the version of Mad Science
         // they are using has been changed/tampered with
         if (FINGERPRINT.equals("@FINGERPRINT@"))
@@ -164,9 +198,6 @@ public class MadScience
         // Register instance.
         instance = this;
         
-        // Modstats for version checking.
-        Modstats.instance().getReporter().registerMod(this);
-        
         // Logging.
         logger = event.getModLog();
         logger.setParent(FMLLog.getLogger());
@@ -181,7 +212,7 @@ public class MadScience
         metadata.description = "Adds machines, items and mobs to create your own laboratory! Remember kids, science has no limits.. no bounds..";
         metadata.url = "http://madsciencemod.com/";
         metadata.logoFile = "assets/madscience/logo.png";
-        metadata.version = "@MAJOR@.@MINOR@@REVIS@";
+        metadata.version = V_MAJOR + "." + V_MINOR + V_REVIS;
         metadata.authorList = Arrays.asList(new String[]
         { "Maxwolf Goodliffe", "Fox Diller" });
         metadata.credits = "Thanks to Prowler for the awesome assets!";
@@ -428,14 +459,5 @@ public class MadScience
         // ---------
         // DONE INIT
         // ---------
-    }
-
-    @EventHandler
-    public void serverLoad(FMLServerStartingEvent event)
-    {
-        // Hook server starting up so we may add a command to it.
-        // Note: Runs in single player also since minecraft is always running a
-        // server.
-        event.registerServerCommand(new ExampleServerCommand());
     }
 }
