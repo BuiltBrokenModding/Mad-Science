@@ -756,7 +756,7 @@ public class MadConfig
     public static @CfgUpdates(isBool = true) boolean UPDATE_CHECKER = true;
     
     // Determines what the update URL should be for the mod.
-    public static @CfgUpdates String UPDATE_URL = "http://madsciencemod.com:8080/job/Mad%20Science/api/xml?xpath=/*/lastSuccessfulBuild/number";
+    public static @CfgUpdates String UPDATE_URL = "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath=/freeStyleBuild/number";
 
     public static void load(Configuration config)
     {
