@@ -83,24 +83,24 @@ public class IncubatorGUI extends GUIContainerBase
         // Power level
         if (this.isPointInRegion(15, 57, 14, 14, mouseX, mouseY))
         {
-            String powerLevelLiteral = String.valueOf(this.ENTITY.currentHeatValue) + "/" + String.valueOf(this.ENTITY.currentHeatMaximum);
-            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getHeatLevelTimeScaled(100)) + " %",
+            String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %",
                     powerLevelLiteral);
         }
         
         // Cooking progress
         if (this.isPointInRegion(93, 38, 36, 17, mouseX, mouseY))
         {
-            String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
-            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
+            String cookingProgressLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %", cookingProgressLiteral);
         }
         
         // Heat level
         if (this.isPointInRegion(13, 15, 18, 40, mouseX, mouseY))
         {
-            String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
-            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Heat " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
-                    powerLevelLiteral);
+            String heatLevelLiteral = String.valueOf(this.ENTITY.currentHeatValue) + "/" + String.valueOf(this.ENTITY.currentHeatMaximum);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Heat " + String.valueOf(this.ENTITY.getHeatLevelTimeScaled(100)) + " %",
+                    heatLevelLiteral);
         }
 
         // Input fresh egg.
