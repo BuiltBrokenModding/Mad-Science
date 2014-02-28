@@ -31,7 +31,7 @@ tile.ghostCryoTube.name=Cryogenic Tube
 tile.cryoTube.tooltip=Harvests electrical power from Villagers memories!
 
 tile.thermosonicBonder.name=Thermosonic Bonder
-tile.thermosonicBonder.tooltip=Used to electrically interconnect the all-important Silicon Wafers, Transistors, CPU’s, and RAM chips.
+tile.thermosonicBonder.tooltip=Used to electrically interconnect the all-important Silicon Wafers, Transistors, CPU's, and RAM chips.
 
 tile.dataDuplicator.name=Data Reel Duplicator
 tile.dataDuplicator.tooltip=Creates copies of any data reel.
@@ -93,7 +93,7 @@ item.memoryMonsterPlacername.Librarian.tooltip=Best data recorded, each bit is u
 
 # Components
 item.componentCase.name=Case Component
-item.componentCase.tooltip=A computer case also known as a “computer chassis”, “tower”, “system unit”, “base unit” or simply “case” and sometimes incorrectly referred to as the “CPU” or “hard drive”, is the enclosure that contains most of the components of a computer (usually excluding the display, keyboard and mouse).
+item.componentCase.tooltip=A computer case also known as a "computer chassis", "tower", "system unit", "base unit" or simply "case" and sometimes incorrectly referred to as the "CPU" or "hard drive", is the enclosure that contains most of the components of a computer (usually excluding the display, keyboard and mouse).
 
 item.componentCPU.name=CPU Component
 item.componentCPU.tooltip=A central processing unit (CPU), also referred to as a central processor unit, is the hardware within a computer that carries out the instructions of a computer program by performing the basic arithmetical, logical, and input/output operations of the system.
