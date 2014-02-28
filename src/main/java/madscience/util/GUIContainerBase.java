@@ -27,6 +27,8 @@ import universalelectricity.api.vector.Vector2;
 public class GUIContainerBase extends GuiContainer
 {
     public ResourceLocation TEXTURE;
+    
+    public String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76"; 
 
     public String tooltip = "";
     protected HashMap<Region2, String> tooltips = new HashMap<Region2, String>();

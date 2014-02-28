@@ -1,5 +1,6 @@
 package madscience.network;
 
+import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.tileentities.cryofreezer.CryofreezerContainer;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;

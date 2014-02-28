@@ -1,10 +1,16 @@
 package madscience.tileentities.dnaextractor;
 
+import java.awt.Desktop;
+import java.net.URI;
+
+import madscience.MadConfig;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.gui.GUIButtonInvisible;
 import madscience.util.GUIContainerBase;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
@@ -166,7 +172,64 @@ public class DNAExtractorGUI extends GUIContainerBase
             if (this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
         }
+        
+        // Help link
+        if (this.isPointInRegion(166, 4, 6, 5, mouseX, mouseY))
+        {
+            if (this.isCtrlKeyDown())
+            {
+                // The Net Reference - Easter Egg 1
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Sandra Bullock Mode");
+            }
+            else
+            {
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Help");
+            }
+        }
+    }
 
+    @Override
+    public void initGui()
+    {
+        super.initGui();
 
+        int posX = (this.width - 6) / 2;
+        int posY = (this.height - 5) / 2;
+        
+        // make buttons
+        buttonList.clear();
+        buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76, 6, 5));
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button)
+    {
+        super.actionPerformed(button);
+        
+        if (button.id == 1 && Desktop.isDesktopSupported())
+        {
+            if (this.isCtrlKeyDown() && this.isShiftKeyDown())
+            {
+                try
+                {
+                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                }
+                catch (Exception err)
+                {
+                    MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
+                }
+            }
+            else
+            {
+                try
+                {
+                    Desktop.getDesktop().browse(new URI(MadConfig.DNAEXTRACTOR_HELP));
+                }
+                catch (Exception err)
+                {
+                    MadScience.logger.info("Unable to open wiki link in default browser.");
+                }
+            }
+        }
     }
 }

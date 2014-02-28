@@ -51,6 +51,11 @@ public class MadConfig
     {
         public boolean isBool() default false;
     }
+    
+    @Retention(RetentionPolicy.RUNTIME)
+    private static @interface CfgHelp
+    {
+    }
 
     @Retention(RetentionPolicy.RUNTIME)
     private static @interface CfgMemories
@@ -93,6 +98,7 @@ public class MadConfig
     public static final String CATAGORY_CIRCUITS = "circuits";
     public static final String CATAGORY_COMPONENTS = "components";
     public static final String CATAGORY_UPDATES = "updates";
+    public static final String CATAGORY_HELP = "help";
 
     // Mob ID's for genetically modified entity list.
     private static int madGMOMobIDs = 50;
@@ -624,181 +630,133 @@ public class MadConfig
     public final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
     // DNA Extractor
-    public static @CfgId(block = true)
-    int DNA_EXTRACTOR = getNextBlockID();
-    public static @CfgEnergy
-    long DNAEXTRACTOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long DNAEXTRACTOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long DNAEXTRACTOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int DNA_EXTRACTOR = getNextBlockID();
+    public static @CfgEnergy long DNAEXTRACTOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long DNAEXTRACTOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long DNAEXTRACTOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String DNAEXTRACTOR_HELP = "http://madsciencemod.com/minecraft-item/dna-extractor/";
 
     // Needle Sanitizer
-    public static @CfgId(block = true)
-    int SANTITIZER = getNextBlockID();
-    public static @CfgEnergy
-    long SANTITIZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long SANTITIZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long SANTITIZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int SANTITIZER = getNextBlockID();
+    public static @CfgEnergy long SANTITIZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long SANTITIZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long SANTITIZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String SANTITIZER_HELP = "http://madsciencemod.com/minecraft-item/syringe-sanitizer/";
 
     // Computer Mainframe
-    public static @CfgId(block = true)
-    int MAINFRAME = getNextBlockID();
-    public static @CfgEnergy
-    long MAINFRAME_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long MAINFRAME_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int MAINFRAME = getNextBlockID();
+    public static @CfgEnergy long MAINFRAME_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long MAINFRAME_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String MAINFRAME_HELP = "http://madsciencemod.com/minecraft-item/computer-mainframe/";
 
     // Genetic Sequencer
-    public static @CfgId(block = true)
-    int GENE_SEQUENCER = getNextBlockID();
-    public static @CfgEnergy
-    long SEQUENCER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long SEQUENCER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long SEQUENCER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int GENE_SEQUENCER = getNextBlockID();
+    public static @CfgEnergy long SEQUENCER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long SEQUENCER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long SEQUENCER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String SEQUENCER_HELP = "http://madsciencemod.com/minecraft-item/genetic-sequencer/";
 
     // Cryogenic Freezer
-    public static @CfgId(block = true)
-    int CRYOFREEZER = getNextBlockID();
-    public static @CfgEnergy
-    long CRYOFREEZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long CRYOFREEZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long CRYOFREEZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int CRYOFREEZER = getNextBlockID();
+    public static @CfgEnergy long CRYOFREEZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long CRYOFREEZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long CRYOFREEZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String CRYOFREEZER_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-freezer/";
 
     // Genome Incubator
-    public static @CfgId(block = true)
-    int INCUBATOR = getNextBlockID();
-    public static @CfgEnergy
-    long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long INCUBATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long INCUBATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int INCUBATOR = getNextBlockID();
+    public static @CfgEnergy long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long INCUBATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long INCUBATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String INCUBATOR_HELP = "http://madsciencemod.com/minecraft-item/genome-incubator/";
 
     // Meat Cube
-    public static @CfgId(block = true)
-    int MEATCUBE = getNextBlockID();
+    public static @CfgId(block = true) int MEATCUBE = getNextBlockID();
+    public static @CfgHelp String MEATCUBE_HELP = "http://madsciencemod.com/minecraft-item/meat-cube/";
 
     // Cryogenic Tube
-    public static @CfgId(block = true)
-    int CRYOTUBE = getNextBlockID();
-    public static @CfgEnergy
-    long CRYOTUBE_CAPACTITY = 225120000000L;
-    public static @CfgEnergy
-    long CRYOTUBE_OUTPUT = 562800000L;
-    public static @CfgEnergy
-    long CRYOTUBE_PRODUCE = 1407000L;
-
-    // Cryogenic Tube 'Ghost Block'
-    public static @CfgId(block = true)
-    int CRYOTUBEGHOST = getNextBlockID();
+    public static @CfgId(block = true) int CRYOTUBE = getNextBlockID();
+    public static @CfgId(block = true) int CRYOTUBEGHOST = getNextBlockID();
+    public static @CfgEnergy long CRYOTUBE_CAPACTITY = 225120000000L;
+    public static @CfgEnergy long CRYOTUBE_OUTPUT = 562800000L;
+    public static @CfgEnergy long CRYOTUBE_PRODUCE = 1407000L;
+    public static @CfgHelp String CRYOTUBE_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-tube/";
 
     // Thermosonic Bonder
-    public static @CfgId(block = true)
-    int THERMOSONIC = getNextBlockID();
-    public static @CfgEnergy
-    long THERMOSONIC_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long THERMOSONIC_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long THERMOSONIC_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int THERMOSONIC = getNextBlockID();
+    public static @CfgEnergy long THERMOSONIC_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long THERMOSONIC_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long THERMOSONIC_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String THERMOSONIC_HELP = "http://madsciencemod.com/minecraft-item/thermosonic-bonder/";
 
     // Data Reel Duplicator
-    public static @CfgId(block = true)
-    int DATADUPLICATOR = getNextBlockID();
-    public static @CfgEnergy
-    long DATADUPLICATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long DATADUPLICATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long DATADUPLICATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgId(block = true) int DATADUPLICATOR = getNextBlockID();
+    public static @CfgEnergy long DATADUPLICATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long DATADUPLICATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long DATADUPLICATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String DATADUPLICATOR_HELP = "http://madsciencemod.com/minecraft-item/data-reel-duplicator/";
 
     // Soniclocator
-    public static @CfgId(block = true)
-    int SONICLOCATOR = getNextBlockID();
-    public static @CfgEnergy
-    long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy
-    long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy
-    long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-
-    // Soniclocator 'Ghost Block'
-    public static @CfgId(block = true)
-    int SONICLOCATOREGHOST = getNextBlockID();
+    public static @CfgId(block = true) int SONICLOCATOR = getNextBlockID();
+    public static @CfgId(block = true) int SONICLOCATOREGHOST = getNextBlockID();
+    public static @CfgEnergy long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static @CfgEnergy long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String SONICLOCATOR_HELP = "http://madsciencemod.com/minecraft-item/soniclocator/";
 
     // -----------------
     // FLUID DECLARATION
     // -----------------
 
     // Liquid DNA
-    public static @CfgId(block = true)
-    int LIQUIDDNA = getNextBlockID();
+    public static @CfgId(block = true) int LIQUIDDNA = getNextBlockID();
 
     // Liquid Mutant DNA
-    public static @CfgId(block = true)
-    int LIQUIDDNA_MUTANT = getNextBlockID();
+    public static @CfgId(block = true) int LIQUIDDNA_MUTANT = getNextBlockID();
 
     // -----------------
     // BLOCK DECLARATION
     // -----------------
 
     // Abomination Egg
-    public static @CfgId(block = true)
-    int ABOMINATIONEGG = getNextBlockID();
+    public static @CfgId(block = true) int ABOMINATIONEGG = getNextBlockID();
     
     // Enderslime Block
 
-    public static @CfgId(block = true)
-    int ENDERSLIMEBLOCK = getNextBlockID();
+    public static @CfgId(block = true) int ENDERSLIMEBLOCK = getNextBlockID();
 
     // ----------------
     // FEATURE SWITCHES
     // ----------------
 
     // Determines if 'The Abomination' should lay eggs.
-    public static @CfgBool
-    boolean ABOMINATION_LAYSEGGS = true;
+    public static @CfgBool boolean ABOMINATION_LAYSEGGS = true;
 
     // Determines if 'The Abomination' is allowed to teleport.
-    public static @CfgBool
-    boolean ABOMINATION_TELEPORTS = true;
+    public static @CfgBool boolean ABOMINATION_TELEPORTS = true;
 
     // Needles decay into dirty ones.
-    public static @CfgBool
-    boolean DECAY_BLOODWORK = true;
+    public static @CfgBool boolean DECAY_BLOODWORK = true;
 
     // Needles decay at a rate of one health every 6000 ticks.
-    public static @CfgInt
-    int DECAY_DELAY_IN_SECONDS = 30;
+    public static @CfgInt int DECAY_DELAY_IN_SECONDS = 30;
     
     // Distance which we will send packet updates about machines to players.
-    public static @CfgInt
-    int PACKETSEND_RADIUS = 25;
+    public static @CfgInt int PACKETSEND_RADIUS = 25;
     
     // ID that will determine block to be used to 'unlock' thermosonic bonder and thus every other item in the mod.
-    public static @CfgInt
-    int THERMOSONICBONDER_FINALSACRIFICE = 138;
+    public static @CfgInt int THERMOSONICBONDER_FINALSACRIFICE = 138;
     
     // ----------------
     // UPDATES SWITCHES
     // ----------------
     
     // Determines if we should inform the user about updates and nightly builds.
-    public static @CfgUpdates(isBool = true)
-    boolean UPDATE_CHECKER = true;
+    public static @CfgUpdates(isBool = true) boolean UPDATE_CHECKER = true;
     
     // Determines what the update URL should be for the mod.
-    public static @CfgUpdates
-    String UPDATE_URL = "http://madsciencemod.com:8080/job/Mad%20Science/api/xml?xpath=/*/lastSuccessfulBuild/number";
+    public static @CfgUpdates String UPDATE_URL = "http://madsciencemod.com:8080/job/Mad%20Science/api/xml?xpath=/*/lastSuccessfulBuild/number";
 
     public static void load(Configuration config)
     {
@@ -820,6 +778,7 @@ public class MadConfig
                 CfgCircuits annoCircuits= field.getAnnotation(CfgCircuits.class);
                 CfgComponents annoComponents = field.getAnnotation(CfgComponents.class);
                 CfgUpdates annoUpdates = field.getAnnotation(CfgUpdates.class);
+                CfgHelp annoHelp = field.getAnnotation(CfgHelp.class);
 
                 // Config property is block or item.
                 if (annoBlock != null &&
@@ -833,7 +792,8 @@ public class MadConfig
                     annoEnergy == null &&
                     annoCircuits == null &&
                     annoComponents == null &&
-                    annoUpdates == null)
+                    annoUpdates == null &&
+                    annoHelp == null)
                 {
                     int id = field.getInt(null);
                     if (annoBlock.block())
@@ -846,6 +806,24 @@ public class MadConfig
                     }
                     field.setInt(null, id);
                 }
+                else if (annoHelp != null &&
+                        annoCPUTime == null &&
+                        annoBool == null &&
+                        annoInt == null &&
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoDNA == null &&
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoCircuits == null &&
+                        annoComponents == null &&
+                        annoBlock == null &&
+                        annoUpdates == null)
+                    {
+                        String helpURL = (String) field.get(String.class);
+                        String updateurl = config.get(MadConfig.CATAGORY_HELP, field.getName(), helpURL).getString();
+                        field.set(String.class, updateurl);
+                    }
                 else if (annoUpdates != null &&
                         annoCPUTime == null &&
                         annoBool == null &&
@@ -857,7 +835,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoBlock == null)
+                        annoBlock == null &&
+                        annoHelp == null)
                     {
                         if (field.isAnnotationPresent(CfgUpdates.class) && annoUpdates.isBool())
                         {
@@ -883,7 +862,8 @@ public class MadConfig
                         annoNeedles == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is energy long integer.
                     if (field.isAnnotationPresent(CfgEnergy.class))
@@ -904,7 +884,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is bool.
                     if (field.isAnnotationPresent(CfgBool.class))
@@ -925,7 +906,8 @@ public class MadConfig
                         annoNeedles == null &&
                         annoEnergy == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is circuit.
                     if (field.isAnnotationPresent(CfgCircuits.class))
@@ -946,7 +928,8 @@ public class MadConfig
                         annoNeedles == null &&
                         annoEnergy == null &&
                         annoCircuits == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is component.
                     if (field.isAnnotationPresent(CfgComponents.class))
@@ -967,7 +950,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is int.
                     if (field.isAnnotationPresent(CfgInt.class))
@@ -988,7 +972,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is mainframe processing time.
                     if (field.isAnnotationPresent(CfgProcessing.class))
@@ -1009,7 +994,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is mobs.
                     if (field.isAnnotationPresent(CfgMobs.class))
@@ -1030,7 +1016,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is genomes.
                     if (field.isAnnotationPresent(CfgGenomes.class))
@@ -1051,7 +1038,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is DNA.
                     if (field.isAnnotationPresent(CfgDNA.class))
@@ -1072,7 +1060,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoComponents == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoHelp == null)
                 {
                     // Config property is needle.
                     if (field.isAnnotationPresent(CfgNeedles.class))
