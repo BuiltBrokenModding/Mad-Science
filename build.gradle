@@ -20,9 +20,7 @@ buildscript {
     }
 }
 
-apply from: 'settings.gradle'
 apply plugin: 'forge'
-
 ext.buildProps = file "build.properties"
 
 buildProps.withReader {
