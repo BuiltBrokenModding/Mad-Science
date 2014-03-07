@@ -2,6 +2,9 @@ package madscience;
 
 import madscience.items.ItemBlockTooltip;
 import madscience.items.MadGenomeInfo;
+import madscience.tileentities.clayfurnace.ClayfurnaceBlock;
+import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
+import madscience.tileentities.clayfurnace.ClayfurnaceRecipes;
 import madscience.tileentities.cryofreezer.CryofreezerBlock;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
 import madscience.tileentities.cryotube.CryotubeBlock;
@@ -94,6 +97,14 @@ public class MadFurnaces
     // Meat Cube [Slime + Cow,Pig,Chicken]
     public static BlockContainer MEATCUBE_TILEENTITY;
     public static final String MEATCUBE_INTERNALNAME = "meatCube";
+    
+    // Clay Furnace
+    public static BlockContainer CLAYFURNACE_TILEENTITY;
+    public static final String CLAYFURNACE_INTERNALNAME = "clayFurnace";    
+    
+    // Clay Furnace 'Ghost Block'
+    public static Block CLAYFURNACEGHOST;
+    public static final String CLAYFURNACEGHOST_INTERNALNAME = "ghostClayfurnace";    
 
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD
@@ -462,5 +473,33 @@ public class MadFurnaces
         // 1x Glowstone Circuit 1x RAM.
         ThermosonicBonderRecipes.addSmelting(MadCircuits.CIRCUIT_GLOWSTONE.itemID,
                                              new ItemStack(MadComponents.COMPONENT_RAM));
+    }
+
+    public static void createClayFurnaceTileEntity(int blockID)
+    {
+        // A early-game block that can give huge return on investment for ores for clay and fire and time.
+        CLAYFURNACE_TILEENTITY = (BlockContainer) new ClayfurnaceBlock(blockID).setUnlocalizedName(CLAYFURNACE_INTERNALNAME);
+        GameRegistry.registerBlock(CLAYFURNACE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CLAYFURNACE_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerTileEntity(ClayfurnaceEntity.class, CLAYFURNACE_TILEENTITY.getUnlocalizedName());
+
+        // Register custom rendering for this tile entity.
+        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
+
+        // Register our rendering handles on clients and ignore them on servers.
+        MadScience.proxy.registerRenderingHandler(blockID);
+        
+        // Wrapping hardened clay blocks around a furnace will make a clay furnace.
+        GameRegistry.addRecipe(new ItemStack(CLAYFURNACE_TILEENTITY, 1), new Object[]
+        { "111", 
+          "121", 
+          "111",
+
+        '1', new ItemStack(Block.hardenedClay),
+        '2', new ItemStack(Block.furnaceIdle)
+        });
+        
+        // Clay Furnace will only convert gold and iron ore into full blocks.
+        ClayfurnaceRecipes.addSmelting(Block.oreIron.blockID, new ItemStack(Block.blockIron), 0.15F);
+        ClayfurnaceRecipes.addSmelting(Block.oreGold.blockID, new ItemStack(Block.blockGold), 0.15F);
     }
 }

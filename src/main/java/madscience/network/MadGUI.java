@@ -2,6 +2,9 @@ package madscience.network;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
+import madscience.tileentities.clayfurnace.ClayfurnaceContainer;
+import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
+import madscience.tileentities.clayfurnace.ClayfurnaceGUI;
 import madscience.tileentities.cryofreezer.CryofreezerContainer;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
 import madscience.tileentities.cryofreezer.CryofreezerGUI;
@@ -113,6 +116,12 @@ public class MadGUI implements IGuiHandler
         {
             return new SoniclocatorGUI(player.inventory, (SoniclocatorEntity) tile_entity);
         }
+        
+        // Clay Furnace
+        if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
+        {
+            return new ClayfurnaceGUI(player.inventory, (ClayfurnaceEntity) tile_entity);
+        }
 
         // Default response is to return nothing.
         return null;
@@ -188,6 +197,12 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
         {
             return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tile_entity);
+        }
+        
+        // Clay Furnace
+        if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
+        {
+            return new ClayfurnaceContainer(player.inventory, (ClayfurnaceEntity) tile_entity);
         }
 
         // Default response is to return nothing.

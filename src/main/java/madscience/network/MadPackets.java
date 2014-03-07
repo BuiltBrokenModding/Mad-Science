@@ -1,6 +1,7 @@
 package madscience.network;
 
 import madscience.MadScience;
+import madscience.tileentities.clayfurnace.ClayfurnacePackets;
 import madscience.tileentities.cryofreezer.CryofreezerPackets;
 import madscience.tileentities.cryotube.CryotubePackets;
 import madscience.tileentities.dataduplicator.DataDuplicatorPackets;
@@ -90,6 +91,9 @@ public abstract class MadPackets
         
         // Mad Particle Packet (Can be any particle!)
         builder.put(Integer.valueOf(11), MadParticlePacket.class);
+        
+        // Clay Furnace
+        builder.put(Integer.valueOf(12), ClayfurnacePackets.class);
 
         idMap = builder.build();
     }

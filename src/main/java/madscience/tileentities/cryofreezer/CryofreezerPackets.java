@@ -32,14 +32,17 @@ public class CryofreezerPackets extends MadPackets
     private long lastItemStoredMaxEnergy;
 
     // Last known texture displayed on the tile entity.
-    private String cryofreezerTexture;
+    private String texturePath;
 
     public CryofreezerPackets()
     {
         // Required for reflection.
     }
 
-    public CryofreezerPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, String tileTexture)
+    public CryofreezerPackets(int posX, int posY, int posZ,
+            int cookTime, int cookTimeMax,
+            long energyStored, long energyMax,
+            String tileTexture)
     {
         // World position information.
         tilePosX = posX;
@@ -51,7 +54,7 @@ public class CryofreezerPackets extends MadPackets
         lastItemCookTimeMaximum = cookTimeMax;
         lastItemStoredMaxEnergy = energyMax;
         lastItemStoredEnergy = energyStored;
-        cryofreezerTexture = tileTexture;
+        texturePath = tileTexture;
     }
 
     @Override
@@ -72,7 +75,7 @@ public class CryofreezerPackets extends MadPackets
             this.cryoFreezerTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
             this.cryoFreezerTileEntity.setEnergyCapacity(lastItemStoredMaxEnergy);
             this.cryoFreezerTileEntity.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
-            this.cryoFreezerTileEntity.cryofreezerTexture = cryofreezerTexture;
+            this.cryoFreezerTileEntity.cryofreezerTexture = texturePath;
         }
         else
         {
@@ -97,7 +100,7 @@ public class CryofreezerPackets extends MadPackets
         this.lastItemCookTimeMaximum = in.readInt();
         this.lastItemStoredMaxEnergy = in.readLong();
         this.lastItemStoredEnergy = in.readLong();
-        this.cryofreezerTexture = in.readUTF();
+        this.texturePath = in.readUTF();
     }
 
     @Override
@@ -117,6 +120,6 @@ public class CryofreezerPackets extends MadPackets
         out.writeInt(lastItemCookTimeMaximum);
         out.writeLong(lastItemStoredMaxEnergy);
         out.writeLong(lastItemStoredEnergy);
-        out.writeUTF(cryofreezerTexture);
+        out.writeUTF(texturePath);
     }
 }

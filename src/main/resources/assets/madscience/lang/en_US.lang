@@ -52,6 +52,9 @@ tile.soniclocator.tooltip=Replaces target blocks in a given chunk with gravel, a
 tile.enderslimeBlock.name=Block of Enderslime
 tile.enderslimeBlock.tooltip=Oh god, its slimy...
 
+tile.clayFurnace.name=Clay Furance
+tile.clayFurnace.tooltip=Ancient technology that can give a source block from a single ore. Requires charcoal and to be lit on fire.
+
 # GMO Mobs
 entity.gmoWerewolf.name=Werewolf
 entity.gmoCreeperCow.name=Creeper Cow

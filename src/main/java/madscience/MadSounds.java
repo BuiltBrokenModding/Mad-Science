@@ -458,6 +458,7 @@ public class MadSounds
             
             // Overload
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Overload.ogg");
+            
         }
         catch (Exception err)
         {

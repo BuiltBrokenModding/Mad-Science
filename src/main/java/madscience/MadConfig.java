@@ -704,6 +704,10 @@ public class MadConfig
     public static @CfgEnergy long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
     public static @CfgEnergy long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
     public static @CfgHelp String SONICLOCATOR_HELP = "http://madsciencemod.com/minecraft-item/soniclocator/";
+    
+    // Clay Furnace
+    public static @CfgId(block = true) int CLAYFURNACE = getNextBlockID();
+    public static @CfgHelp String CLAYFURNACE_HELP = "http://madsciencemod.com/minecraft-item/clay-furnace/";
 
     // -----------------
     // FLUID DECLARATION
@@ -723,7 +727,6 @@ public class MadConfig
     public static @CfgId(block = true) int ABOMINATIONEGG = getNextBlockID();
     
     // Enderslime Block
-
     public static @CfgId(block = true) int ENDERSLIMEBLOCK = getNextBlockID();
 
     // ----------------

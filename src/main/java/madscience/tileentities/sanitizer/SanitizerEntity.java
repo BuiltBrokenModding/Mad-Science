@@ -189,6 +189,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         {
             return false;
         }
+        
         // Check if input slot 2 is a dirty needle stack.
         ItemStack itemsInputSlot2 = SanitizerRecipes.getSmeltingResult(this.sanitizerInput[1]);
         if (itemsInputSlot2 == null)

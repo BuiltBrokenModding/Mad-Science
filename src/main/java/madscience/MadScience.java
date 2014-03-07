@@ -129,6 +129,9 @@ public class MadScience
 
                 // Soniclocator Ghost Block.
                 m.invoke(null, MadFurnaces.SONICLOCATORGHOST.blockID);
+                
+                // Clay Furnace Ghost Block.
+                m.invoke(null, MadFurnaces.CLAYFURNACEGHOST.blockID);
             }
             catch (Throwable e)
             {
@@ -366,6 +369,7 @@ public class MadScience
         MadFurnaces.createDataReelDuplicatorTileEntity(MadConfig.DATADUPLICATOR);
         MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
         MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
+        MadFurnaces.createClayFurnaceTileEntity(MadConfig.CLAYFURNACE);
 
         // --------------------
         // MONSTER PLACER ITEMS
