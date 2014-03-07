@@ -471,8 +471,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
                 // Send a packet saying we want furnace fire
                 PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
                         worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
-
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "fire.fire", 1.0F, 1.0F);
             }
 
             if (animationCurrentFrame <= 3 && worldObj.getWorldTime() % 25L == 0L)
@@ -491,6 +489,13 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
             {
                 // Check if we have exceeded the ceiling and need to reset.
                 animationCurrentFrame = 0;
+                
+                // Play fire burning sound randomly.
+                
+                if (worldObj.rand.nextBoolean())
+                {
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "fire.fire", 1.0F, 1.0F);
+                }
             }
         }
         else if (!hasBeenLit && !this.hasCooledDown)
@@ -520,7 +525,15 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
             {
                 // New item pulled from cooking stack to be processed, check how
                 // long this item will take to cook.
-                currentItemCookingMaximum = 200;
+                try
+                {
+                    currentItemCookingMaximum = MadScience.SECOND_IN_TICKS * MadConfig.CLAYFURNACE_COOKTIME_IN_SECONDS;
+                }
+                catch (Exception err)
+                {
+                    MadScience.logger.info("Attempted to set cook time for clay furnace but failed, using default value of 420 (7 minutes).");
+                    currentItemCookingMaximum = MadScience.SECOND_IN_TICKS * 420;
+                }
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentItemCookingValue++;

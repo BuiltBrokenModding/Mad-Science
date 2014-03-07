@@ -745,6 +745,9 @@ public class MadConfig
     // Needles decay at a rate of one health every 6000 ticks.
     public static @CfgInt int DECAY_DELAY_IN_SECONDS = 30;
     
+    // Determines how many seconds clay furnace will cook before finishing
+    public static @CfgInt int CLAYFURNACE_COOKTIME_IN_SECONDS = 420;
+    
     // Distance which we will send packet updates about machines to players.
     public static @CfgInt int PACKETSEND_RADIUS = 25;
     
