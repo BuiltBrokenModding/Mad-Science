@@ -427,9 +427,6 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
                     {
                         // Remove a bullet.
                         primaryAmmoCount--;
-
-                        // Increment the fire time on the weapon so we know how long it has been shooting.
-                        playerFireTime++;
                     }
                 }
                 else
@@ -439,9 +436,6 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
                     {
                         // Remove a grenade.
                         secondaryAmmoCount--;
-
-                        // Increment the fire time on the weapon so we know how long it has been shooting.
-                        playerFireTime++;
                     }
                 }
 
@@ -456,18 +450,22 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
                         primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, player.isSneaking()).makePacket(), (Player) player);
 
                 // Do not fire the weapon if you have no ammo.
-                if (primaryFireModeEnabled && primaryAmmoCount <= 0)
+                if (primaryFireModeEnabled && primaryAmmoCount <= 0 && playerFireTime == 0)
                 {
                     // Out of bullets.
                     player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 1.0F, 1.0F);
                     return;
                 }
-                else if (!primaryFireModeEnabled && secondaryAmmoCount <= 0)
+                else if (!primaryFireModeEnabled && secondaryAmmoCount <= 0 && playerFireTime == 0)
                 {
                     // Out of grenades.
                     player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 1.0F, 1.0F);
                     return;
                 }
+                
+                // Increment the fire time on the weapon so we know how long it has been shooting.
+                // TODO: Should we be calling this someplace else perhaps?!
+                playerFireTime++;
 
                 // Play the pulse rifle sound at predictable rates and bursts.
                 if (playerFireTime <= 1)
@@ -612,19 +610,13 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
             par1ItemStack.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
 
             // Force the player to right-click while firetime is greater than zero (holding left-click).
-            // MadScience.logger.info("FIRE TIME: " + String.valueOf(pulseRifleFireTime));
-            // ((EntityPlayer) par3Entity).setItemInUse(par1ItemStack, pulseRifleFireTime);
             par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
+            ((EntityPlayer) par3Entity).setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
+            if (intRight != null)
+            {
+                intRight.pressed = true;
+            }
             return;
-        }
-        else
-        {
-            // par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
-            // ((EntityPlayer) par3Entity).setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-            // if (intRight != null)
-            // {
-            // intRight.pressed = true;
-            // }
         }
     }
 
@@ -954,6 +946,7 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
         World world = Minecraft.getMinecraft().theWorld;
         if (world == null)
         {
+            this.disableKeyIntercepter();
             return;
         }
 
@@ -961,6 +954,7 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
         EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
         if (player == null)
         {
+            this.disableKeyIntercepter();
             return;
         }
 
@@ -968,12 +962,14 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
         ItemStack playerHeldItem = player.getHeldItem();
         if (playerHeldItem == null)
         {
+            this.disableKeyIntercepter();
             return;
         }
 
         // Check if game settings object is null. Should never be the case!
         if (gs == null)
         {
+            this.disableKeyIntercepter();
             return;
         }
 
@@ -1072,20 +1068,25 @@ public class WeaponItemPulseRifle extends ItemBow implements ITickHandler, IItem
         }
         else
         {
-            // Remove key intercepter so we can have relinquish full control over left and right click events.
-            if (intLeft != null)
-            {
-                intLeft.setInterceptionActive(false);
-                gs.keyBindAttack = intLeft.getOriginalKeyBinding();
-                intLeft = null;
-            }
+            this.disableKeyIntercepter();
+        }
+    }
 
-            if (intRight != null)
-            {
-                intRight.setInterceptionActive(false);
-                gs.keyBindUseItem = intRight.getOriginalKeyBinding();
-                intRight = null;
-            }
+    public void disableKeyIntercepter()
+    {
+        // Remove key intercepter so we can have relinquish full control over left and right click events.
+        if (intLeft != null)
+        {
+            intLeft.setInterceptionActive(false);
+            gs.keyBindAttack = intLeft.getOriginalKeyBinding();
+            intLeft = null;
+        }
+
+        if (intRight != null)
+        {
+            intRight.setInterceptionActive(false);
+            gs.keyBindUseItem = intRight.getOriginalKeyBinding();
+            intRight = null;
         }
     }
 }
