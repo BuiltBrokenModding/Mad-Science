@@ -129,9 +129,6 @@ public class MadScience
 
                 // Soniclocator Ghost Block.
                 m.invoke(null, MadFurnaces.SONICLOCATORGHOST.blockID);
-                
-                // Clay Furnace Ghost Block.
-                m.invoke(null, MadFurnaces.CLAYFURNACEGHOST.blockID);
             }
             catch (Throwable e)
             {
@@ -385,7 +382,14 @@ public class MadScience
         
         MadRecipes.createCircuitRecipes();
         MadRecipes.createComponentsRecipes();
+        
+        // -------
+        // WEAPONS
+        // -------
 
+        MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
+        MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLET);
+        
         // -------------------------
         // GENETICALLY MODIFIED MOBS
         // -------------------------
