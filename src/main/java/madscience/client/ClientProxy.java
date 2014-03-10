@@ -3,8 +3,12 @@ package madscience.client;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadSounds;
+import madscience.MadWeapons;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnaMutant.LiquidDNAMutantRender;
+import madscience.items.weapons.pulserifle.WeaponItemPulseRifle;
+import madscience.items.weapons.pulserifle.WeaponItemPulseRifleBullet;
+import madscience.items.weapons.pulserifle.WeaponItemPulseRifleBulletRender;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobModel;
 import madscience.mobs.abomination.AbominationMobRender;
@@ -53,6 +57,9 @@ import madscience.tileentities.soniclocator.SoniclocatorRender;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderRender;
 import madscience.util.MadTechneModelLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -62,16 +69,17 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy
 {
-    // Modified from Source
-    // http://www.minecraftforge.net/wiki/Reference_Mod_File
-    
+    public float fovModifierHand = 0F;
+
     static
     {
         AdvancedModelLoader.registerModelHandler(new MadTechneModelLoader());
@@ -109,6 +117,53 @@ public class ClientProxy extends CommonProxy
             return "";
 
         return Item.itemsList[stack.itemID].getItemDisplayName(stack);
+    }
+
+    @Override
+    public void resetSavedFOV()
+    {
+        this.fovModifierHand = 0F;
+    }
+
+    @Override
+    public void onBowUse(ItemStack stack, EntityPlayer player)
+    {
+        float f = 1.0F;
+
+        if (player.capabilities.isFlying)
+        {
+            f *= 1.1F;
+        }
+
+        float speedOnGround = 0.1F;
+        int i = player.getItemInUseDuration();
+        float f1 = (float) i / 10.0F;
+
+        if (f1 > 1.0F)
+        {
+            f1 = 1.0F;
+        }
+        else
+        {
+            f1 *= f1;
+        }
+
+        f *= 1.0F - f1 * 0.25F;
+
+        fovModifierHand = fovModifierHand > 0.001F ? fovModifierHand : (Float) ObfuscationReflectionHelper.getPrivateValue(EntityRenderer.class, Minecraft.getMinecraft().entityRenderer, "fovModifierHand", "field_78507_R");
+        fovModifierHand += (f - fovModifierHand) * 0.5F;
+
+        if (fovModifierHand > 1.5F)
+        {
+            fovModifierHand = 1.5F;
+        }
+
+        if (fovModifierHand < 0.1F)
+        {
+            fovModifierHand = 0.1F;
+        }
+
+        ObfuscationReflectionHelper.setPrivateValue(EntityRenderer.class, Minecraft.getMinecraft().entityRenderer, fovModifierHand, "fovModifierHand", "field_78507_R");
     }
 
     @Override
@@ -213,7 +268,7 @@ public class ClientProxy extends CommonProxy
             ClientRegistry.bindTileEntitySpecialRenderer(SoniclocatorEntity.class, new SoniclocatorRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new SoniclocatorRender());
         }
-        
+
         // Clay Furnace
         if (blockID == MadConfig.CLAYFURNACE)
         {
@@ -221,6 +276,25 @@ public class ClientProxy extends CommonProxy
             ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new ClayfurnaceRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new ClayfurnaceRender());
         }
+
+        // -------
+        // WEAPONS
+        // -------
+
+        // Pulse Rifle
+        if (blockID == MadConfig.WEAPON_PULSERIFLE)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, new WeaponItemPulseRifle(blockID));
+            TickRegistry.registerTickHandler(new WeaponItemPulseRifle(blockID), Side.CLIENT);
+        }
+
+        // Pulse Rifle Bullet
+        if (blockID == MadConfig.WEAPON_PULSERIFLE_BULLET)
+        {
+            RenderingRegistry.registerEntityRenderingHandler(WeaponItemPulseRifleBullet.class, new WeaponItemPulseRifleBulletRender());
+        }
+
+        // Pulse Rifle Magazine
 
         // ----
         // MOBS
@@ -246,7 +320,7 @@ public class ClientProxy extends CommonProxy
         {
             RenderingRegistry.registerEntityRenderingHandler(CreeperCowMobEntity.class, new CreeperCowMobRender(new CreeperCowMobModel(), 0.5F));
         }
-        
+
         // Enderslime [Enderman + Slime]
         if (blockID == MadConfig.GMO_ENDERSLIME_METAID)
         {

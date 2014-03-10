@@ -1,6 +1,7 @@
 package madscience.network;
 
 import madscience.MadScience;
+import madscience.items.weapons.pulserifle.WeaponItemPulseRiflePackets;
 import madscience.tileentities.clayfurnace.ClayfurnacePackets;
 import madscience.tileentities.cryofreezer.CryofreezerPackets;
 import madscience.tileentities.cryotube.CryotubePackets;
@@ -94,6 +95,9 @@ public abstract class MadPackets
         
         // Clay Furnace
         builder.put(Integer.valueOf(12), ClayfurnacePackets.class);
+        
+        // Pulse Rifle (Client -> Server)
+        builder.put(Integer.valueOf(13), WeaponItemPulseRiflePackets.class);
 
         idMap = builder.build();
     }

@@ -30,21 +30,10 @@ public class ClayfurnaceRender extends TileEntitySpecialRenderer implements ISim
         NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
     }
 
-    // Unique ID for our model to render in the world.
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
-
-    // The model of your block
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + ".mad");
-
-    // Tile Entity that our block inits.
     private ClayfurnaceEntity ENTITY;
-
-    // Texture that will get applied to our model.
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png");
-
-    // Minecraft default (animated) fire textures.
-    private ResourceLocation FIRE_LAYER1 = new ResourceLocation("textures/blocks/fire_layer_0");
-    private ResourceLocation FIRE_LAYER2 = new ResourceLocation("textures/blocks/fire_layer_1");
 
     @Override
     public int getRenderId()

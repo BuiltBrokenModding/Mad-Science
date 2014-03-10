@@ -491,7 +491,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
                 animationCurrentFrame = 0;
                 
                 // Play fire burning sound randomly.
-                
                 if (worldObj.rand.nextBoolean())
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "fire.fire", 1.0F, 1.0F);

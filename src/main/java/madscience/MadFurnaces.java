@@ -100,11 +100,7 @@ public class MadFurnaces
     
     // Clay Furnace
     public static BlockContainer CLAYFURNACE_TILEENTITY;
-    public static final String CLAYFURNACE_INTERNALNAME = "clayFurnace";    
-    
-    // Clay Furnace 'Ghost Block'
-    public static Block CLAYFURNACEGHOST;
-    public static final String CLAYFURNACEGHOST_INTERNALNAME = "ghostClayfurnace";    
+    public static final String CLAYFURNACE_INTERNALNAME = "clayFurnace"; 
 
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD

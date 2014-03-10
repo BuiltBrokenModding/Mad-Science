@@ -86,6 +86,11 @@ public class MadConfig
     private static @interface CfgComponents
     {
     }
+    
+    @Retention(RetentionPolicy.RUNTIME)
+    private static @interface CfgWeapons
+    {
+    }
 
     // Header for each configuration section.
     public static final String CATAGORY_MOBS = "mobs";
@@ -99,6 +104,7 @@ public class MadConfig
     public static final String CATAGORY_COMPONENTS = "components";
     public static final String CATAGORY_UPDATES = "updates";
     public static final String CATAGORY_HELP = "help";
+    public static final String CATAGORY_WEAPONS = "weapons";
 
     // Mob ID's for genetically modified entity list.
     private static int madGMOMobIDs = 50;
@@ -728,6 +734,13 @@ public class MadConfig
     
     // Enderslime Block
     public static @CfgId(block = true) int ENDERSLIMEBLOCK = getNextBlockID();
+    
+    // -------
+    // WEAPONS
+    // -------
+    
+    public static @CfgWeapons int WEAPON_PULSERIFLE = getNextItemID();
+    public static @CfgWeapons int WEAPON_PULSERIFLE_BULLET = getNextItemID();
 
     // ----------------
     // FEATURE SWITCHES
@@ -785,6 +798,7 @@ public class MadConfig
                 CfgComponents annoComponents = field.getAnnotation(CfgComponents.class);
                 CfgUpdates annoUpdates = field.getAnnotation(CfgUpdates.class);
                 CfgHelp annoHelp = field.getAnnotation(CfgHelp.class);
+                CfgWeapons annoWeapons = field.getAnnotation(CfgWeapons.class);
 
                 // Config property is block or item.
                 if (annoBlock != null &&
@@ -799,7 +813,8 @@ public class MadConfig
                     annoCircuits == null &&
                     annoComponents == null &&
                     annoUpdates == null &&
-                    annoHelp == null)
+                    annoHelp == null &&
+                    annoWeapons == null)
                 {
                     int id = field.getInt(null);
                     if (annoBlock.block())
@@ -824,7 +839,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoBlock == null &&
-                        annoUpdates == null)
+                        annoUpdates == null &&
+                        annoWeapons == null)
                     {
                         String helpURL = (String) field.get(String.class);
                         String updateurl = config.get(MadConfig.CATAGORY_HELP, field.getName(), helpURL).getString();
@@ -842,7 +858,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoBlock == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                     {
                         if (field.isAnnotationPresent(CfgUpdates.class) && annoUpdates.isBool())
                         {
@@ -869,7 +886,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is energy long integer.
                     if (field.isAnnotationPresent(CfgEnergy.class))
@@ -891,7 +909,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is bool.
                     if (field.isAnnotationPresent(CfgBool.class))
@@ -913,13 +932,37 @@ public class MadConfig
                         annoEnergy == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is circuit.
                     if (field.isAnnotationPresent(CfgCircuits.class))
                     {
                         int someInt = field.getInt(null);
                         someInt = config.get(MadConfig.CATAGORY_CIRCUITS, field.getName(), someInt).getInt(someInt);
+                        field.setInt(null, someInt);
+                    }
+                }
+                else if (annoWeapons != null &&
+                        annoInt == null &&
+                        annoCPUTime == null &&
+                        annoBlock == null &&
+                        annoBool == null && 
+                        annoMobs == null &&
+                        annoGenomes == null &&
+                        annoDNA == null && 
+                        annoNeedles == null &&
+                        annoEnergy == null &&
+                        annoComponents == null &&
+                        annoUpdates == null &&
+                        annoHelp == null &&
+                        annoCircuits == null)
+                {
+                    // Config property is weapon.
+                    if (field.isAnnotationPresent(CfgWeapons.class))
+                    {
+                        int someInt = field.getInt(null);
+                        someInt = config.get(MadConfig.CATAGORY_WEAPONS, field.getName(), someInt).getInt(someInt);
                         field.setInt(null, someInt);
                     }
                 }
@@ -935,7 +978,8 @@ public class MadConfig
                         annoEnergy == null &&
                         annoCircuits == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is component.
                     if (field.isAnnotationPresent(CfgComponents.class))
@@ -957,7 +1001,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is int.
                     if (field.isAnnotationPresent(CfgInt.class))
@@ -979,7 +1024,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is mainframe processing time.
                     if (field.isAnnotationPresent(CfgProcessing.class))
@@ -1001,7 +1047,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is mobs.
                     if (field.isAnnotationPresent(CfgMobs.class))
@@ -1023,7 +1070,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is genomes.
                     if (field.isAnnotationPresent(CfgGenomes.class))
@@ -1045,7 +1093,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is DNA.
                     if (field.isAnnotationPresent(CfgDNA.class))
@@ -1067,7 +1116,8 @@ public class MadConfig
                         annoCircuits == null &&
                         annoComponents == null &&
                         annoUpdates == null &&
-                        annoHelp == null)
+                        annoHelp == null &&
+                        annoWeapons == null)
                 {
                     // Config property is needle.
                     if (field.isAnnotationPresent(CfgNeedles.class))

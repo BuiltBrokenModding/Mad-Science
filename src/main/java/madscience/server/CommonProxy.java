@@ -3,6 +3,7 @@ package madscience.server;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -42,6 +43,16 @@ public class CommonProxy
     public String getItemDisplayName(ItemStack newStack)
     {
         return "";
+    }
+    
+    public void onBowUse(ItemStack stack, EntityPlayer player) 
+    {
+
+    }
+    
+    public void resetSavedFOV() 
+    {
+
     }
 
     public String getMinecraftVersion()
