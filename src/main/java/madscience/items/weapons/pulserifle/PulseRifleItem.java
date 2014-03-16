@@ -59,7 +59,12 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
     private MadTechneModel MODEL_COUNTER_LEFT = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.mad");
     private MadTechneModel MODEL_COUNTER_RIGHT = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter1.mad");
     private MadTechneModel MODEL_RIFLE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".mad");
-    private MadTechneModel MODEL_FLASH = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash.mad");
+
+    private MadTechneModel MODEL_FLASH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash0.mad");
+    private MadTechneModel MODEL_FLASH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash1.mad");
+    private MadTechneModel MODEL_FLASH2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash2.mad");
+    private MadTechneModel MODEL_FLASH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash3.mad");
+    private MadTechneModel MODEL_FLASH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash4.mad");
 
     private ResourceLocation TEXTURE_COUNTER_EIGHT = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter8.png");
     private ResourceLocation TEXTURE_COUNTER_FIVE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter5.png");
@@ -71,7 +76,10 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
     private ResourceLocation TEXTURE_COUNTER_THREE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter3.png");
     private ResourceLocation TEXTURE_COUNTER_TWO = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter2.png");
     private ResourceLocation TEXTURE_COUNTER_ZERO = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.png");
+
     private ResourceLocation TEXTURE_RIFLE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".png");
+    private ResourceLocation TEXTURE_FLASH12 = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash12.png");
+    private ResourceLocation TEXTURE_FLASH34 = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash34.png");
 
     public PulseRifleItem(int itemID)
     {
@@ -349,7 +357,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
     @SideOnly(Side.CLIENT)
     public Icon getItemIconForUseDuration(int par1)
     {
-        //MadScience.logger.info("DURATION: " + par1);
+        // MadScience.logger.info("DURATION: " + par1);
         return MadWeapons.WEAPONITEM_PULSERIFLE.itemIcon;
     }
 
@@ -569,7 +577,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                     {
                         if (pulseRifleFireTime <= previousFireTime)
                         {
-                            //MadScience.logger.info("SKIPPING BECAUSE FIRETIME WAS " + previousFireTime + " / " + pulseRifleFireTime);
+                            // MadScience.logger.info("SKIPPING BECAUSE FIRETIME WAS " + previousFireTime + " / " + pulseRifleFireTime);
                             // Nothing to see here...
                         }
                         else
@@ -583,15 +591,15 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                     }
                 }
                 else
-                {                    
+                {
                     if (!isPrimaryEmpty)
                     {
                         // Out of bullets.
                         player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
-                        
+
                         isPrimaryEmpty = true;
                         playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
-                        
+
                         pulseRifleFireTime = 0;
                         previousFireTime = 0;
                         playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
@@ -658,7 +666,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                             player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount), true);
                         }
 
-                        //player.addChatMessage("Unloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
+                        // player.addChatMessage("Unloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
                         player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
                         primaryAmmoCount = 0;
                     }
@@ -699,7 +707,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                                     // Remove the item from the players inventory we are loading it into the weapon now.
                                     player.inventory.decrStackSize(bestMagazine.slotNumber, 1);
                                     primaryAmmoCount += bestMagazine.bulletCount;
-                                    //player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
+                                    // player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
                                     player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
                                     playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
                                 }
@@ -718,7 +726,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                             player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, 1, secondaryAmmoCount), true);
                         }
 
-                        //player.addChatMessage("Removed " + String.valueOf(secondaryAmmoCount) + " grenade(s) with 0 remaining.");
+                        // player.addChatMessage("Removed " + String.valueOf(secondaryAmmoCount) + " grenade(s) with 0 remaining.");
                         player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
                         secondaryAmmoCount = 0;
                     }
@@ -731,7 +739,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                         // Adds up to the maximum amount of grenades from inventory and not one-at-a-time.
                         if (player.inventory.consumeInventoryItem(MadWeapons.WEAPONITEM_GRENADEITEM.itemID))
                         {
-                            //player.addChatMessage("Added 1 grenade with " + String.valueOf(secondaryAmmoCount) + " remaining.");
+                            // player.addChatMessage("Added 1 grenade with " + String.valueOf(secondaryAmmoCount) + " remaining.");
                             secondaryAmmoCount++;
                             player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOADGRENADE, 1.0F, 1.0F);
                             playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", false);
@@ -746,7 +754,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                 {
                     // Change firing mode from bullets and grenades.
                     primaryFireModeEnabled = !primaryFireModeEnabled;
-                    //player.addChatMessage("Primary Fire Mode: " + String.valueOf(primaryFireModeEnabled).toUpperCase());
+                    // player.addChatMessage("Primary Fire Mode: " + String.valueOf(primaryFireModeEnabled).toUpperCase());
                     player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 1.0F, 0.42F);
                 }
             }
@@ -906,19 +914,19 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
             rightClickTime = 0;
             playerItem.stackTagCompound.setInteger("rightClickTime", rightClickTime);
         }
-        
+
         // Reset the primary empty prompts.
         if (pulseRifleFireTime <= 0 && primaryAmmoCount <= 0 && isPrimaryEmpty && intLeft != null && !intLeft.isKeyDown())
         {
             isPrimaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);            
+            playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
         }
-        
+
         // Reset the secondary empty prompts.
         if (pulseRifleFireTime <= 0 && secondaryAmmoCount <= 0 && isSecondaryEmpty && intLeft != null && !intLeft.isKeyDown())
         {
             isSecondaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);           
+            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
         }
 
         // Flatten left-click time when not holding the button down and there is something to decrease.
@@ -928,10 +936,10 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
             previousFireTime = 0;
             playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
             playerItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
-            
+
             isPrimaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);            
-            
+            playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
+
             isSecondaryEmpty = false;
             playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
         }
@@ -939,7 +947,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         // Flatten out the ammo if we are primary.
         if (intLeft != null && intLeft.isKeyDown() && pulseRifleFireTime > 0 && previousFireTime >= 0 && primaryAmmoCount <= 0 && primaryFireModeEnabled)
         {
-            //MadScience.logger.info("PRIMARY CLEAR");
+            // MadScience.logger.info("PRIMARY CLEAR");
             isPrimaryEmpty = false;
             playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
             pulseRifleFireTime = 0;
@@ -951,7 +959,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         // Flatten out the ammo if we are secondary.
         if (intLeft != null && intLeft.isKeyDown() && pulseRifleFireTime > 0 && previousFireTime >= 0 && secondaryAmmoCount <= 0 && !primaryFireModeEnabled)
         {
-            //MadScience.logger.info("SECONDARY CLEAR");
+            // MadScience.logger.info("SECONDARY CLEAR");
             isSecondaryEmpty = false;
             playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
             pulseRifleFireTime = 0;
@@ -1059,6 +1067,9 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
             splitAmmoCount.add(0);
         }
 
+        // Decide what muzzle flash we are going to use this tick.
+        int muzzleFlashRandomizer = playerMP.worldObj.rand.nextInt(5);
+
         // Change numbers on pulse rifle to match current firing mode ammo count.
         switch (renderPass)
         {
@@ -1093,7 +1104,37 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         case 3:
         {
             // TODO: Muzzle flash texture.
-            Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_RIFLE);
+            switch (muzzleFlashRandomizer)
+            {
+            case 0:
+            {
+                // First muzzle flash is default one which is apart of weapon texture map.
+                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_RIFLE);
+            }
+                break;
+            case 1:
+            {
+                // Muzzle flash one and two share the same texture map.
+                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH12);
+            }
+                break;
+            case 2:
+            {
+                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH12);
+            }
+                break;
+            case 3:
+            {
+                // Muzzle flash three and four share the same texture map.
+                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH34);
+            }
+                break;
+            case 4:
+            {
+                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH34);
+            }
+                break;
+            }
         }
             break;
         }
@@ -1167,11 +1208,11 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                 // BULLETS
                 if (playerMP.worldObj.getWorldTime() % 2F == 0L)
                 {
-                    this.showMovingParts();
+                    this.showMovingParts(muzzleFlashRandomizer);
                 }
                 else
                 {
-                    this.hideMovingParts();
+                    this.hideMovingParts(muzzleFlashRandomizer);
                 }
             }
             else if (pulseRifleFireTime > 0 && !primaryFireModeEnabled)
@@ -1185,7 +1226,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
             else
             {
                 // Weapon in normal firing position.
-                this.hideMovingParts();
+                this.hideMovingParts(muzzleFlashRandomizer);
             }
 
             // Renders the base pulse rifle in the gameworld at the correct scale.
@@ -1207,7 +1248,34 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         case 3:
         {
             // TODO: Muzzle Flash
-            MODEL_FLASH.renderAll();
+            switch (muzzleFlashRandomizer)
+            {
+            case 0:
+            {
+                MODEL_FLASH0.renderAll();
+            }
+                break;
+            case 1:
+            {
+                MODEL_FLASH1.renderAll();
+            }
+                break;
+            case 2:
+            {
+                MODEL_FLASH2.renderAll();
+            }
+                break;
+            case 3:
+            {
+                MODEL_FLASH3.renderAll();
+            }
+                break;
+            case 4:
+            {
+                MODEL_FLASH4.renderAll();
+            }
+                break;
+            }
         }
             break;
         }
@@ -1242,32 +1310,102 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         }
     }
 
-    public void showMovingParts()
+    public void showMovingParts(int randomizer)
     {
         // Show 'moving' parts of the rifle during firing.
         MODEL_RIFLE.parts.get("Bolt").showModel = false;
         MODEL_RIFLE.parts.get("BoltBack").showModel = true;
 
         // Show the muzzle flash.
-        MODEL_FLASH.parts.get("Flash0").showModel = true;
-        MODEL_FLASH.parts.get("Flash1").showModel = true;
-        MODEL_FLASH.parts.get("Flash2").showModel = true;
-        MODEL_FLASH.parts.get("Flash3").showModel = true;
-        MODEL_FLASH.parts.get("Flash4").showModel = true;
+        switch (randomizer)
+        {
+        case 0:
+        {
+            MODEL_FLASH0.parts.get("Flash0").showModel = true;
+            MODEL_FLASH0.parts.get("Flash1").showModel = true;
+            MODEL_FLASH0.parts.get("Flash2").showModel = true;
+            MODEL_FLASH0.parts.get("Flash3").showModel = true;
+            MODEL_FLASH0.parts.get("Flash4").showModel = true;
+        }
+            break;
+        case 1:
+        {
+            MODEL_FLASH1.parts.get("Flash0").showModel = true;
+            MODEL_FLASH1.parts.get("Flash1").showModel = true;
+            MODEL_FLASH1.parts.get("Flash2").showModel = true;
+        }
+            break;
+        case 2:
+        {
+            MODEL_FLASH2.parts.get("Flash0").showModel = true;
+            MODEL_FLASH2.parts.get("Flash1").showModel = true;
+            MODEL_FLASH2.parts.get("Flash2").showModel = true;
+        }
+            break;
+        case 3:
+        {
+            MODEL_FLASH3.parts.get("Flash0").showModel = true;
+            MODEL_FLASH3.parts.get("Flash1").showModel = true;
+            MODEL_FLASH3.parts.get("Flash2").showModel = true;
+        }
+            break;
+        case 4:
+        {
+            MODEL_FLASH4.parts.get("Flash0").showModel = true;
+            MODEL_FLASH4.parts.get("Flash1").showModel = true;
+            MODEL_FLASH4.parts.get("Flash2").showModel = true;
+        }
+            break;
+        }
     }
 
-    public void hideMovingParts()
+    public void hideMovingParts(int randomizer)
     {
         // Hide 'moving' parts of the pulse rifle by default.
         MODEL_RIFLE.parts.get("Bolt").showModel = true;
         MODEL_RIFLE.parts.get("BoltBack").showModel = false;
 
-        // Hide the muzzle flash.
-        MODEL_FLASH.parts.get("Flash0").showModel = false;
-        MODEL_FLASH.parts.get("Flash1").showModel = false;
-        MODEL_FLASH.parts.get("Flash2").showModel = false;
-        MODEL_FLASH.parts.get("Flash3").showModel = false;
-        MODEL_FLASH.parts.get("Flash4").showModel = false;
+        switch (randomizer)
+        {
+        case 0:
+        {
+            // Hide the muzzle flash.
+            MODEL_FLASH0.parts.get("Flash0").showModel = false;
+            MODEL_FLASH0.parts.get("Flash1").showModel = false;
+            MODEL_FLASH0.parts.get("Flash2").showModel = false;
+            MODEL_FLASH0.parts.get("Flash3").showModel = false;
+            MODEL_FLASH0.parts.get("Flash4").showModel = false;
+        }
+            break;
+        case 1:
+        {
+            MODEL_FLASH1.parts.get("Flash0").showModel = false;
+            MODEL_FLASH1.parts.get("Flash1").showModel = false;
+            MODEL_FLASH1.parts.get("Flash2").showModel = false;
+        }
+            break;
+        case 2:
+        {
+            MODEL_FLASH2.parts.get("Flash0").showModel = false;
+            MODEL_FLASH2.parts.get("Flash1").showModel = false;
+            MODEL_FLASH2.parts.get("Flash2").showModel = false;
+        }
+            break;
+        case 3:
+        {
+            MODEL_FLASH3.parts.get("Flash0").showModel = false;
+            MODEL_FLASH3.parts.get("Flash1").showModel = false;
+            MODEL_FLASH3.parts.get("Flash2").showModel = false;
+        }
+            break;
+        case 4:
+        {
+            MODEL_FLASH4.parts.get("Flash0").showModel = false;
+            MODEL_FLASH4.parts.get("Flash1").showModel = false;
+            MODEL_FLASH4.parts.get("Flash2").showModel = false;
+        }
+            break;
+        }
 
         // Hide the pump.
         MODEL_RIFLE.parts.get("PumpFrontBack").showModel = false;
