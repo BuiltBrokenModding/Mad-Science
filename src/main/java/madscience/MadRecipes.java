@@ -4,11 +4,35 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadRecipes
 {
-
+    public static void createWeaponRecipes()
+    {
+        // Creates all the needed recipes to craft and interact with weapons.
+        
+        // Add 99 types of recipes for magazines that always return proper amount of bullets.
+        for (int i = 1; i <= 99; i++)
+        {
+            GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, i), new Object[]
+                    { 
+                        new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, i),
+                    });
+        }
+        
+        // Add 99 types of recipes for magazines that always return properly filled magazine.
+        for (int i = 0; i <= 99; i++)
+        {
+            GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, i + 1), new Object[]
+                    { 
+                        new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, i),
+                        new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, 1),
+                    });
+        }        
+    }
+    
     public static void createCircuitRecipes()
     {
         // Create circuits which are used in the creation of other machines in the mod.

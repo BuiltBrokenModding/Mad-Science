@@ -52,12 +52,21 @@ tile.soniclocator.tooltip=Replaces target blocks in a given chunk with gravel, a
 tile.enderslimeBlock.name=Block of Enderslime
 tile.enderslimeBlock.tooltip=Oh god, its slimy...
 
-tile.clayFurnace.name=Clay Furance
+tile.clayFurnace.name=Clay Furnance
 tile.clayFurnace.tooltip=Ancient technology that can give a source block from a single ore. Requires coal block and to be lit on fire.
 
 # Weapons
 item.pulseRifle.name=M41A Pulse Rifle
 item.pulseRifle.tooltip=Peace Through Superior Firepower 10mm Explosive Tipped Caseless Standard Light-Armor Piercing Round
+
+item.pulseRifleBullet.name=Standard US M309 10mmx24 round
+item.pulseRifleBullet.tooltip=10mm Explosive Tipped Caseless Standard Light-Armor Piercing Round
+
+item.pulseRifleGrenade.name=M40 Grenade
+item.pulseRifleGrenade.tooltip=High Explosive Fragmentation
+
+item.pulseRifleMagazine.name=M41A Pulse Rifle Magazine
+item.pulseRifleMagazine.tooltip=%0/%1 Rounds Remaining
 
 # GMO Mobs
 entity.gmoWerewolf.name=Werewolf

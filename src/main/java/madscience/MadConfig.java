@@ -740,7 +740,9 @@ public class MadConfig
     // -------
     
     public static @CfgWeapons int WEAPON_PULSERIFLE = getNextItemID();
-    public static @CfgWeapons int WEAPON_PULSERIFLE_BULLET = getNextItemID();
+    public static @CfgWeapons int WEAPON_PULSERIFLE_BULLETITEM = getNextItemID();
+    public static @CfgWeapons int WEAPON_PULSERIFLE_GRENADEITEM = getNextItemID();
+    public static @CfgWeapons int WEAPON_PULSERIFLE_MAGAZINEITEM = getNextItemID();
 
     // ----------------
     // FEATURE SWITCHES

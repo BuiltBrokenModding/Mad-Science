@@ -45,7 +45,7 @@ public class CommonProxy
         return "";
     }
     
-    public void onBowUse(ItemStack stack, EntityPlayer player) 
+    public void onBowUse(ItemStack stack, EntityPlayer player, int pulseRifleFireTime) 
     {
 
     }

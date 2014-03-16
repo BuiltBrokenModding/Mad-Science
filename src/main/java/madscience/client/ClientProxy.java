@@ -2,13 +2,19 @@ package madscience.client;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
+import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnaMutant.LiquidDNAMutantRender;
-import madscience.items.weapons.pulserifle.WeaponItemPulseRifle;
-import madscience.items.weapons.pulserifle.WeaponItemPulseRifleBullet;
-import madscience.items.weapons.pulserifle.WeaponItemPulseRifleBulletRender;
+import madscience.items.weapons.pulserifle.PulseRifleBulletItem;
+import madscience.items.weapons.pulserifle.PulseRifleGrenadeEntity;
+import madscience.items.weapons.pulserifle.PulseRifleGrenadeItem;
+import madscience.items.weapons.pulserifle.PulseRifleGrenadeRender;
+import madscience.items.weapons.pulserifle.PulseRifleItem;
+import madscience.items.weapons.pulserifle.PulseRifleBulletEntity;
+import madscience.items.weapons.pulserifle.PulseRifleBulletRender;
+import madscience.items.weapons.pulserifle.PulseRifleMagazineItem;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobModel;
 import madscience.mobs.abomination.AbominationMobRender;
@@ -126,7 +132,7 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public void onBowUse(ItemStack stack, EntityPlayer player)
+    public void onBowUse(ItemStack stack, EntityPlayer player, int pulseRifleFireTime)
     {
         float f = 1.0F;
 
@@ -136,8 +142,9 @@ public class ClientProxy extends CommonProxy
         }
 
         float speedOnGround = 0.1F;
-        int i = player.getItemInUseDuration();
-        float f1 = (float) i / 10.0F;
+        //int i = player.getItemInUseDuration();
+        int i = pulseRifleFireTime;
+        float f1 = (float) i / 1500.0F;
 
         if (f1 > 1.0F)
         {
@@ -284,17 +291,29 @@ public class ClientProxy extends CommonProxy
         // Pulse Rifle
         if (blockID == MadConfig.WEAPON_PULSERIFLE)
         {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, new WeaponItemPulseRifle(blockID));
-            TickRegistry.registerTickHandler(new WeaponItemPulseRifle(blockID), Side.CLIENT);
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, MadWeapons.WEAPONITEM_PULSERIFLE);
+            TickRegistry.registerTickHandler(MadWeapons.WEAPONITEM_PULSERIFLE, Side.CLIENT);
         }
 
         // Pulse Rifle Bullet
-        if (blockID == MadConfig.WEAPON_PULSERIFLE_BULLET)
+        if (blockID == MadConfig.WEAPON_PULSERIFLE_BULLETITEM)
         {
-            RenderingRegistry.registerEntityRenderingHandler(WeaponItemPulseRifleBullet.class, new WeaponItemPulseRifleBulletRender());
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_BULLETITEM.itemID, MadWeapons.WEAPONITEM_BULLETITEM);
+            RenderingRegistry.registerEntityRenderingHandler(PulseRifleBulletEntity.class, new PulseRifleBulletRender());
+        }
+        
+        // Pulse Rifle Grenade
+        if (blockID == MadConfig.WEAPON_PULSERIFLE_GRENADEITEM)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_GRENADEITEM.itemID, MadWeapons.WEAPONITEM_GRENADEITEM);
+            RenderingRegistry.registerEntityRenderingHandler(PulseRifleGrenadeEntity.class, new PulseRifleGrenadeRender());
         }
 
         // Pulse Rifle Magazine
+        if (blockID == MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, MadWeapons.WEAPONITEM_MAGAZINEITEM);
+        }
 
         // ----
         // MOBS

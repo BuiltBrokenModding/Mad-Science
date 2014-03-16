@@ -1,5 +1,6 @@
 package madscience.items.weapons.pulserifle;
 
+import madscience.MadScience;
 import madscience.MadWeapons;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,28 +11,36 @@ import com.google.common.io.ByteArrayDataOutput;
 
 import cpw.mods.fml.relauncher.Side;
 
-public class WeaponItemPulseRiflePackets extends MadPackets
+public class PulseRiflePackets extends MadPackets
 {
+    private boolean isPrimaryEmpty;
+    private boolean isSecondaryEmpty;
     private int playerButtonPressed;
     private int playerFireTime;
+    private int previousFireTime;
+    private int playerRightClickTime;
     private int primaryAmmoCount;
     private boolean primaryFireModeEnabled;
     private int secondaryAmmoCount;
     private boolean shouldUnloadWeapon;
 
-    public WeaponItemPulseRiflePackets()
+    public PulseRiflePackets()
     {
         // Required for reflection.
     }
 
-    public WeaponItemPulseRiflePackets(int fireTime, int buttonPressed, int primaryAmmo, int secondaryAmmo, boolean primaryFire, boolean shouldUnload)
+    public PulseRiflePackets(int fireTime, int lastFireTime, int rightClickTime, int buttonPressed, int primaryAmmo, int secondaryAmmo, boolean primaryFire, boolean primaryEmpty, boolean secondaryEmpty, boolean shouldUnload)
     {
         playerFireTime = fireTime;
+        previousFireTime = lastFireTime;
+        playerRightClickTime = rightClickTime;
         playerButtonPressed = buttonPressed;
         primaryAmmoCount = primaryAmmo;
         secondaryAmmoCount = secondaryAmmo;
         primaryFireModeEnabled = primaryFire;
         shouldUnloadWeapon = shouldUnload;
+        isPrimaryEmpty = primaryEmpty;
+        isSecondaryEmpty = secondaryEmpty;
     }
 
     @Override
@@ -55,12 +64,12 @@ public class WeaponItemPulseRiflePackets extends MadPackets
             if (playerHeldItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
             {
                 // Tell the gun that we want it to fire a bullet using the information we gathered from the client.
-                ((WeaponItemPulseRifle) playerHeldItem.getItem()).onRecievePacketFromClient(playerFireTime, playerButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, shouldUnloadWeapon, player);
+                ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromClient(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed,
+                        primaryFireModeEnabled, shouldUnloadWeapon, isPrimaryEmpty, isSecondaryEmpty, player);
             }
             return;
         }
-
-        if (side.isClient())
+        else if (side.isClient())
         {
             // ------
             // CLIENT
@@ -77,13 +86,15 @@ public class WeaponItemPulseRiflePackets extends MadPackets
             if (playerHeldItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
             {
                 // Tell the gun that we want it to fire a bullet using the information we gathered from the client.
-                ((WeaponItemPulseRifle) playerHeldItem.getItem()).onRecievePacketFromServer(playerFireTime, playerButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, shouldUnloadWeapon, player);
+                //MadScience.logger.info("Primary Ammo: " + primaryAmmoCount);
+                ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromServer(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed,
+                        primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, shouldUnloadWeapon, isPrimaryEmpty, isSecondaryEmpty, player);
                 return;
             }
         }
         else
         {
-            throw new ProtocolException("Cannot not apply server packet to a client!");
+            throw new ProtocolException("Packet was sent with no side information, this is very bad! Possible hacking attempt with pulse rifle!");
         }
     }
 
@@ -91,21 +102,29 @@ public class WeaponItemPulseRiflePackets extends MadPackets
     public void read(ByteArrayDataInput in) throws ProtocolException
     {
         playerFireTime = in.readInt();
+        previousFireTime = in.readInt();
+        playerRightClickTime = in.readInt();
         playerButtonPressed = in.readInt();
         primaryAmmoCount = in.readInt();
         secondaryAmmoCount = in.readInt();
         primaryFireModeEnabled = in.readBoolean();
         shouldUnloadWeapon = in.readBoolean();
+        isPrimaryEmpty = in.readBoolean();
+        isSecondaryEmpty = in.readBoolean();
     }
 
     @Override
     public void write(ByteArrayDataOutput out)
     {
         out.writeInt(playerFireTime);
+        out.writeInt(previousFireTime);
+        out.writeInt(playerRightClickTime);
         out.writeInt(playerButtonPressed);
         out.writeInt(primaryAmmoCount);
         out.writeInt(secondaryAmmoCount);
         out.writeBoolean(primaryFireModeEnabled);
         out.writeBoolean(shouldUnloadWeapon);
+        out.writeBoolean(isPrimaryEmpty);
+        out.writeBoolean(isSecondaryEmpty);
     }
 }

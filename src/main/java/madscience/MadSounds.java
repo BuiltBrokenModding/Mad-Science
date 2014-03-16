@@ -145,6 +145,7 @@ public class MadSounds
     public static final String PULSERIFLE_RELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Reload";
     public static final String PULSERIFLE_UNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Unload";
     public static final String PULSERIFLE_RELOADGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ReloadGrenade";
+    public static final String PULSERIFLE_MAGAZINERELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".MagazineReload";
 
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
@@ -503,6 +504,14 @@ public class MadSounds
             
             // Unload
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Unload.ogg");
+            
+            // Magazine Load Bullet
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload0.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload1.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload2.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload3.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload4.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload5.ogg");
             
         }
         catch (Exception err)

@@ -377,18 +377,21 @@ public class MadScience
         MadEntities.createCombinedMemoryMonsterPlacer(MadConfig.COMBINEDMEMORY_MONSTERPLACER);
         
         // -------
+        // WEAPONS
+        // -------
+
+        MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
+        MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
+        MadWeapons.createPulseRifleGrenade(MadConfig.WEAPON_PULSERIFLE_GRENADEITEM);
+        MadWeapons.createPulseRifleMagazine(MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM);
+        
+        // -------
         // RECIPES
         // -------
         
         MadRecipes.createCircuitRecipes();
         MadRecipes.createComponentsRecipes();
-        
-        // -------
-        // WEAPONS
-        // -------
-
-        MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
-        MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLET);
+        MadRecipes.createWeaponRecipes();
         
         // -------------------------
         // GENETICALLY MODIFIED MOBS

@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class WeaponItemPulseRifleBullet extends Entity implements IProjectile
+public class PulseRifleBulletEntity extends Entity implements IProjectile
 {
     /** Seems to be some sort of timer for animating an arrow. */
     public int arrowShake;
@@ -28,6 +28,7 @@ public class WeaponItemPulseRifleBullet extends Entity implements IProjectile
     private int inData;
     private boolean inGround;
     private int inTile;
+
     /** The amount of knockback an arrow applies when it hits a mob. */
     private int knockbackStrength;
 
@@ -40,14 +41,14 @@ public class WeaponItemPulseRifleBullet extends Entity implements IProjectile
 
     private int zTile = -1;
 
-    public WeaponItemPulseRifleBullet(World par1World)
+    public PulseRifleBulletEntity(World par1World)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
         this.setSize(0.5F, 0.5F);
     }
 
-    public WeaponItemPulseRifleBullet(World par1World, double par2, double par4, double par6)
+    public PulseRifleBulletEntity(World par1World, double par2, double par4, double par6)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
@@ -56,7 +57,7 @@ public class WeaponItemPulseRifleBullet extends Entity implements IProjectile
         this.yOffset = 0.0F;
     }
 
-    public WeaponItemPulseRifleBullet(World par1World, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase, float par4, float par5)
+    public PulseRifleBulletEntity(World par1World, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase, float par4, float par5)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
@@ -81,7 +82,7 @@ public class WeaponItemPulseRifleBullet extends Entity implements IProjectile
         }
     }
 
-    public WeaponItemPulseRifleBullet(World par1World, EntityLivingBase par2EntityLivingBase, float par3)
+    public PulseRifleBulletEntity(World par1World, EntityLivingBase par2EntityLivingBase, float par3)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
