@@ -661,9 +661,9 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                         // ---------------
 
                         // Attempts to unload the current magazine from the weapon.
-                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount)))
+                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount - 98)))
                         {
-                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount), true);
+                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount - 98), true);
                         }
 
                         // player.addChatMessage("Unloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
@@ -706,7 +706,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                                 {
                                     // Remove the item from the players inventory we are loading it into the weapon now.
                                     player.inventory.decrStackSize(bestMagazine.slotNumber, 1);
-                                    primaryAmmoCount += bestMagazine.bulletCount;
+                                    primaryAmmoCount += bestMagazine.bulletCount + 98;
                                     // player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
                                     player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
                                     playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
@@ -1103,7 +1103,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
             break;
         case 3:
         {
-            // TODO: Muzzle flash texture.
+            // Muzzle flash texture.
             switch (muzzleFlashRandomizer)
             {
             case 0:
@@ -1247,7 +1247,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
             break;
         case 3:
         {
-            // TODO: Muzzle Flash
+            // Muzzle Flash
             switch (muzzleFlashRandomizer)
             {
             case 0:

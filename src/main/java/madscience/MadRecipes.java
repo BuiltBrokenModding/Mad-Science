@@ -16,18 +16,29 @@ public class MadRecipes
         // Add 99 types of recipes for magazines that always return proper amount of bullets.
         for (int i = 1; i <= 99; i++)
         {
-            GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, i), new Object[]
+            // A magazine with 3 bullets actually has damage value of 96 and still returns 3 bullets.
+            //MadScience.logger.info("1 magazine with " + String.valueOf(Math.abs(100 - i)) + " damage will create " + String.valueOf(Math.abs(i)) + " bullets.");
+            GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, Math.abs(i)), new Object[]
                     { 
-                        new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, i),
+                        new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, Math.abs(100 - i)),
                     });
         }
         
+        // Adding an empty (no damage) magazine and a bullet will create a magazine with 99 damage.
+        GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 99), new Object[]
+                { 
+                    new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 0),
+                    new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, 1),
+                });
+        
         // Add 99 types of recipes for magazines that always return properly filled magazine.
-        for (int i = 0; i <= 99; i++)
-        {
-            GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, i + 1), new Object[]
+        for (int i = 1; i <= 98; i++)
+        {   
+            // A magazine and 1 bullet would create a magazine with damage of 99.
+            //MadScience.logger.info("1 bullet and a magazine with " + String.valueOf(Math.abs(100 - i)) + " damage will create a magazine with " + String.valueOf(Math.abs(99 - i)) + " damage.");
+            GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, Math.abs(99 - i)), new Object[]
                     { 
-                        new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, i),
+                        new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, Math.abs(100 - i)),
                         new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, 1),
                     });
         }        

@@ -25,7 +25,7 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
 {
     /** Seems to be some sort of timer for animating an arrow. */
     public int arrowShake;
-    private double damage = 24.0D;
+    private double damage = 50.0D;
     private int inData;
     private boolean inGround;
     private int inTile;
@@ -280,7 +280,7 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
                         this.worldObj.createExplosion(entity,
                                 this.posX,
                                 this.posY,
-                                this.posZ, 1.0F, true);
+                                this.posZ, 1.5F, true);
                         this.setDead();
                     }
 
@@ -345,7 +345,7 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
                         this.worldObj.createExplosion(entity,
                                 this.posX,
                                 this.posY,
-                                this.posZ, 1.0F, true);
+                                this.posZ, 1.5F, true);
                         this.setDead();
                     }
 

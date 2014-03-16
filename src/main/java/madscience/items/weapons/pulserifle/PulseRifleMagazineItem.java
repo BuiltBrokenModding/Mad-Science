@@ -68,9 +68,16 @@ public class PulseRifleMagazineItem extends Item implements IItemRenderer
             if (tooltip != null && tooltip.length() > 0)
             {
                 // Replace the tooltip with information about current rounds.
-                tooltip = tooltip.replace("%0", String.valueOf(this.getDamage(par1ItemStack)));
+                if (par1ItemStack.getItemDamage() == 99)
+                {
+                    tooltip = tooltip.replace("%0", String.valueOf(1));
+                }
+                else
+                {
+                    tooltip = tooltip.replace("%0", String.valueOf(Math.abs(100 - this.getDamage(par1ItemStack))));
+                }
+                
                 tooltip = tooltip.replace("%1", String.valueOf(this.getMaxDamage()));
-
                 info.addAll(MadUtils.splitStringPerWord(tooltip, 4));
             }
         }
