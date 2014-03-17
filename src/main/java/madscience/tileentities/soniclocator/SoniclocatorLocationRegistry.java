@@ -43,7 +43,7 @@ public final class SoniclocatorLocationRegistry
         // Attempts to add a given location of a sonic locator to the registry.
         if (!otherSoniclocators.contains(rmLocation))
         {
-            otherSoniclocators.add(rmLocation);
+            otherSoniclocators.remove(rmLocation);
             MadScience.logger.info("SoniclocatorRegistry: Removed location " + String.valueOf(rmLocation.posX) + "x" + String.valueOf(rmLocation.posY) + "x" + String.valueOf(rmLocation.posZ));
         }
     }
