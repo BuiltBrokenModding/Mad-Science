@@ -661,12 +661,14 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                         // ---------------
 
                         // Attempts to unload the current magazine from the weapon.
-                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount - 98)))
+                        primaryAmmoCount = Math.abs(100 - primaryAmmoCount);
+                        int ammodisplayAmmount = Math.abs(100 - primaryAmmoCount);
+                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount)))
                         {
-                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount - 98), true);
+                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount), true);
                         }
 
-                        // player.addChatMessage("Unloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
+                        //player.addChatMessage("Unloaded magazine with " + String.valueOf(ammodisplayAmmount) + " round(s).");
                         player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
                         primaryAmmoCount = 0;
                     }
@@ -696,7 +698,8 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                             }
 
                             // Sort our list of magazines by bullet count.
-                            Collections.sort(list, Collections.reverseOrder(new PulseRifleMagazineComparator()));
+                            //Collections.sort(list, Collections.reverseOrder(new PulseRifleMagazineComparator()));
+                            Collections.sort(list, new PulseRifleMagazineComparator());
 
                             // Now we can be assured that the highest magazine bullet count will be index zero in this list.
                             if (list != null && list.size() >= 1)
@@ -706,8 +709,11 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                                 {
                                     // Remove the item from the players inventory we are loading it into the weapon now.
                                     player.inventory.decrStackSize(bestMagazine.slotNumber, 1);
-                                    primaryAmmoCount += bestMagazine.bulletCount + 98;
-                                    // player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
+                                    
+                                    // Add the amount of bullets adjusted for weird MC item damage offset.
+                                    primaryAmmoCount += Math.abs(100 - bestMagazine.bulletCount);
+                                    
+                                    //player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
                                     player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
                                     playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
                                 }
@@ -721,9 +727,9 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                         // ---------------
 
                         // Removes all the grenades from the rifle as an itemstack, if not then drop them on the ground.
-                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, 1, secondaryAmmoCount)))
+                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, secondaryAmmoCount, 0)))
                         {
-                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, 1, secondaryAmmoCount), true);
+                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, secondaryAmmoCount, 0), true);
                         }
 
                         // player.addChatMessage("Removed " + String.valueOf(secondaryAmmoCount) + " grenade(s) with 0 remaining.");
@@ -736,17 +742,61 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                         // RELOAD GRENADES
                         // ---------------
 
-                        // Adds up to the maximum amount of grenades from inventory and not one-at-a-time.
-                        if (player.inventory.consumeInventoryItem(MadWeapons.WEAPONITEM_GRENADEITEM.itemID))
+                        boolean foundGrenades = false;
+                        for (int i = 0; i < player.inventory.getSizeInventory(); i++)
                         {
-                            // player.addChatMessage("Added 1 grenade with " + String.valueOf(secondaryAmmoCount) + " remaining.");
-                            secondaryAmmoCount++;
+                            // Build up a list of all grenades the player has.
+                            ItemStack playerInventoryItem = player.inventory.getStackInSlot(i);
+                            if (playerInventoryItem != null)
+                            {
+                                // Check if the item is a grenade and that is is not damaged (since that is impossible for grenades).
+                                if (playerInventoryItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM)) && !playerInventoryItem.isItemDamaged())
+                                {
+                                    // If the stack is larger than one then loop through them and take our fill, or just add the one.
+                                    if (playerInventoryItem.stackSize >= this.GRENADE_MAXIMUM)
+                                    {
+                                        for (int x = 0; x < playerInventoryItem.stackSize; x++)
+                                        {
+                                            // Ensure that we are below our maximum for grenades.
+                                            if (secondaryAmmoCount >= this.GRENADE_MAXIMUM)
+                                            {
+                                                break;
+                                            }
+                                            
+                                            // Consume items in the stack until we are full.    
+                                            ItemStack gotGrenades = player.inventory.decrStackSize(i, 4);
+                                            if (gotGrenades != null)
+                                            {
+                                                secondaryAmmoCount += gotGrenades.stackSize;
+                                                foundGrenades = true;
+                                            }
+                                        }
+                                    }
+                                    else 
+                                    {
+                                        // Ensure that we are below our maximum for grenades.
+                                        if (secondaryAmmoCount >= this.GRENADE_MAXIMUM)
+                                        {
+                                            break;
+                                        }
+                                        
+                                        // Adds a single grenade that was located in the players inventory and not stacked.
+                                        ItemStack gotGrenades = player.inventory.decrStackSize(i, playerInventoryItem.stackSize);
+                                        if (gotGrenades != null)
+                                        {
+                                            secondaryAmmoCount += gotGrenades.stackSize;
+                                            foundGrenades = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Only play the sound and set the data field once if we found some grenades to load into the gun.
+                        if (foundGrenades)
+                        {
                             player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOADGRENADE, 1.0F, 1.0F);
                             playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", false);
-                        }
-                        else
-                        {
-                            player.addChatMessage("No grenade(s) found in inventory to load.");
                         }
                     }
                 }
