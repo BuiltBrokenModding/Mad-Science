@@ -38,6 +38,9 @@ import madscience.tileentities.soniclocator.SoniclocatorGUI;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderContainer;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderGUI;
+import madscience.tileentities.voxbox.VoxBoxContainer;
+import madscience.tileentities.voxbox.VoxBoxEntity;
+import madscience.tileentities.voxbox.VoxBoxGUI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -122,6 +125,12 @@ public class MadGUI implements IGuiHandler
         {
             return new ClayfurnaceGUI(player.inventory, (ClayfurnaceEntity) tile_entity);
         }
+        
+        // VOX Box
+        if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
+        {
+            return new VoxBoxGUI(player.inventory, (VoxBoxEntity) tile_entity);
+        }
 
         // Default response is to return nothing.
         return null;
@@ -203,6 +212,12 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
         {
             return new ClayfurnaceContainer(player.inventory, (ClayfurnaceEntity) tile_entity);
+        }
+        
+        // VOX Box
+        if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
+        {
+            return new VoxBoxContainer(player.inventory, (VoxBoxEntity) tile_entity);
         }
 
         // Default response is to return nothing.

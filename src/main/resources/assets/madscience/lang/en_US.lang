@@ -55,6 +55,9 @@ tile.enderslimeBlock.tooltip=Oh god, its slimy...
 tile.clayFurnace.name=Clay Furnance
 tile.clayFurnace.tooltip=Ancient technology that can give a source block from a single ore. Requires coal block and to be lit on fire.
 
+tile.voxBox.name=Announcement System
+tile.voxBox.tooltip=Public address system for relaying audible messages and announcements with a male voice.
+
 # Weapons
 item.pulseRifle.name=M41A Pulse Rifle
 item.pulseRifle.tooltip=Peace Through Superior Firepower 10mm Explosive Tipped Caseless Standard Light-Armor Piercing Round

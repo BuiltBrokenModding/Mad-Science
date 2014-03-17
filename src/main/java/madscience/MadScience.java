@@ -367,6 +367,7 @@ public class MadScience
         MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
         MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
         MadFurnaces.createClayFurnaceTileEntity(MadConfig.CLAYFURNACE);
+        MadFurnaces.createVOXBoxTileEntity(MadConfig.VOXBOX);
 
         // --------------------
         // MONSTER PLACER ITEMS

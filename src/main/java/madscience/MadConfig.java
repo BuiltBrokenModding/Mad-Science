@@ -714,6 +714,13 @@ public class MadConfig
     // Clay Furnace
     public static @CfgId(block = true) int CLAYFURNACE = getNextBlockID();
     public static @CfgHelp String CLAYFURNACE_HELP = "http://madsciencemod.com/minecraft-item/clay-furnace/";
+    
+    // VOX Box
+    public static @CfgId(block = true) int VOXBOX = getNextBlockID();
+    public static @CfgEnergy long VOXBOX_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
+    public static @CfgEnergy long VOXBOX_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long VOXBOX_CONSUME = 128;
+    public static @CfgHelp String VOXBOX_HELP = "http://madsciencemod.com/minecraft-item/voxbox/";
 
     // -----------------
     // FLUID DECLARATION

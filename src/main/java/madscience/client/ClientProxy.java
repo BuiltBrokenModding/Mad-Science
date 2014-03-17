@@ -62,6 +62,8 @@ import madscience.tileentities.soniclocator.SoniclocatorEntity;
 import madscience.tileentities.soniclocator.SoniclocatorRender;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderRender;
+import madscience.tileentities.voxbox.VoxBoxEntity;
+import madscience.tileentities.voxbox.VoxBoxRender;
 import madscience.util.MadTechneModelLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -282,6 +284,14 @@ public class ClientProxy extends CommonProxy
             RenderingRegistry.registerBlockHandler(MadFurnaces.CLAYFURNACE_TILEENTITY.blockID, new ClayfurnaceRender());
             ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new ClayfurnaceRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new ClayfurnaceRender());
+        }
+        
+        // VOX Box
+        if (blockID == MadConfig.VOXBOX)
+        {
+            RenderingRegistry.registerBlockHandler(MadFurnaces.VOXBOX_TILEENTITY.blockID, new VoxBoxRender());
+            ClientRegistry.bindTileEntitySpecialRenderer(VoxBoxEntity.class, new VoxBoxRender());
+            MinecraftForgeClient.registerItemRenderer(blockID, new VoxBoxRender());
         }
 
         // -------

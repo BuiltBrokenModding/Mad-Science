@@ -32,6 +32,8 @@ import madscience.tileentities.soniclocator.SoniclocatorEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderBlock;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderRecipes;
+import madscience.tileentities.voxbox.VoxBoxBlock;
+import madscience.tileentities.voxbox.VoxBoxEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.Item;
@@ -100,7 +102,11 @@ public class MadFurnaces
     
     // Clay Furnace
     public static BlockContainer CLAYFURNACE_TILEENTITY;
-    public static final String CLAYFURNACE_INTERNALNAME = "clayFurnace"; 
+    public static final String CLAYFURNACE_INTERNALNAME = "clayFurnace";
+    
+    // VOX Box
+    public static BlockContainer VOXBOX_TILEENTITY;
+    public static final String VOXBOX_INTERNALNAME = "voxBox";
 
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD
@@ -497,5 +503,20 @@ public class MadFurnaces
         // Clay Furnace will only convert gold and iron ore into full blocks.
         ClayfurnaceRecipes.addSmelting(Block.oreIron.blockID, new ItemStack(Block.blockIron), 0.15F);
         ClayfurnaceRecipes.addSmelting(Block.oreGold.blockID, new ItemStack(Block.blockGold), 0.15F);
+    }
+
+    public static void createVOXBoxTileEntity(int blockID)
+    {
+        // Automatic Diagnostic and Announcement System
+        // AKA: Black Mesa Announcement System
+        VOXBOX_TILEENTITY = (BlockContainer) new VoxBoxBlock(blockID).setUnlocalizedName(VOXBOX_INTERNALNAME);
+        GameRegistry.registerBlock(VOXBOX_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + VOXBOX_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerTileEntity(VoxBoxEntity.class, VOXBOX_TILEENTITY.getUnlocalizedName());
+
+        // Register custom rendering for this tile entity.
+        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
+
+        // Register our rendering handles on clients and ignore them on servers.
+        MadScience.proxy.registerRenderingHandler(blockID);
     }
 }

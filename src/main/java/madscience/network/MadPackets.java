@@ -14,6 +14,7 @@ import madscience.tileentities.sanitizer.SanitizerPackets;
 import madscience.tileentities.sequencer.SequencerPackets;
 import madscience.tileentities.soniclocator.SoniclocatorPackets;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderPackets;
+import madscience.tileentities.voxbox.VoxBoxPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 
@@ -98,6 +99,9 @@ public abstract class MadPackets
         
         // Pulse Rifle (Client -> Server)
         builder.put(Integer.valueOf(13), PulseRiflePackets.class);
+        
+        // VOX Box
+        builder.put(Integer.valueOf(14), VoxBoxPackets.class);
 
         idMap = builder.build();
     }

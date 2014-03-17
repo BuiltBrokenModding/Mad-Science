@@ -2,6 +2,7 @@ package madscience;
 
 import java.util.logging.Level;
 
+import madscience.tileentities.voxbox.VoxBoxSounds;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -512,6 +513,11 @@ public class MadSounds
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload3.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload4.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload5.ogg");
+            
+            // -------
+            // VOX BOX
+            // -------
+            VoxBoxSounds.init(event);
             
         }
         catch (Exception err)
