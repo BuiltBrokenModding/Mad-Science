@@ -631,7 +631,19 @@ public final class VoxBoxSoundRegistry
         addWord(new VoxBoxSoundItem(0.43F, "_period", "_period.ogg"));
     }
     
-    public static VoxBoxSoundItem get
+    public static VoxBoxSoundItem getSoundByName(String word)
+    {
+        // Returns a sound from registry if it exists.
+        for (VoxBoxSoundItem voxSound : voxWords)
+        {
+            if (voxSound.internalName.equals(word))
+            {
+                return voxSound;
+            }
+        }
+        
+        return null;
+    }
 
     public static void addWord(VoxBoxSoundItem word)
     {

@@ -78,7 +78,7 @@ public class VoxBoxBlock extends BlockContainer
 
             if (tileentityfurnace != null)
             {
-                for (int j1 = 0; j1 < tileentityfurnace.getSizeInputInventory(); ++j1)
+                for (int j1 = 0; j1 < tileentityfurnace.getSizeInventory(); ++j1)
                 {
                     ItemStack itemstack = tileentityfurnace.getStackInSlot(j1);
 

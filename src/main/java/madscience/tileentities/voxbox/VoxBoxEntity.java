@@ -1,11 +1,14 @@
 package madscience.tileentities.voxbox;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.tileentities.prefab.MadTileEntity;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -15,6 +18,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 {
@@ -31,6 +36,13 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
     /** Name to display on inventory screen. */
     private String containerCustomName;
+    
+    /** Amount of time we will keep talking once activated. */
+    private int talkTime;
+    private int talkTimeMaximum;
+    
+    /** Provides a list of sounds, lengths and the order in which they should be played for update function. */
+    private List<VoxBoxSoundItem> talkTimeline;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
     public boolean shouldPlay;
@@ -39,6 +51,17 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     public String TEXTURE = "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png";
 
     private ItemStack[] voxboxInput = new ItemStack[1];
+
+    /** Determines how long we have been saying a particular word. */
+    private float currentTalkWordStep;
+    private float currentTalkWordMaximum;
+    
+    /** Last known index of spoken word we have said. */
+    private int lastWordIndex;
+    private int lastWordMaximum;
+
+    /** Last literal word that was said to help ensure integrity along with index. */
+    private String lastWordLiteral = "RESET";
 
     public VoxBoxEntity()
     {
@@ -145,17 +168,11 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
         return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
     }
 
-    public int getSizeInputInventory()
-    {
-        return this.voxboxInput.length;
-    }
-
     @Override
-    @Deprecated
     public int getSizeInventory()
     {
         // We make use of other methods to reference the multiple hash tables.
-        return 0;
+        return this.voxboxInput.length;
     }
 
     /** Returns the stack in slot i */
@@ -221,7 +238,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
                     return null;
                 }
 
-                return nbttagstring.data.trim();
+                return nbttagstring.data.toLowerCase().trim();
             }
 
             return null;
@@ -274,7 +291,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
         // Read input/output items from world save data.
         NBTTagList nbtInput = nbt.getTagList("InputItems");
-        this.voxboxInput = new ItemStack[this.getSizeInputInventory()];
+        this.voxboxInput = new ItemStack[this.getSizeInventory()];
 
         // Input items process.
         for (int i = 0; i < nbtInput.tagCount(); ++i)
@@ -321,21 +338,11 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    public void smeltItem()
-    {
-        // Read the book in the slot and parse it.
-        if (voxboxInput[0] != null && voxboxInput[0].stackTagCompound != null)
-        {
-            String bookContents = this.getWrittenBookContents(voxboxInput[0].stackTagCompound);
-            MadScience.logger.info(bookContents);
-        }
-    }
-
     /** Update current frame of animation that we should be playing. */
     private void updateAnimation()
     {
         // Active state has many textures based on item cook progress.
-        if (isPowered() && canSmelt())
+        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered())
         {
             if (worldObj.getWorldTime() % 5L == 0L)
             {
@@ -360,7 +367,6 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     {
         // Important to call the class below us!
         super.updateEntity();
-        boolean inventoriesChanged = false;
 
         // Update status of the machine if it has redstone power or not.
         checkRedstonePower();
@@ -368,28 +374,193 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
-            // First tick for new item being cooked in furnace.
-            if (this.canSmelt() && this.isPowered() && this.isRedstonePowered())
+            if (talkTime > 0 && talkTime < talkTimeMaximum)
             {
-                // Decrease to amount of energy this item has on client and server.
-                this.consumeEnergy(MadConfig.VOXBOX_CONSUME);
-
                 // Animation for block.
                 updateAnimation();
-
+            }
+            
+            // First tick for new item being cooked in furnace.
+            if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && this.talkTime <= 0 && talkTimeline == null && lastWordIndex <= 0 && lastWordMaximum <= 0)
+            {
                 // Read the written book.
-                this.smeltItem();
-                inventoriesChanged = true;
+                if (voxboxInput[0] != null && voxboxInput[0].stackTagCompound != null)
+                {
+                    // Read the book in the slot and parse it.
+                    MadScience.logger.info("VoxBox: STARTING PHRASE INTERPRETOR");
+                    String bookContents = this.getWrittenBookContents(voxboxInput[0].stackTagCompound);
+                    
+                    // Breakup the books contents based on word.
+                    List<String> splitBookContents = MadUtils.splitStringPerWord(bookContents, 1);
+                    
+                    // Create a new timeline we will populate with all words found in VOX registry.
+                    talkTimeline = new ArrayList();
+                    
+                    // Add up the total amount of time it should take to say this phrase.
+                    float estimatedTotalTalkTime = 0.0F;
+                    
+                    // Loop through the words and match them up to VOX sound registry.
+                    for (String voxSound : splitBookContents)
+                    {
+                        VoxBoxSoundItem registryVOXSound = VoxBoxSoundRegistry.getSoundByName(voxSound);
+                        if (registryVOXSound != null)
+                        {
+                            if (registryVOXSound.internalName.equals(voxSound))
+                            {
+                                talkTimeline.add(registryVOXSound);
+                                estimatedTotalTalkTime += registryVOXSound.duration;
+                                MadScience.logger.info("VoxBox: Added word '" + registryVOXSound.internalName + "' with length of " + String.valueOf(registryVOXSound.duration) + "F");
+                            }
+                        }
+                        else
+                        {
+                            // If we cannot find the word the player input then use period by default since it plays static.
+                            MadScience.logger.info("VoxBox: Discarded word '" + voxSound + "' because it was not found in dictionary.");
+                            talkTimeline.add(new VoxBoxSoundItem(0.43F, "_period", "_period.ogg"));
+                            estimatedTotalTalkTime += 0.43F;
+                        }
+                    }
+                    
+                    // Calculate max talk time by rounding the value to nearest second.
+                    talkTimeMaximum = Math.round(estimatedTotalTalkTime) * MadScience.SECOND_IN_TICKS;
+                    MadScience.logger.info("VoxBox: Prepared talk timeline with " + talkTimeline.size() + " entries and total length of " + String.valueOf(talkTimeMaximum) + " ticks.");
+                    
+                    // Setup length of talk timeline in packet terms.
+                    lastWordIndex = 0;
+                    lastWordMaximum = talkTimeline.size();
+                    
+                    // Kickstart the timer that will make the voice start talking.
+                    currentTalkWordStep = 0.0F;
+                    currentTalkWordMaximum = 0.0F;
+                    talkTime++;
+                }
+            }
+            else if (this.canSmelt() && this.isPowered() && this.talkTime > 0 && talkTimeline != null 
+                    && currentTalkWordStep <= 0.0F && currentTalkWordMaximum <= 0.0F && lastWordIndex < lastWordMaximum)
+            {
+                // Decrease to amount of energy while the VOX announcer is talking.
+                this.consumeEnergy(MadConfig.VOXBOX_CONSUME);
+                
+                // Start saying each line of the file based on proper time index and tick time.
+                int talkTimeIndex = (talkTime * lastWordMaximum) / talkTimeMaximum;
+                
+                // First word so special circumstances are needed.
+                if (talkTimeIndex <= 0 && talkTime == 1)
+                {
+                    talkTime++;
+                    lastWordIndex = talkTimeIndex;
+                    MadScience.logger.info("VoxBox: First word so special circumstances!");
+                    return;
+                }
+                
+                // Set last known index for talk time to prevent stuttering.
+                if (talkTimeIndex > lastWordIndex && talkTimeIndex > 0)
+                {
+                    talkTime++;
+                    lastWordIndex = talkTimeIndex;
+                    MadScience.logger.info("VoxBox: Skipping index of " + String.valueOf(lastWordIndex - 1) + " because already played it!");
+                }
+                else if (talkTimeIndex <= lastWordIndex && talkTimeIndex > 0)
+                {
+                    // Count up to the next one.
+                    talkTime++;
+                    MadScience.logger.info("VoxBox: Skipping because last talk time is same as current talk time");
+                    return;
+                }
+                
+                // Check upper bounds of time index.
+                if (lastWordIndex >= lastWordMaximum)
+                {
+                    lastWordIndex = lastWordMaximum;
+                }
+                
+                // Check lower bounds of time index.
+                if (lastWordIndex <= 0)
+                {
+                    // Force ourselves to start at index one.
+                    lastWordIndex = 0;
+                }
+                
+                // Wrap any index out of bounds exception to set limit
+                VoxBoxSoundItem talkTimeStep = null;
+                try
+                {
+                    // Grab our current word to be spoken based on scaled time index.
+                    talkTimeStep = talkTimeline.get(lastWordIndex);
+                }
+                catch (Exception err)
+                {
+                    this.resetVOX();
+                    return;
+                }
+                
+                // Abort if any problems occur.
+                if (talkTimeStep == null)
+                {
+                    MadScience.logger.info("VoxBox: [ERROR] Unable to get VoxBox Sound Item from VOX sound registry.");
+                    return;
+                }
+                
+                // Check if we have already said this word for this time index.
+                if (lastWordLiteral != null && lastWordLiteral.equals(talkTimeStep.internalName) && lastWordIndex <= lastWordMaximum)
+                {
+                    talkTime++;
+                    MadScience.logger.info("VoxBox: Skipping word of " + String.valueOf(lastWordLiteral) + " because already played it!");
+                    return;
+                }
+                
+                // Load up information into variables that will use it in coming ticks to say the VOX words in sync with tick time.
+                currentTalkWordMaximum = talkTimeStep.duration;
+                currentTalkWordStep = 0.0F;
+                talkTime++;
+                lastWordLiteral = talkTimeStep.internalName;
+                this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadScience.ID + ":" + MadFurnaces.VOXBOX_INTERNALNAME + "." + talkTimeStep.internalName, 1.0F, 1.0F);
+                MadScience.logger.info("VoxBox: Speaking the word index " + String.valueOf(lastWordIndex) + " '" + talkTimeStep.internalName + "' with length of " + String.valueOf(currentTalkWordMaximum) + "F.");
+            }
+            else if (this.canSmelt() && this.isPowered() && this.talkTime > 0 && talkTimeline != null && lastWordMaximum > 0 && currentTalkWordMaximum > 0.0F)
+            {
+                // Say the word we are supposed to at this time until we are done with it.
+                if (currentTalkWordStep < currentTalkWordMaximum && talkTime < talkTimeMaximum && lastWordIndex < lastWordMaximum)
+                {
+                    currentTalkWordStep += 0.1F;
+                    talkTime++;
+                    MadScience.logger.info("VoxBox: Counting word index " + String.valueOf(currentTalkWordStep) + "/" + String.valueOf(currentTalkWordMaximum));
+                }
+                else if (currentTalkWordStep >= currentTalkWordMaximum && talkTime < talkTimeMaximum && lastWordIndex < lastWordMaximum)
+                {
+                    // It is time to move to the next word in the index.
+                    currentTalkWordStep = 0.0F;
+                    currentTalkWordMaximum = 0.0F;
+                    talkTime++;
+                    MadScience.logger.info("VoxBox: Finished with word, asking for another...");
+                }
+            }
+            else if (talkTimeline != null && this.canSmelt() && this.isPowered() && this.talkTime >= this.talkTimeMaximum && lastWordIndex >= lastWordMaximum)
+            {
+                this.resetVOX();
             }
 
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new VoxBoxPackets(this.xCoord, this.yCoord, this.zCoord, getEnergy(ForgeDirection.UNKNOWN),
-                    getEnergyCapacity(ForgeDirection.UNKNOWN), this.TEXTURE).makePacket());
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord,
+                    MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new VoxBoxPackets(this.xCoord, this.yCoord, this.zCoord,
+                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
+                            this.talkTime, this.talkTimeMaximum,
+                            this.currentTalkWordStep, this.currentTalkWordMaximum,
+                            this.lastWordIndex, this.lastWordMaximum, this.lastWordLiteral, this.TEXTURE).makePacket());
         }
+    }
 
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
-        }
+    public void resetVOX()
+    {
+        // Flatten the timer out to restart the process now that we are finished.
+        talkTime = 0;
+        talkTimeMaximum = 0;
+        currentTalkWordStep = 0;
+        currentTalkWordMaximum = 0;
+        lastWordIndex = 0;
+        lastWordMaximum = 0;
+        lastWordLiteral = "RESET";
+        talkTimeline = null;
+        MadScience.logger.info("VoxBox: STOPPING VOX, PHRASE COMPLETED!");
     }
 
     /** Writes a tile entity to NBT. */
@@ -426,5 +597,35 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
         {
             nbt.setString("CustomName", this.containerCustomName);
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setTalkTime(int talkTime, int talkTimeMaximum)
+    {
+        // Total amount of time we have been talking on the current talk timeline.
+        this.talkTime = talkTime;
+        this.talkTimeMaximum = talkTimeMaximum;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setWordStep(float wordStep, float wordStepMaximum)
+    {
+        // Total amount of time we have been talking on the current word in the total talk timeline.
+        this.currentTalkWordStep = wordStep;
+        this.currentTalkWordMaximum = wordStepMaximum;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setLastIndex(int lastWordIndex, int totalWordIndex)
+    {
+        // Last known index of word that we spoke in the talk timeline, prevents speech stuttering.
+        this.lastWordIndex = lastWordIndex;
+        this.lastWordMaximum = totalWordIndex;
+    }
+
+    public void setLastWord(String lastWord)
+    {
+        // Last literal word that was said so we can ensure integrity of words said.
+        this.lastWordLiteral = lastWord;
     }
 }
