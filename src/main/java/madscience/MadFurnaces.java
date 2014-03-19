@@ -518,5 +518,19 @@ public class MadFurnaces
 
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
+        
+        // Recipe for VOX box contains a juke block.
+        GameRegistry.addRecipe(new ItemStack(VOXBOX_TILEENTITY, 1), new Object[]
+        { "121", 
+          "465", 
+          "131",
+
+          '1', new ItemStack(MadComponents.COMPONENT_CASE, 1, 0),
+          '2', new ItemStack(MadComponents.COMPONENT_COMPUTER, 1, 0),
+          '3', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY, 1, 0),
+          '4', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE, 1, 0),
+          '5', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE, 1, 0),
+          '6', new ItemStack(Block.jukebox, 1, 0),
+        });
     }
 }
