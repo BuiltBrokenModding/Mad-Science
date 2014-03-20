@@ -104,26 +104,26 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         try
         {
             gs = Minecraft.getMinecraft().gameSettings;
+            
+            // Setup key intercepter so we can have full control over left and right click events.
+            if (intLeft == null && gs != null)
+            {
+                intLeft = new KeyBindingInterceptor(gs.keyBindAttack);
+                gs.keyBindAttack = intLeft;
+                intLeft.setInterceptionActive(true);
+            }
+
+            if (intRight == null && gs != null)
+            {
+                intRight = new KeyBindingInterceptor(gs.keyBindUseItem);
+                gs.keyBindUseItem = intRight;
+                intRight.setInterceptionActive(true);
+            }
         }
         catch (Exception err)
         {
-            MadScience.logger.info("Error while attempting to grab instance of Minecraft client.");
+            MadScience.logger.info("Skipping pulse rifle keybinding interceptor init on server!");
             return;
-        }
-
-        // Setup key intercepter so we can have full control over left and right click events.
-        if (intLeft == null)
-        {
-            intLeft = new KeyBindingInterceptor(gs.keyBindAttack);
-            gs.keyBindAttack = intLeft;
-            intLeft.setInterceptionActive(true);
-        }
-
-        if (intRight == null)
-        {
-            intRight = new KeyBindingInterceptor(gs.keyBindUseItem);
-            gs.keyBindUseItem = intRight;
-            intRight.setInterceptionActive(true);
         }
     }
 
