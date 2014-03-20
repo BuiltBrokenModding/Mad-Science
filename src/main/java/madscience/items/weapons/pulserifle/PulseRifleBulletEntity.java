@@ -2,6 +2,8 @@ package madscience.items.weapons.pulserifle;
 
 import java.util.List;
 
+import madscience.MadSounds;
+import madscience.world.MadExplosion;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
@@ -272,17 +274,14 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     {
                         damagesource = DamageSource.causeThrownDamage(this, this.shootingEntity);
                     }
+                    
+                    this.fireBullet(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, i1))
                     {
                         if (movingobjectposition.entityHit instanceof EntityLivingBase)
                         {
                             EntityLivingBase entitylivingbase = (EntityLivingBase) movingobjectposition.entityHit;
-
-                            if (!this.worldObj.isRemote)
-                            {
-                                entitylivingbase.setArrowCountInEntity(entitylivingbase.getArrowCountInEntity() + 1);
-                            }
 
                             if (this.knockbackStrength > 0)
                             {
@@ -304,11 +303,6 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                                 ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(6, 0));
                             }
                         }
-
-                        // this.playSound("random.bowhit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
-
-                        // Remove the bullet from the game world.
-                        // this.setDead();
                     }
                     else
                     {
@@ -334,7 +328,6 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     this.posX -= this.motionX / f2 * 0.05000000074505806D;
                     this.posY -= this.motionY / f2 * 0.05000000074505806D;
                     this.posZ -= this.motionZ / f2 * 0.05000000074505806D;
-                    // this.playSound("random.bowhit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                     this.inGround = true;
                     this.arrowShake = 7;
                     this.setIsCritical(false);
@@ -342,6 +335,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     if (this.inTile != 0)
                     {
                         Block.blocksList[this.inTile].onEntityCollidedWithBlock(this.worldObj, this.xTile, this.yTile, this.zTile, this);
+                        this.fireBullet(this.xTile, this.yTile, this.zTile);
                     }
                 }
             }
@@ -403,6 +397,36 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
             this.setPosition(this.posX, this.posY, this.posZ);
             this.doBlockCollisions();
         }
+    }
+
+    public void fireBullet(double x, double y, double z)
+    {
+        if (!this.worldObj.isRemote)
+        {
+            // Pulse rifle has a 1/100 chance of scoring a critical round (AKA once per clip).
+            if (this.worldObj.rand.nextInt(1000) < 10)
+            {
+                // Critical rounds have a change to actually cause block damage and are a little more powerful.
+                this.newExplosion((Entity)null, x, y, z, 1.5F, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"), false);
+            }
+            else
+            {
+                // Normal rounds cause no actual block damage and just give off explosion damage.
+                this.newExplosion((Entity)null, x, y, z, 1.0F, false, false, false);
+            }
+        }
+        this.setDead();
+    }
+    
+    /** Creates a custom explosion based on the default Minecraft one. */
+    public MadExplosion newExplosion(Entity target, double posX, double posY, double posZ, float stregth, boolean setFire, boolean breakBlocks, boolean spawnParticles)
+    {
+        MadExplosion explosion = new MadExplosion(this.worldObj, target, posX, posY, posZ, stregth, setFire, breakBlocks);
+        explosion.isFlaming = setFire;
+        explosion.isSmoking = breakBlocks;
+        explosion.doExplosionA();
+        explosion.doExplosionB(spawnParticles);
+        return explosion;
     }
 
     /** (abstract) Protected helper method to read subclass entity data from NBT. */

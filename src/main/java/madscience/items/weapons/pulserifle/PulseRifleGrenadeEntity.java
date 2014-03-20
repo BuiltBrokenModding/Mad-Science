@@ -3,6 +3,7 @@ package madscience.items.weapons.pulserifle;
 import java.util.List;
 
 import madscience.MadSounds;
+import madscience.world.MadExplosion;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
@@ -274,16 +275,8 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
                         damagesource = DamageSource.causeThrownDamage(this, this.shootingEntity);
                     }
                     
-                    if (!this.worldObj.isRemote)
-                    {
-                        this.playSound(MadSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
-                        this.worldObj.createExplosion(entity,
-                                this.posX,
-                                this.posY,
-                                this.posZ, 1.5F, true);
-                        this.setDead();
-                    }
-
+                    this.fireGrenade(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+                    
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, i1))
                     {
                         if (movingobjectposition.entityHit instanceof EntityLivingBase)
@@ -340,18 +333,10 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
                     this.arrowShake = 7;
                     this.setIsCritical(false);
                     
-                    if (!this.worldObj.isRemote)
-                    {
-                        this.worldObj.createExplosion(entity,
-                                this.posX,
-                                this.posY,
-                                this.posZ, 1.5F, true);
-                        this.setDead();
-                    }
-
                     if (this.inTile != 0)
                     {
                         Block.blocksList[this.inTile].onEntityCollidedWithBlock(this.worldObj, this.xTile, this.yTile, this.zTile, this);
+                        this.fireGrenade(this.xTile, this.yTile, this.zTile);
                     }
                 }
             }
@@ -413,6 +398,27 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
             this.setPosition(this.posX, this.posY, this.posZ);
             this.doBlockCollisions();
         }
+    }
+
+    public void fireGrenade(double x, double y, double z)
+    {
+        if (!this.worldObj.isRemote)
+        {
+            this.playSound(MadSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
+            this.newExplosion((Entity)null, x, y, z, 1.5F, true, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+        }
+        this.setDead();
+    }
+    
+    /** Creates a custom explosion based on the default Minecraft one. */
+    public MadExplosion newExplosion(Entity par1Entity, double par2, double par4, double par6, float par8, boolean par9, boolean par10)
+    {
+        MadExplosion explosion = new MadExplosion(this.worldObj, par1Entity, par2, par4, par6, par8, par9, par10);
+        explosion.isFlaming = par9;
+        explosion.isSmoking = par10;
+        explosion.doExplosionA();
+        explosion.doExplosionB(true);
+        return explosion;
     }
 
     /** (abstract) Protected helper method to read subclass entity data from NBT. */
