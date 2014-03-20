@@ -3,6 +3,12 @@ package madscience.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import madscience.MadScience;
+import madscience.world.MadExplosion;
+import net.minecraft.entity.Entity;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.World;
+
 public class MadUtils
 {
     public static List<String> splitStringPerWord(String string, int wordsPerLine)
