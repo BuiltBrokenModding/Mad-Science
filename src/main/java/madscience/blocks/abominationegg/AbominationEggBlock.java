@@ -34,7 +34,7 @@ public class AbominationEggBlock extends BlockDragonEgg implements ITileEntityPr
         super(par1);
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
         this.setHardness(5.0F);
-        this.setResistance(10.0F);
+        this.setResistance(1.0F);
         this.setCreativeTab(MadEntities.tabMadScience);
         this.hasTileEntity(0);
     }
