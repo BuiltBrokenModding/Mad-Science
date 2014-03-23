@@ -1,18 +1,18 @@
 package madscience;
 
-import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
 
+import net.minecraft.entity.EntityList;
+import net.minecraft.launchwrapper.LogWrapper;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobLivingHandler;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
@@ -28,15 +28,6 @@ import madscience.server.CommonProxy;
 import madscience.util.MadColors;
 import madscience.util.MadTags;
 import madscience.util.MadXML;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityList;
-import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -48,7 +39,6 @@ import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
@@ -224,7 +214,8 @@ public class MadScience
         // ------
         // FLUIDS
         // ------
-
+        logger.info("Creating Fluids");
+        
         // Creates both flowing and still variants of new fluid.
         // Note: Still's ID must be 1 above Flowing.
         MadFluids.createLiquidDNA(MadConfig.LIQUIDDNA, MadConfig.LIQUIDDNA_BUCKET);
@@ -235,7 +226,8 @@ public class MadScience
         // ------
         // BLOCKS
         // ------
-
+        logger.info("Creating Blocks");
+        
         // Abomination Egg
         MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
         
@@ -245,6 +237,7 @@ public class MadScience
         // ----------
         // COMPONENTS
         // ----------
+        logger.info("Creating Components");
         
         MadComponents.createComponentCaseItem(MadConfig.COMPONENT_CASE);
         MadComponents.createComponentCPUItem(MadConfig.COMPONENT_CPU);
@@ -263,6 +256,7 @@ public class MadScience
         // --------
         // CIRCUITS
         // --------
+        logger.info("Creating Circuits");
         
         MadCircuits.createCircuitComparatorItem(MadConfig.CIRCUIT_COMPARATOR);
         MadCircuits.createCircuitDiamondItem(MadConfig.CIRCUIT_DIAMOND);
@@ -276,7 +270,8 @@ public class MadScience
         // -------
         // NEEDLES
         // -------
-
+        logger.info("Creating Needles");
+        
         MadNeedles.createEmptyNeedle(MadConfig.NEEDLE_EMPTY);
         MadNeedles.createDirtyNeedle(MadConfig.NEEDLE_DIRTY);
         MadNeedles.createCaveSpiderNeedle(MadConfig.NEEDLE_CAVESPIDER);
@@ -301,7 +296,8 @@ public class MadScience
         // -----------
         // DNA SAMPLES
         // -----------
-
+        logger.info("Creating DNA Samples");
+        
         MadDNA.createCaveSpiderDNA(MadConfig.DNA_CAVESPIDER);
         MadDNA.createChickenDNA(MadConfig.DNA_CHICKEN);
         MadDNA.createCowDNA(MadConfig.DNA_COW);
@@ -326,7 +322,8 @@ public class MadScience
         // -----------------
         // GENOME DATA REELS
         // -----------------
-
+        logger.info("Creating Genome Data Reels");
+        
         MadEntities.createEmptyDataReel(MadConfig.DATAREEL_EMPTY);
         MadGenomes.createCaveSpiderGenome(MadConfig.GENOME_CAVESPIDER);
         MadGenomes.createChickenGenome(MadConfig.GENOME_CHICKEN);
@@ -353,7 +350,8 @@ public class MadScience
         // -------------
         // TILE ENTITIES
         // -------------
-
+        logger.info("Creating Tile Entities");
+        
         MadFurnaces.createDNAExtractorTileEntity(MadConfig.DNA_EXTRACTOR);
         MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
@@ -372,7 +370,8 @@ public class MadScience
         // --------------------
         // MONSTER PLACER ITEMS
         // --------------------
-
+        logger.info("Creating Monster Placer Items");
+        
         MadEntities.createGeneticallyModifiedMonsterPlacer(MadConfig.GENETICALLYMODIFIED_MONSTERPLACER);
         MadEntities.createCombinedGenomeMonsterPlacer(MadConfig.COMBINEDGENOME_MONSTERPLACER);
         MadEntities.createCombinedMemoryMonsterPlacer(MadConfig.COMBINEDMEMORY_MONSTERPLACER);
@@ -380,7 +379,8 @@ public class MadScience
         // -------
         // WEAPONS
         // -------
-
+        logger.info("Creating Weapons");
+        
         MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
         MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
         MadWeapons.createPulseRifleGrenade(MadConfig.WEAPON_PULSERIFLE_GRENADEITEM);
@@ -389,6 +389,7 @@ public class MadScience
         // -------
         // RECIPES
         // -------
+        logger.info("Creating Recipes");
         
         MadRecipes.createCircuitRecipes();
         MadRecipes.createComponentsRecipes();
@@ -397,7 +398,8 @@ public class MadScience
         // -------------------------
         // GENETICALLY MODIFIED MOBS
         // -------------------------
-
+        logger.info("Creating Genetically Modified Creatures");
+        
         // Werewolf [Villager + Wolf]
         MadMobs.createGMOMob(MadConfig.GMO_WEREWOLF_METAID, WerewolfMobEntity.class, new NBTTagCompound(), MadMobs.GMO_WEREWOLF_INTERNALNAME, MadMobs.GENOME_WEREWOLF_INTERNALNAME, MadColors.villagerEgg(), MadColors.wolfEgg(), MadGenomes.GENOME_VILLAGER,
                 MadGenomes.GENOME_WOLF, MadConfig.GMO_WEREWOLF_COOKTIME);
@@ -471,5 +473,6 @@ public class MadScience
         // ---------
         // DONE INIT
         // ---------
+        logger.info("Finished loading all madness!");
     }
 }

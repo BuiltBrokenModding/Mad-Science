@@ -3,21 +3,19 @@ package madscience.items.weapons.pulserifle;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
 
 import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.MadWeapons;
-import madscience.items.weapons.KeyBindingInterceptor;
-import madscience.util.MadTechneModel;
+import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
+import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
+import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineComparator;
+import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineComparatorItem;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,60 +24,17 @@ import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.oredict.OreDictionary;
-
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRenderer
+public class PulseRifleItem extends ItemBow
 {
-    private enum TransformationTypes
-    {
-        DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
-    }
-
     private static final int BULLET_MAXIMUM = 99;
     private static final int GRENADE_MAXIMUM = 4;
-    GameSettings gs = null;
-
-    KeyBindingInterceptor intLeft = null;
-    KeyBindingInterceptor intRight = null;
-
-    private MadTechneModel MODEL_COUNTER_LEFT = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.mad");
-    private MadTechneModel MODEL_COUNTER_RIGHT = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter1.mad");
-    private MadTechneModel MODEL_RIFLE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".mad");
-
-    private MadTechneModel MODEL_FLASH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash0.mad");
-    private MadTechneModel MODEL_FLASH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash1.mad");
-    private MadTechneModel MODEL_FLASH2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash2.mad");
-    private MadTechneModel MODEL_FLASH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash3.mad");
-    private MadTechneModel MODEL_FLASH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash4.mad");
-
-    private ResourceLocation TEXTURE_COUNTER_EIGHT = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter8.png");
-    private ResourceLocation TEXTURE_COUNTER_FIVE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter5.png");
-    private ResourceLocation TEXTURE_COUNTER_FOUR = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter4.png");
-    private ResourceLocation TEXTURE_COUNTER_NINE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter9.png");
-    private ResourceLocation TEXTURE_COUNTER_ONE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter1.png");
-    private ResourceLocation TEXTURE_COUNTER_SEVEN = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter7.png");
-    private ResourceLocation TEXTURE_COUNTER_SIX = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter6.png");
-    private ResourceLocation TEXTURE_COUNTER_THREE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter3.png");
-    private ResourceLocation TEXTURE_COUNTER_TWO = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter2.png");
-    private ResourceLocation TEXTURE_COUNTER_ZERO = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.png");
-
-    private ResourceLocation TEXTURE_RIFLE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".png");
-    private ResourceLocation TEXTURE_FLASH12 = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash12.png");
-    private ResourceLocation TEXTURE_FLASH34 = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash34.png");
 
     public PulseRifleItem(int itemID)
     {
@@ -99,32 +54,6 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
 
         // Pulse Rifles don't stack.
         this.maxStackSize = 1;
-
-        // Get the current client game instance.
-        try
-        {
-            gs = Minecraft.getMinecraft().gameSettings;
-            
-            // Setup key intercepter so we can have full control over left and right click events.
-            if (intLeft == null && gs != null)
-            {
-                intLeft = new KeyBindingInterceptor(gs.keyBindAttack);
-                gs.keyBindAttack = intLeft;
-                intLeft.setInterceptionActive(true);
-            }
-
-            if (intRight == null && gs != null)
-            {
-                intRight = new KeyBindingInterceptor(gs.keyBindUseItem);
-                gs.keyBindUseItem = intRight;
-                intRight.setInterceptionActive(true);
-            }
-        }
-        catch (Exception err)
-        {
-            MadScience.logger.info("Skipping pulse rifle keybinding interceptor init on server!");
-            return;
-        }
     }
 
     @Override
@@ -150,149 +79,6 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
     {
         // Prevents this item from being able to edit blocks in the world.
         return false;
-    }
-
-    private ResourceLocation convertIntegerToCounterTexture(Integer ammoCount)
-    {
-        switch (ammoCount)
-        {
-        case 0:
-            return TEXTURE_COUNTER_ZERO;
-        case 1:
-            return TEXTURE_COUNTER_ONE;
-        case 2:
-            return TEXTURE_COUNTER_TWO;
-        case 3:
-            return TEXTURE_COUNTER_THREE;
-        case 4:
-            return TEXTURE_COUNTER_FOUR;
-        case 5:
-            return TEXTURE_COUNTER_FIVE;
-        case 6:
-            return TEXTURE_COUNTER_SIX;
-        case 7:
-            return TEXTURE_COUNTER_SEVEN;
-        case 8:
-            return TEXTURE_COUNTER_EIGHT;
-        case 9:
-            return TEXTURE_COUNTER_NINE;
-        default:
-            return TEXTURE_COUNTER_ZERO;
-        }
-    }
-
-    public void disableKeyIntercepter()
-    {
-        // Remove key intercepter so we can have relinquish full control over left and right click events.
-        if (intLeft != null)
-        {
-            intLeft.setInterceptionActive(false);
-            gs.keyBindAttack = intLeft.getOriginalKeyBinding();
-            intLeft = null;
-        }
-
-        if (intRight != null)
-        {
-            intRight.setInterceptionActive(false);
-            gs.keyBindUseItem = intRight.getOriginalKeyBinding();
-            intRight = null;
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean doClick(int button)
-    {
-        // Grab instance of client world and player that is controlling it.
-        World world = Minecraft.getMinecraft().theWorld;
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-
-        if (world == null)
-        {
-            return false;
-        }
-
-        if (player == null)
-        {
-            return false;
-        }
-
-        // Hook the item the player is currently holding in his hand (if there is any).
-        ItemStack playerItem = player.getHeldItem();
-        if (playerItem == null)
-        {
-            return false;
-        }
-
-        // Only do this for our pulse rifle.
-        if (!playerItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
-        {
-            return false;
-        }
-
-        // Create NBT data if required.
-        if (playerItem.stackTagCompound == null)
-        {
-            playerItem.stackTagCompound = new NBTTagCompound();
-        }
-
-        // Initialize variables we will use to communicate the status of the pulse rifle.
-        int pulseRifleFireTime = 0;
-        int previousFireTime = 0;
-        int rightClickTime = 0;
-        int primaryAmmoCount = 0;
-        int secondaryAmmoCount = 0;
-        boolean primaryFireModeEnabled = true;
-        boolean isPrimaryEmpty = true;
-        boolean isSecondaryEmpty = true;
-
-        // Grab NBT data from the item the player is holding.
-        if (!playerItem.stackTagCompound.hasNoTags())
-        {
-            if (playerItem.stackTagCompound.hasKey("playerFireTime"))
-            {
-                pulseRifleFireTime = playerItem.stackTagCompound.getInteger("playerFireTime");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("previousFireTime"))
-            {
-                previousFireTime = playerItem.stackTagCompound.getInteger("previousFireTime");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("rightClickTime"))
-            {
-                rightClickTime = playerItem.stackTagCompound.getInteger("rightClickTime");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("primaryAmmoCount"))
-            {
-                primaryAmmoCount = playerItem.stackTagCompound.getInteger("primaryAmmoCount");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("secondaryAmmoCount"))
-            {
-                secondaryAmmoCount = playerItem.stackTagCompound.getInteger("secondaryAmmoCount");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("primaryFireModeEnabled"))
-            {
-                primaryFireModeEnabled = playerItem.stackTagCompound.getBoolean("primaryFireModeEnabled");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("isPrimaryEmpty"))
-            {
-                isPrimaryEmpty = playerItem.stackTagCompound.getBoolean("isPrimaryEmpty");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("isSecondaryEmpty"))
-            {
-                isSecondaryEmpty = playerItem.stackTagCompound.getBoolean("isSecondaryEmpty");
-            }
-        }
-
-        // Send a packet to the server since we are overriding minecraft's system.
-        PacketDispatcher.sendPacketToServer(new PulseRiflePackets(pulseRifleFireTime, previousFireTime, rightClickTime, button, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, isPrimaryEmpty, isSecondaryEmpty, player.isSneaking())
-                .makePacket());
-        return true;
     }
 
     @Override
@@ -369,13 +155,6 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
     }
 
     @Override
-    public String getLabel()
-    {
-        // Name as known by Forge for debugging purposes.
-        return MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + " TickHandler";
-    }
-
-    @Override
     public int getRenderPasses(int metadata)
     {
         // Tell the ItemRenderer that we would like to be smacked 4 times.
@@ -395,21 +174,6 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         // Displays the localized name for the item from the language file that is currently active.
         String name = ("item." + StatCollector.translateToLocal(MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME)).trim();
         return name;
-    }
-
-    @Override
-    public boolean handleRenderType(ItemStack item, ItemRenderType type)
-    {
-        switch (type)
-        {
-        case ENTITY:
-        case EQUIPPED:
-        case EQUIPPED_FIRST_PERSON:
-        case INVENTORY:
-            return true;
-        default:
-            return false;
-        }
     }
 
     @Override
@@ -461,7 +225,7 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
     }
 
     public void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
-            boolean clientisSecondaryEmpty, EntityPlayer player)
+            boolean clientisSecondaryEmpty, boolean leftPressed, boolean rightPressed, EntityPlayer player)
     {
         // Hook the item the player is currently holding in his hand (if there is any).
         ItemStack playerItem = player.getHeldItem();
@@ -491,33 +255,25 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         }
 
         // Initialize variables we will use to communicate the status of the pulse rifle.
-        int pulseRifleFireTime = clientFireTime;
-        int previousFireTime = clientpreviousFireTime;
-        int rightClickTime = clientrightClickTime;
         int primaryAmmoCount = 0;
         int secondaryAmmoCount = 0;
         boolean primaryFireModeEnabled = clientprimaryFireModeEnabled;
-        boolean isPrimaryEmpty = clientisPrimaryEmpty;
-        boolean isSecondaryEmpty = clientisSecondaryEmpty;
+        boolean isLeftPressed = leftPressed;
+        boolean isRightPressed = rightPressed;
+
+        // Special variable used only on the server to enable semi-automatic firing of grenades.
+        boolean hasFiredGrenade = false;
 
         // Grab NBT data from the item the player is holding.
         if (!playerItem.stackTagCompound.hasNoTags())
         {
-            if (playerItem.stackTagCompound.hasKey("playerFireTime"))
+            // Semi-automatic grenade check
+            if (playerItem.stackTagCompound.hasKey("hasFiredGrenade"))
             {
-                pulseRifleFireTime = playerItem.stackTagCompound.getInteger("playerFireTime");
+                hasFiredGrenade = playerItem.stackTagCompound.getBoolean("hasFiredGrenade");
             }
 
-            if (playerItem.stackTagCompound.hasKey("previousFireTime"))
-            {
-                previousFireTime = playerItem.stackTagCompound.getInteger("previousFireTime");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("rightClickTime"))
-            {
-                rightClickTime = playerItem.stackTagCompound.getInteger("rightClickTime");
-            }
-
+            // Ammo
             if (playerItem.stackTagCompound.hasKey("primaryAmmoCount"))
             {
                 primaryAmmoCount = playerItem.stackTagCompound.getInteger("primaryAmmoCount");
@@ -528,24 +284,15 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                 secondaryAmmoCount = playerItem.stackTagCompound.getInteger("secondaryAmmoCount");
             }
 
+            // Firing mode
             if (playerItem.stackTagCompound.hasKey("primaryFireModeEnabled"))
             {
                 primaryFireModeEnabled = playerItem.stackTagCompound.getBoolean("primaryFireModeEnabled");
             }
-
-            if (playerItem.stackTagCompound.hasKey("isPrimaryEmpty"))
-            {
-                isPrimaryEmpty = playerItem.stackTagCompound.getBoolean("isPrimaryEmpty");
-            }
-
-            if (playerItem.stackTagCompound.hasKey("isSecondaryEmpty"))
-            {
-                isSecondaryEmpty = playerItem.stackTagCompound.getBoolean("isSecondaryEmpty");
-            }
         }
 
         // Called when we receive a packet from a client that is telling us to fire the weapon!
-        if (clientButtonPressed == 0)
+        if (clientButtonPressed == 0 && leftPressed)
         {
             // Decrease the amount of ammo depending on fire-mode.
             if (primaryFireModeEnabled)
@@ -557,25 +304,25 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                 {
                     // Play the sound of the pulse rifle are predictable rates.
                     boolean shouldFire = false;
-                    if (player.worldObj.getWorldTime() % 12F == 0L && pulseRifleFireTime >= 1)
+                    if (player.worldObj.getWorldTime() % 12F == 0L && clientFireTime >= 1)
                     {
                         player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
                         shouldFire = true;
                     }
-                    else if (pulseRifleFireTime <= 0)
+                    else if (clientFireTime <= 0)
                     {
                         player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
                         shouldFire = true;
                     }
 
                     // Increment the fire time on the weapon so we know how long it has been shooting.
-                    previousFireTime = pulseRifleFireTime;
-                    pulseRifleFireTime += 1;
+                    clientpreviousFireTime = clientFireTime;
+                    clientFireTime += 1;
 
                     // Prevents bullet-spam and the gun firing a bullet every single tick, a little slower...
                     if (shouldFire)
                     {
-                        if (pulseRifleFireTime <= previousFireTime)
+                        if (clientFireTime <= clientpreviousFireTime)
                         {
                             // MadScience.logger.info("SKIPPING BECAUSE FIRETIME WAS " + previousFireTime + " / " + pulseRifleFireTime);
                             // Nothing to see here...
@@ -592,212 +339,90 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
                 }
                 else
                 {
-                    if (!isPrimaryEmpty)
+                    if (!clientisPrimaryEmpty)
                     {
                         // Out of bullets.
                         player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
 
-                        isPrimaryEmpty = true;
-                        playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
+                        clientisPrimaryEmpty = true;
+                        playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", clientisPrimaryEmpty);
 
-                        pulseRifleFireTime = 0;
-                        previousFireTime = 0;
-                        playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-                        playerItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
+                        clientFireTime = 0;
+                        clientpreviousFireTime = 0;
+                        playerItem.stackTagCompound.setInteger("playerFireTime", clientFireTime);
+                        playerItem.stackTagCompound.setInteger("previousFireTime", clientpreviousFireTime);
                     }
                 }
             }
             else
             {
-                // Only allow grenades to fire during first tick.
-                if (pulseRifleFireTime <= 0)
+                // --------------
+                // SECONDARY FIRE
+                // --------------
+
+                // Increment the fire time on the weapon so we know how long it has been shooting.
+                if (secondaryAmmoCount > 0)
                 {
-                    // --------------
-                    // SECONDARY FIRE
-                    // --------------
-                    if (secondaryAmmoCount > 0)
+                    clientpreviousFireTime = clientFireTime;
+                    clientFireTime += 1;
+                }
+
+                // Check if we have been holding down left click long enough to fire a grenade.
+                if (secondaryAmmoCount > 0 && clientFireTime == 1 && clientpreviousFireTime <= 0 && !hasFiredGrenade)
+                {
+                    // We have fired a grenade!
+                    hasFiredGrenade = true;
+
+                    // Remove a grenade.
+                    secondaryAmmoCount--;
+
+                    // Play the grenade launcher sound as a single burst.
+                    player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_FIREGRENADE, 1.0F, 1.0F);
+
+                    // Spawn grenade in the game world.
+                    player.worldObj.spawnEntityInWorld(new PulseRifleGrenadeEntity(player.worldObj, player, 1.0F));
+
+                    // MadScience.logger.info("FIRING GRENADE");
+                }
+                else if (secondaryAmmoCount <= 0)
+                {
+                    // Out of grenades.
+                    if (!clientisSecondaryEmpty)
                     {
-                        // Remove a grenade.
-                        secondaryAmmoCount--;
-
-                        // Increment the fire time on the weapon so we know how long it has been shooting.
-                        previousFireTime = pulseRifleFireTime;
-                        pulseRifleFireTime += 1;
-
-                        // Play the grenade launcher sound as a single burst.
-                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_FIREGRENADE, 1.0F, 1.0F);
-
-                        // Spawn grenade in the game world.
-                        player.worldObj.spawnEntityInWorld(new PulseRifleGrenadeEntity(player.worldObj, player, 1.0F));
-                    }
-                    else
-                    {
-                        // Out of grenades.
-                        if (!isSecondaryEmpty)
-                        {
-                            player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
-                            isSecondaryEmpty = true;
-                            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
-                            pulseRifleFireTime = 0;
-                            previousFireTime = 0;
-                            playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-                            playerItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
-                        }
+                        // MadScience.logger.info("OUT OF GRENADES");
+                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
+                        clientisSecondaryEmpty = true;
+                        playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", clientisSecondaryEmpty);
+                        clientFireTime = 0;
+                        clientpreviousFireTime = 0;
+                        playerItem.stackTagCompound.setInteger("playerFireTime", clientFireTime);
+                        playerItem.stackTagCompound.setInteger("previousFireTime", clientpreviousFireTime);
                     }
                 }
             }
         }
-        else if (clientButtonPressed == 2 && pulseRifleFireTime <= 0)
+        else if (clientButtonPressed == 2 && clientFireTime <= 0 && isRightPressed)
         {
-            if (rightClickTime == 1)
+            if (clientrightClickTime == 1)
             {
                 if (clientshouldUnloadWeapon)
                 {
                     // Reload the weapon, or unload depending on status.
                     if (primaryAmmoCount > 0 && primaryFireModeEnabled)
                     {
-                        // ---------------
-                        // UNLOAD MAGAZINE
-                        // ---------------
-
-                        // Attempts to unload the current magazine from the weapon.
-                        primaryAmmoCount = Math.abs(100 - primaryAmmoCount);
-                        int ammodisplayAmmount = Math.abs(100 - primaryAmmoCount);
-                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount)))
-                        {
-                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount), true);
-                        }
-
-                        //player.addChatMessage("Unloaded magazine with " + String.valueOf(ammodisplayAmmount) + " round(s).");
-                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
-                        primaryAmmoCount = 0;
+                        primaryAmmoCount = unloadMagazine(player, primaryAmmoCount);
                     }
                     else if (primaryAmmoCount <= 0 && primaryFireModeEnabled)
                     {
-                        // ---------------
-                        // RELOAD MAGAZINE
-                        // ---------------
-
-                        // Loop through the players inventory and look for highest magazine.
-                        if (player.inventory.hasItem(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID))
-                        {
-                            List<PulseRifleMagazineComparatorItem> list = new ArrayList<PulseRifleMagazineComparatorItem>();
-                            for (int i = 0; i < player.inventory.getSizeInventory(); i++)
-                            {
-                                // Build up a list of all magazines that have rounds.
-                                ItemStack playerInventoryItem = player.inventory.getStackInSlot(i);
-                                if (playerInventoryItem != null)
-                                {
-                                    // Check if the item is a magazine and has rounds in it (is damaged).
-                                    if (playerInventoryItem.getItem() == MadWeapons.WEAPONITEM_MAGAZINEITEM && playerInventoryItem.isItemDamaged())
-                                    {
-                                        list.add(new PulseRifleMagazineComparatorItem(i, playerInventoryItem.getItemDamage()));
-                                        // MadScience.logger.info("[" + i + "]" + playerInventoryItem.getDisplayName() + "@" + playerInventoryItem.getItemDamage());
-                                    }
-                                }
-                            }
-
-                            // Sort our list of magazines by bullet count.
-                            //Collections.sort(list, Collections.reverseOrder(new PulseRifleMagazineComparator()));
-                            Collections.sort(list, new PulseRifleMagazineComparator());
-
-                            // Now we can be assured that the highest magazine bullet count will be index zero in this list.
-                            if (list != null && list.size() >= 1)
-                            {
-                                PulseRifleMagazineComparatorItem bestMagazine = list.get(0);
-                                if (bestMagazine != null)
-                                {
-                                    // Remove the item from the players inventory we are loading it into the weapon now.
-                                    player.inventory.decrStackSize(bestMagazine.slotNumber, 1);
-                                    
-                                    // Add the amount of bullets adjusted for weird MC item damage offset.
-                                    primaryAmmoCount += Math.abs(100 - bestMagazine.bulletCount);
-                                    
-                                    //player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
-                                    player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
-                                    playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
-                                }
-                            }
-                        }
+                        primaryAmmoCount = reloadMagazine(player, playerItem, primaryAmmoCount);
                     }
                     else if (secondaryAmmoCount > 0 && !primaryFireModeEnabled)
                     {
-                        // ---------------
-                        // UNLOAD GRENADES
-                        // ---------------
-
-                        // Removes all the grenades from the rifle as an itemstack, if not then drop them on the ground.
-                        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, secondaryAmmoCount, 0)))
-                        {
-                            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, secondaryAmmoCount, 0), true);
-                        }
-
-                        // player.addChatMessage("Removed " + String.valueOf(secondaryAmmoCount) + " grenade(s) with 0 remaining.");
-                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
-                        secondaryAmmoCount = 0;
+                        secondaryAmmoCount = unloadGrenades(player, secondaryAmmoCount);
                     }
                     else if (secondaryAmmoCount <= 0 && !primaryFireModeEnabled)
                     {
-                        // ---------------
-                        // RELOAD GRENADES
-                        // ---------------
-
-                        boolean foundGrenades = false;
-                        for (int i = 0; i < player.inventory.getSizeInventory(); i++)
-                        {
-                            // Build up a list of all grenades the player has.
-                            ItemStack playerInventoryItem = player.inventory.getStackInSlot(i);
-                            if (playerInventoryItem != null)
-                            {
-                                // Check if the item is a grenade and that is is not damaged (since that is impossible for grenades).
-                                if (playerInventoryItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM)) && !playerInventoryItem.isItemDamaged())
-                                {
-                                    // If the stack is larger than one then loop through them and take our fill, or just add the one.
-                                    if (playerInventoryItem.stackSize >= this.GRENADE_MAXIMUM)
-                                    {
-                                        for (int x = 0; x < playerInventoryItem.stackSize; x++)
-                                        {
-                                            // Ensure that we are below our maximum for grenades.
-                                            if (secondaryAmmoCount >= this.GRENADE_MAXIMUM)
-                                            {
-                                                break;
-                                            }
-                                            
-                                            // Consume items in the stack until we are full.    
-                                            ItemStack gotGrenades = player.inventory.decrStackSize(i, 4);
-                                            if (gotGrenades != null)
-                                            {
-                                                secondaryAmmoCount += gotGrenades.stackSize;
-                                                foundGrenades = true;
-                                            }
-                                        }
-                                    }
-                                    else 
-                                    {
-                                        // Ensure that we are below our maximum for grenades.
-                                        if (secondaryAmmoCount >= this.GRENADE_MAXIMUM)
-                                        {
-                                            break;
-                                        }
-                                        
-                                        // Adds a single grenade that was located in the players inventory and not stacked.
-                                        ItemStack gotGrenades = player.inventory.decrStackSize(i, playerInventoryItem.stackSize);
-                                        if (gotGrenades != null)
-                                        {
-                                            secondaryAmmoCount += gotGrenades.stackSize;
-                                            foundGrenades = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        // Only play the sound and set the data field once if we found some grenades to load into the gun.
-                        if (foundGrenades)
-                        {
-                            player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOADGRENADE, 1.0F, 1.0F);
-                            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", false);
-                        }
+                        secondaryAmmoCount = reloadGrenades(player, playerItem, secondaryAmmoCount);
                     }
                 }
                 else
@@ -810,48 +435,52 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
             }
 
             // Increase the right-click time to prevent it from slipping through multiple times.
-            rightClickTime++;
+            clientrightClickTime++;
         }
 
         // Save the data we just changed onto the item that will be synced with the client.
-        playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-        playerItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
-        playerItem.stackTagCompound.setInteger("rightClickTime", rightClickTime);
+        playerItem.stackTagCompound.setInteger("playerFireTime", clientFireTime);
+        playerItem.stackTagCompound.setInteger("previousFireTime", clientpreviousFireTime);
+        playerItem.stackTagCompound.setInteger("rightClickTime", clientrightClickTime);
         playerItem.stackTagCompound.setInteger("primaryAmmoCount", primaryAmmoCount);
         playerItem.stackTagCompound.setInteger("secondaryAmmoCount", secondaryAmmoCount);
         playerItem.stackTagCompound.setBoolean("primaryFireModeEnabled", primaryFireModeEnabled);
-        playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
-        playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
+        playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", clientisPrimaryEmpty);
+        playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", clientisSecondaryEmpty);
+        playerItem.stackTagCompound.setBoolean("isLeftPressed", isLeftPressed);
+        playerItem.stackTagCompound.setBoolean("isRightPressed", isRightPressed);
 
-        // Debug Information
-        // MadScience.logger.info("Ammo Count: " + primaryAmmoCount);
-        // MadScience.logger.info("Left Click Time: " + pulseRifleFireTime + "/" + previousFireTime);
-        // MadScience.logger.info("Right Click Time: " + rightClickTime);
+        // Special server-only variables we save to item.
+        playerItem.stackTagCompound.setBoolean("hasFiredGrenade", hasFiredGrenade);
+
+        // Debug Information For Server
+        // MadScience.logger.info("Server: Ammo Count: " + primaryAmmoCount);
+        // MadScience.logger.info("Server: Left Click Time: " + clientFireTime + "/" + clientpreviousFireTime);
+        // MadScience.logger.info("Server: Right Click Time: " + clientrightClickTime);
 
         // Send the same packet back to the client with updated information from the server about their status.
-        PacketDispatcher.sendPacketToPlayer(
-                new PulseRiflePackets(pulseRifleFireTime, previousFireTime, rightClickTime, clientButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, isPrimaryEmpty, isSecondaryEmpty, player.isSneaking()).makePacket(),
-                (Player) player);
+        PacketDispatcher.sendPacketToPlayer(new PulseRiflePackets(clientFireTime, clientpreviousFireTime, clientrightClickTime, clientButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, clientisPrimaryEmpty,
+                clientisSecondaryEmpty, player.isSneaking(), isLeftPressed, isRightPressed).makePacket(), (Player) player);
     }
 
+    @SideOnly(Side.CLIENT)
     public void onRecievePacketFromServer(int playerFireTime, int previousFireTime, int rightClickTime, int playerButtonPressed, int primaryAmmoCount, int secondaryAmmoCount, boolean primaryFireModeEnabled, boolean shouldUnloadWeapon,
-            boolean isPrimaryEmpty, boolean isSecondaryEmpty, EntityPlayer player)
+            boolean isPrimaryEmpty, boolean isSecondaryEmpty, boolean leftPressed, boolean rightPressed, EntityPlayer player)
     {
         // Got a packet from the server that is telling a client to play a client
-        EntityClientPlayerMP playerMP = Minecraft.getMinecraft().thePlayer;
-        if (playerMP == null)
+        if (player == null)
         {
             return;
         }
 
         // Ensure that we are on a client side only world.
-        if (!playerMP.worldObj.isRemote)
+        if (!player.worldObj.isRemote)
         {
             return;
         }
 
         // Hook the item the player is currently holding in his hand (if there is any).
-        ItemStack playerItem = playerMP.getHeldItem();
+        ItemStack playerItem = player.getHeldItem();
         if (playerItem == null)
         {
             return;
@@ -878,6 +507,11 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         playerItem.stackTagCompound.setBoolean("primaryFireModeEnabled", primaryFireModeEnabled);
         playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
+        playerItem.stackTagCompound.setBoolean("isLeftPressed", leftPressed);
+        playerItem.stackTagCompound.setBoolean("isRightPressed", rightPressed);
+
+        // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
+        // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
     }
 
     @Override
@@ -885,137 +519,123 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
     {
         super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
 
-        // Hook the item the player is currently holding in his hand (if there is any).
-        ItemStack playerItem = ((EntityPlayer) par3Entity).getHeldItem();
-        if (playerItem == null)
-        {
-            return;
-        }
-
         // Only do this for our pulse rifle.
-        if (!playerItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
+        if (!par1ItemStack.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
         {
             return;
         }
 
         // Create NBT data if required.
-        if (playerItem.stackTagCompound == null)
+        if (par1ItemStack.stackTagCompound == null)
         {
-            playerItem.stackTagCompound = new NBTTagCompound();
+            par1ItemStack.stackTagCompound = new NBTTagCompound();
+        }
+
+        // ------
+        // SERVER
+        // ------
+        if (par2World.isRemote)
+        {
+            return;
         }
 
         // Initialize variables we will use to communicate the status of the pulse rifle.
         int pulseRifleFireTime = 0;
         int previousFireTime = 0;
-        int rightClickTime = 0;
         int primaryAmmoCount = 0;
         int secondaryAmmoCount = 0;
         boolean primaryFireModeEnabled = true;
         boolean isPrimaryEmpty = true;
         boolean isSecondaryEmpty = true;
+        boolean isLeftPressed = false;
+        boolean isRightPressed = false;
+
+        // Special variable used only on the server to enable semi-automatic firing of grenades.
+        boolean hasFiredGrenade = false;
 
         // Grab NBT data from the item the player is holding.
-        if (!playerItem.stackTagCompound.hasNoTags())
+        if (!par1ItemStack.stackTagCompound.hasNoTags())
         {
-            if (playerItem.stackTagCompound.hasKey("playerFireTime"))
+            // Fire time.
+            if (par1ItemStack.stackTagCompound.hasKey("playerFireTime"))
             {
-                pulseRifleFireTime = playerItem.stackTagCompound.getInteger("playerFireTime");
+                pulseRifleFireTime = par1ItemStack.stackTagCompound.getInteger("playerFireTime");
             }
 
-            if (playerItem.stackTagCompound.hasKey("previousFireTime"))
+            if (par1ItemStack.stackTagCompound.hasKey("previousFireTime"))
             {
-                previousFireTime = playerItem.stackTagCompound.getInteger("previousFireTime");
+                previousFireTime = par1ItemStack.stackTagCompound.getInteger("previousFireTime");
             }
 
-            if (playerItem.stackTagCompound.hasKey("rightClickTime"))
+            // Semi-automatic grenade check
+            if (par1ItemStack.stackTagCompound.hasKey("hasFiredGrenade"))
             {
-                rightClickTime = playerItem.stackTagCompound.getInteger("rightClickTime");
+                hasFiredGrenade = par1ItemStack.stackTagCompound.getBoolean("hasFiredGrenade");
             }
 
-            if (playerItem.stackTagCompound.hasKey("primaryAmmoCount"))
+            // Ammo
+            if (par1ItemStack.stackTagCompound.hasKey("primaryAmmoCount"))
             {
-                primaryAmmoCount = playerItem.stackTagCompound.getInteger("primaryAmmoCount");
+                primaryAmmoCount = par1ItemStack.stackTagCompound.getInteger("primaryAmmoCount");
             }
 
-            if (playerItem.stackTagCompound.hasKey("secondaryAmmoCount"))
+            if (par1ItemStack.stackTagCompound.hasKey("secondaryAmmoCount"))
             {
-                secondaryAmmoCount = playerItem.stackTagCompound.getInteger("secondaryAmmoCount");
+                secondaryAmmoCount = par1ItemStack.stackTagCompound.getInteger("secondaryAmmoCount");
             }
 
-            if (playerItem.stackTagCompound.hasKey("primaryFireModeEnabled"))
+            // Firing mode
+            if (par1ItemStack.stackTagCompound.hasKey("primaryFireModeEnabled"))
             {
-                primaryFireModeEnabled = playerItem.stackTagCompound.getBoolean("primaryFireModeEnabled");
+                primaryFireModeEnabled = par1ItemStack.stackTagCompound.getBoolean("primaryFireModeEnabled");
             }
 
-            if (playerItem.stackTagCompound.hasKey("isPrimaryEmpty"))
+            if (par1ItemStack.stackTagCompound.hasKey("isPrimaryEmpty"))
             {
-                isPrimaryEmpty = playerItem.stackTagCompound.getBoolean("isPrimaryEmpty");
+                isPrimaryEmpty = par1ItemStack.stackTagCompound.getBoolean("isPrimaryEmpty");
             }
 
-            if (playerItem.stackTagCompound.hasKey("isSecondaryEmpty"))
+            if (par1ItemStack.stackTagCompound.hasKey("isSecondaryEmpty"))
             {
-                isSecondaryEmpty = playerItem.stackTagCompound.getBoolean("isSecondaryEmpty");
+                isSecondaryEmpty = par1ItemStack.stackTagCompound.getBoolean("isSecondaryEmpty");
+            }
+
+            // Mouse buttons
+            if (par1ItemStack.stackTagCompound.hasKey("isLeftPressed"))
+            {
+                isLeftPressed = par1ItemStack.stackTagCompound.getBoolean("isLeftPressed");
+            }
+
+            if (par1ItemStack.stackTagCompound.hasKey("isRightPressed"))
+            {
+                isRightPressed = par1ItemStack.stackTagCompound.getBoolean("isRightPressed");
             }
         }
 
-        // Always flatten right-click time when you let go of the key (for changing fire modes and reloading/unloading).
-        if (intRight != null && !intRight.isKeyDown() && rightClickTime > 0)
+        // Check if secondary ammo is empty or not.
+        if (isLeftPressed && !primaryFireModeEnabled && pulseRifleFireTime <= 1 && previousFireTime <= 0 && isSecondaryEmpty && secondaryAmmoCount > 0)
         {
-            rightClickTime = 0;
-            playerItem.stackTagCompound.setInteger("rightClickTime", rightClickTime);
-        }
-
-        // Reset the primary empty prompts.
-        if (pulseRifleFireTime <= 0 && primaryAmmoCount <= 0 && isPrimaryEmpty && intLeft != null && !intLeft.isKeyDown())
-        {
-            isPrimaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
-        }
-
-        // Reset the secondary empty prompts.
-        if (pulseRifleFireTime <= 0 && secondaryAmmoCount <= 0 && isSecondaryEmpty && intLeft != null && !intLeft.isKeyDown())
-        {
+            // MadScience.logger.info("Server: Fixed Secondary Empty Status");
             isSecondaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
+            par1ItemStack.stackTagCompound.setBoolean("isSecondaryEmpty", false);
         }
 
-        // Flatten left-click time when not holding the button down and there is something to decrease.
-        if (intLeft != null && !intLeft.isKeyDown() && pulseRifleFireTime > 0 && previousFireTime >= 0)
+        // Check if nothing is being pressed.
+        if (isLeftPressed && !primaryFireModeEnabled && pulseRifleFireTime <= 1 && previousFireTime <= 0 && !isSecondaryEmpty && secondaryAmmoCount > 0)
         {
-            pulseRifleFireTime = 0;
-            previousFireTime = 0;
-            playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-            playerItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
-
-            isPrimaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
-
-            isSecondaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
+            // MadScience.logger.info("Server: Dummy Disable Left Click");
+            isLeftPressed = false;
+            par1ItemStack.stackTagCompound.setBoolean("isSecondaryEmpty", false);
         }
 
-        // Flatten out the ammo if we are primary.
-        if (intLeft != null && intLeft.isKeyDown() && pulseRifleFireTime > 0 && previousFireTime >= 0 && primaryAmmoCount <= 0 && primaryFireModeEnabled)
+        // Check if we need to disable the has fired grenade flag which is server-only.
+        if (hasFiredGrenade && !isLeftPressed && !isRightPressed && !primaryFireModeEnabled && pulseRifleFireTime >= 0)
         {
-            // MadScience.logger.info("PRIMARY CLEAR");
-            isPrimaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
-            pulseRifleFireTime = 0;
-            previousFireTime = 0;
-            playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-            playerItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
-        }
-
-        // Flatten out the ammo if we are secondary.
-        if (intLeft != null && intLeft.isKeyDown() && pulseRifleFireTime > 0 && previousFireTime >= 0 && secondaryAmmoCount <= 0 && !primaryFireModeEnabled)
-        {
-            // MadScience.logger.info("SECONDARY CLEAR");
-            isSecondaryEmpty = false;
-            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
-            pulseRifleFireTime = 0;
-            previousFireTime = 0;
-            playerItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-            playerItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
+            // MadScience.logger.info("Server: Reset Fired Grenade Status");
+            // BUG: This will activate if a GUI or player inventory is accessed, no apparent workaround.
+            hasFiredGrenade = false;
+            par1ItemStack.stackTagCompound.setBoolean("hasFiredGrenade", false);
+            par2World.playSoundAtEntity(par3Entity, MadSounds.PULSERIFLE_CHAMBERGRENADE, 1.0F, 1.0F);
         }
     }
 
@@ -1027,441 +647,120 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + (this.getUnlocalizedName().substring(5)));
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+    public int reloadGrenades(EntityPlayer player, ItemStack playerItem, int secondaryAmmoCount)
     {
-        // Grab client side instance of the player.
-        EntityClientPlayerMP playerMP = Minecraft.getMinecraft().thePlayer;
-        if (playerMP == null)
-        {
-            return;
-        }
+        // ---------------
+        // RELOAD GRENADES
+        // ---------------
 
-        // Ensure that we are on a client side only world.
-        if (!playerMP.worldObj.isRemote)
+        boolean foundGrenades = false;
+        for (int i = 0; i < player.inventory.getSizeInventory(); i++)
         {
-            return;
-        }
-
-        // Initialize variables we will use to communicate the status of the pulse rifle.
-        int renderPass = 0;
-        int pulseRifleFireTime = 0;
-        int primaryAmmoCount = 0;
-        int secondaryAmmoCount = 0;
-        boolean primaryFireModeEnabled = true;
-
-        // Create NBT data if required.
-        if (item.stackTagCompound == null)
-        {
-            item.stackTagCompound = new NBTTagCompound();
-        }
-
-        // Grab NBT data from the item the player is holding.
-        if (!item.stackTagCompound.hasNoTags())
-        {
-            if (item.stackTagCompound.hasKey("renderPass"))
+            // Build up a list of all grenades the player has.
+            ItemStack playerInventoryItem = player.inventory.getStackInSlot(i);
+            if (playerInventoryItem != null)
             {
-                renderPass = item.stackTagCompound.getInteger("renderPass");
-            }
-
-            if (item.stackTagCompound.hasKey("playerFireTime"))
-            {
-                pulseRifleFireTime = item.stackTagCompound.getInteger("playerFireTime");
-            }
-
-            if (item.stackTagCompound.hasKey("primaryAmmoCount"))
-            {
-                primaryAmmoCount = item.stackTagCompound.getInteger("primaryAmmoCount");
-            }
-
-            if (item.stackTagCompound.hasKey("secondaryAmmoCount"))
-            {
-                secondaryAmmoCount = item.stackTagCompound.getInteger("secondaryAmmoCount");
-            }
-
-            if (item.stackTagCompound.hasKey("primaryFireModeEnabled"))
-            {
-                primaryFireModeEnabled = item.stackTagCompound.getBoolean("primaryFireModeEnabled");
-            }
-        }
-
-        // Prepare OpenGL for a transformation.
-        GL11.glPushMatrix();
-
-        // Split the ammo count up based on firing mode and by digits.
-        List<Integer> splitAmmoCount = null;
-        if (primaryFireModeEnabled)
-        {
-            // Bullets.
-            splitAmmoCount = MadUtils.splitIntegerPerDigit(primaryAmmoCount);
-        }
-        else
-        {
-            // Grenades.
-            splitAmmoCount = MadUtils.splitIntegerPerDigit(secondaryAmmoCount);
-        }
-
-        // If the ammo count is still somehow null even after all this we will make it zero.
-        if (splitAmmoCount == null)
-        {
-            splitAmmoCount = new ArrayList<Integer>();
-            splitAmmoCount.add(0);
-            splitAmmoCount.add(0);
-        }
-
-        // If the ammo count is zero then add two of them!
-        if (splitAmmoCount.size() == 0)
-        {
-            splitAmmoCount.add(0);
-            splitAmmoCount.add(0);
-        }
-
-        // Decide what muzzle flash we are going to use this tick.
-        int muzzleFlashRandomizer = playerMP.worldObj.rand.nextInt(5);
-
-        // Change numbers on pulse rifle to match current firing mode ammo count.
-        switch (renderPass)
-        {
-        case 0:
-        {
-            // Base Weapon Texture.
-            Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_RIFLE);
-        }
-            break;
-        case 1:
-        {
-            // Weapon Counter Digit 1.
-            if (splitAmmoCount.size() == 1)
-            {
-                // If ammo count is a single digit then add a leading zero.
-                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_COUNTER_ZERO);
-            }
-            else
-            {
-                // Otherwise, show the other digit.
-                Minecraft.getMinecraft().renderEngine.bindTexture(this.convertIntegerToCounterTexture(splitAmmoCount.get(1)));
-            }
-
-        }
-            break;
-        case 2:
-        {
-            // Weapon Counter Digit 2.
-            Minecraft.getMinecraft().renderEngine.bindTexture(this.convertIntegerToCounterTexture(splitAmmoCount.get(0)));
-        }
-            break;
-        case 3:
-        {
-            // Muzzle flash texture.
-            switch (muzzleFlashRandomizer)
-            {
-            case 0:
-            {
-                // First muzzle flash is default one which is apart of weapon texture map.
-                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_RIFLE);
-            }
-                break;
-            case 1:
-            {
-                // Muzzle flash one and two share the same texture map.
-                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH12);
-            }
-                break;
-            case 2:
-            {
-                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH12);
-            }
-                break;
-            case 3:
-            {
-                // Muzzle flash three and four share the same texture map.
-                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH34);
-            }
-                break;
-            case 4:
-            {
-                Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_FLASH34);
-            }
-                break;
-            }
-        }
-            break;
-        }
-
-        // Adjust rendering space to match what caller expects.
-        TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
-        switch (type)
-        {
-        case EQUIPPED:
-        {
-            float scale = 0.20F;
-            GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(3.0F, -1.0F, 2.0F);
-            GL11.glRotatef(-60.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(42.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glRotatef(22.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
-            break;
-        }
-        case EQUIPPED_FIRST_PERSON:
-        {
-            float scale = 0.15F;
-
-            // Change position and rotation based on firing status.
-            GL11.glScalef(scale, scale, scale);
-            if (playerMP.isUsingItem() && playerMP.getItemInUse().itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
-            {
-                GL11.glTranslatef(5.5F, 5.0F, 4.5F);
-                GL11.glRotatef(155.0F, 0.0F, 1.0F, 0.0F);
-                GL11.glRotatef(25.0F, 1.0F, 0.0F, 0.0F);
-                GL11.glRotatef(13.0F, 0.0F, 0.0F, 1.0F);
-            }
-            else
-            {
-                GL11.glTranslatef(8.5F, 8.0F, 5.5F);
-                GL11.glRotatef(142.0F, 0.0F, 1.0F, 0.0F);
-            }
-            break;
-        }
-        case INVENTORY:
-        {
-            float scale = 0.15F;
-            GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(1.5F, 1.0F, 0.0F);
-            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
-            GL11.glRotatef(45.0F, 0.5F, 0.0F, 0.0F);
-            transformationToBeUndone = TransformationTypes.INVENTORY;
-            break;
-        }
-        case ENTITY:
-        {
-            float scale = 0.15F;
-            GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-            transformationToBeUndone = TransformationTypes.DROPPED;
-            break;
-        }
-        default:
-            break; // never here
-        }
-
-        switch (renderPass)
-        {
-        case 0:
-        {
-            // Move the bolt and show muzzle flash on the rifle when firing.
-            if (pulseRifleFireTime > 1 && primaryFireModeEnabled)
-            {
-                // BULLETS
-                if (playerMP.worldObj.getWorldTime() % 2F == 0L)
+                // Check if the item is a grenade and that is is not damaged (since that is impossible for grenades).
+                if (playerInventoryItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM)) && !playerInventoryItem.isItemDamaged())
                 {
-                    this.showMovingParts(muzzleFlashRandomizer);
-                }
-                else
-                {
-                    this.hideMovingParts(muzzleFlashRandomizer);
+                    // If the stack is larger than one then loop through them and take our fill, or just add the one.
+                    if (playerInventoryItem.stackSize >= PulseRifleItem.GRENADE_MAXIMUM)
+                    {
+                        for (int x = 0; x < playerInventoryItem.stackSize; x++)
+                        {
+                            // Ensure that we are below our maximum for grenades.
+                            if (secondaryAmmoCount >= PulseRifleItem.GRENADE_MAXIMUM)
+                            {
+                                break;
+                            }
+
+                            // Consume items in the stack until we are full.
+                            ItemStack gotGrenades = player.inventory.decrStackSize(i, 4);
+                            if (gotGrenades != null)
+                            {
+                                secondaryAmmoCount += gotGrenades.stackSize;
+                                foundGrenades = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Ensure that we are below our maximum for grenades.
+                        if (secondaryAmmoCount >= PulseRifleItem.GRENADE_MAXIMUM)
+                        {
+                            break;
+                        }
+
+                        // Adds a single grenade that was located in the players inventory and not stacked.
+                        ItemStack gotGrenades = player.inventory.decrStackSize(i, playerInventoryItem.stackSize);
+                        if (gotGrenades != null)
+                        {
+                            secondaryAmmoCount += gotGrenades.stackSize;
+                            foundGrenades = true;
+                        }
+                    }
                 }
             }
-            else if (pulseRifleFireTime > 0 && !primaryFireModeEnabled)
-            {
-                // GRENADES
-                MODEL_RIFLE.parts.get("PumpFront").showModel = false;
-                MODEL_RIFLE.parts.get("PumpBack").showModel = false;
-                MODEL_RIFLE.parts.get("PumpFrontBack").showModel = true;
-                MODEL_RIFLE.parts.get("PumpBackBack").showModel = true;
-            }
-            else
-            {
-                // Weapon in normal firing position.
-                this.hideMovingParts(muzzleFlashRandomizer);
-            }
-
-            // Renders the base pulse rifle in the gameworld at the correct scale.
-            MODEL_RIFLE.renderAll();
-        }
-            break;
-        case 1:
-        {
-            // Weapon Counter Digit 1.
-            MODEL_COUNTER_LEFT.renderAll();
-        }
-            break;
-        case 2:
-        {
-            // Weapon Counter Digit 2.
-            MODEL_COUNTER_RIGHT.renderAll();
-        }
-            break;
-        case 3:
-        {
-            // Muzzle Flash
-            switch (muzzleFlashRandomizer)
-            {
-            case 0:
-            {
-                MODEL_FLASH0.renderAll();
-            }
-                break;
-            case 1:
-            {
-                MODEL_FLASH1.renderAll();
-            }
-                break;
-            case 2:
-            {
-                MODEL_FLASH2.renderAll();
-            }
-                break;
-            case 3:
-            {
-                MODEL_FLASH3.renderAll();
-            }
-                break;
-            case 4:
-            {
-                MODEL_FLASH4.renderAll();
-            }
-                break;
-            }
-        }
-            break;
         }
 
-        // Pop OpenGL matrix with our latest transformation (bring on the final form jokes!).
-        GL11.glPopMatrix();
-
-        switch (transformationToBeUndone)
+        // Only play the sound and set the data field once if we found some grenades to load into the gun.
+        if (foundGrenades)
         {
-        case NONE:
-        {
-            break;
+            player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOADGRENADE, 1.0F, 1.0F);
+            playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", false);
+            playerItem.stackTagCompound.setBoolean("hasFiredGrenade", false);
         }
-        case DROPPED:
-        {
-            GL11.glTranslatef(0.0F, -0.5F, 0.0F);
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            break;
-        }
-        case INVENTORY:
-        {
-            GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-            break;
-        }
-        case THIRDPERSONEQUIPPED:
-        {
-            GL11.glDisable(GL11.GL_CULL_FACE);
-        }
-        default:
-            break;
-        }
+        return secondaryAmmoCount;
     }
 
-    public void showMovingParts(int randomizer)
+    public int reloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount)
     {
-        // Show 'moving' parts of the rifle during firing.
-        MODEL_RIFLE.parts.get("Bolt").showModel = false;
-        MODEL_RIFLE.parts.get("BoltBack").showModel = true;
+        // ---------------
+        // RELOAD MAGAZINE
+        // ---------------
 
-        // Show the muzzle flash.
-        switch (randomizer)
+        // Loop through the players inventory and look for highest magazine.
+        if (player.inventory.hasItem(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID))
         {
-        case 0:
-        {
-            MODEL_FLASH0.parts.get("Flash0").showModel = true;
-            MODEL_FLASH0.parts.get("Flash1").showModel = true;
-            MODEL_FLASH0.parts.get("Flash2").showModel = true;
-            MODEL_FLASH0.parts.get("Flash3").showModel = true;
-            MODEL_FLASH0.parts.get("Flash4").showModel = true;
-        }
-            break;
-        case 1:
-        {
-            MODEL_FLASH1.parts.get("Flash0").showModel = true;
-            MODEL_FLASH1.parts.get("Flash1").showModel = true;
-            MODEL_FLASH1.parts.get("Flash2").showModel = true;
-        }
-            break;
-        case 2:
-        {
-            MODEL_FLASH2.parts.get("Flash0").showModel = true;
-            MODEL_FLASH2.parts.get("Flash1").showModel = true;
-            MODEL_FLASH2.parts.get("Flash2").showModel = true;
-        }
-            break;
-        case 3:
-        {
-            MODEL_FLASH3.parts.get("Flash0").showModel = true;
-            MODEL_FLASH3.parts.get("Flash1").showModel = true;
-            MODEL_FLASH3.parts.get("Flash2").showModel = true;
-        }
-            break;
-        case 4:
-        {
-            MODEL_FLASH4.parts.get("Flash0").showModel = true;
-            MODEL_FLASH4.parts.get("Flash1").showModel = true;
-            MODEL_FLASH4.parts.get("Flash2").showModel = true;
-        }
-            break;
-        }
-    }
+            List<PulseRifleMagazineComparatorItem> list = new ArrayList<PulseRifleMagazineComparatorItem>();
+            for (int i = 0; i < player.inventory.getSizeInventory(); i++)
+            {
+                // Build up a list of all magazines that have rounds.
+                ItemStack playerInventoryItem = player.inventory.getStackInSlot(i);
+                if (playerInventoryItem != null)
+                {
+                    // Check if the item is a magazine and has rounds in it (is damaged).
+                    if (playerInventoryItem.getItem() == MadWeapons.WEAPONITEM_MAGAZINEITEM && playerInventoryItem.isItemDamaged())
+                    {
+                        list.add(new PulseRifleMagazineComparatorItem(i, playerInventoryItem.getItemDamage()));
+                        // MadScience.logger.info("[" + i + "]" + playerInventoryItem.getDisplayName() + "@" + playerInventoryItem.getItemDamage());
+                    }
+                }
+            }
 
-    public void hideMovingParts(int randomizer)
-    {
-        // Hide 'moving' parts of the pulse rifle by default.
-        MODEL_RIFLE.parts.get("Bolt").showModel = true;
-        MODEL_RIFLE.parts.get("BoltBack").showModel = false;
+            // Sort our list of magazines by bullet count.
+            // Collections.sort(list, Collections.reverseOrder(new PulseRifleMagazineComparator()));
+            Collections.sort(list, new PulseRifleMagazineComparator());
 
-        switch (randomizer)
-        {
-        case 0:
-        {
-            // Hide the muzzle flash.
-            MODEL_FLASH0.parts.get("Flash0").showModel = false;
-            MODEL_FLASH0.parts.get("Flash1").showModel = false;
-            MODEL_FLASH0.parts.get("Flash2").showModel = false;
-            MODEL_FLASH0.parts.get("Flash3").showModel = false;
-            MODEL_FLASH0.parts.get("Flash4").showModel = false;
-        }
-            break;
-        case 1:
-        {
-            MODEL_FLASH1.parts.get("Flash0").showModel = false;
-            MODEL_FLASH1.parts.get("Flash1").showModel = false;
-            MODEL_FLASH1.parts.get("Flash2").showModel = false;
-        }
-            break;
-        case 2:
-        {
-            MODEL_FLASH2.parts.get("Flash0").showModel = false;
-            MODEL_FLASH2.parts.get("Flash1").showModel = false;
-            MODEL_FLASH2.parts.get("Flash2").showModel = false;
-        }
-            break;
-        case 3:
-        {
-            MODEL_FLASH3.parts.get("Flash0").showModel = false;
-            MODEL_FLASH3.parts.get("Flash1").showModel = false;
-            MODEL_FLASH3.parts.get("Flash2").showModel = false;
-        }
-            break;
-        case 4:
-        {
-            MODEL_FLASH4.parts.get("Flash0").showModel = false;
-            MODEL_FLASH4.parts.get("Flash1").showModel = false;
-            MODEL_FLASH4.parts.get("Flash2").showModel = false;
-        }
-            break;
-        }
+            // Now we can be assured that the highest magazine bullet count will be index zero in this list.
+            if (list != null && list.size() >= 1)
+            {
+                PulseRifleMagazineComparatorItem bestMagazine = list.get(0);
+                if (bestMagazine != null)
+                {
+                    // Remove the item from the players inventory we are loading it into the weapon now.
+                    player.inventory.decrStackSize(bestMagazine.slotNumber, 1);
 
-        // Hide the pump.
-        MODEL_RIFLE.parts.get("PumpFrontBack").showModel = false;
-        MODEL_RIFLE.parts.get("PumpBackBack").showModel = false;
-        MODEL_RIFLE.parts.get("PumpFront").showModel = true;
-        MODEL_RIFLE.parts.get("PumpBack").showModel = true;
+                    // Add the amount of bullets adjusted for weird MC item damage offset.
+                    primaryAmmoCount += Math.abs(100 - bestMagazine.bulletCount);
+
+                    // player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
+                    player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
+                    playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
+                }
+            }
+        }
+        return primaryAmmoCount;
     }
 
     @Override
@@ -1479,248 +778,41 @@ public class PulseRifleItem extends ItemBow implements ITickHandler, IItemRender
         return true;
     }
 
-    @Override
-    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
+    public int unloadGrenades(EntityPlayer player, int secondaryAmmoCount)
     {
-        switch (type)
+        // ---------------
+        // UNLOAD GRENADES
+        // ---------------
+
+        // Removes all the grenades from the rifle as an itemstack, if not then drop them on the ground.
+        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, secondaryAmmoCount, 0)))
         {
-        case ENTITY:
-        {
-            return (helper == ItemRendererHelper.ENTITY_BOBBING || helper == ItemRendererHelper.ENTITY_ROTATION || helper == ItemRendererHelper.BLOCK_3D);
+            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, secondaryAmmoCount, 0), true);
         }
-        case EQUIPPED:
-        {
-            return (helper == ItemRendererHelper.BLOCK_3D || helper == ItemRendererHelper.EQUIPPED_BLOCK);
-        }
-        case EQUIPPED_FIRST_PERSON:
-        {
-            return (helper == ItemRendererHelper.EQUIPPED_BLOCK);
-        }
-        case INVENTORY:
-        {
-            return (helper == ItemRendererHelper.INVENTORY_BLOCK);
-        }
-        default:
-        {
-            return false;
-        }
-        }
+
+        // player.addChatMessage("Removed " + String.valueOf(secondaryAmmoCount) + " grenade(s) with 0 remaining.");
+        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
+        secondaryAmmoCount = 0;
+        return secondaryAmmoCount;
     }
 
-    @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData)
+    public int unloadMagazine(EntityPlayer player, int primaryAmmoCount)
     {
-        // Nothing to see here.
-    }
+        // ---------------
+        // UNLOAD MAGAZINE
+        // ---------------
 
-    @Override
-    public EnumSet<TickType> ticks()
-    {
-        // Client side only operation for tick operation, custom packets sent to server.
-        return EnumSet.of(TickType.RENDER, TickType.CLIENT);
-    }
-
-    @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData)
-    {
-        // Check if there is a world.
-        World world = Minecraft.getMinecraft().theWorld;
-        if (world == null)
+        // Attempts to unload the current magazine from the weapon.
+        primaryAmmoCount = Math.abs(100 - primaryAmmoCount);
+        int ammodisplayAmmount = Math.abs(100 - primaryAmmoCount);
+        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount)))
         {
-            this.disableKeyIntercepter();
-            return;
+            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount), true);
         }
 
-        // Check if there is a player to control.
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-        if (player == null)
-        {
-            this.disableKeyIntercepter();
-            return;
-        }
-
-        // Check if the player is holding an item at all.
-        ItemStack playerHeldItem = player.getHeldItem();
-        if (playerHeldItem == null)
-        {
-            this.disableKeyIntercepter();
-            return;
-        }
-
-        // Check if game settings object is null. Should never be the case!
-        if (gs == null)
-        {
-            this.disableKeyIntercepter();
-            return;
-        }
-
-        // Holy shit, we're holding something, is it what we care about?
-        if (playerHeldItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
-        {
-            // Only intercept keys from client if they are holding the pulse rifle.
-            boolean pleft = false;
-            boolean pright = false;
-
-            // Setup key intercepter so we can have full control over left and right click events.
-            if (intLeft == null)
-            {
-                intLeft = new KeyBindingInterceptor(gs.keyBindAttack);
-                gs.keyBindAttack = intLeft;
-                intLeft.setInterceptionActive(true);
-            }
-
-            if (intRight == null)
-            {
-                intRight = new KeyBindingInterceptor(gs.keyBindUseItem);
-                gs.keyBindUseItem = intRight;
-                intRight.setInterceptionActive(true);
-            }
-
-            // Create NBT data if required.
-            if (playerHeldItem.stackTagCompound == null)
-            {
-                playerHeldItem.stackTagCompound = new NBTTagCompound();
-            }
-
-            int pulseRifleFireTime = 0;
-            int previousFireTime = 0;
-            int primaryAmmoCount = 0;
-            int secondaryAmmoCount = 0;
-            boolean primaryFireModeEnabled = true;
-            boolean isPrimaryEmpty = true;
-
-            // Grab NBT data from the item the player is holding.
-            if (!playerHeldItem.stackTagCompound.hasNoTags())
-            {
-                if (playerHeldItem.stackTagCompound.hasKey("playerFireTime"))
-                {
-                    pulseRifleFireTime = playerHeldItem.stackTagCompound.getInteger("playerFireTime");
-                }
-
-                if (playerHeldItem.stackTagCompound.hasKey("previousFireTime"))
-                {
-                    previousFireTime = playerHeldItem.stackTagCompound.getInteger("previousFireTime");
-                }
-
-                if (playerHeldItem.stackTagCompound.hasKey("primaryAmmoCount"))
-                {
-                    primaryAmmoCount = playerHeldItem.stackTagCompound.getInteger("primaryAmmoCount");
-                }
-
-                if (playerHeldItem.stackTagCompound.hasKey("secondaryAmmoCount"))
-                {
-                    secondaryAmmoCount = playerHeldItem.stackTagCompound.getInteger("secondaryAmmoCount");
-                }
-
-                if (playerHeldItem.stackTagCompound.hasKey("primaryFireModeEnabled"))
-                {
-                    primaryFireModeEnabled = playerHeldItem.stackTagCompound.getBoolean("primaryFireModeEnabled");
-                }
-
-                if (playerHeldItem.stackTagCompound.hasKey("isPrimaryEmpty"))
-                {
-                    isPrimaryEmpty = playerHeldItem.stackTagCompound.getBoolean("isPrimaryEmpty");
-                }
-            }
-
-            // Change the FOV of our screen when shooting the pulse rifle.
-            if (type.equals(EnumSet.of(TickType.RENDER)))
-            {
-                // Only run the right-click functionality if internal NBT firetime is greater than zero.
-                if (pulseRifleFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
-                {
-                    MadScience.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
-                    playerHeldItem.useItemRightClick(player.worldObj, player);
-                    player.setItemInUse(playerHeldItem, pulseRifleFireTime);
-                }
-                else
-                {
-                    MadScience.proxy.resetSavedFOV();
-                }
-            }
-
-            // LEFT CLICK
-            if (intLeft.isKeyDown())
-            {
-                if (!pleft)
-                {
-                    pleft = true;
-                }
-
-                if (pleft)
-                {
-                    intLeft.retrieveClick();
-                }
-            }
-            else
-            {
-                pleft = false;
-
-                // Sets the fire time back to zero, this is purely client-side operation.
-                playerHeldItem.stackTagCompound.setInteger("playerFireTime", 0);
-                playerHeldItem.stackTagCompound.setInteger("previousFireTime", 0);
-
-                // Sets the is empty status to false so it can be triggered again.
-                playerHeldItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
-                playerHeldItem.stackTagCompound.setBoolean("isSecondaryEmpty", false);
-
-                // Return the field of view to normal.
-                MadScience.proxy.resetSavedFOV();
-            }
-
-            // RIGHT CLICK
-            if (intRight.isKeyDown())
-            {
-                if (!pright)
-                {
-                    pright = true;
-                }
-
-                if (pright)
-                {
-                    intRight.retrieveClick();
-                }
-            }
-            else
-            {
-                pright = false;
-                playerHeldItem.stackTagCompound.setInteger("rightClickTime", 0);
-            }
-
-            // Check if the weapon should still be firing at the end of this tick before next one.
-            if (intLeft.isKeyDown() && pleft && intLeft.pressed)
-            {
-                if (doClick(0))
-                {
-                    // MadScience.logger.info("LEFT");
-
-                    intLeft.pressed = true;
-                    intLeft.pressTime++;
-
-                    if (pulseRifleFireTime > 0)
-                    {
-                        intRight.pressed = true;
-                        intRight.pressTime++;
-                    }
-                    return;
-                }
-            }
-
-            // Ensure that right-click will always fire one time by increasing it's firetime manually.
-            if (intRight.isKeyDown() && pright && intRight.pressed && intRight.pressTime == 0)
-            {
-                if (doClick(2))
-                {
-                    // MadScience.logger.info("RIGHT");
-                    intRight.pressed = true;
-                    intRight.pressTime++;
-                    return;
-                }
-            }
-        }
-        else
-        {
-            this.disableKeyIntercepter();
-        }
+        // player.addChatMessage("Unloaded magazine with " + String.valueOf(ammodisplayAmmount) + " round(s).");
+        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
+        primaryAmmoCount = 0;
+        return primaryAmmoCount;
     }
 }

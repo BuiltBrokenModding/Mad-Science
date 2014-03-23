@@ -1,6 +1,5 @@
 package madscience.items.weapons.pulserifle;
 
-import madscience.MadScience;
 import madscience.MadWeapons;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,12 +14,14 @@ public class PulseRiflePackets extends MadPackets
 {
     private boolean isPrimaryEmpty;
     private boolean isSecondaryEmpty;
+    private boolean leftMouseDown;
     private int playerButtonPressed;
     private int playerFireTime;
-    private int previousFireTime;
     private int playerRightClickTime;
+    private int previousFireTime;
     private int primaryAmmoCount;
     private boolean primaryFireModeEnabled;
+    private boolean rightMouseDown;
     private int secondaryAmmoCount;
     private boolean shouldUnloadWeapon;
 
@@ -29,7 +30,8 @@ public class PulseRiflePackets extends MadPackets
         // Required for reflection.
     }
 
-    public PulseRiflePackets(int fireTime, int lastFireTime, int rightClickTime, int buttonPressed, int primaryAmmo, int secondaryAmmo, boolean primaryFire, boolean primaryEmpty, boolean secondaryEmpty, boolean shouldUnload)
+    public PulseRiflePackets(int fireTime, int lastFireTime, int rightClickTime, int buttonPressed, int primaryAmmo, int secondaryAmmo, boolean primaryFire, boolean primaryEmpty, boolean secondaryEmpty, boolean shouldUnload, boolean isLeftMouseDown,
+            boolean isRightMouseDown)
     {
         playerFireTime = fireTime;
         previousFireTime = lastFireTime;
@@ -41,6 +43,8 @@ public class PulseRiflePackets extends MadPackets
         shouldUnloadWeapon = shouldUnload;
         isPrimaryEmpty = primaryEmpty;
         isSecondaryEmpty = secondaryEmpty;
+        leftMouseDown = isLeftMouseDown;
+        rightMouseDown = isRightMouseDown;
     }
 
     @Override
@@ -53,6 +57,12 @@ public class PulseRiflePackets extends MadPackets
             // SERVER
             // ------
 
+            // Server side only please.
+            if (player.worldObj.isRemote)
+            {
+                return;
+            }
+
             // Check if the player is holding an item at all.
             ItemStack playerHeldItem = player.getHeldItem();
             if (playerHeldItem == null)
@@ -64,8 +74,8 @@ public class PulseRiflePackets extends MadPackets
             if (playerHeldItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
             {
                 // Tell the gun that we want it to fire a bullet using the information we gathered from the client.
-                ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromClient(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed,
-                        primaryFireModeEnabled, shouldUnloadWeapon, isPrimaryEmpty, isSecondaryEmpty, player);
+                ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromClient(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed, primaryFireModeEnabled, shouldUnloadWeapon, isPrimaryEmpty, isSecondaryEmpty, leftMouseDown,
+                        rightMouseDown, player);
             }
             return;
         }
@@ -75,6 +85,12 @@ public class PulseRiflePackets extends MadPackets
             // CLIENT
             // ------
 
+            // Server side only please.
+            if (!player.worldObj.isRemote)
+            {
+                return;
+            }
+
             // Check if the player is holding an item at all.
             ItemStack playerHeldItem = player.getHeldItem();
             if (playerHeldItem == null)
@@ -86,9 +102,9 @@ public class PulseRiflePackets extends MadPackets
             if (playerHeldItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
             {
                 // Tell the gun that we want it to fire a bullet using the information we gathered from the client.
-                //MadScience.logger.info("Primary Ammo: " + primaryAmmoCount);
-                ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromServer(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed,
-                        primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, shouldUnloadWeapon, isPrimaryEmpty, isSecondaryEmpty, player);
+                // MadScience.logger.info("Primary Ammo: " + primaryAmmoCount);
+                ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromServer(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, shouldUnloadWeapon,
+                        isPrimaryEmpty, isSecondaryEmpty, leftMouseDown, rightMouseDown, player);
                 return;
             }
         }
@@ -111,6 +127,8 @@ public class PulseRiflePackets extends MadPackets
         shouldUnloadWeapon = in.readBoolean();
         isPrimaryEmpty = in.readBoolean();
         isSecondaryEmpty = in.readBoolean();
+        leftMouseDown = in.readBoolean();
+        rightMouseDown = in.readBoolean();
     }
 
     @Override
@@ -126,5 +144,7 @@ public class PulseRiflePackets extends MadPackets
         out.writeBoolean(shouldUnloadWeapon);
         out.writeBoolean(isPrimaryEmpty);
         out.writeBoolean(isSecondaryEmpty);
+        out.writeBoolean(leftMouseDown);
+        out.writeBoolean(rightMouseDown);
     }
 }

@@ -1,14 +1,18 @@
 package madscience.items.weapons;
 
+import net.minecraft.client.settings.KeyBinding;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadScience;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 
 @SideOnly(Side.CLIENT)
 public class KeyBindingInterceptor extends KeyBinding
 {
+    protected KeyBinding interceptedKeyBinding;
+
+    private int interceptedPressTime;
+
+    private boolean interceptionActive;
+
     /** Create an Interceptor based on an existing binding. The initial interception mode is OFF. If existingKeyBinding is already a KeyBindingInterceptor, a reinitialised copy will be created but no further effect.
      * 
      * @param existingKeyBinding - the binding that will be intercepted. */
@@ -35,43 +39,37 @@ public class KeyBindingInterceptor extends KeyBinding
         KeyBinding.resetKeyBindingArrayAndHash();
     }
 
-    public void setInterceptionActive(boolean newMode)
+    @SideOnly(Side.CLIENT)
+    protected void copyClickInfoFromOriginal()
     {
-        if (newMode && !interceptionActive)
-        {
-            this.interceptedPressTime = 0;
-        }
-        interceptionActive = newMode;
+        // MadScience.logger.info("PRESS TIME: " + String.valueOf(this.pressTime));
+        this.pressTime += interceptedKeyBinding.pressTime;
+        this.interceptedPressTime += interceptedKeyBinding.pressTime;
+        interceptedKeyBinding.pressTime = 0;
+        this.pressed = interceptedKeyBinding.pressed;
     }
 
+    @SideOnly(Side.CLIENT)
+    protected void copyKeyCodeToOriginal()
+    {
+        // only copy if necessary
+        if (this.keyCode != interceptedKeyBinding.keyCode)
+        {
+            this.keyCode = interceptedKeyBinding.keyCode;
+            resetKeyBindingArrayAndHash();
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public KeyBinding getOriginalKeyBinding()
+    {
+        return interceptedKeyBinding;
+    }
+    @SideOnly(Side.CLIENT)
     public boolean isKeyDown()
     {
         copyKeyCodeToOriginal();
         return interceptedKeyBinding.pressed;
-    }
-
-    /** @return returns false if interception isn't active. Otherwise, retrieves one of the clicks (true) or false if no clicks left */
-    public boolean retrieveClick()
-    {
-        copyKeyCodeToOriginal();
-        if (interceptionActive)
-        {
-            copyClickInfoFromOriginal();
-
-            if (this.interceptedPressTime == 0)
-            {
-                return false;
-            }
-            else
-            {
-                --this.interceptedPressTime;
-                return true;
-            }
-        }
-        else
-        {
-            return false;
-        }
     }
 
     /** A better name for this method would be retrieveClick. If interception is on, resets .pressed and .pressTime to zero. Otherwise, copies these from the intercepted KeyBinding.
@@ -103,33 +101,39 @@ public class KeyBindingInterceptor extends KeyBinding
         }
     }
 
-    public KeyBinding getOriginalKeyBinding()
+    /** @return returns false if interception isn't active. Otherwise, retrieves one of the clicks (true) or false if no clicks left */
+    @SideOnly(Side.CLIENT)
+    public boolean retrieveClick()
     {
-        return interceptedKeyBinding;
-    }
-
-    protected KeyBinding interceptedKeyBinding;
-    private boolean interceptionActive;
-
-    private int interceptedPressTime;
-
-    protected void copyClickInfoFromOriginal()
-    {
-        //MadScience.logger.info("PRESS TIME: " + String.valueOf(this.pressTime));
-        this.pressTime += interceptedKeyBinding.pressTime;
-        this.interceptedPressTime += interceptedKeyBinding.pressTime;
-        interceptedKeyBinding.pressTime = 0;
-        this.pressed = interceptedKeyBinding.pressed;
-    }
-
-    protected void copyKeyCodeToOriginal()
-    {
-        // only copy if necessary
-        if (this.keyCode != interceptedKeyBinding.keyCode)
+        copyKeyCodeToOriginal();
+        if (interceptionActive)
         {
-            this.keyCode = interceptedKeyBinding.keyCode;
-            resetKeyBindingArrayAndHash();
+            copyClickInfoFromOriginal();
+
+            if (this.interceptedPressTime == 0)
+            {
+                return false;
+            }
+            else
+            {
+                --this.interceptedPressTime;
+                return true;
+            }
         }
+        else
+        {
+            return false;
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setInterceptionActive(boolean newMode)
+    {
+        if (newMode && !interceptionActive)
+        {
+            this.interceptedPressTime = 0;
+        }
+        interceptionActive = newMode;
     }
 
 }

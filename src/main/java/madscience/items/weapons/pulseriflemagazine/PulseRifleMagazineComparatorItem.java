@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulserifle;
+package madscience.items.weapons.pulseriflemagazine;
 
 public class PulseRifleMagazineComparatorItem
 {

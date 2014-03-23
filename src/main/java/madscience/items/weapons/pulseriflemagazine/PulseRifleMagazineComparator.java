@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulserifle;
+package madscience.items.weapons.pulseriflemagazine;
 
 import java.util.Comparator;
 

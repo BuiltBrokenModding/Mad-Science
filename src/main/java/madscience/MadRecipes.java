@@ -14,6 +14,7 @@ public class MadRecipes
         // Creates all the needed recipes to craft and interact with weapons.
         
         // Add 99 types of recipes for magazines that always return proper amount of bullets.
+        MadScience.logger.info("-99 magazine unloading recipes");
         for (int i = 1; i <= 99; i++)
         {
             // A magazine with 3 bullets actually has damage value of 96 and still returns 3 bullets.
@@ -25,6 +26,7 @@ public class MadRecipes
         }
         
         // Adding an empty (no damage) magazine and a bullet will create a magazine with 99 damage.
+        MadScience.logger.info("-Index 0 magazine (first bullet) recipe");
         GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 99), new Object[]
                 { 
                     new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 0),
@@ -32,6 +34,7 @@ public class MadRecipes
                 });
         
         // Add 99 types of recipes for magazines that always return properly filled magazine.
+        MadScience.logger.info("-99 bullet loading recipes");
         for (int i = 1; i <= 98; i++)
         {   
             // A magazine and 1 bullet would create a magazine with damage of 99.
@@ -49,6 +52,7 @@ public class MadRecipes
         // Create circuits which are used in the creation of other machines in the mod.
         
         // Circuit Comparator
+        MadScience.logger.info("-Comparator Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_COMPARATOR), new Object[]
         { "TTT", 
           "TCT", 
@@ -58,6 +62,7 @@ public class MadRecipes
         'C', Item.comparator, });
         
         // Circuit Diamond
+        MadScience.logger.info("-Diamond Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_DIAMOND), new Object[]
         { "TTT",
           "TDT",
@@ -67,6 +72,7 @@ public class MadRecipes
         'D', Item.diamond, });
         
         // Circuit Emerald
+        MadScience.logger.info("-Emerald Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_EMERALD), new Object[]
         { "TTT",
           "TET", 
@@ -76,6 +82,7 @@ public class MadRecipes
         'E', Item.emerald, });
         
         // Circuit Ender Eye
+        MadScience.logger.info("-Ender Eye Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_ENDEREYE), new Object[]
         { "TTT",
           "TET",
@@ -85,6 +92,7 @@ public class MadRecipes
         'E', Item.eyeOfEnder, });
         
         // Circuit Ender Pearl
+        MadScience.logger.info("-Ender Pearl Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_ENDERPEARL), new Object[]
         { "TTT", 
           "TPT", 
@@ -94,6 +102,7 @@ public class MadRecipes
         'P', Item.enderPearl, });
         
         // Circuit Glowstone
+        MadScience.logger.info("-Glowstone Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_GLOWSTONE), new Object[]
         { "TTT",
           "TGT",
@@ -103,6 +112,7 @@ public class MadRecipes
         'G', Item.glowstone, });
         
         // Circuit Redstone
+        MadScience.logger.info("-Redstone Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_REDSTONE), new Object[]
         { "TTT", 
           "TRT", 
@@ -112,6 +122,7 @@ public class MadRecipes
         'R', Item.redstone, });
         
         // Circuit Spider Eye
+        MadScience.logger.info("-Spider Eye Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE), new Object[]
         { "TTT",
           "TST", 
@@ -126,6 +137,7 @@ public class MadRecipes
         // Create components that are needed to craft everything else in the mod.
         
         // Case
+        MadScience.logger.info("-Case Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_CASE), new Object[]
         { "121",
           "2 2",
@@ -135,6 +147,7 @@ public class MadRecipes
         '2', Item.stick });
         
         // Computer
+        MadScience.logger.info("-Computer Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_COMPUTER), new Object[]
         { "ECE", 
           "FBD",
@@ -148,6 +161,7 @@ public class MadRecipes
         'F', new ItemStack(MadComponents.COMPONENT_RAM), });
         
         // Fan
+        MadScience.logger.info("-Fan Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_FAN), new Object[]
         { "121",
           "222",
@@ -158,16 +172,20 @@ public class MadRecipes
         
         
         // Bake 1 Quartz = 1 Fused Quartz.
+        MadScience.logger.info("-1 Quartz = 1 Fused Quartz recipe");
         FurnaceRecipes.smelting().addSmelting(Item.netherQuartz.itemID, new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ), 0.1F);
 
         // Bake 1 Quartz Block = 4 Fused Quartz.
+        MadScience.logger.info("-1 Quartz Block = 4 Fused Quartz recipe");
         FurnaceRecipes.smelting().addSmelting(Block.blockNetherQuartz.blockID, new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ, 4), 0.1F);
 
         // Craft 1 Fire Charge + 1 Sand = 8 Fused Quartz.
+        MadScience.logger.info("-1 Fire Charge + 1 Sand = 8 Fused Quartz recipe");
         GameRegistry.addShapelessRecipe(new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ, 8), new Object[]
         { new ItemStack(Item.fireballCharge), new ItemStack(Block.sand) });
         
         // Magnetic Tape
+        MadScience.logger.info("-Magnetic Tape Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_MAGNETICTAPE), new Object[]
         { "111",
           "222",
@@ -176,6 +194,7 @@ public class MadRecipes
         '2', Item.slimeBall, });
         
         // Power Supply
+        MadScience.logger.info("-Power Supply Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), new Object[]
         { "141",
           "323",
@@ -187,6 +206,7 @@ public class MadRecipes
         '4', Block.blockRedstone, });
         
         // Screen
+        MadScience.logger.info("-Screen Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_SCREEN), new Object[]
         { "444",
           "333",
@@ -198,6 +218,7 @@ public class MadRecipes
         '4', Block.glass, });
         
         // Thumper
+        MadScience.logger.info("-Thumper Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_THUMPER), new Object[]
         { "535",
           "212",
@@ -209,6 +230,7 @@ public class MadRecipes
         '5', Block.pistonBase,});
         
         // Enderslime Block
+        MadScience.logger.info("-Enderslime Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadBlocks.ENDERSLIMEBLOCK), new Object[]
         { "111",
           "111",

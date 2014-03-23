@@ -146,7 +146,10 @@ public class MadSounds
     public static final String PULSERIFLE_RELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Reload";
     public static final String PULSERIFLE_UNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Unload";
     public static final String PULSERIFLE_RELOADGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ReloadGrenade";
+    public static final String PULSERIFLE_CHAMBERGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ChamberGrenade";
     public static final String PULSERIFLE_MAGAZINERELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".MagazineReload";
+    public static final String PULSERIFLE_MAGAZINEUNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".MagazineUnload";
+    public static final String PULSERIFLE_RICOCHET = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Ricochet";
 
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
@@ -503,6 +506,9 @@ public class MadSounds
             // Reload Grenade
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/ReloadGrenade.ogg");
             
+            // Chamber Grenade (racking sound).
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/ChamberGrenade.ogg");
+            
             // Unload
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Unload.ogg");
             
@@ -513,6 +519,17 @@ public class MadSounds
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload3.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload4.ogg");
             event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload5.ogg");
+            
+            // Magazine Unload Bullets
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineUnload.ogg");
+            
+            // Bullet Ricochet
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet0.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet1.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet2.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet3.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet4.ogg");
+            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet5.ogg");
             
             // -------
             // VOX BOX

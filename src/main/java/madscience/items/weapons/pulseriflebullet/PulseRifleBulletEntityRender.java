@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulserifle;
+package madscience.items.weapons.pulseriflebullet;
 
 import madscience.MadScience;
 import madscience.MadWeapons;
@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class PulseRifleGrenadeRender extends RenderArrow
+public class PulseRifleBulletEntityRender extends RenderArrow
 {
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".mad");
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".png");

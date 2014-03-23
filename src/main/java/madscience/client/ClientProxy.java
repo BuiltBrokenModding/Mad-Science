@@ -7,14 +7,19 @@ import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnaMutant.LiquidDNAMutantRender;
-import madscience.items.weapons.pulserifle.PulseRifleBulletItem;
-import madscience.items.weapons.pulserifle.PulseRifleGrenadeEntity;
-import madscience.items.weapons.pulserifle.PulseRifleGrenadeItem;
-import madscience.items.weapons.pulserifle.PulseRifleGrenadeRender;
 import madscience.items.weapons.pulserifle.PulseRifleItem;
-import madscience.items.weapons.pulserifle.PulseRifleBulletEntity;
-import madscience.items.weapons.pulserifle.PulseRifleBulletRender;
-import madscience.items.weapons.pulserifle.PulseRifleMagazineItem;
+import madscience.items.weapons.pulserifle.PulseRifleItemRender;
+import madscience.items.weapons.pulserifle.PulseRifleItemTickHandler;
+import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
+import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItem;
+import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntityRender;
+import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItemRender;
+import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
+import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItem;
+import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntityRender;
+import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItemRender;
+import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItem;
+import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItemRender;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobModel;
 import madscience.mobs.abomination.AbominationMobRender;
@@ -146,7 +151,7 @@ public class ClientProxy extends CommonProxy
         float speedOnGround = 0.1F;
         //int i = player.getItemInUseDuration();
         int i = pulseRifleFireTime;
-        float f1 = (float) i / 1500.0F;
+        float f1 = (float) i / 420.0F;
 
         if (f1 > 1.0F)
         {
@@ -301,28 +306,28 @@ public class ClientProxy extends CommonProxy
         // Pulse Rifle
         if (blockID == MadConfig.WEAPON_PULSERIFLE)
         {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, MadWeapons.WEAPONITEM_PULSERIFLE);
-            TickRegistry.registerTickHandler(MadWeapons.WEAPONITEM_PULSERIFLE, Side.CLIENT);
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, new PulseRifleItemRender());
+            TickRegistry.registerTickHandler(new PulseRifleItemTickHandler(), Side.CLIENT);
         }
 
         // Pulse Rifle Bullet
         if (blockID == MadConfig.WEAPON_PULSERIFLE_BULLETITEM)
         {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_BULLETITEM.itemID, MadWeapons.WEAPONITEM_BULLETITEM);
-            RenderingRegistry.registerEntityRenderingHandler(PulseRifleBulletEntity.class, new PulseRifleBulletRender());
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_BULLETITEM.itemID, new PulseRifleBulletItemRender());
+            RenderingRegistry.registerEntityRenderingHandler(PulseRifleBulletEntity.class, new PulseRifleBulletEntityRender());
         }
         
         // Pulse Rifle Grenade
         if (blockID == MadConfig.WEAPON_PULSERIFLE_GRENADEITEM)
         {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_GRENADEITEM.itemID, MadWeapons.WEAPONITEM_GRENADEITEM);
-            RenderingRegistry.registerEntityRenderingHandler(PulseRifleGrenadeEntity.class, new PulseRifleGrenadeRender());
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_GRENADEITEM.itemID, new PulseRifleGrenadeItemRender());
+            RenderingRegistry.registerEntityRenderingHandler(PulseRifleGrenadeEntity.class, new PulseRifleGrenadeEntityRender());
         }
 
         // Pulse Rifle Magazine
         if (blockID == MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM)
         {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, MadWeapons.WEAPONITEM_MAGAZINEITEM);
+            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, new PulseRifleMagazineItemRender());
         }
 
         // ----

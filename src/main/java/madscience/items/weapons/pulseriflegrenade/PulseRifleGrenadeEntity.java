@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulserifle;
+package madscience.items.weapons.pulseriflegrenade;
 
 import java.util.List;
 
@@ -22,11 +22,11 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class PulseRifleBulletEntity extends Entity implements IProjectile
+public class PulseRifleGrenadeEntity extends Entity implements IProjectile
 {
     /** Seems to be some sort of timer for animating an arrow. */
     public int arrowShake;
-    private double damage = 4.2D;
+    private double damage = 50.0D;
     private int inData;
     private boolean inGround;
     private int inTile;
@@ -43,14 +43,14 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
 
     private int zTile = -1;
 
-    public PulseRifleBulletEntity(World par1World)
+    public PulseRifleGrenadeEntity(World par1World)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
         this.setSize(0.5F, 0.5F);
     }
 
-    public PulseRifleBulletEntity(World par1World, double par2, double par4, double par6)
+    public PulseRifleGrenadeEntity(World par1World, double par2, double par4, double par6)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
@@ -59,7 +59,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
         this.yOffset = 0.0F;
     }
 
-    public PulseRifleBulletEntity(World par1World, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase, float par4, float par5)
+    public PulseRifleGrenadeEntity(World par1World, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase, float par4, float par5)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
@@ -84,7 +84,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
         }
     }
 
-    public PulseRifleBulletEntity(World par1World, EntityLivingBase par2EntityLivingBase, float par3)
+    public PulseRifleGrenadeEntity(World par1World, EntityLivingBase par2EntityLivingBase, float par3)
     {
         super(par1World);
         this.renderDistanceWeight = 10.0D;
@@ -123,6 +123,16 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
         this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
     }
 
+    public void fireGrenade(double x, double y, double z)
+    {
+        if (!this.worldObj.isRemote)
+        {
+            this.playSound(MadSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
+            this.newExplosion((Entity) null, x, y, z, 1.5F, true, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
+        }
+        this.setDead();
+    }
+
     public double getDamage()
     {
         return this.damage;
@@ -140,6 +150,17 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
     public float getShadowSize()
     {
         return 0.0F;
+    }
+
+    /** Creates a custom explosion based on the default Minecraft one. */
+    public MadExplosion newExplosion(Entity par1Entity, double par2, double par4, double par6, float par8, boolean par9, boolean par10)
+    {
+        MadExplosion explosion = new MadExplosion(this.worldObj, par1Entity, par2, par4, par6, par8, par9, par10);
+        explosion.isFlaming = par9;
+        explosion.isSmoking = par10;
+        explosion.doExplosionA();
+        explosion.doExplosionB(true);
+        return explosion;
     }
 
     /** Called to update the entity's position/logic. */
@@ -274,8 +295,8 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     {
                         damagesource = DamageSource.causeThrownDamage(this, this.shootingEntity);
                     }
-                    
-                    this.fireBullet(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+
+                    this.fireGrenade(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, i1))
                     {
@@ -328,6 +349,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     this.posX -= this.motionX / f2 * 0.05000000074505806D;
                     this.posY -= this.motionY / f2 * 0.05000000074505806D;
                     this.posZ -= this.motionZ / f2 * 0.05000000074505806D;
+                    this.playSound(MadSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
                     this.inGround = true;
                     this.arrowShake = 7;
                     this.setIsCritical(false);
@@ -335,7 +357,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     if (this.inTile != 0)
                     {
                         Block.blocksList[this.inTile].onEntityCollidedWithBlock(this.worldObj, this.xTile, this.yTile, this.zTile, this);
-                        this.fireBullet(this.xTile, this.yTile, this.zTile);
+                        this.fireGrenade(this.xTile, this.yTile, this.zTile);
                     }
                 }
             }
@@ -397,36 +419,6 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
             this.setPosition(this.posX, this.posY, this.posZ);
             this.doBlockCollisions();
         }
-    }
-
-    public void fireBullet(double x, double y, double z)
-    {
-        if (!this.worldObj.isRemote)
-        {
-            // Pulse rifle has a 1/100 chance of scoring a critical round (AKA once per clip).
-            if (this.worldObj.rand.nextInt(1000) < 10)
-            {
-                // Critical rounds have a change to actually cause block damage and are a little more powerful.
-                this.newExplosion((Entity)null, x, y, z, 1.5F, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"), false);
-            }
-            else
-            {
-                // Normal rounds cause no actual block damage and just give off explosion damage.
-                this.newExplosion((Entity)null, x, y, z, 1.0F, false, false, false);
-            }
-        }
-        this.setDead();
-    }
-    
-    /** Creates a custom explosion based on the default Minecraft one. */
-    public MadExplosion newExplosion(Entity target, double posX, double posY, double posZ, float stregth, boolean setFire, boolean breakBlocks, boolean spawnParticles)
-    {
-        MadExplosion explosion = new MadExplosion(this.worldObj, target, posX, posY, posZ, stregth, setFire, breakBlocks);
-        explosion.isFlaming = setFire;
-        explosion.isSmoking = breakBlocks;
-        explosion.doExplosionA();
-        explosion.doExplosionB(spawnParticles);
-        return explosion;
     }
 
     /** (abstract) Protected helper method to read subclass entity data from NBT. */
