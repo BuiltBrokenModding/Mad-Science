@@ -2,6 +2,8 @@ package madscience;
 
 import java.util.logging.Level;
 
+import madscience.items.weapons.pulserifle.PulseRifleSounds;
+import madscience.tileentities.soniclocator.SoniclocatorSounds;
 import madscience.tileentities.voxbox.VoxBoxSounds;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
@@ -119,37 +121,6 @@ public class MadSounds
     public static final String DATADUPLICATOR_IDLE = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Idle";
     public static final String DATADUPLICATOR_FINISH = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Finish";
     public static final String DATADUPLICATOR_START = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Start";
-
-    // Soniclocator Device
-    public static final String SONICLOCATOR_PLACE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Place";
-    public static final String SONICLOCATOR_IDLE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Idle";
-    public static final String SONICLOCATOR_IDLECHARGED = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".IdleCharged";
-    public static final String SONICLOCATOR_FINISH = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Finish";
-    public static final String SONICLOCATOR_EMPTY = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Empty";
-    public static final String SONICLOCATOR_THUMP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Thump";
-    public static final String SONICLOCATOR_THUMPCHARGE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpCharge";
-    public static final String SONICLOCATOR_THUMPSTART = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpStart";
-    public static final String SONICLOCATOR_COOLDOWNBEEP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".CooldownBeep";
-    public static final String SONICLOCATOR_COOLDOWN = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Cooldown";
-    public static final String SONICLOCATOR_EXPLODE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Explode";
-    public static final String SONICLOCATOR_OVERLOAD = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Overload";
-    
-    // -------
-    // WEAPONS
-    // -------
-    
-    // Pulse Rifle
-    public static final String PULSERIFLE_FIRE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Fire";
-    public static final String PULSERIFLE_EMPTY = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Empty";
-    public static final String PULSERIFLE_FIREGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".FireGrenade";
-    public static final String PULSERIFLE_GRENADEEXPLODE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".GrenadeExplode";
-    public static final String PULSERIFLE_RELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Reload";
-    public static final String PULSERIFLE_UNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Unload";
-    public static final String PULSERIFLE_RELOADGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ReloadGrenade";
-    public static final String PULSERIFLE_CHAMBERGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ChamberGrenade";
-    public static final String PULSERIFLE_MAGAZINERELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".MagazineReload";
-    public static final String PULSERIFLE_MAGAZINEUNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".MagazineUnload";
-    public static final String PULSERIFLE_RICOCHET = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Ricochet";
 
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
@@ -434,106 +405,13 @@ public class MadSounds
             // Finish
             event.manager.addSound(MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/Finish.ogg");
 
-            // -------------------
-            // SONICLOCATOR DEVICE
-            // -------------------
-
-            // Idle
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Idle.ogg");
-
-            // Idle Charged
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/IdleCharged.ogg");
-
-            // Place
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Place.ogg");
-
-            // Empty
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Empty.ogg");
-
-            // Finish
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Finish.ogg");
-
-            // Thump
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump1.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump2.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump3.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Thump4.ogg");
-
-            // Thump Charge
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/ThumpCharge.ogg");
-
-            // Thump Start
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/ThumpStart.ogg");
+            // Soniclocator Device
+            SoniclocatorSounds.init(event);
             
-            // Cooldown Beep
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/CooldownBeep.ogg");
+            // M41A Pulse Rifle
+            PulseRifleSounds.init(event);
             
-            // Cooldown
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Cooldown.ogg");
-            
-            // Explode
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Explode.ogg");
-            
-            // Overload
-            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Overload.ogg");
-            
-            // -----------
-            // PULSE RIFLE
-            // -----------
-            
-            // Empty
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Empty.ogg");
-            
-            // Fire
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire0.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire1.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire2.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire3.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire4.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire5.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire6.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Fire7.ogg");
-            
-            // Fire Grenade
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/FireGrenade.ogg");
-            
-            // Grenade Explode
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/GrenadeExplode.ogg");
-            
-            // Reload
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Reload.ogg");
-            
-            // Reload Grenade
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/ReloadGrenade.ogg");
-            
-            // Chamber Grenade (racking sound).
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/ChamberGrenade.ogg");
-            
-            // Unload
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Unload.ogg");
-            
-            // Magazine Load Bullet
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload0.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload1.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload2.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload3.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload4.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineReload5.ogg");
-            
-            // Magazine Unload Bullets
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/MagazineUnload.ogg");
-            
-            // Bullet Ricochet
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet0.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet1.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet2.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet3.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet4.ogg");
-            event.manager.addSound(MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/Ricochet5.ogg");
-            
-            // -------
-            // VOX BOX
-            // -------
+            // Announcement System (VoxBox)
             VoxBoxSounds.init(event);
             
         }

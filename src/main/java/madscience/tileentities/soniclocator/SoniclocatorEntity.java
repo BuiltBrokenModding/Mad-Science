@@ -413,7 +413,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         super.initiate();
 
         // Sound that is played when we are placed into the world.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_PLACE, 1.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_PLACE, 1.0F, 1.0F);
 
         if (!this.worldObj.isRemote)
         {
@@ -699,7 +699,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         if (craftedItem == null)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_BREAK, 1.0F, 1.0F);
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
 
             // We have no targets to find!
             lastKnownNumberOfTargets = 0;
@@ -707,7 +707,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         }
 
         // First sound is of the thump releasing all the energy in the machine.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMP, 10.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_THUMP, 10.0F, 1.0F);
 
         // Apply wither effect to players and hurt non-players.
         damageNearbyCreatures(16);
@@ -735,7 +735,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             this.soniclocatorInput[0] = null;
         }
 
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_FINISH, 10.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_FINISH, 10.0F, 1.0F);
     }
 
     private void locateNearbySoniclocators(int maxRange)
@@ -764,8 +764,8 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                 // There can never be zero distance between objects, so do not run on zero. -Fox
                 if (distanceBetweenMachines < maxRange)
                 {
-                    this.worldObj.playSoundEffect(locationItem.posX + 0.5D, locationItem.posY + 0.5D, locationItem.posZ + 0.5D, MadSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(locationItem.posX + 0.5D, locationItem.posY + 0.5D, locationItem.posZ + 0.5D, SoniclocatorSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
                     this.worldObj.destroyBlock(locationItem.posX, locationItem.posY, locationItem.posZ, false);
                     this.worldObj.destroyBlock(this.xCoord, this.yCoord, this.zCoord, false);
                     this.worldObj.createExplosion((Entity) null, locationItem.posX, locationItem.posY, locationItem.posZ, (float) 6, true);
@@ -792,7 +792,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
             if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
 
                 if (curFrame >= 5)
                 {
@@ -802,7 +802,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                     currentHeatValue = 0;
 
                     // Play the scary Event Horizon cooldown effect.
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_COOLDOWN, 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_COOLDOWN, 1.0F, 1.0F);
                 }
 
                 // Load this texture onto the entity.
@@ -822,7 +822,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             {
                 // Load this texture onto the entity.
                 soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
             }
             else
             {
@@ -847,7 +847,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
                 soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
                 
                 // Disable cooldown mode if we encounter it.
                 if (cooldownMode)
@@ -920,7 +920,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             if (this.currentHeatValue == 0 && this.canSmelt() && this.isPowered() && !isEmptyTargetList() && !cooldownMode)
             {
                 // Start the powerup sound.
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPSTART, 0.42F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_THUMPSTART, 0.42F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentHeatValue++;
@@ -972,19 +972,19 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // Check if we should be playing the idle sound.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2.3f) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_IDLE, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_IDLE, 1.0F, 1.0F);
         }
 
         // Check if we should be changing pitch and volume of idle charging sound.
         if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !this.isEmptyTargetList() && !cooldownMode && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.7f) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_IDLECHARGED, 0.42F, (this.currentHeatValue * 0.1f));
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_IDLECHARGED, 0.42F, (this.currentHeatValue * 0.1f));
         }
 
         // Check if we should be playing the thumper charging sound.
         if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !cooldownMode && !this.isEmptyTargetList() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SONICLOCATOR_THUMPCHARGE, 0.42F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_THUMPCHARGE, 0.42F, 1.0F);
         }
     }
 
