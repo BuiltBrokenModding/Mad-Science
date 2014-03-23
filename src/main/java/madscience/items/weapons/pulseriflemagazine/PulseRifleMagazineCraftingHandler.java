@@ -1,7 +1,7 @@
 package madscience.items.weapons.pulseriflemagazine;
 
-import madscience.MadSounds;
 import madscience.MadWeapons;
+import madscience.items.weapons.pulserifle.PulseRifleSounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,7 @@ public class PulseRifleMagazineCraftingHandler implements ICraftingHandler
         if (item.itemID == MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID)
         {
             // Play sound of shell being inserted into the magazine.
-            player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_MAGAZINERELOAD, 1.0F, 1.0F);
+            player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_MAGAZINERELOAD, 1.0F, 1.0F);
             return;
         }
 
@@ -39,7 +39,7 @@ public class PulseRifleMagazineCraftingHandler implements ICraftingHandler
 
             // Set the slot contents for modified magazine, we have to add 2 because Minecraft eats one by default for recipe.
             inv.setInventorySlotContents(magazineSlot, new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 2));
-            player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_MAGAZINEUNLOAD, 1.0F, 1.0F);
+            player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_MAGAZINEUNLOAD, 1.0F, 1.0F);
             return;
         }
     }

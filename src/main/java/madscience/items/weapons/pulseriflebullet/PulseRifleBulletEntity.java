@@ -2,7 +2,7 @@ package madscience.items.weapons.pulseriflebullet;
 
 import java.util.List;
 
-import madscience.MadSounds;
+import madscience.items.weapons.pulserifle.PulseRifleSounds;
 import madscience.world.MadExplosion;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;
@@ -133,7 +133,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                 // Critical rounds have a change to actually cause block damage and are a little more powerful.
                 // Note: Required to actually break Abomination eggs.
                 this.newExplosion((Entity) null, x, y, z, 1.5F, false, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"), false);
-                this.playSound(MadSounds.PULSERIFLE_RICOCHET, 25F, 1.0F);
+                this.playSound(PulseRifleSounds.PULSERIFLE_RICOCHET, 25F, 1.0F);
             }
             else
             {

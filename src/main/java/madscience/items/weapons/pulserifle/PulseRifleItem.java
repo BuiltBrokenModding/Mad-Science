@@ -7,7 +7,6 @@ import java.util.List;
 
 import madscience.MadEntities;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
@@ -306,12 +305,12 @@ public class PulseRifleItem extends ItemBow
                     boolean shouldFire = false;
                     if (player.worldObj.getWorldTime() % 12F == 0L && clientFireTime >= 1)
                     {
-                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
                         shouldFire = true;
                     }
                     else if (clientFireTime <= 0)
                     {
-                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
                         shouldFire = true;
                     }
 
@@ -342,7 +341,7 @@ public class PulseRifleItem extends ItemBow
                     if (!clientisPrimaryEmpty)
                     {
                         // Out of bullets.
-                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
 
                         clientisPrimaryEmpty = true;
                         playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", clientisPrimaryEmpty);
@@ -377,7 +376,7 @@ public class PulseRifleItem extends ItemBow
                     secondaryAmmoCount--;
 
                     // Play the grenade launcher sound as a single burst.
-                    player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_FIREGRENADE, 1.0F, 1.0F);
+                    player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIREGRENADE, 1.0F, 1.0F);
 
                     // Spawn grenade in the game world.
                     player.worldObj.spawnEntityInWorld(new PulseRifleGrenadeEntity(player.worldObj, player, 1.0F));
@@ -390,7 +389,7 @@ public class PulseRifleItem extends ItemBow
                     if (!clientisSecondaryEmpty)
                     {
                         // MadScience.logger.info("OUT OF GRENADES");
-                        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
                         clientisSecondaryEmpty = true;
                         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", clientisSecondaryEmpty);
                         clientFireTime = 0;
@@ -430,7 +429,7 @@ public class PulseRifleItem extends ItemBow
                     // Change firing mode from bullets and grenades.
                     primaryFireModeEnabled = !primaryFireModeEnabled;
                     // player.addChatMessage("Primary Fire Mode: " + String.valueOf(primaryFireModeEnabled).toUpperCase());
-                    player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_EMPTY, 1.0F, 0.42F);
+                    player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_EMPTY, 1.0F, 0.42F);
                 }
             }
 
@@ -635,7 +634,7 @@ public class PulseRifleItem extends ItemBow
             // BUG: This will activate if a GUI or player inventory is accessed, no apparent workaround.
             hasFiredGrenade = false;
             par1ItemStack.stackTagCompound.setBoolean("hasFiredGrenade", false);
-            par2World.playSoundAtEntity(par3Entity, MadSounds.PULSERIFLE_CHAMBERGRENADE, 1.0F, 1.0F);
+            par2World.playSoundAtEntity(par3Entity, PulseRifleSounds.PULSERIFLE_CHAMBERGRENADE, 1.0F, 1.0F);
         }
     }
 
@@ -706,7 +705,7 @@ public class PulseRifleItem extends ItemBow
         // Only play the sound and set the data field once if we found some grenades to load into the gun.
         if (foundGrenades)
         {
-            player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOADGRENADE, 1.0F, 1.0F);
+            player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_RELOADGRENADE, 1.0F, 1.0F);
             playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", false);
             playerItem.stackTagCompound.setBoolean("hasFiredGrenade", false);
         }
@@ -755,7 +754,7 @@ public class PulseRifleItem extends ItemBow
                     primaryAmmoCount += Math.abs(100 - bestMagazine.bulletCount);
 
                     // player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
-                    player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
+                    player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
                     playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
                 }
             }
@@ -791,7 +790,7 @@ public class PulseRifleItem extends ItemBow
         }
 
         // player.addChatMessage("Removed " + String.valueOf(secondaryAmmoCount) + " grenade(s) with 0 remaining.");
-        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
+        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
         secondaryAmmoCount = 0;
         return secondaryAmmoCount;
     }
@@ -811,7 +810,7 @@ public class PulseRifleItem extends ItemBow
         }
 
         // player.addChatMessage("Unloaded magazine with " + String.valueOf(ammodisplayAmmount) + " round(s).");
-        player.worldObj.playSoundAtEntity(player, MadSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
+        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
         primaryAmmoCount = 0;
         return primaryAmmoCount;
     }

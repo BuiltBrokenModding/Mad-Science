@@ -2,7 +2,7 @@ package madscience.items.weapons.pulseriflegrenade;
 
 import java.util.List;
 
-import madscience.MadSounds;
+import madscience.items.weapons.pulserifle.PulseRifleSounds;
 import madscience.world.MadExplosion;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;
@@ -127,7 +127,7 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
     {
         if (!this.worldObj.isRemote)
         {
-            this.playSound(MadSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
+            this.playSound(PulseRifleSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
             this.newExplosion((Entity) null, x, y, z, 1.5F, true, this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"));
         }
         this.setDead();
@@ -349,7 +349,7 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
                     this.posX -= this.motionX / f2 * 0.05000000074505806D;
                     this.posY -= this.motionY / f2 * 0.05000000074505806D;
                     this.posZ -= this.motionZ / f2 * 0.05000000074505806D;
-                    this.playSound(MadSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
+                    this.playSound(PulseRifleSounds.PULSERIFLE_GRENADEEXPLODE, 25F, 1.0F);
                     this.inGround = true;
                     this.arrowShake = 7;
                     this.setIsCritical(false);
