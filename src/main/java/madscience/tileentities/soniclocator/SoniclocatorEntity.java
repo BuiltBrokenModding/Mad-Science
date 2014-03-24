@@ -698,7 +698,6 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
         if (craftedItem == null)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_BREAK, 1.0F, 1.0F);
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
 
             // We have no targets to find!

@@ -2,7 +2,7 @@ package madscience.blocks.abominationegg;
 
 import madscience.MadMobs;
 import madscience.MadScience;
-import madscience.MadSounds;
+import madscience.mobs.abomination.AbominationSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -160,7 +160,7 @@ public abstract class AbominationEggBasicLogic
 
             this.spawnEntityInWorld();
             this.getSpawnerWorld().playAuxSFX(2004, this.getSpawnerX(), this.getSpawnerY(), this.getSpawnerZ(), 0);
-            this.getSpawnerWorld().playSoundEffect(this.getSpawnerX() + 0.5D, this.getSpawnerY() + 0.5D, this.getSpawnerZ() + 0.5D, MadSounds.ABOMINATION_HATCH, 1.0F, 1.0F);
+            this.getSpawnerWorld().playSoundEffect(this.getSpawnerX() + 0.5D, this.getSpawnerY() + 0.5D, this.getSpawnerZ() + 0.5D, AbominationSounds.ABOMINATION_HATCH, 1.0F, 1.0F);
 
             // Remove the spawner as soon as it has been used.
             this.getSpawnerWorld().removeBlockTileEntity(this.getSpawnerX(), this.getSpawnerY(), this.getSpawnerZ());

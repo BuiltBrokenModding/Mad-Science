@@ -3,7 +3,6 @@ package madscience.tileentities.cryofreezer;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.items.ItemDecay;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
@@ -434,7 +433,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
             // Play a sound of the freezer working and doing cold things.
             if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOFREEZER_IDLE, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryofreezerSounds.CRYOFREEZER_IDLE, 1.0F, 1.0F);
             }
         }
         else

@@ -802,7 +802,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 // Adds rotten flesh to output slot 2.
                 this.createRottenFlesh(5);
 
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_OFF, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_OFF, 1.0F, 1.0F);
             }
 
             // Giant nested if-statement determines what machine should be doing at any given time.
@@ -811,7 +811,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 // IDLE
                 if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
                 {
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_IDLE, 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_IDLE, 1.0F, 1.0F);
                 }
             }
             else if (this.hatchTimeCurrentValue <= 0 && this.hatchTimeCurrentValue <= hatchTimeMaximum && this.canSmelt() && this.isRedstonePowered() && !this.subjectIsAlive)
@@ -821,7 +821,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 // --------------------------
 
                 // CRACKING EGG
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_CRACKEGG, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_CRACKEGG, 1.0F, 1.0F);
 
                 // Remove a spawn egg from input stack 1 to begin the hatching process.
                 --this.cryotubeInput[0].stackSize;
@@ -844,19 +844,19 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 // HATCHING
                 if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS) == 0L)
                 {
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_HATCHING, 1.0F, 0.1F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_HATCHING, 1.0F, 0.1F);
                 }
 
                 // HATCH NOISES
                 if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L && worldObj.rand.nextBoolean())
                 {
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_HATCH, 1.0F, 0.1F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_HATCH, 1.0F, 0.1F);
                 }
 
                 // IDLE
                 if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
                 {
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_IDLE, 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_IDLE, 1.0F, 1.0F);
                 }
 
                 // Increments the timer to keep hatching process going!
@@ -879,7 +879,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                     this.createRottenFlesh(2);
 
                     // CRACK EGG
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_CRACKEGG, 1.0F, 0.1F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_CRACKEGG, 1.0F, 0.1F);
                 }
                 else
                 {
@@ -922,7 +922,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 {
                     this.updateNeuralActivity();
 
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_WORK, 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_WORK, 1.0F, 1.0F);
 
                     // Check if we have nether star along with all other required regents to generate power.
                     ItemStack compareNetherStar = new ItemStack(Item.netherStar);
@@ -949,7 +949,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
                 // STILL BIRTH
                 // if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L)
                 {
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.CRYOTUBE_STILLBIRTH, 1.0F, 0.5F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_STILLBIRTH, 1.0F, 0.5F);
                 }
 
                 // Takes empty data reel and creates proper variant based on neural activity ceiling.

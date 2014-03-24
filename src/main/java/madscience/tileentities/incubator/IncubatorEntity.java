@@ -5,7 +5,6 @@ import java.util.Random;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -564,7 +563,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
             this.incubatorInput[0] = null;
         }
 
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.INCUBATOR_FINISH, 1.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, IncubatorSounds.INCUBATOR_FINISH, 1.0F, 1.0F);
     }
 
     /**
@@ -656,7 +655,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
                 // long this item will take to cook.
                 currentItemCookingMaximum = 2600;
 
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.INCUBATOR_START, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, IncubatorSounds.INCUBATOR_START, 1.0F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentItemCookingValue++;
@@ -700,7 +699,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
         // Check to see if we should play idle sounds.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.INCUBATOR_WORK, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, IncubatorSounds.INCUBATOR_WORK, 1.0F, 1.0F);
         }
     }
 

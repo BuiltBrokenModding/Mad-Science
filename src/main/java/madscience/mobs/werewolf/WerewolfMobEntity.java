@@ -1,6 +1,5 @@
 package madscience.mobs.werewolf;
 
-import madscience.MadSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
@@ -171,7 +170,7 @@ public class WerewolfMobEntity extends EntityMob
     @Override
     protected String getDeathSound()
     {
-        return MadSounds.WEREWOLF_DEATH;
+        return WerewolfMobSounds.WEREWOLF_DEATH;
     }
 
     // A basic example of what a mob should drop on death.
@@ -186,14 +185,14 @@ public class WerewolfMobEntity extends EntityMob
     @Override
     protected String getHurtSound()
     {
-        return MadSounds.WEREWOLF_IDLE;
+        return WerewolfMobSounds.WEREWOLF_IDLE;
     }
 
     // The sound effect played when it's just living, like a cow mooing.
     @Override
     protected String getLivingSound()
     {
-        return MadSounds.WEREWOLF_ATTACK;
+        return WerewolfMobSounds.WEREWOLF_ATTACK;
     }
 
     @Override
@@ -215,7 +214,7 @@ public class WerewolfMobEntity extends EntityMob
     protected void playStepSound(int par1, int par2, int par3, int par4)
     {
         // First variable is volume and the second is pitch.
-        this.worldObj.playSoundAtEntity(this, MadSounds.WEREWOLF_ATTACK, 0.15F, 1.0F);
+        this.worldObj.playSoundAtEntity(this, WerewolfMobSounds.WEREWOLF_ATTACK, 0.15F, 1.0F);
     }
 
     // Sets the active target the Task system uses for tracking.

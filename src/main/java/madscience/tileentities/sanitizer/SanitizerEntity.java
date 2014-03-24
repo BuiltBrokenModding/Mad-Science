@@ -6,7 +6,6 @@ import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -762,7 +761,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         // Check if we should be playing working sounds.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3.0F) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SANTITIZER_IDLE, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SanitizerSounds.SANTITIZER_IDLE, 1.0F, 1.0F);
         }
     }
 

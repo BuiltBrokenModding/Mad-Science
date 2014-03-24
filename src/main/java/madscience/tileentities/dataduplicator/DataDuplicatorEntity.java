@@ -6,7 +6,6 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.items.CombinedGenomeMonsterPlacer;
 import madscience.items.ItemGenome;
 import madscience.metaitems.CombinedMemoryMonsterPlacer;
@@ -495,7 +494,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
                 this.dataduplicatorOutput[0] = dataduplicatorInput[1].copy();
 
                 // Sound of genome reel total completion.
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DATADUPLICATOR_FINISH, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_FINISH, 1.0F, 1.0F);
 
                 // Remove healed data reel from input stack 2.
                 --this.dataduplicatorInput[1].stackSize;
@@ -605,7 +604,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
                 currentItemCookingMaximum = 2600;
 
                 // Sound of genome reel total completion.
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DATADUPLICATOR_START, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_START, 1.0F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentItemCookingValue++;
@@ -645,13 +644,13 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         // Idle sound of machine if powered but not currently working.
         if (!this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.4F) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DATADUPLICATOR_IDLE, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_IDLE, 1.0F, 1.0F);
         }
 
         // Working sound of machine when powered and can smelt.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.8F) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DATADUPLICATOR_WORK, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_WORK, 1.0F, 1.0F);
         }
     }
 

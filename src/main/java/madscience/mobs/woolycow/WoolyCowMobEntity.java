@@ -3,7 +3,6 @@ package madscience.mobs.woolycow;
 import java.util.ArrayList;
 import java.util.Random;
 
-import madscience.MadSounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -206,7 +205,7 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
     @Override
     protected String getDeathSound()
     {
-        return MadSounds.WOOLYCOW_HURT;
+        return WoolyCowSounds.WOOLYCOW_HURT;
     }
 
     /** Returns the item ID for the item the mob drops on death. */
@@ -246,14 +245,14 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
     @Override
     protected String getHurtSound()
     {
-        return MadSounds.WOOLYCOW_HURT;
+        return WoolyCowSounds.WOOLYCOW_HURT;
     }
 
     // The sound effect played when it's just living, like a cow mooing.
     @Override
     protected String getLivingSound()
     {
-        return MadSounds.WOOLYCOW_SAY;
+        return WoolyCowSounds.WOOLYCOW_SAY;
     }
 
     /** returns true if a sheeps wool has been sheared */
@@ -364,7 +363,7 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
     @Override
     protected void playStepSound(int par1, int par2, int par3, int par4)
     {
-        this.playSound(MadSounds.WOOLYCOW_STEP, 0.15F, 1.0F);
+        this.playSound(WoolyCowSounds.WOOLYCOW_STEP, 0.15F, 1.0F);
     }
 
     /** (abstract) Protected helper method to read subclass entity data from NBT. */

@@ -1,7 +1,6 @@
 package madscience.mobs.creepercow;
 
 import madscience.MadFluids;
-import madscience.MadSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
@@ -211,7 +210,7 @@ public class CreeperCowMobEntity extends EntityMob
     @Override
     protected String getLivingSound()
     {
-        return MadSounds.CREEPERCOW_ATTACK;
+        return CreeperCowSounds.CREEPERCOW_ATTACK;
     }
 
     /** The number of iterations PathFinder.getSafePoint will execute before giving up. */

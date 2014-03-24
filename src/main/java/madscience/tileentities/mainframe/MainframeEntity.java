@@ -6,7 +6,6 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.tileentities.mainframe.MainframeRecipes.GenomeRecipe;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -974,7 +973,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         }
 
         // Play sound of finishing genome merger.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_FINISH, 1.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_FINISH, 1.0F, 1.0F);
     }
 
     /**
@@ -1040,7 +1039,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
             // Sound of overheating.
             if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 1.184F == 0L)
             {
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_OVERHEAT, 0.42F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_OVERHEAT, 0.42F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
             }
 
             currentMainframeState = "OVERHEATING";
@@ -1140,7 +1139,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
                 }
 
                 // Play starting work sound.
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_START, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_START, 1.0F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentItemCookingValue++;
@@ -1184,13 +1183,13 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         // Check if we should be playing working sounds.
         if (this.isRedstonePowered() && this.canSmelt() && this.isPowered() && !this.isOutOfWater() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.2F) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_WORK, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_WORK, 1.0F, 1.0F);
         }
 
         // Check to see if we should play idle sounds.
         if (this.isRedstonePowered() && this.isPowered() && !this.isOutOfWater() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 8.6F) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MAINFRAME_IDLE, 0.42F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_IDLE, 0.42F, 1.0F);
         }
     }
 

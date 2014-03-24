@@ -5,7 +5,6 @@ import java.util.Random;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -573,7 +572,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
             this.thermosonicbonderInput[1] = null;
         }
 
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.THERMOSONICBONDER_STAMP, 1.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, ThermosonicBonderSounds.THERMOSONICBONDER_STAMP, 1.0F, 1.0F);
     }
 
     /**
@@ -672,7 +671,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
                 // long this item will take to cook.
                 currentItemCookingMaximum = 2600;
 
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.THERMOSONICBONDER_LASERSTART, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, ThermosonicBonderSounds.THERMOSONICBONDER_LASERSTART, 1.0F, 1.0F);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentItemCookingValue++;
@@ -716,13 +715,13 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         // Check to see if we should play idle sounds.
         if (this.canSmelt() && this.isPowered() && isRedstonePowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.THERMOSONICBONDER_LASERWORK, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, ThermosonicBonderSounds.THERMOSONICBONDER_LASERWORK, 1.0F, 1.0F);
         }
 
         // Heater sound but not warm enough yet.
         if (isPowered() && !canSmelt() && isRedstonePowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.THERMOSONICBONDER_IDLE, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, ThermosonicBonderSounds.THERMOSONICBONDER_IDLE, 1.0F, 1.0F);
         }
     }
 

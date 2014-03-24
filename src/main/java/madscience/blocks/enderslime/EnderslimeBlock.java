@@ -6,7 +6,7 @@ import madscience.MadBlocks;
 import madscience.MadEntities;
 import madscience.MadFluids;
 import madscience.MadScience;
-import madscience.MadSounds;
+import madscience.mobs.abomination.AbominationSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -65,7 +65,7 @@ public class EnderslimeBlock extends Block
         super.onBlockPlacedBy(world, x, y, z, living, stack);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, MadSounds.ABOMINATION_EGG, 1.0F, 1.0F);
+        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, AbominationSounds.ABOMINATION_EGG, 1.0F, 1.0F);
     }
 
     /** Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are their own) Args: x, y, z, neighbor blockID */

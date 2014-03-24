@@ -6,7 +6,7 @@ import madscience.MadBlocks;
 import madscience.MadEntities;
 import madscience.MadFluids;
 import madscience.MadScience;
-import madscience.MadSounds;
+import madscience.mobs.abomination.AbominationSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockSand;
@@ -158,7 +158,7 @@ public class AbominationEggBlock extends BlockDragonEgg implements ITileEntityPr
     public void onBlockDestroyedByExplosion(World par1World, int par2, int par3, int par4, Explosion par5Explosion)
     {
         // Play nasty sound of the egg exploding into meat chunks.
-        par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, MadSounds.ABOMINATION_EGGPOP, 1.0F, 1.0F);
+        par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, AbominationSounds.ABOMINATION_EGGPOP, 1.0F, 1.0F);
         par1World.setBlock(par2, par3, par4, MadFluids.LIQUIDDNA_MUTANT_BLOCK.blockID);
     }
 
@@ -166,7 +166,7 @@ public class AbominationEggBlock extends BlockDragonEgg implements ITileEntityPr
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5)
     {
         // Play nasty sound of egg exploding into meat chunks.
-        par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, MadSounds.ABOMINATION_EGGPOP, 1.0F, 1.0F);
+        par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, AbominationSounds.ABOMINATION_EGGPOP, 1.0F, 1.0F);
         par1World.setBlock(par2, par3, par4, MadFluids.LIQUIDDNA_MUTANT_BLOCK.blockID);
     }
 
@@ -177,7 +177,7 @@ public class AbominationEggBlock extends BlockDragonEgg implements ITileEntityPr
         lastPlacedTileEntity = (AbominationEggMobSpawnerTileEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, MadSounds.ABOMINATION_EGG, 1.0F, 1.0F);
+        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, AbominationSounds.ABOMINATION_EGG, 1.0F, 1.0F);
     }
 
     /** Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are their own) Args: x, y, z, neighbor blockID */

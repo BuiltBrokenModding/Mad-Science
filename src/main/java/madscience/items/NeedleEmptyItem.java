@@ -5,7 +5,7 @@ import java.util.List;
 import madscience.MadEntities;
 import madscience.MadNeedles;
 import madscience.MadScience;
-import madscience.MadSounds;
+import madscience.items.needles.NeedleSounds;
 import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -110,7 +110,7 @@ public class NeedleEmptyItem extends Item
         }
 
         // Play sound of using the needle on yourself.
-        player.playSound(MadSounds.NEEDLEITEM_STABPLAYER, 1.0F, 1.0F);
+        player.playSound(NeedleSounds.NEEDLEITEM_STABPLAYER, 1.0F, 1.0F);
 
         // If needle is empty we will take blood from the player!
         if (player instanceof EntityPlayer && player.inventory.consumeInventoryItem(MadNeedles.NEEDLE_ITEM.itemID))
@@ -151,7 +151,7 @@ public class NeedleEmptyItem extends Item
         }
 
         // Play a sound of you using the needle on a mob!
-        entity.playSound(MadSounds.NEEDLEITEM_STABMOB, 1.0F, 1.0F);
+        entity.playSound(NeedleSounds.NEEDLEITEM_STABMOB, 1.0F, 1.0F);
 
         // -------
         // MUTANTS

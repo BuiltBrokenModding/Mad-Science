@@ -3,7 +3,6 @@ package madscience.mobs.abomination;
 import java.util.Random;
 
 import madscience.MadConfig;
-import madscience.MadSounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -209,7 +208,7 @@ public class AbominationMobEntity extends EntityMob
         double d0 = 16.0D;
         if (this.rand.nextInt(100) == 0)
         {
-            this.playSound(MadSounds.ABOMINATION_GROWL, 1.0F, 0.5F);
+            this.playSound(AbominationSounds.ABOMINATION_GROWL, 1.0F, 0.5F);
         }
         return this.worldObj.getClosestVulnerablePlayerToEntity(this, d0);
     }
@@ -225,7 +224,7 @@ public class AbominationMobEntity extends EntityMob
     @Override
     protected String getDeathSound()
     {
-        return MadSounds.ABOMINATION_DEATH;
+        return AbominationSounds.ABOMINATION_DEATH;
     }
 
     /** Returns the item ID for the item the mob drops on death. */
@@ -240,14 +239,14 @@ public class AbominationMobEntity extends EntityMob
     @Override
     protected String getHurtSound()
     {
-        return MadSounds.ABOMINATION_PAIN;
+        return AbominationSounds.ABOMINATION_PAIN;
     }
 
     // The sound effect played when it's just living, like a cow mooing.
     @Override
     protected String getLivingSound()
     {
-        return MadSounds.ABOMINATION_HISS;
+        return AbominationSounds.ABOMINATION_HISS;
     }
 
     @Override
@@ -360,7 +359,7 @@ public class AbominationMobEntity extends EntityMob
     protected void playStepSound(int par1, int par2, int par3, int par4)
     {
         // First variable is volume and the second is pitch.
-        this.worldObj.playSoundAtEntity(this, MadSounds.ABOMINATION_STEP, 1.0F, 1.0F);
+        this.worldObj.playSoundAtEntity(this, AbominationSounds.ABOMINATION_STEP, 1.0F, 1.0F);
     }
 
     // Sets the active target the Task system uses for tracking.
@@ -403,7 +402,7 @@ public class AbominationMobEntity extends EntityMob
         vec31 = vec31.normalize();
         if (this.entityToAttack != null && this.rand.nextInt(100) == 0)
         {
-            this.playSound(MadSounds.ABOMINATION_ATTACK, 1.0F, 0.5F);
+            this.playSound(AbominationSounds.ABOMINATION_ATTACK, 1.0F, 0.5F);
         }
         double d1 = vec3.dotProduct(vec31);
         return d1 > 1.0D - 0.025D / d0 ? par1EntityPlayer.canEntityBeSeen(this) : false;

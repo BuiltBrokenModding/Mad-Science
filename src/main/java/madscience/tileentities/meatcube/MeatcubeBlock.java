@@ -323,12 +323,12 @@ public class MeatcubeBlock extends BlockContainer
                         world.spawnEntityInWorld(entityitem);
 
                         // Play a meat slapping sound effect from our list of them.
-                        world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, MadSounds.MEATCUBE_MEATSLAP, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
+                        world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, MeatcubeSounds.MEATCUBE_MEATSLAP, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
 
                         // Play a cow mooaning sound, but not every single time because that is annoying.
                         if (world.rand.nextBoolean() && world.rand.nextInt(10) < 5)
                         {
-                            world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, MadSounds.MEATCUBE_MOOANING, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
+                            world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, MeatcubeSounds.MEATCUBE_MOOANING, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
                         }
                     }
 

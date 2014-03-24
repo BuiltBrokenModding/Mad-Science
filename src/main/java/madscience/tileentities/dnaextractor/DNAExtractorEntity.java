@@ -8,7 +8,6 @@ import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.items.needles.NeedleMutant;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -641,7 +640,7 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
         }
 
         // Play a sound of needle being extracted.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DNAEXTRACTOR_FINISH, 1.0F, 1.0F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DNAExtractorSounds.DNAEXTRACTOR_FINISH, 1.0F, 1.0F);
     }
 
     /**
@@ -746,7 +745,7 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
         // Check to see if we should play idle sounds.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.DNAEXTRACTOR_IDLE, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DNAExtractorSounds.DNAEXTRACTOR_IDLE, 1.0F, 1.0F);
         }
     }
 

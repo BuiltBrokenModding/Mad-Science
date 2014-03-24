@@ -6,7 +6,6 @@ import madscience.MadConfig;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -128,7 +127,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         internalLiquidDNAMutantTank.fill(new FluidStack(MadFluids.LIQUIDDNA_MUTANT, FluidContainerRegistry.BUCKET_VOLUME), true);
 
         // Play a regrowing noise when we manually add a bucket of water into the meatcube.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         MadScience.logger.info("internalWaterTank() " + internalLiquidDNAMutantTank.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
@@ -588,7 +587,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
                     this.currentMeatCubeDamageValue++;
 
                     // Play a disgusting sound of the meatcube regrowing.
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
                 }
             }
         }
@@ -629,7 +628,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
             }
 
             // Play sound effect of meatcube idly existing and being generally repulsive.
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MEATCUBE_IDLE, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_IDLE, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
 
             // Set the flag that triggers animation to play.
             shouldPlay = true;
@@ -704,7 +703,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         // Play the sound of a heartbeat every few seconds.
         if (worldObj.getWorldTime() % ((this.currentMeatCubeDamageValue * MadScience.SECOND_IN_TICKS) + MadScience.SECOND_IN_TICKS) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.MEATCUBE_HEARTBEAT, ((1.0F / this.currentMeatCubeDamageValue) + 0.42F), this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_HEARTBEAT, ((1.0F / this.currentMeatCubeDamageValue) + 0.42F), this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
     }
 

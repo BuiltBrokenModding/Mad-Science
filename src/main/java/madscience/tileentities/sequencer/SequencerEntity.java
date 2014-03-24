@@ -6,7 +6,6 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -499,7 +498,7 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
                 this.sequencerOutput[0] = sequencerInput[1].copy();
 
                 // Sound of genome reel total completion.
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SEQUENCER_FINISH, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SequencerSounds.SEQUENCER_FINISH, 1.0F, 1.0F);
 
                 // Remove healed data reel from input stack 2.
                 --this.sequencerInput[1].stackSize;
@@ -527,7 +526,7 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
             craftedItem.setItemDamage(craftedItem.getMaxDamage());
 
             // Sound of genome reel creation.
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SEQUENCER_START, 1.0F, 1.0F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SequencerSounds.SEQUENCER_START, 1.0F, 1.0F);
 
             // Add encoded genome data reel to output slot 1.
             if (this.sequencerOutput[0] == null)
@@ -657,7 +656,7 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
         // Check to see if we should play idle sounds.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3) == 0L)
         {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MadSounds.SEQUENCER_WORK, 0.42F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SequencerSounds.SEQUENCER_WORK, 0.42F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
     }
 
