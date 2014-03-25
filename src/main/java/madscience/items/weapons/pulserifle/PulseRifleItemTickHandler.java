@@ -229,8 +229,6 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 if (pulseRifleFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
                 {
                     MadScience.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
-                    playerHeldItem.useItemRightClick(player.worldObj, player);
-                    player.setItemInUse(playerHeldItem, pulseRifleFireTime);
                 }
                 else
                 {
