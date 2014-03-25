@@ -508,6 +508,12 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
         playerItem.stackTagCompound.setBoolean("isLeftPressed", leftPressed);
         playerItem.stackTagCompound.setBoolean("isRightPressed", rightPressed);
+        
+        // Check if the player should be playing the animation for holding the rifle like a bow.
+        if (playerFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
+        {
+            player.setItemInUse(playerItem, playerFireTime);
+        }
 
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
         // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
