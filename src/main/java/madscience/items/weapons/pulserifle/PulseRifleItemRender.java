@@ -12,6 +12,7 @@ import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 
@@ -155,15 +156,26 @@ public class PulseRifleItemRender implements IItemRenderer
     @SideOnly(Side.CLIENT)
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
+        // Grab client side instance of the players world.
+        World clientWorld = MadScience.proxy.getClientWorld();
+        
         // Grab client side instance of the player.
-        EntityClientPlayerMP playerMP = Minecraft.getMinecraft().thePlayer;
-        if (playerMP == null)
+        EntityClientPlayerMP clientEntity = Minecraft.getMinecraft().thePlayer;
+        
+        // Quit if there is no client entity.
+        if (clientEntity == null)
         {
             return;
         }
 
+        // Quit if there is no client world.
+        if (clientWorld == null)
+        {
+            return;
+        }
+        
         // Ensure that we are on a client side only world.
-        if (!playerMP.worldObj.isRemote)
+        if (!clientWorld.isRemote)
         {
             return;
         }
@@ -171,9 +183,12 @@ public class PulseRifleItemRender implements IItemRenderer
         // Initialize variables we will use to communicate the status of the pulse rifle.
         int renderPass = 0;
         int pulseRifleFireTime = 0;
+        int previousFireTime = 0;
         int primaryAmmoCount = 0;
         int secondaryAmmoCount = 0;
         boolean primaryFireModeEnabled = true;
+        boolean isLeftPressed = false;
+        boolean isRightPressed = false;
 
         // Create NBT data if required.
         if (item.stackTagCompound == null)
@@ -184,16 +199,24 @@ public class PulseRifleItemRender implements IItemRenderer
         // Grab NBT data from the item the player is holding.
         if (!item.stackTagCompound.hasNoTags())
         {
+            // Client Only - Render Pass
             if (item.stackTagCompound.hasKey("renderPass"))
             {
                 renderPass = item.stackTagCompound.getInteger("renderPass");
             }
 
+            // Fire time.
             if (item.stackTagCompound.hasKey("playerFireTime"))
             {
                 pulseRifleFireTime = item.stackTagCompound.getInteger("playerFireTime");
             }
+            
+            if (item.stackTagCompound.hasKey("previousFireTime"))
+            {
+                previousFireTime = item.stackTagCompound.getInteger("previousFireTime");
+            }
 
+            // Ammo Count
             if (item.stackTagCompound.hasKey("primaryAmmoCount"))
             {
                 primaryAmmoCount = item.stackTagCompound.getInteger("primaryAmmoCount");
@@ -203,10 +226,22 @@ public class PulseRifleItemRender implements IItemRenderer
             {
                 secondaryAmmoCount = item.stackTagCompound.getInteger("secondaryAmmoCount");
             }
-
+            
+            // Firing mode
             if (item.stackTagCompound.hasKey("primaryFireModeEnabled"))
             {
                 primaryFireModeEnabled = item.stackTagCompound.getBoolean("primaryFireModeEnabled");
+            }
+            
+            // Mouse Buttons
+            if (item.stackTagCompound.hasKey("isLeftPressed"))
+            {
+                isLeftPressed = item.stackTagCompound.getBoolean("isLeftPressed");
+            }
+
+            if (item.stackTagCompound.hasKey("isRightPressed"))
+            {
+                isRightPressed = item.stackTagCompound.getBoolean("isRightPressed");
             }
         }
 
@@ -242,7 +277,7 @@ public class PulseRifleItemRender implements IItemRenderer
         }
 
         // Decide what muzzle flash we are going to use this tick.
-        int muzzleFlashRandomizer = playerMP.worldObj.rand.nextInt(5);
+        int muzzleFlashRandomizer = clientWorld.rand.nextInt(5);
 
         // Change numbers on pulse rifle to match current firing mode ammo count.
         switch (renderPass)
@@ -335,7 +370,7 @@ public class PulseRifleItemRender implements IItemRenderer
 
             // Change position and rotation based on firing status.
             GL11.glScalef(scale, scale, scale);
-            if (playerMP.isUsingItem() && playerMP.getItemInUse().itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
+            if (clientEntity.isUsingItem() && clientEntity.getItemInUse().itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
             {
                 GL11.glTranslatef(5.5F, 5.0F, 4.5F);
                 GL11.glRotatef(155.0F, 0.0F, 1.0F, 0.0F);
@@ -377,10 +412,10 @@ public class PulseRifleItemRender implements IItemRenderer
         case 0:
         {
             // Move the bolt and show muzzle flash on the rifle when firing.
-            if (pulseRifleFireTime > 1 && primaryFireModeEnabled)
+            if (pulseRifleFireTime > 1 && primaryFireModeEnabled && isLeftPressed && primaryAmmoCount > 0)
             {
                 // BULLETS
-                if (playerMP.worldObj.getWorldTime() % 2F == 0L)
+                if (clientWorld.getWorldTime() % 2F == 0L)
                 {
                     this.showMovingParts(muzzleFlashRandomizer);
                 }
@@ -389,7 +424,7 @@ public class PulseRifleItemRender implements IItemRenderer
                     this.hideMovingParts(muzzleFlashRandomizer);
                 }
             }
-            else if (pulseRifleFireTime > 0 && !primaryFireModeEnabled)
+            else if (pulseRifleFireTime > 0 && !primaryFireModeEnabled && isLeftPressed && secondaryAmmoCount > 0)
             {
                 // GRENADES
                 MODEL_RIFLE.parts.get("PumpFront").showModel = false;
@@ -410,45 +445,54 @@ public class PulseRifleItemRender implements IItemRenderer
         case 1:
         {
             // Weapon Counter Digit 1.
+            GL11.glDisable(GL11.GL_LIGHTING);
             MODEL_COUNTER_LEFT.renderAll();
+            GL11.glEnable(GL11.GL_LIGHTING);
         }
             break;
         case 2:
         {
             // Weapon Counter Digit 2.
+            GL11.glDisable(GL11.GL_LIGHTING);
             MODEL_COUNTER_RIGHT.renderAll();
+            GL11.glEnable(GL11.GL_LIGHTING);
         }
             break;
         case 3:
         {
-            // Muzzle Flash
-            switch (muzzleFlashRandomizer)
+            if (isLeftPressed && primaryFireModeEnabled && pulseRifleFireTime > 0)
             {
-            case 0:
-            {
-                MODEL_FLASH0.renderAll();
-            }
-                break;
-            case 1:
-            {
-                MODEL_FLASH1.renderAll();
-            }
-                break;
-            case 2:
-            {
-                MODEL_FLASH2.renderAll();
-            }
-                break;
-            case 3:
-            {
-                MODEL_FLASH3.renderAll();
-            }
-                break;
-            case 4:
-            {
-                MODEL_FLASH4.renderAll();
-            }
-                break;
+                GL11.glDisable(GL11.GL_LIGHTING);
+                // Muzzle Flash
+                switch (muzzleFlashRandomizer)
+                {
+                case 0:
+                {
+                    MODEL_FLASH0.renderAll();
+                }
+                    break;
+                case 1:
+                {
+                    MODEL_FLASH1.renderAll();
+                }
+                    break;
+                case 2:
+                {
+                    MODEL_FLASH2.renderAll();
+                }
+                    break;
+                case 3:
+                {
+                    MODEL_FLASH3.renderAll();
+                }
+                    break;
+                case 4:
+                {
+                    MODEL_FLASH4.renderAll();
+                }
+                    break;
+                }
+                GL11.glEnable(GL11.GL_LIGHTING);
             }
         }
             break;
