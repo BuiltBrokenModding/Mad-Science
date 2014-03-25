@@ -305,12 +305,12 @@ public class PulseRifleItem extends ItemBow
                     boolean shouldFire = false;
                     if (player.worldObj.getWorldTime() % 12F == 0L && clientFireTime >= 1)
                     {
-                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.3F, 1.0F);
                         shouldFire = true;
                     }
                     else if (clientFireTime <= 0)
                     {
-                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.5F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.3F, 1.0F);
                         shouldFire = true;
                     }
 
@@ -513,6 +513,7 @@ public class PulseRifleItem extends ItemBow
         if (playerFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
         {
             player.setItemInUse(playerItem, playerFireTime);
+            playerItem.useItemRightClick(player.worldObj, player);
         }
 
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
@@ -535,7 +536,7 @@ public class PulseRifleItem extends ItemBow
         {
             par1ItemStack.stackTagCompound = new NBTTagCompound();
         }
-
+        
         // ------
         // SERVER
         // ------
@@ -615,6 +616,12 @@ public class PulseRifleItem extends ItemBow
             {
                 isRightPressed = par1ItemStack.stackTagCompound.getBoolean("isRightPressed");
             }
+        }
+        
+        if (pulseRifleFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
+        {
+            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, pulseRifleFireTime);
+            //par1ItemStack.useItemRightClick(par3Entity.worldObj, par3Entity);
         }
 
         // Check if secondary ammo is empty or not.
