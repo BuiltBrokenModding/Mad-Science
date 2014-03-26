@@ -543,8 +543,8 @@ public class PulseRifleItem extends ItemBow
     
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer entityPlayer)
-    {
-        entityPlayer.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+    {        
+        entityPlayer.setItemInUse(stack, 72000);
         return stack;
     }
 
@@ -641,23 +641,8 @@ public class PulseRifleItem extends ItemBow
         // Force the player to hold the weapons out infront of them like a bow.
         if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
         {
-            EntityPlayer thePlayer = (EntityPlayer) par3Entity;
-            if (thePlayer == null)
-            {
-                return;
-            }
-
-            ItemStack theWeapon = thePlayer.getHeldItem();
-            if (theWeapon == null)
-            {
-                return;
-            }
-
-            if (theWeapon.isItemEqual(par1ItemStack) && theWeapon.itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
-            {
-                thePlayer.setItemInUse(par1ItemStack, 72000);
-                theWeapon.useItemRightClick(par2World, thePlayer);
-            }
+            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, 72000);
+            par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
         }
 
         // ------

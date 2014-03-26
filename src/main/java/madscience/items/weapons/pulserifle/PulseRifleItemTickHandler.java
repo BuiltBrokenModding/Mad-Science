@@ -231,7 +231,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 {
                     MadScience.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
                     player.setItemInUse(playerHeldItem, playerHeldItem.getMaxItemUseDuration() / pulseRifleFireTime);
-                    playerHeldItem.useItemRightClick(player.worldObj, player);
+                    playerHeldItem.useItemRightClick(world, player);
                 }
                 else
                 {
