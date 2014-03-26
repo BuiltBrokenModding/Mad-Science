@@ -608,8 +608,8 @@ public class PulseRifleItem extends ItemBow
         {
             if (primaryFireModeEnabled)
             {
-                MadScience.logger.info("getItemInUseCount: " + this.getMaxItemUseDuration(par1ItemStack) / pulseRifleFireTime);
-                MadScience.logger.info("pulseRifleFireTime: " + pulseRifleFireTime);
+                //MadScience.logger.info("getItemInUseCount: " + this.getMaxItemUseDuration(par1ItemStack) / pulseRifleFireTime);
+                //MadScience.logger.info("pulseRifleFireTime: " + pulseRifleFireTime);
                 
                 ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack) / pulseRifleFireTime);
                 par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
