@@ -305,12 +305,12 @@ public class PulseRifleItem extends ItemBow
                     boolean shouldFire = false;
                     if (player.worldObj.getWorldTime() % 12F == 0L && clientFireTime >= 1)
                     {
-                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.3F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.1F, 1.0F);
                         shouldFire = true;
                     }
                     else if (clientFireTime <= 0)
                     {
-                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.3F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.1F, 1.0F);
                         shouldFire = true;
                     }
 
@@ -508,13 +508,6 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
         playerItem.stackTagCompound.setBoolean("isLeftPressed", leftPressed);
         playerItem.stackTagCompound.setBoolean("isRightPressed", rightPressed);
-        
-        // Check if the player should be playing the animation for holding the rifle like a bow.
-        if (playerFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
-        {
-            player.setItemInUse(playerItem, playerFireTime);
-            playerItem.useItemRightClick(player.worldObj, player);
-        }
 
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
         // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
@@ -535,14 +528,6 @@ public class PulseRifleItem extends ItemBow
         if (par1ItemStack.stackTagCompound == null)
         {
             par1ItemStack.stackTagCompound = new NBTTagCompound();
-        }
-        
-        // ------
-        // SERVER
-        // ------
-        if (par2World.isRemote)
-        {
-            return;
         }
 
         // Initialize variables we will use to communicate the status of the pulse rifle.
@@ -618,10 +603,19 @@ public class PulseRifleItem extends ItemBow
             }
         }
         
-        if (pulseRifleFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
+        // Force the player to hold the weapons out infront of them like a bow.
+        if (isLeftPressed && pulseRifleFireTime > 1 && previousFireTime >= 0)
         {
-            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, pulseRifleFireTime);
-            //par1ItemStack.useItemRightClick(par3Entity.worldObj, par3Entity);
+            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, previousFireTime);
+            par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
+        }
+        
+        // ------
+        // SERVER
+        // ------
+        if (par2World.isRemote)
+        {
+            return;
         }
 
         // Check if secondary ammo is empty or not.
