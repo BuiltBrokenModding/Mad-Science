@@ -604,9 +604,9 @@ public class PulseRifleItem extends ItemBow
         }
         
         // Force the player to hold the weapons out infront of them like a bow.
-        if (isLeftPressed && pulseRifleFireTime > 1 && previousFireTime >= 0)
+        if (isLeftPressed && pulseRifleFireTime > 1 && previousFireTime >= 0 && primaryFireModeEnabled)
         {
-            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, previousFireTime);
+            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, par1ItemStack.getMaxItemUseDuration());
             par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
         }
         
