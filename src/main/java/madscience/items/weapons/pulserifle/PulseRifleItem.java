@@ -147,23 +147,6 @@ public class PulseRifleItem extends ItemBow
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public Icon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
-    {
-        if (usingItem == null)
-        {
-            //return itemIcon;
-        }
-        int ticksInUse = stack.getMaxItemUseDuration() - useRemaining;
-        if (ticksInUse > 0)
-        {
-            player.setItemInUse(usingItem, usingItem.getMaxItemUseDuration());
-        }
-        
-        return MadWeapons.WEAPONITEM_PULSERIFLE.itemIcon;
-    }
-
-    @Override
     public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
         // Tells animation system to play animation of bow with hands stuck out infront of player.
@@ -551,6 +534,19 @@ public class PulseRifleItem extends ItemBow
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
         // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
     }
+    
+    @Override
+    public int getMaxItemUseDuration(ItemStack par1ItemStack)
+    {
+        return 72000;
+    }
+    
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer entityPlayer)
+    {
+        entityPlayer.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        return stack;
+    }
 
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
@@ -643,27 +639,24 @@ public class PulseRifleItem extends ItemBow
         }
 
         // Force the player to hold the weapons out infront of them like a bow.
-        if (pulseRifleFireTime > 0 && isLeftPressed)
+        if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
         {
-            if (primaryFireModeEnabled)
+            EntityPlayer thePlayer = (EntityPlayer) par3Entity;
+            if (thePlayer == null)
             {
-                EntityPlayer thePlayer = (EntityPlayer) par3Entity;
-                if (thePlayer == null)
-                {
-                    return;
-                }
+                return;
+            }
 
-                ItemStack theWeapon = thePlayer.getHeldItem();
-                if (theWeapon == null)
-                {
-                    return;
-                }
+            ItemStack theWeapon = thePlayer.getHeldItem();
+            if (theWeapon == null)
+            {
+                return;
+            }
 
-                if (theWeapon.isItemEqual(par1ItemStack) && theWeapon.itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
-                {
-                    thePlayer.setItemInUse(par1ItemStack, theWeapon.getMaxItemUseDuration());
-                    theWeapon.useItemRightClick(par2World, thePlayer);
-                }
+            if (theWeapon.isItemEqual(par1ItemStack) && theWeapon.itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
+            {
+                thePlayer.setItemInUse(par1ItemStack, 72000);
+                theWeapon.useItemRightClick(par2World, thePlayer);
             }
         }
 
