@@ -214,6 +214,7 @@ public class PulseRifleItem extends ItemBow
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
     {
         // Processed before damage is done, further processing is canceled and the entity is not attacked.
+        player.setItemInUse(stack, 72000);
         return true;
     }
 
@@ -221,6 +222,7 @@ public class PulseRifleItem extends ItemBow
     public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4)
     {
         // Prevent the underlying bow class from firing an arrow when we let go of the fire button.
+        par3EntityPlayer.setItemInUse(par1ItemStack, 72000);
     }
 
     public void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
@@ -337,6 +339,7 @@ public class PulseRifleItem extends ItemBow
 
                             // Actually spawn the bullet in the game world.
                             player.worldObj.spawnEntityInWorld(new PulseRifleBulletEntity(player.worldObj, player, 4.2F));
+                            player.setItemInUse(playerItem, 72000);
                         }
                     }
                 }
@@ -384,6 +387,8 @@ public class PulseRifleItem extends ItemBow
 
                     // Spawn grenade in the game world.
                     player.worldObj.spawnEntityInWorld(new PulseRifleGrenadeEntity(player.worldObj, player, 1.0F));
+                    
+                    player.setItemInUse(playerItem, 72000);
 
                     // MadScience.logger.info("FIRING GRENADE");
                 }
@@ -544,14 +549,23 @@ public class PulseRifleItem extends ItemBow
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer entityPlayer)
     {        
+        //MadScience.logger.info("onItemRightClick");
         entityPlayer.setItemInUse(stack, 72000);
         return stack;
+    }
+    
+    @Override
+    public void onUsingItemTick(ItemStack stack, EntityPlayer player, int count)
+    {
+        //super.onUsingItemTick(stack, player, count);
+        //MadScience.logger.info("onUsingItemTick");
+        player.setItemInUse(stack, 72000);
     }
 
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
     {
-        super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
+        //super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
 
         // Only do this for our pulse rifle.
         if (!par1ItemStack.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
