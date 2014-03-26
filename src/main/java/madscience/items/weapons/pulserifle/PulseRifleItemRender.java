@@ -354,6 +354,12 @@ public class PulseRifleItemRender implements IItemRenderer
         {
         case EQUIPPED:
         {
+            if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
+            {
+                clientEntity.setItemInUse(item, pulseRifleFireTime);
+                //item.useItemRightClick(clientWorld, clientEntity);
+            }
+            
             float scale = 0.20F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(3.0F, -1.0F, 2.0F);
@@ -365,7 +371,7 @@ public class PulseRifleItemRender implements IItemRenderer
             break;
         }
         case EQUIPPED_FIRST_PERSON:
-        {
+        {            
             float scale = 0.15F;
 
             // Change position and rotation based on firing status.
@@ -413,13 +419,7 @@ public class PulseRifleItemRender implements IItemRenderer
         {
             // Move the bolt and show muzzle flash on the rifle when firing.
             if (pulseRifleFireTime > 0 && isLeftPressed && primaryAmmoCount > 0 && primaryFireModeEnabled)
-            {
-                if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
-                {
-                    clientEntity.setItemInUse(item, pulseRifleFireTime);
-                    item.useItemRightClick(clientWorld, clientEntity);
-                }
-                
+            {                
                 // BULLETS
                 if (clientWorld.getWorldTime() % 2F == 0L)
                 {
