@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -207,6 +208,8 @@ public class PulseRifleItem extends ItemBow
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
         // Prevent any further processing by normal Minecraft code.
+        player.setItemInUse(stack, 72000);
+        stack.useItemRightClick(world, player);
         return true;
     }
 
@@ -215,6 +218,7 @@ public class PulseRifleItem extends ItemBow
     {
         // Processed before damage is done, further processing is canceled and the entity is not attacked.
         player.setItemInUse(stack, 72000);
+        stack.useItemRightClick(player.worldObj, player);
         return true;
     }
 
@@ -223,6 +227,7 @@ public class PulseRifleItem extends ItemBow
     {
         // Prevent the underlying bow class from firing an arrow when we let go of the fire button.
         par3EntityPlayer.setItemInUse(par1ItemStack, 72000);
+        par1ItemStack.useItemRightClick(par2World, par3EntityPlayer);
     }
 
     public void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
@@ -340,6 +345,7 @@ public class PulseRifleItem extends ItemBow
                             // Actually spawn the bullet in the game world.
                             player.worldObj.spawnEntityInWorld(new PulseRifleBulletEntity(player.worldObj, player, 4.2F));
                             player.setItemInUse(playerItem, 72000);
+                            playerItem.useItemRightClick(player.worldObj, player);
                         }
                     }
                 }
@@ -549,8 +555,6 @@ public class PulseRifleItem extends ItemBow
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer entityPlayer)
     {        
-        //MadScience.logger.info("onItemRightClick");
-        entityPlayer.setItemInUse(stack, 72000);
         return stack;
     }
     
@@ -560,6 +564,7 @@ public class PulseRifleItem extends ItemBow
         //super.onUsingItemTick(stack, player, count);
         //MadScience.logger.info("onUsingItemTick");
         player.setItemInUse(stack, 72000);
+        stack.useItemRightClick(player.worldObj, player);
     }
 
     @Override

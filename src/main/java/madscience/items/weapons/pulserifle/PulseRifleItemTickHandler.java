@@ -227,10 +227,10 @@ public class PulseRifleItemTickHandler implements ITickHandler
             if (type.equals(EnumSet.of(TickType.RENDER)))
             {
                 // Only run the right-click functionality if internal NBT firetime is greater than zero.
-                if (pulseRifleFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
+                if (isLeftPressed && pulseRifleFireTime > 0 && primaryFireModeEnabled)
                 {
                     MadScience.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
-                    player.setItemInUse(playerHeldItem, playerHeldItem.getMaxItemUseDuration() / pulseRifleFireTime);
+                    player.setItemInUse(playerHeldItem, pulseRifleFireTime);
                     playerHeldItem.useItemRightClick(world, player);
                 }
                 else
