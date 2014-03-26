@@ -208,8 +208,8 @@ public class PulseRifleItem extends ItemBow
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
         // Prevent any further processing by normal Minecraft code.
-        player.setItemInUse(stack, 72000);
-        stack.useItemRightClick(world, player);
+        //player.setItemInUse(stack, 72000);
+        //stack.useItemRightClick(world, player);
         return true;
     }
 
@@ -217,8 +217,8 @@ public class PulseRifleItem extends ItemBow
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
     {
         // Processed before damage is done, further processing is canceled and the entity is not attacked.
-        player.setItemInUse(stack, 72000);
-        stack.useItemRightClick(player.worldObj, player);
+        //player.setItemInUse(stack, 72000);
+        //stack.useItemRightClick(player.worldObj, player);
         return true;
     }
 
@@ -226,8 +226,8 @@ public class PulseRifleItem extends ItemBow
     public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4)
     {
         // Prevent the underlying bow class from firing an arrow when we let go of the fire button.
-        par3EntityPlayer.setItemInUse(par1ItemStack, 72000);
-        par1ItemStack.useItemRightClick(par2World, par3EntityPlayer);
+        //par3EntityPlayer.setItemInUse(par1ItemStack, 72000);
+        //useItemRightClick(par2World, par3EntityPlayer);
     }
 
     public void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
@@ -344,8 +344,8 @@ public class PulseRifleItem extends ItemBow
 
                             // Actually spawn the bullet in the game world.
                             player.worldObj.spawnEntityInWorld(new PulseRifleBulletEntity(player.worldObj, player, 4.2F));
-                            player.setItemInUse(playerItem, 72000);
-                            playerItem.useItemRightClick(player.worldObj, player);
+                            //player.setItemInUse(playerItem, 72000);
+                            //playerItem.useItemRightClick(player.worldObj, player);
                         }
                     }
                 }
@@ -393,9 +393,7 @@ public class PulseRifleItem extends ItemBow
 
                     // Spawn grenade in the game world.
                     player.worldObj.spawnEntityInWorld(new PulseRifleGrenadeEntity(player.worldObj, player, 1.0F));
-                    
-                    player.setItemInUse(playerItem, 72000);
-
+                    //player.setItemInUse(playerItem, 72000);
                     // MadScience.logger.info("FIRING GRENADE");
                 }
                 else if (secondaryAmmoCount <= 0)
@@ -499,6 +497,13 @@ public class PulseRifleItem extends ItemBow
     public void onRecievePacketFromServer(int playerFireTime, int previousFireTime, int rightClickTime, int playerButtonPressed, int primaryAmmoCount, int secondaryAmmoCount, boolean primaryFireModeEnabled, boolean shouldUnloadWeapon,
             boolean isPrimaryEmpty, boolean isSecondaryEmpty, boolean leftPressed, boolean rightPressed, EntityPlayer player)
     {
+        // Check if there is a world.
+        World world = MadScience.proxy.getClientWorld();
+        if (world == null)
+        {
+            return;
+        }
+        
         // Got a packet from the server that is telling a client to play a client
         if (player == null)
         {
@@ -541,6 +546,12 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
         playerItem.stackTagCompound.setBoolean("isLeftPressed", leftPressed);
         playerItem.stackTagCompound.setBoolean("isRightPressed", rightPressed);
+        
+        if (playerFireTime > 0 && primaryFireModeEnabled)
+        {
+            player.setItemInUse(playerItem, playerFireTime);
+            playerItem.useItemRightClick(world, player);
+        }
 
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
         // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
@@ -563,8 +574,8 @@ public class PulseRifleItem extends ItemBow
     {
         //super.onUsingItemTick(stack, player, count);
         //MadScience.logger.info("onUsingItemTick");
-        player.setItemInUse(stack, 72000);
-        stack.useItemRightClick(player.worldObj, player);
+        //player.setItemInUse(stack, 72000);
+        //stack.useItemRightClick(player.worldObj, player);
     }
 
     @Override
@@ -658,11 +669,11 @@ public class PulseRifleItem extends ItemBow
         }
 
         // Force the player to hold the weapons out infront of them like a bow.
-        if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
-        {
-            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, 72000);
-            par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
-        }
+//        if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
+//        {
+//            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, 72000);
+//            par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
+//        }
 
         // ------
         // SERVER
