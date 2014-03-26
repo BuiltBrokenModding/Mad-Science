@@ -143,7 +143,24 @@ public class PulseRifleItem extends ItemBow
     @SideOnly(Side.CLIENT)
     public Icon getItemIconForUseDuration(int par1)
     {
-        //MadScience.logger.info("DURATION: " + par1);
+        // MadScience.logger.info("DURATION: " + par1);
+        return MadWeapons.WEAPONITEM_PULSERIFLE.itemIcon;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Icon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    {
+        if (usingItem == null)
+        {
+            //return itemIcon;
+        }
+        int ticksInUse = stack.getMaxItemUseDuration() - useRemaining;
+        if (ticksInUse > 0)
+        {
+            player.setItemInUse(usingItem, usingItem.getMaxItemUseDuration());
+        }
+        
         return MadWeapons.WEAPONITEM_PULSERIFLE.itemIcon;
     }
 
@@ -297,7 +314,7 @@ public class PulseRifleItem extends ItemBow
             // ----------
             // LEFT CLICK
             // ----------
-            
+
             // Decrease the amount of ammo depending on fire-mode.
             if (primaryFireModeEnabled)
             {
@@ -410,7 +427,7 @@ public class PulseRifleItem extends ItemBow
             // -----------
             // RIGHT CLICK
             // -----------
-            
+
             if (clientrightClickTime == 1)
             {
                 if (clientshouldUnloadWeapon)
@@ -451,13 +468,13 @@ public class PulseRifleItem extends ItemBow
             // INTERMEDIATE PACKET
             // NO LEFT - NO RIGHT
             // -------------------
-            
+
             isLeftPressed = false;
             isRightPressed = false;
             clientFireTime = 0;
             clientpreviousFireTime = 0;
             clientrightClickTime = 0;
-            //MadScience.logger.info("INTERMEDIATE PACKET");
+            // MadScience.logger.info("INTERMEDIATE PACKET");
         }
 
         // Save the data we just changed onto the item that will be synced with the client.
@@ -625,37 +642,37 @@ public class PulseRifleItem extends ItemBow
                 isRightPressed = par1ItemStack.stackTagCompound.getBoolean("isRightPressed");
             }
         }
-        
+
         // Force the player to hold the weapons out infront of them like a bow.
         if (pulseRifleFireTime > 0 && isLeftPressed)
         {
             if (primaryFireModeEnabled)
-            {                
+            {
                 EntityPlayer thePlayer = (EntityPlayer) par3Entity;
                 if (thePlayer == null)
                 {
                     return;
                 }
-                
-                ItemStack theWeapon = thePlayer.getHeldItem(); 
+
+                ItemStack theWeapon = thePlayer.getHeldItem();
                 if (theWeapon == null)
                 {
                     return;
                 }
-                
+
                 if (theWeapon.isItemEqual(par1ItemStack) && theWeapon.itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
                 {
                     thePlayer.setItemInUse(par1ItemStack, theWeapon.getMaxItemUseDuration());
-                    //MadScience.logger.info("ITEM SET IN USE");
+                    // MadScience.logger.info("ITEM SET IN USE");
                     if (thePlayer.getItemInUse() != null)
                     {
                         thePlayer.getItemInUse().useItemRightClick(par2World, thePlayer);
-                        //MadScience.logger.info("USING ITEM");
+                        // MadScience.logger.info("USING ITEM");
                     }
                 }
             }
         }
-        
+
         // ------
         // SERVER
         // ------
