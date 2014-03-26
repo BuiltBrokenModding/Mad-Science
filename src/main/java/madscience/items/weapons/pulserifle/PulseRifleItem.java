@@ -293,6 +293,10 @@ public class PulseRifleItem extends ItemBow
         // Called when we receive a packet from a client that is telling us to fire the weapon!
         if (clientButtonPressed == 0 && leftPressed)
         {
+            // ----------
+            // LEFT CLICK
+            // ----------
+            
             // Decrease the amount of ammo depending on fire-mode.
             if (primaryFireModeEnabled)
             {
@@ -402,6 +406,10 @@ public class PulseRifleItem extends ItemBow
         }
         else if (clientButtonPressed == 2 && clientFireTime <= 0 && isRightPressed)
         {
+            // -----------
+            // RIGHT CLICK
+            // -----------
+            
             if (clientrightClickTime == 1)
             {
                 if (clientshouldUnloadWeapon)
@@ -435,6 +443,20 @@ public class PulseRifleItem extends ItemBow
 
             // Increase the right-click time to prevent it from slipping through multiple times.
             clientrightClickTime++;
+        }
+        else if (clientButtonPressed == 1)
+        {
+            // -------------------
+            // INTERMEDIATE PACKET
+            // NO LEFT - NO RIGHT
+            // -------------------
+            
+            isLeftPressed = false;
+            isRightPressed = false;
+            clientFireTime = 0;
+            clientpreviousFireTime = 0;
+            clientrightClickTime = 0;
+            //MadScience.logger.info("INTERMEDIATE PACKET");
         }
 
         // Save the data we just changed onto the item that will be synced with the client.
@@ -607,28 +629,10 @@ public class PulseRifleItem extends ItemBow
         if (pulseRifleFireTime > 0 && isLeftPressed)
         {
             if (primaryFireModeEnabled)
-            {
-                //MadScience.logger.info("getItemInUseCount: " + this.getMaxItemUseDuration(par1ItemStack) / pulseRifleFireTime);
-                //MadScience.logger.info("pulseRifleFireTime: " + pulseRifleFireTime);
-                
+            {                
                 ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack) / pulseRifleFireTime);
                 par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
             }
-        }
-        else if (!isLeftPressed && pulseRifleFireTime > 0)
-        {
-            // Flatten left-click time when not holding the button down and there is something to decrease.
-            pulseRifleFireTime = 0;
-            previousFireTime = 0;
-            par1ItemStack.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-            par1ItemStack.stackTagCompound.setInteger("previousFireTime", previousFireTime);
-
-            isPrimaryEmpty = false;
-            par1ItemStack.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
-
-            isSecondaryEmpty = false;
-            par1ItemStack.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
-            MadScience.logger.info("Client: Reset Firetime");
         }
         
         // ------
@@ -639,24 +643,8 @@ public class PulseRifleItem extends ItemBow
             return;
         }
 
-        // Check if secondary ammo is empty or not.
-        if (isLeftPressed && !primaryFireModeEnabled && pulseRifleFireTime <= 1 && previousFireTime <= 0 && isSecondaryEmpty && secondaryAmmoCount > 0)
-        {
-            // MadScience.logger.info("Server: Fixed Secondary Empty Status");
-            isSecondaryEmpty = false;
-            par1ItemStack.stackTagCompound.setBoolean("isSecondaryEmpty", false);
-        }
-
-        // Check if nothing is being pressed.
-        if (isLeftPressed && !primaryFireModeEnabled && pulseRifleFireTime <= 1 && previousFireTime <= 0 && !isSecondaryEmpty && secondaryAmmoCount > 0)
-        {
-            // MadScience.logger.info("Server: Dummy Disable Left Click");
-            isLeftPressed = false;
-            par1ItemStack.stackTagCompound.setBoolean("isSecondaryEmpty", false);
-        }
-
         // Check if we need to disable the has fired grenade flag which is server-only.
-        if (hasFiredGrenade && !isLeftPressed && !isRightPressed && !primaryFireModeEnabled && pulseRifleFireTime >= 0)
+        if (hasFiredGrenade && !isLeftPressed && !isRightPressed && !primaryFireModeEnabled && pulseRifleFireTime <= 0)
         {
             // MadScience.logger.info("Server: Reset Fired Grenade Status");
             // BUG: This will activate if a GUI or player inventory is accessed, no apparent workaround.

@@ -390,6 +390,33 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 intRight.pressTime++;
                 return;
             }
+            
+            // If we reach the bottom of this statement then no right or left click is being held and everything should be zeroed out.
+            if (!intRight.isKeyDown())
+            {
+                pulseRifleFireTime = 0;
+                playerHeldItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
+                
+                previousFireTime = 0;
+                playerHeldItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
+                
+                isLeftPressed = false;
+                playerHeldItem.stackTagCompound.setBoolean("isLeftPressed", isLeftPressed);
+            }
+            
+            if (!intLeft.isKeyDown())
+            {
+                rightClickTime = 0;
+                isRightPressed = false;
+                playerHeldItem.stackTagCompound.setInteger("rightClickTime", rightClickTime);
+                playerHeldItem.stackTagCompound.setBoolean("isRightPressed", isRightPressed);                
+            }
+            
+            if (world.getWorldTime() % 10L == 0L)
+            {
+                PacketDispatcher.sendPacketToServer(new PulseRiflePackets(pulseRifleFireTime, previousFireTime, rightClickTime, 1, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, isPrimaryEmpty, isSecondaryEmpty, player.isSneaking(),
+                        isLeftPressed, isRightPressed).makePacket());
+            }
         }
         else
         {
