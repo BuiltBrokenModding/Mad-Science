@@ -460,37 +460,40 @@ public class PulseRifleItemRender implements IItemRenderer
             break;
         case 3:
         {
-            GL11.glDisable(GL11.GL_LIGHTING);
-            // Muzzle Flash
-            switch (muzzleFlashRandomizer)
+            if (pulseRifleFireTime > 1 && isLeftPressed && primaryAmmoCount > 0 && primaryFireModeEnabled)
             {
-            case 0:
-            {
-                MODEL_FLASH0.renderAll();
+                GL11.glDisable(GL11.GL_LIGHTING);
+                // Muzzle Flash
+                switch (muzzleFlashRandomizer)
+                {
+                case 0:
+                {
+                    MODEL_FLASH0.renderAll();
+                }
+                    break;
+                case 1:
+                {
+                    MODEL_FLASH1.renderAll();
+                }
+                    break;
+                case 2:
+                {
+                    MODEL_FLASH2.renderAll();
+                }
+                    break;
+                case 3:
+                {
+                    MODEL_FLASH3.renderAll();
+                }
+                    break;
+                case 4:
+                {
+                    MODEL_FLASH4.renderAll();
+                }
+                    break;
+                }
+                GL11.glEnable(GL11.GL_LIGHTING);
             }
-                break;
-            case 1:
-            {
-                MODEL_FLASH1.renderAll();
-            }
-                break;
-            case 2:
-            {
-                MODEL_FLASH2.renderAll();
-            }
-                break;
-            case 3:
-            {
-                MODEL_FLASH3.renderAll();
-            }
-                break;
-            case 4:
-            {
-                MODEL_FLASH4.renderAll();
-            }
-                break;
-            }
-            GL11.glEnable(GL11.GL_LIGHTING);
         }
             break;
         }
