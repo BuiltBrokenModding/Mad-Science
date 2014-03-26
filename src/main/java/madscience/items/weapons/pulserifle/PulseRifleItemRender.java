@@ -412,7 +412,8 @@ public class PulseRifleItemRender implements IItemRenderer
         case 0:
         {
             // Move the bolt and show muzzle flash on the rifle when firing.
-            if (pulseRifleFireTime > 1 && primaryFireModeEnabled && isLeftPressed && primaryAmmoCount > 0)
+            //if (pulseRifleFireTime > 1 && primaryFireModeEnabled && isLeftPressed && primaryAmmoCount > 0)
+            if (clientEntity.isUsingItem() && clientEntity.getItemInUse().itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID && primaryFireModeEnabled)
             {
                 // BULLETS
                 if (clientWorld.getWorldTime() % 2F == 0L)
@@ -460,40 +461,37 @@ public class PulseRifleItemRender implements IItemRenderer
             break;
         case 3:
         {
-            if (primaryFireModeEnabled && pulseRifleFireTime > 2)
+            GL11.glDisable(GL11.GL_LIGHTING);
+            // Muzzle Flash
+            switch (muzzleFlashRandomizer)
             {
-                GL11.glDisable(GL11.GL_LIGHTING);
-                // Muzzle Flash
-                switch (muzzleFlashRandomizer)
-                {
-                case 0:
-                {
-                    MODEL_FLASH0.renderAll();
-                }
-                    break;
-                case 1:
-                {
-                    MODEL_FLASH1.renderAll();
-                }
-                    break;
-                case 2:
-                {
-                    MODEL_FLASH2.renderAll();
-                }
-                    break;
-                case 3:
-                {
-                    MODEL_FLASH3.renderAll();
-                }
-                    break;
-                case 4:
-                {
-                    MODEL_FLASH4.renderAll();
-                }
-                    break;
-                }
-                GL11.glEnable(GL11.GL_LIGHTING);
+            case 0:
+            {
+                MODEL_FLASH0.renderAll();
             }
+                break;
+            case 1:
+            {
+                MODEL_FLASH1.renderAll();
+            }
+                break;
+            case 2:
+            {
+                MODEL_FLASH2.renderAll();
+            }
+                break;
+            case 3:
+            {
+                MODEL_FLASH3.renderAll();
+            }
+                break;
+            case 4:
+            {
+                MODEL_FLASH4.renderAll();
+            }
+                break;
+            }
+            GL11.glEnable(GL11.GL_LIGHTING);
         }
             break;
         }

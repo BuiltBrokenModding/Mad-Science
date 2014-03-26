@@ -8,6 +8,7 @@ import madscience.items.weapons.KeyBindingInterceptor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -229,6 +230,8 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 if (pulseRifleFireTime > 1 && previousFireTime > 0 && primaryFireModeEnabled && primaryAmmoCount > 0)
                 {
                     MadScience.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
+                    player.setItemInUse(playerHeldItem, playerHeldItem.getMaxItemUseDuration() / pulseRifleFireTime);
+                    playerHeldItem.useItemRightClick(player.worldObj, player);
                 }
                 else
                 {

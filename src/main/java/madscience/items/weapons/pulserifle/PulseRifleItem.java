@@ -604,10 +604,31 @@ public class PulseRifleItem extends ItemBow
         }
         
         // Force the player to hold the weapons out infront of them like a bow.
-        if (isLeftPressed && pulseRifleFireTime > 1 && previousFireTime >= 0 && primaryFireModeEnabled)
+        if (pulseRifleFireTime > 0 && isLeftPressed)
         {
-            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, par1ItemStack.getMaxItemUseDuration());
-            par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
+            if (primaryFireModeEnabled)
+            {
+                MadScience.logger.info("getItemInUseCount: " + this.getMaxItemUseDuration(par1ItemStack) / pulseRifleFireTime);
+                MadScience.logger.info("pulseRifleFireTime: " + pulseRifleFireTime);
+                
+                ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack) / pulseRifleFireTime);
+                par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
+            }
+        }
+        else if (!isLeftPressed && pulseRifleFireTime > 0)
+        {
+            // Flatten left-click time when not holding the button down and there is something to decrease.
+            pulseRifleFireTime = 0;
+            previousFireTime = 0;
+            par1ItemStack.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
+            par1ItemStack.stackTagCompound.setInteger("previousFireTime", previousFireTime);
+
+            isPrimaryEmpty = false;
+            par1ItemStack.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
+
+            isSecondaryEmpty = false;
+            par1ItemStack.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
+            MadScience.logger.info("Client: Reset Firetime");
         }
         
         // ------
