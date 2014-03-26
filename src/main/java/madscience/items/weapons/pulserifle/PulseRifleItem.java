@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
@@ -663,12 +662,7 @@ public class PulseRifleItem extends ItemBow
                 if (theWeapon.isItemEqual(par1ItemStack) && theWeapon.itemID == MadWeapons.WEAPONITEM_PULSERIFLE.itemID)
                 {
                     thePlayer.setItemInUse(par1ItemStack, theWeapon.getMaxItemUseDuration());
-                    // MadScience.logger.info("ITEM SET IN USE");
-                    if (thePlayer.getItemInUse() != null)
-                    {
-                        thePlayer.getItemInUse().useItemRightClick(par2World, thePlayer);
-                        // MadScience.logger.info("USING ITEM");
-                    }
+                    theWeapon.useItemRightClick(par2World, thePlayer);
                 }
             }
         }
