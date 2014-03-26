@@ -412,8 +412,14 @@ public class PulseRifleItemRender implements IItemRenderer
         case 0:
         {
             // Move the bolt and show muzzle flash on the rifle when firing.
-            if (pulseRifleFireTime > 1 && isLeftPressed && primaryAmmoCount > 0 && primaryFireModeEnabled)
+            if (pulseRifleFireTime > 0 && isLeftPressed && primaryAmmoCount > 0 && primaryFireModeEnabled)
             {
+                if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
+                {
+                    clientEntity.setItemInUse(item, pulseRifleFireTime);
+                    item.useItemRightClick(clientWorld, clientEntity);
+                }
+                
                 // BULLETS
                 if (clientWorld.getWorldTime() % 2F == 0L)
                 {

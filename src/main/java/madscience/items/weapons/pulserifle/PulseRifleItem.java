@@ -547,11 +547,11 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("isLeftPressed", leftPressed);
         playerItem.stackTagCompound.setBoolean("isRightPressed", rightPressed);
         
-        if (playerFireTime > 0 && primaryFireModeEnabled)
-        {
-            player.setItemInUse(playerItem, playerFireTime);
-            playerItem.useItemRightClick(world, player);
-        }
+//        if (playerFireTime > 0 && primaryFireModeEnabled)
+//        {
+//            player.setItemInUse(playerItem, playerFireTime);
+//            playerItem.useItemRightClick(world, player);
+//        }
 
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
         // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
