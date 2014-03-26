@@ -460,7 +460,7 @@ public class PulseRifleItemRender implements IItemRenderer
             break;
         case 3:
         {
-            if (isLeftPressed && primaryFireModeEnabled && pulseRifleFireTime > 1)
+            if (primaryFireModeEnabled && pulseRifleFireTime > 2)
             {
                 GL11.glDisable(GL11.GL_LIGHTING);
                 // Muzzle Flash
