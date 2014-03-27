@@ -9,6 +9,7 @@ import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnaMutant.LiquidDNAMutantRender;
 import madscience.items.weapons.pulserifle.PulseRifleItem;
 import madscience.items.weapons.pulserifle.PulseRifleItemRender;
+import madscience.items.weapons.pulserifle.PulseRifleItemRenderPlayer;
 import madscience.items.weapons.pulserifle.PulseRifleItemTickHandler;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItem;
@@ -308,6 +309,7 @@ public class ClientProxy extends CommonProxy
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, new PulseRifleItemRender());
             TickRegistry.registerTickHandler(new PulseRifleItemTickHandler(), Side.CLIENT);
+            MinecraftForge.EVENT_BUS.register(new PulseRifleItemRenderPlayer());
         }
 
         // Pulse Rifle Bullet

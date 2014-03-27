@@ -21,6 +21,7 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class PulseRifleItemRender implements IItemRenderer
 {
     private enum TransformationTypes
@@ -353,13 +354,7 @@ public class PulseRifleItemRender implements IItemRenderer
         switch (type)
         {
         case EQUIPPED:
-        {
-            if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
-            {
-                clientEntity.setItemInUse(item, pulseRifleFireTime);
-                //item.useItemRightClick(clientWorld, clientEntity);
-            }
-            
+        {            
             float scale = 0.20F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(3.0F, -1.0F, 2.0F);
