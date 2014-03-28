@@ -19,7 +19,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -143,7 +142,6 @@ public class PulseRifleItem extends ItemBow
     @SideOnly(Side.CLIENT)
     public Icon getItemIconForUseDuration(int par1)
     {
-        // MadScience.logger.info("DURATION: " + par1);
         return MadWeapons.WEAPONITEM_PULSERIFLE.itemIcon;
     }
 
@@ -208,8 +206,6 @@ public class PulseRifleItem extends ItemBow
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
         // Prevent any further processing by normal Minecraft code.
-        //player.setItemInUse(stack, 72000);
-        //stack.useItemRightClick(world, player);
         return true;
     }
 
@@ -217,8 +213,6 @@ public class PulseRifleItem extends ItemBow
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
     {
         // Processed before damage is done, further processing is canceled and the entity is not attacked.
-        //player.setItemInUse(stack, 72000);
-        //stack.useItemRightClick(player.worldObj, player);
         return true;
     }
 
@@ -226,8 +220,6 @@ public class PulseRifleItem extends ItemBow
     public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4)
     {
         // Prevent the underlying bow class from firing an arrow when we let go of the fire button.
-        //par3EntityPlayer.setItemInUse(par1ItemStack, 72000);
-        //useItemRightClick(par2World, par3EntityPlayer);
     }
 
     public void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
@@ -344,8 +336,6 @@ public class PulseRifleItem extends ItemBow
 
                             // Actually spawn the bullet in the game world.
                             player.worldObj.spawnEntityInWorld(new PulseRifleBulletEntity(player.worldObj, player, 4.2F));
-                            //player.setItemInUse(playerItem, 72000);
-                            //playerItem.useItemRightClick(player.worldObj, player);
                         }
                     }
                 }
@@ -393,8 +383,6 @@ public class PulseRifleItem extends ItemBow
 
                     // Spawn grenade in the game world.
                     player.worldObj.spawnEntityInWorld(new PulseRifleGrenadeEntity(player.worldObj, player, 1.0F));
-                    //player.setItemInUse(playerItem, 72000);
-                    // MadScience.logger.info("FIRING GRENADE");
                 }
                 else if (secondaryAmmoCount <= 0)
                 {
@@ -445,7 +433,6 @@ public class PulseRifleItem extends ItemBow
                 {
                     // Change firing mode from bullets and grenades.
                     primaryFireModeEnabled = !primaryFireModeEnabled;
-                    // player.addChatMessage("Primary Fire Mode: " + String.valueOf(primaryFireModeEnabled).toUpperCase());
                     player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_EMPTY, 1.0F, 0.42F);
                 }
             }
@@ -503,7 +490,7 @@ public class PulseRifleItem extends ItemBow
         {
             return;
         }
-        
+
         // Got a packet from the server that is telling a client to play a client
         if (player == null)
         {
@@ -546,45 +533,45 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
         playerItem.stackTagCompound.setBoolean("isLeftPressed", leftPressed);
         playerItem.stackTagCompound.setBoolean("isRightPressed", rightPressed);
-        
+
         if (playerFireTime > 0 && primaryFireModeEnabled)
         {
             // makes the gun bob up and down and steve hold his arms out.
             player.setItemInUse(playerItem, playerFireTime);
-            
+
             // makes steve walk slower while firing the weapon.
-            //playerItem.useItemRightClick(world, player);
+            // playerItem.useItemRightClick(world, player);
         }
 
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
         // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
     }
-    
+
     @Override
     public int getMaxItemUseDuration(ItemStack par1ItemStack)
     {
         return 72000;
     }
-    
+
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer entityPlayer)
-    {        
+    {
         return stack;
     }
-    
+
     @Override
     public void onUsingItemTick(ItemStack stack, EntityPlayer player, int count)
     {
-        //super.onUsingItemTick(stack, player, count);
-        //MadScience.logger.info("onUsingItemTick");
-        //player.setItemInUse(stack, 72000);
-        //stack.useItemRightClick(player.worldObj, player);
+        // super.onUsingItemTick(stack, player, count);
+        // MadScience.logger.info("onUsingItemTick");
+        // player.setItemInUse(stack, 72000);
+        // stack.useItemRightClick(player.worldObj, player);
     }
 
     @Override
     public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
     {
-        //super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
+        // super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
 
         // Only do this for our pulse rifle.
         if (!par1ItemStack.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
@@ -670,13 +657,6 @@ public class PulseRifleItem extends ItemBow
                 isRightPressed = par1ItemStack.stackTagCompound.getBoolean("isRightPressed");
             }
         }
-
-        // Force the player to hold the weapons out infront of them like a bow.
-//        if (pulseRifleFireTime > 0 && primaryFireModeEnabled)
-//        {
-//            ((EntityPlayer)par3Entity).setItemInUse(par1ItemStack, 72000);
-//            par1ItemStack.useItemRightClick(par2World, (EntityPlayer) par3Entity);
-//        }
 
         // ------
         // SERVER

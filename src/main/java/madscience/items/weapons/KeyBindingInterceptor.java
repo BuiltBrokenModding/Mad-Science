@@ -65,6 +65,7 @@ public class KeyBindingInterceptor extends KeyBinding
     {
         return interceptedKeyBinding;
     }
+
     @SideOnly(Side.CLIENT)
     public boolean isKeyDown()
     {

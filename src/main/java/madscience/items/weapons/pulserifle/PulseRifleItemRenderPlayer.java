@@ -1,15 +1,12 @@
 package madscience.items.weapons.pulserifle;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadScience;
 import madscience.MadWeapons;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class PulseRifleItemRenderPlayer
@@ -17,35 +14,31 @@ public class PulseRifleItemRenderPlayer
     @ForgeSubscribe
     public void onRender(RenderPlayerEvent.Pre ev)
     {
-        //GL11.glPushMatrix();
-        //m.render(ev.entity, 0, 0, 0, 0, 0, 0);
-        //GL11.glPopMatrix();
-        
         // Ensure the event is not null.
         if (ev == null)
         {
             return;
         }
-        
+
         // Check the entity player.
         if (ev.entityPlayer == null)
         {
             return;
         }
-        
+
         // Check currently being used item by the player.
         ItemStack playerItem = ev.entityPlayer.getCurrentEquippedItem();
         if (playerItem == null)
         {
             return;
         }
-        
+
         // Check that currently used item is a M41A Pulse Rifle.
         if (!playerItem.isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_PULSERIFLE)))
         {
             return;
         }
-        
+
         // Check if the player is currently using the item based on stored NBT data.
         // Create NBT data if required.
         if (playerItem.stackTagCompound == null)
@@ -118,13 +111,11 @@ public class PulseRifleItemRenderPlayer
                 isRightPressed = playerItem.stackTagCompound.getBoolean("isRightPressed");
             }
         }
-        
+
         // At this point we know player is holding pulse rifle and firing it.
-        //MadScience.logger.info("Client EQUIPPED Fire Time: " + pulseRifleFireTime);
-        if (pulseRifleFireTime > 0 && isLeftPressed && primaryFireModeEnabled)
+        if (pulseRifleFireTime > 0 && isLeftPressed)
         {
             ev.entityPlayer.setItemInUse(playerItem, pulseRifleFireTime);
-            //playerItem.useItemRightClick(ev.entityPlayer.worldObj, ev.entityPlayer);
         }
     }
 }

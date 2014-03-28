@@ -8,7 +8,6 @@ import madscience.items.weapons.KeyBindingInterceptor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -230,8 +229,8 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 if (isLeftPressed && pulseRifleFireTime > 0 && primaryFireModeEnabled)
                 {
                     MadScience.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
-                    //player.setItemInUse(playerHeldItem, pulseRifleFireTime);
-                    //playerHeldItem.useItemRightClick(world, player);
+                    // player.setItemInUse(playerHeldItem, pulseRifleFireTime);
+                    // playerHeldItem.useItemRightClick(world, player);
                 }
                 else
                 {
@@ -390,28 +389,28 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 intRight.pressTime++;
                 return;
             }
-            
+
             // If we reach the bottom of this statement then no right or left click is being held and everything should be zeroed out.
             if (!intRight.isKeyDown())
             {
                 pulseRifleFireTime = 0;
                 playerHeldItem.stackTagCompound.setInteger("playerFireTime", pulseRifleFireTime);
-                
+
                 previousFireTime = 0;
                 playerHeldItem.stackTagCompound.setInteger("previousFireTime", previousFireTime);
-                
+
                 isLeftPressed = false;
                 playerHeldItem.stackTagCompound.setBoolean("isLeftPressed", isLeftPressed);
             }
-            
+
             if (!intLeft.isKeyDown())
             {
                 rightClickTime = 0;
                 isRightPressed = false;
                 playerHeldItem.stackTagCompound.setInteger("rightClickTime", rightClickTime);
-                playerHeldItem.stackTagCompound.setBoolean("isRightPressed", isRightPressed);                
+                playerHeldItem.stackTagCompound.setBoolean("isRightPressed", isRightPressed);
             }
-            
+
             if (world.getWorldTime() % 10L == 0L)
             {
                 PacketDispatcher.sendPacketToServer(new PulseRiflePackets(pulseRifleFireTime, previousFireTime, rightClickTime, 1, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, isPrimaryEmpty, isSecondaryEmpty, player.isSneaking(),

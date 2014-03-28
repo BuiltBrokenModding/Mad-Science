@@ -159,10 +159,10 @@ public class PulseRifleItemRender implements IItemRenderer
     {
         // Grab client side instance of the players world.
         World clientWorld = MadScience.proxy.getClientWorld();
-        
+
         // Grab client side instance of the player.
         EntityClientPlayerMP clientEntity = Minecraft.getMinecraft().thePlayer;
-        
+
         // Quit if there is no client entity.
         if (clientEntity == null)
         {
@@ -174,7 +174,7 @@ public class PulseRifleItemRender implements IItemRenderer
         {
             return;
         }
-        
+
         // Ensure that we are on a client side only world.
         if (!clientWorld.isRemote)
         {
@@ -211,7 +211,7 @@ public class PulseRifleItemRender implements IItemRenderer
             {
                 pulseRifleFireTime = item.stackTagCompound.getInteger("playerFireTime");
             }
-            
+
             if (item.stackTagCompound.hasKey("previousFireTime"))
             {
                 previousFireTime = item.stackTagCompound.getInteger("previousFireTime");
@@ -227,13 +227,13 @@ public class PulseRifleItemRender implements IItemRenderer
             {
                 secondaryAmmoCount = item.stackTagCompound.getInteger("secondaryAmmoCount");
             }
-            
+
             // Firing mode
             if (item.stackTagCompound.hasKey("primaryFireModeEnabled"))
             {
                 primaryFireModeEnabled = item.stackTagCompound.getBoolean("primaryFireModeEnabled");
             }
-            
+
             // Mouse Buttons
             if (item.stackTagCompound.hasKey("isLeftPressed"))
             {
@@ -354,7 +354,7 @@ public class PulseRifleItemRender implements IItemRenderer
         switch (type)
         {
         case EQUIPPED:
-        {            
+        {
             float scale = 0.20F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(3.0F, -1.0F, 2.0F);
@@ -366,7 +366,7 @@ public class PulseRifleItemRender implements IItemRenderer
             break;
         }
         case EQUIPPED_FIRST_PERSON:
-        {            
+        {
             float scale = 0.15F;
 
             // Change position and rotation based on firing status.
@@ -414,7 +414,7 @@ public class PulseRifleItemRender implements IItemRenderer
         {
             // Move the bolt and show muzzle flash on the rifle when firing.
             if (pulseRifleFireTime > 0 && isLeftPressed && primaryAmmoCount > 0 && primaryFireModeEnabled)
-            {                
+            {
                 // BULLETS
                 if (clientWorld.getWorldTime() % 2F == 0L)
                 {
