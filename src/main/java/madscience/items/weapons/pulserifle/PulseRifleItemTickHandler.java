@@ -167,6 +167,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             boolean isSecondaryEmpty = true;
             boolean isLeftPressed = false;
             boolean isRightPressed = false;
+            boolean magazineInserted = false;
 
             // Grab NBT data from the item the player is holding.
             if (!playerHeldItem.stackTagCompound.hasNoTags())
@@ -219,6 +220,11 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 if (playerHeldItem.stackTagCompound.hasKey("isRightPressed"))
                 {
                     isRightPressed = playerHeldItem.stackTagCompound.getBoolean("isRightPressed");
+                }
+                
+                if (playerHeldItem.stackTagCompound.hasKey("magazineInserted"))
+                {
+                    magazineInserted = playerHeldItem.stackTagCompound.getBoolean("magazineInserted");
                 }
             }
 
@@ -365,7 +371,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             {
                 // Send a left clicking packet.
                 PacketDispatcher.sendPacketToServer(new PulseRiflePackets(pulseRifleFireTime, previousFireTime, rightClickTime, 0, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, isPrimaryEmpty, isSecondaryEmpty, player.isSneaking(),
-                        isLeftPressed, isRightPressed).makePacket());
+                        isLeftPressed, isRightPressed, magazineInserted).makePacket());
 
                 intLeft.pressed = true;
                 intLeft.pressTime++;
@@ -383,7 +389,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             {
                 // Send a right clicking packet.
                 PacketDispatcher.sendPacketToServer(new PulseRiflePackets(pulseRifleFireTime, previousFireTime, rightClickTime, 2, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, isPrimaryEmpty, isSecondaryEmpty, player.isSneaking(),
-                        isLeftPressed, isRightPressed).makePacket());
+                        isLeftPressed, isRightPressed, magazineInserted).makePacket());
 
                 intRight.pressed = true;
                 intRight.pressTime++;
@@ -414,7 +420,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             if (world.getWorldTime() % 10L == 0L)
             {
                 PacketDispatcher.sendPacketToServer(new PulseRiflePackets(pulseRifleFireTime, previousFireTime, rightClickTime, 1, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, isPrimaryEmpty, isSecondaryEmpty, player.isSneaking(),
-                        isLeftPressed, isRightPressed).makePacket());
+                        isLeftPressed, isRightPressed, magazineInserted).makePacket());
             }
         }
         else

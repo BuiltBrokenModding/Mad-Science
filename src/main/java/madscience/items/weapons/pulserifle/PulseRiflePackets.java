@@ -24,6 +24,7 @@ public class PulseRiflePackets extends MadPackets
     private boolean rightMouseDown;
     private int secondaryAmmoCount;
     private boolean shouldUnloadWeapon;
+    private boolean magazineInserted;
 
     public PulseRiflePackets()
     {
@@ -31,7 +32,7 @@ public class PulseRiflePackets extends MadPackets
     }
 
     public PulseRiflePackets(int fireTime, int lastFireTime, int rightClickTime, int buttonPressed, int primaryAmmo, int secondaryAmmo, boolean primaryFire, boolean primaryEmpty, boolean secondaryEmpty, boolean shouldUnload, boolean isLeftMouseDown,
-            boolean isRightMouseDown)
+            boolean isRightMouseDown, boolean magazineLoaded)
     {
         playerFireTime = fireTime;
         previousFireTime = lastFireTime;
@@ -45,6 +46,7 @@ public class PulseRiflePackets extends MadPackets
         isSecondaryEmpty = secondaryEmpty;
         leftMouseDown = isLeftMouseDown;
         rightMouseDown = isRightMouseDown;
+        magazineInserted = magazineLoaded;
     }
 
     @Override
@@ -75,7 +77,7 @@ public class PulseRiflePackets extends MadPackets
             {
                 // Tell the gun that we want it to fire a bullet using the information we gathered from the client.
                 ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromClient(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed, primaryFireModeEnabled, shouldUnloadWeapon, isPrimaryEmpty, isSecondaryEmpty, leftMouseDown,
-                        rightMouseDown, player);
+                        rightMouseDown, magazineInserted, player);
             }
             return;
         }
@@ -104,7 +106,7 @@ public class PulseRiflePackets extends MadPackets
                 // Tell the gun that we want it to fire a bullet using the information we gathered from the client.
                 // MadScience.logger.info("Primary Ammo: " + primaryAmmoCount);
                 ((PulseRifleItem) playerHeldItem.getItem()).onRecievePacketFromServer(playerFireTime, previousFireTime, playerRightClickTime, playerButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, shouldUnloadWeapon,
-                        isPrimaryEmpty, isSecondaryEmpty, leftMouseDown, rightMouseDown, player);
+                        isPrimaryEmpty, isSecondaryEmpty, leftMouseDown, rightMouseDown, magazineInserted, player);
                 return;
             }
         }
@@ -129,6 +131,7 @@ public class PulseRiflePackets extends MadPackets
         isSecondaryEmpty = in.readBoolean();
         leftMouseDown = in.readBoolean();
         rightMouseDown = in.readBoolean();
+        magazineInserted = in.readBoolean();
     }
 
     @Override
@@ -146,5 +149,6 @@ public class PulseRiflePackets extends MadPackets
         out.writeBoolean(isSecondaryEmpty);
         out.writeBoolean(leftMouseDown);
         out.writeBoolean(rightMouseDown);
+        out.writeBoolean(magazineInserted);
     }
 }

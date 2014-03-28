@@ -223,7 +223,7 @@ public class PulseRifleItem extends ItemBow
     }
 
     public void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
-            boolean clientisSecondaryEmpty, boolean leftPressed, boolean rightPressed, EntityPlayer player)
+            boolean clientisSecondaryEmpty, boolean leftPressed, boolean rightPressed, boolean magazineInserted, EntityPlayer player)
     {
         // Hook the item the player is currently holding in his hand (if there is any).
         ItemStack playerItem = player.getHeldItem();
@@ -258,6 +258,7 @@ public class PulseRifleItem extends ItemBow
         boolean primaryFireModeEnabled = clientprimaryFireModeEnabled;
         boolean isLeftPressed = leftPressed;
         boolean isRightPressed = rightPressed;
+        boolean insertedMagazine = magazineInserted;
 
         // Special variable used only on the server to enable semi-automatic firing of grenades.
         boolean hasFiredGrenade = false;
@@ -286,6 +287,12 @@ public class PulseRifleItem extends ItemBow
             if (playerItem.stackTagCompound.hasKey("primaryFireModeEnabled"))
             {
                 primaryFireModeEnabled = playerItem.stackTagCompound.getBoolean("primaryFireModeEnabled");
+            }
+            
+            // Keeps track of currently loaded magazine in the weapon.
+            if (playerItem.stackTagCompound.hasKey("magazineInserted"))
+            {
+                insertedMagazine = playerItem.stackTagCompound.getBoolean("magazineInserted");
             }
         }
 
@@ -414,11 +421,23 @@ public class PulseRifleItem extends ItemBow
                     // Reload the weapon, or unload depending on status.
                     if (primaryAmmoCount > 0 && primaryFireModeEnabled)
                     {
-                        primaryAmmoCount = unloadMagazine(player, primaryAmmoCount);
+                        primaryAmmoCount = unloadMagazine(player, playerItem, primaryAmmoCount);
+                        if (primaryAmmoCount <= 0)
+                        {
+                            insertedMagazine = false;
+                            magazineInserted = false;
+                            playerItem.stackTagCompound.setBoolean("magazineInserted", insertedMagazine);
+                        }
                     }
                     else if (primaryAmmoCount <= 0 && primaryFireModeEnabled)
                     {
-                        primaryAmmoCount = reloadMagazine(player, playerItem, primaryAmmoCount);
+                        primaryAmmoCount = reloadMagazine(player, playerItem, primaryAmmoCount, insertedMagazine);
+                        if (primaryAmmoCount > 0)
+                        {
+                            insertedMagazine = true;
+                            magazineInserted = true;
+                            playerItem.stackTagCompound.setBoolean("magazineInserted", insertedMagazine);
+                        }
                     }
                     else if (secondaryAmmoCount > 0 && !primaryFireModeEnabled)
                     {
@@ -466,23 +485,24 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", clientisSecondaryEmpty);
         playerItem.stackTagCompound.setBoolean("isLeftPressed", isLeftPressed);
         playerItem.stackTagCompound.setBoolean("isRightPressed", isRightPressed);
-
+        
         // Special server-only variables we save to item.
         playerItem.stackTagCompound.setBoolean("hasFiredGrenade", hasFiredGrenade);
 
         // Debug Information For Server
+        // MadScience.logger.info("Server - Magazine Inserted: " + String.valueOf(insertedMagazine).toUpperCase());
         // MadScience.logger.info("Server: Ammo Count: " + primaryAmmoCount);
         // MadScience.logger.info("Server: Left Click Time: " + clientFireTime + "/" + clientpreviousFireTime);
         // MadScience.logger.info("Server: Right Click Time: " + clientrightClickTime);
 
         // Send the same packet back to the client with updated information from the server about their status.
         PacketDispatcher.sendPacketToPlayer(new PulseRiflePackets(clientFireTime, clientpreviousFireTime, clientrightClickTime, clientButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, clientisPrimaryEmpty,
-                clientisSecondaryEmpty, player.isSneaking(), isLeftPressed, isRightPressed).makePacket(), (Player) player);
+                clientisSecondaryEmpty, player.isSneaking(), isLeftPressed, isRightPressed, magazineInserted).makePacket(), (Player) player);
     }
 
     @SideOnly(Side.CLIENT)
     public void onRecievePacketFromServer(int playerFireTime, int previousFireTime, int rightClickTime, int playerButtonPressed, int primaryAmmoCount, int secondaryAmmoCount, boolean primaryFireModeEnabled, boolean shouldUnloadWeapon,
-            boolean isPrimaryEmpty, boolean isSecondaryEmpty, boolean leftPressed, boolean rightPressed, EntityPlayer player)
+            boolean isPrimaryEmpty, boolean isSecondaryEmpty, boolean leftPressed, boolean rightPressed, boolean insertedMagazine, EntityPlayer player)
     {
         // Check if there is a world.
         World world = MadScience.proxy.getClientWorld();
@@ -533,16 +553,15 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
         playerItem.stackTagCompound.setBoolean("isLeftPressed", leftPressed);
         playerItem.stackTagCompound.setBoolean("isRightPressed", rightPressed);
+        playerItem.stackTagCompound.setBoolean("magazineInserted", insertedMagazine);
 
         if (playerFireTime > 0 && primaryFireModeEnabled)
         {
-            // makes the gun bob up and down and steve hold his arms out.
+            // Makes the gun bob up and down and Steve hold his arms out.
             player.setItemInUse(playerItem, playerFireTime);
-
-            // makes steve walk slower while firing the weapon.
-            // playerItem.useItemRightClick(world, player);
         }
 
+        // MadScience.logger.info("Client - Magazine Inserted: " + String.valueOf(insertedMagazine).toUpperCase());
         // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
         // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
     }
@@ -557,15 +576,6 @@ public class PulseRifleItem extends ItemBow
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer entityPlayer)
     {
         return stack;
-    }
-
-    @Override
-    public void onUsingItemTick(ItemStack stack, EntityPlayer player, int count)
-    {
-        // super.onUsingItemTick(stack, player, count);
-        // MadScience.logger.info("onUsingItemTick");
-        // player.setItemInUse(stack, 72000);
-        // stack.useItemRightClick(player.worldObj, player);
     }
 
     @Override
@@ -751,12 +761,26 @@ public class PulseRifleItem extends ItemBow
         return secondaryAmmoCount;
     }
 
-    public int reloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount)
+    public int reloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount, boolean insertedMagazine)
     {
         // ---------------
         // RELOAD MAGAZINE
         // ---------------
 
+        // Check if the weapon already has a magazine inside of it from previously being loaded but never unloaded.
+        if (insertedMagazine && primaryAmmoCount <= 0)
+        {
+            // Give the player an empty magazine or drop it on the ground if their inventory is full.
+            if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM)))
+            {
+                player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM), true);
+            }
+            
+            // Set the NBT flag that tells the gun there is no longer a magazine inside it.
+            insertedMagazine = false;
+            playerItem.stackTagCompound.setBoolean("magazineInserted", insertedMagazine);
+        }
+        
         // Loop through the players inventory and look for highest magazine.
         if (player.inventory.hasItem(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID))
         {
@@ -795,6 +819,10 @@ public class PulseRifleItem extends ItemBow
                     // player.addChatMessage("Reloaded magazine with " + String.valueOf(primaryAmmoCount) + " round(s).");
                     player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_RELOAD, 1.0F, 1.0F);
                     playerItem.stackTagCompound.setBoolean("isPrimaryEmpty", false);
+                    
+                    // Sets the flag that tells the weapon it now has a magazine inside of it.
+                    insertedMagazine = true;
+                    playerItem.stackTagCompound.setBoolean("magazineInserted", insertedMagazine);
                 }
             }
         }
@@ -834,7 +862,7 @@ public class PulseRifleItem extends ItemBow
         return secondaryAmmoCount;
     }
 
-    public int unloadMagazine(EntityPlayer player, int primaryAmmoCount)
+    public int unloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount)
     {
         // ---------------
         // UNLOAD MAGAZINE
@@ -843,10 +871,25 @@ public class PulseRifleItem extends ItemBow
         // Attempts to unload the current magazine from the weapon.
         primaryAmmoCount = Math.abs(100 - primaryAmmoCount);
         int ammodisplayAmmount = Math.abs(100 - primaryAmmoCount);
-        if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount)))
+        
+        // If there is no ammo and only a magazine we will return a non-damaged version.
+        if (ammodisplayAmmount > 0)
         {
-            player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount), true);
+            if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount)))
+            {
+                player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, primaryAmmoCount), true);
+            }
         }
+        else if (ammodisplayAmmount <= 0)
+        {
+            if (!player.inventory.addItemStackToInventory(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM)))
+            {
+                player.dropPlayerItemWithRandomChoice(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM), true);
+            }
+        }
+        
+        // Set the flag which says there is no magazine in the weapon anymore.
+        playerItem.stackTagCompound.setBoolean("magazineInserted", false);
 
         // player.addChatMessage("Unloaded magazine with " + String.valueOf(ammodisplayAmmount) + " round(s).");
         player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_UNLOAD, 1.0F, 1.0F);
