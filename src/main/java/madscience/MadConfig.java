@@ -721,6 +721,17 @@ public class MadConfig
     public static @CfgEnergy long VOXBOX_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
     public static @CfgEnergy long VOXBOX_CONSUME = 128;
     public static @CfgHelp String VOXBOX_HELP = "http://madsciencemod.com/minecraft-item/voxbox/";
+    
+    // Magazine Loader
+    public static @CfgId(block = true) int MAGLOADER = getNextBlockID();
+    public static @CfgId(block = true) int MAGLOADERGHOST = getNextBlockID();
+    public static @CfgEnergy long MAGLOADER_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
+    public static @CfgEnergy long MAGLOADER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long MAGLOADER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String MAGLOADER_HELP = "http://madsciencemod.com/minecraft-item/magloader/";
+    
+    // CnC Machine
+    
 
     // -----------------
     // FLUID DECLARATION
@@ -746,9 +757,16 @@ public class MadConfig
     // WEAPONS
     // -------
     
+    // M41A Pulse Rifle
     public static @CfgWeapons int WEAPON_PULSERIFLE = getNextItemID();
+    
+    // Pulse Rifle Bullet
     public static @CfgWeapons int WEAPON_PULSERIFLE_BULLETITEM = getNextItemID();
+    
+    // Pulse Rifle Grenade
     public static @CfgWeapons int WEAPON_PULSERIFLE_GRENADEITEM = getNextItemID();
+    
+    // Pulse Rifle Magazine
     public static @CfgWeapons int WEAPON_PULSERIFLE_MAGAZINEITEM = getNextItemID();
 
     // ----------------

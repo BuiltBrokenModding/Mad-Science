@@ -37,7 +37,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".mad");
 
     // Tile Entity that our block inits.
-    private MeatcubeEntity lastPlacedTileEntity;
+    private MeatcubeEntity ENTITY;
 
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png");
 
@@ -157,15 +157,15 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
     public void renderAModelAt(MeatcubeEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        lastPlacedTileEntity = (MeatcubeEntity) tileEntity;
-        if (lastPlacedTileEntity == null)
+        ENTITY = (MeatcubeEntity) tileEntity;
+        if (ENTITY == null)
         {
             return;
         }
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
-        switch (lastPlacedTileEntity.getBlockMetadata() % 4)
+        switch (ENTITY.getBlockMetadata() % 4)
         {
         case 0:
             rotation = 0;
@@ -207,9 +207,9 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         }
 
         // Apply our custom texture from asset directory.
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.meatcubeTexturePath != null && !lastPlacedTileEntity.meatcubeTexturePath.isEmpty())
+        if (ENTITY != null && ENTITY.meatcubeTexturePath != null && !ENTITY.meatcubeTexturePath.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.meatcubeTexturePath));
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.meatcubeTexturePath));
         }
         else
         {
@@ -238,77 +238,77 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         MODEL.parts.get("Meat14").showModel = false;
 
         // Display different chunks of the model based on internal health value.
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 0)
+        if (ENTITY.currentMeatCubeDamageValue >= 0)
         {
             MODEL.parts.get("Meat0").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 1)
+        if (ENTITY.currentMeatCubeDamageValue >= 1)
         {
             MODEL.parts.get("Meat1").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 2)
+        if (ENTITY.currentMeatCubeDamageValue >= 2)
         {
             MODEL.parts.get("Meat2").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 3)
+        if (ENTITY.currentMeatCubeDamageValue >= 3)
         {
             MODEL.parts.get("Meat3").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 4)
+        if (ENTITY.currentMeatCubeDamageValue >= 4)
         {
             MODEL.parts.get("Meat4").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 5)
+        if (ENTITY.currentMeatCubeDamageValue >= 5)
         {
             MODEL.parts.get("Meat5").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 6)
+        if (ENTITY.currentMeatCubeDamageValue >= 6)
         {
             MODEL.parts.get("Meat6").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 7)
+        if (ENTITY.currentMeatCubeDamageValue >= 7)
         {
             MODEL.parts.get("Meat7").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 8)
+        if (ENTITY.currentMeatCubeDamageValue >= 8)
         {
             MODEL.parts.get("Meat8").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 9)
+        if (ENTITY.currentMeatCubeDamageValue >= 9)
         {
             MODEL.parts.get("Meat9").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 10)
+        if (ENTITY.currentMeatCubeDamageValue >= 10)
         {
             MODEL.parts.get("Meat10").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 11)
+        if (ENTITY.currentMeatCubeDamageValue >= 11)
         {
             MODEL.parts.get("Meat11").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 12)
+        if (ENTITY.currentMeatCubeDamageValue >= 12)
         {
             MODEL.parts.get("Meat12").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 13)
+        if (ENTITY.currentMeatCubeDamageValue >= 13)
         {
             MODEL.parts.get("Meat13").showModel = true;
         }
 
-        if (lastPlacedTileEntity.currentMeatCubeDamageValue >= 14)
+        if (ENTITY.currentMeatCubeDamageValue >= 14)
         {
             MODEL.parts.get("Meat14").showModel = true;
         }

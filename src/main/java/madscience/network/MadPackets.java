@@ -8,6 +8,7 @@ import madscience.tileentities.cryotube.CryotubePackets;
 import madscience.tileentities.dataduplicator.DataDuplicatorPackets;
 import madscience.tileentities.dnaextractor.DNAExtractorPackets;
 import madscience.tileentities.incubator.IncubatorPackets;
+import madscience.tileentities.magloader.MagLoaderPackets;
 import madscience.tileentities.mainframe.MainframePackets;
 import madscience.tileentities.meatcube.MeatcubePackets;
 import madscience.tileentities.sanitizer.SanitizerPackets;
@@ -97,11 +98,17 @@ public abstract class MadPackets
         // Clay Furnace
         builder.put(Integer.valueOf(12), ClayfurnacePackets.class);
         
-        // Pulse Rifle (Client -> Server)
+        // Pulse Rifle
         builder.put(Integer.valueOf(13), PulseRiflePackets.class);
         
         // VOX Box
         builder.put(Integer.valueOf(14), VoxBoxPackets.class);
+        
+        // Magazine Loader
+        builder.put(Integer.valueOf(15), MagLoaderPackets.class);
+        
+        // CnC Machine
+        
 
         idMap = builder.build();
     }

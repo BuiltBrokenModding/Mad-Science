@@ -88,6 +88,12 @@ public class MadSounds
             // Announcement System
             VoxBoxSounds.init(event);
             
+            // Magazine Loader
+            
+            
+            // CnC Machine
+            
+            
         }
         catch (Exception err)
         {

@@ -1,6 +1,10 @@
 package madscience;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +55,7 @@ public class MadScience
     public static final String ID = "madscience";
     public static final String CHANNEL_NAME = ID;
     public static final String NAME = "Mad Science";
-    
+
     // Version identification.
     public static final String V_MAJOR = "@MAJOR@";
     public static final String V_MINOR = "@MINOR@";
@@ -119,6 +123,9 @@ public class MadScience
 
                 // Soniclocator Ghost Block.
                 m.invoke(null, MadFurnaces.SONICLOCATORGHOST.blockID);
+
+                // Magazine Loader Ghost Block.
+                m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
             }
             catch (Throwable e)
             {
@@ -141,26 +148,9 @@ public class MadScience
     {
         // Register any custom sounds we want to play (Client only).
         proxy.registerSoundHandler();
-        
-        // Determine if we should check for updates by comparing build numbers in our Jenkins build server.
-        if (MadConfig.UPDATE_CHECKER)
-        {
-            try
-            {
-                // Look for XML response from server for update information.
-                Document docXML = MadXML.loadXMLFromString(MadConfig.UPDATE_URL);
-                Node child = docXML.getFirstChild();
-                String xmlBuildNumber = child.getTextContent();
-                long myXMLLong = new Long(xmlBuildNumber);
-                
-                logger.info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
-                NetworkRegistry.instance().registerConnectionHandler(new CustomConnectionHandler(myXMLLong));
-            }
-            catch (Exception err)
-            {
-                logger.info("Unable to parse XML from Jenkins build server... perhaps it is down!");
-            }
-        }
+
+        // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
+        MadUpdates.checkJenkinsBuildNumbers();
     }
 
     @EventHandler
@@ -184,10 +174,10 @@ public class MadScience
         // --------------
         // PRE-INT CONFIG
         // --------------
-        
+
         // Register instance.
         instance = this;
-        
+
         // Logging.
         logger = event.getModLog();
         logger.setParent(FMLLog.getLogger());
@@ -215,7 +205,7 @@ public class MadScience
         // FLUIDS
         // ------
         logger.info("Creating Fluids");
-        
+
         // Creates both flowing and still variants of new fluid.
         // Note: Still's ID must be 1 above Flowing.
         MadFluids.createLiquidDNA(MadConfig.LIQUIDDNA, MadConfig.LIQUIDDNA_BUCKET);
@@ -227,18 +217,18 @@ public class MadScience
         // BLOCKS
         // ------
         logger.info("Creating Blocks");
-        
+
         // Abomination Egg
         MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
-        
+
         // Enderslime Block
         MadBlocks.createEnderslimeBlock(MadConfig.ENDERSLIMEBLOCK);
-        
+
         // ----------
         // COMPONENTS
         // ----------
         logger.info("Creating Components");
-        
+
         MadComponents.createComponentCaseItem(MadConfig.COMPONENT_CASE);
         MadComponents.createComponentCPUItem(MadConfig.COMPONENT_CPU);
         MadComponents.createComponentFanItem(MadConfig.COMPONENT_FAN);
@@ -252,12 +242,12 @@ public class MadScience
         MadComponents.createComponentComputerItem(MadConfig.COMPONENT_COMPUTER);
         MadComponents.createComponentThumperItem(MadConfig.COMPONENT_THUMPER);
         MadComponents.createComponentEnderslimeItem(MadConfig.COMPONENT_ENDERSLIME);
-        
+
         // --------
         // CIRCUITS
         // --------
         logger.info("Creating Circuits");
-        
+
         MadCircuits.createCircuitComparatorItem(MadConfig.CIRCUIT_COMPARATOR);
         MadCircuits.createCircuitDiamondItem(MadConfig.CIRCUIT_DIAMOND);
         MadCircuits.createCircuitEmeraldItem(MadConfig.CIRCUIT_EMERALD);
@@ -271,7 +261,7 @@ public class MadScience
         // NEEDLES
         // -------
         logger.info("Creating Needles");
-        
+
         MadNeedles.createEmptyNeedle(MadConfig.NEEDLE_EMPTY);
         MadNeedles.createDirtyNeedle(MadConfig.NEEDLE_DIRTY);
         MadNeedles.createCaveSpiderNeedle(MadConfig.NEEDLE_CAVESPIDER);
@@ -297,7 +287,7 @@ public class MadScience
         // DNA SAMPLES
         // -----------
         logger.info("Creating DNA Samples");
-        
+
         MadDNA.createCaveSpiderDNA(MadConfig.DNA_CAVESPIDER);
         MadDNA.createChickenDNA(MadConfig.DNA_CHICKEN);
         MadDNA.createCowDNA(MadConfig.DNA_COW);
@@ -323,7 +313,7 @@ public class MadScience
         // GENOME DATA REELS
         // -----------------
         logger.info("Creating Genome Data Reels");
-        
+
         MadEntities.createEmptyDataReel(MadConfig.DATAREEL_EMPTY);
         MadGenomes.createCaveSpiderGenome(MadConfig.GENOME_CAVESPIDER);
         MadGenomes.createChickenGenome(MadConfig.GENOME_CHICKEN);
@@ -351,7 +341,7 @@ public class MadScience
         // TILE ENTITIES
         // -------------
         logger.info("Creating Tile Entities");
-        
+
         MadFurnaces.createDNAExtractorTileEntity(MadConfig.DNA_EXTRACTOR);
         MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
@@ -366,40 +356,42 @@ public class MadScience
         MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
         MadFurnaces.createClayFurnaceTileEntity(MadConfig.CLAYFURNACE);
         MadFurnaces.createVOXBoxTileEntity(MadConfig.VOXBOX);
+        MadFurnaces.createMagLoaderTileEntity(MadConfig.MAGLOADER);
+        MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
 
         // --------------------
         // MONSTER PLACER ITEMS
         // --------------------
         logger.info("Creating Monster Placer Items");
-        
+
         MadEntities.createGeneticallyModifiedMonsterPlacer(MadConfig.GENETICALLYMODIFIED_MONSTERPLACER);
         MadEntities.createCombinedGenomeMonsterPlacer(MadConfig.COMBINEDGENOME_MONSTERPLACER);
         MadEntities.createCombinedMemoryMonsterPlacer(MadConfig.COMBINEDMEMORY_MONSTERPLACER);
-        
+
         // -------
         // WEAPONS
         // -------
         logger.info("Creating Weapons");
-        
+
         MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
         MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
         MadWeapons.createPulseRifleGrenade(MadConfig.WEAPON_PULSERIFLE_GRENADEITEM);
         MadWeapons.createPulseRifleMagazine(MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM);
-        
+
         // -------
         // RECIPES
         // -------
         logger.info("Creating Recipes");
-        
+
         MadRecipes.createCircuitRecipes();
         MadRecipes.createComponentsRecipes();
         MadRecipes.createWeaponRecipes();
-        
+
         // -------------------------
         // GENETICALLY MODIFIED MOBS
         // -------------------------
         logger.info("Creating Genetically Modified Creatures");
-        
+
         // Werewolf [Villager + Wolf]
         MadMobs.createGMOMob(MadConfig.GMO_WEREWOLF_METAID, WerewolfMobEntity.class, new NBTTagCompound(), MadMobs.GMO_WEREWOLF_INTERNALNAME, MadMobs.GENOME_WEREWOLF_INTERNALNAME, MadColors.villagerEgg(), MadColors.wolfEgg(), MadGenomes.GENOME_VILLAGER,
                 MadGenomes.GENOME_WOLF, MadConfig.GMO_WEREWOLF_COOKTIME);
@@ -410,7 +402,7 @@ public class MadScience
         // Creeper Cow [Creeper + Cow]
         MadMobs.createGMOMob(MadConfig.GMO_CREEPERCOW_METAID, CreeperCowMobEntity.class, new NBTTagCompound(), MadMobs.GMO_CREEPERCOW_INTERNALNAME, MadMobs.GENOME_CREEPERCOW_INTERNALNAME, MadColors.creeperEgg(), MadColors.cowEgg(),
                 MadGenomes.GENOME_CREEPER, MadGenomes.GENOME_COW, MadConfig.GMO_CREEPERCOW_COOKTIME);
-        
+
         // Enderslime [Enderman + Slime]
         MadMobs.createGMOMob(MadConfig.GMO_ENDERSLIME_METAID, EnderslimeMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ENDERSLIME_INTERNALNAME, MadMobs.GENOME_ENDERSLIME_INTERNALNAME, MadColors.endermanEgg(), MadColors.slimeEgg(),
                 MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SLIME, MadConfig.GMO_ENDERSLIME_COOKTIME);

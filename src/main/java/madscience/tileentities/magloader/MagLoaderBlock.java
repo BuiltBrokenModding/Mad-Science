@@ -1,4 +1,4 @@
-package madscience.tileentities.soniclocator;
+package madscience.tileentities.magloader;
 
 import java.util.List;
 import java.util.Random;
@@ -28,21 +28,20 @@ import universalelectricity.api.UniversalElectricity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class SoniclocatorBlock extends BlockContainer
+public class MagLoaderBlock extends BlockContainer
 {
     // This flag is used to prevent the furnace inventory to be dropped upon
     // block removal, is used internally when the furnace block changes from
     // idle to active and vice-versa.
     private static boolean keepFurnaceInventory;
 
+    private MagLoaderEntity ENTITY;
+
     // Is the random generator used by furnace to drop the inventory contents in
     // random directions.
     private final Random furnaceRand = new Random();
 
-    // Tile entity associated with our block.
-    private SoniclocatorEntity lastPlacedTileEntity;
-
-    public SoniclocatorBlock(int id)
+    public MagLoaderBlock(int id)
     {
         // Solid like a rock baby.
         super(id, UniversalElectricity.machine);
@@ -57,43 +56,28 @@ public class SoniclocatorBlock extends BlockContainer
         this.setResistance(2000.0F);
 
         // Define how big this item is we make it same size as a default block.
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 3.0F, 1.0F);
-        
-        // Forces our block to randomly tick like grass or plants would so we can spawn particles around it idly.
-        this.needsRandomTick = true;
-        this.setTickRandomly(true);
-    }
-    
-    @Override
-    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
-    {
-        // Spawns those strange particles that float off Mushroom Cows around the machine.
-        super.randomDisplayTick(par1World, par2, par3, par4, par5Random);
-        if (par5Random.nextInt(10) == 0)
-        {
-            par1World.spawnParticle("townaura", (float)par2 + par5Random.nextInt(5), (float)par3 + 2.0F, (float)par4 + par5Random.nextInt(5), 0.0D, 0.0D, 0.0D);
-        }
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F, 1.0F);
     }
 
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */
     @Override
     public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
     {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 3.0F, 1.0F);
+        // this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
     }
 
     /** Called on server worlds only when the block has been replaced by a different block ID, or the same block with a different metadata value, but before the new metadata value is set. Args: World, x, y, z, old block ID, old metadata */
     @Override
-    public void breakBlock(World world, int x, int y, int z, int par5, int par6)
+    public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
         if (!keepFurnaceInventory)
         {
-            SoniclocatorEntity tileentityfurnace = (SoniclocatorEntity) world.getBlockTileEntity(x, y, z);
+            MagLoaderEntity tileentityfurnace = (MagLoaderEntity) par1World.getBlockTileEntity(par2, par3, par4);
 
             if (tileentityfurnace != null)
             {
-                for (int j1 = 0; j1 < tileentityfurnace.getSizeInputInventory() + tileentityfurnace.getSizeOutputInventory(); ++j1)
+                for (int j1 = 0; j1 < (tileentityfurnace.getSizeInputInventory() + tileentityfurnace.getSizeStorageInventory()); ++j1)
                 {
                     ItemStack itemstack = tileentityfurnace.getStackInSlot(j1);
 
@@ -113,7 +97,7 @@ public class SoniclocatorBlock extends BlockContainer
                             }
 
                             itemstack.stackSize -= k1;
-                            EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
+                            EntityItem entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
 
                             if (itemstack.hasTagCompound())
                             {
@@ -125,60 +109,29 @@ public class SoniclocatorBlock extends BlockContainer
                             entityitem.motionY = (float) this.furnaceRand.nextGaussian() * f3 + 0.2F;
                             entityitem.motionZ = (float) this.furnaceRand.nextGaussian() * f3;
 
-                            world.spawnEntityInWorld(entityitem);
+                            par1World.spawnEntityInWorld(entityitem);
                         }
                     }
                 }
 
-                world.func_96440_m(x, y, z, par5);
+                par1World.func_96440_m(par2, par3, par4, par5);
             }
         }
 
-        super.breakBlock(world, x, y, z, par5, par6);
+        super.breakBlock(par1World, par2, par3, par4, par5, par6);
 
         // Break all the 'ghost blocks'
-        if (world.getBlockId(x, y + 1, z) == MadFurnaces.SONICLOCATORGHOST.blockID)
+        if (par1World.getBlockId(par2, par3 + 1, par4) == MadFurnaces.MAGLOADERGHOST.blockID)
         {
-            world.setBlockToAir(x, y + 1, z);
+            par1World.setBlockToAir(par2, par3 + 1, par4);
         }
-
-        if (world.getBlockId(x, y + 2, z) == MadFurnaces.SONICLOCATORGHOST.blockID)
-        {
-            world.setBlockToAir(x, y + 2, z);
-        }
-        
-        // Remove ourselves from the location registry for soniclocators.
-        // Note: Causes java.util.ConcurrentModificationException
-        SoniclocatorLocationRegistry.removeLocation(new SoniclocatorLocationItem(x, y, z));
-    }
-
-    @Override
-    public boolean canBlockStay(World world, int x, int y, int z)
-    {
-        if (world.getBlockMaterial(x, y + 1, z).isSolid())
-        {
-            return false;
-        }
-
-        if (world.getBlockMaterial(x, y + 2, z).isSolid())
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean canPlaceBlockAt(World world, int x, int y, int z)
-    {
-        return !super.canPlaceBlockAt(world, x, y, z) ? false : this.canBlockStay(world, x, y, z);
     }
 
     @Override
     public TileEntity createNewTileEntity(World world)
     {
         // Make sure you set this as your TileEntity class!
-        return new SoniclocatorEntity();
+        return new MagLoaderEntity();
     }
 
     @Override
@@ -191,7 +144,7 @@ public class SoniclocatorBlock extends BlockContainer
     public TileEntity getBlockEntity()
     {
         // Returns the TileEntity used by this block.
-        return new SoniclocatorEntity();
+        return new MagLoaderEntity();
     }
 
     /** If hasComparatorInputOverride returns true, the return value from this is used instead of the redstone signal strength when this block inputs to a comparator. */
@@ -231,17 +184,15 @@ public class SoniclocatorBlock extends BlockContainer
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return MadFurnaces.SONICLOCATOR_TILEENTITY.blockID;
+        return MadFurnaces.MAGLOADER_TILEENTITY.blockID;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    /**
-     * only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative)
-     */
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadFurnaces.SONICLOCATOR_TILEENTITY.blockID;
+        // only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative)
+        return MadFurnaces.MAGLOADER_TILEENTITY.blockID;
     }
 
     @Override
@@ -274,7 +225,7 @@ public class SoniclocatorBlock extends BlockContainer
         else if (!player.isSneaking())
         {
             // Open GUI on the client...
-            SoniclocatorEntity tileentityfurnace = (SoniclocatorEntity) par1World.getBlockTileEntity(par2, par3, par4);
+            MagLoaderEntity tileentityfurnace = (MagLoaderEntity) par1World.getBlockTileEntity(par2, par3, par4);
 
             if (tileentityfurnace != null)
             {
@@ -288,6 +239,10 @@ public class SoniclocatorBlock extends BlockContainer
         }
     }
 
+    // ----------------
+    // FURNACE SPECIFIC
+    // ----------------
+
     @Override
     public void onBlockAdded(World world, int x, int y, int z)
     {
@@ -297,33 +252,22 @@ public class SoniclocatorBlock extends BlockContainer
 
         if (!world.isRemote)
         {
-            // Add 'ghost' blocks that makeup upper section of soniclocator.
-            world.setBlock(x, y + 1, z, MadFurnaces.SONICLOCATORGHOST.blockID, 1, 3);
-            world.setBlock(x, y + 2, z, MadFurnaces.SONICLOCATORGHOST.blockID, 2, 3);
-            
-            // Store this information in the location registry.
-            SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(x, y, z));
+            // Add 'ghost' blocks that makeup upper section of magazine loader.
+            world.setBlock(x, y + 1, z, MadFurnaces.MAGLOADERGHOST.blockID, 1, 3);
         }
     }
 
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
-        // Called when a player places the object into the world.
         super.onBlockPlacedBy(world, x, y, z, living, stack);
-        lastPlacedTileEntity = (SoniclocatorEntity) world.getBlockTileEntity(x, y, z);
+        ENTITY = (MagLoaderEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-        
-        // Store this information in the location registry.
-        if (!world.isRemote)
+
+        if (stack.hasDisplayName() && ENTITY != null)
         {
-            SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(x, y, z));
-        }
-       
-        if (stack.hasDisplayName() && lastPlacedTileEntity != null)
-        {
-            lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());
+            ENTITY.setGuiDisplayName(stack.getDisplayName());
         }
     }
 
@@ -331,7 +275,7 @@ public class SoniclocatorBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

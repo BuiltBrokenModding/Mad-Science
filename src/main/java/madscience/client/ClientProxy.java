@@ -56,6 +56,8 @@ import madscience.tileentities.dnaextractor.DNAExtractorEntity;
 import madscience.tileentities.dnaextractor.DNAExtractorRender;
 import madscience.tileentities.incubator.IncubatorEntity;
 import madscience.tileentities.incubator.IncubatorRender;
+import madscience.tileentities.magloader.MagLoaderEntity;
+import madscience.tileentities.magloader.MagLoaderRender;
 import madscience.tileentities.mainframe.MainframeEntity;
 import madscience.tileentities.mainframe.MainframeRender;
 import madscience.tileentities.meatcube.MeatcubeEntity;
@@ -331,6 +333,17 @@ public class ClientProxy extends CommonProxy
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, new PulseRifleMagazineItemRender());
         }
+        
+        // Magazine Loader
+        if (blockID == MadConfig.MAGLOADER)
+        {
+            RenderingRegistry.registerBlockHandler(MadFurnaces.MAGLOADER_TILEENTITY.blockID, new MagLoaderRender());
+            ClientRegistry.bindTileEntitySpecialRenderer(MagLoaderEntity.class, new MagLoaderRender());
+            MinecraftForgeClient.registerItemRenderer(blockID, new MagLoaderRender());
+        }
+        
+        // CnC Machine
+        
 
         // ----
         // MOBS

@@ -20,6 +20,9 @@ import madscience.tileentities.dnaextractor.DNAExtractorGUI;
 import madscience.tileentities.incubator.IncubatorContainer;
 import madscience.tileentities.incubator.IncubatorEntity;
 import madscience.tileentities.incubator.IncubatorGUI;
+import madscience.tileentities.magloader.MagLoaderContainer;
+import madscience.tileentities.magloader.MagLoaderEntity;
+import madscience.tileentities.magloader.MagLoaderGUI;
 import madscience.tileentities.mainframe.MainframeContainer;
 import madscience.tileentities.mainframe.MainframeEntity;
 import madscience.tileentities.mainframe.MainframeGUI;
@@ -131,7 +134,16 @@ public class MadGUI implements IGuiHandler
         {
             return new VoxBoxGUI(player.inventory, (VoxBoxEntity) tile_entity);
         }
+        
+        // Magazine Loader
+        if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
+        {
+            return new MagLoaderGUI(player.inventory, (MagLoaderEntity) tile_entity);
+        }
+        
+        // CnC Machine
 
+        
         // Default response is to return nothing.
         return null;
     }
@@ -219,7 +231,16 @@ public class MadGUI implements IGuiHandler
         {
             return new VoxBoxContainer(player.inventory, (VoxBoxEntity) tile_entity);
         }
+        
+        // Magazine Loader
+        if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
+        {
+            return new MagLoaderContainer(player.inventory, (MagLoaderEntity) tile_entity);
+        }
+        
+        // CnC Machine
 
+        
         // Default response is to return nothing.
         return null;
     }

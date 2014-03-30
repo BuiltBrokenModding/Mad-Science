@@ -18,7 +18,7 @@ tile.genomeSequencer.name=Gene Sequencer
 tile.genomeSequencer.tooltip=Reads DNA samples into data reels to create sequenced genomes.
 
 tile.cryoFreezer.name=Cryogenic Freezer
-tile.cryoFreezer.tooltip=Restores filled syringes and dna samples to full health.
+tile.cryoFreezer.tooltip=Restores filled syringes and DNA samples to full health.
 
 tile.genomeIncubator.name=Genome Incubator
 tile.genomeIncubator.tooltip=Reads sequenced genomes and encodes this information onto chicken eggs.
@@ -40,7 +40,7 @@ tile.maddna.name=Liquid DNA
 tile.maddna.tooltip=Blood that comes from mobs that are not mutants.
 
 tile.maddnamutant.name=Liquid Mutant DNA
-tile.maddnamutant.tooltip=Corrupted DNA from a genetically altered organism, or a preexisting freak of nature.
+tile.maddnamutant.tooltip=Corrupted DNA from a genetically altered organism, or a pre-existing freak of nature.
 
 tile.abominationEgg.name=Abomination Egg
 tile.abominationEgg.tooltip=Spawned into the world when The Abomination kills another living creature, mob or player alike.
@@ -52,11 +52,14 @@ tile.soniclocator.tooltip=Replaces target blocks in a given chunk with gravel, a
 tile.enderslimeBlock.name=Block of Enderslime
 tile.enderslimeBlock.tooltip=Oh god, its slimy...
 
-tile.clayFurnace.name=Clay Furnance
+tile.clayFurnace.name=Clay Furnace
 tile.clayFurnace.tooltip=Ancient technology that can give a source block from a single ore. Requires coal block and to be lit on fire.
 
 tile.voxBox.name=Announcement System
 tile.voxBox.tooltip=Public address system for relaying audible messages and announcements with a male voice.
+
+tile.magLoader.name=Magazine Loader
+tile.magLoader.tooltip=Automatically loads bullets into magazines for the M41A Pulse Rifle. Requires power and redstone signal to operate.
 
 # Weapons
 item.pulseRifle.name=M41A Pulse Rifle
@@ -169,7 +172,7 @@ item.circuitGlowstone.name=Glowstone Circuit Component
 item.circuitGlowstone.tooltip=Unique integrated-circuit-like semiconductor amplifying device.
 
 item.circuitRedstone.name=Redstone Circuit Component
-item.circuitRedstone.tooltip=Creates a multipurpose circuit that accepts digital data as input, processes it according to instructions stored in its memory, and provides results as output.
+item.circuitRedstone.tooltip=Creates a multi-purpose circuit that accepts digital data as input, processes it according to instructions stored in its memory, and provides results as output.
 
 item.circuitSpiderEye.name=Spider Eye Circuit Component
 item.circuitSpiderEye.tooltip=Sensitive circuit that is used in monitoring and analysis of items not directly visible to the naked-eye.

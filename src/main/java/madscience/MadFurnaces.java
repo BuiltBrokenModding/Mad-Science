@@ -17,6 +17,9 @@ import madscience.tileentities.dnaextractor.DNAExtractorEntity;
 import madscience.tileentities.incubator.IncubatorBlock;
 import madscience.tileentities.incubator.IncubatorEntity;
 import madscience.tileentities.incubator.IncubatorRecipes;
+import madscience.tileentities.magloader.MagLoaderBlock;
+import madscience.tileentities.magloader.MagLoaderBlockGhost;
+import madscience.tileentities.magloader.MagLoaderEntity;
 import madscience.tileentities.mainframe.MainframeBlock;
 import madscience.tileentities.mainframe.MainframeEntity;
 import madscience.tileentities.mainframe.MainframeRecipes;
@@ -107,7 +110,18 @@ public class MadFurnaces
     // VOX Box
     public static BlockContainer VOXBOX_TILEENTITY;
     public static final String VOXBOX_INTERNALNAME = "voxBox";
+    
+    // Magazine Loader
+    public static BlockContainer MAGLOADER_TILEENTITY;
+    public static final String MAGLOADER_INTERNALNAME = "magLoader";
+    
+    // Magazine Loader 'Ghost Block'
+    public static Block MAGLOADERGHOST;
+    public static final String MAGLOADERGHOST_INTERNALNAME = "ghostMagLoader";    
+    
+    // CnC Machine
 
+    
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD
     // -----------------------------
@@ -532,5 +546,26 @@ public class MadFurnaces
           '5', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE, 1, 0),
           '6', new ItemStack(Block.jukebox, 1, 0),
         });
+    }
+
+    public static void createMagLoaderTileEntity(int blockID)
+    {
+        // Loads ammunition into pulse rifle magazine at in-human speeds.
+        MAGLOADER_TILEENTITY = (BlockContainer) new MagLoaderBlock(blockID).setUnlocalizedName(MAGLOADER_INTERNALNAME);
+        GameRegistry.registerBlock(MAGLOADER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAGLOADER_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerTileEntity(MagLoaderEntity.class, MAGLOADER_TILEENTITY.getUnlocalizedName());
+
+        // Register custom rendering for this tile entity.
+        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
+
+        // Register our rendering handles on clients and ignore them on servers.
+        MadScience.proxy.registerRenderingHandler(blockID);
+    }
+
+    public static void createMagLoaderGhostTileEntity(int blockID)
+    {
+        // Acts as a collision box for upper blocks of Magazine Loader.
+        MAGLOADERGHOST = new MagLoaderBlockGhost(blockID).setUnlocalizedName(MAGLOADERGHOST_INTERNALNAME);
+        GameRegistry.registerBlock(MAGLOADERGHOST, MadScience.ID + MAGLOADERGHOST.getUnlocalizedName().substring(5));
     }
 }
