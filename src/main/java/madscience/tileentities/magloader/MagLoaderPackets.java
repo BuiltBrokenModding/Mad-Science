@@ -17,6 +17,9 @@ public class MagLoaderPackets extends MadPackets
     // Tile entity reference upon execute.
     private MagLoaderEntity ENTITY;
 
+    // Determines if the sound of a magazine being inserted into the machine has been played.
+    private boolean hasPlayedMagazineInsertSound;
+
     // Last known maximum cook time.
     private int lastItemCookTimeMaximum;
 
@@ -32,8 +35,8 @@ public class MagLoaderPackets extends MadPackets
     // Does the loader have magazines inserted into it.
     private int magazineCount;
     
-    // Determines if the sound of a magazine being inserted into the machine has been played.
-    private boolean hasPlayedMagazineInsertSound;
+    // Does the loader have anything in output slot (this also counts as magazine count).
+    private int outputMagazineCount;
 
     // XYZ coordinates of tile entity source.
     private int tilePosX;
@@ -45,7 +48,7 @@ public class MagLoaderPackets extends MadPackets
         // Required for reflection.
     }
 
-    public MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int storageItemsCount, int inputItemsCount, boolean playedMagInsertSound)
+    public MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int storageItemsCount, int inputItemsCount, boolean playedMagInsertSound, int outputtedMagazines)
     {
         // World position information.
         tilePosX = posX;
@@ -62,6 +65,7 @@ public class MagLoaderPackets extends MadPackets
         bulletCount = storageItemsCount;
         magazineCount = inputItemsCount;
         hasPlayedMagazineInsertSound = playedMagInsertSound;
+        outputMagazineCount = outputtedMagazines;
     }
 
     @Override
@@ -85,6 +89,7 @@ public class MagLoaderPackets extends MadPackets
             this.ENTITY.clientBulletCount = bulletCount;
             this.ENTITY.clientMagazineCount = magazineCount;
             this.ENTITY.hasPlayedMagazineInsertSound = hasPlayedMagazineInsertSound;
+            this.ENTITY.clientOutputMagazineCount = outputMagazineCount;
         }
         else
         {
@@ -114,6 +119,7 @@ public class MagLoaderPackets extends MadPackets
         this.bulletCount = in.readInt();
         this.magazineCount = in.readInt();
         this.hasPlayedMagazineInsertSound = in.readBoolean();
+        this.outputMagazineCount = in.readInt();
     }
 
     @Override
@@ -138,5 +144,6 @@ public class MagLoaderPackets extends MadPackets
         out.writeInt(bulletCount);
         out.writeInt(magazineCount);
         out.writeBoolean(hasPlayedMagazineInsertSound);
+        out.writeInt(outputMagazineCount);
     }
 }

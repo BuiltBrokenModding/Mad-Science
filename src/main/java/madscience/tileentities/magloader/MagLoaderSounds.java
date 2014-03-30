@@ -10,18 +10,18 @@ public class MagLoaderSounds
 {
     // Played when a magazine is inserted into the input slot for loading.
     public static final String MAGLOADER_INSERTMAGAZINE = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".InsertMagazine";
-    
-    // Played when the machine starts cooking the bullets into a loaded magazine.
-    public static final String MAGLOADER_PUSHSTART = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".PushStart";
-    
-    // Played when the machine steps along in model progress and changes the visibility of pieces.
-    public static final String MAGLOADER_PUSHSTEP = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".PushStep";
-    
-    // Played when the machine finishes loading a magazine.
-    public static final String MAGLOADER_PUSHSTOP = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".PushStop";
-    
+
     // Bullets being loading into magazine sounds to play during machine progress.
     public static final String MAGLOADER_LOADING = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".Loading";
+
+    // Played when the machine starts cooking the bullets into a loaded magazine.
+    public static final String MAGLOADER_PUSHSTART = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".PushStart";
+
+    // Played when the machine steps along in model progress and changes the visibility of pieces.
+    public static final String MAGLOADER_PUSHSTEP = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".PushStep";
+
+    // Played when the machine finishes loading a magazine.
+    public static final String MAGLOADER_PUSHSTOP = MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME + ".PushStop";
 
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

@@ -10,7 +10,6 @@ import madscience.MadWeapons;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -49,17 +48,20 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
     /** The number of ticks that the current item has been cooking for */
     public int currentItemCookingValue;
 
+    /** Keeps track if we have played the sound of a magazine ItemStack being inserted into input slot 1. */
+    public boolean hasPlayedMagazineInsertSound = false;
+
     /** Stack of empty of magazine at some variable health that needs to be filled. */
     private ItemStack[] magloaderInput = new ItemStack[1];
 
     /** Filled pulse rifle magazines that completed the cooking process. */
     private ItemStack[] magloaderOutput = new ItemStack[1];
-    
+
     /** Maximum number of rounds that have been programmed by the autoloader to feed into the magazines to prevent jamming. */
     private int MAXIMUM_ROUNDS = 95;
-    
-    /** Keeps track if we have played the sound of a magazine ItemStack being inserted into input slot 1. */
-    public boolean hasPlayedMagazineInsertSound = false;
+
+    /** Number of magazines that are currently being stored in the output slot. */
+    public int clientOutputMagazineCount;
 
     public MagLoaderEntity()
     {
@@ -88,19 +90,19 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         {
             return false;
         }
-        
+
         // Check if there are magazines in the input slot.
         if (this.magloaderInput[0] == null)
         {
             return false;
         }
-        
+
         // Check if we have redstone power.
         if (!this.isRedstonePowered)
         {
             return false;
         }
-        
+
         // Check if there are at least 95 rounds to even load into a magazine.
         if (this.getNumberOfBulletsInStorageInventory() < MAXIMUM_ROUNDS)
         {
@@ -436,6 +438,9 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         // Number of magazine in the input slot stack right now.
         this.clientMagazineCount = nbt.getInteger("clientMagazineCount");
         
+        // Number of filled magazines in the output slot.
+        this.clientOutputMagazineCount = nbt.getInteger("clientOutputMagazineCount");
+
         // Determines if the sound of a magazine stack being inserted into the machine has been played or not.
         this.hasPlayedMagazineInsertSound = nbt.getBoolean("hasPlayedMagazineInsertSound");
 
@@ -514,7 +519,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                         preparedRounds += bulletFromStorageItem.stackSize;
 
                         // Debuggin'
-                        //MadScience.logger.info("Slot " + String.valueOf(i) + " contains bullet itemstack with " + String.valueOf(bulletFromStorageItem.stackSize) + " rounds.");
+                        // MadScience.logger.info("Slot " + String.valueOf(i) + " contains bullet itemstack with " + String.valueOf(bulletFromStorageItem.stackSize) + " rounds.");
                     }
                 }
             }
@@ -538,7 +543,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                             {
                                 // Increase the number of rounds we have loaded towards our total.
                                 loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
-                                
+
                                 // Destroy this slot since it was full of delicious ammo.
                                 this.bulletStorage[preparedBulletItem.slotNumber] = null;
                             }
@@ -546,7 +551,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                         else
                         {
                             if (loadedRounds < MAXIMUM_ROUNDS)
-                            {                              
+                            {
                                 // Increase the number of rounds we have loaded towards our total.
                                 if (this.bulletStorage[preparedBulletItem.slotNumber].stackSize > 0)
                                 {
@@ -557,14 +562,14 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                                     // Adding one to account for zero index
                                     loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize + 1;
                                 }
-                                
+
                                 // Always destroy the item after being done with it.
                                 this.bulletStorage[preparedBulletItem.slotNumber] = null;
                             }
                         }
                     }
                 }
-                
+
                 // Subtract the difference from the loaded rounds from a full magazine to determine if we need to put anything back.
                 int bulletsToReturnToStorage = loadedRounds - MAXIMUM_ROUNDS;
                 if (bulletsToReturnToStorage > 0)
@@ -574,7 +579,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                     {
                         ItemStack bulletsReturned = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, bulletsToReturnToStorage);
                         this.bulletStorage[preparedBulletItem.slotNumber] = bulletsReturned.copy();
-                        //MadScience.logger.info("Magazine Loader: Returned " + String.valueOf(bulletsToReturnToStorage) + " bullets to storage area.");
+                        // MadScience.logger.info("Magazine Loader: Returned " + String.valueOf(bulletsToReturnToStorage) + " bullets to storage area.");
                         break;
                     }
                 }
@@ -584,25 +589,25 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                 if (this.magloaderOutput[0] == null)
                 {
                     this.magloaderOutput[0] = compareFullMagazine.copy();
-                    //MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                    // MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
                 }
                 else if (this.magloaderOutput[0].isItemEqual(compareFullMagazine))
                 {
                     magloaderOutput[0].stackSize += compareFullMagazine.stackSize;
-                    //MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                    // MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
                 }
 
                 // Remove an empty magazine from the stack since we filled one.
                 if (this.magloaderInput != null && this.magloaderInput[0] != null)
                 {
-                    //MadScience.logger.info("Magazine Loader: Removing empty magazine from input stack.");
+                    // MadScience.logger.info("Magazine Loader: Removing empty magazine from input stack.");
                     --this.magloaderInput[0].stackSize;
                     if (this.magloaderInput[0].stackSize <= 0)
                     {
                         this.magloaderInput[0] = null;
                     }
                 }
-                
+
                 // Play a sound that lets the user know something happened!
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_PUSHSTOP, 1.0F, 1.0F);
             }
@@ -634,22 +639,22 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
             // Check if we should play the sound of a magazine being inserted into the input slot.
             if (!this.hasPlayedMagazineInsertSound && this.getNumberOfMagazinesInInputInventory() > 0)
             {
-                MadScience.logger.info("Magazine Loader: Playing Insert Sound!");
+                // MadScience.logger.info("Magazine Loader: Playing Insert Sound!");
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_INSERTMAGAZINE, 1.0F, 1.0F);
                 this.hasPlayedMagazineInsertSound = true;
             }
             else if (this.hasPlayedMagazineInsertSound && this.getNumberOfMagazinesInInputInventory() <= 0)
             {
                 // Check if we need to reset the status of the magazine insert sound.
-                MadScience.logger.info("Magazine Loader: Resetting Insert Sound!");
+                // MadScience.logger.info("Magazine Loader: Resetting Insert Sound!");
                 this.hasPlayedMagazineInsertSound = false;
             }
-            
+
             // First tick for new item being cooked in furnace.
             if (this.currentItemCookingValue == 0 && this.canSmelt() && this.isPowered())
             {
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_PUSHSTART, 1.0F, 1.0F);
-                
+
                 // Kickstarts the cooking timer loop.
                 currentItemCookingMaximum = 200;
                 this.currentItemCookingValue++;
@@ -686,13 +691,26 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
             }
 
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MagLoaderPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue,
-                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getNumberOfBulletsInStorageInventory(), this.getNumberOfMagazinesInInputInventory(), this.hasPlayedMagazineInsertSound).makePacket());
+                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getNumberOfBulletsInStorageInventory(), this.getNumberOfMagazinesInInputInventory(), this.hasPlayedMagazineInsertSound, this.getMagazineCountInOutputSlot())
+                    .makePacket());
         }
 
         if (inventoriesChanged)
         {
             this.onInventoryChanged();
         }
+    }
+
+    private int getMagazineCountInOutputSlot()
+    {
+        // Returns the number of filled magazines in the output slot.
+        ItemStack outputMagazines = getStackInSlot(1);
+        if (outputMagazines == null)
+        {
+            return 0;
+        }
+        
+        return outputMagazines.stackSize;
     }
 
     /** Writes a tile entity to NBT. */
@@ -710,6 +728,9 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         // Current magazine count in input slot.
         nbt.setInteger("clientMagazineCount", this.clientMagazineCount);
         
+        // Number of filled magazines in the output slot.
+        nbt.setInteger("clientOutputMagazineCount", this.clientOutputMagazineCount);
+
         // Determines if the sound of magazine being inserted into the machine has been played or not.
         nbt.setBoolean("hasPlayedMagazineInsertSound", this.hasPlayedMagazineInsertSound);
 

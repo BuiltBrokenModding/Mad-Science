@@ -5,14 +5,12 @@ import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 
@@ -31,23 +29,23 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
+    // Tile entity that keep track of data and interacts with the user.
     private MagLoaderEntity ENTITY;
-    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
-
+    
     // Base magazine loader model with no moving pieces.
     private MadTechneModel MAGLOADER_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + ".mad");
-    
+
     // Internal bullet models that look like they are funneled down into magazines.
     private MadTechneModel MAGLOADER_BULLET0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet0.mad");
     private MadTechneModel MAGLOADER_BULLET1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet1.mad");
     private MadTechneModel MAGLOADER_BULLET2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet2.mad");
     private MadTechneModel MAGLOADER_BULLET3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet3.mad");
     private MadTechneModel MAGLOADER_BULLET4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet4.mad");
-    
+
     // Magazine to be displayed.
     private MadTechneModel MAGLOADER_MAGAZINE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Magazine.mad");
     private MadTechneModel MAGLOADER_MAGAZINEBASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_MagazineBase.mad");
-    
+
     // Pushing mechanism that makes it look like bullets are being pushed down into magazine.
     private MadTechneModel MAGLOADER_PUSH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push0.mad");
     private MadTechneModel MAGLOADER_PUSH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push1.mad");
@@ -55,6 +53,9 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
     private MadTechneModel MAGLOADER_PUSH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push3.mad");
     private MadTechneModel MAGLOADER_PUSH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push4.mad");
     private MadTechneModel MAGLOADER_PUSH5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push5.mad");
+    
+    // Next available render ID for model instancing.
+    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
     // Texture that is used when bullets have been loaded into the machine.
     private ResourceLocation TEXTURE_HASBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/full.png");
@@ -84,7 +85,7 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     public void renderAModelAt(MagLoaderEntity tileEntity, double x, double y, double z, float f)
-    {        
+    {
         // Grab the individual tile entity in the world.
         ENTITY = tileEntity;
         if (ENTITY == null)
@@ -157,23 +158,66 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
         // Only run the next bits if we have an entity that we can read state information from.
         if (ENTITY != null)
         {
-//            // Metal pushing rod that animates to look like it is pushing bullets into magazines.
-//            MAGLOADER_PUSH0.renderAll();
-//            MAGLOADER_PUSH1.renderAll();
-//            MAGLOADER_PUSH2.renderAll();
-//            MAGLOADER_PUSH3.renderAll();
-//            MAGLOADER_PUSH4.renderAll();
-//            MAGLOADER_PUSH5.renderAll();
-//
-//            // Internal blocks of bullets that hide themselves as the arm pushes them down into the magazine.
-//            MAGLOADER_BULLET0.renderAll();
-//            MAGLOADER_BULLET1.renderAll();
-//            MAGLOADER_BULLET2.renderAll();
-//            MAGLOADER_BULLET3.renderAll();
-//            MAGLOADER_BULLET4.renderAll();
+            // Get the cooking time scaled to 100%.
+            int cookingTimeScaled = ENTITY.getItemCookTimeScaled(100);
+
+            if (cookingTimeScaled <= 25 && cookingTimeScaled > 0)
+            {
+                // push0 and bullet0-4 visible = 25%
+                MAGLOADER_PUSH0.renderAll();
+                MAGLOADER_BULLET0.renderAll();
+                MAGLOADER_BULLET1.renderAll();
+                MAGLOADER_BULLET2.renderAll();
+                MAGLOADER_BULLET3.renderAll();
+                MAGLOADER_BULLET4.renderAll();
+            }
+            else if (cookingTimeScaled <= 50 && cookingTimeScaled > 25)
+            {
+                // push1 and bullet1-4 visible = 50%
+                MAGLOADER_PUSH1.renderAll();
+                MAGLOADER_BULLET1.renderAll();
+                MAGLOADER_BULLET2.renderAll();
+                MAGLOADER_BULLET3.renderAll();
+                MAGLOADER_BULLET4.renderAll();
+            }
+            else if (cookingTimeScaled <= 75 && cookingTimeScaled > 50)
+            {
+                // push2 and bullet2-4 visible = 75%
+                MAGLOADER_PUSH2.renderAll();
+                MAGLOADER_BULLET2.renderAll();
+                MAGLOADER_BULLET3.renderAll();
+                MAGLOADER_BULLET4.renderAll();
+            }
+            else if (cookingTimeScaled <= 85 && cookingTimeScaled > 75)
+            {
+                // push3 and bullet3-4 visible = 85%
+                MAGLOADER_PUSH3.renderAll();
+                MAGLOADER_BULLET3.renderAll();
+                MAGLOADER_BULLET4.renderAll();
+            }
+            else if (cookingTimeScaled <= 95 && cookingTimeScaled > 85)
+            {
+                // push4 and bullet4-4 visible = 90%
+                MAGLOADER_PUSH4.renderAll();
+                MAGLOADER_BULLET4.renderAll();
+            }
+            else if (cookingTimeScaled >= 100 && cookingTimeScaled > 95)
+            {
+                // push5 visible = Done!
+                MAGLOADER_PUSH5.renderAll();
+            }
+            else
+            {
+                if (cookingTimeScaled > 0)
+                {
+                    // Last but not least if we have no idea just render the full push-rod.
+                    MAGLOADER_PUSH5.renderAll();
+                }
+            }
 
             // Visible when an empty magazine(s) is in the machine.
-            if (ENTITY.clientMagazineCount > 0)
+            //MadScience.logger.info("Magazine Loader Output Magazine Count: " + String.valueOf(ENTITY.clientOutputMagazineCount));
+            if (ENTITY.clientMagazineCount > 0 || ENTITY.clientOutputMagazineCount > 0)
             {
                 // Magazine that can be inserted into the machine for loading.
                 MAGLOADER_MAGAZINE.renderAll();
