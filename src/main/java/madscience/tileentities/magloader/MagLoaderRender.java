@@ -3,12 +3,10 @@ package madscience.tileentities.magloader;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
-import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -32,9 +30,35 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     private MagLoaderEntity ENTITY;
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + ".mad");
     public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/empty.png");
+
+    // Base magazine loader model with no moving pieces.
+    private MadTechneModel MAGLOADER_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + ".mad");
+    
+    // Internal bullet models that look like they are funneled down into magazines.
+    private MadTechneModel MAGLOADER_BULLET0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet0.mad");
+    private MadTechneModel MAGLOADER_BULLET1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet1.mad");
+    private MadTechneModel MAGLOADER_BULLET2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet2.mad");
+    private MadTechneModel MAGLOADER_BULLET3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet3.mad");
+    private MadTechneModel MAGLOADER_BULLET4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet4.mad");
+    
+    // Magazine to be displayed.
+    private MadTechneModel MAGLOADER_MAGAZINE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Magazine.mad");
+    private MadTechneModel MAGLOADER_MAGAZINEBASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_MagazineBase.mad");
+    
+    // Pushing mechanism that makes it look like bullets are being pushed down into magazine.
+    private MadTechneModel MAGLOADER_PUSH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push0.mad");
+    private MadTechneModel MAGLOADER_PUSH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push1.mad");
+    private MadTechneModel MAGLOADER_PUSH2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push2.mad");
+    private MadTechneModel MAGLOADER_PUSH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push3.mad");
+    private MadTechneModel MAGLOADER_PUSH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push4.mad");
+    private MadTechneModel MAGLOADER_PUSH5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push5.mad");
+
+    // Texture that is used when bullets have been loaded into the machine.
+    private ResourceLocation TEXTURE_HASBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/full.png");
+
+    // Empty texture that is used when no bullets are inside of the machine.
+    private ResourceLocation TEXTURE_NOBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/empty.png");
 
     @Override
     public int getRenderId()
@@ -111,46 +135,53 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
             break;
         }
 
-        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
+        // Check if there are any bullets loaded into the magazine loader.
+        if (ENTITY != null && ENTITY.clientBulletCount > 0)
         {
-            // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+            // MadScience.logger.info("Bullet Count: " + ENTITY.clientBulletCount);
+            bindTexture(TEXTURE_HASBULLETS);
         }
         else
         {
-            // Default texture that is used for item also.
-            bindTexture(TEXTURE);
+            // Texture that is used when no bullets are loaded into the machine (default).
+            bindTexture(TEXTURE_NOBULLETS);
         }
 
         GL11.glPushMatrix();
-        MODEL.renderAll();
-        GL11.glPopMatrix();
 
-        // All pieces of the model are hidden by default.
-        MODEL.parts.get("push0").showModel = false;
-        MODEL.parts.get("push1").showModel = false;
-        MODEL.parts.get("push2").showModel = false;
-        MODEL.parts.get("push3").showModel = false;
-        MODEL.parts.get("push4").showModel = false;
-        MODEL.parts.get("push5").showModel = false;
-        MODEL.parts.get("Bullet0").showModel = false;
-        MODEL.parts.get("Bullet1").showModel = false;
-        MODEL.parts.get("Bullet2").showModel = false;
-        MODEL.parts.get("Bullet3").showModel = false;
-        MODEL.parts.get("Bullet4").showModel = false;
-        MODEL.parts.get("Magazine").showModel = false;
-        MODEL.parts.get("MagazineBase").showModel = false;   
-        
-        // Visible when an empty magazine(s) is in the machine.
-        if (ENTITY != null && ENTITY.clientMagazineCount > 0)
+        // Base magazine loader object with no moving parts on it.
+        MAGLOADER_BASE.renderAll();
+
+        // Only run the next bits if we have an entity that we can read state information from.
+        if (ENTITY != null)
         {
-            MODEL.parts.get("Magazine").showModel = true;
-            MODEL.parts.get("MagazineBase").showModel = true;
-        }
-        
-        this.MODEL.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+//            // Metal pushing rod that animates to look like it is pushing bullets into magazines.
+//            MAGLOADER_PUSH0.renderAll();
+//            MAGLOADER_PUSH1.renderAll();
+//            MAGLOADER_PUSH2.renderAll();
+//            MAGLOADER_PUSH3.renderAll();
+//            MAGLOADER_PUSH4.renderAll();
+//            MAGLOADER_PUSH5.renderAll();
+//
+//            // Internal blocks of bullets that hide themselves as the arm pushes them down into the magazine.
+//            MAGLOADER_BULLET0.renderAll();
+//            MAGLOADER_BULLET1.renderAll();
+//            MAGLOADER_BULLET2.renderAll();
+//            MAGLOADER_BULLET3.renderAll();
+//            MAGLOADER_BULLET4.renderAll();
 
-        MODEL.renderAll();
+            // Visible when an empty magazine(s) is in the machine.
+            if (ENTITY.clientMagazineCount > 0)
+            {
+                // MadScience.logger.info("Magazine Count: " + ENTITY.clientMagazineCount);
+
+                // Magazine that can be inserted into the machine for loading.
+                MAGLOADER_MAGAZINE.renderAll();
+                MAGLOADER_MAGAZINEBASE.renderAll();
+            }
+        }
+
+        GL11.glPopMatrix();
         GL11.glPopMatrix();
     }
 
@@ -165,8 +196,8 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
     {
         GL11.glPushMatrix();
 
-        // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
+        // Use the same texture we do on the block normally (no bullets).
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_NOBULLETS);
 
         // adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
@@ -177,7 +208,6 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
@@ -211,8 +241,8 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
             break;
         }
 
-        // Renders the model in the gameworld at the correct scale.
-        this.MODEL.renderAll();
+        // Renders the magazine loader with base piece and nothing else.
+        MAGLOADER_BASE.renderAll();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)

@@ -1,23 +1,21 @@
 package madscience.tileentities.magloader;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import madscience.MadConfig;
-import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.items.ItemDecay;
+import madscience.MadWeapons;
 import madscience.tileentities.prefab.MadTileEntity;
-import madscience.util.MadUtils;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 {
@@ -32,6 +30,12 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
     /** The items that make up that container area of the furnace. */
     private ItemStack[] bulletStorage = new ItemStack[13];
+
+    /** Total number of bullets that we have stored inside our inventory from the server. */
+    public int clientBulletCount = 0;
+
+    /** Total number of magazine in the input slot. */
+    public int clientMagazineCount = 0;
 
     // Holds all of the slots for the freezer on the server.
     public MagLoaderContainer CONTAINER;
@@ -50,15 +54,8 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
     /** Filled pulse rifle magazines that completed the cooking process. */
     private ItemStack[] magloaderOutput = new ItemStack[1];
-
-    // Path to texture that should be displayed on our model.
-    public String TEXTURE = "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/empty.png";
-
-    /** Total number of bullets that we have stored inside our inventory from the server. */
-    public int clientBulletCount = 0;
-
-    /** Total number of magazine in the input slot. */
-    public int clientMagazineCount = 0;
+    
+    private int MAXIMUM_ROUNDS = 95;
 
     public MagLoaderEntity()
     {
@@ -80,25 +77,31 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         return this.isItemValidForSlot(slot, items);
     }
 
-    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
     public boolean canSmelt()
     {
-        // Check if we have valid fuel and items to keep cold.
+        // Check if there are no bullets or magazines in the device then it cannot operate.
         if (this.magloaderInput == null || this.bulletStorage == null)
         {
             return false;
         }
-        // Check if we have a valid fuel block to keep freezer cold.
+        
+        // Check if there are magazines in the input slot.
         if (this.magloaderInput[0] == null)
         {
             return false;
         }
-
-        // Check for snowballs.
-        if (this.magloaderInput[0].isItemEqual(new ItemStack(Item.snowball)))
+        
+        // Check if we have redstone power.
+        if (!this.isRedstonePowered)
         {
+            return false;
+        }
+
+        // Check that the input slot contained pulse rifle magazines.
+        if (this.magloaderInput[0].isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM)))
+        {
+            // TODO: Make cook time vary based on size of magazine, so already half loaded ones load faster than empty ones.
             currentItemCookingMaximum = 200;
-            // MadScience.logger.info("canSmelt() SNOWBALL ACCEPTED");
             return true;
         }
 
@@ -200,6 +203,54 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
+    public int getNumberOfBulletsInStorageInventory()
+    {
+        // Check to make sure bullet storage array is not null.
+        if (bulletStorage == null)
+        {
+            return 0;
+        }
+
+        // Save CPU time and just return zero if nothing is in the array.
+        if (this.bulletStorage.length <= 0)
+        {
+            return 0;
+        }
+
+        // Loop through all of the storage array slots.
+        int totalBulletCount = 0;
+        ItemStack compareBulletItem = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM);
+        for (int i = 0; i < this.bulletStorage.length; ++i)
+        {
+            if (this.bulletStorage[i] != null && compareBulletItem.isItemEqual(this.bulletStorage[i]))
+            {
+                // Count how many bullets are in this stack.
+                totalBulletCount += bulletStorage[i].stackSize;
+            }
+        }
+
+        // Returns the total amount of bullets that we located inside of the storage array slots.
+        return totalBulletCount;
+    }
+
+    public int getNumberOfMagazinesInInputInventory()
+    {
+        // Magazine loader array is empty return zero.
+        if (magloaderInput == null)
+        {
+            return 0;
+        }
+
+        // Magazine loader input slot is empty return zero.
+        if (magloaderInput[0] == null)
+        {
+            return 0;
+        }
+
+        // Magazine loader can send proper number of magazines to return method.
+        return magloaderInput[0].stackSize;
+    }
+
     public int getSizeInputInventory()
     {
         return this.magloaderInput.length;
@@ -221,29 +272,6 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
     public int getSizeStorageInventory()
     {
         return bulletStorage.length;
-    }
-    
-    public int getNumberOfBulletsInStorageInventory()
-    {
-        return 0;
-    }
-    
-    public int getNumberOfMagazinesInInputInventory()
-    {
-        // Magazine loader array is empty return zero.
-        if (magloaderInput == null)
-        {
-            return 0;
-        }
-        
-        // Magazine loader input slot is empty return zero.
-        if (magloaderInput[0] == null)
-        {
-            return 0;
-        }
-
-        // Magazine loader can send proper number of magazines to return method.
-        return magloaderInput[0].stackSize;            
     }
 
     /** Returns the stack in slot i */
@@ -298,14 +326,28 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         // Check if machine trying to insert item into given slot is allowed.
         if (slot == 0)
         {
-            // Input slot 1 - Iceblock or snowball.
-            ItemStack compareSnowBalls = new ItemStack(Item.snowball);
-            ItemStack compareIceblock = new ItemStack(Block.ice);
-            ItemStack compareSnow = new ItemStack(Block.snow);
-            ItemStack compareSnowBlock = new ItemStack(Block.blockSnow);
-            if (compareSnowBalls.isItemEqual(items) || compareIceblock.isItemEqual(items) || compareSnow.isItemEqual(items) || compareSnowBlock.isItemEqual(items))
+            // Input slot 1 - Pulse Rifle Magazine in input slot 1.
+            ItemStack compareMagazineItem = new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM);
+            if (compareMagazineItem.isItemEqual(items))
             {
-                // MadScience.logger.info("isItemValidForSlot() SLOT 1 ACCEPTED");
+                return true;
+            }
+        }
+
+        // Output slot 1 - Filled magazine would be here.
+        if (slot == 1)
+        {
+            // You cannot ever insert things into the output slot.
+            return false;
+        }
+
+        // Storage area for bullets.
+        ItemStack compareBulletItem = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM);
+        if (slot >= 2)
+        {
+            // Check to make sure only bullets can be put in these slots.
+            if (compareBulletItem.isItemEqual(items))
+            {
                 return true;
             }
         }
@@ -338,6 +380,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
         // Cast the save data onto our running object.
         this.magloaderInput = new ItemStack[this.getSizeInputInventory()];
+        this.magloaderOutput = new ItemStack[this.getSizeOutputInventory()];
         this.bulletStorage = new ItemStack[this.getSizeStorageInventory()];
 
         // Input item processing.
@@ -351,7 +394,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                 this.magloaderInput[b0] = ItemStack.loadItemStackFromNBT(inputSaveData);
             }
         }
-        
+
         // Output slot processing.
         for (int i = 0; i < nbtOutput.tagCount(); ++i)
         {
@@ -365,9 +408,9 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         }
 
         // Storage slots processing.
-        for (int i = 0; i < nbtOutput.tagCount(); ++i)
+        for (int i = 0; i < nbtStorage.tagCount(); ++i)
         {
-            NBTTagCompound storageSaveData = (NBTTagCompound) nbtOutput.tagAt(i);
+            NBTTagCompound storageSaveData = (NBTTagCompound) nbtStorage.tagAt(i);
             byte b0 = storageSaveData.getByte("StorageSlot");
 
             if (b0 >= 0 && b0 < this.bulletStorage.length)
@@ -378,15 +421,12 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
         // Amount of time we have been working.
         this.currentItemCookingValue = nbt.getShort("CookTime");
-        
+
         // Number of bullets inside of this machine right now.
         this.clientBulletCount = nbt.getInteger("clientBulletCount");
-        
+
         // Number of magazine in the input slot stack right now.
         this.clientMagazineCount = nbt.getInteger("clientMagazineCount");
-
-        // Path to current texture what should be loaded onto the model.
-        this.TEXTURE = nbt.getString("TexturePath");
 
         if (nbt.hasKey("CustomName"))
         {
@@ -441,57 +481,110 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         // Converts input item into result item along with waste items.
         if (this.canSmelt())
         {
-            // Loop through all of the storage items and see if we can heal
-            // them.
-            for (int i = 0; i < this.bulletStorage.length; ++i)
+            // Prepares a compare item, counter and array list for determining what bullets to eat.
+            ItemStack compareBulletItem = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM);
+            int preparedRounds = 0;
+            List<MagLoaderComparatorItem> list = new ArrayList<MagLoaderComparatorItem>();
+
+            // Loop through all of the potential bullets in storage area.
+            for (int i = 0; i < this.bulletStorage.length; i++)
             {
-                if (this.bulletStorage[i] != null)
+                // Build up a list of all bullets.
+                ItemStack bulletFromStorageItem = this.bulletStorage[i];
+                if (bulletFromStorageItem != null)
                 {
-                    // Check if we need to heal ourselves.
-                    int dmg = bulletStorage[i].getItemDamage();
-
-                    // Heal ourselves for being inside a powered and equipped
-                    // freezer.
-                    if (bulletStorage[i] != null && bulletStorage[i].getItem() instanceof ItemDecay && dmg <= bulletStorage[i].getMaxDamage())
+                    // Count up to 95 rounds or until we are out of bullets.
+                    if (bulletFromStorageItem.isItemEqual(compareBulletItem) && preparedRounds < MAXIMUM_ROUNDS)
                     {
-                        bulletStorage[i].setItemDamage(dmg - 1);
+                        // Add the bullet itemstack to our list of bullets for sorting in next step.
+                        list.add(new MagLoaderComparatorItem(i, bulletFromStorageItem.stackSize));
 
-                        // Debugging message.
-                        MadScience.logger.info("WORLD(" + bulletStorage[i].getUnlocalizedName() + "): " + bulletStorage[i].getItemDamage());
+                        // Add the number of rounds from the current stack into the total amount we are looking for.
+                        preparedRounds += bulletFromStorageItem.stackSize;
+
+                        // Debuggin'
+                        MadScience.logger.info("Slot " + String.valueOf(i) + " contains bullet itemstack with " + String.valueOf(bulletFromStorageItem.stackSize) + " rounds.");
                     }
                 }
             }
 
-            // Remove an empty magazine from the stack since we filled one.
-            if (this.magloaderInput != null && this.magloaderInput[0] != null)
+            // Sort our list of bullets by stack size.
+            Collections.sort(list, Collections.reverseOrder(new MagLoaderComparator()));
+            // Collections.sort(list, new MagLoaderComparator());
+
+            // Now we can be assured that the highest bullet stack count will be index zero in this list.
+            int loadedRounds = 0;
+            if (list != null && list.size() >= 1)
             {
-                --this.magloaderInput[0].stackSize;
-                if (this.magloaderInput[0].stackSize <= 0)
+                for (MagLoaderComparatorItem preparedBulletItem : list)
                 {
-                    this.magloaderInput[0] = null;
+                    if (preparedBulletItem != null)
+                    {
+                        // Decrease the stack for the rounds if they are 64.
+                        if (this.bulletStorage[preparedBulletItem.slotNumber].stackSize >= 64)
+                        {
+                            if (loadedRounds < MAXIMUM_ROUNDS)
+                            {
+                                // Increase the number of rounds we have loaded towards our total.
+                                loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
+                            }
+                        }
+                        else
+                        {
+                            if (loadedRounds < MAXIMUM_ROUNDS)
+                            {
+                                // If the stack is less than 64 take what we can from it instead.
+                                --this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
+                                if (this.bulletStorage[preparedBulletItem.slotNumber].stackSize <= 0)
+                                {
+                                    this.bulletStorage[preparedBulletItem.slotNumber] = null;
+                                }
+    
+                                // Increase the number of rounds we have loaded towards our total.
+                                loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
+                            }
+                        }
+                    }
+                }
+                
+                // Subtract the difference from the loaded rounds from a full magazine to determine if we need to put anything back.
+                int bulletsToReturnToStorage = loadedRounds - MAXIMUM_ROUNDS;
+                if (bulletsToReturnToStorage > 0)
+                {
+                    // Use the slots that we emptied out from loading the magazine in the case of the machine being fully loaded.
+                    for (MagLoaderComparatorItem preparedBulletItem : list)
+                    {
+                        ItemStack bulletsReturned = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, bulletsToReturnToStorage);
+                        this.bulletStorage[preparedBulletItem.slotNumber] = bulletsReturned.copy();
+                        MadScience.logger.info("Magazine Loader: Returned " + String.valueOf(bulletsToReturnToStorage) + " bullets to storage area.");
+                        break;
+                    }
+                }
+
+                // Place a filled magazine into the output slot.
+                ItemStack compareFullMagazine = new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 1);
+                if (this.magloaderOutput[0] == null)
+                {
+                    this.magloaderOutput[0] = compareFullMagazine.copy();
+                    MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                }
+                else if (this.magloaderOutput[0].isItemEqual(compareFullMagazine))
+                {
+                    magloaderOutput[0].stackSize += compareFullMagazine.stackSize;
+                    MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                }
+
+                // Remove an empty magazine from the stack since we filled one.
+                if (this.magloaderInput != null && this.magloaderInput[0] != null)
+                {
+                    MadScience.logger.info("Magazine Loader: Removing empty magazine from input stack.");
+                    --this.magloaderInput[0].stackSize;
+                    if (this.magloaderInput[0].stackSize <= 0)
+                    {
+                        this.magloaderInput[0] = null;
+                    }
                 }
             }
-        }
-    }
-
-    private void updateAnimation()
-    {
-        // Active state has many textures based on item cook progress.
-        if (this.canSmelt() && isPowered())
-        {
-            // Load this texture onto the entity.
-            TEXTURE = "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/full.png";
-
-            // Play a sound of the freezer working and doing cold things.
-            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
-            {
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_IDLE, 1.0F, 1.0F);
-            }
-        }
-        else
-        {
-            // Idle state single texture.
-            TEXTURE = "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/empty.png";
         }
     }
 
@@ -517,9 +610,6 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
-            // Change texture based on state.
-            updateAnimation();
-
             // First tick for new item being cooked in furnace.
             if (this.currentItemCookingValue == 0 && this.canSmelt() && this.isPowered())
             {
@@ -554,7 +644,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
             }
 
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MagLoaderPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue,
-                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.TEXTURE, this.getNumberOfBulletsInStorageInventory(), this.getNumberOfMagazinesInInputInventory()).makePacket());
+                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getNumberOfBulletsInStorageInventory(), this.getNumberOfMagazinesInInputInventory()).makePacket());
         }
 
         if (inventoriesChanged)
@@ -571,15 +661,12 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
         // Amount of time left to cook current item inside of the furnace.
         nbt.setShort("CookTime", (short) this.currentItemCookingValue);
-        
+
         // Current bullet count in the storage slots.
         nbt.setInteger("clientBulletCount", this.clientBulletCount);
-        
+
         // Current magazine count in input slot.
         nbt.setInteger("clientMagazineCount", this.clientMagazineCount);
-
-        // Path to current texture that should be loaded onto the model.
-        nbt.setString("TexturePath", this.TEXTURE);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();
@@ -597,7 +684,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                 inputItems.appendTag(inputSlots);
             }
         }
-        
+
         // Output slot.
         for (int i = 0; i < this.magloaderOutput.length; ++i)
         {
@@ -615,10 +702,10 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         {
             if (this.bulletStorage[i] != null)
             {
-                NBTTagCompound outputSlots = new NBTTagCompound();
-                outputSlots.setByte("StorageSlot", (byte) i);
-                this.bulletStorage[i].writeToNBT(outputSlots);
-                outputItems.appendTag(outputSlots);
+                NBTTagCompound storageSlots = new NBTTagCompound();
+                storageSlots.setByte("StorageSlot", (byte) i);
+                this.bulletStorage[i].writeToNBT(storageSlots);
+                storageItems.appendTag(storageSlots);
             }
         }
 

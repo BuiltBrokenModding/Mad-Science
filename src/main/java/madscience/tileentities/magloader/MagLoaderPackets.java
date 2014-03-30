@@ -11,12 +11,15 @@ import cpw.mods.fml.relauncher.Side;
 
 public class MagLoaderPackets extends MadPackets
 {
+    // Does the loader have bullets loaded into it.
+    private int bulletCount;
+
     // Tile entity reference upon execute.
     private MagLoaderEntity ENTITY;
-    
+
     // Last known maximum cook time.
     private int lastItemCookTimeMaximum;
-    
+
     // Last known current cook time.
     private int lastItemCookTimeValue;
 
@@ -25,15 +28,9 @@ public class MagLoaderPackets extends MadPackets
 
     // Last known maximum amount of energy.
     private long lastItemStoredMaxEnergy;
-    
-    // Does the loader have bullets loaded into it.
-    private int bulletCount;
-    
+
     // Does the loader have magazines inserted into it.
     private int magazineCount;
-
-    // Last known texture displayed on the tile entity.
-    private String texturePath;
 
     // XYZ coordinates of tile entity source.
     private int tilePosX;
@@ -45,8 +42,7 @@ public class MagLoaderPackets extends MadPackets
         // Required for reflection.
     }
 
-    public MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax,
-            long energyStored, long energyMax, String tileTexture, int storageItemsCount, int inputItemsCount)
+    public MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int storageItemsCount, int inputItemsCount)
     {
         // World position information.
         tilePosX = posX;
@@ -58,8 +54,7 @@ public class MagLoaderPackets extends MadPackets
         lastItemCookTimeMaximum = cookTimeMax;
         lastItemStoredMaxEnergy = energyMax;
         lastItemStoredEnergy = energyStored;
-        texturePath = tileTexture;
-        
+
         // Magazine loader specific.
         bulletCount = storageItemsCount;
         magazineCount = inputItemsCount;
@@ -83,7 +78,6 @@ public class MagLoaderPackets extends MadPackets
             this.ENTITY.currentItemCookingMaximum = lastItemCookTimeMaximum;
             this.ENTITY.setEnergyCapacity(lastItemStoredMaxEnergy);
             this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
-            this.ENTITY.TEXTURE = texturePath;
             this.ENTITY.clientBulletCount = bulletCount;
             this.ENTITY.clientMagazineCount = magazineCount;
         }
@@ -110,8 +104,7 @@ public class MagLoaderPackets extends MadPackets
         this.lastItemCookTimeMaximum = in.readInt();
         this.lastItemStoredMaxEnergy = in.readLong();
         this.lastItemStoredEnergy = in.readLong();
-        this.texturePath = in.readUTF();
-        
+
         // Magazine loader packet for client.
         this.bulletCount = in.readInt();
         this.magazineCount = in.readInt();
@@ -134,8 +127,7 @@ public class MagLoaderPackets extends MadPackets
         out.writeInt(lastItemCookTimeMaximum);
         out.writeLong(lastItemStoredMaxEnergy);
         out.writeLong(lastItemStoredEnergy);
-        out.writeUTF(texturePath);
-        
+
         // Magazine loader server information.
         out.writeInt(bulletCount);
         out.writeInt(magazineCount);
