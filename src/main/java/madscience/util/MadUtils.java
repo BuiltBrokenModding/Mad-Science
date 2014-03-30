@@ -1,5 +1,8 @@
 package madscience.util;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,71 @@ import net.minecraft.world.World;
 
 public class MadUtils
 {
+    public static String getMD5String(String unencodedText)
+    {
+        MessageDigest md = null;
+        try
+        {
+            md = MessageDigest.getInstance("MD5");
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        
+        md.update(unencodedText.getBytes());
+
+        byte byteData[] = md.digest();
+
+        return getHexString(byteData);
+    }
+    
+    public static String getSHA1String(String unencodedText)
+    {
+        // Creates SHA1 String of given text for comparison purposes over network.
+        MessageDigest md = null;
+        
+        try
+        {
+            md = MessageDigest.getInstance("SHA-1");
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        
+        byte[] unencodedBytes = null;
+        try
+        {
+            unencodedBytes = unencodedText.getBytes("UTF-8");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return getHexString(unencodedBytes);
+    }
+
+    private static String getHexString(byte[] raw)
+    {
+        String HEXES = "0123456789ABCDEF";
+        
+        // Converts a given UTF-8 byte array into properly encoded SHA1 equivalent.
+        if (raw == null)
+        {
+            return null;
+        }
+        
+        final StringBuilder hex = new StringBuilder(2 * raw.length);
+        for (final byte b : raw)
+        {
+            hex.append(HEXES.charAt((b & 0xF0) >> 4)).append(HEXES.charAt((b & 0x0F)));
+        }
+        
+        return hex.toString();
+    }
+
     public static List<String> splitStringPerWord(String string, int wordsPerLine)
     {
         String[] words = string.split(" ");
