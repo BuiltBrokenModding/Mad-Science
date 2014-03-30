@@ -5,12 +5,14 @@ import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 
@@ -82,7 +84,7 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     public void renderAModelAt(MagLoaderEntity tileEntity, double x, double y, double z, float f)
-    {
+    {        
         // Grab the individual tile entity in the world.
         ENTITY = tileEntity;
         if (ENTITY == null)
@@ -173,8 +175,6 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
             // Visible when an empty magazine(s) is in the machine.
             if (ENTITY.clientMagazineCount > 0)
             {
-                // MadScience.logger.info("Magazine Count: " + ENTITY.clientMagazineCount);
-
                 // Magazine that can be inserted into the machine for loading.
                 MAGLOADER_MAGAZINE.renderAll();
                 MAGLOADER_MAGAZINEBASE.renderAll();

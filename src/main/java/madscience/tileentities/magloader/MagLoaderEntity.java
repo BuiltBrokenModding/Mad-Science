@@ -55,7 +55,11 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
     /** Filled pulse rifle magazines that completed the cooking process. */
     private ItemStack[] magloaderOutput = new ItemStack[1];
     
+    /** Maximum number of rounds that have been programmed by the autoloader to feed into the magazines to prevent jamming. */
     private int MAXIMUM_ROUNDS = 95;
+    
+    /** Keeps track if we have played the sound of a magazine ItemStack being inserted into input slot 1. */
+    public boolean hasPlayedMagazineInsertSound = false;
 
     public MagLoaderEntity()
     {
@@ -106,8 +110,6 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         // Check that the input slot contained pulse rifle magazines.
         if (this.magloaderInput[0].isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM)))
         {
-            // TODO: Make cook time vary based on size of magazine, so already half loaded ones load faster than empty ones.
-            currentItemCookingMaximum = 200;
             return true;
         }
 
@@ -433,6 +435,9 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
         // Number of magazine in the input slot stack right now.
         this.clientMagazineCount = nbt.getInteger("clientMagazineCount");
+        
+        // Determines if the sound of a magazine stack being inserted into the machine has been played or not.
+        this.hasPlayedMagazineInsertSound = nbt.getBoolean("hasPlayedMagazineInsertSound");
 
         if (nbt.hasKey("CustomName"))
         {
@@ -597,6 +602,9 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                         this.magloaderInput[0] = null;
                     }
                 }
+                
+                // Play a sound that lets the user know something happened!
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_PUSHSTOP, 1.0F, 1.0F);
             }
         }
     }
@@ -623,14 +631,27 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
+            // Check if we should play the sound of a magazine being inserted into the input slot.
+            if (!this.hasPlayedMagazineInsertSound && this.getNumberOfMagazinesInInputInventory() > 0)
+            {
+                MadScience.logger.info("Magazine Loader: Playing Insert Sound!");
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_INSERTMAGAZINE, 1.0F, 1.0F);
+                this.hasPlayedMagazineInsertSound = true;
+            }
+            else if (this.hasPlayedMagazineInsertSound && this.getNumberOfMagazinesInInputInventory() <= 0)
+            {
+                // Check if we need to reset the status of the magazine insert sound.
+                MadScience.logger.info("Magazine Loader: Resetting Insert Sound!");
+                this.hasPlayedMagazineInsertSound = false;
+            }
+            
             // First tick for new item being cooked in furnace.
             if (this.currentItemCookingValue == 0 && this.canSmelt() && this.isPowered())
             {
-                // New item pulled from cooking stack to be processed, check how
-                // long this item will take to cook.
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_PUSHSTART, 1.0F, 1.0F);
+                
+                // Kickstarts the cooking timer loop.
                 currentItemCookingMaximum = 200;
-
-                // Increments the timer to kickstart the cooking loop.
                 this.currentItemCookingValue++;
             }
             else if (this.currentItemCookingValue > 0 && this.canSmelt() && this.isPowered())
@@ -649,6 +670,14 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                     this.smeltItem();
                     inventoriesChanged = true;
                 }
+                else
+                {
+                    // Update progress noises while we wait.
+                    if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+                    {
+                        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_LOADING, 1.0F, 1.0F);
+                    }
+                }
             }
             else
             {
@@ -657,7 +686,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
             }
 
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MagLoaderPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue,
-                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getNumberOfBulletsInStorageInventory(), this.getNumberOfMagazinesInInputInventory()).makePacket());
+                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getNumberOfBulletsInStorageInventory(), this.getNumberOfMagazinesInInputInventory(), this.hasPlayedMagazineInsertSound).makePacket());
         }
 
         if (inventoriesChanged)
@@ -680,6 +709,9 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
         // Current magazine count in input slot.
         nbt.setInteger("clientMagazineCount", this.clientMagazineCount);
+        
+        // Determines if the sound of magazine being inserted into the machine has been played or not.
+        nbt.setBoolean("hasPlayedMagazineInsertSound", this.hasPlayedMagazineInsertSound);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();

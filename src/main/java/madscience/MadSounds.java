@@ -13,6 +13,7 @@ import madscience.tileentities.cryotube.CryotubeSounds;
 import madscience.tileentities.dataduplicator.DataDuplicatorSounds;
 import madscience.tileentities.dnaextractor.DNAExtractorSounds;
 import madscience.tileentities.incubator.IncubatorSounds;
+import madscience.tileentities.magloader.MagLoaderSounds;
 import madscience.tileentities.mainframe.MainframeSounds;
 import madscience.tileentities.meatcube.MeatcubeSounds;
 import madscience.tileentities.sanitizer.SanitizerSounds;
@@ -89,7 +90,7 @@ public class MadSounds
             VoxBoxSounds.init(event);
             
             // Magazine Loader
-            
+            MagLoaderSounds.init(event);
             
             // CnC Machine
             

@@ -31,6 +31,9 @@ public class MagLoaderPackets extends MadPackets
 
     // Does the loader have magazines inserted into it.
     private int magazineCount;
+    
+    // Determines if the sound of a magazine being inserted into the machine has been played.
+    private boolean hasPlayedMagazineInsertSound;
 
     // XYZ coordinates of tile entity source.
     private int tilePosX;
@@ -42,7 +45,7 @@ public class MagLoaderPackets extends MadPackets
         // Required for reflection.
     }
 
-    public MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int storageItemsCount, int inputItemsCount)
+    public MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int storageItemsCount, int inputItemsCount, boolean playedMagInsertSound)
     {
         // World position information.
         tilePosX = posX;
@@ -58,6 +61,7 @@ public class MagLoaderPackets extends MadPackets
         // Magazine loader specific.
         bulletCount = storageItemsCount;
         magazineCount = inputItemsCount;
+        hasPlayedMagazineInsertSound = playedMagInsertSound;
     }
 
     @Override
@@ -80,6 +84,7 @@ public class MagLoaderPackets extends MadPackets
             this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
             this.ENTITY.clientBulletCount = bulletCount;
             this.ENTITY.clientMagazineCount = magazineCount;
+            this.ENTITY.hasPlayedMagazineInsertSound = hasPlayedMagazineInsertSound;
         }
         else
         {
@@ -108,6 +113,7 @@ public class MagLoaderPackets extends MadPackets
         // Magazine loader packet for client.
         this.bulletCount = in.readInt();
         this.magazineCount = in.readInt();
+        this.hasPlayedMagazineInsertSound = in.readBoolean();
     }
 
     @Override
@@ -131,5 +137,6 @@ public class MagLoaderPackets extends MadPackets
         // Magazine loader server information.
         out.writeInt(bulletCount);
         out.writeInt(magazineCount);
+        out.writeBoolean(hasPlayedMagazineInsertSound);
     }
 }

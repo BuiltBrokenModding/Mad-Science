@@ -484,7 +484,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
 
                 // Debug message about data reel health as it is healed by
                 // the server.
-                MadScience.logger.info("WORLD(" + dataduplicatorInput[1].getUnlocalizedName() + "): " + dataduplicatorInput[1].getItemDamage());
+                //MadScience.logger.info("WORLD(" + dataduplicatorInput[1].getUnlocalizedName() + "): " + dataduplicatorInput[1].getItemDamage());
             }
 
             // Check if the genome was healed completely in this last pass
