@@ -96,6 +96,12 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         {
             return false;
         }
+        
+        // Check if there are at least 95 rounds to even load into a magazine.
+        if (this.getNumberOfBulletsInStorageInventory() < MAXIMUM_ROUNDS)
+        {
+            return false;
+        }
 
         // Check that the input slot contained pulse rifle magazines.
         if (this.magloaderInput[0].isItemEqual(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM)))
@@ -503,7 +509,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                         preparedRounds += bulletFromStorageItem.stackSize;
 
                         // Debuggin'
-                        MadScience.logger.info("Slot " + String.valueOf(i) + " contains bullet itemstack with " + String.valueOf(bulletFromStorageItem.stackSize) + " rounds.");
+                        //MadScience.logger.info("Slot " + String.valueOf(i) + " contains bullet itemstack with " + String.valueOf(bulletFromStorageItem.stackSize) + " rounds.");
                     }
                 }
             }
@@ -527,21 +533,28 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                             {
                                 // Increase the number of rounds we have loaded towards our total.
                                 loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
+                                
+                                // Destroy this slot since it was full of delicious ammo.
+                                this.bulletStorage[preparedBulletItem.slotNumber] = null;
                             }
                         }
                         else
                         {
                             if (loadedRounds < MAXIMUM_ROUNDS)
-                            {
-                                // If the stack is less than 64 take what we can from it instead.
-                                --this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
-                                if (this.bulletStorage[preparedBulletItem.slotNumber].stackSize <= 0)
-                                {
-                                    this.bulletStorage[preparedBulletItem.slotNumber] = null;
-                                }
-    
+                            {                              
                                 // Increase the number of rounds we have loaded towards our total.
-                                loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
+                                if (this.bulletStorage[preparedBulletItem.slotNumber].stackSize > 0)
+                                {
+                                    loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize;
+                                }
+                                else if (this.bulletStorage[preparedBulletItem.slotNumber].stackSize <= 0)
+                                {
+                                    // Adding one to account for zero index
+                                    loadedRounds += this.bulletStorage[preparedBulletItem.slotNumber].stackSize + 1;
+                                }
+                                
+                                // Always destroy the item after being done with it.
+                                this.bulletStorage[preparedBulletItem.slotNumber] = null;
                             }
                         }
                     }
@@ -556,28 +569,28 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
                     {
                         ItemStack bulletsReturned = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, bulletsToReturnToStorage);
                         this.bulletStorage[preparedBulletItem.slotNumber] = bulletsReturned.copy();
-                        MadScience.logger.info("Magazine Loader: Returned " + String.valueOf(bulletsToReturnToStorage) + " bullets to storage area.");
+                        //MadScience.logger.info("Magazine Loader: Returned " + String.valueOf(bulletsToReturnToStorage) + " bullets to storage area.");
                         break;
                     }
                 }
 
                 // Place a filled magazine into the output slot.
-                ItemStack compareFullMagazine = new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 1);
+                ItemStack compareFullMagazine = new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, Math.abs(100 - MAXIMUM_ROUNDS));
                 if (this.magloaderOutput[0] == null)
                 {
                     this.magloaderOutput[0] = compareFullMagazine.copy();
-                    MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                    //MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
                 }
                 else if (this.magloaderOutput[0].isItemEqual(compareFullMagazine))
                 {
                     magloaderOutput[0].stackSize += compareFullMagazine.stackSize;
-                    MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                    //MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
                 }
 
                 // Remove an empty magazine from the stack since we filled one.
                 if (this.magloaderInput != null && this.magloaderInput[0] != null)
                 {
-                    MadScience.logger.info("Magazine Loader: Removing empty magazine from input stack.");
+                    //MadScience.logger.info("Magazine Loader: Removing empty magazine from input stack.");
                     --this.magloaderInput[0].stackSize;
                     if (this.magloaderInput[0].stackSize <= 0)
                     {
@@ -598,7 +611,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         boolean inventoriesChanged = false;
 
         // Decrease to amount of energy this item has on client and server.
-        if (this.isPowered() && this.canSmelt() && this.worldObj.rand.nextBoolean())
+        if (this.isPowered() && this.isRedstonePowered)
         {
             // Power consumption is not every tick but random.
             this.consumeEnergy(MadConfig.MAGLOADER_CONSUME);
