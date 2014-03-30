@@ -31,21 +31,36 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
     }
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
-
-    // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".mad");
-
-    // Tile Entity that our block inits.
+    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
+    
+    // Difference pieces of our model that all together makeup a complete model.
+    private MadTechneModel MEATCUBE_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".mad");
+    private MadTechneModel MEATCUBE_PIECE1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "1.mad");
+    private MadTechneModel MEATCUBE_PIECE2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "2.mad");
+    private MadTechneModel MEATCUBE_PIECE3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "3.mad");
+    private MadTechneModel MEATCUBE_PIECE4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "4.mad");
+    private MadTechneModel MEATCUBE_PIECE5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "5.mad");
+    private MadTechneModel MEATCUBE_PIECE6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "6.mad");
+    private MadTechneModel MEATCUBE_PIECE7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "7.mad");
+    private MadTechneModel MEATCUBE_PIECE8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "8.mad");
+    private MadTechneModel MEATCUBE_PIECE9 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "9.mad");
+    private MadTechneModel MEATCUBE_PIECE10 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "10.mad");
+    private MadTechneModel MEATCUBE_PIECE11 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "11.mad");
+    private MadTechneModel MEATCUBE_PIECE12 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "12.mad");
+    private MadTechneModel MEATCUBE_PIECE13 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "13.mad");
+    private MadTechneModel MEATCUBE_PIECE14 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "14.mad");
+    
+    // Tile Entity in the world.
     private MeatcubeEntity ENTITY;
-
+    
+    // Default texture that we should show.
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png");
 
     @Override
     public int getRenderId()
     {
         // Returns our unique rendering ID for this specific tile entity.
-        return modelRenderID;
+        return RENDERID;
     }
 
     @Override
@@ -123,8 +138,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
             break; // never here
         }
 
-        // Renders the model in the gameworld at the correct scale.
-        MODEL.renderAll();
+        showAllMeatCubePieces();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -217,106 +231,119 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         }
 
         GL11.glPushMatrix();
-        MODEL.renderAll();
-        GL11.glPopMatrix();
-
-        // All parts of the meat are hidden by default.
-        MODEL.parts.get("Meat0").showModel = false;
-        MODEL.parts.get("Meat1").showModel = false;
-        MODEL.parts.get("Meat2").showModel = false;
-        MODEL.parts.get("Meat3").showModel = false;
-        MODEL.parts.get("Meat4").showModel = false;
-        MODEL.parts.get("Meat5").showModel = false;
-        MODEL.parts.get("Meat6").showModel = false;
-        MODEL.parts.get("Meat7").showModel = false;
-        MODEL.parts.get("Meat8").showModel = false;
-        MODEL.parts.get("Meat9").showModel = false;
-        MODEL.parts.get("Meat10").showModel = false;
-        MODEL.parts.get("Meat11").showModel = false;
-        MODEL.parts.get("Meat12").showModel = false;
-        MODEL.parts.get("Meat13").showModel = false;
-        MODEL.parts.get("Meat14").showModel = false;
-
+        
+        // Base meatcube with piece zero.
+        MEATCUBE_BASE.renderAll();
+        
         // Display different chunks of the model based on internal health value.
-        if (ENTITY.currentMeatCubeDamageValue >= 0)
-        {
-            MODEL.parts.get("Meat0").showModel = true;
-        }
-
         if (ENTITY.currentMeatCubeDamageValue >= 1)
         {
-            MODEL.parts.get("Meat1").showModel = true;
+            MEATCUBE_PIECE1.renderAll();
+            //MEATCUBE_PIECE1.parts.get("Meat1").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 2)
         {
-            MODEL.parts.get("Meat2").showModel = true;
+            MEATCUBE_PIECE2.renderAll();
+            //MEATCUBE_PIECE2.parts.get("Meat2").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 3)
         {
-            MODEL.parts.get("Meat3").showModel = true;
+            MEATCUBE_PIECE3.renderAll();
+            //MEATCUBE_PIECE3.parts.get("Meat3").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 4)
         {
-            MODEL.parts.get("Meat4").showModel = true;
+            MEATCUBE_PIECE4.renderAll();
+            //MEATCUBE_PIECE4.parts.get("Meat4").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 5)
         {
-            MODEL.parts.get("Meat5").showModel = true;
+            MEATCUBE_PIECE5.renderAll();
+            //MEATCUBE_PIECE5.parts.get("Meat5").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 6)
         {
-            MODEL.parts.get("Meat6").showModel = true;
+            MEATCUBE_PIECE6.renderAll();
+            //MEATCUBE_PIECE6.parts.get("Meat6").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 7)
         {
-            MODEL.parts.get("Meat7").showModel = true;
+            MEATCUBE_PIECE7.renderAll();
+            //MEATCUBE_PIECE7.parts.get("Meat7").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 8)
         {
-            MODEL.parts.get("Meat8").showModel = true;
+            MEATCUBE_PIECE8.renderAll();
+            //MEATCUBE_PIECE8.parts.get("Meat8").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 9)
         {
-            MODEL.parts.get("Meat9").showModel = true;
+            MEATCUBE_PIECE9.renderAll();
+            //MEATCUBE_PIECE9.parts.get("Meat9").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 10)
         {
-            MODEL.parts.get("Meat10").showModel = true;
+            MEATCUBE_PIECE10.renderAll();
+            //MEATCUBE_PIECE10.parts.get("Meat10").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 11)
         {
-            MODEL.parts.get("Meat11").showModel = true;
+            MEATCUBE_PIECE11.renderAll();
+            //MEATCUBE_PIECE11.parts.get("Meat11").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 12)
         {
-            MODEL.parts.get("Meat12").showModel = true;
+            MEATCUBE_PIECE12.renderAll();
+            //MEATCUBE_PIECE12.parts.get("Meat12").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 13)
         {
-            MODEL.parts.get("Meat13").showModel = true;
+            MEATCUBE_PIECE13.renderAll();
+            //MEATCUBE_PIECE13.parts.get("Meat13").showModel = true;
         }
 
         if (ENTITY.currentMeatCubeDamageValue >= 14)
         {
-            MODEL.parts.get("Meat14").showModel = true;
+            MEATCUBE_PIECE14.renderAll();
+            //MEATCUBE_PIECE14.parts.get("Meat14").showModel = true;
         }
-
-        this.MODEL.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
-
-        MODEL.renderAll();
+        
         GL11.glPopMatrix();
+        GL11.glPopMatrix();
+    }
+
+    public void showAllMeatCubePieces()
+    {
+        // Base meatcube with piece zero.
+        MEATCUBE_BASE.renderAll();
+        
+        // Meat gibs.
+        MEATCUBE_PIECE1.renderAll();
+        MEATCUBE_PIECE2.renderAll();
+        MEATCUBE_PIECE3.renderAll();
+        MEATCUBE_PIECE4.renderAll();
+        MEATCUBE_PIECE5.renderAll();
+        MEATCUBE_PIECE6.renderAll();
+        MEATCUBE_PIECE7.renderAll();
+        MEATCUBE_PIECE8.renderAll();
+        MEATCUBE_PIECE9.renderAll();
+        MEATCUBE_PIECE10.renderAll();
+        MEATCUBE_PIECE11.renderAll();
+        MEATCUBE_PIECE12.renderAll();
+        MEATCUBE_PIECE13.renderAll();
+        MEATCUBE_PIECE14.renderAll();
     }
 
     @Override

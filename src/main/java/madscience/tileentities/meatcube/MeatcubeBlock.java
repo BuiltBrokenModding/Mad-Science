@@ -41,7 +41,7 @@ public class MeatcubeBlock extends BlockContainer
     private boolean keepFurnaceInventory;
 
     // Stores instance of our tile entity on the client.
-    private MeatcubeEntity lastPlacedTileEntity;
+    private MeatcubeEntity ENTITY;
 
     public MeatcubeBlock(int id)
     {
@@ -58,12 +58,6 @@ public class MeatcubeBlock extends BlockContainer
         // Define how big this item is we make it same size as a default block.
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
-
-    // @Override
-    // public int tickRate(World par1World)
-    // {
-    // return 1;
-    // }
 
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */
     @Override
@@ -346,13 +340,13 @@ public class MeatcubeBlock extends BlockContainer
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, living, stack);
-        lastPlacedTileEntity = (MeatcubeEntity) world.getBlockTileEntity(x, y, z);
+        ENTITY = (MeatcubeEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
 
-        if (stack.hasDisplayName() && lastPlacedTileEntity != null)
+        if (stack.hasDisplayName() && ENTITY != null)
         {
-            lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());
+            ENTITY.setGuiDisplayName(stack.getDisplayName());
         }
     }
 
