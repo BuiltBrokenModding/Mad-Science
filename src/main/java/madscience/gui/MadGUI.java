@@ -1,10 +1,13 @@
-package madscience.network;
+package madscience.gui;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.tileentities.clayfurnace.ClayfurnaceContainer;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceGUI;
+import madscience.tileentities.cncmachine.CnCMachineContainer;
+import madscience.tileentities.cncmachine.CnCMachineEntity;
+import madscience.tileentities.cncmachine.CnCMachineGUI;
 import madscience.tileentities.cryofreezer.CryofreezerContainer;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
 import madscience.tileentities.cryofreezer.CryofreezerGUI;
@@ -142,7 +145,10 @@ public class MadGUI implements IGuiHandler
         }
         
         // CnC Machine
-
+        if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
+        {
+            return new CnCMachineGUI(player.inventory, (CnCMachineEntity) tile_entity);
+        }
         
         // Default response is to return nothing.
         return null;
@@ -239,7 +245,10 @@ public class MadGUI implements IGuiHandler
         }
         
         // CnC Machine
-
+        if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
+        {
+            return new CnCMachineContainer(player.inventory, (CnCMachineEntity) tile_entity);
+        }
         
         // Default response is to return nothing.
         return null;

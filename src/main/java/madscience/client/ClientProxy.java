@@ -46,6 +46,8 @@ import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceRender;
+import madscience.tileentities.cncmachine.CnCMachineEntity;
+import madscience.tileentities.cncmachine.CnCMachineRender;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
 import madscience.tileentities.cryofreezer.CryofreezerRender;
 import madscience.tileentities.cryotube.CryotubeEntity;
@@ -343,7 +345,12 @@ public class ClientProxy extends CommonProxy
         }
         
         // CnC Machine
-        
+        if (blockID == MadConfig.CNCMACHINE)
+        {
+            RenderingRegistry.registerBlockHandler(MadFurnaces.CNCMACHINE_TILEENTITY.blockID, new CnCMachineRender());
+            ClientRegistry.bindTileEntitySpecialRenderer(CnCMachineEntity.class, new CnCMachineRender());
+            MinecraftForgeClient.registerItemRenderer(blockID, new CnCMachineRender());
+        }
 
         // ----
         // MOBS

@@ -17,6 +17,7 @@ import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import madscience.gui.MadGUI;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobLivingHandler;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
@@ -26,7 +27,6 @@ import madscience.mobs.shoggoth.ShoggothMobEntity;
 import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobEntity;
 import madscience.network.CustomConnectionHandler;
-import madscience.network.MadGUI;
 import madscience.network.MadPacketHandler;
 import madscience.server.CommonProxy;
 import madscience.util.MadColors;
@@ -126,6 +126,9 @@ public class MadScience
 
                 // Magazine Loader Ghost Block.
                 m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
+                
+                // CnC Machine Ghost Block.
+                m.invoke(null, MadFurnaces.CNCMACHINEGHOST.blockID);
             }
             catch (Throwable e)
             {
@@ -358,6 +361,8 @@ public class MadScience
         MadFurnaces.createVOXBoxTileEntity(MadConfig.VOXBOX);
         MadFurnaces.createMagLoaderTileEntity(MadConfig.MAGLOADER);
         MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
+        MadFurnaces.createCnCMachineTileEntity(MadConfig.CNCMACHINE);
+        MadFurnaces.createCnCMachineGhostTileEntity(MadConfig.CNCMACHINEGHOST);
 
         // --------------------
         // MONSTER PLACER ITEMS

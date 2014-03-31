@@ -3,6 +3,7 @@ package madscience.network;
 import madscience.MadScience;
 import madscience.items.weapons.pulserifle.PulseRiflePackets;
 import madscience.tileentities.clayfurnace.ClayfurnacePackets;
+import madscience.tileentities.cncmachine.CnCMachinePackets;
 import madscience.tileentities.cryofreezer.CryofreezerPackets;
 import madscience.tileentities.cryotube.CryotubePackets;
 import madscience.tileentities.dataduplicator.DataDuplicatorPackets;
@@ -108,7 +109,7 @@ public abstract class MadPackets
         builder.put(Integer.valueOf(15), MagLoaderPackets.class);
         
         // CnC Machine
-        
+        builder.put(Integer.valueOf(16), CnCMachinePackets.class);
 
         idMap = builder.build();
     }

@@ -112,6 +112,7 @@ public class MadConfig
     /**
      * Auto-incrementing configuration IDs. Use this to make sure no config ID is the same.
      */
+    
     //public static final IDManager idManager = new IDManager(3768, 13768);
     public static final IDManager idManager = new IDManager(500, 3840);
 
@@ -728,10 +729,15 @@ public class MadConfig
     public static @CfgEnergy long MAGLOADER_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
     public static @CfgEnergy long MAGLOADER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
     public static @CfgEnergy long MAGLOADER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String MAGLOADER_HELP = "http://madsciencemod.com/minecraft-item/magloader/";
+    public static @CfgHelp String MAGLOADER_HELP = "http://madsciencemod.com/minecraft-item/magazine-loader/";
     
     // CnC Machine
-    
+    public static @CfgId(block = true) int CNCMACHINE = getNextBlockID();
+    public static @CfgId(block = true) int CNCMACHINEGHOST = getNextBlockID();
+    public static @CfgEnergy long CNCMACHINE_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
+    public static @CfgEnergy long CNCMACHINE_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static @CfgEnergy long CNCMACHINE_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static @CfgHelp String CNCMACHINE_HELP = "http://madsciencemod.com/minecraft-item/cnc-machine/";
 
     // -----------------
     // FLUID DECLARATION

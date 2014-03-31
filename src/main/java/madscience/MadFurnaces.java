@@ -120,7 +120,12 @@ public class MadFurnaces
     public static final String MAGLOADERGHOST_INTERNALNAME = "ghostMagLoader";    
     
     // CnC Machine
-
+    public static BlockContainer CNCMACHINE_TILEENTITY;
+    public static final String CNCMACHINE_INTERNALNAME = "cncMachine";
+    
+    // CnC Machine 'Ghost Block'
+    public static Block CNCMACHINEGHOST;
+    public static final String CNCMACHINEGHOST_INTERNALNAME = "ghostCnCMachine";    
     
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD
@@ -567,5 +572,17 @@ public class MadFurnaces
         // Acts as a collision box for upper blocks of Magazine Loader.
         MAGLOADERGHOST = new MagLoaderBlockGhost(blockID).setUnlocalizedName(MAGLOADERGHOST_INTERNALNAME);
         GameRegistry.registerBlock(MAGLOADERGHOST, MadScience.ID + MAGLOADERGHOST.getUnlocalizedName().substring(5));
+    }
+
+    public static void createCnCMachineTileEntity(int blockID)
+    {
+        // Cuts out blocks of Iron into shapes for gun parts using binary codes in written books.
+        
+    }
+
+    public static void createCnCMachineGhostTileEntity(int blockID)
+    {
+        // Acts as a collision box for upper blocks of CnC Machine.
+        
     }
 }
