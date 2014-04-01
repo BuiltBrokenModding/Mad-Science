@@ -19,7 +19,7 @@ public class CnCMachinePackets extends MadPackets
     private int tilePosZ;
 
     // Tile entity in the world.
-    private CnCMachineEntity cncmachineTileEntity;
+    private CnCMachineEntity ENTITY;
 
     // Cook time.
     private int lastItemCookTimeValue;
@@ -74,24 +74,24 @@ public class CnCMachinePackets extends MadPackets
         // Packet received by client, executing payload.
         if (side.isClient())
         {
-            cncmachineTileEntity = (CnCMachineEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (cncmachineTileEntity == null)
+            ENTITY = (CnCMachineEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
+            if (ENTITY == null)
                 return;
 
             // Cook time.
-            this.cncmachineTileEntity.currentItemCookingValue = lastItemCookTimeValue;
-            this.cncmachineTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
+            this.ENTITY.currentItemCookingValue = lastItemCookTimeValue;
+            this.ENTITY.currentItemCookingMaximum = lastItemCookTimeMaximum;
 
             // Energy.
-            this.cncmachineTileEntity.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
-            this.cncmachineTileEntity.setEnergyCapacity(lastItemStoredEnergyMaximum);
+            this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
+            this.ENTITY.setEnergyCapacity(lastItemStoredEnergyMaximum);
 
             // Water level.
-            this.cncmachineTileEntity.internalWaterTank.setFluid(new FluidStack(FluidRegistry.WATER, lastWaterLevel));
-            this.cncmachineTileEntity.internalWaterTank.setCapacity(lastWaterMaximum);
+            this.ENTITY.WATER_TANK.setFluid(new FluidStack(FluidRegistry.WATER, lastWaterLevel));
+            this.ENTITY.WATER_TANK.setCapacity(lastWaterMaximum);
 
             // Last known texture.
-            this.cncmachineTileEntity.cncmachineTexturePath = lastTexture;
+            this.ENTITY.TEXTURE = lastTexture;
         }
         else
         {

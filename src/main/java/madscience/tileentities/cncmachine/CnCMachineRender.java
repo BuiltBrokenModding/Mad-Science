@@ -31,20 +31,20 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Base.mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
-    private CnCMachineEntity lastPlacedTileEntity;
+    private CnCMachineEntity ENTITY;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/idle.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png");
 
     @Override
     public int getRenderId()
     {
-        return modelRenderID;
+        return RENDERID;
     }
 
     @Override
@@ -55,8 +55,8 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         case ENTITY:
         case EQUIPPED:
         case EQUIPPED_FIRST_PERSON:
-        case INVENTORY:
             return true;
+        case INVENTORY:
         default:
             return false;
         }
@@ -76,7 +76,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         // Use the same texture we do on the block normally.
         Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
 
-        // adjust rendering space to match what caller expects
+        // Adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
         switch (type)
         {
@@ -85,7 +85,6 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
             float scale = 1.4F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
@@ -96,7 +95,6 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
             GL11.glTranslatef(0.2F, 0.9F, 0.5F);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             break;
         }
@@ -104,7 +102,6 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
             transformationToBeUndone = TransformationTypes.INVENTORY;
             break;
@@ -113,7 +110,6 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
             transformationToBeUndone = TransformationTypes.DROPPED;
             break;
@@ -156,15 +152,15 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     public void renderAModelAt(CnCMachineEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        lastPlacedTileEntity = (CnCMachineEntity) tileEntity;
-        if (lastPlacedTileEntity == null)
+        ENTITY = (CnCMachineEntity) tileEntity;
+        if (ENTITY == null)
         {
             return;
         }
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
-        switch (lastPlacedTileEntity.getBlockMetadata() % 4)
+        switch (ENTITY.getBlockMetadata() % 4)
         {
         case 0:
             rotation = 0;
@@ -205,10 +201,10 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
             break;
         }
 
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.cncmachineTexturePath != null && !lastPlacedTileEntity.cncmachineTexturePath.isEmpty())
+        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.cncmachineTexturePath));
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
         }
         else
         {

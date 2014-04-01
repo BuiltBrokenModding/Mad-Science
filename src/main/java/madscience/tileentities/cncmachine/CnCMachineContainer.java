@@ -12,23 +12,25 @@ public class CnCMachineContainer extends Container
     // Tile entity from this world.
     private CnCMachineEntity ENTITY;
 
-    public CnCMachineContainer(InventoryPlayer par1InventoryPlayer, CnCMachineEntity par2TileEntityFurnace)
+    public CnCMachineContainer(InventoryPlayer player, CnCMachineEntity tileEntity)
     {
-        // Hook the server world entity that is our block so we can get relevant
-        // information from it.
-        this.ENTITY = par2TileEntityFurnace;
+        // Hook the server world entity that is our block.
+        this.ENTITY = tileEntity; 
 
-        // Input Slot 1 - Water bucket to clean the needles with.
-        this.addSlotToContainer(new CnCMachineSlotInputWaterBucket(par2TileEntityFurnace, 0, 31, 34));
+        // Input Slot 1 - Water bucket to cut the Iron block with.
+        this.addSlotToContainer(new CnCMachineSlotInputWaterBucket(tileEntity, 0, 31, 34));
 
-        // Input Slot 2 - Dirty needles that need cleaning.
-        this.addSlotToContainer(new CnCMachineSlotInputDirtyNeedles(par2TileEntityFurnace, 1, 73, 34));
+        // Input Slot 2 - Iron block that needs cutting into shape.
+        this.addSlotToContainer(new CnCMachineSlotInputIronBlock(tileEntity, 1, 67, 44));
+        
+        // Input Slot 3 - Written book with binary code on what part to make.
+        this.addSlotToContainer(new CnCMachineSlotInputFinishedBook(tileEntity, 2, 67, 17));
 
-        // Output Slot 1 - Cleaned needle.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 134, 34));
+        // Output Slot 1 - Finished weapon part
+        this.addSlotToContainer(new SlotFurnace(player.player, tileEntity, 3, 131, 44));
 
         // Output Slot 2 - Empty bucket.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 31, 9));
+        this.addSlotToContainer(new SlotFurnace(player.player, tileEntity, 4, 31, 9));
 
         // Create slots for main player inventory area.
         int i;
@@ -36,14 +38,14 @@ public class CnCMachineContainer extends Container
         {
             for (int j = 0; j < 9; ++j)
             {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Create slots for player inventory hotbar area.
         for (i = 0; i < 9; ++i)
         {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
+            this.addSlotToContainer(new Slot(player, i, 8 + i * 18, 142));
         }
     }
 

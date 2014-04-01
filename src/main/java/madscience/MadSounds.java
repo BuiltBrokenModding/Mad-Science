@@ -8,6 +8,7 @@ import madscience.mobs.abomination.AbominationSounds;
 import madscience.mobs.creepercow.CreeperCowSounds;
 import madscience.mobs.werewolf.WerewolfMobSounds;
 import madscience.mobs.woolycow.WoolyCowSounds;
+import madscience.tileentities.cncmachine.CnCMachineSounds;
 import madscience.tileentities.cryofreezer.CryofreezerSounds;
 import madscience.tileentities.cryotube.CryotubeSounds;
 import madscience.tileentities.dataduplicator.DataDuplicatorSounds;
@@ -93,7 +94,7 @@ public class MadSounds
             MagLoaderSounds.init(event);
             
             // CnC Machine
-            
+            CnCMachineSounds.init(event);
             
         }
         catch (Exception err)

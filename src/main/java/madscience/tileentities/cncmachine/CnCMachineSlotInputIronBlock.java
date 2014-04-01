@@ -1,13 +1,14 @@
 package madscience.tileentities.cncmachine;
 
 import madscience.MadNeedles;
+import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class CnCMachineSlotInputDirtyNeedles extends Slot
+public class CnCMachineSlotInputIronBlock extends Slot
 {
-    public CnCMachineSlotInputDirtyNeedles(IInventory inv, int index, int x, int y)
+    public CnCMachineSlotInputIronBlock(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }
@@ -15,10 +16,9 @@ public class CnCMachineSlotInputDirtyNeedles extends Slot
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        // Input slot 2 - Dirty needles that need cleaning.
-        ItemStack compareDirtyNeedle = new ItemStack(MadNeedles.NEEDLE_DIRTY);
-
-        if (compareDirtyNeedle.isItemEqual(stack))
+        // Input slot 2 - Block of Iron that needs cutting.
+        ItemStack compareIronBlock = new ItemStack(Block.blockIron);
+        if (compareIronBlock.isItemEqual(stack))
         {
             return true;
         }

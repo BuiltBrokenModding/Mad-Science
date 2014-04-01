@@ -5,6 +5,9 @@ import madscience.items.MadGenomeInfo;
 import madscience.tileentities.clayfurnace.ClayfurnaceBlock;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceRecipes;
+import madscience.tileentities.cncmachine.CnCMachineBlock;
+import madscience.tileentities.cncmachine.CnCMachineBlockGhost;
+import madscience.tileentities.cncmachine.CnCMachineEntity;
 import madscience.tileentities.cryofreezer.CryofreezerBlock;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
 import madscience.tileentities.cryotube.CryotubeBlock;
@@ -577,12 +580,21 @@ public class MadFurnaces
     public static void createCnCMachineTileEntity(int blockID)
     {
         // Cuts out blocks of Iron into shapes for gun parts using binary codes in written books.
-        
+        CNCMACHINE_TILEENTITY = (BlockContainer) new CnCMachineBlock(blockID).setUnlocalizedName(CNCMACHINE_INTERNALNAME);
+        GameRegistry.registerBlock(CNCMACHINE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CNCMACHINE_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerTileEntity(CnCMachineEntity.class, CNCMACHINE_TILEENTITY.getUnlocalizedName());
+
+        // Register custom rendering for this tile entity.
+        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
+
+        // Register our rendering handles on clients and ignore them on servers.
+        MadScience.proxy.registerRenderingHandler(blockID);
     }
 
     public static void createCnCMachineGhostTileEntity(int blockID)
     {
         // Acts as a collision box for upper blocks of CnC Machine.
-        
+        CNCMACHINEGHOST = new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
+        GameRegistry.registerBlock(CNCMACHINEGHOST, MadScience.ID + CNCMACHINEGHOST.getUnlocalizedName().substring(5));
     }
 }

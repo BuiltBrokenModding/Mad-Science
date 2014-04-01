@@ -9,12 +9,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class CnCMachineSounds
 {
     // Needle CnCMachine
-    public static final String CNCMACHINE_IDLE = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".Idle";
+    //public static final String CNCMACHINE_IDLE = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".Idle";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)
     {
         // Cleaning needle sound.
-        event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/Idle.ogg");
+        //event.manager.addSound(MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/Idle.ogg");
     }
 }

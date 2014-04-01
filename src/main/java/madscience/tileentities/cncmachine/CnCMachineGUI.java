@@ -1,5 +1,6 @@
 package madscience.tileentities.cncmachine;
 
+import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URI;
 
@@ -28,10 +29,10 @@ public class CnCMachineGUI extends GUIContainerBase
 {
     private CnCMachineEntity ENTITY;
 
-    public CnCMachineGUI(InventoryPlayer par1InventoryPlayer, CnCMachineEntity par2TileEntityFurnace)
+    public CnCMachineGUI(InventoryPlayer playerInventory, CnCMachineEntity tileEntity)
     {
-        super(new CnCMachineContainer(par1InventoryPlayer, par2TileEntityFurnace));
-        this.ENTITY = par2TileEntityFurnace;
+        super(new CnCMachineContainer(playerInventory, tileEntity));
+        this.ENTITY = tileEntity;
         TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".png");
     }
 
@@ -57,8 +58,7 @@ public class CnCMachineGUI extends GUIContainerBase
                 squaled = 0;
             }
 
-            // Draws fluid background ontop of existing gauge lines apart of
-            // static background.
+            // Draws fluid background ontop of existing gauge lines.
             drawTexturedModelRectFromIcon(screenX + col, screenY + line + 58 - x - start, FluidRegistry.WATER.getStillIcon(), 16, 16 - (16 - x));
             start = start + 16;
 
@@ -68,10 +68,9 @@ public class CnCMachineGUI extends GUIContainerBase
             }
         }
 
-        // Re-draws gauge lines ontop of scaled fluid amount to make it look
-        // like the fluid is behind the gauge lines.
+        // Re-draws gauge lines ontop of scaled fluid amount.
         mc.renderEngine.bindTexture(TEXTURE);
-        drawTexturedModalRect(screenX + col, screenY + line, 176, 31, 16, 58);
+        drawTexturedModalRect(screenX + col, screenY + line, 176, 28, 16, 58);
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
@@ -84,30 +83,29 @@ public class CnCMachineGUI extends GUIContainerBase
         // POWER LEVEL
         // -----------
         int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(14);
-        // Screen Coords: 74x52
+        // Screen Coords: 68x62
         // Filler Coords: 176x0
         // Image Size WH: 14x14
-        this.drawTexturedModalRect(screenX + 74, screenY + 52 + 14 - powerRemianingPercentage, 176, 14 - powerRemianingPercentage, 14, powerRemianingPercentage + 2);
+        this.drawTexturedModalRect(screenX + 68, screenY + 62 + 14 - powerRemianingPercentage, 176, 14 - powerRemianingPercentage, 14, powerRemianingPercentage);
 
         // ---------------------
         // ITEM COOKING PROGRESS
         // ---------------------
-        int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(24);
-        // Screen Coords: 96x34
+        int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(31);
+        // Screen Coords: 89x45
         // Filler Coords: 176x14
-        // Image Size WH: 24x17
-        this.drawTexturedModalRect(screenX + 96, screenY + 34, 176, 14, powerCookPercentage + 1, 17);
+        // Image Size WH: 31x14
+        this.drawTexturedModalRect(screenX + 89, screenY + 45, 176, 14, powerCookPercentage + 1, 14);
 
-        // ------------
-        // PROGRESS BAR
-        // ------------
+        // -----------
+        // WATER GUAGE
+        // -----------
         // Screen Coords: 8x9
-        // Filler Coords: 176x31
+        // Filler Coords: 176x28
         // Image Size WH: 16x58
         if (ENTITY.getWaterRemainingScaled(58) > 0)
         {
-            // Scale up the stored water amount in the block to match the
-            // capacity ratio.
+            // Scale up the stored water amount.
             displayGauge(screenX, screenY, 9, 8, ENTITY.getWaterRemainingScaled(58));
         }
     }
@@ -120,50 +118,61 @@ public class CnCMachineGUI extends GUIContainerBase
         
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
-        String s = "     " + MadFurnaces.CNCMACHINE_TILEENTITY.getLocalizedName();
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+        String guiTitleLabel = "     " + MadFurnaces.CNCMACHINE_TILEENTITY.getLocalizedName();
+        this.fontRenderer.drawString(guiTitleLabel, this.xSize / 2 - this.fontRenderer.getStringWidth(guiTitleLabel) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".
-        String x = I18n.getString("container.inventory");
-        this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+        String guiInventoryLabel = I18n.getString("container.inventory");
+        this.fontRenderer.drawString(guiInventoryLabel, 8, this.ySize - 96 + 2, 4210752);
         
-        // Power level
-        if (this.isPointInRegion(74, 52, 14, 14, mouseX, mouseY))
+        // Text that tells if your written book is valid or not.
+        String guiBookDecoder = "M41A Pulse Rifle";
+        this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.GREEN.getRGB());
+        
+        // Power level for the machine.
+        if (this.isPointInRegion(68, 62, 14, 14, mouseX, mouseY))
         {
             String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
             this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
         }
         
-        // Cooking progress
-        if (this.isPointInRegion(96, 34, 24, 17, mouseX, mouseY))
+        // Cutting progress on the iron block.
+        if (this.isPointInRegion(89, 45, 31, 14, mouseX, mouseY))
         {
             String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
             this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
                     powerLevelLiteral);
         }
 
-        // Input water
+        // Input water in form of buckets.
         if (this.isPointInRegion(31, 34, 18, 18, mouseX, mouseY))
         {
             if (this.ENTITY.getStackInSlot(0) == null)
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input water bucket");
         }
         
-        // Dirty needles
-        if (this.isPointInRegion(73, 34, 18, 18, mouseX, mouseY))
+        // Block of Iron that needs cutting.        
+        if (this.isPointInRegion(67, 44, 16, 16, mouseX, mouseY))
         {
             if (this.ENTITY.getStackInSlot(1) == null)
-                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input dirty needles");
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input iron block");
+        }
+        
+        // Written book with binary code inside of it acting like a punchcard or data reel.
+        if (this.isPointInRegion(67, 17, 16, 16, mouseX, mouseY))
+        {
+            if (this.ENTITY.getStackInSlot(2) == null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input written book");
         }
         
         // Water tank help
-        if (this.isPointInRegion(8, 9, 16, 58, mouseX, mouseY) && this.ENTITY.internalWaterTank.getFluid() != null)
+        if (this.isPointInRegion(8, 9, 16, 58, mouseX, mouseY) && this.ENTITY.WATER_TANK.getFluid() != null)
         {
-            if (this.ENTITY.internalWaterTank.getFluid() != null)
-                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalWaterTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalWaterTank.getFluid().amount + " L");
+            if (this.ENTITY.WATER_TANK.getFluid() != null)
+                this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.WATER_TANK.getFluid().getFluid().getLocalizedName(), this.ENTITY.WATER_TANK.getFluid().amount + " L");
         }
         
-        // Help link
+        // Help link and info for schematics for weapons.
         if (this.isPointInRegion(166, 4, 6, 5, mouseX, mouseY))
         {
             if (this.isCtrlKeyDown())

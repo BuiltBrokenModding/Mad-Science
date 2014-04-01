@@ -7,6 +7,7 @@ import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.MadScience;
 import madscience.tileentities.prefab.MadTileEntity;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -34,10 +35,11 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     { 2, 1 };
     private static final int[] slots_sides = new int[]
     { 1 };
+    
     /** The ItemStacks that hold the items currently being used in the furnace */
-    private ItemStack[] cncmachineOutput = new ItemStack[2];
+    private ItemStack[] CnCMachineOutput = new ItemStack[2];
 
-    private ItemStack[] cncmachineInput = new ItemStack[2];
+    private ItemStack[] CnCMachineInput = new ItemStack[3];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
     public int currentItemCookingMaximum;
@@ -49,10 +51,10 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     public static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;
 
     /** Internal reserve of water */
-    protected FluidTank internalWaterTank = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
+    protected FluidTank WATER_TANK = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
 
     /** Random number generator used to spit out food stuffs. */
-    public Random animRand = new Random();
+    public Random RANDOM = new Random();
 
     /** Determines if we currently should be playing animation frames every tick or not. */
     public boolean shouldPlay;
@@ -64,7 +66,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     private String containerCustomName;
 
     /** Path to texture that we want rendered onto our model. */
-    public String cncmachineTexturePath = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/idle.png";
+    public String TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png";
 
     public CnCMachineEntity()
     {
@@ -74,59 +76,54 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     private boolean addBucketToInternalTank()
     {
         // Check if the input slot for filled buckets is null.
-        if (this.cncmachineInput[0] == null)
+        if (this.CnCMachineInput[0] == null)
         {
-            // MadScience.logger.info("addBucketToInternalTank() aborted due to null filled water bucket slot.");
             return false;
         }
 
         // Output 1 - Empty bucket returns from full one in input slot 1
-        // (used to clean the needle).
-        ItemStack itemOutputSlot1 = new ItemStack(Item.bucketEmpty);
-        ItemStack itemInputSlot1 = new ItemStack(Item.bucketWater);
-
-        // Check if input slot 1 is a water bucket.
-        if (!this.cncmachineInput[0].isItemEqual(itemInputSlot1))
+        ItemStack compareEmptyBucket = new ItemStack(Item.bucketEmpty);
+        ItemStack compareFilledBucket = new ItemStack(Item.bucketWater);
+        if (!this.CnCMachineInput[0].isItemEqual(compareFilledBucket))
         {
-            // Input slot 1 was not a water bucket.
             MadScience.logger.info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
             return false;
         }
 
         // Check if output slot 1 (for empty buckets) is above item stack limit.
-        if (this.cncmachineOutput[1] != null)
+        if (this.CnCMachineOutput[1] != null)
         {
-            int slot1Result = cncmachineOutput[1].stackSize + itemInputSlot1.stackSize;
-            boolean shouldStop = (slot1Result <= getInventoryStackLimit() && slot1Result <= itemInputSlot1.getMaxStackSize());
+            int slot1Result = CnCMachineOutput[1].stackSize + compareFilledBucket.stackSize;
+            boolean shouldStop = (slot1Result <= getInventoryStackLimit() && slot1Result <= compareFilledBucket.getMaxStackSize());
             if (shouldStop)
                 return false;
         }
 
         // Check if the internal water tank has reached it
-        if (internalWaterTank.getFluidAmount() >= internalWaterTank.getCapacity())
+        if (WATER_TANK.getFluidAmount() >= WATER_TANK.getCapacity())
         {
             return false;
         }
 
         // Add empty water bucket to output slot 2 GUI.
-        if (this.cncmachineOutput[1] == null)
+        if (this.CnCMachineOutput[1] == null)
         {
-            this.cncmachineOutput[1] = itemOutputSlot1.copy();
+            this.CnCMachineOutput[1] = compareEmptyBucket.copy();
         }
-        else if (this.cncmachineOutput[1].isItemEqual(itemOutputSlot1))
+        else if (this.CnCMachineOutput[1].isItemEqual(compareEmptyBucket))
         {
-            cncmachineOutput[1].stackSize += itemOutputSlot1.stackSize;
+            CnCMachineOutput[1].stackSize += compareEmptyBucket.stackSize;
         }
 
         // Add a bucket's worth of water into the internal tank.
-        internalWaterTank.fill(new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME), true);
-        MadScience.logger.info("internalWaterTank() " + internalWaterTank.getFluidAmount());
+        WATER_TANK.fill(new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME), true);
+        MadScience.logger.info("internalWaterTank() " + WATER_TANK.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
-        --this.cncmachineInput[0].stackSize;
-        if (this.cncmachineInput[0].stackSize <= 0)
+        --this.CnCMachineInput[0].stackSize;
+        if (this.CnCMachineInput[0].stackSize <= 0)
         {
-            this.cncmachineInput[0] = null;
+            this.CnCMachineInput[0] = null;
         }
 
         return false;
@@ -151,7 +148,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
         else if (slot == 4 && ForgeDirection.getOrientation(side) == ForgeDirection.WEST)
         {
-            // Clean needle.
+            // Weapon component.
             return true;
         }
 
@@ -172,55 +169,48 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return false;
     }
 
-    /** Returns true if automation can insert the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
     public boolean canInsertItem(int slot, ItemStack items, int side)
     {
         return this.isItemValidForSlot(slot, items);
     }
 
-    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
     public boolean canSmelt()
     {
-        // Check if we have water bucket and dirty needles in input slots and
-        // that our internal tank has fluid.
-        if (cncmachineInput[1] == null || internalWaterTank == null)
+        // Check if we have redstone power.
+        if (!this.isRedstonePowered())
         {
             return false;
         }
         
-        // Check if input slot 2 is a dirty needle stack.
-        ItemStack itemsInputSlot2 = CnCMachineRecipes.getSmeltingResult(this.cncmachineInput[1]);
-        if (itemsInputSlot2 == null)
+        // Check our internal tank for fluids.
+        if (CnCMachineInput[1] == null)
         {
-            // Input slot 2 was not a dirty needle.
             return false;
         }
-
-        // Check if there is fluid inside our internal tank for cleaning the
-        // needles.
-        if (internalWaterTank.getFluidAmount() <= 0)
+        
+        // Check if input slot 2 is a an iron block.
+        ItemStack smeltingResult = CnCMachineRecipes.getSmeltingResult(this.CnCMachineInput[1]);
+        if (smeltingResult == null)
         {
             return false;
         }
 
-        // Check if output slots are empty and ready to be filled with
-        // items.
-        if (this.cncmachineOutput[0] == null || this.cncmachineOutput[1] == null)
+        // Check if there is fluid inside our internal tank.
+        if (WATER_TANK == null && WATER_TANK.getFluidAmount() <= 0)
+        {
+            return false;
+        }
+
+        // Check if output slots are empty and ready to be filled
+        if (this.CnCMachineOutput[0] == null || this.CnCMachineOutput[1] == null)
         {
             return true;
         }
 
-        // Check if input slot 2 matches output slot 2.
-        if (this.cncmachineInput[1].isItemEqual(cncmachineOutput[1]))
-        {
-            return false;
-        }
-
-        // Check if output slot 2 (for cleaned needles) is above item stack
-        // limit.
-        int slot2Result = cncmachineOutput[1].stackSize + itemsInputSlot2.stackSize;
-        return (slot2Result <= getInventoryStackLimit() && slot2Result <= itemsInputSlot2.getMaxStackSize());
+        // Check if output slot 2 (for weapon component) is above stack limit.
+        int slot2Result = CnCMachineOutput[1].stackSize + smeltingResult.stackSize;
+        return (slot2Result <= getInventoryStackLimit() && slot2Result <= smeltingResult.getMaxStackSize());
     }
 
     @Override
@@ -231,21 +221,21 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     private ItemStack DecreaseInputSlot(int slot, int numItems)
     {
         // Removes items from input slot 1 or 2.
-        if (this.cncmachineInput[slot] != null)
+        if (this.CnCMachineInput[slot] != null)
         {
             ItemStack itemstack;
 
-            if (this.cncmachineInput[slot].stackSize <= numItems)
+            if (this.CnCMachineInput[slot].stackSize <= numItems)
             {
-                itemstack = this.cncmachineInput[slot];
-                this.cncmachineInput[slot] = null;
+                itemstack = this.CnCMachineInput[slot];
+                this.CnCMachineInput[slot] = null;
                 return itemstack;
             }
-            itemstack = this.cncmachineInput[slot].splitStack(numItems);
+            itemstack = this.CnCMachineInput[slot].splitStack(numItems);
 
-            if (this.cncmachineInput[slot].stackSize == 0)
+            if (this.CnCMachineInput[slot].stackSize == 0)
             {
-                this.cncmachineInput[slot] = null;
+                this.CnCMachineInput[slot] = null;
             }
 
             return itemstack;
@@ -256,21 +246,21 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     private ItemStack DecreaseOutputSlot(int slot, int numItems)
     {
         // Removes items from either output slot 1 or 2.
-        if (this.cncmachineOutput[slot] != null)
+        if (this.CnCMachineOutput[slot] != null)
         {
             ItemStack itemstack;
 
-            if (this.cncmachineOutput[slot].stackSize <= numItems)
+            if (this.CnCMachineOutput[slot].stackSize <= numItems)
             {
-                itemstack = this.cncmachineOutput[slot];
-                this.cncmachineOutput[slot] = null;
+                itemstack = this.CnCMachineOutput[slot];
+                this.CnCMachineOutput[slot] = null;
                 return itemstack;
             }
-            itemstack = this.cncmachineOutput[slot].splitStack(numItems);
+            itemstack = this.CnCMachineOutput[slot].splitStack(numItems);
 
-            if (this.cncmachineOutput[slot].stackSize == 0)
+            if (this.CnCMachineOutput[slot].stackSize == 0)
             {
-                this.cncmachineOutput[slot] = null;
+                this.CnCMachineOutput[slot] = null;
             }
 
             return itemstack;
@@ -278,7 +268,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return null;
     }
 
-    /** Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a new stack. */
     @Override
     public ItemStack decrStackSize(int slot, int numItems)
     {
@@ -289,17 +278,22 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
         else if (slot == 1)
         {
-            // Input stack 2 - Dirty needle.
+            // Input stack 2 - Iron Block.
             return DecreaseInputSlot(1, numItems);
         }
         else if (slot == 2)
         {
+            // Input stack 3 - Written book.
+            return DecreaseInputSlot(2, numItems);
+        }        
+        else if (slot == 3)
+        {
             // Output stack 1 - Empty bucket.
             return DecreaseOutputSlot(0, numItems);
         }
-        else if (slot == 3)
+        else if (slot == 4)
         {
-            // Output stack 2 - Clean needle.
+            // Output stack 2 - Weapon component.
             return DecreaseOutputSlot(1, numItems);
         }
 
@@ -325,25 +319,22 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
     {
-        // Check if fluid being sent is indeed water for the needle cleaner.
+        // Ensure that the incoming resource is not null for safety sake.
         if (resource != null)
         {
-            return internalWaterTank.fill(resource, doFill);
+            return WATER_TANK.fill(resource, doFill);
         }
 
-        // Default response is to not fill anything if it doesn't match a
-        // requirement.
+        // Default response is to not fill anything.
         return 0;
     }
 
-    /** Returns an array containing the indices of the slots that can be accessed by automation on the given side of this block. */
     @Override
     public int[] getAccessibleSlotsFromSide(int par1)
     {
         return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
     }
 
-    /** Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't this more of a set than a get?* */
     @Override
     public int getInventoryStackLimit()
     {
@@ -357,13 +348,11 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
     }
 
-    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
     public int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
         {
-            // MadScience.logger.info("CLIENT: getItemCookTimeScaled() was called with currentItemCookingMaximum being zero!");
             currentItemCookingMaximum = 200;
         }
 
@@ -372,7 +361,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
     public int getSizeInputInventory()
     {
-        return this.cncmachineInput.length;
+        return this.CnCMachineInput.length;
     }
 
     @Override
@@ -385,7 +374,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
     public int getSizeOutputInventory()
     {
-        return cncmachineOutput.length;
+        return CnCMachineOutput.length;
     }
 
     /** Returns the stack in slot i */
@@ -394,30 +383,34 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     {
         if (slot == 0)
         {
-            // Input slot 1
-            return this.cncmachineInput[0];
+            // Input slot 1 - Water Bucket.
+            return this.CnCMachineInput[0];
         }
         else if (slot == 1)
         {
-            // Input slot 2
-            return this.cncmachineInput[1];
+            // Input slot 2 - Iron Block.
+            return this.CnCMachineInput[1];
         }
         else if (slot == 2)
         {
-            // Output slot 1
-            return this.cncmachineOutput[0];
+            // Input slot 3 - Written Book.
+            return this.CnCMachineInput[2];
         }
         else if (slot == 3)
         {
-            // Output slot 2
-            return this.cncmachineOutput[1];
+            // Output slot 1 - Empty Bucket.
+            return this.CnCMachineOutput[0];
+        }
+        else if (slot == 4)
+        {
+            // Output slot 2 - Weapon Component.
+            return this.CnCMachineOutput[1];
         }
 
         MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
-    /** When some containers are closed they call this on each slot, then drop whatever it returns as an EntityItem - like when you close a workbench GUI. */
     @Override
     public ItemStack getStackInSlotOnClosing(int slot)
     {
@@ -425,43 +418,54 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         if (slot == 0)
         {
             // Input slot 1 - Water bucket.
-            if (this.cncmachineInput[0] != null)
+            if (this.CnCMachineInput[0] != null)
             {
-                ItemStack itemstack = this.cncmachineInput[0];
-                this.cncmachineInput[0] = null;
+                ItemStack itemstack = this.CnCMachineInput[0];
+                this.CnCMachineInput[0] = null;
                 return itemstack;
             }
             return null;
         }
         else if (slot == 1)
         {
-            // Input slot 2 - Dirty needles.
-            if (this.cncmachineInput[1] != null)
+            // Input slot 2 - Iron Block.
+            if (this.CnCMachineInput[1] != null)
             {
-                ItemStack itemstack = this.cncmachineInput[1];
-                this.cncmachineInput[1] = null;
+                ItemStack itemstack = this.CnCMachineInput[1];
+                this.CnCMachineInput[1] = null;
                 return itemstack;
             }
             return null;
         }
         else if (slot == 2)
         {
-            // Output slot 1 - Empty bucket.
-            if (this.cncmachineOutput[0] != null)
+            // Input slot 3 - Written Book.
+            if (this.CnCMachineInput[2] != null)
             {
-                ItemStack itemstack = this.cncmachineOutput[0];
-                this.cncmachineOutput[0] = null;
+                ItemStack itemstack = this.CnCMachineInput[2];
+                this.CnCMachineInput[2] = null;
                 return itemstack;
             }
             return null;
         }
         else if (slot == 3)
         {
-            // Output slot 2 - Clean needles.
-            if (this.cncmachineOutput[1] != null)
+            // Output slot 1 - Empty bucket.
+            if (this.CnCMachineOutput[0] != null)
             {
-                ItemStack itemstack = this.cncmachineOutput[1];
-                this.cncmachineOutput[1] = null;
+                ItemStack itemstack = this.CnCMachineOutput[0];
+                this.CnCMachineOutput[0] = null;
+                return itemstack;
+            }
+            return null;
+        }
+        else if (slot == 4)
+        {
+            // Output slot 2 - Weapon Component.
+            if (this.CnCMachineOutput[1] != null)
+            {
+                ItemStack itemstack = this.CnCMachineOutput[1];
+                this.CnCMachineOutput[1] = null;
                 return itemstack;
             }
             return null;
@@ -474,30 +478,28 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     public FluidTankInfo[] getTankInfo(ForgeDirection from)
     {
         return new FluidTankInfo[]
-        { internalWaterTank.getInfo() };
+        { WATER_TANK.getInfo() };
     }
 
     @SideOnly(Side.CLIENT)
     public int getWaterRemainingScaled(int i)
     {
-        return internalWaterTank.getFluid() != null ? (int) (((float) internalWaterTank.getFluid().amount / (float) (MAX_WATER)) * i) : 0;
+        return WATER_TANK.getFluid() != null ? (int) (((float) WATER_TANK.getFluid().amount / (float) (MAX_WATER)) * i) : 0;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
         return this.containerCustomName != null && this.containerCustomName.length() > 0;
     }
 
-    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack items)
     {
         // Check if machine trying to insert item into given slot is allowed.
         if (slot == 0)
         {
-            // Input slot 1 - water bucket.
+            // Input slot 1 - Water Bucket.
             ItemStack compareWaterBucket = new ItemStack(Item.bucketWater);
             if (compareWaterBucket.isItemEqual(items))
             {
@@ -506,9 +508,18 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
         else if (slot == 1)
         {
-            // Input slot 2 - dirty needle.
-            ItemStack compareDirtyNeedle = new ItemStack(MadNeedles.NEEDLE_DIRTY);
-            if (compareDirtyNeedle.isItemEqual(items))
+            // Input slot 2 - Iron Block.
+            ItemStack compareIronBlock = new ItemStack(Block.blockIron);
+            if (compareIronBlock.isItemEqual(items))
+            {
+                return true;
+            }
+        }
+        else if (slot == 2)
+        {
+            // Input slot 3 - Written Book.
+            ItemStack compareWrittenBook = new ItemStack(Item.writtenBook);
+            if (compareWrittenBook.isItemEqual(items))
             {
                 return true;
             }
@@ -535,7 +546,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     {
     }
 
-    /** Reads a tile entity from NBT. */
     @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
@@ -546,8 +556,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         NBTTagList nbtOutput = nbt.getTagList("OutputItems");
 
         // Cast the save data onto our running object.
-        this.cncmachineInput = new ItemStack[this.getSizeInputInventory()];
-        this.cncmachineOutput = new ItemStack[this.getSizeOutputInventory()];
+        this.CnCMachineInput = new ItemStack[this.getSizeInputInventory()];
+        this.CnCMachineOutput = new ItemStack[this.getSizeOutputInventory()];
 
         // Input items process.
         for (int i = 0; i < nbtInput.tagCount(); ++i)
@@ -555,9 +565,9 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             NBTTagCompound inputSaveData = (NBTTagCompound) nbtInput.tagAt(i);
             byte b0 = inputSaveData.getByte("InputSlot");
 
-            if (b0 >= 0 && b0 < this.cncmachineInput.length)
+            if (b0 >= 0 && b0 < this.CnCMachineInput.length)
             {
-                this.cncmachineInput[b0] = ItemStack.loadItemStackFromNBT(inputSaveData);
+                this.CnCMachineInput[b0] = ItemStack.loadItemStackFromNBT(inputSaveData);
             }
         }
 
@@ -567,13 +577,15 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             NBTTagCompound outputSaveData = (NBTTagCompound) nbtOutput.tagAt(i);
             byte b0 = outputSaveData.getByte("OutputSlot");
 
-            if (b0 >= 0 && b0 < this.cncmachineOutput.length)
+            if (b0 >= 0 && b0 < this.CnCMachineOutput.length)
             {
-                this.cncmachineOutput[b0] = ItemStack.loadItemStackFromNBT(outputSaveData);
+                this.CnCMachineOutput[b0] = ItemStack.loadItemStackFromNBT(outputSaveData);
             }
         }
 
+        // Amount of time we have been cutting the iron block.
         this.currentItemCookingValue = nbt.getShort("CookTime");
+        
         // Should play animation status.
         this.shouldPlay = nbt.getBoolean("ShouldPlay");
 
@@ -581,91 +593,101 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         this.curFrame = nbt.getInteger("CurrentFrame");
 
         // Path to current texture what should be loaded onto the model.
-        this.cncmachineTexturePath = nbt.getString("TexturePath");
+        this.TEXTURE = nbt.getString("TexturePath");
 
-        this.internalWaterTank.setFluid(new FluidStack(FluidRegistry.WATER, nbt.getShort("WaterAmount")));
+        // Amount of fluid that is stored inside of our tank.
+        this.WATER_TANK.setFluid(new FluidStack(FluidRegistry.WATER, nbt.getShort("WaterAmount")));
 
+        // Custom name given to item (such as from Anvil).
         if (nbt.hasKey("CustomName"))
         {
             this.containerCustomName = nbt.getString("CustomName");
         }
     }
 
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
     public void setGuiDisplayName(String par1Str)
     {
+        // Uses custom display name if one exists.
         this.containerCustomName = par1Str;
     }
 
-    /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
     @Override
-    public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
+    public void setInventorySlotContents(int slotNumber, ItemStack item)
     {
-        if (par1 == 0)
+        if (slotNumber == 0)
         {
-            this.cncmachineInput[0] = par2ItemStack;
+            // Input Slot 1 - Water Bucket.
+            this.CnCMachineInput[0] = item;
         }
-        else if (par1 == 1)
+        else if (slotNumber == 1)
         {
-            this.cncmachineInput[1] = par2ItemStack;
+            // Input Slot 2 - Iron Block.
+            this.CnCMachineInput[1] = item;
         }
-        else if (par1 == 2)
+        else if (slotNumber == 2)
         {
-            this.cncmachineOutput[0] = par2ItemStack;
+            // Input Slot 3 - Written Book.
+            this.CnCMachineInput[2] = item;
         }
-        else if (par1 == 3)
+        else if (slotNumber == 3)
         {
-            this.cncmachineOutput[1] = par2ItemStack;
+            // Output Slot 1 - Empty Bucket.
+            this.CnCMachineOutput[0] = item;
+        }
+        else if (slotNumber == 4)
+        {
+            // Output Slot 2 - Weapon Component.
+            this.CnCMachineOutput[1] = item;
         }
 
-        if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
+        // If stack size is greater than maximum amount then just set it to stack limit.
+        if (item != null && item.stackSize > this.getInventoryStackLimit())
         {
-            par2ItemStack.stackSize = this.getInventoryStackLimit();
+            item.stackSize = this.getInventoryStackLimit();
         }
     }
 
     public void smeltItem()
     {
-        // Converts input item into result item along with waste items.
+        // Converts input item into resulting weapon component part.
         if (this.canSmelt())
         {
-            // Output 2 - Cleaned needle that used to be dirt input slot 2.
-            ItemStack itemOutputSlot2 = CnCMachineRecipes.getSmeltingResult(this.cncmachineInput[1]);
+            // Output 2 - Weapon component that was crafted from the iron block.
+            ItemStack smeltingResult = CnCMachineRecipes.getSmeltingResult(this.CnCMachineInput[1]);
 
-            // Add cleaned needle to output slot 1 GUI.
-            if (this.cncmachineOutput[0] == null)
+            // Adds the smelted weapon component into the output slot.
+            if (this.CnCMachineOutput[0] == null)
             {
-                this.cncmachineOutput[0] = itemOutputSlot2.copy();
+                this.CnCMachineOutput[0] = smeltingResult.copy();
             }
-            else if (this.cncmachineOutput[0].isItemEqual(itemOutputSlot2))
+            else if (this.CnCMachineOutput[0].isItemEqual(smeltingResult))
             {
-                cncmachineOutput[0].stackSize += itemOutputSlot2.stackSize;
+                CnCMachineOutput[0].stackSize += smeltingResult.stackSize;
             }
 
-            // Remove a dirty needle from input stack 2.
-            --this.cncmachineInput[1].stackSize;
-            if (this.cncmachineInput[1].stackSize <= 0)
+            // Removes the source iron block used in the construction of the weapon part.
+            --this.CnCMachineInput[1].stackSize;
+            if (this.CnCMachineInput[1].stackSize <= 0)
             {
-                this.cncmachineInput[1] = null;
+                this.CnCMachineInput[1] = null;
             }
         }
     }
 
-    /** Update current animation that we should be playing on this tile entity. */
     private void updateAnimation()
     {
         // Active state has many textures based on item cook progress.
         if (canSmelt() && isPowered())
         {
-            if (curFrame <= 9 && worldObj.getWorldTime() % 15L == 0L)
+            if (curFrame <= 6 && worldObj.getWorldTime() % 15L == 0L)
             {
-                // Load this texture onto the entity.
-                cncmachineTexturePath = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/work_" + curFrame + ".png";
+                // Load current WORK texture onto the entity.
+                TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/work" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
             }
-            else if (curFrame >= 10)
+            else if (curFrame >= 7)
             {
                 // Check if we have exceeded the ceiling and need to reset.
                 curFrame = 0;
@@ -673,8 +695,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
         else
         {
-            // Idle state single texture.
-            cncmachineTexturePath = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/idle.png";
+            // Idle state single texture for OFF state.
+            TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png";
         }
     }
 
@@ -686,14 +708,14 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         super.updateEntity();
 
         boolean inventoriesChanged = false;
-
+        
         if (this.isPowered() && this.canSmelt())
         {
             // Decrease to amount of energy this item has on client and server.
             this.consumeEnergy(MadConfig.CNCMACHINE_CONSUME);
 
             // Decrease the amount of water in the blocks internal storage.
-            internalWaterTank.drain(1, true);
+            WATER_TANK.drain(1, true);
         }
 
         // Update status of the machine if it has redstone power or not.
@@ -705,9 +727,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             // Update block animation and model.
             this.updateAnimation();
 
-            // Play sound while we are cleaning them needles!
-            this.updateSound();
-
             // Checks to see if we can add a bucket from input slot into
             // internal tank.
             this.addBucketToInternalTank();
@@ -715,8 +734,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             // First tick for new item being cooked in furnace.
             if (this.currentItemCookingValue == 0 && this.canSmelt() && this.isPowered())
             {
-                // New item pulled from cooking stack to be processed, check how
-                // long this item will take to cook.
+                // New item pulled from cooking stack to be processed.
                 currentItemCookingMaximum = 200;
 
                 // Increments the timer to kickstart the cooking loop.
@@ -747,21 +765,12 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
             // Send update about tile entity to all players around us.
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new CnCMachinePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
-                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.internalWaterTank.getFluidAmount(), this.internalWaterTank.getCapacity(), this.cncmachineTexturePath).makePacket());
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.WATER_TANK.getFluidAmount(), this.WATER_TANK.getCapacity(), this.TEXTURE).makePacket());
         }
 
         if (inventoriesChanged)
         {
             this.onInventoryChanged();
-        }
-    }
-
-    private void updateSound()
-    {
-        // Check if we should be playing working sounds.
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3.0F) == 0L)
-        {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_IDLE, 1.0F, 1.0F);
         }
     }
 
@@ -771,13 +780,11 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     {
         super.writeToNBT(nbt);
 
-        // Amount of time left to cook current item inside of the furnace (if
-        // there is one).
+        // Amount of time left to cook current item.
         nbt.setShort("CookTime", (short) this.currentItemCookingValue);
 
-        // Amount of water that is currently stored inside of the machines
-        // internal reserves.
-        nbt.setShort("WaterAmount", (short) this.internalWaterTank.getFluidAmount());
+        // Amount of water that is currently stored.
+        nbt.setShort("WaterAmount", (short) this.WATER_TANK.getFluidAmount());
 
         // Should play animation status.
         nbt.setBoolean("ShouldPlay", this.shouldPlay);
@@ -786,32 +793,32 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         nbt.setInteger("CurrentFrame", this.curFrame);
 
         // Path to current texture that should be loaded onto the model.
-        nbt.setString("TexturePath", this.cncmachineTexturePath);
+        nbt.setString("TexturePath", this.TEXTURE);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();
         NBTTagList outputItems = new NBTTagList();
 
         // Input slots.
-        for (int i = 0; i < this.cncmachineInput.length; ++i)
+        for (int i = 0; i < this.CnCMachineInput.length; ++i)
         {
-            if (this.cncmachineInput[i] != null)
+            if (this.CnCMachineInput[i] != null)
             {
                 NBTTagCompound inputSlots = new NBTTagCompound();
                 inputSlots.setByte("InputSlot", (byte) i);
-                this.cncmachineInput[i].writeToNBT(inputSlots);
+                this.CnCMachineInput[i].writeToNBT(inputSlots);
                 inputItems.appendTag(inputSlots);
             }
         }
 
         // Output slots.
-        for (int i = 0; i < this.cncmachineOutput.length; ++i)
+        for (int i = 0; i < this.CnCMachineOutput.length; ++i)
         {
-            if (this.cncmachineOutput[i] != null)
+            if (this.CnCMachineOutput[i] != null)
             {
                 NBTTagCompound outputSlots = new NBTTagCompound();
                 outputSlots.setByte("OutputSlot", (byte) i);
-                this.cncmachineOutput[i].writeToNBT(outputSlots);
+                this.CnCMachineOutput[i].writeToNBT(outputSlots);
                 outputItems.appendTag(outputSlots);
             }
         }
@@ -820,6 +827,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
 
+        // Custom name from anvil or other source.
         if (this.isInvNameLocalized())
         {
             nbt.setString("CustomName", this.containerCustomName);

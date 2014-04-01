@@ -30,15 +30,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class CnCMachineBlock extends BlockContainer
 {
-    // Is the random generator used by furnace to drop the inventory contents in
-    // random directions.
-    private final Random furnaceRand = new Random();
+    // Random number generator.
+    private final Random RANDOM = new Random();
 
-    private CnCMachineEntity lastPlacedTileEntity;
+    // Tile Entity.
+    private CnCMachineEntity ENTITY;
 
-    // This flag is used to prevent the furnace inventory to be dropped upon
-    // block removal, is used internally when the furnace block changes from
-    // idle to active and vice-versa.
+    // Determines if furnace inventory is dropped when destroyed.
     private static boolean keepFurnaceInventory;
 
     public CnCMachineBlock(int id)
@@ -56,7 +54,7 @@ public class CnCMachineBlock extends BlockContainer
         this.setResistance(2000.0F);
 
         // Define how big this item is we make it same size as a default block.
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F, 1.0F);
     }
 
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */
@@ -83,13 +81,13 @@ public class CnCMachineBlock extends BlockContainer
 
                     if (itemstack != null)
                     {
-                        float f = this.furnaceRand.nextFloat() * 0.8F + 0.1F;
-                        float f1 = this.furnaceRand.nextFloat() * 0.8F + 0.1F;
-                        float f2 = this.furnaceRand.nextFloat() * 0.8F + 0.1F;
+                        float f = this.RANDOM.nextFloat() * 0.8F + 0.1F;
+                        float f1 = this.RANDOM.nextFloat() * 0.8F + 0.1F;
+                        float f2 = this.RANDOM.nextFloat() * 0.8F + 0.1F;
 
                         while (itemstack.stackSize > 0)
                         {
-                            int k1 = this.furnaceRand.nextInt(21) + 10;
+                            int k1 = this.RANDOM.nextInt(21) + 10;
 
                             if (k1 > itemstack.stackSize)
                             {
@@ -105,9 +103,9 @@ public class CnCMachineBlock extends BlockContainer
                             }
 
                             float f3 = 0.05F;
-                            entityitem.motionX = (float) this.furnaceRand.nextGaussian() * f3;
-                            entityitem.motionY = (float) this.furnaceRand.nextGaussian() * f3 + 0.2F;
-                            entityitem.motionZ = (float) this.furnaceRand.nextGaussian() * f3;
+                            entityitem.motionX = (float) this.RANDOM.nextGaussian() * f3;
+                            entityitem.motionY = (float) this.RANDOM.nextGaussian() * f3 + 0.2F;
+                            entityitem.motionZ = (float) this.RANDOM.nextGaussian() * f3;
 
                             par1World.spawnEntityInWorld(entityitem);
                         }
@@ -119,6 +117,12 @@ public class CnCMachineBlock extends BlockContainer
         }
 
         super.breakBlock(par1World, par2, par3, par4, par5, par6);
+        
+        // Break all the 'ghost blocks'
+        if (par1World.getBlockId(par2, par3 + 1, par4) == MadFurnaces.CNCMACHINEGHOST.blockID)
+        {
+            par1World.setBlockToAir(par2, par3 + 1, par4);
+        }
     }
 
     @Override
@@ -183,9 +187,6 @@ public class CnCMachineBlock extends BlockContainer
 
     @Override
     @SideOnly(Side.CLIENT)
-    /**
-     * only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative)
-     */
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
         return MadFurnaces.CNCMACHINE_TILEENTITY.blockID;
@@ -203,10 +204,10 @@ public class CnCMachineBlock extends BlockContainer
         return true;
     }
 
-    // It's not an opaque cube, so you need this.
     @Override
     public boolean isOpaqueCube()
     {
+        // It's not an opaque cube, so you need this.
         return false;
     }
 
@@ -221,9 +222,9 @@ public class CnCMachineBlock extends BlockContainer
         else if (!player.isSneaking())
         {
             // Open GUI on the client...
-            CnCMachineEntity tileentityfurnace = (CnCMachineEntity) par1World.getBlockTileEntity(par2, par3, par4);
+            CnCMachineEntity tileEntity = (CnCMachineEntity) par1World.getBlockTileEntity(par2, par3, par4);
 
-            if (tileentityfurnace != null)
+            if (tileEntity != null)
             {
                 player.openGui(MadScience.instance, this.blockID, par1World, par2, par3, par4);
             }
@@ -240,23 +241,30 @@ public class CnCMachineBlock extends BlockContainer
     // ----------------
 
     @Override
-    public void onBlockAdded(World par1World, int par2, int par3, int par4)
+    public void onBlockAdded(World world, int x, int y, int z)
     {
-        super.onBlockAdded(par1World, par2, par3, par4);
-        this.setDefaultDirection(par1World, par2, par3, par4);
+        // Called when the object is placed into the world regardless of how it got there (AKA startup).
+        super.onBlockAdded(world, x, y, z);
+        this.setDefaultDirection(world, x, y, z);
+        
+        if (!world.isRemote)
+        {
+            // Add 'ghost' blocks that makeup upper section of magazine loader.
+            world.setBlock(x, y + 1, z, MadFurnaces.CNCMACHINEGHOST.blockID, 1, 3);
+        }
     }
 
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, living, stack);
-        lastPlacedTileEntity = (CnCMachineEntity) world.getBlockTileEntity(x, y, z);
+        ENTITY = (CnCMachineEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
 
-        if (stack.hasDisplayName() && lastPlacedTileEntity != null)
+        if (stack.hasDisplayName() && ENTITY != null)
         {
-            lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());
+            ENTITY.setGuiDisplayName(stack.getDisplayName());
         }
     }
 

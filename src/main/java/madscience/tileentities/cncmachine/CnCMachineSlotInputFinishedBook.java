@@ -5,9 +5,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class CnCMachineSlotInputWaterBucket extends Slot
+public class CnCMachineSlotInputFinishedBook extends Slot
 {
-    public CnCMachineSlotInputWaterBucket(IInventory inv, int index, int x, int y)
+    public CnCMachineSlotInputFinishedBook(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }
@@ -15,9 +15,9 @@ public class CnCMachineSlotInputWaterBucket extends Slot
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        // Input slot 1 - Filled water bucket for internal tank in machine.
-        ItemStack compareWaterBucket = new ItemStack(Item.bucketWater);
-        if (compareWaterBucket.isItemEqual(stack))
+        // Only written books may be inserted.
+        ItemStack completedBookComparisonItem = new ItemStack(Item.writtenBook);
+        if (completedBookComparisonItem.isItemEqual(stack))
         {
             return true;
         }
