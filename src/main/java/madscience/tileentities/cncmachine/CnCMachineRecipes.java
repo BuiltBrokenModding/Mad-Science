@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import madscience.MadScience;
+import madscience.util.MadUtils;
 import net.minecraft.item.ItemStack;
 
 public class CnCMachineRecipes
@@ -14,10 +16,22 @@ public class CnCMachineRecipes
     private static Map weaponExperiencePerCode = new HashMap();
     private static Map weaponSchematicsPerCode = new HashMap();
 
-    public static void addSmeltingResult(String binaryText, ItemStack smeltingResult, float experience)
+    public static void addSmeltingResult(String plainText, ItemStack smeltingResult, float experience)
     {
-        CnCMachineRecipes.weaponSchematicsPerCode.put(String.valueOf(binaryText.toLowerCase().toString()), smeltingResult);
-        CnCMachineRecipes.weaponExperiencePerCode.put(String.valueOf(binaryText.toLowerCase().toString()), Float.valueOf(experience));
+        // Force the inputed plain text to be all lower case with and trimmed.
+        String trimmedInput = String.valueOf(plainText.toLowerCase().trim());
+        
+        // Convert the plain text into a literal binary representation of itself.
+        String binaryASCII = MadUtils.AsciiToBinary(trimmedInput);
+        
+        // Debuggin'
+        MadScience.logger.info("ASCII:" + trimmedInput);
+        MadScience.logger.info("BINARY:" + binaryASCII);
+        MadScience.logger.info("DECODED:" + MadUtils.BinaryToAscii(binaryASCII));
+        
+        // Add the recipes that convert binary strings into item stacks.
+        CnCMachineRecipes.weaponSchematicsPerCode.put(String.valueOf(binaryASCII), smeltingResult);
+        CnCMachineRecipes.weaponExperiencePerCode.put(String.valueOf(binaryASCII), Float.valueOf(experience));
     }
 
     public static float getExperience(String binaryText)

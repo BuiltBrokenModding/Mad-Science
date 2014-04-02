@@ -9,6 +9,7 @@ import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.gui.GUIButtonInvisible;
 import madscience.util.GUIContainerBase;
+import madscience.util.MadUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -186,7 +187,7 @@ public class CnCMachineGUI extends GUIContainerBase
                 }
                 else
                 {
-                    this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.GREEN.getRGB());
+                    this.fontRenderer.drawString(MadUtils.BinaryToAscii(guiBookDecoder), 90, 21, Color.GREEN.getRGB());
                 }
             }
             else if (ENTITY.isPowered() && ENTITY.WATER_TANK != null && ENTITY.WATER_TANK.getFluidAmount() <= 5)

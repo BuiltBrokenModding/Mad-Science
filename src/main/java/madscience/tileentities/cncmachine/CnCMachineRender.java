@@ -179,7 +179,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
             }
             
             // LOADING IRON BLOCK
-            if (cookTime <= 0 && ENTITY.hasIronBlock && !ENTITY.isRedstonePowered())
+            if (cookTime <= 0 && ENTITY.hasIronBlock && !ENTITY.canSmelt())
             {
                 MODEL_COMPESSEDBLOCK0.renderAll();
             }
