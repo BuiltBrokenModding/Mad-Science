@@ -7,11 +7,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 
@@ -27,23 +27,60 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
 {
     private enum TransformationTypes
     {
-        NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
+        DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Base.mad");
+    private CnCMachineEntity ENTITY;
+    
+    // Base model files, always visible.
+    private MadTechneModel MODEL_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Base.mad");
+    private MadTechneModel MODEL_SCREEN = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Monitor.mad");
 
-    // Unique ID for our model to render in the world.
+    // Compressed Block 0 - 3.
+    private MadTechneModel MODEL_COMPESSEDBLOCK0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock0.mad");
+    private MadTechneModel MODEL_COMPESSEDBLOCK1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock1.mad");
+    private MadTechneModel MODEL_COMPESSEDBLOCK2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock2.mad");
+    private MadTechneModel MODEL_COMPESSEDBLOCK3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock3.mad");
+
+    // Cutblock 0 - 8.
+    private MadTechneModel MODEL_CUTBLOCK0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock0.mad");
+    private MadTechneModel MODEL_CUTBLOCK1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock1.mad");
+    private MadTechneModel MODEL_CUTBLOCK2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock2.mad");
+    private MadTechneModel MODEL_CUTBLOCK3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock3.mad");
+    private MadTechneModel MODEL_CUTBLOCK4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock4.mad");
+    private MadTechneModel MODEL_CUTBLOCK5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock5.mad");
+    private MadTechneModel MODEL_CUTBLOCK6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock6.mad");
+    private MadTechneModel MODEL_CUTBLOCK7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock7.mad");
+    private MadTechneModel MODEL_CUTBLOCK8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock8.mad");
+    
+    // Press 0 - 3.
+    private MadTechneModel MODEL_PRESS0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press0.mad");
+    private MadTechneModel MODEL_PRESS1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press1.mad");
+    private MadTechneModel MODEL_PRESS2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press2.mad");
+    private MadTechneModel MODEL_PRESS3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press3.mad");
+    
+    // Water 0 - 8.
+    private MadTechneModel MODEL_WATER0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water0.mad");    
+    private MadTechneModel MODEL_WATER1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water1.mad");
+    private MadTechneModel MODEL_WATER2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water2.mad");
+    private MadTechneModel MODEL_WATER3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water3.mad");
+    private MadTechneModel MODEL_WATER4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water4.mad");
+    private MadTechneModel MODEL_WATER5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water5.mad");
+    private MadTechneModel MODEL_WATER6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water6.mad");
+    private MadTechneModel MODEL_WATER7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water7.mad");
+    private MadTechneModel MODEL_WATER8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water8.mad");
+    
+    // Default render ID for base machine.
     public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
-    private CnCMachineEntity ENTITY;
+    // Default texture used for icon rendering and base machine.
+    private ResourceLocation TEXTURE_OFF = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png");
 
-    // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png");
+    private int animFrame;
 
     @Override
     public int getRenderId()
-    {
+    {        
         return RENDERID;
     }
 
@@ -62,6 +99,285 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         }
     }
 
+    public void renderAModelAt(CnCMachineEntity tileEntity, double x, double y, double z, float f)
+    {
+        // Grab the individual tile entity in the world.
+        ENTITY = tileEntity;
+        if (ENTITY == null)
+        {
+            return;
+        }
+
+        // Changes the objects rotation to match whatever the player was facing.
+        int rotation = 180;
+        switch (ENTITY.getBlockMetadata() % 4)
+        {
+        case 0:
+            rotation = 0;
+            break;
+        case 3:
+            rotation = 90;
+            break;
+        case 2:
+            rotation = 180;
+            break;
+        case 1:
+            rotation = 270;
+            break;
+        }
+
+        // Begin OpenGL render push.
+        GL11.glPushMatrix();
+
+        // Left and right positives center the object and the middle one raises
+        // it up to connect with bottom of connecting block.
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+
+        // Forces tile entity to always face player.
+        switch (rotation)
+        {
+        case 0:
+            GL11.glRotatef(-rotation, 0.0F, 1.0F, 0.0F);
+            break;
+        case 90:
+            GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+            break;
+        case 180:
+            GL11.glRotatef(-rotation, 0.0F, 1.0F, 0.0F);
+            break;
+        case 270:
+            GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+            break;
+        }
+
+        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
+        {
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+        }
+        else
+        {
+            // Default texture of we have no other reference to make.
+            bindTexture(TEXTURE_OFF);
+        }
+
+        GL11.glPushMatrix();
+
+        // DEFAULT STATE
+        this.renderBaseMachine();
+        
+        // Show different stages of the machines progress.
+        if (ENTITY != null)
+        {
+            // Get the amount of cooking time scaled by the number of steps we want to complete.
+            int cookTime = ENTITY.getItemCookTimeScaled(17);
+            //MadScience.logger.info("CnC Machine Cooking: " + String.valueOf(cookTime));
+            
+            if (cookTime < 1)
+            {
+                // Press0 - visible
+                MODEL_PRESS0.renderAll();
+            }
+            
+            // LOADING IRON BLOCK
+            if (cookTime <= 0 && ENTITY.hasIronBlock && !ENTITY.isRedstonePowered())
+            {
+                MODEL_COMPESSEDBLOCK0.renderAll();
+            }
+            
+            // Only show different parts of CnC Machine when it is powered, active and cooking.
+            if (ENTITY.canSmelt() && ENTITY.isPowered() && ENTITY.isRedstonePowered())
+            {
+                // COMPRESSING IRON BLOCK
+                // STEP 0
+                if (cookTime <= 0)
+                {
+                    MODEL_PRESS0.renderAll();
+                    MODEL_COMPESSEDBLOCK0.renderAll();
+                }
+                
+                // STEP 1
+                if (cookTime == 1)
+                {
+                    MODEL_PRESS1.renderAll();
+                    MODEL_COMPESSEDBLOCK1.renderAll();
+                }
+                
+                // STEP 2
+                if (cookTime == 2)
+                {
+                    MODEL_PRESS2.renderAll();
+                    MODEL_COMPESSEDBLOCK2.renderAll();
+                }    
+                
+                // STEP 3
+                if (cookTime == 3)
+                {
+                    MODEL_PRESS3.renderAll();
+                    MODEL_COMPESSEDBLOCK3.renderAll();
+                }
+                
+                // STEP 4
+                if (cookTime == 4)
+                {
+                    MODEL_PRESS3.renderAll();
+                    this.renderAllCutBlocks();
+                }
+                
+                // STEP 5
+                if (cookTime == 5)
+                {
+                    MODEL_PRESS2.renderAll();
+                    this.renderAllCutBlocks();
+                }
+                
+                // STEP 6
+                if (cookTime == 6)
+                {
+                    MODEL_PRESS1.renderAll();
+                    this.renderAllCutBlocks();
+                }
+                
+                // CUTTING STATE
+                // STEP 0
+                if (cookTime == 7)
+                {
+                    // NOTE: WATER TURNS ON AT THIS STAGE
+                    MODEL_PRESS0.renderAll();
+                    this.renderAllCutBlocks();
+                }
+                
+                //  STEP 1
+                if (cookTime == 8)
+                {
+                    this.renderAllCutBlocks();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER0.renderAll();
+                }
+                
+                // STEP 2
+                if (cookTime == 9)
+                {
+                    MODEL_CUTBLOCK1.renderAll();
+                    MODEL_CUTBLOCK2.renderAll();
+                    MODEL_CUTBLOCK3.renderAll();
+                    MODEL_CUTBLOCK4.renderAll();
+                    MODEL_CUTBLOCK5.renderAll();
+                    MODEL_CUTBLOCK6.renderAll();
+                    MODEL_CUTBLOCK7.renderAll();
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER1.renderAll();
+                }
+                
+                // STEP 3
+                if (cookTime == 10)
+                {
+                    MODEL_CUTBLOCK2.renderAll();
+                    MODEL_CUTBLOCK3.renderAll();
+                    MODEL_CUTBLOCK4.renderAll();
+                    MODEL_CUTBLOCK5.renderAll();
+                    MODEL_CUTBLOCK6.renderAll();
+                    MODEL_CUTBLOCK7.renderAll();
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER2.renderAll();
+                }
+                
+                // STEP 4
+                if (cookTime == 11)
+                {
+                    MODEL_CUTBLOCK3.renderAll();
+                    MODEL_CUTBLOCK4.renderAll();
+                    MODEL_CUTBLOCK5.renderAll();
+                    MODEL_CUTBLOCK6.renderAll();
+                    MODEL_CUTBLOCK7.renderAll();
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER3.renderAll();
+                }
+                
+                // STEP 5
+                if (cookTime == 12)
+                {
+                    MODEL_CUTBLOCK4.renderAll();
+                    MODEL_CUTBLOCK5.renderAll();
+                    MODEL_CUTBLOCK6.renderAll();
+                    MODEL_CUTBLOCK7.renderAll();
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER4.renderAll();
+                }
+                
+                // STEP 6
+                if (cookTime == 13)
+                {
+                    MODEL_CUTBLOCK5.renderAll();
+                    MODEL_CUTBLOCK6.renderAll();
+                    MODEL_CUTBLOCK7.renderAll();
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER5.renderAll();
+                }
+                
+                // STEP 7
+                if (cookTime == 14)
+                {
+                    MODEL_CUTBLOCK6.renderAll();
+                    MODEL_CUTBLOCK7.renderAll();
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER6.renderAll();
+                }
+                
+                // STEP 8
+                if (cookTime == 15)
+                {
+                    MODEL_CUTBLOCK7.renderAll();
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER7.renderAll();
+                }
+                
+                // STEP 9
+                if (cookTime == 16)
+                {
+                    MODEL_CUTBLOCK8.renderAll();
+                    MODEL_PRESS0.renderAll();
+                    MODEL_WATER8.renderAll();
+                }
+                
+                // STEP 10 - DONE!
+                if (cookTime >= 16)
+                {
+                    MODEL_PRESS0.renderAll();
+                }
+            }
+        }
+
+        GL11.glPopMatrix();
+        GL11.glPopMatrix();
+    }
+
+    public void renderAllCutBlocks()
+    {
+        MODEL_CUTBLOCK0.renderAll();
+        MODEL_CUTBLOCK1.renderAll();
+        MODEL_CUTBLOCK2.renderAll();
+        MODEL_CUTBLOCK3.renderAll();
+        MODEL_CUTBLOCK4.renderAll();
+        MODEL_CUTBLOCK5.renderAll();
+        MODEL_CUTBLOCK6.renderAll();
+        MODEL_CUTBLOCK7.renderAll();
+        MODEL_CUTBLOCK8.renderAll();
+    }
+
+    public void renderBaseMachine()
+    {
+        // Always visible base pieces of CnC Machine.
+        MODEL_BASE.renderAll();
+        MODEL_SCREEN.renderAll();
+    }
+
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
     {
@@ -74,7 +390,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         GL11.glPushMatrix();
 
         // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE_OFF);
 
         // Adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
@@ -118,8 +434,12 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
             break; // never here
         }
 
-        // Renders the model in the gameworld at the correct scale.
-        MODEL.renderAll();
+        // Default state for machine while in players hands and as item.
+        this.renderBaseMachine();
+        
+        // Press0 - visible
+        MODEL_PRESS0.renderAll();
+        
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -147,77 +467,6 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         default:
             break;
         }
-    }
-    
-    public void renderAModelAt(CnCMachineEntity tileEntity, double x, double y, double z, float f)
-    {
-        // Grab the individual tile entity in the world.
-        ENTITY = (CnCMachineEntity) tileEntity;
-        if (ENTITY == null)
-        {
-            return;
-        }
-
-        // Changes the objects rotation to match whatever the player was facing.
-        int rotation = 180;
-        switch (ENTITY.getBlockMetadata() % 4)
-        {
-        case 0:
-            rotation = 0;
-            break;
-        case 3:
-            rotation = 90;
-            break;
-        case 2:
-            rotation = 180;
-            break;
-        case 1:
-            rotation = 270;
-            break;
-        }
-
-        // Begin OpenGL render push.
-        GL11.glPushMatrix();
-
-        // Left and right positives center the object and the middle one raises
-        // it up to connect with bottom of connecting block.
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
-
-        // Using this and the above select the tile entity will always face the
-        // player.
-        switch (rotation)
-        {
-        case 0:
-            GL11.glRotatef(-rotation, 0.0F, 1.0F, 0.0F);
-            break;
-        case 90:
-            GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
-            break;
-        case 180:
-            GL11.glRotatef(-rotation, 0.0F, 1.0F, 0.0F);
-            break;
-        case 270:
-            GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
-            break;
-        }
-
-        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
-        {
-            // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
-        }
-        else
-        {
-            // Default texture of we have no other reference to make.
-            bindTexture(TEXTURE);
-        }
-
-        GL11.glPushMatrix();
-        MODEL.renderAll();
-        GL11.glPopMatrix();
-
-        //MODEL.renderAll();
-        GL11.glPopMatrix();
     }
 
     @Override

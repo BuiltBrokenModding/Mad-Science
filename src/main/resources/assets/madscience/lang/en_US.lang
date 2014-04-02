@@ -59,9 +59,11 @@ tile.voxBox.name=Announcement System
 tile.voxBox.tooltip=Public address system for relaying audible messages and announcements with a male voice.
 
 tile.magLoader.name=Magazine Loader
+tile.ghostMagLoader.name=Magazine Loader
 tile.magLoader.tooltip=Automatically loads bullets into magazines for the M41A Pulse Rifle. Requires power and redstone signal to operate.
 
 tile.cncMachine.name=CnC Machine
+tile.ghostCnCMachine.name=CnC Machine
 tile.cncMachine.tooltip=Computer Numerical Control is the automation of machine tools that are operated by precisely programmed commands encoded on a written book. Creates weapon components from blocks of iron using power and redstone signal.
 
 # Weapons

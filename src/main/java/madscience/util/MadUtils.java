@@ -9,11 +9,50 @@ import java.util.List;
 import madscience.MadScience;
 import madscience.world.MadExplosion;
 import net.minecraft.entity.Entity;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class MadUtils
 {
+    @SuppressWarnings("unused")
+    public static String getWrittenBookContents(NBTTagCompound nbt)
+    {
+        if (nbt == null)
+        {
+            return null;
+        }
+        else if (!nbt.hasKey("pages"))
+        {
+            return null;
+        }
+        else
+        {
+            NBTTagList nbttaglist = (NBTTagList) nbt.getTag("pages");
+
+            for (int i = 0; i < nbttaglist.tagCount(); ++i)
+            {
+                NBTTagString nbttagstring = (NBTTagString) nbttaglist.tagAt(i);
+
+                if (nbttagstring.data == null)
+                {
+                    return null;
+                }
+
+                if (nbttagstring.data.length() > 256)
+                {
+                    return null;
+                }
+
+                return nbttagstring.data.toLowerCase().trim();
+            }
+
+            return null;
+        }
+    }
+    
     public static String getMD5String(String unencodedText)
     {
         MessageDigest md = null;

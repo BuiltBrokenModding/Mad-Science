@@ -1,6 +1,5 @@
 package madscience.tileentities.cncmachine;
 
-import madscience.MadNeedles;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

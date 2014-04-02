@@ -13,17 +13,18 @@ import cpw.mods.fml.relauncher.Side;
 
 public class CnCMachinePackets extends MadPackets
 {
-    // XYZ coordinates of tile entity source.
-    private int tilePosX;
-    private int tilePosY;
-    private int tilePosZ;
-
+    // Decoded book contents.
+    private String decodedBookContents;
+    
     // Tile entity in the world.
     private CnCMachineEntity ENTITY;
-
+    
+    // Texture that will displayed on the model.
+    private String TEXTURE;
+    
     // Cook time.
-    private int lastItemCookTimeValue;
     private int lastItemCookTimeMaximum;
+    private int lastItemCookTimeValue;
 
     // Energy.
     private long lastItemStoredEnergy;
@@ -32,16 +33,21 @@ public class CnCMachinePackets extends MadPackets
     // Water level.
     private int lastWaterLevel;
     private int lastWaterMaximum;
-
-    // Last known texture.
-    private String lastTexture;
+    
+    // XYZ coordinates of tile entity source.
+    private int tilePosX;
+    private int tilePosY;
+    private int tilePosZ;
+    
+    // Determines if there is an iron block in our input slot.
+    private boolean hasIronBlock;
 
     public CnCMachinePackets()
     {
         // Required for reflection.
     }
 
-    public CnCMachinePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMaximum, String tileTexture)
+    public CnCMachinePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMaximum, String bookContents, String currentTexture, boolean ironBlockInputted)
     {
         // World position information.
         tilePosX = posX;
@@ -61,7 +67,13 @@ public class CnCMachinePackets extends MadPackets
         lastWaterMaximum = waterLevelMaximum;
 
         // Last known texture.
-        lastTexture = tileTexture;
+        decodedBookContents = bookContents;
+        
+        // Texture.
+        TEXTURE = currentTexture;
+        
+        // Has the player inserted an iron block.
+        hasIronBlock = ironBlockInputted;
     }
 
     @Override
@@ -90,8 +102,14 @@ public class CnCMachinePackets extends MadPackets
             this.ENTITY.WATER_TANK.setFluid(new FluidStack(FluidRegistry.WATER, lastWaterLevel));
             this.ENTITY.WATER_TANK.setCapacity(lastWaterMaximum);
 
-            // Last known texture.
-            this.ENTITY.TEXTURE = lastTexture;
+            // Book contents for client GUI's.
+            this.ENTITY.BOOK_DECODED = decodedBookContents;
+            
+            // Texture.
+            this.ENTITY.TEXTURE = TEXTURE;
+            
+            // Iron block inputed flag.
+            this.ENTITY.hasIronBlock = hasIronBlock;
         }
         else
         {
@@ -123,8 +141,14 @@ public class CnCMachinePackets extends MadPackets
         lastWaterLevel = in.readInt();
         lastWaterMaximum = in.readInt();
 
-        // Last known texture.
-        lastTexture = in.readUTF();
+        // Book contents.
+        decodedBookContents = in.readUTF();
+        
+        // Texture.
+        TEXTURE = in.readUTF();
+        
+        // Iron block inputed flag.
+        hasIronBlock = in.readBoolean();
     }
 
     @Override
@@ -151,7 +175,13 @@ public class CnCMachinePackets extends MadPackets
         out.writeInt(lastWaterLevel);
         out.writeInt(lastWaterMaximum);
 
-        // Last known texture.
-        out.writeUTF(lastTexture);
+        // Book contents.
+        out.writeUTF(decodedBookContents);
+        
+        // Texture.
+        out.writeUTF(TEXTURE);
+        
+        // Iron block inputed flag.
+        out.writeBoolean(hasIronBlock);
     }
 }

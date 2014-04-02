@@ -149,7 +149,7 @@ public class MadGUI implements IGuiHandler
         {
             return new CnCMachineGUI(player.inventory, (CnCMachineEntity) tile_entity);
         }
-        
+       
         // Default response is to return nothing.
         return null;
     }

@@ -1,6 +1,5 @@
 package madscience.tileentities.cncmachine;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,71 +8,53 @@ import net.minecraft.item.ItemStack;
 
 public class CnCMachineRecipes
 {
-    /** The list of smelting results. */
-    private static Map smeltingList = new HashMap();
-    private static Map experienceList = new HashMap();
-    private static HashMap<List<Integer>, ItemStack> metaSmeltingList = new HashMap<List<Integer>, ItemStack>();
+    private static HashMap<List<String>, Float> metaExperience = new HashMap<List<String>, Float>();
+    private static HashMap<List<String>, ItemStack> metaSmeltingList = new HashMap<List<String>, ItemStack>();
 
-    private static HashMap<List<Integer>, Float> metaExperience = new HashMap<List<Integer>, Float>();
+    private static Map weaponExperiencePerCode = new HashMap();
+    private static Map weaponSchematicsPerCode = new HashMap();
 
-    /** Adds a smelting recipe. */
-    public static void addSmelting(int par1, ItemStack par2ItemStack, float par3)
+    public static void addSmeltingResult(String binaryText, ItemStack smeltingResult, float experience)
     {
-        CnCMachineRecipes.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
-        CnCMachineRecipes.experienceList.put(Integer.valueOf(par2ItemStack.itemID), Float.valueOf(par3));
+        CnCMachineRecipes.weaponSchematicsPerCode.put(String.valueOf(binaryText.toLowerCase().toString()), smeltingResult);
+        CnCMachineRecipes.weaponExperiencePerCode.put(String.valueOf(binaryText.toLowerCase().toString()), Float.valueOf(experience));
     }
 
-    /** Grabs the amount of base experience for this item to give when pulled from the furnace slot. */
-    public static float getExperience(ItemStack item)
+    public static float getExperience(String binaryText)
     {
-        if (item == null || item.getItem() == null)
+        // Returns a certain amount of experience for smelting the item.
+        if (binaryText == null)
         {
             return 0;
         }
-        float ret = item.getItem().getSmeltingExperience(item);
-        if (ret < 0 && metaExperience.containsKey(Arrays.asList(item.itemID, item.getItemDamage())))
+
+        float ret = 0.0F;
+        if (weaponExperiencePerCode.containsKey(String.valueOf(binaryText.toLowerCase().toString())))
         {
-            ret = metaExperience.get(Arrays.asList(item.itemID, item.getItemDamage()));
-        }
-        if (ret < 0 && experienceList.containsKey(item.itemID))
-        {
-            ret = ((Float) experienceList.get(item.itemID)).floatValue();
+            ret = ((Float) weaponExperiencePerCode.get(String.valueOf(binaryText.toLowerCase().toString()))).floatValue();
         }
         return (ret < 0 ? 0 : ret);
     }
 
-    /** Used to get the resulting ItemStack form a source ItemStack
-     * 
-     * @param item The Source ItemStack
-     * @return The result ItemStack */
-    public static ItemStack getSmeltingResult(ItemStack item)
+    public static ItemStack getSmeltingResult(String binaryText)
     {
-        if (item == null)
+        // Returns the smelting result from a given binary piece of text.
+        if (binaryText == null)
         {
             return null;
         }
-        ItemStack ret = metaSmeltingList.get(Arrays.asList(item.itemID, item.getItemDamage()));
-        if (ret != null)
-        {
-            return ret;
-        }
-        return (ItemStack) smeltingList.get(Integer.valueOf(item.itemID));
+        return (ItemStack) weaponSchematicsPerCode.get(String.valueOf(binaryText.toLowerCase().toString()));
     }
 
-    /** A metadata sensitive version of adding a furnace recipe. */
-    public void addSmelting(int itemID, int metadata, ItemStack itemstack, float experience)
+    public Map<List<String>, ItemStack> getMetaSmeltingList()
     {
-        metaSmeltingList.put(Arrays.asList(itemID, metadata), itemstack);
-        metaExperience.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
-    }
-
-    public Map<List<Integer>, ItemStack> getMetaSmeltingList()
-    {
+        // Returns the entire smelting list for iterator purposes.
         return metaSmeltingList;
     }
 
     public Map getSmeltingList()
     {
-        return CnCMachineRecipes.smeltingList;
+        // Returns the list of Items mapped to binary codes.
+        return CnCMachineRecipes.weaponSchematicsPerCode;
     }
 }

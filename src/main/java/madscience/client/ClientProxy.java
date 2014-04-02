@@ -46,6 +46,7 @@ import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceRender;
+import madscience.tileentities.cncmachine.CnCMachineBlockGhost;
 import madscience.tileentities.cncmachine.CnCMachineEntity;
 import madscience.tileentities.cncmachine.CnCMachineRender;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
@@ -303,6 +304,22 @@ public class ClientProxy extends CommonProxy
             ClientRegistry.bindTileEntitySpecialRenderer(VoxBoxEntity.class, new VoxBoxRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new VoxBoxRender());
         }
+        
+        // Magazine Loader
+        if (blockID == MadConfig.MAGLOADER)
+        {
+            RenderingRegistry.registerBlockHandler(MadFurnaces.MAGLOADER_TILEENTITY.blockID, new MagLoaderRender());
+            ClientRegistry.bindTileEntitySpecialRenderer(MagLoaderEntity.class, new MagLoaderRender());
+            MinecraftForgeClient.registerItemRenderer(blockID, new MagLoaderRender());
+        }
+        
+        // CnC Machine
+        if (blockID == MadConfig.CNCMACHINE)
+        {
+            RenderingRegistry.registerBlockHandler(MadFurnaces.CNCMACHINE_TILEENTITY.blockID, new CnCMachineRender());
+            ClientRegistry.bindTileEntitySpecialRenderer(CnCMachineEntity.class, new CnCMachineRender());
+            MinecraftForgeClient.registerItemRenderer(blockID, new CnCMachineRender());
+        }
 
         // -------
         // WEAPONS
@@ -334,22 +351,6 @@ public class ClientProxy extends CommonProxy
         if (blockID == MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM)
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, new PulseRifleMagazineItemRender());
-        }
-        
-        // Magazine Loader
-        if (blockID == MadConfig.MAGLOADER)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.MAGLOADER_TILEENTITY.blockID, new MagLoaderRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(MagLoaderEntity.class, new MagLoaderRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new MagLoaderRender());
-        }
-        
-        // CnC Machine
-        if (blockID == MadConfig.CNCMACHINE)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CNCMACHINE_TILEENTITY.blockID, new CnCMachineRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(CnCMachineEntity.class, new CnCMachineRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new CnCMachineRender());
         }
 
         // ----

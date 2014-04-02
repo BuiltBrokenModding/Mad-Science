@@ -11,16 +11,13 @@ import madscience.gui.GUIButtonInvisible;
 import madscience.util.GUIContainerBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
-
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -34,6 +31,38 @@ public class CnCMachineGUI extends GUIContainerBase
         super(new CnCMachineContainer(playerInventory, tileEntity));
         this.ENTITY = tileEntity;
         TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".png");
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button)
+    {
+        super.actionPerformed(button);
+
+        if (button.id == 1 && Desktop.isDesktopSupported())
+        {
+            if (GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown())
+            {
+                try
+                {
+                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                }
+                catch (Exception err)
+                {
+                    MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
+                }
+            }
+            else
+            {
+                try
+                {
+                    Desktop.getDesktop().browse(new URI(MadConfig.CNCMACHINE_HELP));
+                }
+                catch (Exception err)
+                {
+                    MadScience.logger.info("Unable to open wiki link in default browser.");
+                }
+            }
+        }
     }
 
     private void displayGauge(int screenX, int screenY, int line, int col, int squaled)
@@ -115,7 +144,7 @@ public class CnCMachineGUI extends GUIContainerBase
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        
+
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
         String guiTitleLabel = "     " + MadFurnaces.CNCMACHINE_TILEENTITY.getLocalizedName();
@@ -124,24 +153,62 @@ public class CnCMachineGUI extends GUIContainerBase
         // Text that labels player inventory area as "Inventory".
         String guiInventoryLabel = I18n.getString("container.inventory");
         this.fontRenderer.drawString(guiInventoryLabel, 8, this.ySize - 96 + 2, 4210752);
-        
+
         // Text that tells if your written book is valid or not.
-        String guiBookDecoder = "M41A Pulse Rifle";
-        this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.GREEN.getRGB());
-        
+        String guiBookDecoder = "";
+        if (ENTITY != null)
+        {
+            if (ENTITY.isPowered() && !ENTITY.canSmelt() && !ENTITY.isRedstonePowered())
+            {
+                // Powered, Cannot Smelt, No Redstone Signal.
+                guiBookDecoder = "OFFLINE";
+                this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.RED.getRGB());
+            }
+            else if (ENTITY.isPowered() && !ENTITY.canSmelt() && ENTITY.isRedstonePowered())
+            {
+                // Powered, Cannot Smelt, Redstone Signal.
+                guiBookDecoder = "NOT READY";
+                this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.RED.getRGB());
+            }
+            else if (ENTITY.isPowered() && ENTITY.canSmelt() && !ENTITY.isRedstonePowered())
+            {
+                // Powered, Can Smelt, No Redstone Signal.
+                guiBookDecoder = "READY!";
+                this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.GREEN.getRGB());
+            }
+            else if (ENTITY.isPowered() && ENTITY.canSmelt() && ENTITY.isRedstonePowered())
+            {
+                // Powered, Can Smelt, Redstone Signal (ACTIVE).
+                guiBookDecoder = ENTITY.getStringFromBookContents().toUpperCase().trim();
+                if (guiBookDecoder.contains("INVALID"))
+                {
+                    this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.RED.getRGB());
+                }
+                else
+                {
+                    this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.GREEN.getRGB());
+                }
+            }
+            else if (ENTITY.isPowered() && ENTITY.WATER_TANK != null && ENTITY.WATER_TANK.getFluidAmount() <= 5)
+            {
+                // No water detected in machine.
+                guiBookDecoder = "NEED WATER";
+                this.fontRenderer.drawString(guiBookDecoder, 90, 21, Color.RED.getRGB());
+            }
+        }
+
         // Power level for the machine.
         if (this.isPointInRegion(68, 62, 14, 14, mouseX, mouseY))
         {
             String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
             this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
         }
-        
+
         // Cutting progress on the iron block.
         if (this.isPointInRegion(89, 45, 31, 14, mouseX, mouseY))
         {
             String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
-            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
-                    powerLevelLiteral);
+            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %", powerLevelLiteral);
         }
 
         // Input water in form of buckets.
@@ -150,32 +217,32 @@ public class CnCMachineGUI extends GUIContainerBase
             if (this.ENTITY.getStackInSlot(0) == null)
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input water bucket");
         }
-        
-        // Block of Iron that needs cutting.        
+
+        // Block of Iron that needs cutting.
         if (this.isPointInRegion(67, 44, 16, 16, mouseX, mouseY))
         {
             if (this.ENTITY.getStackInSlot(1) == null)
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input iron block");
         }
-        
+
         // Written book with binary code inside of it acting like a punchcard or data reel.
         if (this.isPointInRegion(67, 17, 16, 16, mouseX, mouseY))
         {
             if (this.ENTITY.getStackInSlot(2) == null)
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input written book");
         }
-        
+
         // Water tank help
         if (this.isPointInRegion(8, 9, 16, 58, mouseX, mouseY) && this.ENTITY.WATER_TANK.getFluid() != null)
         {
             if (this.ENTITY.WATER_TANK.getFluid() != null)
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.WATER_TANK.getFluid().getFluid().getLocalizedName(), this.ENTITY.WATER_TANK.getFluid().amount + " L");
         }
-        
+
         // Help link and info for schematics for weapons.
         if (this.isPointInRegion(166, 4, 6, 5, mouseX, mouseY))
         {
-            if (this.isCtrlKeyDown())
+            if (GuiScreen.isCtrlKeyDown())
             {
                 // The Net Reference - Easter Egg 1
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Sandra Bullock Mode");
@@ -194,41 +261,9 @@ public class CnCMachineGUI extends GUIContainerBase
 
         int posX = (this.width - 6) / 2;
         int posY = (this.height - 5) / 2;
-        
+
         // make buttons
         buttonList.clear();
         buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76, 6, 5));
-    }
-
-    @Override
-    public void actionPerformed(GuiButton button)
-    {
-        super.actionPerformed(button);
-        
-        if (button.id == 1 && Desktop.isDesktopSupported())
-        {
-            if (this.isCtrlKeyDown() && this.isShiftKeyDown())
-            {
-                try
-                {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
-                }
-                catch (Exception err)
-                {
-                    MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
-                }
-            }
-            else
-            {
-                try
-                {
-                    Desktop.getDesktop().browse(new URI(MadConfig.CNCMACHINE_HELP));
-                }
-                catch (Exception err)
-                {
-                    MadScience.logger.info("Unable to open wiki link in default browser.");
-                }
-            }
-        }
     }
 }

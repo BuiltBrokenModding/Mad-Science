@@ -15,14 +15,14 @@ public class CnCMachineContainer extends Container
     public CnCMachineContainer(InventoryPlayer player, CnCMachineEntity tileEntity)
     {
         // Hook the server world entity that is our block.
-        this.ENTITY = tileEntity; 
+        this.ENTITY = tileEntity;
 
         // Input Slot 1 - Water bucket to cut the Iron block with.
         this.addSlotToContainer(new CnCMachineSlotInputWaterBucket(tileEntity, 0, 31, 34));
 
         // Input Slot 2 - Iron block that needs cutting into shape.
         this.addSlotToContainer(new CnCMachineSlotInputIronBlock(tileEntity, 1, 67, 44));
-        
+
         // Input Slot 3 - Written book with binary code on what part to make.
         this.addSlotToContainer(new CnCMachineSlotInputFinishedBook(tileEntity, 2, 67, 17));
 
@@ -78,14 +78,7 @@ public class CnCMachineContainer extends Container
             }
             else if (par2 != 1 && par2 != 0)
             {
-                if (CnCMachineRecipes.getSmeltingResult(itemstack1) != null)
-                {
-                    if (!this.mergeItemStack(itemstack1, 0, 1, false))
-                    {
-                        return null;
-                    }
-                }
-                else if (par2 >= 3 && par2 < 30)
+                if (par2 >= 3 && par2 < 30)
                 {
                     if (!this.mergeItemStack(itemstack1, 30, 38, false))
                     {

@@ -128,7 +128,7 @@ public class MadScience
                 m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
                 
                 // CnC Machine Ghost Block.
-                m.invoke(null, MadFurnaces.CNCMACHINEGHOST.blockID);
+                m.invoke(null, MadFurnaces.CNCMACHINEGHOST_TILEENTITY.blockID);
             }
             catch (Throwable e)
             {

@@ -209,42 +209,6 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
         return null;
     }
 
-    @SuppressWarnings("unused")
-    public String getWrittenBookContents(NBTTagCompound nbt)
-    {
-        if (nbt == null)
-        {
-            return null;
-        }
-        else if (!nbt.hasKey("pages"))
-        {
-            return null;
-        }
-        else
-        {
-            NBTTagList nbttaglist = (NBTTagList) nbt.getTag("pages");
-
-            for (int i = 0; i < nbttaglist.tagCount(); ++i)
-            {
-                NBTTagString nbttagstring = (NBTTagString) nbttaglist.tagAt(i);
-
-                if (nbttagstring.data == null)
-                {
-                    return null;
-                }
-
-                if (nbttagstring.data.length() > 256)
-                {
-                    return null;
-                }
-
-                return nbttagstring.data.toLowerCase().trim();
-            }
-
-            return null;
-        }
-    }
-
     /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
@@ -388,7 +352,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
                 {
                     // Read the book in the slot and parse it.
                     MadScience.logger.info("VoxBox: STARTING PHRASE INTERPRETOR");
-                    String bookContents = this.getWrittenBookContents(voxboxInput[0].stackTagCompound);
+                    String bookContents = MadUtils.getWrittenBookContents(voxboxInput[0].stackTagCompound);
                     
                     // Breakup the books contents based on word.
                     List<String> splitBookContents = MadUtils.splitStringPerWord(bookContents, 1);

@@ -121,7 +121,6 @@ public class MadNeedles
         // Adds needle filled with Bat blood.
         NEEDLE_BAT = (NeedleBat) new NeedleBat(itemID, 4996656, 986895).setUnlocalizedName(NEEDLE_BAT_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_BAT, NEEDLE_BAT_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_BAT, NEEDLE_BAT_DISPLAYNAME);
     }
 
     public static void createCaveSpiderNeedle(int itemID)
@@ -129,7 +128,6 @@ public class MadNeedles
         // Adds needle filled with Cave Spider blood.
         NEEDLE_CAVESPIDER = (NeedleCaveSpider) new NeedleCaveSpider(itemID, 803406, 11013646).setUnlocalizedName(NEEDLE_CAVESPIDER_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_CAVESPIDER, NEEDLE_CAVESPIDER_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_CAVESPIDER, NEEDLE_CAVESPIDER_DISPLAYNAME);
     }
 
     public static void createChickenNeedle(int itemID)
@@ -137,7 +135,6 @@ public class MadNeedles
         // Adds needle filled with Chicken blood.
         NEEDLE_CHICKEN = (NeedleChicken) new NeedleChicken(itemID, 10592673, 16711680).setUnlocalizedName(NEEDLE_CHICKEN_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_CHICKEN, NEEDLE_CHICKEN_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_CHICKEN, NEEDLE_CHICKEN_DISPLAYNAME);
     }
 
     public static void createCowNeedle(int itemID)
@@ -145,7 +142,6 @@ public class MadNeedles
         // Adds needle filled with Cow blood.
         NEEDLE_COW = (NeedleCow) new NeedleCow(itemID, 4470310, 10592673).setUnlocalizedName(NEEDLE_COW_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_COW, NEEDLE_COW_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_COW, NEEDLE_COW_DISPLAYNAME);
     }
 
     public static void createCreeperNeedle(int itemID)
@@ -153,7 +149,6 @@ public class MadNeedles
         // Adds needle filled with Creeper blood.
         NEEDLE_CREEPER = (NeedleCreeper) new NeedleCreeper(itemID, 894731, 0).setUnlocalizedName(NEEDLE_CREEPER_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_CREEPER, NEEDLE_CREEPER_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_CREEPER, NEEDLE_CREEPER_DISPLAYNAME);
     }
 
     public static void createDirtyNeedle(int itemID)
@@ -162,7 +157,6 @@ public class MadNeedles
         // expiration occurs.
         NEEDLE_DIRTY = (NeedleDirtyItem) new NeedleDirtyItem(itemID).setUnlocalizedName(NEEDLEDIRTY_ITEM_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_DIRTY, NEEDLEDIRTY_ITEM_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_DIRTY, NEEDLEDIRTY_ITEM_DISPLAYNAME);
 
         // Needle Sanitizer (cleans dirty needles).
         SanitizerRecipes.addSmelting(NEEDLE_DIRTY.itemID, new ItemStack(NEEDLE_ITEM), 0.15F);
@@ -173,7 +167,6 @@ public class MadNeedles
         // Adds empty needle to the game used for taking DNA out of mobs.
         NEEDLE_ITEM = (NeedleEmptyItem) new NeedleEmptyItem(itemID).setUnlocalizedName(NEEDLE_ITEM_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_ITEM, NEEDLE_ITEM_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_ITEM, NEEDLE_ITEM_DISPLAYNAME);
 
         // Shaped.
         GameRegistry.addRecipe(new ItemStack(NEEDLE_ITEM, 1), new Object[]
@@ -190,7 +183,6 @@ public class MadNeedles
         // Adds needle filled with Enderman blood.
         NEEDLE_ENDERMAN = (NeedleEnderman) new NeedleEnderman(itemID, 1447446, 0).setUnlocalizedName(NEEDLE_ENDERMAN_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_ENDERMAN, NEEDLE_ENDERMAN_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_ENDERMAN, NEEDLE_ENDERMAN_DISPLAYNAME);
     }
 
     public static void createHorseNeedle(int itemID)
@@ -198,7 +190,6 @@ public class MadNeedles
         // Adds needle filled with Horse blood.
         NEEDLE_HORSE = (NeedleHorse) new NeedleHorse(itemID, 12623485, 15656192).setUnlocalizedName(NEEDLE_HORSE_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_HORSE, NEEDLE_HORSE_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_HORSE, NEEDLE_HORSE_DISPLAYNAME);
     }
 
     public static void createMushroomCowNeedle(int itemID)
@@ -206,7 +197,6 @@ public class MadNeedles
         // Adds needle filled with Mushroom Cow blood.
         NEEDLE_MUSHROOMCOW = (NeedleMushroomCow) new NeedleMushroomCow(itemID, 10489616, 12040119).setUnlocalizedName(NEEDLE_MUSHROOMCOW_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_MUSHROOMCOW, NEEDLE_MUSHROOMCOW_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_MUSHROOMCOW, NEEDLE_MUSHROOMCOW_DISPLAYNAME);
     }
 
     public static void createMutantNeedle(int itemID)
@@ -214,7 +204,6 @@ public class MadNeedles
         // Adds needle filled with Mutant blood.
         NEEDLE_MUTANT = (NeedleMutant) new NeedleMutant(itemID, 5349438, 8306542).setUnlocalizedName(NEEDLE_MUTANT_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_MUTANT, NEEDLE_MUTANT_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_MUTANT, NEEDLE_MUTANT_DISPLAYNAME);
     }
 
     public static void createOcelotNeedle(int itemID)
@@ -222,7 +211,6 @@ public class MadNeedles
         // Adds needle filled with Ocelot blood.
         NEEDLE_OCELOT = (NeedleOcelot) new NeedleOcelot(itemID, 15720061, 5653556).setUnlocalizedName(NEEDLE_OCELOT_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_OCELOT, NEEDLE_OCELOT_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_OCELOT, NEEDLE_OCELOT_DISPLAYNAME);
     }
 
     public static void createPigNeedle(int itemID)
@@ -230,7 +218,6 @@ public class MadNeedles
         // Adds needle filled with Pig blood.
         NEEDLE_PIG = (NeedlePig) new NeedlePig(itemID, 15771042, 14377823).setUnlocalizedName(NEEDLE_PIG_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_PIG, NEEDLE_PIG_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_PIG, NEEDLE_PIG_DISPLAYNAME);
     }
 
     public static void createSheepNeedle(int itemID)
@@ -238,7 +225,6 @@ public class MadNeedles
         // Adds needle filled with Sheep blood.
         NEEDLE_SHEEP = (NeedleSheep) new NeedleSheep(itemID, 15771042, 14377823).setUnlocalizedName(NEEDLE_SHEEP_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_SHEEP, NEEDLE_SHEEP_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_SHEEP, NEEDLE_SHEEP_DISPLAYNAME);
     }
 
     public static void createSpiderNeedle(int itemID)
@@ -246,7 +232,6 @@ public class MadNeedles
         // Adds needle filled with Spider blood.
         NEEDLE_SPIDER = (NeedleSpider) new NeedleSpider(itemID, 3419431, 11013646).setUnlocalizedName(NEEDLE_SPIDER_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_SPIDER, NEEDLE_SPIDER_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_SPIDER, NEEDLE_SPIDER_DISPLAYNAME);
     }
 
     public static void createSquidNeedle(int itemID)
@@ -254,7 +239,6 @@ public class MadNeedles
         // Adds needle filled with Squid blood.
         NEEDLE_SQUID = (NeedleSquid) new NeedleSquid(itemID, 2243405, 7375001).setUnlocalizedName(NEEDLE_SQUID_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_SQUID, NEEDLE_SQUID_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_SQUID, NEEDLE_SQUID_DISPLAYNAME);
     }
 
     public static void createVillagerNeedle(int itemID)
@@ -262,7 +246,6 @@ public class MadNeedles
         // Adds needle filled with Villager blood.
         NEEDLE_VILLAGER = (NeedleVillager) new NeedleVillager(itemID, 5651507, 12422002).setUnlocalizedName(NEEDLE_VILLAGER_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_VILLAGER, NEEDLE_VILLAGER_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_VILLAGER, NEEDLE_VILLAGER_DISPLAYNAME);
     }
 
     public static void createWitchNeedle(int itemID)
@@ -270,7 +253,6 @@ public class MadNeedles
         // Adds needle filled with Witch blood.
         NEEDLE_WITCH = (NeedleWitch) new NeedleWitch(itemID, 3407872, 5349438).setUnlocalizedName(NEEDLE_WITCH_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_WITCH, NEEDLE_WITCH_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_WITCH, NEEDLE_WITCH_DISPLAYNAME);
     }
 
     public static void createWolfNeedle(int itemID)
@@ -278,7 +260,6 @@ public class MadNeedles
         // Adds needle filled with Wolf blood.
         NEEDLE_WOLF = (NeedleWolf) new NeedleWolf(itemID, 14144467, 13545366).setUnlocalizedName(NEEDLE_WOLF_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_WOLF, NEEDLE_WOLF_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_WOLF, NEEDLE_WOLF_DISPLAYNAME);
     }
 
     public static void createZombieNeedle(int itemID)
@@ -286,6 +267,5 @@ public class MadNeedles
         // Adds needle filled with Zombie blood.
         NEEDLE_ZOMBIE = (NeedleZombie) new NeedleZombie(itemID, 44975, 7969893).setUnlocalizedName(NEEDLE_ZOMBIE_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_ZOMBIE, NEEDLE_ZOMBIE_INTERNALNAME);
-        // LanguageRegistry.addName(NEEDLE_ZOMBIE, NEEDLE_ZOMBIE_DISPLAYNAME);
     }
 }

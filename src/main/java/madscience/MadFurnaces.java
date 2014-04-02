@@ -8,6 +8,7 @@ import madscience.tileentities.clayfurnace.ClayfurnaceRecipes;
 import madscience.tileentities.cncmachine.CnCMachineBlock;
 import madscience.tileentities.cncmachine.CnCMachineBlockGhost;
 import madscience.tileentities.cncmachine.CnCMachineEntity;
+import madscience.tileentities.cncmachine.CnCMachineRecipes;
 import madscience.tileentities.cryofreezer.CryofreezerBlock;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
 import madscience.tileentities.cryotube.CryotubeBlock;
@@ -127,7 +128,7 @@ public class MadFurnaces
     public static final String CNCMACHINE_INTERNALNAME = "cncMachine";
     
     // CnC Machine 'Ghost Block'
-    public static Block CNCMACHINEGHOST;
+    public static Block CNCMACHINEGHOST_TILEENTITY;
     public static final String CNCMACHINEGHOST_INTERNALNAME = "ghostCnCMachine";    
     
     // -----------------------------
@@ -568,6 +569,9 @@ public class MadFurnaces
 
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
+        
+        // TODO: Recipe for Magazine Loader.
+        
     }
 
     public static void createMagLoaderGhostTileEntity(int blockID)
@@ -589,12 +593,31 @@ public class MadFurnaces
 
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
+        
+        // Recipe for CnC machine.
+        GameRegistry.addRecipe(new ItemStack(CNCMACHINE_TILEENTITY, 1), new Object[]
+        { "456", 
+          "212", 
+          "232",
+
+          '1', new ItemStack(Block.sand, 64, 0),
+          '2', new ItemStack(Block.obsidian, 1, 0),
+          '3', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY, 1, 0),
+          '4', new ItemStack(MadCircuits.CIRCUIT_EMERALD, 1, 0),
+          '5', new ItemStack(Block.pistonBase, 1, 0),
+          '6', new ItemStack(MadComponents.COMPONENT_CPU, 1, 0),
+        });
+        
+        // Machine recipes for converting iron blocks into weapon parts from binary code in written book.
+        CnCMachineRecipes.addSmeltingResult("case", new ItemStack(MadComponents.COMPONENT_CASE), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("cpu", new ItemStack(MadComponents.COMPONENT_CPU), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("ram", new ItemStack(MadComponents.COMPONENT_RAM), 0.42F);
     }
 
     public static void createCnCMachineGhostTileEntity(int blockID)
     {
         // Acts as a collision box for upper blocks of CnC Machine.
-        CNCMACHINEGHOST = new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(CNCMACHINEGHOST, MadScience.ID + CNCMACHINEGHOST.getUnlocalizedName().substring(5));
+        CNCMACHINEGHOST_TILEENTITY = (Block) new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
+        GameRegistry.registerBlock(CNCMACHINEGHOST_TILEENTITY, MadScience.ID + CNCMACHINEGHOST_TILEENTITY.getUnlocalizedName().substring(5));
     }
 }
