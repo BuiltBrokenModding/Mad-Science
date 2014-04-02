@@ -20,15 +20,15 @@ public class CnCMachineRecipes
     {
         // Force the inputed plain text to be all lower case with and trimmed.
         String trimmedInput = String.valueOf(plainText.toLowerCase().trim());
-        
+
         // Convert the plain text into a literal binary representation of itself.
         String binaryASCII = MadUtils.AsciiToBinary(trimmedInput);
-        
+
         // Debuggin'
         MadScience.logger.info("ASCII:" + trimmedInput);
         MadScience.logger.info("BINARY:" + binaryASCII);
         MadScience.logger.info("DECODED:" + MadUtils.BinaryToAscii(binaryASCII));
-        
+
         // Add the recipes that convert binary strings into item stacks.
         CnCMachineRecipes.weaponSchematicsPerCode.put(String.valueOf(binaryASCII), smeltingResult);
         CnCMachineRecipes.weaponExperiencePerCode.put(String.valueOf(binaryASCII), Float.valueOf(experience));

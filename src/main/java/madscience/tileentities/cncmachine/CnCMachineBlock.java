@@ -56,12 +56,6 @@ public class CnCMachineBlock extends BlockContainer
         // Define how big this item is we make it same size as a default block.
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F, 1.0F);
     }
-    
-    @Override
-    public boolean canRenderInPass(int pass)
-    {
-        return pass == getRenderBlockPass();
-    }
 
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */
     @Override
@@ -129,6 +123,12 @@ public class CnCMachineBlock extends BlockContainer
         {
             par1World.setBlockToAir(par2, par3 + 1, par4);
         }
+    }
+
+    @Override
+    public boolean canRenderInPass(int pass)
+    {
+        return pass == getRenderBlockPass();
     }
 
     @Override

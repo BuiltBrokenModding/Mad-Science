@@ -15,13 +15,13 @@ public class CnCMachinePackets extends MadPackets
 {
     // Decoded book contents.
     private String decodedBookContents;
-    
+
     // Tile entity in the world.
     private CnCMachineEntity ENTITY;
-    
-    // Texture that will displayed on the model.
-    private String TEXTURE;
-    
+
+    // Determines if there is an iron block in our input slot.
+    private boolean hasIronBlock;
+
     // Cook time.
     private int lastItemCookTimeMaximum;
     private int lastItemCookTimeValue;
@@ -33,14 +33,14 @@ public class CnCMachinePackets extends MadPackets
     // Water level.
     private int lastWaterLevel;
     private int lastWaterMaximum;
-    
+
+    // Texture that will displayed on the model.
+    private String TEXTURE;
     // XYZ coordinates of tile entity source.
     private int tilePosX;
     private int tilePosY;
+
     private int tilePosZ;
-    
-    // Determines if there is an iron block in our input slot.
-    private boolean hasIronBlock;
 
     public CnCMachinePackets()
     {
@@ -68,10 +68,10 @@ public class CnCMachinePackets extends MadPackets
 
         // Last known texture.
         decodedBookContents = bookContents;
-        
+
         // Texture.
         TEXTURE = currentTexture;
-        
+
         // Has the player inserted an iron block.
         hasIronBlock = ironBlockInputted;
     }
@@ -104,20 +104,12 @@ public class CnCMachinePackets extends MadPackets
 
             // Book contents for client GUI's.
             this.ENTITY.BOOK_DECODED = decodedBookContents;
-            
+
             // Texture.
             this.ENTITY.TEXTURE = TEXTURE;
-            
-            if (lastItemCookTimeValue >= lastItemCookTimeMaximum)
-            {
-                // Forcefully set this to false when completing a job.
-                this.ENTITY.hasIronBlock = false;
-            }
-            else
-            {
-                // Iron block inputed flag.
-                this.ENTITY.hasIronBlock = hasIronBlock;
-            }
+
+            // Iron block inputed flag.
+            this.ENTITY.hasIronBlock = hasIronBlock;
         }
         else
         {
@@ -151,10 +143,10 @@ public class CnCMachinePackets extends MadPackets
 
         // Book contents.
         decodedBookContents = in.readUTF();
-        
+
         // Texture.
         TEXTURE = in.readUTF();
-        
+
         // Iron block inputed flag.
         hasIronBlock = in.readBoolean();
     }
@@ -185,10 +177,10 @@ public class CnCMachinePackets extends MadPackets
 
         // Book contents.
         out.writeUTF(decodedBookContents);
-        
+
         // Texture.
         out.writeUTF(TEXTURE);
-        
+
         // Iron block inputed flag.
         out.writeBoolean(hasIronBlock);
     }

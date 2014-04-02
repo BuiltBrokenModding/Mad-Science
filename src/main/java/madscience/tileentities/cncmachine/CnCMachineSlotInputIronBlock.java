@@ -11,7 +11,7 @@ public class CnCMachineSlotInputIronBlock extends Slot
     {
         super(inv, index, x, y);
     }
-    
+
     @Override
     public int getSlotStackLimit()
     {

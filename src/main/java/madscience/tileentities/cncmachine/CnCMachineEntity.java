@@ -1,7 +1,5 @@
 package madscience.tileentities.cncmachine;
 
-import java.util.Random;
-
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -51,23 +49,23 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     /** Name to display on inventory screen. */
     private String CONTAINER_NAME;
 
+    /** Current frame of animation we should use to display in world. */
+    public int curFrame;
+
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
     public int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
     public int currentItemCookingValue;
 
-    /** Internal reserve of water */
-    protected FluidTank WATER_TANK = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
-    
-    /** Texture that should be displayed on our model. */
-    public String TEXTURE = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
-    
-    /** Current frame of animation we should use to display in world. */
-    public int curFrame;
-    
     /** Determines if we have iron block currently placed in input slot 1. */
     public boolean hasIronBlock;
+
+    /** Texture that should be displayed on our model. */
+    public String TEXTURE = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+
+    /** Internal reserve of water */
+    protected FluidTank WATER_TANK = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
 
     public CnCMachineEntity()
     {
@@ -118,7 +116,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
         // Add a bucket's worth of water into the internal tank.
         WATER_TANK.fill(new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME), true);
-        //MadScience.logger.info("internalWaterTank() " + WATER_TANK.getFluidAmount());
+        // MadScience.logger.info("internalWaterTank() " + WATER_TANK.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
         --this.CnCMachineInput[0].stackSize;
@@ -178,14 +176,21 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
     public boolean canSmelt()
     {
-        // Check if we have redstone power.
-        if (!this.isRedstonePowered())
+        // Check if we have a block of iron in input slot 2.
+        if (!this.hasIronBlock())
         {
             return false;
         }
 
-        // Check if we have a block of iron in input slot 2.
-        if (!this.hasIronBlock())
+        // Check if there is anything already in the output slot.
+        if (this.CnCMachineOutput[0] != null && this.CnCMachineOutput[0].stackSize >= 1)
+        {
+            MadScience.logger.info(String.valueOf(this.CnCMachineOutput[0].stackSize));
+            return false;
+        }
+
+        // Check if we have redstone power.
+        if (!this.isRedstonePowered())
         {
             return false;
         }
@@ -203,14 +208,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             return false;
         }
 
-        // Check if output slots are empty and ready to be filled
-        if (this.CnCMachineOutput[0] == null || this.CnCMachineOutput[1] == null)
-        {
-            // Check if output slot 2 (for weapon component) is above stack limit.
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     @Override
@@ -314,6 +312,21 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     {
         // Not allowed to remove water that has been placed inside this block.
         return null;
+    }
+
+    public void drainEnergy(boolean drainWater)
+    {
+        if (this.isPowered() && this.canSmelt() && this.isRedstonePowered())
+        {
+            // Decrease to amount of energy this item has on client and server.
+            this.consumeEnergy(MadConfig.CNCMACHINE_CONSUME);
+
+            if (drainWater)
+            {
+                // Decrease the amount of water in the blocks internal storage.
+                WATER_TANK.drain(1, true);
+            }
+        }
     }
 
     @Override
@@ -557,6 +570,30 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return WATER_TANK.getFluid() != null ? (int) (((float) WATER_TANK.getFluid().amount / (float) (MAX_WATER)) * i) : 0;
     }
 
+    private boolean hasIronBlock()
+    {
+        // Null checks.
+        if (this.CnCMachineInput == null)
+        {
+            return false;
+        }
+
+        if (this.CnCMachineInput[1] == null)
+        {
+            return false;
+        }
+
+        // Compare iron block.
+        ItemStack compareIronBlock = new ItemStack(Block.blockIron);
+        if (this.CnCMachineInput[1].isItemEqual(compareIronBlock))
+        {
+            return true;
+        }
+
+        // Default response.
+        return false;
+    }
+
     @Override
     public boolean isInvNameLocalized()
     {
@@ -658,13 +695,13 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
         // Amount of fluid that is stored inside of our tank.
         this.WATER_TANK.setFluid(new FluidStack(FluidRegistry.WATER, nbt.getShort("WaterAmount")));
-        
+
         // Current frame of animation we are displaying.
         this.curFrame = nbt.getInteger("CurrentFrame");
 
         // Path to current texture what should be loaded onto the model.
         this.TEXTURE = nbt.getString("TexturePath");
-        
+
         // Determines if we have iron block installed inside us.
         this.hasIronBlock = nbt.getBoolean("hasIronBlock");
 
@@ -726,7 +763,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             ItemStack smeltingResult = getItemFromBookContents();
             if (smeltingResult == null)
             {
-                //MadScience.logger.info("CnC Machine: Could not complete smelting process, could not cast binary text to itemstack.");
+                // MadScience.logger.info("CnC Machine: Could not complete smelting process, could not cast binary text to itemstack.");
                 return;
             }
 
@@ -745,20 +782,19 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             if (this.CnCMachineInput[1].stackSize <= 0)
             {
                 this.CnCMachineInput[1] = null;
-                this.hasIronBlock = false;
             }
         }
     }
-    
+
     private void updateAnimation(int cookTimeScaled)
     {
         // Active state has many textures based on item cook progress.
-        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && cookTimeScaled >= 7)
+        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && cookTimeScaled > 7)
         {
             // Play particle effect of water splashing down.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("splash", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D, this.worldObj.rand.nextFloat(),
-                    this.worldObj.rand.nextFloat() + 0.5F, this.worldObj.rand.nextFloat()).makePacket());
-            
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("splash", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
+                    this.worldObj.rand.nextFloat(), this.worldObj.rand.nextFloat() + 0.5F, this.worldObj.rand.nextFloat()).makePacket());
+
             // Plays water jet-stream animation to look like iron block is being cut into shape.
             if (curFrame <= 6 && worldObj.getWorldTime() % 15L == 0L)
             {
@@ -813,12 +849,15 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         {
             // Checks to see if we can add a bucket from input slot.
             this.addBucketToInternalTank();
-            
+
             // Get the scaled percentage of our progress based on how many steps we have.
             int cookTimeScaled = this.getItemCookTimeScaled(17);
-            
+
             // Change the reference to texture we should be displaying.
             this.updateAnimation(cookTimeScaled);
+            
+            // Play sounds on given intervals or as background noise.
+            this.updateSound(cookTimeScaled);
 
             // First tick for new item being cooked in furnace.
             if (this.currentItemCookingValue == 0 && this.canSmelt() && this.isPowered())
@@ -827,19 +866,19 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 if (smeltingResult == null)
                 {
                     this.BOOK_DECODED = "INVALID BOOK";
-                    // MadScience.logger.info("CnC Machine: Could not cast binary text to recipe in database. Aborting!");
+                    this.currentItemCookingValue = 0;
                 }
                 else
                 {
                     // For displaying part name in the GUI for clients.
                     this.BOOK_DECODED = getStringFromBookContents();
-                    
+
                     // New item pulled from cooking stack to be processed.
                     currentItemCookingMaximum = 200;
 
                     // Increments the timer to kickstart the cooking loop.
                     this.currentItemCookingValue++;
-                    
+
                     // Drain only power at this time.
                     this.drainEnergy(false);
                 }
@@ -848,7 +887,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             {
                 // Run on server when we have items and electrical power.
                 // Note: This is the main work loop for the block!
-                
+
                 // Drain only power until the water is turned on.
                 this.drainEnergy(cookTimeScaled >= 7);
 
@@ -861,7 +900,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                     // Convert one item into another via 'cooking' process.
                     this.smeltItem();
                     this.currentItemCookingValue = 0;
-                    this.hasIronBlock = false;
                     inventoriesChanged = true;
                 }
             }
@@ -869,12 +907,12 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             {
                 // Reset loop, prepare for next item or closure.
                 this.currentItemCookingValue = 0;
-                this.hasIronBlock = false;
             }
 
             // Send update about tile entity to all players around us.
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new CnCMachinePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue,
-                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.WATER_TANK.getFluidAmount(), this.WATER_TANK.getCapacity(), this.BOOK_DECODED, this.TEXTURE, this.hasIronBlock()).makePacket());
+                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.WATER_TANK.getFluidAmount(), this.WATER_TANK.getCapacity(), this.BOOK_DECODED, this.TEXTURE, this.hasIronBlock())
+                    .makePacket());
         }
 
         if (inventoriesChanged)
@@ -882,47 +920,22 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             this.onInventoryChanged();
         }
     }
-    
-    private boolean hasIronBlock()
-    {
-        // Null checks.
-        if (this.CnCMachineInput == null)
-        {
-            this.hasIronBlock = false;
-            return false;
-        }
-        
-        if (this.CnCMachineInput[1] == null)
-        {
-            this.hasIronBlock = false;
-            return false;
-        }
-        
-        // Compare iron block.
-        ItemStack compareIronBlock = new ItemStack(Block.blockIron);
-        if (this.CnCMachineInput[1].isItemEqual(compareIronBlock))
-        {
-            this.hasIronBlock = true;
-            return true;
-        }
-        
-        // Default response.
-        this.hasIronBlock = false;
-        return false;
-    }
 
-    public void drainEnergy(boolean drainWater)
+    private void updateSound(int cookTimeScaled)
     {
-        if (this.isPowered() && this.canSmelt() && this.isRedstonePowered())
+        // Don't run if the machine cannot.
+        if (this.isPowered() && this.isRedstonePowered() && this.canSmelt())
         {
-            // Decrease to amount of energy this item has on client and server.
-            this.consumeEnergy(MadConfig.CNCMACHINE_CONSUME);
-
-            if (drainWater)
+            // Plays sounds and ambient noises the machine would make at any given state.
+            if (cookTimeScaled < 4 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
-                // Decrease the amount of water in the blocks internal storage.
-                WATER_TANK.drain(1, true);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "tile.piston.in", 1.0F, 1.0F);
             }
+            
+            if (cookTimeScaled > 7 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            {
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "liquid.splash", 1.0F, 1.0F);
+            }    
         }
     }
 
@@ -937,13 +950,13 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
         // Amount of water that is currently stored.
         nbt.setShort("WaterAmount", (short) this.WATER_TANK.getFluidAmount());
-        
+
         // Current frame of animation we are displaying.
         nbt.setInteger("CurrentFrame", this.curFrame);
 
         // Path to current texture that should be loaded onto the model.
         nbt.setString("TexturePath", this.TEXTURE);
-        
+
         // Determines if we have iron block inside machine.
         nbt.setBoolean("hasIronBlock", this.hasIronBlock);
 

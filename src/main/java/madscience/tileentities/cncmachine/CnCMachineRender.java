@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 
@@ -29,6 +28,8 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     {
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
+
+    private int animFrame;
 
     private CnCMachineEntity ENTITY;
     
@@ -52,7 +53,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     private MadTechneModel MODEL_CUTBLOCK6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock6.mad");
     private MadTechneModel MODEL_CUTBLOCK7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock7.mad");
     private MadTechneModel MODEL_CUTBLOCK8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock8.mad");
-    
+
     // Press 0 - 3.
     private MadTechneModel MODEL_PRESS0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press0.mad");
     private MadTechneModel MODEL_PRESS1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press1.mad");
@@ -60,7 +61,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     private MadTechneModel MODEL_PRESS3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press3.mad");
     
     // Water 0 - 8.
-    private MadTechneModel MODEL_WATER0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water0.mad");    
+    private MadTechneModel MODEL_WATER0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water0.mad");
     private MadTechneModel MODEL_WATER1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water1.mad");
     private MadTechneModel MODEL_WATER2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water2.mad");
     private MadTechneModel MODEL_WATER3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water3.mad");
@@ -69,18 +70,16 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     private MadTechneModel MODEL_WATER6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water6.mad");
     private MadTechneModel MODEL_WATER7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water7.mad");
     private MadTechneModel MODEL_WATER8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water8.mad");
-    
+
     // Default render ID for base machine.
     public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
     // Default texture used for icon rendering and base machine.
     private ResourceLocation TEXTURE_OFF = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png");
 
-    private int animFrame;
-
     @Override
     public int getRenderId()
-    {        
+    {
         return RENDERID;
     }
 
@@ -97,6 +96,19 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         default:
             return false;
         }
+    }
+
+    public void renderAllCutBlocks()
+    {
+        MODEL_CUTBLOCK0.renderAll();
+        MODEL_CUTBLOCK1.renderAll();
+        MODEL_CUTBLOCK2.renderAll();
+        MODEL_CUTBLOCK3.renderAll();
+        MODEL_CUTBLOCK4.renderAll();
+        MODEL_CUTBLOCK5.renderAll();
+        MODEL_CUTBLOCK6.renderAll();
+        MODEL_CUTBLOCK7.renderAll();
+        MODEL_CUTBLOCK8.renderAll();
     }
 
     public void renderAModelAt(CnCMachineEntity tileEntity, double x, double y, double z, float f)
@@ -164,79 +176,79 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
 
         // DEFAULT STATE
         this.renderBaseMachine();
-        
+
         // Show different stages of the machines progress.
         if (ENTITY != null)
         {
             // Get the amount of cooking time scaled by the number of steps we want to complete.
             int cookTime = ENTITY.getItemCookTimeScaled(17);
-            //MadScience.logger.info("CnC Machine Cooking: " + String.valueOf(cookTime));
-            
+            // MadScience.logger.info("CnC Machine Cooking: " + String.valueOf(cookTime));
+
             if (cookTime < 1)
             {
                 // Press0 - visible
                 MODEL_PRESS0.renderAll();
             }
-            
+
             // LOADING IRON BLOCK
-            if (cookTime <= 0 && ENTITY.hasIronBlock && !ENTITY.canSmelt())
+            if (ENTITY.currentItemCookingValue < 1 && ENTITY.hasIronBlock)
             {
                 MODEL_COMPESSEDBLOCK0.renderAll();
             }
-            
+
             // Only show different parts of CnC Machine when it is powered, active and cooking.
             if (ENTITY.canSmelt() && ENTITY.isPowered() && ENTITY.isRedstonePowered())
             {
                 // COMPRESSING IRON BLOCK
                 // STEP 0
-                if (ENTITY.currentItemCookingValue > 0 && cookTime<= 0)
+                if (ENTITY.currentItemCookingValue > 0 && cookTime <= 0)
                 {
                     MODEL_PRESS0.renderAll();
                     MODEL_COMPESSEDBLOCK0.renderAll();
                 }
-                
+
                 // STEP 1
                 if (cookTime == 1)
                 {
                     MODEL_PRESS1.renderAll();
                     MODEL_COMPESSEDBLOCK1.renderAll();
                 }
-                
+
                 // STEP 2
                 if (cookTime == 2)
                 {
                     MODEL_PRESS2.renderAll();
                     MODEL_COMPESSEDBLOCK2.renderAll();
-                }    
-                
+                }
+
                 // STEP 3
                 if (cookTime == 3)
                 {
                     MODEL_PRESS3.renderAll();
                     MODEL_COMPESSEDBLOCK3.renderAll();
                 }
-                
+
                 // STEP 4
                 if (cookTime == 4)
                 {
                     MODEL_PRESS3.renderAll();
                     this.renderAllCutBlocks();
                 }
-                
+
                 // STEP 5
                 if (cookTime == 5)
                 {
                     MODEL_PRESS2.renderAll();
                     this.renderAllCutBlocks();
                 }
-                
+
                 // STEP 6
                 if (cookTime == 6)
                 {
                     MODEL_PRESS1.renderAll();
                     this.renderAllCutBlocks();
                 }
-                
+
                 // CUTTING STATE
                 // STEP 0
                 if (cookTime == 7)
@@ -245,15 +257,15 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     this.renderAllCutBlocks();
                 }
-                
-                //  STEP 1
+
+                // STEP 1
                 if (cookTime == 8)
                 {
                     this.renderAllCutBlocks();
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER0.renderAll();
                 }
-                
+
                 // STEP 2
                 if (cookTime == 9)
                 {
@@ -268,7 +280,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER1.renderAll();
                 }
-                
+
                 // STEP 3
                 if (cookTime == 10)
                 {
@@ -282,7 +294,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER2.renderAll();
                 }
-                
+
                 // STEP 4
                 if (cookTime == 11)
                 {
@@ -295,7 +307,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER3.renderAll();
                 }
-                
+
                 // STEP 5
                 if (cookTime == 12)
                 {
@@ -307,7 +319,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER4.renderAll();
                 }
-                
+
                 // STEP 6
                 if (cookTime == 13)
                 {
@@ -318,7 +330,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER5.renderAll();
                 }
-                
+
                 // STEP 7
                 if (cookTime == 14)
                 {
@@ -328,7 +340,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER6.renderAll();
                 }
-                
+
                 // STEP 8
                 if (cookTime == 15)
                 {
@@ -337,7 +349,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER7.renderAll();
                 }
-                
+
                 // STEP 9
                 if (cookTime == 16)
                 {
@@ -345,7 +357,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER8.renderAll();
                 }
-                
+
                 // STEP 10 - DONE!
                 if (cookTime >= 16)
                 {
@@ -356,19 +368,6 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
 
         GL11.glPopMatrix();
         GL11.glPopMatrix();
-    }
-
-    public void renderAllCutBlocks()
-    {
-        MODEL_CUTBLOCK0.renderAll();
-        MODEL_CUTBLOCK1.renderAll();
-        MODEL_CUTBLOCK2.renderAll();
-        MODEL_CUTBLOCK3.renderAll();
-        MODEL_CUTBLOCK4.renderAll();
-        MODEL_CUTBLOCK5.renderAll();
-        MODEL_CUTBLOCK6.renderAll();
-        MODEL_CUTBLOCK7.renderAll();
-        MODEL_CUTBLOCK8.renderAll();
     }
 
     public void renderBaseMachine()
@@ -436,10 +435,10 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
 
         // Default state for machine while in players hands and as item.
         this.renderBaseMachine();
-        
+
         // Press0 - visible
         MODEL_PRESS0.renderAll();
-        
+
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
