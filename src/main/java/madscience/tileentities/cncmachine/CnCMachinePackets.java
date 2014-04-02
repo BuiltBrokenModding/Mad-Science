@@ -108,8 +108,16 @@ public class CnCMachinePackets extends MadPackets
             // Texture.
             this.ENTITY.TEXTURE = TEXTURE;
             
-            // Iron block inputed flag.
-            this.ENTITY.hasIronBlock = hasIronBlock;
+            if (lastItemCookTimeValue >= lastItemCookTimeMaximum)
+            {
+                // Forcefully set this to false when completing a job.
+                this.ENTITY.hasIronBlock = false;
+            }
+            else
+            {
+                // Iron block inputed flag.
+                this.ENTITY.hasIronBlock = hasIronBlock;
+            }
         }
         else
         {

@@ -5,6 +5,7 @@ import java.util.Random;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.network.MadParticlePacket;
 import madscience.tileentities.prefab.MadTileEntity;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -744,16 +745,21 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             if (this.CnCMachineInput[1].stackSize <= 0)
             {
                 this.CnCMachineInput[1] = null;
+                this.hasIronBlock = false;
             }
         }
     }
     
-    private void updateAnimation()
+    private void updateAnimation(int cookTimeScaled)
     {
         // Active state has many textures based on item cook progress.
-        int cookTimeScaled = this.getItemCookTimeScaled(17);
         if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && cookTimeScaled >= 7)
         {
+            // Play particle effect of water splashing down.
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("splash", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D, this.worldObj.rand.nextFloat(),
+                    this.worldObj.rand.nextFloat() + 0.5F, this.worldObj.rand.nextFloat()).makePacket());
+            
+            // Plays water jet-stream animation to look like iron block is being cut into shape.
             if (curFrame <= 6 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
@@ -808,8 +814,11 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             // Checks to see if we can add a bucket from input slot.
             this.addBucketToInternalTank();
             
+            // Get the scaled percentage of our progress based on how many steps we have.
+            int cookTimeScaled = this.getItemCookTimeScaled(17);
+            
             // Change the reference to texture we should be displaying.
-            this.updateAnimation();
+            this.updateAnimation(cookTimeScaled);
 
             // First tick for new item being cooked in furnace.
             if (this.currentItemCookingValue == 0 && this.canSmelt() && this.isPowered())
@@ -826,12 +835,12 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                     this.BOOK_DECODED = getStringFromBookContents();
                     
                     // New item pulled from cooking stack to be processed.
-                    currentItemCookingMaximum = 2000;
+                    currentItemCookingMaximum = 200;
 
                     // Increments the timer to kickstart the cooking loop.
                     this.currentItemCookingValue++;
                     
-                    // Drain water and energy from the device.
+                    // Drain only power at this time.
                     this.drainEnergy(false);
                 }
             }
@@ -840,8 +849,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 // Run on server when we have items and electrical power.
                 // Note: This is the main work loop for the block!
                 
-                // Drain water and energy from the device.
-                this.drainEnergy(false);
+                // Drain only power until the water is turned on.
+                this.drainEnergy(cookTimeScaled >= 7);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.currentItemCookingValue++;
@@ -850,8 +859,9 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 if (this.currentItemCookingValue >= currentItemCookingMaximum)
                 {
                     // Convert one item into another via 'cooking' process.
-                    this.currentItemCookingValue = 0;
                     this.smeltItem();
+                    this.currentItemCookingValue = 0;
+                    this.hasIronBlock = false;
                     inventoriesChanged = true;
                 }
             }
@@ -859,6 +869,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             {
                 // Reset loop, prepare for next item or closure.
                 this.currentItemCookingValue = 0;
+                this.hasIronBlock = false;
             }
 
             // Send update about tile entity to all players around us.
@@ -877,11 +888,13 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         // Null checks.
         if (this.CnCMachineInput == null)
         {
+            this.hasIronBlock = false;
             return false;
         }
         
         if (this.CnCMachineInput[1] == null)
         {
+            this.hasIronBlock = false;
             return false;
         }
         
@@ -889,10 +902,12 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         ItemStack compareIronBlock = new ItemStack(Block.blockIron);
         if (this.CnCMachineInput[1].isItemEqual(compareIronBlock))
         {
+            this.hasIronBlock = true;
             return true;
         }
         
         // Default response.
+        this.hasIronBlock = false;
         return false;
     }
 

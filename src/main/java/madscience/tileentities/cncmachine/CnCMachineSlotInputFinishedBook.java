@@ -11,6 +11,12 @@ public class CnCMachineSlotInputFinishedBook extends Slot
     {
         super(inv, index, x, y);
     }
+    
+    @Override
+    public int getSlotStackLimit()
+    {
+        return 1;
+    }
 
     @Override
     public boolean isItemValid(ItemStack stack)

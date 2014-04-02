@@ -189,7 +189,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
             {
                 // COMPRESSING IRON BLOCK
                 // STEP 0
-                if (cookTime <= 0)
+                if (ENTITY.currentItemCookingValue > 0 && cookTime<= 0)
                 {
                     MODEL_PRESS0.renderAll();
                     MODEL_COMPESSEDBLOCK0.renderAll();
