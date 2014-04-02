@@ -2,6 +2,7 @@ package madscience.network;
 
 import madscience.MadScience;
 import madscience.tileentities.soniclocator.SoniclocatorEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.ForgeDirection;
 
@@ -52,10 +53,7 @@ public class MadParticlePacket extends MadPackets
 
         // Packet received by client, executing payload.
         if (side.isClient())
-        {
-            // Debugging confirmation.
-            //MadScience.logger.info("CLIENT: Recieved Mad Particle Packet for " + particleName);
-            
+        {            
             // Spawn the particle name for the given amount of time at specified coordinates and velocity vectors.
             for (int var3 = 0; var3 < 7; ++var3)
             {
@@ -63,11 +61,8 @@ public class MadParticlePacket extends MadPackets
                 double var6 = player.worldObj.rand.nextGaussian() * 0.02D;
                 double var8 = player.worldObj.rand.nextGaussian() * 0.02D;
                 
-                player.worldObj.spawnParticle(particleName, 
-                this.particlePosX,
-                this.particlePosY,
-                this.particlePosZ
-                ,var4 ,var6, var8);
+                // Use the Forge network proxy to spawn the particle properly on the client only.
+                MadScience.proxy.spawnParticle(particleName, particlePosX, particlePosY, particlePosZ, velX, velY, velZ);
             }
 
         }

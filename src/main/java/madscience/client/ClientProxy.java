@@ -7,19 +7,15 @@ import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnaMutant.LiquidDNAMutantRender;
-import madscience.items.weapons.pulserifle.PulseRifleItem;
 import madscience.items.weapons.pulserifle.PulseRifleItemRender;
 import madscience.items.weapons.pulserifle.PulseRifleItemRenderPlayer;
 import madscience.items.weapons.pulserifle.PulseRifleItemTickHandler;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
-import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItem;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntityRender;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItemRender;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
-import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItem;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntityRender;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItemRender;
-import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItem;
 import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItemRender;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobModel;
@@ -46,7 +42,6 @@ import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceRender;
-import madscience.tileentities.cncmachine.CnCMachineBlockGhost;
 import madscience.tileentities.cncmachine.CnCMachineEntity;
 import madscience.tileentities.cncmachine.CnCMachineRender;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
@@ -77,6 +72,8 @@ import madscience.tileentities.voxbox.VoxBoxEntity;
 import madscience.tileentities.voxbox.VoxBoxRender;
 import madscience.util.MadTechneModelLoader;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -127,6 +124,31 @@ public class ClientProxy extends CommonProxy
     public World getClientWorld()
     {
         return FMLClientHandler.instance().getClient().theWorld;
+    }
+    
+    @Override
+    public void spawnParticle(String fxName, double posX, double posY, double posZ, double velX, double velY, double velZ)
+    {
+        World clientWorld = MadScience.proxy.getClientWorld();
+        if (clientWorld == null)
+        {
+            MadScience.logger.info("Mad Particle: Could not spawn particle because client world was null!");
+            return;
+        }
+        
+        if (fxName.equals("splash"))
+        {
+            EntityFX someParticle = new EntitySplashFX(clientWorld, posX, posY, posZ, velX ,velY, velZ);
+            Minecraft.getMinecraft().effectRenderer.addEffect(someParticle);
+        }
+        else
+        {
+            clientWorld.spawnParticle(fxName, 
+            posX,
+            posY,
+            posZ
+            ,velX ,velY, velZ);
+        }
     }
 
     @Override

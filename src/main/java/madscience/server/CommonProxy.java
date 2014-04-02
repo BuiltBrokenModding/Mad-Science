@@ -87,4 +87,8 @@ public class CommonProxy
     public void registerSoundHandler()
     {
     }
+
+    public void spawnParticle(String fxName, double posX, double posY, double posZ, double velX, double velY, double velZ)
+    {        
+    }
 }
