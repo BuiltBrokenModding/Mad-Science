@@ -36,18 +36,36 @@ public class CnCMachinePackets extends MadPackets
 
     // Texture that will displayed on the model.
     private String TEXTURE;
+
     // XYZ coordinates of tile entity source.
     private int tilePosX;
     private int tilePosY;
-
     private int tilePosZ;
+    
+    // Sound tracking variables that ensure clients will only hear a given sound once.
+    private boolean clientSound_FinishedCrushing;
+    private boolean clientSound_InsertIronBlock;
+    private boolean clientSound_InvalidBook;
+    private boolean clientSound_PowerOn;
+    private boolean clientSound_PressStop;
 
     public CnCMachinePackets()
     {
         // Required for reflection.
     }
 
-    public CnCMachinePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMaximum, String bookContents, String currentTexture, boolean ironBlockInputted)
+    public CnCMachinePackets(int posX, int posY, int posZ,
+            int cookTime, int cookTimeMax,
+            long energyStored, long energyMax,
+            int waterLevel, int waterLevelMaximum,
+            String bookContents,
+            String currentTexture,
+            boolean ironBlockInputted,
+            boolean soundFinishCrushing,
+            boolean soundInsertIronBlock,
+            boolean soundInvalidBook,
+            boolean soundPowerOn,
+            boolean soundPressStop)
     {
         // World position information.
         tilePosX = posX;
@@ -74,6 +92,13 @@ public class CnCMachinePackets extends MadPackets
 
         // Has the player inserted an iron block.
         hasIronBlock = ironBlockInputted;
+        
+        // Sound tracking.
+        clientSound_FinishedCrushing = soundFinishCrushing;
+        clientSound_InsertIronBlock = soundInsertIronBlock;
+        clientSound_InvalidBook = soundInvalidBook;
+        clientSound_PowerOn = soundPowerOn;
+        clientSound_PressStop = soundPressStop;
     }
 
     @Override
@@ -110,6 +135,13 @@ public class CnCMachinePackets extends MadPackets
 
             // Iron block inputed flag.
             this.ENTITY.hasIronBlock = hasIronBlock;
+            
+            // Sound tracking.
+            this.ENTITY.clientSound_FinishedCrushing = clientSound_FinishedCrushing;
+            this.ENTITY.clientSound_InsertIronBlock = clientSound_InsertIronBlock;
+            this.ENTITY.clientSound_InvalidBook = clientSound_InvalidBook;
+            this.ENTITY.clientSound_PowerOn = clientSound_PowerOn;
+            this.ENTITY.clientSound_PressStop = clientSound_PressStop;
         }
         else
         {
@@ -149,6 +181,13 @@ public class CnCMachinePackets extends MadPackets
 
         // Iron block inputed flag.
         hasIronBlock = in.readBoolean();
+        
+        // Sound tracking.
+        clientSound_FinishedCrushing = in.readBoolean();
+        clientSound_InsertIronBlock = in.readBoolean();
+        clientSound_InvalidBook = in.readBoolean();
+        clientSound_PowerOn = in.readBoolean();
+        clientSound_PressStop = in.readBoolean();
     }
 
     @Override
@@ -183,5 +222,12 @@ public class CnCMachinePackets extends MadPackets
 
         // Iron block inputed flag.
         out.writeBoolean(hasIronBlock);
+        
+        // Sound tracking.
+        out.writeBoolean(clientSound_FinishedCrushing);
+        out.writeBoolean(clientSound_InsertIronBlock);
+        out.writeBoolean(clientSound_InvalidBook);
+        out.writeBoolean(clientSound_PowerOn);
+        out.writeBoolean(clientSound_PressStop);
     }
 }

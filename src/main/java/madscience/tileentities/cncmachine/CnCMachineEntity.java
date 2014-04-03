@@ -66,6 +66,13 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
     /** Internal reserve of water */
     protected FluidTank WATER_TANK = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
+    
+    // Sound tracking variables.
+    public boolean clientSound_FinishedCrushing;
+    public boolean clientSound_InsertIronBlock;
+    public boolean clientSound_InvalidBook;
+    public boolean clientSound_PowerOn;
+    public boolean clientSound_PressStop;
 
     public CnCMachineEntity()
     {
@@ -185,7 +192,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         // Check if there is anything already in the output slot.
         if (this.CnCMachineOutput[0] != null && this.CnCMachineOutput[0].stackSize >= 1)
         {
-            MadScience.logger.info(String.valueOf(this.CnCMachineOutput[0].stackSize));
+            //MadScience.logger.info(String.valueOf(this.CnCMachineOutput[0].stackSize));
             return false;
         }
 
@@ -575,11 +582,13 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         // Null checks.
         if (this.CnCMachineInput == null)
         {
+            this.clientSound_InsertIronBlock = false;
             return false;
         }
 
         if (this.CnCMachineInput[1] == null)
         {
+            this.clientSound_InsertIronBlock = false;
             return false;
         }
 
@@ -591,6 +600,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
 
         // Default response.
+        this.clientSound_InsertIronBlock = false;
         return false;
     }
 
@@ -704,6 +714,13 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
         // Determines if we have iron block installed inside us.
         this.hasIronBlock = nbt.getBoolean("hasIronBlock");
+        
+        // Sound tracking.
+        this.clientSound_FinishedCrushing = nbt.getBoolean("FinishCrushing");
+        this.clientSound_InsertIronBlock = nbt.getBoolean("InsertIronBlock");
+        this.clientSound_InvalidBook = nbt.getBoolean("InvalidBook");
+        this.clientSound_PowerOn = nbt.getBoolean("PowerOn");
+        this.clientSound_PressStop = nbt.getBoolean("PressStop");
 
         // Custom name given to item (such as from Anvil).
         if (nbt.hasKey("CustomName"))
@@ -766,6 +783,9 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 // MadScience.logger.info("CnC Machine: Could not complete smelting process, could not cast binary text to itemstack.");
                 return;
             }
+            
+            // Play sound effect of the machine being finished and happy about it.
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_FINISHED, 1.0F, 1.0F);
 
             // Adds the smelted weapon component into the output slot.
             if (this.CnCMachineOutput[0] == null)
@@ -874,7 +894,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                     this.BOOK_DECODED = getStringFromBookContents();
 
                     // New item pulled from cooking stack to be processed.
-                    currentItemCookingMaximum = 200;
+                    currentItemCookingMaximum = 1000;
 
                     // Increments the timer to kickstart the cooking loop.
                     this.currentItemCookingValue++;
@@ -910,8 +930,19 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             }
 
             // Send update about tile entity to all players around us.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new CnCMachinePackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue,
-                    currentItemCookingMaximum, getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.WATER_TANK.getFluidAmount(), this.WATER_TANK.getCapacity(), this.BOOK_DECODED, this.TEXTURE, this.hasIronBlock())
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId,
+                    new CnCMachinePackets(this.xCoord, this.yCoord, this.zCoord,
+                            currentItemCookingValue, currentItemCookingMaximum,
+                            getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN),
+                            this.WATER_TANK.getFluidAmount(), this.WATER_TANK.getCapacity(),
+                            this.BOOK_DECODED,
+                            this.TEXTURE,
+                            this.hasIronBlock(),
+                            this.clientSound_FinishedCrushing,
+                            this.clientSound_InsertIronBlock,
+                            this.clientSound_InvalidBook,
+                            this.clientSound_PowerOn,
+                            this.clientSound_PressStop)
                     .makePacket());
         }
 
@@ -923,19 +954,55 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
     private void updateSound(int cookTimeScaled)
     {
-        // Don't run if the machine cannot.
+        //MadScience.logger.info("Cook Time Scaled: " + String.valueOf(cookTimeScaled));
+        
+        // Play sound of a iron block being inserted into the machine.
+        if (this.hasIronBlock() && !this.clientSound_InsertIronBlock)
+        {
+            this.clientSound_InsertIronBlock = true;
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_INSERTIRONBLOCK, 0.5F, 1.0F);
+        }
+        
         if (this.isPowered() && this.isRedstonePowered() && this.canSmelt())
         {
-            // Plays sounds and ambient noises the machine would make at any given state.
-            if (cookTimeScaled < 4 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            // --------------
+            // CRUSHING PHASE
+            // --------------
+            if (cookTimeScaled <= 6 && this.currentItemCookingValue > 0 && !this.BOOK_DECODED.contains("INVALID"))
             {
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "tile.piston.in", 1.0F, 1.0F);
+                // Background sound played while crushing iron block every 3 seconds.
+                if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 3L == 0L)
+                {
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_PRESSINGWORK, 0.5F, 1.0F);
+                }
+                
+                // Played while iron block is being pressed every 2 seconds.
+                if (cookTimeScaled < 4 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 2L == 0L)
+                {
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_PRESS, 0.5F, 1.0F);
+                }
+                
+                // Play a sound to indicate the end of the crushing phase.
+                
             }
             
-            if (cookTimeScaled > 7 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            // -------------------
+            // WATER CUTTING PHASE
+            // -------------------
+            if (cookTimeScaled > 7 && this.currentItemCookingValue <= this.currentItemCookingMaximum)
             {
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "liquid.splash", 1.0F, 1.0F);
-            }    
+                // Background sound played while cutting block with water every 4 seconds.
+                if (cookTimeScaled <= 15 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 4L == 0L)
+                {
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_WATERWORK, 0.5F, 1.0F);
+                }
+                
+                // Played while water is being splashed onto the iron block every 3.6 seconds.
+                if (cookTimeScaled <= 15 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 3.6F == 0L)
+                {
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_WATERFLOW, 0.5F, 1.0F);
+                }
+            }
         }
     }
 
@@ -959,6 +1026,13 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
         // Determines if we have iron block inside machine.
         nbt.setBoolean("hasIronBlock", this.hasIronBlock);
+        
+        // Sound tracking.
+        nbt.setBoolean("FinishCrushing", this.clientSound_FinishedCrushing);
+        nbt.setBoolean("InsertIronBlock", this.clientSound_InsertIronBlock);
+        nbt.setBoolean("InvalidBook", this.clientSound_InvalidBook);
+        nbt.setBoolean("PowerOn", this.clientSound_PowerOn);
+        nbt.setBoolean("PressStop", this.clientSound_PressStop);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();

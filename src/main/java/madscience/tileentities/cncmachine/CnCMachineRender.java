@@ -262,6 +262,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                 if (cookTime == 8)
                 {
                     this.renderAllCutBlocks();
+                    
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER0.renderAll();
                 }
@@ -271,9 +272,11 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                 {
                     MODEL_CUTBLOCK1.renderAll();
                     MODEL_CUTBLOCK2.renderAll();
+                    
                     MODEL_CUTBLOCK3.renderAll();
                     MODEL_CUTBLOCK4.renderAll();
                     MODEL_CUTBLOCK5.renderAll();
+                    
                     MODEL_CUTBLOCK6.renderAll();
                     MODEL_CUTBLOCK7.renderAll();
                     MODEL_CUTBLOCK8.renderAll();
@@ -285,12 +288,15 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                 if (cookTime == 10)
                 {
                     MODEL_CUTBLOCK2.renderAll();
+                    
                     MODEL_CUTBLOCK3.renderAll();
                     MODEL_CUTBLOCK4.renderAll();
                     MODEL_CUTBLOCK5.renderAll();
+                    
                     MODEL_CUTBLOCK6.renderAll();
                     MODEL_CUTBLOCK7.renderAll();
                     MODEL_CUTBLOCK8.renderAll();
+                    
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER2.renderAll();
                 }
@@ -301,11 +307,13 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_CUTBLOCK3.renderAll();
                     MODEL_CUTBLOCK4.renderAll();
                     MODEL_CUTBLOCK5.renderAll();
+                    
                     MODEL_CUTBLOCK6.renderAll();
                     MODEL_CUTBLOCK7.renderAll();
                     MODEL_CUTBLOCK8.renderAll();
+                    
                     MODEL_PRESS0.renderAll();
-                    MODEL_WATER3.renderAll();
+                    MODEL_WATER5.renderAll();
                 }
 
                 // STEP 5
@@ -313,9 +321,11 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                 {
                     MODEL_CUTBLOCK4.renderAll();
                     MODEL_CUTBLOCK5.renderAll();
+                    
                     MODEL_CUTBLOCK6.renderAll();
                     MODEL_CUTBLOCK7.renderAll();
                     MODEL_CUTBLOCK8.renderAll();
+                    
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER4.renderAll();
                 }
@@ -324,11 +334,13 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                 if (cookTime == 13)
                 {
                     MODEL_CUTBLOCK5.renderAll();
+                    
                     MODEL_CUTBLOCK6.renderAll();
                     MODEL_CUTBLOCK7.renderAll();
                     MODEL_CUTBLOCK8.renderAll();
+                    
                     MODEL_PRESS0.renderAll();
-                    MODEL_WATER5.renderAll();
+                    MODEL_WATER3.renderAll();
                 }
 
                 // STEP 7
@@ -337,6 +349,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                     MODEL_CUTBLOCK6.renderAll();
                     MODEL_CUTBLOCK7.renderAll();
                     MODEL_CUTBLOCK8.renderAll();
+                    
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER6.renderAll();
                 }
@@ -346,6 +359,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                 {
                     MODEL_CUTBLOCK7.renderAll();
                     MODEL_CUTBLOCK8.renderAll();
+                    
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER7.renderAll();
                 }
@@ -354,6 +368,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
                 if (cookTime == 16)
                 {
                     MODEL_CUTBLOCK8.renderAll();
+                    
                     MODEL_PRESS0.renderAll();
                     MODEL_WATER8.renderAll();
                 }
