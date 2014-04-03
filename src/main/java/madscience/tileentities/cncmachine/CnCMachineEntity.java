@@ -873,12 +873,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             // Get the scaled percentage of our progress based on how many steps we have.
             int cookTimeScaled = this.getItemCookTimeScaled(17);
 
-            // Change the reference to texture we should be displaying.
-            this.updateAnimation(cookTimeScaled);
-            
-            // Play sounds on given intervals or as background noise.
-            this.updateSound(cookTimeScaled);
-
             // First tick for new item being cooked in furnace.
             if (this.currentItemCookingValue == 0 && this.canSmelt() && this.isPowered())
             {
@@ -887,11 +881,16 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 {
                     this.BOOK_DECODED = "INVALID BOOK";
                     this.currentItemCookingValue = 0;
+                    this.clientSound_FinishedCrushing = false;
+                    this.clientSound_PressStop = false;
                 }
                 else
-                {
+                {                    
                     // For displaying part name in the GUI for clients.
                     this.BOOK_DECODED = getStringFromBookContents();
+                    
+                    // We know the book inserted is good.
+                    this.clientSound_InvalidBook = false;
 
                     // New item pulled from cooking stack to be processed.
                     currentItemCookingMaximum = 1000;
@@ -919,6 +918,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 {
                     // Convert one item into another via 'cooking' process.
                     this.smeltItem();
+                    this.clientSound_FinishedCrushing = false;
+                    this.clientSound_PressStop = false;
                     this.currentItemCookingValue = 0;
                     inventoriesChanged = true;
                 }
@@ -927,7 +928,15 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             {
                 // Reset loop, prepare for next item or closure.
                 this.currentItemCookingValue = 0;
+                this.clientSound_PressStop = false;
+                this.clientSound_FinishedCrushing = false;
             }
+            
+            // Change the reference to texture we should be displaying.
+            this.updateAnimation(cookTimeScaled);
+            
+            // Play sounds on given intervals or as background noise.
+            this.updateSound(cookTimeScaled);
 
             // Send update about tile entity to all players around us.
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId,
@@ -963,8 +972,35 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_INSERTIRONBLOCK, 0.5F, 1.0F);
         }
         
+        // Play a sound of redstone signal activating the machine and making it active.
+        if (this.isRedstonePowered() && !this.clientSound_PowerOn)
+        {
+            this.clientSound_PowerOn = true;
+            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_POWERON, 0.5F, 1.0F);
+        }
+        else if (!this.isRedstonePowered() && this.clientSound_PowerOn)
+        {
+            // Power was set to being on while it was off. This resets it!
+            this.clientSound_PowerOn = false;
+            
+            // Since the machine lost it's current power state we reset this alarm.
+            this.clientSound_InvalidBook = false;
+        }
+        
+        // The next batch of sounds are only played while the machine is operational.
         if (this.isPowered() && this.isRedstonePowered() && this.canSmelt())
         {
+            // Play sound telling player inserted book is invalid.
+            if (this.BOOK_DECODED.contains("INVALID") && !this.clientSound_InvalidBook)
+            {
+                this.clientSound_InvalidBook = true;
+                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_INVALIDBOOK, 0.5F, 1.0F);
+            }
+            else if (!this.BOOK_DECODED.contains("INVALID") && this.clientSound_InvalidBook)
+            {
+                this.clientSound_InvalidBook = false;
+            }
+            
             // --------------
             // CRUSHING PHASE
             // --------------
@@ -983,14 +1019,28 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 }
                 
                 // Play a sound to indicate the end of the crushing phase.
-                
+                if (cookTimeScaled == 4 && !this.clientSound_PressStop)
+                {
+                    this.clientSound_PressStop = true;
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_PRESSSTOP, 1.0F, 1.0F);
+                    
+                    // TODO: Spawn smoke particles to simulate the block being heated from all the pressure.
+                    
+                }
             }
             
             // -------------------
             // WATER CUTTING PHASE
             // -------------------
-            if (cookTimeScaled > 7 && this.currentItemCookingValue <= this.currentItemCookingMaximum)
+            if (cookTimeScaled >= 7 && this.currentItemCookingValue <= this.currentItemCookingMaximum)
             {
+                // Play a sound to indicate the crusher is powering down and water jets are powering on.
+                if (cookTimeScaled == 7 && !this.clientSound_FinishedCrushing)
+                {
+                    this.clientSound_FinishedCrushing  = true;
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_FINISHCRUSHING, 1.0F, 1.0F);
+                }
+                
                 // Background sound played while cutting block with water every 4 seconds.
                 if (cookTimeScaled <= 15 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 4L == 0L)
                 {
@@ -998,7 +1048,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                 }
                 
                 // Played while water is being splashed onto the iron block every 3.6 seconds.
-                if (cookTimeScaled <= 15 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 3.6F == 0L)
+                if (cookTimeScaled > 7 && cookTimeScaled <= 15 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 3.6F == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_WATERFLOW, 0.5F, 1.0F);
                 }
