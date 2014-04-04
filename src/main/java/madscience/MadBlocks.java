@@ -19,6 +19,7 @@ public class MadBlocks
 
     public static void createAbominationEgg(int blockID)
     {
+        MadScience.logger.info("-Abomination Egg");
         ABOMINATIONEGGBLOCK = new AbominationEggBlock(blockID).setUnlocalizedName(ABOMINATIONEGG_INTERNALNAME);
 
         // Register the block with the world.
@@ -31,6 +32,7 @@ public class MadBlocks
 
     public static void createEnderslimeBlock(int blockID)
     {
+        MadScience.logger.info("-Enderslime Block");
         ENDERSLIMEBLOCK = new EnderslimeBlock(blockID).setUnlocalizedName(ENDERSLIMEBLOCK_INTERNALNAME);
 
         // Register the block with the world.

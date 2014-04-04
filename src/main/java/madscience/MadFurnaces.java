@@ -139,6 +139,7 @@ public class MadFurnaces
     public static void createCryoFreezerTileEntity(int blockID)
     {
         // Cryogenic Freezer
+        MadScience.logger.info("-Cryogenic Freezer Tile Entity");
         CRYOFREEZER_TILEENTITY = (BlockContainer) new CryofreezerBlock(blockID).setUnlocalizedName(CRYOFREEZER_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile
@@ -169,6 +170,7 @@ public class MadFurnaces
     public static void createCryotubeGhostTileEntity(int blockID)
     {
         // Acts as a collision box for upper two blocks of cryotube.
+        MadScience.logger.info("-Cryogenic Tube Ghost Block");
         CRYOTUBEGHOST = new CryotubeBlockGhost(blockID).setUnlocalizedName(CRYOTUBEGHOST_INTERNALNAME);
         GameRegistry.registerBlock(CRYOTUBEGHOST, MadScience.ID + CRYOTUBEGHOST.getUnlocalizedName().substring(5));
     }
@@ -176,6 +178,7 @@ public class MadFurnaces
     public static void createCryotubeTileEntity(int blockID)
     {
         // Converts both a villagers brain activity and body heat into a renewable energy source.
+        MadScience.logger.info("-Cryogenic Tube Tile Entity");
         CRYOTUBE_TILEENTITY = (BlockContainer) new CryotubeBlock(blockID).setUnlocalizedName(CRYOTUBE_INTERNALNAME);
         GameRegistry.registerBlock(CRYOTUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOTUBE_TILEENTITY.getUnlocalizedName().substring(5));
         GameRegistry.registerTileEntity(CryotubeEntity.class, CRYOTUBE_TILEENTITY.getUnlocalizedName());
@@ -201,6 +204,7 @@ public class MadFurnaces
     public static void createDataReelDuplicatorTileEntity(int blockID)
     {
         // Copies data reels for memories and genomes alike.
+        MadScience.logger.info("-Data Reel Duplicator Tile Entity");
         DATADUPLICATOR_TILEENTITY = (BlockContainer) new DataDuplicatorBlock(blockID).setUnlocalizedName(DATADUPLICATOR_INTERNALNAME);
         GameRegistry.registerBlock(DATADUPLICATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + DATADUPLICATOR_TILEENTITY.getUnlocalizedName().substring(5));
         GameRegistry.registerTileEntity(DataDuplicatorEntity.class, DATADUPLICATOR_TILEENTITY.getUnlocalizedName());
@@ -228,6 +232,7 @@ public class MadFurnaces
     @EventHandler
     public static void createDNAExtractorTileEntity(int blockID)
     {
+        MadScience.logger.info("-DNA Extrator Tile Entity");
         // Populate our static instance.
         DNAEXTRACTOR_TILEENTITY = (BlockContainer) new DNAExtractorBlock(blockID).setUnlocalizedName(DNAEXTRACTOR_INTERNALNAME);
 
@@ -259,6 +264,7 @@ public class MadFurnaces
     public static void createGeneIncubatorTileEntity(int blockID)
     {
         // Genome Incubator
+        MadScience.logger.info("-Genome Incubator Tile Entity");
         INCUBATOR_TILEENTITY = (BlockContainer) new IncubatorBlock(blockID).setUnlocalizedName(INCUBATOR_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile
@@ -292,6 +298,7 @@ public class MadFurnaces
     public static void createGeneSequencerTileEntity(int blockID)
     {
         // Genetic Sequencer
+        MadScience.logger.info("-Genetic Sequencer Tile Entity");
         SEQUENCER_TILEENTITY = (BlockContainer) new SequencerBlock(blockID).setUnlocalizedName(SEQUENCER_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile
@@ -327,6 +334,7 @@ public class MadFurnaces
     public static void createMainframeTileEntity(int blockID)
     {
         // Populate our static instance.
+        MadScience.logger.info("-Computer Mainframe Tile Entity");
         MAINFRAME_TILEENTITY = (BlockContainer) new MainframeBlock(blockID).setUnlocalizedName(MAINFRAME_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile
@@ -356,6 +364,7 @@ public class MadFurnaces
     public static void createMeatcubeTileEntity(int blockID, int metaID, int primaryColor, int secondaryColor, int cookTime)
     {
         // Disgusting meat cube that spawns chicken, cow and pig meat when hit.
+        MadScience.logger.info("-Disgusting Meat Cube Tile Entity");
         MEATCUBE_TILEENTITY = (BlockContainer) new MeatcubeBlock(blockID).setUnlocalizedName(MEATCUBE_INTERNALNAME);
         GameRegistry.registerBlock(MEATCUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MEATCUBE_TILEENTITY.getUnlocalizedName().substring(5));
         GameRegistry.registerTileEntity(MeatcubeEntity.class, MEATCUBE_TILEENTITY.getUnlocalizedName());
@@ -381,6 +390,8 @@ public class MadFurnaces
     @EventHandler
     public static void createSanitizerTileEntity(int blockID)
     {
+        MadScience.logger.info("-Needle Sanitizer Tile Entity");
+        
         // Populate our static instance.
         SANTITIZER_TILEENTITY = (BlockContainer) new SanitizerBlock(blockID).setUnlocalizedName(SANTITIZER_INTERNALNAME);
 
@@ -413,6 +424,8 @@ public class MadFurnaces
 
     public static void createSoniclocatorGhostTileEntity(int blockID)
     {
+        MadScience.logger.info("-Soniclocator Ghost Block");
+        
         // Acts as a collision box for upper two blocks of Soniclocator device.
         SONICLOCATORGHOST = new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATORGHOST_INTERNALNAME);
         GameRegistry.registerBlock(SONICLOCATORGHOST, MadScience.ID + SONICLOCATORGHOST.getUnlocalizedName().substring(5));
@@ -420,6 +433,8 @@ public class MadFurnaces
 
     public static void createSoniclocatorTileEntity(int blockID)
     {
+        MadScience.logger.info("-Soniclocator Tile Entity");
+        
         // Transposes block types in exchange for others using sonic waves.
         SONICLOCATOR_TILEENTITY = (BlockContainer) new SoniclocatorBlock(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
         GameRegistry.registerBlock(SONICLOCATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SONICLOCATOR_TILEENTITY.getUnlocalizedName().substring(5));
@@ -447,6 +462,8 @@ public class MadFurnaces
 
     public static void createThermosonicBonderTileEntity(int blockID)
     {
+        MadScience.logger.info("-Thermosonic Bonder Tile Entity");
+        
         // Creates silicon wafers, transistors, CPU's, and RAM chips.
         THERMOSONIC_TILEENTITY = (BlockContainer) new ThermosonicBonderBlock(blockID).setUnlocalizedName(THERMOSONIC_INTERNALNAME);
         GameRegistry.registerBlock(THERMOSONIC_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + THERMOSONIC_TILEENTITY.getUnlocalizedName().substring(5));
@@ -502,6 +519,8 @@ public class MadFurnaces
 
     public static void createClayFurnaceTileEntity(int blockID)
     {
+        MadScience.logger.info("-Clay Furnace Tile Entity");
+        
         // A early-game block that can give huge return on investment for ores for clay and fire and time.
         CLAYFURNACE_TILEENTITY = (BlockContainer) new ClayfurnaceBlock(blockID).setUnlocalizedName(CLAYFURNACE_INTERNALNAME);
         GameRegistry.registerBlock(CLAYFURNACE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CLAYFURNACE_TILEENTITY.getUnlocalizedName().substring(5));
@@ -530,6 +549,8 @@ public class MadFurnaces
 
     public static void createVOXBoxTileEntity(int blockID)
     {
+        MadScience.logger.info("-Announcement Box Tile Entity");
+        
         // Automatic Diagnostic and Announcement System
         // AKA: Black Mesa Announcement System
         VOXBOX_TILEENTITY = (BlockContainer) new VoxBoxBlock(blockID).setUnlocalizedName(VOXBOX_INTERNALNAME);
@@ -559,6 +580,8 @@ public class MadFurnaces
 
     public static void createMagLoaderTileEntity(int blockID)
     {
+        MadScience.logger.info("-Magazine Loader Tile Entity");
+        
         // Loads ammunition into pulse rifle magazine at in-human speeds.
         MAGLOADER_TILEENTITY = (BlockContainer) new MagLoaderBlock(blockID).setUnlocalizedName(MAGLOADER_INTERNALNAME);
         GameRegistry.registerBlock(MAGLOADER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAGLOADER_TILEENTITY.getUnlocalizedName().substring(5));
@@ -586,6 +609,8 @@ public class MadFurnaces
 
     public static void createMagLoaderGhostTileEntity(int blockID)
     {
+        MadScience.logger.info("-Magazine Loader Ghost Block");
+        
         // Acts as a collision box for upper blocks of Magazine Loader.
         MAGLOADERGHOST = new MagLoaderBlockGhost(blockID).setUnlocalizedName(MAGLOADERGHOST_INTERNALNAME);
         GameRegistry.registerBlock(MAGLOADERGHOST, MadScience.ID + MAGLOADERGHOST.getUnlocalizedName().substring(5));
@@ -593,6 +618,8 @@ public class MadFurnaces
 
     public static void createCnCMachineTileEntity(int blockID)
     {
+        MadScience.logger.info("-Cnc Machine Tile Entity");
+        
         // Cuts out blocks of Iron into shapes for gun parts using binary codes in written books.
         CNCMACHINE_TILEENTITY = (BlockContainer) new CnCMachineBlock(blockID).setUnlocalizedName(CNCMACHINE_INTERNALNAME);
         GameRegistry.registerBlock(CNCMACHINE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CNCMACHINE_TILEENTITY.getUnlocalizedName().substring(5));
@@ -619,14 +646,19 @@ public class MadFurnaces
         });
         
         // Machine recipes for converting iron blocks into weapon parts from binary code in written book.
-        CnCMachineRecipes.addSmeltingResult("barrel", new ItemStack(MadComponents.COMPONENT_PULSERIFLEBARREL), 0.42F);
-        CnCMachineRecipes.addSmeltingResult("bolt", new ItemStack(MadComponents.COMPONENT_PULSERIFLEBOLT), 0.42F);
-        CnCMachineRecipes.addSmeltingResult("reciever", new ItemStack(MadComponents.COMPONENT_PULSERIFLERECIEVER), 0.42F);
-        CnCMachineRecipes.addSmeltingResult("trigger", new ItemStack(MadComponents.COMPONENT_PULSERIFLETRIGGER), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("m41a barrel", new ItemStack(MadComponents.COMPONENT_PULSERIFLEBARREL), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("m41a bolt", new ItemStack(MadComponents.COMPONENT_PULSERIFLEBOLT), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("m41a reciever", new ItemStack(MadComponents.COMPONENT_PULSERIFLERECIEVER), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("m41a trigger", new ItemStack(MadComponents.COMPONENT_PULSERIFLETRIGGER), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("m41a magazine", new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 16), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("m41a bullets", new ItemStack(MadComponents.COMPONENT_PULSERIFLEBULLETCASING, 64), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("m41a grenade", new ItemStack(MadComponents.COMPONENT_PULSERIFLEGRENADECASING, 32), 0.42F);
     }
 
     public static void createCnCMachineGhostTileEntity(int blockID)
     {
+        MadScience.logger.info("-CnC Machine Ghost Block");
+        
         // Acts as a collision box for upper blocks of CnC Machine.
         CNCMACHINEGHOST_TILEENTITY = (Block) new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
         GameRegistry.registerBlock(CNCMACHINEGHOST_TILEENTITY, MadScience.ID + CNCMACHINEGHOST_TILEENTITY.getUnlocalizedName().substring(5));

@@ -363,6 +363,14 @@ public class MadConfig
     public static @CfgComponents
     int COMPONENT_PULSERIFLETRIGGER = getNextItemID();
     
+    // Component Bullet Casing
+    public static @CfgComponents
+    int COMPONENT_PULSERIFLEBULLETCASING = getNextItemID();
+    
+    // Component Grenade Casing
+    public static @CfgComponents
+    int COMPONENT_PULSERIFLEGRENADECASING = getNextItemID();
+    
     // -----
     // ITEMS
     // -----

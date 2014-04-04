@@ -44,7 +44,32 @@ public class MadRecipes
                         new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, Math.abs(100 - i)),
                         new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, 1),
                     });
-        }        
+        }
+        
+        // M41A Pulse Rifle Grenades
+        MadScience.logger.info("-Pulse Rifle Grenades recipe");
+        GameRegistry.addRecipe(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, 16), new Object[]
+        { "424",
+          "424",
+          "313",
+
+        '1', new ItemStack(MadComponents.COMPONENT_PULSERIFLEGRENADECASING, 16),
+        '2', Block.tnt,
+        '3', Item.gunpowder,
+        '4', Item.ingotIron,});
+        
+        // M41A Pulse Rifle Bullets
+        MadScience.logger.info("-Pulse Rifle Bullets recipe");
+        GameRegistry.addRecipe(new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, 64), new Object[]
+        { "454",
+          "424",
+          "313",
+
+          '1', new ItemStack(MadComponents.COMPONENT_PULSERIFLEBULLETCASING, 64),
+          '2', Block.tnt,
+          '3', Item.gunpowder,
+          '4', Block.hardenedClay,
+          '5', Block.obsidian,});
     }
     
     public static void createCircuitRecipes()

@@ -67,9 +67,6 @@ public class MadWeapons
         EntityRegistry.registerModEntity(PulseRifleBulletEntity.class, WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME, itemID, MadScience.instance, 120, 3, true);
         GameRegistry.registerItem(WEAPONITEM_BULLETITEM, WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME);
         MadScience.proxy.registerRenderingHandler(itemID);
-        
-        // TODO: Recipe for Pulse Rifle bullet.
-        
     }
 
     public static void createPulseRifleGrenade(int itemID)
@@ -79,10 +76,7 @@ public class MadWeapons
         WEAPONITEM_GRENADEITEM = (PulseRifleGrenadeItem) new PulseRifleGrenadeItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME);
         EntityRegistry.registerModEntity(PulseRifleGrenadeEntity.class, WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME, itemID, MadScience.instance, 120, 3, true);
         GameRegistry.registerItem(WEAPONITEM_GRENADEITEM, WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME);
-        MadScience.proxy.registerRenderingHandler(itemID);
-        
-        // TODO: Recipe for Pulse Rifle grenade.
-        
+        MadScience.proxy.registerRenderingHandler(itemID);        
     }
 
     public static void createPulseRifleMagazine(int itemID)
@@ -93,8 +87,5 @@ public class MadWeapons
         GameRegistry.registerItem(WEAPONITEM_MAGAZINEITEM, WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME);
         GameRegistry.registerCraftingHandler(new PulseRifleMagazineCraftingHandler());
         MadScience.proxy.registerRenderingHandler(itemID);
-        
-        // TODO: Recipe for Pulse Rifle magazine.
-        
     }
 }

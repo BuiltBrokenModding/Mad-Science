@@ -249,6 +249,8 @@ public class MadScience
         MadComponents.createComponentPulseRifleBoltItem(MadConfig.COMPONENT_PULSERIFLEBOLT);
         MadComponents.createComponentPulseRifleReceiverItem(MadConfig.COMPONENT_PULSERIFLERECEIVER);
         MadComponents.createComponentPulseRifleTriggerItem(MadConfig.COMPONENT_PULSERIFLETRIGGER);
+        MadComponents.createComponentPulseRifleBulletCasingItem(MadConfig.COMPONENT_PULSERIFLEBULLETCASING);
+        MadComponents.createComponentPulseRifleGrenadeCasingItem(MadConfig.COMPONENT_PULSERIFLEGRENADECASING);
 
         // --------
         // CIRCUITS
@@ -343,6 +345,16 @@ public class MadScience
         MadGenomes.createBatGenome(MadConfig.GENOME_BAT);
         MadGenomes.createSlimeGenome(MadConfig.GENOME_SLIME);
         MadGenomes.createPigZombieGenome(MadConfig.GENOME_PIGZOMBIE);
+        
+        // -------
+        // WEAPONS
+        // -------
+        logger.info("Creating Weapons");
+
+        MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
+        MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
+        MadWeapons.createPulseRifleGrenade(MadConfig.WEAPON_PULSERIFLE_GRENADEITEM);
+        MadWeapons.createPulseRifleMagazine(MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM);
 
         // -------------
         // TILE ENTITIES
@@ -376,16 +388,6 @@ public class MadScience
         MadEntities.createGeneticallyModifiedMonsterPlacer(MadConfig.GENETICALLYMODIFIED_MONSTERPLACER);
         MadEntities.createCombinedGenomeMonsterPlacer(MadConfig.COMBINEDGENOME_MONSTERPLACER);
         MadEntities.createCombinedMemoryMonsterPlacer(MadConfig.COMBINEDMEMORY_MONSTERPLACER);
-
-        // -------
-        // WEAPONS
-        // -------
-        logger.info("Creating Weapons");
-
-        MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
-        MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
-        MadWeapons.createPulseRifleGrenade(MadConfig.WEAPON_PULSERIFLE_GRENADEITEM);
-        MadWeapons.createPulseRifleMagazine(MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM);
 
         // -------
         // RECIPES

@@ -32,6 +32,7 @@ public class MadEntities
     // Combined Genome Data Reels
     public static void createCombinedGenomeMonsterPlacer(int itemID)
     {
+        MadScience.logger.info("-Combined Genome Metaitem");
         COMBINEDGENOME_MONSTERPLACER = new CombinedGenomeMonsterPlacer(itemID);
         COMBINEDGENOME_MONSTERPLACER.setUnlocalizedName(COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
         COMBINEDGENOME_MONSTERPLACER.setTextureName(MadScience.ID + ":" + COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
@@ -43,6 +44,7 @@ public class MadEntities
     public static void createCombinedMemoryMonsterPlacer(int itemID)
     {
         // For storing memories of various villages based on their professions.
+        MadScience.logger.info("-Combined Memory Metaitem");
         COMBINEDMEMORY_MONSTERPLACER = new CombinedMemoryMonsterPlacer(itemID);
         COMBINEDMEMORY_MONSTERPLACER.setUnlocalizedName(COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
         COMBINEDMEMORY_MONSTERPLACER.setTextureName(MadScience.ID + ":" + COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
@@ -72,6 +74,7 @@ public class MadEntities
     public static void createEmptyDataReel(int itemID)
     {
         // Empty Genome Data Reel
+        MadScience.logger.info("-Empty Data Reel");
         DATAREEL_EMPTY = (ItemDataReelEmpty) new ItemDataReelEmpty(itemID, 3515848, 3515848).setUnlocalizedName(DATAREEL_EMPTY_INTERNALNAME);
         GameRegistry.registerItem(DATAREEL_EMPTY, DATAREEL_EMPTY_INTERNALNAME);
 
@@ -88,6 +91,7 @@ public class MadEntities
     // Genetically Modified Mob Eggs
     public static void createGeneticallyModifiedMonsterPlacer(int itemID)
     {
+        MadScience.logger.info("-Genetically Modified Organism Placer");
         GENETICALLYMODIFIED_MONSTERPLACER = new GeneticallyModifiedMonsterPlacer(itemID);
         GENETICALLYMODIFIED_MONSTERPLACER.setUnlocalizedName(GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setTextureName(MadScience.ID + ":" + GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
