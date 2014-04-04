@@ -143,11 +143,12 @@ public class ClientProxy extends CommonProxy
         }
         else
         {
+            // Normal minecraft particle system ignores velocity completely.
             clientWorld.spawnParticle(fxName, 
             posX,
             posY,
             posZ
-            ,velX ,velY, velZ);
+            ,0.0D ,0.0D, 0.0D);
         }
     }
 

@@ -570,8 +570,18 @@ public class MadFurnaces
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
         
-        // TODO: Recipe for Magazine Loader.
-        
+        // Recipe for Magazine Loader.
+        GameRegistry.addRecipe(new ItemStack(MAGLOADER_TILEENTITY, 1), new Object[]
+        { " 1 ", 
+          " 2 ", 
+          "435",
+
+          '1', new ItemStack(Block.hopperBlock, 1, 0),
+          '2', new ItemStack(Block.pistonBase, 1, 0),
+          '3', new ItemStack(Block.dispenser, 1, 0),
+          '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY, 1, 0),
+          '5', new ItemStack(MadCircuits.CIRCUIT_COMPARATOR, 1, 0)
+        });
     }
 
     public static void createMagLoaderGhostTileEntity(int blockID)

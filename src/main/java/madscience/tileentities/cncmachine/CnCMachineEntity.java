@@ -1024,8 +1024,9 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
                     this.clientSound_PressStop = true;
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_PRESSSTOP, 1.0F, 1.0F);
                     
-                    // TODO: Spawn smoke particles to simulate the block being heated from all the pressure.
-                    
+                    // Spawn smoke particles to simulate the block being heated from all the pressure.
+                    PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.666D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
+                            worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
                 }
             }
             

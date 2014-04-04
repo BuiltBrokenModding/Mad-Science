@@ -25,9 +25,9 @@ public class CnCMachineRecipes
         String binaryASCII = MadUtils.AsciiToBinary(trimmedInput);
 
         // Debuggin'
-        MadScience.logger.info("ASCII:" + trimmedInput);
-        MadScience.logger.info("BINARY:" + binaryASCII);
-        MadScience.logger.info("DECODED:" + MadUtils.BinaryToAscii(binaryASCII));
+        //MadScience.logger.info("ASCII:" + trimmedInput);
+        //MadScience.logger.info("BINARY:" + binaryASCII);
+        //MadScience.logger.info("DECODED:" + MadUtils.BinaryToAscii(binaryASCII));
 
         // Add the recipes that convert binary strings into item stacks.
         CnCMachineRecipes.weaponSchematicsPerCode.put(String.valueOf(binaryASCII), smeltingResult);

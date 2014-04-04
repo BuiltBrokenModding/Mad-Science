@@ -237,5 +237,7 @@ public class MadRecipes
           "111",
 
         '1', new ItemStack(MadComponents.COMPONENT_ENDERSLIME),});
+        
+        
     }
 }
