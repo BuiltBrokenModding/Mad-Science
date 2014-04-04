@@ -50,12 +50,12 @@ public class PulseRifleGrenadeItemRender implements IItemRenderer
         {
         case EQUIPPED:
         {
-            float scale = 0.20F;
+            float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(3.0F, -1.0F, 2.0F);
-            GL11.glRotatef(-60.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(42.0F, 0.0F, 0.0F, 1.0F);
-            GL11.glRotatef(22.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glTranslatef(5.0F, 1.0F, -2.0F);
+            GL11.glTranslatef(-3.0F, 0.0F, 3.0F);
+            GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
             break;

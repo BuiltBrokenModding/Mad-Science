@@ -172,6 +172,12 @@ item.componentPulseRifleReciever.tooltip=Part of the Pulse Rifle that houses the
 item.componentPulseRifleTrigger.name=M41A Trigger Component
 item.componentPulseRifleTrigger.tooltip=Actuates the firing sequence of the Pulse Rifle.
 
+item.componentPulseRifleBulletCasing.name=M41A Empty Bullet
+item.componentPulseRifleBulletCasing.tooltip=An empty bullet casing that needs to be filled to become a finished round for the Pulse Rifle.
+
+item.componentPulseRifleGrenadeCasing.name=M41A Empty Grenade
+item.componentPulseRifleGrenadeCasing.tooltip=An empty grenade casing that needs to be filled to become a finished grenade for the Pulse Rifle.
+
 item.circuitComparator.name=Comparator Circuit Component
 item.circuitComparator.tooltip=Enables electronic devices to compare items to other items.
 

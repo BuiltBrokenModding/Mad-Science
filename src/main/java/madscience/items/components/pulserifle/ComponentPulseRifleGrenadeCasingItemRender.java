@@ -1,5 +1,6 @@
-package madscience.items.weapons.pulseriflebullet;
+package madscience.items.components.pulserifle;
 
+import madscience.MadComponents;
 import madscience.MadScience;
 import madscience.MadWeapons;
 import madscience.util.MadTechneModel;
@@ -11,15 +12,15 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
-public class PulseRifleBulletItemRender implements IItemRenderer
+public class ComponentPulseRifleGrenadeCasingItemRender implements IItemRenderer
 {
     private enum TransformationTypes
     {
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".mad");
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".png");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + "weaponComponents/" + MadComponents.COMPONENT_PULSERIFLEGRENADECASING_INTERNALNAME + ".mad");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/weaponComponents/" + MadComponents.COMPONENT_PULSERIFLEGRENADECASING_INTERNALNAME + ".png");
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)
@@ -64,7 +65,7 @@ public class PulseRifleBulletItemRender implements IItemRenderer
         {
             float scale = 1.0F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(-1.0F, 0.7F, -0.5F);
+            GL11.glTranslatef(-1.0F, 0.9F, -0.5F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(270.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
@@ -72,9 +73,9 @@ public class PulseRifleBulletItemRender implements IItemRenderer
         }
         case INVENTORY:
         {
-            float scale = 1.8F;
+            float scale = 1.2F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(-0.45F, -1.4F, 0.0F);
+            GL11.glTranslatef(-0.8F, -1.6F, 0.0F);
             GL11.glRotatef(-180.0F, 0.0F, 1.0F, 0.0F);
             transformationToBeUndone = TransformationTypes.INVENTORY;
             break;
