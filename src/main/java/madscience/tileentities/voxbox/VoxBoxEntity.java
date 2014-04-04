@@ -354,6 +354,20 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
                     MadScience.logger.info("VoxBox: STARTING PHRASE INTERPRETOR");
                     String bookContents = MadUtils.getWrittenBookContents(voxboxInput[0].stackTagCompound);
                     
+                    // Check if the string is null.
+                    if (bookContents == null)
+                    {
+                        this.resetVOX();
+                        return;
+                    }
+                    
+                    // Check if the string is empty.
+                    if (bookContents.isEmpty())
+                    {
+                        this.resetVOX();
+                        return;
+                    }
+                    
                     // Breakup the books contents based on word.
                     List<String> splitBookContents = MadUtils.splitStringPerWord(bookContents, 1);
                     
@@ -389,6 +403,13 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
                     talkTimeMaximum = Math.round(estimatedTotalTalkTime) * MadScience.SECOND_IN_TICKS;
                     //MadScience.logger.info("VoxBox: Prepared talk timeline with " + talkTimeline.size() + " entries and total length of " + String.valueOf(talkTimeMaximum) + " ticks.");
                     
+                    // Determine if talk time is greater than zero.
+                    if (talkTimeMaximum <= 0)
+                    {
+                        this.resetVOX();
+                        return;
+                    }
+                    
                     // Setup length of talk timeline in packet terms.
                     lastWordIndex = 0;
                     lastWordMaximum = talkTimeline.size();
@@ -406,7 +427,11 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
                 this.consumeEnergy(MadConfig.VOXBOX_CONSUME);
                 
                 // Start saying each line of the file based on proper time index and tick time.
-                int talkTimeIndex = (talkTime * lastWordMaximum) / talkTimeMaximum;
+                int talkTimeIndex = 0;
+                if (talkTimeMaximum > 0 && lastWordMaximum > 0)
+                {
+                    talkTimeIndex = (talkTime * lastWordMaximum) / talkTimeMaximum;
+                }
                 
                 // First word so special circumstances are needed.
                 if (talkTimeIndex <= 0 && talkTime == 1)
