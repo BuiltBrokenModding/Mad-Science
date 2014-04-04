@@ -619,9 +619,10 @@ public class MadFurnaces
         });
         
         // Machine recipes for converting iron blocks into weapon parts from binary code in written book.
-        CnCMachineRecipes.addSmeltingResult("case", new ItemStack(MadComponents.COMPONENT_CASE), 0.42F);
-        CnCMachineRecipes.addSmeltingResult("cpu", new ItemStack(MadComponents.COMPONENT_CPU), 0.42F);
-        CnCMachineRecipes.addSmeltingResult("ram", new ItemStack(MadComponents.COMPONENT_RAM), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("barrel", new ItemStack(MadComponents.COMPONENT_PULSERIFLEBARREL), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("bolt", new ItemStack(MadComponents.COMPONENT_PULSERIFLEBOLT), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("reciever", new ItemStack(MadComponents.COMPONENT_PULSERIFLERECIEVER), 0.42F);
+        CnCMachineRecipes.addSmeltingResult("trigger", new ItemStack(MadComponents.COMPONENT_PULSERIFLETRIGGER), 0.42F);
     }
 
     public static void createCnCMachineGhostTileEntity(int blockID)

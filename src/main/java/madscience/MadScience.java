@@ -245,6 +245,10 @@ public class MadScience
         MadComponents.createComponentComputerItem(MadConfig.COMPONENT_COMPUTER);
         MadComponents.createComponentThumperItem(MadConfig.COMPONENT_THUMPER);
         MadComponents.createComponentEnderslimeItem(MadConfig.COMPONENT_ENDERSLIME);
+        MadComponents.createComponentPulseRifleBarrelItem(MadConfig.COMPONENT_PULSERIFLEBARREL);
+        MadComponents.createComponentPulseRifleBoltItem(MadConfig.COMPONENT_PULSERIFLEBOLT);
+        MadComponents.createComponentPulseRifleReceiverItem(MadConfig.COMPONENT_PULSERIFLERECEIVER);
+        MadComponents.createComponentPulseRifleTriggerItem(MadConfig.COMPONENT_PULSERIFLETRIGGER);
 
         // --------
         // CIRCUITS

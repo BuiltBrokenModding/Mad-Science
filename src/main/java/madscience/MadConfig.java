@@ -347,6 +347,22 @@ public class MadConfig
     public static @CfgComponents
     int COMPONENT_ENDERSLIME = getNextItemID();
     
+    // Component M41A Barrel
+    public static @CfgComponents
+    int COMPONENT_PULSERIFLEBARREL = getNextItemID();
+    
+    // Component M41A Bolt
+    public static @CfgComponents
+    int COMPONENT_PULSERIFLEBOLT = getNextItemID();
+    
+    // Component M41A Receiver
+    public static @CfgComponents
+    int COMPONENT_PULSERIFLERECEIVER = getNextItemID();
+    
+    // Component M41A Trigger
+    public static @CfgComponents
+    int COMPONENT_PULSERIFLETRIGGER = getNextItemID();
+    
     // -----
     // ITEMS
     // -----

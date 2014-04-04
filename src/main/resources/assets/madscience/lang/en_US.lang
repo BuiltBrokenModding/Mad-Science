@@ -3,6 +3,7 @@
 
 # Creative Tab
 itemGroup.tabMadScience=Mad Science
+noshift.tooltip=Hold SHIFT for more information.
 
 # Tile Entities
 tile.dnaExtractor.name=DNA Extractor
@@ -78,6 +79,7 @@ item.pulseRifleGrenade.tooltip=High Explosive Fragmentation
 
 item.pulseRifleMagazine.name=M41A Pulse Rifle Magazine
 item.pulseRifleMagazine.tooltip=%0/%1 Rounds Remaining
+
 
 # GMO Mobs
 entity.gmoWerewolf.name=Werewolf
@@ -157,6 +159,18 @@ item.componentThumper.tooltip=Thumper is used in the recipe for the Soniclocator
 
 item.componentEnderslime.name=Enderslime
 item.componentEnderslime.tooltip=Used in the creation of a Thumper which then goes into your Soniclocator.
+
+item.componentPulseRifleBarrel.name=M41A Barrel Component
+item.componentPulseRifleBarrel.tooltip=Metal tube through which a controlled explosion is released in order to propel a projectile out of the end at a high velocity.
+
+item.componentPulseRifleBolt.name=M41A Bolt Component
+item.componentPulseRifleBolt.tooltip=Mechanical part of a firearm that blocks the rear of the chamber while the propellant burns, but moves out of the way to allow another cartridge or shell to be inserted in the chamber.
+
+item.componentPulseRifleReciever.name=M41A Reciever Component
+item.componentPulseRifleReciever.tooltip=Part of the Pulse Rifle that houses the operating parts.
+
+item.componentPulseRifleTrigger.name=M41A Trigger Component
+item.componentPulseRifleTrigger.tooltip=Actuates the firing sequence of the Pulse Rifle.
 
 item.circuitComparator.name=Comparator Circuit Component
 item.circuitComparator.tooltip=Enables electronic devices to compare items to other items.

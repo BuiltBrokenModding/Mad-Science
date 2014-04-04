@@ -1,4 +1,4 @@
-package madscience.fluids.dnaMutant;
+package madscience.fluids.dnamutant;
 
 import java.util.List;
 

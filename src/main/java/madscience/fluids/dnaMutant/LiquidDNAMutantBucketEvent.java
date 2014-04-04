@@ -1,4 +1,4 @@
-package madscience.fluids.dnaMutant;
+package madscience.fluids.dnamutant;
 
 import madscience.MadFluids;
 import net.minecraft.item.ItemStack;

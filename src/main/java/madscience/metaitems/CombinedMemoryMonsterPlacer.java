@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.util.MadUtils;
@@ -47,15 +49,22 @@ public class CombinedMemoryMonsterPlacer extends Item
         // Define that we can have normal stack of items.
         this.maxStackSize = 1;
     }
-    
+
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
         String tooltip = StatCollector.translateToLocal(nameFromDamage(par1ItemStack.getItemDamage()) + ".tooltip");
+        String defaultTooltip = StatCollector.translateToLocal("noshift.tooltip");
+        boolean isShiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 
-        if (tooltip != null && tooltip.length() > 0)
+        // Use LWJGL to detect what key is being pressed.
+        if (tooltip != null && tooltip.length() > 0 && isShiftPressed)
         {
             info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
+        else if (defaultTooltip != null && defaultTooltip.length() > 0 && !isShiftPressed)
+        {
+            info.addAll(MadUtils.splitStringPerWord(String.valueOf(defaultTooltip), 10));
         }
     }
 

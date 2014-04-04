@@ -1,12 +1,14 @@
 package madscience.client;
 
+import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.fluids.dna.LiquidDNARender;
-import madscience.fluids.dnaMutant.LiquidDNAMutantRender;
+import madscience.fluids.dnamutant.LiquidDNAMutantRender;
+import madscience.items.components.pulserifle.ComponentPulseRifleBarrelItemRender;
 import madscience.items.weapons.pulserifle.PulseRifleItemRender;
 import madscience.items.weapons.pulserifle.PulseRifleItemRenderPlayer;
 import madscience.items.weapons.pulserifle.PulseRifleItemTickHandler;
@@ -374,6 +376,15 @@ public class ClientProxy extends CommonProxy
         if (blockID == MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM)
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, new PulseRifleMagazineItemRender());
+        }
+        
+        // ----------
+        // COMPONENTS
+        // ----------
+        
+        if (blockID == MadConfig.COMPONENT_PULSERIFLEBARREL)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBARREL.itemID, new ComponentPulseRifleBarrelItemRender());
         }
 
         // ----
