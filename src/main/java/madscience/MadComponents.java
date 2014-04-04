@@ -15,7 +15,7 @@ import madscience.items.components.ComponentThumper;
 import madscience.items.components.ComponentTransistor;
 import madscience.items.components.pulserifle.ComponentPulseRifleBarrel;
 import madscience.items.components.pulserifle.ComponentPulseRifleBolt;
-import madscience.items.components.pulserifle.ComponentPulseRifleReciever;
+import madscience.items.components.pulserifle.ComponentPulseRifleReceiver;
 import madscience.items.components.pulserifle.ComponentPulseRifleTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -86,7 +86,7 @@ public class MadComponents
     public static final String COMPONENT_PULSERIFLEBOLT_INTERNALNAME = "componentPulseRifleBolt";
     
     // M41A Receiver
-    public static ComponentPulseRifleReciever COMPONENT_PULSERIFLERECIEVER;
+    public static ComponentPulseRifleReceiver COMPONENT_PULSERIFLERECIEVER;
     public static final String COMPONENT_PULSERIFLERECIEVER_INTERNALNAME = "componentPulseRifleReciever";
     
     // M41A Trigger
@@ -169,7 +169,6 @@ public class MadComponents
     {
         COMPONENT_ENDERSLIME = (ComponentEnderslime) new ComponentEnderslime(itemID).setUnlocalizedName(COMPONENT_ENDERSLIME_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_ENDERSLIME, COMPONENT_ENDERSLIME_INTERNALNAME);      
-        MadScience.proxy.registerRenderingHandler(itemID);
     }
     
     public static void createComponentPulseRifleBarrelItem(int itemID)
@@ -177,6 +176,7 @@ public class MadComponents
         // M41A Barrel
         COMPONENT_PULSERIFLEBARREL = (ComponentPulseRifleBarrel) new ComponentPulseRifleBarrel(itemID).setUnlocalizedName(COMPONENT_PULSERIFLEBARREL_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLEBARREL, COMPONENT_PULSERIFLEBARREL_INTERNALNAME);
+        MadScience.proxy.registerRenderingHandler(itemID);
     }
 
     public static void createComponentPulseRifleBoltItem(int itemID)
@@ -184,13 +184,15 @@ public class MadComponents
         // M41A  Bolt
         COMPONENT_PULSERIFLEBOLT = (ComponentPulseRifleBolt) new ComponentPulseRifleBolt(itemID).setUnlocalizedName(COMPONENT_PULSERIFLEBOLT_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLEBOLT, COMPONENT_PULSERIFLEBOLT_INTERNALNAME);
+        MadScience.proxy.registerRenderingHandler(itemID);
     }
 
     public static void createComponentPulseRifleReceiverItem(int itemID)
     {
         // M41A Receiver
-        COMPONENT_PULSERIFLERECIEVER = (ComponentPulseRifleReciever) new ComponentPulseRifleReciever(itemID).setUnlocalizedName(COMPONENT_PULSERIFLERECIEVER_INTERNALNAME);
+        COMPONENT_PULSERIFLERECIEVER = (ComponentPulseRifleReceiver) new ComponentPulseRifleReceiver(itemID).setUnlocalizedName(COMPONENT_PULSERIFLERECIEVER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLERECIEVER, COMPONENT_PULSERIFLERECIEVER_INTERNALNAME);
+        MadScience.proxy.registerRenderingHandler(itemID);
     }
 
     public static void createComponentPulseRifleTriggerItem(int itemID)
@@ -198,5 +200,6 @@ public class MadComponents
         // M41A Trigger
         COMPONENT_PULSERIFLETRIGGER = (ComponentPulseRifleTrigger) new ComponentPulseRifleTrigger(itemID).setUnlocalizedName(COMPONENT_PULSERIFLETRIGGER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLETRIGGER, COMPONENT_PULSERIFLETRIGGER_INTERNALNAME);
+        MadScience.proxy.registerRenderingHandler(itemID);
     }
 }

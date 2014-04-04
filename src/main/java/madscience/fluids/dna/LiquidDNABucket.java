@@ -2,6 +2,8 @@ package madscience.fluids.dna;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import madscience.MadEntities;
 import madscience.MadFluids;
 import madscience.MadScience;
@@ -36,11 +38,19 @@ public class LiquidDNABucket extends ItemFluidContainer
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
+        // Only displays tooltip information when SHIFT key is pressed.
         String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+        String defaultTooltip = StatCollector.translateToLocal("noshift.tooltip");
+        boolean isShiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 
-        if (tooltip != null && tooltip.length() > 0)
+        // Use LWJGL to detect what key is being pressed.
+        if (tooltip != null && tooltip.length() > 0 && isShiftPressed)
         {
             info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
+        else if (defaultTooltip != null && defaultTooltip.length() > 0 && !isShiftPressed)
+        {
+            info.addAll(MadUtils.splitStringPerWord(String.valueOf(defaultTooltip), 10));
         }
     }
 

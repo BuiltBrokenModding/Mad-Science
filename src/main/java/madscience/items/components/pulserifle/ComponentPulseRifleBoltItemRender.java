@@ -12,14 +12,14 @@ import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
-public class ComponentPulseRifleBarrelItemRender implements IItemRenderer
+public class ComponentPulseRifleBoltItemRender implements IItemRenderer
 {
     private enum TransformationTypes
     {
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + "weaponComponents/" + MadComponents.COMPONENT_PULSERIFLEBARREL_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + "weaponComponents/" + MadComponents.COMPONENT_PULSERIFLEBOLT_INTERNALNAME + ".mad");
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/weaponComponents/ironRifle.png");
 
     @Override
@@ -64,16 +64,17 @@ public class ComponentPulseRifleBarrelItemRender implements IItemRenderer
         {
             float scale = 0.15F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(8.66F, 9.0F, 3.0F);
+            GL11.glTranslatef(8.66F, 9.0F, 1.5F);
             GL11.glRotatef(142.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
             break;
         }
         case INVENTORY:
         {
-            float scale = 0.45F;
+            float scale = 0.48F;
             GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(1.0F, -0.6F, 0.0F);
+            GL11.glTranslatef(0.42F, 0.5F, 0.0F);
             GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
             GL11.glRotatef(45.0F, 0.5F, 0.0F, 0.0F);
             transformationToBeUndone = TransformationTypes.INVENTORY;

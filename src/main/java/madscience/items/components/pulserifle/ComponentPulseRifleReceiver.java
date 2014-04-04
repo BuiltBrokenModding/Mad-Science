@@ -3,10 +3,10 @@ package madscience.items.components.pulserifle;
 import madscience.items.ItemComponent;
 import net.minecraft.item.Item;
 
-public class ComponentPulseRifleTrigger extends ItemComponent
+public class ComponentPulseRifleReceiver extends ItemComponent
 {
 
-    public ComponentPulseRifleTrigger(int itemID)
+    public ComponentPulseRifleReceiver(int itemID)
     {
         super(itemID);
     }

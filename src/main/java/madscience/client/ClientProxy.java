@@ -9,6 +9,9 @@ import madscience.MadWeapons;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
 import madscience.items.components.pulserifle.ComponentPulseRifleBarrelItemRender;
+import madscience.items.components.pulserifle.ComponentPulseRifleBoltItemRender;
+import madscience.items.components.pulserifle.ComponentPulseRifleReceiverItemRender;
+import madscience.items.components.pulserifle.ComponentPulseRifleTriggerItemRender;
 import madscience.items.weapons.pulserifle.PulseRifleItemRender;
 import madscience.items.weapons.pulserifle.PulseRifleItemRenderPlayer;
 import madscience.items.weapons.pulserifle.PulseRifleItemTickHandler;
@@ -382,9 +385,28 @@ public class ClientProxy extends CommonProxy
         // COMPONENTS
         // ----------
         
+        // Component Pulse Rifle Barrel
         if (blockID == MadConfig.COMPONENT_PULSERIFLEBARREL)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBARREL.itemID, new ComponentPulseRifleBarrelItemRender());
+        }
+        
+        // Component Pulse Rifle Bolt
+        if (blockID == MadConfig.COMPONENT_PULSERIFLEBOLT)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBOLT.itemID, new ComponentPulseRifleBoltItemRender());
+        }
+        
+        // Component Pulse Rifle Receiver
+        if (blockID == MadConfig.COMPONENT_PULSERIFLERECEIVER)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLERECIEVER.itemID, new ComponentPulseRifleReceiverItemRender());
+        }
+        
+        // Component Pulse Rifle Trigger
+        if (blockID == MadConfig.COMPONENT_PULSERIFLETRIGGER)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLETRIGGER.itemID, new ComponentPulseRifleTriggerItemRender());
         }
 
         // ----
