@@ -351,7 +351,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
                 if (voxboxInput[0] != null && voxboxInput[0].stackTagCompound != null)
                 {
                     // Read the book in the slot and parse it.
-                    MadScience.logger.info("VoxBox: STARTING PHRASE INTERPRETOR");
+                    //MadScience.logger.info("VoxBox: STARTING PHRASE INTERPRETOR");
                     String bookContents = MadUtils.getWrittenBookContents(voxboxInput[0].stackTagCompound);
                     
                     // Check if the string is null.
