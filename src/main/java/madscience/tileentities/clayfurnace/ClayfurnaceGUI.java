@@ -88,8 +88,8 @@ public class ClayfurnaceGUI extends GUIContainerBase
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".
-        String x = I18n.getString("container.inventory");
-        this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+        String containerName = I18n.getString("container.inventory");
+        this.fontRenderer.drawString(containerName, 8, this.ySize - 96 + 2, 4210752);
 
         // Input charcoal block for fuel source.
         if (this.isPointInRegion(62, 50, 18, 18, mouseX, mouseY))
