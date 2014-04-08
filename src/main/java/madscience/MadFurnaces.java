@@ -144,10 +144,10 @@ public class MadFurnaces
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(CRYOFREEZER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOFREEZER_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(CRYOFREEZER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOFREEZER_INTERNALNAME);
 
         // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(CryofreezerEntity.class, CRYOFREEZER_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerTileEntity(CryofreezerEntity.class, CRYOFREEZER_INTERNALNAME);
 
         // Register block handler for custom GUI, this way right clicking will
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -172,7 +172,7 @@ public class MadFurnaces
         // Acts as a collision box for upper two blocks of cryotube.
         MadScience.logger.info("-Cryogenic Tube Ghost Block");
         CRYOTUBEGHOST = new CryotubeBlockGhost(blockID).setUnlocalizedName(CRYOTUBEGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(CRYOTUBEGHOST, MadScience.ID + CRYOTUBEGHOST.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(CRYOTUBEGHOST, MadScience.ID + CRYOTUBEGHOST_INTERNALNAME);
     }
 
     public static void createCryotubeTileEntity(int blockID)
@@ -180,8 +180,8 @@ public class MadFurnaces
         // Converts both a villagers brain activity and body heat into a renewable energy source.
         MadScience.logger.info("-Cryogenic Tube Tile Entity");
         CRYOTUBE_TILEENTITY = (BlockContainer) new CryotubeBlock(blockID).setUnlocalizedName(CRYOTUBE_INTERNALNAME);
-        GameRegistry.registerBlock(CRYOTUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOTUBE_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(CryotubeEntity.class, CRYOTUBE_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(CRYOTUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOTUBE_INTERNALNAME);
+        GameRegistry.registerTileEntity(CryotubeEntity.class, CRYOTUBE_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -237,13 +237,13 @@ public class MadFurnaces
         DNAEXTRACTOR_TILEENTITY = (BlockContainer) new DNAExtractorBlock(blockID).setUnlocalizedName(DNAEXTRACTOR_INTERNALNAME);
 
         // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(DNAExtractorEntity.class, DNAEXTRACTOR_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerTileEntity(DNAExtractorEntity.class, DNAEXTRACTOR_INTERNALNAME);
 
         // Register block handler for custom GUI.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
 
         // Register the block with the world.
-        GameRegistry.registerBlock(DNAEXTRACTOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + DNAEXTRACTOR_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(DNAEXTRACTOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + DNAEXTRACTOR_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
@@ -269,10 +269,10 @@ public class MadFurnaces
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(INCUBATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + INCUBATOR_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(INCUBATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + INCUBATOR_INTERNALNAME);
 
         // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(IncubatorEntity.class, INCUBATOR_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerTileEntity(IncubatorEntity.class, INCUBATOR_INTERNALNAME);
 
         // Register block handler for custom GUI, this way right clicking will
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -303,10 +303,10 @@ public class MadFurnaces
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(SEQUENCER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SEQUENCER_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(SEQUENCER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SEQUENCER_INTERNALNAME);
 
         // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(SequencerEntity.class, SEQUENCER_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerTileEntity(SequencerEntity.class, SEQUENCER_INTERNALNAME);
 
         // Register block handler for custom GUI, this way right clicking will
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -339,10 +339,10 @@ public class MadFurnaces
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(MAINFRAME_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAINFRAME_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(MAINFRAME_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAINFRAME_INTERNALNAME);
 
         // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(MainframeEntity.class, MAINFRAME_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerTileEntity(MainframeEntity.class, MAINFRAME_INTERNALNAME);
 
         // Register block handler for custom GUI, this way right clicking will
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -366,8 +366,8 @@ public class MadFurnaces
         // Disgusting meat cube that spawns chicken, cow and pig meat when hit.
         MadScience.logger.info("-Disgusting Meat Cube Tile Entity");
         MEATCUBE_TILEENTITY = (BlockContainer) new MeatcubeBlock(blockID).setUnlocalizedName(MEATCUBE_INTERNALNAME);
-        GameRegistry.registerBlock(MEATCUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MEATCUBE_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(MeatcubeEntity.class, MEATCUBE_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(MEATCUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MEATCUBE_INTERNALNAME);
+        GameRegistry.registerTileEntity(MeatcubeEntity.class, MEATCUBE_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -397,10 +397,10 @@ public class MadFurnaces
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(SANTITIZER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SANTITIZER_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(SANTITIZER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SANTITIZER_INTERNALNAME);
 
         // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(SanitizerEntity.class, SANTITIZER_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerTileEntity(SanitizerEntity.class, SANTITIZER_INTERNALNAME);
 
         // Register block handler for custom GUI, this way right clicking will
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -428,7 +428,7 @@ public class MadFurnaces
         
         // Acts as a collision box for upper two blocks of Soniclocator device.
         SONICLOCATORGHOST = new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATORGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(SONICLOCATORGHOST, MadScience.ID + SONICLOCATORGHOST.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(SONICLOCATORGHOST, MadScience.ID + SONICLOCATORGHOST_INTERNALNAME);
     }
 
     public static void createSoniclocatorTileEntity(int blockID)
@@ -437,8 +437,8 @@ public class MadFurnaces
         
         // Transposes block types in exchange for others using sonic waves.
         SONICLOCATOR_TILEENTITY = (BlockContainer) new SoniclocatorBlock(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
-        GameRegistry.registerBlock(SONICLOCATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SONICLOCATOR_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(SoniclocatorEntity.class, SONICLOCATOR_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(SONICLOCATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SONICLOCATOR_INTERNALNAME);
+        GameRegistry.registerTileEntity(SoniclocatorEntity.class, SONICLOCATOR_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -466,8 +466,8 @@ public class MadFurnaces
         
         // Creates silicon wafers, transistors, CPU's, and RAM chips.
         THERMOSONIC_TILEENTITY = (BlockContainer) new ThermosonicBonderBlock(blockID).setUnlocalizedName(THERMOSONIC_INTERNALNAME);
-        GameRegistry.registerBlock(THERMOSONIC_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + THERMOSONIC_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(ThermosonicBonderEntity.class, THERMOSONIC_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(THERMOSONIC_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + THERMOSONIC_INTERNALNAME);
+        GameRegistry.registerTileEntity(ThermosonicBonderEntity.class, THERMOSONIC_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -523,8 +523,8 @@ public class MadFurnaces
         
         // A early-game block that can give huge return on investment for ores for clay and fire and time.
         CLAYFURNACE_TILEENTITY = (BlockContainer) new ClayfurnaceBlock(blockID).setUnlocalizedName(CLAYFURNACE_INTERNALNAME);
-        GameRegistry.registerBlock(CLAYFURNACE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CLAYFURNACE_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(ClayfurnaceEntity.class, CLAYFURNACE_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(CLAYFURNACE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CLAYFURNACE_INTERNALNAME);
+        GameRegistry.registerTileEntity(ClayfurnaceEntity.class, CLAYFURNACE_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -554,8 +554,8 @@ public class MadFurnaces
         // Automatic Diagnostic and Announcement System
         // AKA: Black Mesa Announcement System
         VOXBOX_TILEENTITY = (BlockContainer) new VoxBoxBlock(blockID).setUnlocalizedName(VOXBOX_INTERNALNAME);
-        GameRegistry.registerBlock(VOXBOX_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + VOXBOX_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(VoxBoxEntity.class, VOXBOX_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(VOXBOX_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + VOXBOX_INTERNALNAME);
+        GameRegistry.registerTileEntity(VoxBoxEntity.class, VOXBOX_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -584,8 +584,8 @@ public class MadFurnaces
         
         // Loads ammunition into pulse rifle magazine at in-human speeds.
         MAGLOADER_TILEENTITY = (BlockContainer) new MagLoaderBlock(blockID).setUnlocalizedName(MAGLOADER_INTERNALNAME);
-        GameRegistry.registerBlock(MAGLOADER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAGLOADER_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(MagLoaderEntity.class, MAGLOADER_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(MAGLOADER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAGLOADER_INTERNALNAME);
+        GameRegistry.registerTileEntity(MagLoaderEntity.class, MAGLOADER_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -613,7 +613,7 @@ public class MadFurnaces
         
         // Acts as a collision box for upper blocks of Magazine Loader.
         MAGLOADERGHOST = new MagLoaderBlockGhost(blockID).setUnlocalizedName(MAGLOADERGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(MAGLOADERGHOST, MadScience.ID + MAGLOADERGHOST.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(MAGLOADERGHOST, MadScience.ID + MAGLOADERGHOST_INTERNALNAME);
     }
 
     public static void createCnCMachineTileEntity(int blockID)
@@ -622,8 +622,8 @@ public class MadFurnaces
         
         // Cuts out blocks of Iron into shapes for gun parts using binary codes in written books.
         CNCMACHINE_TILEENTITY = (BlockContainer) new CnCMachineBlock(blockID).setUnlocalizedName(CNCMACHINE_INTERNALNAME);
-        GameRegistry.registerBlock(CNCMACHINE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CNCMACHINE_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(CnCMachineEntity.class, CNCMACHINE_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(CNCMACHINE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CNCMACHINE_INTERNALNAME);
+        GameRegistry.registerTileEntity(CnCMachineEntity.class, CNCMACHINE_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
@@ -661,6 +661,6 @@ public class MadFurnaces
         
         // Acts as a collision box for upper blocks of CnC Machine.
         CNCMACHINEGHOST_TILEENTITY = (Block) new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(CNCMACHINEGHOST_TILEENTITY, MadScience.ID + CNCMACHINEGHOST_TILEENTITY.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(CNCMACHINEGHOST_TILEENTITY, MadScience.ID + CNCMACHINEGHOST_INTERNALNAME);
     }
 }
