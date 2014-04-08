@@ -206,8 +206,8 @@ public class MadFurnaces
         // Copies data reels for memories and genomes alike.
         MadScience.logger.info("-Data Reel Duplicator Tile Entity");
         DATADUPLICATOR_TILEENTITY = (BlockContainer) new DataDuplicatorBlock(blockID).setUnlocalizedName(DATADUPLICATOR_INTERNALNAME);
-        GameRegistry.registerBlock(DATADUPLICATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + DATADUPLICATOR_TILEENTITY.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(DataDuplicatorEntity.class, DATADUPLICATOR_TILEENTITY.getUnlocalizedName());
+        GameRegistry.registerBlock(DATADUPLICATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + DATADUPLICATOR_INTERNALNAME);
+        GameRegistry.registerTileEntity(DataDuplicatorEntity.class, DATADUPLICATOR_INTERNALNAME);
 
         // Register custom rendering for this tile entity.
         NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
