@@ -23,6 +23,7 @@ public class PulseRifleMagazineCraftingHandler implements ICraftingHandler
         if (item.itemID == MadWeapons.WEAPONITEM_BULLETITEM.itemID)
         {
             int magazineSlot = 0;
+            boolean shouldGiveEmptyMagazine = false;
             for (int currentSlot = 0; currentSlot < inv.getSizeInventory(); currentSlot++)
             {
                 if (inv.getStackInSlot(currentSlot) != null)
@@ -32,14 +33,20 @@ public class PulseRifleMagazineCraftingHandler implements ICraftingHandler
                     {
                         // Remember what slot was the magazine slot.
                         magazineSlot = currentSlot;
+                        shouldGiveEmptyMagazine = true;
                         break;
                     }
                 }
             }
 
             // Set the slot contents for modified magazine, we have to add 2 because Minecraft eats one by default for recipe.
-            inv.setInventorySlotContents(magazineSlot, new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 2));
-            player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_MAGAZINEUNLOAD, 1.0F, 1.0F);
+            if (shouldGiveEmptyMagazine)
+            {
+                // Only give the empty magazine if we are supposed to.
+                inv.setInventorySlotContents(magazineSlot, new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 2));
+                player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_MAGAZINEUNLOAD, 1.0F, 1.0F);
+            }
+            
             return;
         }
     }
