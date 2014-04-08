@@ -46,9 +46,6 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     /** Path to texture that we would like displayed on this block. */
     public String sequencerTexture = "models/" + MadFurnaces.SEQUENCER_INTERNALNAME + "/idle.png";
 
@@ -245,7 +242,7 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.SEQUENCER_INTERNALNAME;
     }
 
     @SideOnly(Side.CLIENT)
@@ -349,11 +346,10 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
         return null;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -434,17 +430,6 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
 
         // Path to current texture what should be loaded onto the model.
         this.sequencerTexture = nbt.getString("TexturePath");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
@@ -710,10 +695,5 @@ public class SequencerEntity extends MadTileEntity implements ISidedInventory
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

@@ -32,7 +32,7 @@ public class IncubatorBlock extends BlockContainer
 {
     // Is the random generator used by furnace to drop the inventory contents in
     // random directions.
-    private final Random furnaceRand = new Random();
+    private final Random RAND = new Random();
 
     // This flag is used to prevent the furnace inventory to be dropped upon
     // block removal, is used internally when the furnace block changes from
@@ -40,7 +40,7 @@ public class IncubatorBlock extends BlockContainer
     private static boolean keepFurnaceInventory;
 
     // Tile entity associated with our block.
-    private IncubatorEntity lastPlacedTileEntity;
+    private IncubatorEntity ENTITY;
 
     public IncubatorBlock(int id)
     {
@@ -84,13 +84,13 @@ public class IncubatorBlock extends BlockContainer
 
                     if (itemstack != null)
                     {
-                        float f = this.furnaceRand.nextFloat() * 0.8F + 0.1F;
-                        float f1 = this.furnaceRand.nextFloat() * 0.8F + 0.1F;
-                        float f2 = this.furnaceRand.nextFloat() * 0.8F + 0.1F;
+                        float f = this.RAND.nextFloat() * 0.8F + 0.1F;
+                        float f1 = this.RAND.nextFloat() * 0.8F + 0.1F;
+                        float f2 = this.RAND.nextFloat() * 0.8F + 0.1F;
 
                         while (itemstack.stackSize > 0)
                         {
-                            int k1 = this.furnaceRand.nextInt(21) + 10;
+                            int k1 = this.RAND.nextInt(21) + 10;
 
                             if (k1 > itemstack.stackSize)
                             {
@@ -106,9 +106,9 @@ public class IncubatorBlock extends BlockContainer
                             }
 
                             float f3 = 0.05F;
-                            entityitem.motionX = (float) this.furnaceRand.nextGaussian() * f3;
-                            entityitem.motionY = (float) this.furnaceRand.nextGaussian() * f3 + 0.2F;
-                            entityitem.motionZ = (float) this.furnaceRand.nextGaussian() * f3;
+                            entityitem.motionX = (float) this.RAND.nextGaussian() * f3;
+                            entityitem.motionY = (float) this.RAND.nextGaussian() * f3 + 0.2F;
+                            entityitem.motionZ = (float) this.RAND.nextGaussian() * f3;
 
                             par1World.spawnEntityInWorld(entityitem);
                         }
@@ -247,14 +247,9 @@ public class IncubatorBlock extends BlockContainer
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, living, stack);
-        lastPlacedTileEntity = (IncubatorEntity) world.getBlockTileEntity(x, y, z);
+        ENTITY = (IncubatorEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-
-        if (lastPlacedTileEntity != null)
-        {
-            lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());
-        }
     }
 
     // This is the icon to use for showing the block in your hand.

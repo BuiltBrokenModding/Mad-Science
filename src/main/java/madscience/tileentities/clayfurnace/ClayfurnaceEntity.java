@@ -25,7 +25,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     private ItemStack[] clayfurnaceInput = new ItemStack[2];
     public int currentItemCookingMaximum;
     public int currentItemCookingValue;
-    private String containerCustomName;
     public int animationCurrentFrame;
     public String TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png";
     public boolean hasBeenLit = false;
@@ -195,7 +194,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.CLAYFURNACE_INTERNALNAME;
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
@@ -273,11 +272,10 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         return null;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -362,18 +360,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
 
         // Path to current texture what should be loaded onto the model.
         this.TEXTURE = nbt.getString("TexturePath");
-
-        // Custom name that can be given from anvil.
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
@@ -612,10 +598,5 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
 
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

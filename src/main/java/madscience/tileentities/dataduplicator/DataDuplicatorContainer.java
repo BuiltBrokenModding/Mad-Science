@@ -9,12 +9,12 @@ import net.minecraft.item.ItemStack;
 
 public class DataDuplicatorContainer extends Container
 {
-    private DataDuplicatorEntity furnaceEntity;
+    private DataDuplicatorEntity ENTITY;
 
     public DataDuplicatorContainer(InventoryPlayer par1InventoryPlayer, DataDuplicatorEntity par2TileEntityFurnace)
     {
         // Hook the server world entity that is our block.
-        this.furnaceEntity = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
 
         // Input Slot 1 - Completed genome or memory data reel to be copied.
         this.addSlotToContainer(new DataDuplicatorSlotInputFullDataReel(par2TileEntityFurnace, 0, 22, 36));
@@ -45,7 +45,7 @@ public class DataDuplicatorContainer extends Container
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.furnaceEntity.isUseableByPlayer(par1EntityPlayer);
+        return this.ENTITY.isUseableByPlayer(par1EntityPlayer);
     }
 
     /** Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that. */

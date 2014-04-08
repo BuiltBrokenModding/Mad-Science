@@ -214,10 +214,10 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
             break;
         }
 
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.cryotubeTexture != null && !lastPlacedTileEntity.cryotubeTexture.isEmpty())
+        if (lastPlacedTileEntity != null && lastPlacedTileEntity.TEXTURE != null && !lastPlacedTileEntity.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.cryotubeTexture));
+            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.TEXTURE));
         }
         else
         {

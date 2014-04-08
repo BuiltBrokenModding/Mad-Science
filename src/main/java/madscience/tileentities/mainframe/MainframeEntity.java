@@ -59,9 +59,6 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     /** Internal reserve of water */
     protected FluidTank internalWaterTank = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     // Random number generator for creating heat.
     private Random randomNumberGenny = new Random();
 
@@ -495,7 +492,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.MAINFRAME_INTERNALNAME;
     }
 
     @SideOnly(Side.CLIENT)
@@ -693,11 +690,10 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         return this.getHeatAmount() >= this.getMaxHeatAmount();
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -835,17 +831,6 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
 
         // Path to current texture what should be loaded onto the model.
         this.mainframeTexturePath = nbt.getString("TexturePath");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     private void setHeatLevel(int amount)
@@ -1249,10 +1234,5 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

@@ -207,10 +207,10 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
             break;
         }
 
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.dataduplicatorTexture != null && !lastPlacedTileEntity.dataduplicatorTexture.isEmpty())
+        if (lastPlacedTileEntity != null && lastPlacedTileEntity.TEXTURE != null && !lastPlacedTileEntity.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.dataduplicatorTexture));
+            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.TEXTURE));
         }
         else
         {

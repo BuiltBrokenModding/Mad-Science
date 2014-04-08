@@ -40,7 +40,7 @@ public class SoniclocatorBlock extends BlockContainer
     private final Random furnaceRand = new Random();
 
     // Tile entity associated with our block.
-    private SoniclocatorEntity lastPlacedTileEntity;
+    private SoniclocatorEntity ENTITY;
 
     public SoniclocatorBlock(int id)
     {
@@ -311,7 +311,7 @@ public class SoniclocatorBlock extends BlockContainer
     {
         // Called when a player places the object into the world.
         super.onBlockPlacedBy(world, x, y, z, living, stack);
-        lastPlacedTileEntity = (SoniclocatorEntity) world.getBlockTileEntity(x, y, z);
+        ENTITY = (SoniclocatorEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
         
@@ -319,11 +319,6 @@ public class SoniclocatorBlock extends BlockContainer
         if (!world.isRemote)
         {
             SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(x, y, z));
-        }
-       
-        if (lastPlacedTileEntity != null)
-        {
-            lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());
         }
     }
 

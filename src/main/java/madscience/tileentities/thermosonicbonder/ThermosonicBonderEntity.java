@@ -52,9 +52,6 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     /** Texture that should be displayed on our model. */
     public String thermosonicbonderTexture = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
 
@@ -274,7 +271,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.THERMOSONIC_INTERNALNAME;
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
@@ -403,7 +400,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -493,17 +490,6 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
 
         // Path to current texture what should be loaded onto the model.
         this.thermosonicbonderTexture = nbt.getString("TexturePath");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     private void setHeatLevel(int amount)
@@ -778,10 +764,5 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

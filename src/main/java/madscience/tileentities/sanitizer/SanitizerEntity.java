@@ -60,9 +60,6 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     /** Path to texture that we want rendered onto our model. */
     public String sanitizerTexturePath = "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png";
 
@@ -354,7 +351,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.SANTITIZER_INTERNALNAME;
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
@@ -483,11 +480,10 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         return internalWaterTank.getFluid() != null ? (int) (((float) internalWaterTank.getFluid().amount / (float) (MAX_WATER)) * i) : 0;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -584,17 +580,6 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         this.sanitizerTexturePath = nbt.getString("TexturePath");
 
         this.internalWaterTank.setFluid(new FluidStack(FluidRegistry.WATER, nbt.getShort("WaterAmount")));
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
@@ -819,10 +804,5 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

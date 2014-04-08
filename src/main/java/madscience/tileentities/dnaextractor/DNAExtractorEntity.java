@@ -60,9 +60,6 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     /** Path to current texture that should be displayed on our model. */
     public String dnaExtractorTexture = "models/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/idle.png";
 
@@ -241,7 +238,7 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.DNAEXTRACTOR_INTERNALNAME;
     }
 
     private int getItemBurnTime(ItemStack itemstack)
@@ -369,7 +366,7 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -452,11 +449,6 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
 
         // Path to current texture what should be loaded onto the model.
         this.dnaExtractorTexture = nbt.getString("TexturePath");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
     }
 
     private boolean removeMutantDNAFromInternalTank()
@@ -575,12 +567,6 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
         // Default response is to return maximum amount of time a needle can
         // cook for.
         return multipliedDamage;
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
@@ -784,10 +770,5 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
         }
 
         nbt.setTag("Items", nbttaglist);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

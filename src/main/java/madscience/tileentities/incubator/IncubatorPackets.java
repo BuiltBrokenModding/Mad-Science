@@ -89,7 +89,7 @@ public class IncubatorPackets extends MadPackets
             this.incubatorTileEntity.currentHeatMaximum = lastHeatValueMaximum;
 
             // Current texture.
-            this.incubatorTileEntity.incubatorTexture = lastTexture;
+            this.incubatorTileEntity.TEXTURE = lastTexture;
         }
         else
         {

@@ -31,8 +31,6 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     { 1 };
     private static final int[] slots_top = new int[]
     { 0 };
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
 
     private ItemStack[] cryotubeInput = new ItemStack[3];
 
@@ -40,7 +38,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     private ItemStack[] cryotubeOutput = new ItemStack[2];
 
     /** Path to texture that we would like displayed on this block. */
-    public String cryotubeTexture = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
+    public String TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
 
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
@@ -375,7 +373,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.CRYOTUBE_INTERNALNAME;
     }
 
     public int getMaxHealth()
@@ -540,11 +538,10 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         return (int) (((float) subjectCurrentHealth * prgPixels) / subjectMaximumHealth);
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -643,17 +640,9 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         this.curFrame = nbt.getInteger("CurrentFrame");
 
         // Path to current texture what should be loaded onto the model.
-        this.cryotubeTexture = nbt.getString("TexturePath");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
+        this.TEXTURE = nbt.getString("TexturePath");
     }
-
-    /**
-     * 
-     */
+    
     private void resetCryotube()
     {
         // Change out state to officially being deceased.
@@ -669,13 +658,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         this.subjectMaximumHealth = 100;
         this.subjectCurrentHealth = 0;
     }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
-    }
-
+    
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
     @Override
     public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
@@ -718,7 +701,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         if (!isRedstonePowered())
         {
             // Cryotube is disabled and offline.
-            cryotubeTexture = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
+            TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
             return;
         }
 
@@ -728,7 +711,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
             if (curFrame <= 1 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                cryotubeTexture = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/dead_" + curFrame + ".png";
+                TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/dead_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -747,7 +730,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
             if (curFrame <= 6 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                cryotubeTexture = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/alive_" + curFrame + ".png";
+                TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/alive_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -763,7 +746,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         if (!canSmelt() && isRedstonePowered())
         {
             // Cryotube is powered but has no items inside of it.
-            cryotubeTexture = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/on.png";
+            TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/on.png";
             return;
         }
     }
@@ -965,7 +948,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
 
             // We always mark the block for an update along with the other items in the world.
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new CryotubePackets(this.xCoord, this.yCoord, this.zCoord, hatchTimeCurrentValue, hatchTimeMaximum,
-                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), subjectCurrentHealth, subjectMaximumHealth, neuralActivityValue, neuralActivityMaximum, this.cryotubeTexture).makePacket());
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), subjectCurrentHealth, subjectMaximumHealth, neuralActivityValue, neuralActivityMaximum, this.TEXTURE).makePacket());
         }
 
         if (inventoriesChanged)
@@ -1033,7 +1016,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         nbt.setInteger("CurrentFrame", this.curFrame);
 
         // Path to current texture that should be loaded onto the model.
-        nbt.setString("TexturePath", this.cryotubeTexture);
+        nbt.setString("TexturePath", this.TEXTURE);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();
@@ -1066,10 +1049,5 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

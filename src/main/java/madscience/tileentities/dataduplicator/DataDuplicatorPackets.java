@@ -77,7 +77,7 @@ public class DataDuplicatorPackets extends MadPackets
             this.dataDuplicatorTileEntity.setEnergyCapacity(lastEnergyMaximum);
 
             // Texture.
-            this.dataDuplicatorTileEntity.dataduplicatorTexture = lastTexture;
+            this.dataDuplicatorTileEntity.TEXTURE = lastTexture;
         }
         else
         {

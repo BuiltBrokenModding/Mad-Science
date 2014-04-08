@@ -103,7 +103,7 @@ public class CryotubePackets extends MadPackets
             this.cryoTubeTileEntity.neuralActivityMaximum = lastSubjectNeuralActivityMax;
 
             // Tile entity texture.
-            this.cryoTubeTileEntity.cryotubeTexture = lastTexture;
+            this.cryoTubeTileEntity.TEXTURE = lastTexture;
         }
         else
         {

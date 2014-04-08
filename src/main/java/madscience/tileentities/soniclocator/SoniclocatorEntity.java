@@ -45,9 +45,6 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     /** Random number generator used to spit out food stuffs. */
     public Random animRand = new Random();
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     /** Server only variable that determines if we are in cooldown mode */
     public boolean cooldownMode = false;
 
@@ -314,7 +311,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.SONICLOCATOR_INTERNALNAME;
     }
 
     public float getMaxHeatAmount()
@@ -433,11 +430,10 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         return false;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -633,23 +629,11 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // Path to current texture what should be loaded onto the model.
         this.soniclocatorTexture = nbt.getString("TexturePath");
 
-        // Custom name from anvil.
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-
         // Number of targets known.
         this.lastKnownNumberOfTargets = nbt.getLong("lastKnownNumberOfTargets");
 
         // Total number of thumps we have performed.
         this.lastKnownNumberOfTotalThumps = nbt.getLong("lastKnownNumberOfTotalThumps");
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     private void setHeatLevel(int amount)
@@ -1042,10 +1026,5 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

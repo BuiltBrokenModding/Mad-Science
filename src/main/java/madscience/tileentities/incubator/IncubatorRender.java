@@ -208,9 +208,9 @@ public class IncubatorRender extends TileEntitySpecialRenderer implements ISimpl
         }
 
         // Apply our custom texture from asset directory.
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.incubatorTexture != null && !lastPlacedTileEntity.incubatorTexture.isEmpty())
+        if (lastPlacedTileEntity != null && lastPlacedTileEntity.TEXTURE != null && !lastPlacedTileEntity.TEXTURE.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.incubatorTexture));
+            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.TEXTURE));
         }
         else
         {

@@ -33,9 +33,6 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
     /** Random number generator used to spit out food stuffs. */
     public Random animRand = new Random();
-
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
     
     /** Amount of time we will keep talking once activated. */
     private int talkTime;
@@ -165,7 +162,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.VOXBOX_INTERNALNAME;
     }
 
     @Override
@@ -213,7 +210,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -274,17 +271,6 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
         // Path to current texture what should be loaded onto the model.
         this.TEXTURE = nbt.getString("TexturePath");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
@@ -581,11 +567,6 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 
     @SideOnly(Side.CLIENT)

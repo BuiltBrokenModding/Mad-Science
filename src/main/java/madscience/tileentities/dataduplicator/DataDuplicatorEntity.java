@@ -49,11 +49,8 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     /** Path to texture that we would like displayed on this block. */
-    public String dataduplicatorTexture = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
+    public String TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
 
     public DataDuplicatorEntity()
     {
@@ -209,7 +206,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.DATADUPLICATOR_INTERNALNAME;
     }
 
     @SideOnly(Side.CLIENT)
@@ -312,11 +309,10 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         return null;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -432,18 +428,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         this.curFrame = nbt.getInteger("CurrentFrame");
 
         // Path to current texture what should be loaded onto the model.
-        this.dataduplicatorTexture = nbt.getString("TexturePath");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
+        this.TEXTURE = nbt.getString("TexturePath");
     }
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
@@ -546,7 +531,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
             if (curFrame <= 9 && worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                dataduplicatorTexture = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/work_" + curFrame + ".png";
+                TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/work_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -560,12 +545,12 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         else if (isPowered() && !canSmelt())
         {
             // Idle state single texture.
-            dataduplicatorTexture = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/idle.png";
+            TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/idle.png";
         }
         else
         {
             // We are not powered or working.
-            dataduplicatorTexture = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
+            TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
         }
     }
 
@@ -630,7 +615,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
             }
 
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new DataDuplicatorPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
-                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.dataduplicatorTexture).makePacket());
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.TEXTURE).makePacket());
         }
 
         if (inventoriesChanged)
@@ -671,7 +656,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         nbt.setInteger("CurrentFrame", this.curFrame);
 
         // Path to current texture that should be loaded onto the model.
-        nbt.setString("TexturePath", this.dataduplicatorTexture);
+        nbt.setString("TexturePath", this.TEXTURE);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();
@@ -704,10 +689,5 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

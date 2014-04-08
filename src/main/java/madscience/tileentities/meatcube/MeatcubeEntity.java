@@ -54,9 +54,6 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
     /** Internal reserve of water */
     protected FluidTank internalLiquidDNAMutantTank = new FluidTank(MadFluids.LIQUIDDNA_MUTANT, 0, MAX_MUTANTDNA);
 
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
-
     /** Last amount of ticks waited before playing an animation. */
     public long lastAnimTriggerTime = 42L;
 
@@ -332,7 +329,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.MEATCUBE_INTERNALNAME;
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
@@ -429,11 +426,10 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         return internalLiquidDNAMutantTank.getFluid() != null ? (int) (((float) internalLiquidDNAMutantTank.getFluid().amount / (float) (MAX_MUTANTDNA)) * i) : 0;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -538,18 +534,6 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
 
         // Path to current texture what should be loaded onto the model.
         this.meatcubeTexturePath = nbt.getString("TexturePath");
-
-        // Custom name that can be given from anvil.
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
@@ -768,10 +752,5 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

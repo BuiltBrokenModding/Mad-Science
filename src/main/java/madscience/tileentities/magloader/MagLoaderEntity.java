@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import madscience.MadConfig;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadWeapons;
 import madscience.tileentities.prefab.MadTileEntity;
@@ -38,9 +39,6 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
     // Holds all of the slots for the freezer on the server.
     public MagLoaderContainer CONTAINER;
-
-    /** Name to display on inventory screen. */
-    private String containerCustomName;
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
     public int currentItemCookingMaximum;
@@ -198,7 +196,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.containerCustomName : "container.furnace";
+        return MadFurnaces.MAGLOADER_INTERNALNAME;
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
@@ -322,11 +320,10 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         return null;
     }
 
-    /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.containerCustomName != null && this.containerCustomName.length() > 0;
+        return true;
     }
 
     /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
@@ -443,17 +440,6 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
         // Determines if the sound of a magazine stack being inserted into the machine has been played or not.
         this.hasPlayedMagazineInsertSound = nbt.getBoolean("hasPlayedMagazineInsertSound");
-
-        if (nbt.hasKey("CustomName"))
-        {
-            this.containerCustomName = nbt.getString("CustomName");
-        }
-    }
-
-    /** Sets the custom display name to use when opening a GUI linked to this tile entity. */
-    public void setGuiDisplayName(String par1Str)
-    {
-        this.containerCustomName = par1Str;
     }
 
     // This sets the slots contents, it has 2 params
@@ -779,10 +765,5 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
         nbt.setTag("StorageItems", storageItems);
-
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.containerCustomName);
-        }
     }
 }

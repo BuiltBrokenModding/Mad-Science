@@ -46,9 +46,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] CnCMachineOutput = new ItemStack[2];
 
-    /** Name to display on inventory screen. */
-    private String CONTAINER_NAME;
-
     /** Current frame of animation we should use to display in world. */
     public int curFrame;
 
@@ -361,11 +358,10 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return 64;
     }
 
-    /** Returns the name of the inventory. */
     @Override
     public String getInvName()
     {
-        return this.isInvNameLocalized() ? this.CONTAINER_NAME : "container.furnace";
+        return MadFurnaces.CNCMACHINE_INTERNALNAME;
     }
 
     public int getItemCookTimeScaled(int prgPixels)
@@ -607,7 +603,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     @Override
     public boolean isInvNameLocalized()
     {
-        return this.CONTAINER_NAME != null && this.CONTAINER_NAME.length() > 0;
+        return true;
     }
 
     @Override
@@ -721,18 +717,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         this.clientSound_InvalidBook = nbt.getBoolean("InvalidBook");
         this.clientSound_PowerOn = nbt.getBoolean("PowerOn");
         this.clientSound_PressStop = nbt.getBoolean("PressStop");
-
-        // Custom name given to item (such as from Anvil).
-        if (nbt.hasKey("CustomName"))
-        {
-            this.CONTAINER_NAME = nbt.getString("CustomName");
-        }
-    }
-
-    public void setGuiDisplayName(String par1Str)
-    {
-        // Uses custom display name if one exists.
-        this.CONTAINER_NAME = par1Str;
     }
 
     @Override
@@ -1116,11 +1100,5 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
-
-        // Custom name from anvil or other source.
-        if (this.isInvNameLocalized())
-        {
-            nbt.setString("CustomName", this.CONTAINER_NAME);
-        }
     }
 }

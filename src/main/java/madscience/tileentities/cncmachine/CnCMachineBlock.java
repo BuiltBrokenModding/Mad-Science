@@ -267,11 +267,6 @@ public class CnCMachineBlock extends BlockContainer
         ENTITY = (CnCMachineEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-
-        if (ENTITY != null)
-        {
-            ENTITY.setGuiDisplayName(stack.getDisplayName());
-        }
     }
 
     // This is the icon to use for showing the block in your hand.
