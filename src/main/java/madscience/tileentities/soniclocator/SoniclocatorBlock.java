@@ -321,7 +321,7 @@ public class SoniclocatorBlock extends BlockContainer
             SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(x, y, z));
         }
        
-        if (stack.hasDisplayName() && lastPlacedTileEntity != null)
+        if (lastPlacedTileEntity != null)
         {
             lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());
         }

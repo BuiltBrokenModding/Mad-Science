@@ -249,7 +249,7 @@ public class DNAExtractorBlock extends BlockContainer
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
 
-        if (stack.hasDisplayName() && lastPlacedTileEntity != null)
+        if (lastPlacedTileEntity != null)
         {
             lastPlacedTileEntity.setGuiDisplayName(stack.getDisplayName());
         }

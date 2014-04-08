@@ -265,7 +265,7 @@ public class MagLoaderBlock extends BlockContainer
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
 
-        if (stack.hasDisplayName() && ENTITY != null)
+        if (ENTITY != null)
         {
             ENTITY.setGuiDisplayName(stack.getDisplayName());
         }
