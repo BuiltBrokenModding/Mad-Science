@@ -8,6 +8,7 @@ import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.MadScience;
+import madscience.items.ItemDecayNeedle;
 import madscience.items.needles.NeedleMutant;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -587,35 +588,39 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
         ItemStack itemOutputSlot1 = new ItemStack(MadNeedles.NEEDLE_DIRTY);
 
         // Output 2 - Extracted DNA sample from needle.
-        ItemStack itemOutputSlot2 = DNAExtractorRecipes.getSmeltingResult(this.furnaceItemStacks[0]);
+        ItemStack extractedDNASample = DNAExtractorRecipes.getSmeltingResult(this.furnaceItemStacks[0]);
 
         // Check if we are a mutant DNA needle.
-        if (itemOutputSlot2 == null && this.furnaceItemStacks[0].getItem() instanceof NeedleMutant)
+        if (extractedDNASample == null && this.furnaceItemStacks[0].getItem() instanceof NeedleMutant)
         {
             // Add a bucket's worth of water into the internal tank.
             internalLiquidDNAMutantTank.fill(new FluidStack(MadFluids.LIQUIDDNA_MUTANT, FluidContainerRegistry.BUCKET_VOLUME), true);
         }
-        else if (itemOutputSlot2 != null)
+        else if (extractedDNASample != null)
         {
             // Add extracted DNA sample output slot 2 on GUI.
             if (this.furnaceItemStacks[3] == null)
             {
-                this.furnaceItemStacks[3] = itemOutputSlot2.copy();
+                this.furnaceItemStacks[3] = extractedDNASample.copy();
             }
-            else if (this.furnaceItemStacks[3].isItemEqual(itemOutputSlot2))
+            else if (this.furnaceItemStacks[3].isItemEqual(extractedDNASample))
             {
-                furnaceItemStacks[3].stackSize += itemOutputSlot2.stackSize;
+                furnaceItemStacks[3].stackSize += extractedDNASample.stackSize;
             }
         }
 
-        // Add dirty needle to output slot 1 on GUI.
-        if (this.furnaceItemStacks[2] == null)
+        // Check if we are working with a filled needle or not.
+        if (this.furnaceItemStacks[0].getItem() instanceof ItemDecayNeedle)
         {
-            this.furnaceItemStacks[2] = itemOutputSlot1.copy();
-        }
-        else if (this.furnaceItemStacks[2].isItemEqual(itemOutputSlot1))
-        {
-            furnaceItemStacks[2].stackSize += itemOutputSlot1.stackSize;
+            // Add dirty needle to output slot 1 on GUI.
+            if (this.furnaceItemStacks[2] == null)
+            {
+                this.furnaceItemStacks[2] = itemOutputSlot1.copy();
+            }
+            else if (this.furnaceItemStacks[2].isItemEqual(itemOutputSlot1))
+            {
+                furnaceItemStacks[2].stackSize += itemOutputSlot1.stackSize;
+            }
         }
 
         // Remove one of the input items from the GUI.
