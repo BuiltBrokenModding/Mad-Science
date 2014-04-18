@@ -127,7 +127,7 @@ public class ItemDecay extends Item
             stack.setItemDamage(dmg + 1);
 
             // Debugging message.
-            MadScience.logger.info("WORLD(" + this.getUnlocalizedName() + "): " + stack.getItemDamage());
+            //MadScience.logger.info("WORLD(" + this.getUnlocalizedName() + "): " + stack.getItemDamage());
             return false;
         }
 
@@ -180,12 +180,12 @@ public class ItemDecay extends Item
             stack.setItemDamage(dmg + 1);
 
             // Debugging message.
-            MadScience.logger.info("PLAYER(" + this.getUnlocalizedName() + "): " + stack.getItemDamage());
+            //MadScience.logger.info("PLAYER(" + this.getUnlocalizedName() + "): " + stack.getItemDamage());
         }
     }
 
     public void replaceItemStack(ItemStack stack, Entity entity)
     {
-        MadScience.logger.info(this.getUnlocalizedName() + " have expired!");
+        //MadScience.logger.info(this.getUnlocalizedName() + " have expired!");
     }
 }
