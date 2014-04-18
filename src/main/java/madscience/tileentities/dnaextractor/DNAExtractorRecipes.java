@@ -60,7 +60,7 @@ public class DNAExtractorRecipes
     }
 
     /** A metadata sensitive version of adding a furnace recipe. */
-    public void addSmelting(int itemID, int metadata, ItemStack itemstack, float experience)
+    public static void addSmelting(int itemID, int metadata, ItemStack itemstack, float experience)
     {
         metaSmeltingList.put(Arrays.asList(itemID, metadata), itemstack);
         metaExperience.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
