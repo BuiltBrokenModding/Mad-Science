@@ -315,12 +315,12 @@ public class PulseRifleItem extends ItemBow
                     boolean shouldFire = false;
                     if (player.worldObj.getWorldTime() % 12F == 0L && clientFireTime >= 1)
                     {
-                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.1F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.75F, 1.0F);
                         shouldFire = true;
                     }
                     else if (clientFireTime <= 0)
                     {
-                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.1F, 1.0F);
+                        player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_FIRE, 0.75F, 1.0F);
                         shouldFire = true;
                     }
 
