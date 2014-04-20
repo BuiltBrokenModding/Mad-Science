@@ -824,6 +824,9 @@ public class MadConfig
     // ID that will determine block to be used to 'unlock' thermosonic bonder and thus every other item in the mod.
     public static @CfgInt int THERMOSONICBONDER_FINALSACRIFICE = 138;
     
+    // Determines if M41A Pulse Rifle bullets will damage the world at all with random chance.
+    public static @CfgBool boolean PULSERIFLE_BULLETS_DAMAGEWORLD = true;
+    
     // ----------------
     // UPDATES SWITCHES
     // ----------------
