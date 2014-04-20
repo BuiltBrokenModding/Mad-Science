@@ -269,9 +269,8 @@ public class MadDNA
 
         // DNA Extractor (a full bone is required to make skeleton DNA).
         DNAExtractorRecipes.addSmelting(Item.bone.itemID, new ItemStack(DNA_SKELETON), 0.42F);
-        
-        // DNA Extractor (a bonemeal will also create a skeleton DNA).
         DNAExtractorRecipes.addSmelting(Item.dyePowder.itemID, 15, new ItemStack(DNA_SKELETON), 0.42F);
+        DNAExtractorRecipes.addSmelting(Item.skull.itemID, 0, new ItemStack(DNA_SKELETON), 0.42F);
     }
 
     public static void createSlimeDNA(int itemID)
