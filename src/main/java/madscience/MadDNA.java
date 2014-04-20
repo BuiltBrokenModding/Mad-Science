@@ -156,8 +156,10 @@ public class MadDNA
         GameRegistry.registerItem(DNA_COW, DNA_COW_INTERNALNAME);
 
         // DNA Extractor
-        //DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_COW.itemID, new ItemStack(DNA_COW), 0.30F);
-        //DNAExtractorRecipes.addSmelting(Item.leash.itemID, new ItemStack(DNA_COW), 0.30F);
+        DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_COW.itemID, new ItemStack(DNA_COW), 0.30F);
+        DNAExtractorRecipes.addSmelting(Item.leather.itemID, new ItemStack(DNA_COW), 0.30F);
+        DNAExtractorRecipes.addSmelting(Item.beefCooked.itemID, new ItemStack(DNA_COW), 0.30F);
+        DNAExtractorRecipes.addSmelting(Item.beefRaw.itemID, new ItemStack(DNA_COW), 0.30F);
     }
 
     public static void createCreeperDNA(int itemID)
