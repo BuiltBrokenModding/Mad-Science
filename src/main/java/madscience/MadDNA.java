@@ -182,6 +182,7 @@ public class MadDNA
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_CREEPER.itemID, new ItemStack(DNA_CREEPER), 0.22F);
         DNAExtractorRecipes.addSmelting(Item.gunpowder.itemID, new ItemStack(DNA_CREEPER), 0.22F);
+        DNAExtractorRecipes.addSmelting(Item.skull.itemID, 4, new ItemStack(DNA_CREEPER), 0.22F);
     }
 
     public static void createEndermanDNA(int itemID)
