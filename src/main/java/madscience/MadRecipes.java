@@ -8,7 +8,24 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadRecipes
-{
+{    
+    public static void createOtherRecipes()
+    {
+        // Creates recipes that fit in no other category, such as one to aid in creation of wither skeletons in early-game.
+
+        // Filled mutant DNA syringe ontop of skeleton skull surrounded by soul sand will make a wither skeleton egg.
+        MadScience.logger.info("-Wither skeleton early-game spawn egg recipe");
+        GameRegistry.addRecipe(new ItemStack(MadEntities.GENETICALLYMODIFIED_MONSTERPLACER, 1, MadConfig.GMO_WITHERSKELETON_METAID), new Object[]
+        { "212",
+          "232",
+          "242",
+
+        '1', new ItemStack(MadNeedles.NEEDLE_MUTANT, 1, OreDictionary.WILDCARD_VALUE),
+        '2', Block.slowSand,
+        '3', new ItemStack(Item.skull, 1, 0),
+        '4', new ItemStack(Item.egg, 1, 0)});
+    }
+    
     public static void createWeaponRecipes()
     {
         // Creates all the needed recipes to craft and interact with weapons.

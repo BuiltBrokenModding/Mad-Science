@@ -397,6 +397,7 @@ public class MadScience
         MadRecipes.createCircuitRecipes();
         MadRecipes.createComponentsRecipes();
         MadRecipes.createWeaponRecipes();
+        MadRecipes.createOtherRecipes();
 
         // -------------------------
         // GENETICALLY MODIFIED MOBS
