@@ -135,6 +135,7 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_CAVESPIDER.itemID, new ItemStack(DNA_CAVESPIDER), 0.35F);
+        DNAExtractorRecipes.addSmelting(Item.fermentedSpiderEye.itemID, new ItemStack(DNA_CAVESPIDER), 0.35F);
     }
 
     public static void createChickenDNA(int itemID)
