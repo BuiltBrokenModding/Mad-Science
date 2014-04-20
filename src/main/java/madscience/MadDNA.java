@@ -173,6 +173,7 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_CREEPER.itemID, new ItemStack(DNA_CREEPER), 0.22F);
+        DNAExtractorRecipes.addSmelting(Item.gunpowder.itemID, new ItemStack(DNA_CREEPER), 0.22F);
     }
 
     public static void createEndermanDNA(int itemID)
@@ -236,6 +237,8 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_PIG.itemID, new ItemStack(DNA_PIG), 0.35F);
+        //DNAExtractorRecipes.addSmelting(Item.porkRaw.itemID, new ItemStack(DNA_PIG), 0.35F);
+        //DNAExtractorRecipes.addSmelting(Item.porkCooked.itemID, new ItemStack(DNA_PIG), 0.35F);
     }
 
     public static void createSheepDNA(int itemID)
