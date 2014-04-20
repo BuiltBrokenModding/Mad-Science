@@ -249,6 +249,7 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_SHEEP.itemID, new ItemStack(DNA_SHEEP), 0.42F);
+        DNAExtractorRecipes.addSmelting(Block.cloth.blockID, new ItemStack(DNA_SHEEP), 0.42F);
     }
 
     public static void createSkeletonDNA(int itemID)
