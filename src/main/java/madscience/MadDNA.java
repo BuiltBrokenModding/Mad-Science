@@ -156,7 +156,8 @@ public class MadDNA
         GameRegistry.registerItem(DNA_COW, DNA_COW_INTERNALNAME);
 
         // DNA Extractor
-        DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_COW.itemID, new ItemStack(DNA_COW), 0.30F);
+        //DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_COW.itemID, new ItemStack(DNA_COW), 0.30F);
+        //DNAExtractorRecipes.addSmelting(Item.leash.itemID, new ItemStack(DNA_COW), 0.30F);
     }
 
     public static void createCreeperDNA(int itemID)
@@ -274,6 +275,8 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_SPIDER.itemID, new ItemStack(DNA_SPIDER), 0.66F);
+        //DNAExtractorRecipes.addSmelting(Item.spiderEye.itemID, new ItemStack(DNA_SPIDER), 0.66F);
+        //DNAExtractorRecipes.addSmelting(Item.silk.itemID, new ItemStack(DNA_SPIDER), 0.66F);
     }
 
     public static void createSquidDNA(int itemID)
@@ -328,5 +331,6 @@ public class MadDNA
         // Can create single DNA zombie strand from 1 needle or zombie skull.
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_ZOMBIE.itemID, new ItemStack(DNA_ZOMBIE), 0.50F);
         DNAExtractorRecipes.addSmelting(Item.skull.itemID, 2, new ItemStack(DNA_ZOMBIE), 0.50F);
+        DNAExtractorRecipes.addSmelting(Item.rottenFlesh.itemID, new ItemStack(DNA_ZOMBIE), 0.50F);
     }
 }
