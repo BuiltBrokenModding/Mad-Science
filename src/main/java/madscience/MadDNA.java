@@ -275,8 +275,8 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_SPIDER.itemID, new ItemStack(DNA_SPIDER), 0.66F);
-        //DNAExtractorRecipes.addSmelting(Item.spiderEye.itemID, new ItemStack(DNA_SPIDER), 0.66F);
-        //DNAExtractorRecipes.addSmelting(Item.silk.itemID, new ItemStack(DNA_SPIDER), 0.66F);
+        DNAExtractorRecipes.addSmelting(Item.spiderEye.itemID, new ItemStack(DNA_SPIDER), 0.66F);
+        DNAExtractorRecipes.addSmelting(Item.silk.itemID, new ItemStack(DNA_SPIDER), 0.66F);
     }
 
     public static void createSquidDNA(int itemID)
