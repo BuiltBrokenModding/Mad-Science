@@ -148,6 +148,8 @@ public class MadDNA
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_CHICKEN.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
         DNAExtractorRecipes.addSmelting(Item.feather.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
         DNAExtractorRecipes.addSmelting(Item.egg.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
+        DNAExtractorRecipes.addSmelting(Item.chickenCooked.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
+        DNAExtractorRecipes.addSmelting(Item.chickenRaw.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
     }
 
     public static void createCowDNA(int itemID)
