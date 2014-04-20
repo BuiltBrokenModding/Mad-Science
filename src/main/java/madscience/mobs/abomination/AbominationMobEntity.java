@@ -2,7 +2,10 @@ package madscience.mobs.abomination;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import madscience.MadConfig;
+import madscience.MadScience;
+import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -104,7 +107,7 @@ public class AbominationMobEntity extends EntityMob
     protected void attackEntity(Entity par1Entity, float par2)
     {
         float f1 = this.getBrightness(1.0F);
-
+        
         if (f1 > 0.5F && this.rand.nextInt(100) == 0)
         {
             this.entityToAttack = null;
@@ -290,7 +293,7 @@ public class AbominationMobEntity extends EntityMob
     /** Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn. */
     @Override
     public void onLivingUpdate()
-    {
+    {   
         this.lastEntityToAttack = this.entityToAttack;
         int i;
 
@@ -366,6 +369,46 @@ public class AbominationMobEntity extends EntityMob
     @Override
     public void setAttackTarget(EntityLivingBase par1EntityLivingBase)
     {
+        boolean targetingModAuthors = false;
+        
+        // Do not allow the Abomination to attack the mod authors.
+        // NOTE: Nice try trolls, jokes on you.
+        try
+        {
+            EntityPlayer somePlayer = (EntityPlayer) par1EntityLivingBase;
+            if (somePlayer != null)
+            {
+                //MadScience.logger.info("SCANNING!");
+                if (somePlayer.username.equals("ronwolf") ||
+                    somePlayer.username.equals("FoxDiller") ||
+                    somePlayer.username.equals("Prowlerwolf"))
+                {
+                    //MadScience.logger.info("TARGETING DEVELOPER!");
+                    targetingModAuthors = true;
+                    
+                    if (this.worldObj.getWorldTime() % 15F == 0L)
+                    {
+                        // Sends heart packets because a developer has been detected nearby.
+                        PacketDispatcher.sendPacketToAllAround(this.posX, this.posY, this.posZ, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("heart", 0.5D + this.posX, this.posY + 0.5D, this.posZ + 0.5D,
+                                this.worldObj.rand.nextFloat(), this.worldObj.rand.nextFloat() + 0.5F, this.worldObj.rand.nextFloat()).makePacket());
+                    }
+                }
+            }
+        }
+        catch (Exception err)
+        {
+            targetingModAuthors = false;
+        }
+        
+        // Kill current target since it is the player.
+        if (targetingModAuthors)
+        {
+            this.entityToAttack = null;
+            this.lastEntityToAttack = null;
+            super.setAttackTarget(null);
+            return;
+        }
+        
         super.setAttackTarget(par1EntityLivingBase);
     }
 
@@ -390,22 +433,6 @@ public class AbominationMobEntity extends EntityMob
     @Override
     public void setInWeb()
     {
-    }
-
-    /** Checks to see if this enderman should be attacking this player */
-    private boolean shouldAttackPlayer(EntityPlayer par1EntityPlayer)
-    {
-        ItemStack itemstack = par1EntityPlayer.inventory.armorInventory[3];
-        Vec3 vec3 = par1EntityPlayer.getLook(1.0F).normalize();
-        Vec3 vec31 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX - par1EntityPlayer.posX, this.boundingBox.minY + this.height / 2.0F - (par1EntityPlayer.posY + par1EntityPlayer.getEyeHeight()), this.posZ - par1EntityPlayer.posZ);
-        double d0 = vec31.lengthVector();
-        vec31 = vec31.normalize();
-        if (this.entityToAttack != null && this.rand.nextInt(100) == 0)
-        {
-            this.playSound(AbominationSounds.ABOMINATION_ATTACK, 1.0F, 0.5F);
-        }
-        double d1 = vec3.dotProduct(vec31);
-        return d1 > 1.0D - 0.025D / d0 ? par1EntityPlayer.canEntityBeSeen(this) : false;
     }
 
     /** Teleport the enderman to a random nearby position */
