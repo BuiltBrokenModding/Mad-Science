@@ -135,22 +135,26 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
 
             return false;
         }
+        
+        // Check if output slot matches what is being smelted.
+        if (itemsInputSlot != null && this.furnaceItemStacks[3] != null)
+        {
+            // Check if output stack matches what is being smelted.
+            if (!(this.furnaceItemStacks[3].itemID == itemsInputSlot.itemID))
+            {
+                return false;
+            }
+        }
 
         // Check if output slots are empty and ready to be filled with
         // items.
-        if (this.furnaceItemStacks[1] == null || this.furnaceItemStacks[2] == null)
+        if (this.furnaceItemStacks[1] == null && this.furnaceItemStacks[2] == null)
         {
             return true;
         }
 
         // Check if input item matches one that is already be output slot 2.
         if (!this.furnaceItemStacks[1].isItemEqual(itemsInputSlot))
-        {
-            return false;
-        }
-
-        // Check if output stack matches what is being smelted.
-        if (!(this.furnaceItemStacks[1].itemID == itemsInputSlot.itemID))
         {
             return false;
         }
