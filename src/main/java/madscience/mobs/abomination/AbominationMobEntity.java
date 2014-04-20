@@ -231,7 +231,7 @@ public class AbominationMobEntity extends EntityMob
     @Override
     protected int getDropItemId()
     {
-        return Item.silk.itemID;
+        return Item.enderPearl.itemID;
     }
 
     // The sound made when it's attacked. Often it's the same as the normal say
