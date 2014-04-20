@@ -282,6 +282,7 @@ public class MadDNA
 
         // DNA Extractor (slime ball turns into slime DNA)
         DNAExtractorRecipes.addSmelting(Item.slimeBall.itemID, new ItemStack(DNA_SLIME), 0.50F);
+        DNAExtractorRecipes.addSmelting(Block.pistonStickyBase.blockID, new ItemStack(DNA_SLIME), 0.50F);
     }
 
     public static void createSpiderDNA(int itemID)
