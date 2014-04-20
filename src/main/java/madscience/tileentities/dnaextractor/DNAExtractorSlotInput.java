@@ -20,12 +20,6 @@ public class DNAExtractorSlotInput extends Slot
         {
             return false;
         }
-        
-        // Check if we are a mob head.
-        if (stack.isItemEqual(new ItemStack(Block.skull)))
-        {
-            return true;
-        }
 
         // Check if we are a mutant DNA needle.
         if (stack.getItem() instanceof NeedleMutant)

@@ -45,7 +45,7 @@ public class CnCMachineGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -56,7 +56,7 @@ public class CnCMachineGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.CNCMACHINE_HELP));
+                    this.passClick(new URI(MadConfig.CNCMACHINE_HELP));
                 }
                 catch (Exception err)
                 {

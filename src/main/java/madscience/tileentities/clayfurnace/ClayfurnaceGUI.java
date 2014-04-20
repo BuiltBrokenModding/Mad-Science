@@ -39,7 +39,7 @@ public class ClayfurnaceGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -50,7 +50,7 @@ public class ClayfurnaceGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.CLAYFURNACE_HELP));
+                    this.passClick(new URI(MadConfig.CLAYFURNACE_HELP));
                 }
                 catch (Exception err)
                 {

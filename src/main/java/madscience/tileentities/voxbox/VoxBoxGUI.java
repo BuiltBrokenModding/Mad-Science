@@ -41,7 +41,7 @@ public class VoxBoxGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -52,7 +52,7 @@ public class VoxBoxGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.VOXBOX_HELP));
+                    this.passClick(new URI(MadConfig.VOXBOX_HELP));
                 }
                 catch (Exception err)
                 {

@@ -140,7 +140,7 @@ public class SequencerGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -151,7 +151,7 @@ public class SequencerGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.SEQUENCER_HELP));
+                    this.passClick(new URI(MadConfig.SEQUENCER_HELP));
                 }
                 catch (Exception err)
                 {

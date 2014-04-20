@@ -134,7 +134,7 @@ public class CryofreezerGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -145,7 +145,7 @@ public class CryofreezerGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.CRYOFREEZER_HELP));
+                    this.passClick(new URI(MadConfig.CRYOFREEZER_HELP));
                 }
                 catch (Exception err)
                 {

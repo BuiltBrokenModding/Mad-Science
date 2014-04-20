@@ -173,7 +173,7 @@ public class MeatcubeGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -184,7 +184,7 @@ public class MeatcubeGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.MEATCUBE_HELP));
+                    this.passClick(new URI(MadConfig.MEATCUBE_HELP));
                 }
                 catch (Exception err)
                 {

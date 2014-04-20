@@ -157,7 +157,7 @@ public class ThermosonicBonderGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -168,7 +168,7 @@ public class ThermosonicBonderGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.THERMOSONIC_HELP));
+                    this.passClick(new URI(MadConfig.THERMOSONIC_HELP));
                 }
                 catch (Exception err)
                 {

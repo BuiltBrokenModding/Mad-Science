@@ -1,9 +1,14 @@
 package madscience.util;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -27,8 +32,8 @@ import universalelectricity.api.vector.Vector2;
 public class GUIContainerBase extends GuiContainer
 {
     public ResourceLocation TEXTURE;
-    
-    public String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76"; 
+
+    public String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76";
 
     public String tooltip = "";
     protected HashMap<Region2, String> tooltips = new HashMap<Region2, String>();
@@ -37,9 +42,59 @@ public class GUIContainerBase extends GuiContainer
     protected int screenY = (this.height - this.ySize) / 2;
     private float lastChangeFrameTime;
 
+    public final int PROMPT_REPLY_ACTION = 0;
+    public URI displayedURI = null;
+
     public GUIContainerBase(Container container)
     {
         super(container);
+    }
+
+    @Override
+    public void confirmClicked(boolean result, int action)
+    {
+        // Returns MC internal click codes for the URL response.
+        if (action == PROMPT_REPLY_ACTION && result)
+        {
+            openURI(this.displayedURI);
+            this.displayedURI = null;
+        }
+
+        this.mc.displayGuiScreen(this);
+    }
+
+    private void openURI(URI uri)
+    {
+        try
+        {
+            // Opens default browser on system with URL.
+            Desktop.getDesktop().browse(uri);
+        }
+        catch (IOException e)
+        {
+            // Nothing to see here.
+        }
+    }
+
+    public void passClick(URI webLocation)
+    {
+        // Rude not to ask if user has chat link prompts disabled.
+        if (Minecraft.getMinecraft().gameSettings.chatLinksPrompt)
+        {
+            this.displayedURI = webLocation;
+            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, this.displayedURI.toString(), PROMPT_REPLY_ACTION, false));
+        }
+        else
+        {
+            // Open the URL normally without asking anything.
+            openURI(webLocation);
+        }
+    }
+
+    @Override
+    public boolean doesGuiPauseGame()
+    {
+        return false;
     }
 
     @Override

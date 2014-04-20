@@ -181,7 +181,7 @@ public class CryotubeGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -192,7 +192,7 @@ public class CryotubeGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.CRYOTUBE_HELP));
+                    this.passClick(new URI(MadConfig.CRYOTUBE_HELP));
                 }
                 catch (Exception err)
                 {

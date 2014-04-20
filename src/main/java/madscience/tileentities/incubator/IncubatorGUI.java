@@ -156,7 +156,7 @@ public class IncubatorGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -167,7 +167,7 @@ public class IncubatorGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.INCUBATOR_HELP));
+                    this.passClick(new URI(MadConfig.INCUBATOR_HELP));
                 }
                 catch (Exception err)
                 {

@@ -40,7 +40,7 @@ public class MagLoaderGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -51,7 +51,7 @@ public class MagLoaderGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.MAGLOADER_HELP));
+                    this.passClick(new URI(MadConfig.MAGLOADER_HELP));
                 }
                 catch (Exception err)
                 {

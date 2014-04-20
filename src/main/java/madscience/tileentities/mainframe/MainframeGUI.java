@@ -235,7 +235,7 @@ public class MainframeGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -246,7 +246,7 @@ public class MainframeGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.MAINFRAME_HELP));
+                    this.passClick(new URI(MadConfig.MAINFRAME_HELP));
                 }
                 catch (Exception err)
                 {

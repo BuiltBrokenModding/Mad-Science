@@ -202,7 +202,7 @@ public class SanitizerGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -213,7 +213,7 @@ public class SanitizerGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.SANTITIZER_HELP));
+                    this.passClick(new URI(MadConfig.SANTITIZER_HELP));
                 }
                 catch (Exception err)
                 {

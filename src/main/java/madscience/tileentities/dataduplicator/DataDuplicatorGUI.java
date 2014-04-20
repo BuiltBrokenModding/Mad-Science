@@ -140,7 +140,7 @@ public class DataDuplicatorGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(this.SANDRA_YOUTUBE));
+                    this.passClick(new URI(this.SANDRA_YOUTUBE));
                 }
                 catch (Exception err)
                 {
@@ -151,7 +151,7 @@ public class DataDuplicatorGUI extends GUIContainerBase
             {
                 try
                 {
-                    Desktop.getDesktop().browse(new URI(MadConfig.DATADUPLICATOR_HELP));
+                    this.passClick(new URI(MadConfig.DATADUPLICATOR_HELP));
                 }
                 catch (Exception err)
                 {
