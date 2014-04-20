@@ -183,6 +183,8 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_ENDERMAN.itemID, new ItemStack(DNA_ENDERMAN), 0.42F);
+        DNAExtractorRecipes.addSmelting(Item.enderPearl.itemID, new ItemStack(DNA_ENDERMAN), 0.42F);
+        DNAExtractorRecipes.addSmelting(Item.eyeOfEnder.itemID, new ItemStack(DNA_ENDERMAN), 0.42F);
     }
 
     public static void createGhastDNA(int itemID)
