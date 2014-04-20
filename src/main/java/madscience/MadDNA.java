@@ -21,6 +21,7 @@ import madscience.items.dna.DNAWitch;
 import madscience.items.dna.DNAWolf;
 import madscience.items.dna.DNAZombie;
 import madscience.tileentities.dnaextractor.DNAExtractorRecipes;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -318,12 +319,14 @@ public class MadDNA
 
     public static void createZombieDNA(int itemID)
     {
+        // DNA Extractor
         // Adds pure sample of Zombie DNA.
         MadScience.logger.info("-DNA Zombie");
         DNA_ZOMBIE = (DNAZombie) new DNAZombie(itemID, 44975, 7969893).setUnlocalizedName(DNA_ZOMBIE_INTERNALNAME);
         GameRegistry.registerItem(DNA_ZOMBIE, DNA_ZOMBIE_INTERNALNAME);
 
-        // DNA Extractor
+        // Can create single DNA zombie strand from 1 needle or zombie skull.
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_ZOMBIE.itemID, new ItemStack(DNA_ZOMBIE), 0.50F);
+        DNAExtractorRecipes.addSmelting(Item.skull.itemID, 2, new ItemStack(DNA_ZOMBIE), 0.50F);
     }
 }

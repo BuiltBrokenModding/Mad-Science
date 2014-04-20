@@ -21,6 +21,13 @@ public class DNAExtractorRecipes
         DNAExtractorRecipes.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
         DNAExtractorRecipes.experienceList.put(Integer.valueOf(par2ItemStack.itemID), Float.valueOf(par3));
     }
+    
+    /** A metadata sensitive version of adding a furnace recipe. */
+    public static void addSmelting(int itemID, int metadata, ItemStack itemstack, float experience)
+    {
+        metaSmeltingList.put(Arrays.asList(itemID, metadata), itemstack);
+        metaExperience.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
+    }
 
     /** Grabs the amount of base experience for this item to give when pulled from the furnace slot. */
     public static float getExperience(ItemStack item)
@@ -57,13 +64,6 @@ public class DNAExtractorRecipes
             return ret;
         }
         return (ItemStack) smeltingList.get(Integer.valueOf(item.itemID));
-    }
-
-    /** A metadata sensitive version of adding a furnace recipe. */
-    public static void addSmelting(int itemID, int metadata, ItemStack itemstack, float experience)
-    {
-        metaSmeltingList.put(Arrays.asList(itemID, metadata), itemstack);
-        metaExperience.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
     }
 
     @Deprecated

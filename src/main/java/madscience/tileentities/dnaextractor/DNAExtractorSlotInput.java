@@ -1,6 +1,7 @@
 package madscience.tileentities.dnaextractor;
 
 import madscience.items.needles.NeedleMutant;
+import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,12 @@ public class DNAExtractorSlotInput extends Slot
         if (stack == null)
         {
             return false;
+        }
+        
+        // Check if we are a mob head.
+        if (stack.isItemEqual(new ItemStack(Block.skull)))
+        {
+            return true;
         }
 
         // Check if we are a mutant DNA needle.
