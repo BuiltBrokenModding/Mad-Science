@@ -305,6 +305,7 @@ public class MadDNA
 
         // DNA Extractor
         DNAExtractorRecipes.addSmelting(MadNeedles.NEEDLE_SQUID.itemID, new ItemStack(DNA_SQUID), 0.42F);
+        DNAExtractorRecipes.addSmelting(Item.dyePowder.itemID, 0, new ItemStack(DNA_SQUID), 0.42F);
     }
 
     public static void createVillagerDNA(int itemID)
