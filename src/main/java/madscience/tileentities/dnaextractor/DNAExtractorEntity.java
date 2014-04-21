@@ -121,6 +121,7 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
 
         // Check if the item in the input slot will smelt into anything.
         ItemStack itemsInputSlot = DNAExtractorRecipes.getSmeltingResult(this.furnaceItemStacks[0]);
+                
         if (itemsInputSlot == null)
         {
             // Check if we are a mutant DNA needle.
@@ -135,42 +136,50 @@ public class DNAExtractorEntity extends MadTileEntity implements ISidedInventory
 
             return false;
         }
-        
-        // Check if output slot matches what is being smelted.
-        if (itemsInputSlot != null && this.furnaceItemStacks[3] != null)
+        else
         {
-            // Check if output stack matches what is being smelted.
-            if (!(this.furnaceItemStacks[3].itemID == itemsInputSlot.itemID))
+            // Check if output slot matches what is being smelted.
+            if (itemsInputSlot != null && this.furnaceItemStacks[3] != null)
+            {
+                // Check if output stack matches what is being smelted.
+                if (!(this.furnaceItemStacks[3].itemID == itemsInputSlot.itemID))
+                {
+                    return false;
+                }
+            }
+
+            // Check if output slots are empty and ready to be filled with
+            // items.
+            if (this.furnaceItemStacks[1] == null && this.furnaceItemStacks[2] == null)
+            {
+                return true;
+            }
+
+            // Check if input item matches one that is already be output slot 2.
+            if (this.furnaceItemStacks[1] != null && itemsInputSlot != null && !this.furnaceItemStacks[1].isItemEqual(itemsInputSlot))
             {
                 return false;
             }
+
+            // By default we assume we are full unless proven otherwise.
+            boolean outputSlotsFull = true;
+
+            // Check if output slot 1 is above item stack limit.
+            if (furnaceItemStacks[2] != null)
+            {
+                int slot1Result = furnaceItemStacks[2].stackSize + itemsInputSlot.stackSize;
+                outputSlotsFull = (slot1Result <= getInventoryStackLimit() && slot1Result <= itemsInputSlot.getMaxStackSize());
+            }
+
+            // Check if output slot 2 is above item stack limit.
+            if (furnaceItemStacks[3] != null)
+            {
+                int slot2Result = furnaceItemStacks[3].stackSize + itemsInputSlot.stackSize;
+                outputSlotsFull = (slot2Result <= getInventoryStackLimit() && slot2Result <= itemsInputSlot.getMaxStackSize());
+            }
+
+            return outputSlotsFull;
         }
-
-        // Check if output slots are empty and ready to be filled with
-        // items.
-        if (this.furnaceItemStacks[1] == null && this.furnaceItemStacks[2] == null)
-        {
-            return true;
-        }
-
-        // Check if input item matches one that is already be output slot 2.
-        if (!this.furnaceItemStacks[1].isItemEqual(itemsInputSlot))
-        {
-            return false;
-        }
-
-        // By default we assume we are full unless proven otherwise.
-        boolean outputSlotsFull = true;
-
-        // Check if output slot 1 is above item stack limit.
-        int slot1Result = furnaceItemStacks[2].stackSize + itemsInputSlot.stackSize;
-        outputSlotsFull = (slot1Result <= getInventoryStackLimit() && slot1Result <= itemsInputSlot.getMaxStackSize());
-
-        // Check if output slot 2 is above item stack limit.
-        int slot2Result = furnaceItemStacks[1].stackSize + itemsInputSlot.stackSize;
-        outputSlotsFull = (slot2Result <= getInventoryStackLimit() && slot2Result <= itemsInputSlot.getMaxStackSize());
-
-        return outputSlotsFull;
     }
 
     @Override
