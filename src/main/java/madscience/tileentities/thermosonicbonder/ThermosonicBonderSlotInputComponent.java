@@ -17,26 +17,8 @@ public class ThermosonicBonderSlotInputComponent extends Slot
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        // Check if we are a fused-quartz.
-        if (stack != null && stack.isItemEqual(new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ)))
-        {
-            return true;
-        }
-
-        // Check for silicon wafer.
-        if (stack != null && stack.isItemEqual(new ItemStack(MadComponents.COMPONENT_SILICONWAFER)))
-        {
-            return true;
-        }
-
-        // Check for glowstone circuit board.
-        if (stack != null && stack.isItemEqual(new ItemStack(MadCircuits.CIRCUIT_GLOWSTONE)))
-        {
-            return true;
-        }
-
-        // Check for redstone circuit board.
-        if (stack != null && stack.isItemEqual(new ItemStack(MadCircuits.CIRCUIT_REDSTONE)))
+        ItemStack smeltingResult = ThermosonicBonderRecipes.getSmeltingResult(stack);
+        if (smeltingResult != null)
         {
             return true;
         }

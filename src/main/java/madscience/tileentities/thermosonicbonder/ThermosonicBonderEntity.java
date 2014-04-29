@@ -2,6 +2,8 @@ package madscience.tileentities.thermosonicbonder;
 
 import java.util.Random;
 
+import madscience.MadCircuits;
+import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -64,19 +66,12 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     @Override
     public boolean canExtractItem(int slot, ItemStack items, int side)
     {
-        // Extract output from the bottom of the block.
-        if (slot == 3 && ForgeDirection.getOrientation(side) == ForgeDirection.WEST)
+        // Extract output
+        if (slot == 2)
         {
-            // Empty water bucket.
-            return true;
-        }
-        else if (slot == 4 && ForgeDirection.getOrientation(side) == ForgeDirection.WEST)
-        {
-            // Clean needle.
             return true;
         }
 
-        // Default response is no.
         return false;
     }
 
@@ -412,6 +407,15 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
             // Input slot 1 - gold nuggets.
             ItemStack compareItem = new ItemStack(Item.goldNugget);
             if (compareItem.isItemEqual(items))
+            {
+                return true;
+            }
+        }
+        else if (slot == 1)
+        {
+            // Input slot 1 - input to be smelted.
+            ItemStack smeltingResult = ThermosonicBonderRecipes.getSmeltingResult(items);
+            if (smeltingResult != null)
             {
                 return true;
             }
