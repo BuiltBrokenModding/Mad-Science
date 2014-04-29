@@ -87,6 +87,12 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
     public boolean canSmelt()
     {
+        // Check if we have redstone power applied to us.
+        if (!this.isRedstonePowered())
+        {
+            return false;
+        }
+        
         // Check if both input slots for reel to copy and empty reel to copy onto.
         if (dataduplicatorInput[0] == null || dataduplicatorInput[1] == null)
         {
@@ -627,13 +633,13 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
     private void updateSound()
     {
         // Idle sound of machine if powered but not currently working.
-        if (!this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.4F) == 0L)
+        if (this.isRedstonePowered() && !this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.4F) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_IDLE, 1.0F, 1.0F);
         }
 
         // Working sound of machine when powered and can smelt.
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.8F) == 0L)
+        if (this.isRedstonePowered() && this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.8F) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_WORK, 1.0F, 1.0F);
         }
