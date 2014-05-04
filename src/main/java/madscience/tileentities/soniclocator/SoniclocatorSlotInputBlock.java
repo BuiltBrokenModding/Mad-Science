@@ -1,5 +1,6 @@
 package madscience.tileentities.soniclocator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import madscience.MadScience;
@@ -41,7 +42,9 @@ public class SoniclocatorSlotInputBlock extends Slot
         }
         
         // Check if the target block is inside the OreDictionary if first query fails.
-        for (ItemStack someItem : OreDictionary.getOres(stack.getUnlocalizedName()))
+        int oreID = OreDictionary.getOreID(stack);
+        ArrayList<ItemStack> oreDictOres = OreDictionary.getOres(oreID);
+        for (ItemStack someItem : oreDictOres)
         {
             if (OreDictionary.itemMatches(someItem, stack, false)) return true;
         }

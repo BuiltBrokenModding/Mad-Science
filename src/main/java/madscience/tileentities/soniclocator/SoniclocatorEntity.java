@@ -479,6 +479,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
         // Create a temporary list to let us sort through the number of targets.
         List<SoniclocatorTargetBlock> targetList = new ArrayList<SoniclocatorTargetBlock>();
+        ItemStack oreDictTargetStack = null;
 
         // Loop through chunk we are in looking for target block(s).
         int chunkX = chunk.xPosition * 16;
@@ -494,7 +495,6 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                     int targetX = chunkX + i;
                     int targetY = k;
                     int targetZ = chunkZ + j;
-                    
                     int blockID = worldObj.getBlockId(targetX, targetY, targetZ);
                     
                     try
@@ -509,6 +509,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                                 {
                                     // Add the processed item to our list for processing outside this loop.
                                     targetList.add(new SoniclocatorTargetBlock(targetX, targetY, targetZ, compareChucnkItem));
+                                    //MadScience.logger.info("[Soniclocator] Located Vanilla Block " + String.valueOf(compareChucnkItem));
                                     continue;
                                 }
                             }
@@ -518,12 +519,27 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                             }
 
                             // Check if the target block is inside the OreDictionary if first query fails.
-                            for (ItemStack someItem : OreDictionary.getOres(targetItem.getUnlocalizedName()))
+                            if (targetItem.itemID == blockID)
                             {
-                                if (OreDictionary.itemMatches(someItem, targetItem, false))
+                                int oreID = OreDictionary.getOreID(targetItem);
+                                if (oreID != -1)
                                 {
-                                    targetList.add(new SoniclocatorTargetBlock(targetX, targetY, targetZ, someItem));
-                                    continue;
+                                    ArrayList<ItemStack> oreDictOres = OreDictionary.getOres(oreID);
+                                    if (oreDictOres != null)
+                                    {
+                                        for (ItemStack someItem : oreDictOres)
+                                        {
+                                            if (OreDictionary.itemMatches(someItem, targetItem, true) &&
+                                                    someItem.getItemDamage() == targetItem.getItemDamage() &&
+                                                    someItem.getDisplayName().equals(targetItem.getDisplayName()))
+                                            {
+                                                oreDictTargetStack = targetItem;
+                                                targetList.add(new SoniclocatorTargetBlock(targetX, targetY, targetZ, targetItem));
+                                                //MadScience.logger.info("[Soniclocator] Located OreDict Block " + someItem.getDisplayName());
+                                                continue;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -563,12 +579,19 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 0.42F, false);
 
         // Update the lighting engine about our changes to the chunk.
-        if (worldObj.getBlockId(value.targetX, value.targetY, value.targetZ) == targetItem.itemID)
+        if (worldObj.getBlockId(value.targetX, value.targetY, value.targetZ) == targetItem.itemID && oreDictTargetStack == null)
         {
             worldObj.setBlock(value.targetX, value.targetY, value.targetZ, replacementItem.itemID, 0, 3);
             worldObj.updateAllLightTypes(value.targetX, value.targetY, value.targetZ);
             worldObj.markBlockForUpdate(value.targetX, value.targetY, value.targetZ);
             return value.foundItem;
+        }
+        else if (oreDictTargetStack != null)
+        {
+            worldObj.setBlock(value.targetX, value.targetY, value.targetZ, replacementItem.itemID, 0, 3);
+            worldObj.updateAllLightTypes(value.targetX, value.targetY, value.targetZ);
+            worldObj.markBlockForUpdate(value.targetX, value.targetY, value.targetZ);
+            return oreDictTargetStack;
         }
         
         return null;
