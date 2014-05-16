@@ -93,7 +93,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -106,18 +105,6 @@ public class ClientProxy extends CommonProxy
     static
     {
         AdvancedModelLoader.registerModelHandler(new MadTechneModelLoader());
-    }
-
-    @Override
-    public void addLocalization(String s1, String string)
-    {
-        LanguageRegistry.instance().addStringLocalization(s1, string);
-    }
-
-    @Override
-    public void addName(Object obj, String s)
-    {
-        LanguageRegistry.addName(obj, s);
     }
 
     /* INSTANCES */
