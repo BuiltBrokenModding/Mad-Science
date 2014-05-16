@@ -72,9 +72,16 @@ public class MagLoaderBlock extends BlockContainer
     public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
         if (!keepFurnaceInventory)
-        {
-            MagLoaderEntity tileentityfurnace = (MagLoaderEntity) par1World.getBlockTileEntity(par2, par3, par4);
+        { 
+            // Never trust that the block we will get is our own.
+            TileEntity possibleMagLoader = par1World.getBlockTileEntity(par2, par3, par4);
+            MagLoaderEntity tileentityfurnace = null;
+            if (possibleMagLoader != null && possibleMagLoader instanceof MagLoaderEntity)
+            {
+                tileentityfurnace = (MagLoaderEntity) possibleMagLoader;
+            }
 
+            // Never proceed unless we are sure this is a magloader.
             if (tileentityfurnace != null)
             {
                 for (int j1 = 0; j1 < (tileentityfurnace.getSizeInputInventory() + tileentityfurnace.getSizeStorageInventory()); ++j1)
