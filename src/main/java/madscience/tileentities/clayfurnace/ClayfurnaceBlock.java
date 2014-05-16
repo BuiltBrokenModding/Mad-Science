@@ -190,7 +190,7 @@ public class ClayfurnaceBlock extends BlockContainer
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        if (!ENTITY.hasStoppedSmoldering)
+        if (ENTITY != null && !ENTITY.hasStoppedSmoldering)
         {
             // Breaking clay furnace gives you just clay, good job user.
             return Block.hardenedClay.blockID;
