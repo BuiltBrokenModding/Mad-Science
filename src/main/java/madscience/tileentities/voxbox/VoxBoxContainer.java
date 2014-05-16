@@ -64,17 +64,7 @@ public class VoxBoxContainer extends Container
             }
             else if (amt != 1 && amt != 0)
             {
-                if (amt >= 3 && amt < 30)
-                {
-                    if (!this.mergeItemStack(itemstack1, 30, 38, false))
-                    {
-                        return null;
-                    }
-                }
-                else if (amt >= 30 && amt < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
-                {
-                    return null;
-                }
+                return null;
             }
             else if (!this.mergeItemStack(itemstack1, 3, 38, false))
             {
