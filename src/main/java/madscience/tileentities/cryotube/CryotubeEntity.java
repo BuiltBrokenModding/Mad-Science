@@ -133,13 +133,18 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
             return false;
         }
 
-        // Check if output slot 1 is over stack limit.
-        int slot1Result = cryotubeOutput[0].stackSize;
-        boolean slot1Overlimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= cryotubeOutput[0].getMaxStackSize());
-
-        // Check if output slot 2 is over stack limit.
-        int slot2Result = cryotubeOutput[1].stackSize;
-        boolean slot2Overlimit = (slot2Result <= getInventoryStackLimit() && slot2Result <= cryotubeOutput[1].getMaxStackSize());
+        boolean slot1Overlimit = false;
+        boolean slot2Overlimit = false;
+        if (cryotubeOutput != null)
+        {
+            // Check if output slot 1 is over stack limit.
+            int slot1Result = cryotubeOutput[0].stackSize;
+            slot1Overlimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= cryotubeOutput[0].getMaxStackSize());
+        
+            // Check if output slot 2 is over stack limit.
+            int slot2Result = cryotubeOutput[1].stackSize;
+            slot2Overlimit = (slot2Result <= getInventoryStackLimit() && slot2Result <= cryotubeOutput[1].getMaxStackSize());
+        }
 
         // If either slot is over we return false.
         if (slot1Overlimit || slot2Overlimit)
@@ -220,7 +225,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         }
     }
 
-    /** Places a rotton flesh in the output slot for that item. */
+    /** Places a rotten flesh in the output slot for that item. */
     private void createRottenFlesh(int howManyRange)
     {
         // Add some rotten flesh into the output slot for it.
