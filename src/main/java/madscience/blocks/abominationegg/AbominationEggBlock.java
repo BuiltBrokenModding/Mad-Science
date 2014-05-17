@@ -36,7 +36,7 @@ public class AbominationEggBlock extends BlockDragonEgg implements ITileEntityPr
         this.setHardness(5.0F);
         this.setResistance(1.0F);
         this.setCreativeTab(MadEntities.tabMadScience);
-        this.hasTileEntity(0);
+        //this.hasTileEntity(0);
     }
 
     @Override
