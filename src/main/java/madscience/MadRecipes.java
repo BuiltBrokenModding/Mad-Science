@@ -26,21 +26,44 @@ public class MadRecipes
         '3', new ItemStack(Item.skull, 1, 0),
         '4', new ItemStack(Item.egg, 1, 0)});
         
-        // Laboratory Coat Recipe.
-        MadScience.logger.info("-Laboratory Coat recipe");
+        // Laboratory Coat Body.
+        MadScience.logger.info("-Laboratory Coat Body recipe");
         GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_BODY, new Object[]
         { "W W",
-          "WWW",
-          "WWW", 
+          "WSW",
+          "WSW", 
           
-          'W', Item.dyePowder}));
+          // White Wool (Coat)
+          'W', new ItemStack(Block.cloth, 1, 0),
+          
+          // Light Blue Wool (Shirt)
+          'S', new ItemStack(Block.cloth, 3, 3),
+        }));
         
+        // Laboratory Coat Leggings.
+        MadScience.logger.info("-Laboratory Coat Leggings recipe");
         GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_LEGGINGS, new Object[]
-        { "WWW",
-          "W W",
-          "W W", 
+        { "PBP",
+          "P P",
+          "P P", 
           
-          'W', Item.dyePowder }));
+          // Brown Wool (Pants)
+          'P', new ItemStack(Block.cloth, 1, 12),
+          
+          // Black Wool (Beltbuckle)
+          'B', new ItemStack(Block.cloth, 1, 15),
+          }));
+        
+        // Safety Goggles.
+        MadScience.logger.info("-Safety Goggles recipe");
+        GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_GOGGLES, new Object[]
+        { "SSS",
+          "S S",
+          "SGS", 
+          
+          'S', new ItemStack(Item.silk, 1, 0),
+          'G', new ItemStack(Block.glass, 1, 0)
+          }));
     }
     
     public static void createWeaponRecipes()

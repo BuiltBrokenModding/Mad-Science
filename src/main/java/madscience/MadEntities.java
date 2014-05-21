@@ -42,6 +42,10 @@ public class MadEntities
     // Labcoat Leggings
     public static ItemLabCoat LABCOAT_LEGGINGS;
     public static final String LABCOAT_LEGGINGS_INTERNALNAME = "labCoatLeggings";
+    
+    // Labcoat Goggles
+    public static ItemLabCoat LABCOAT_GOGGLES;
+    public static final String LABCOAT_GOGGLES_INTERNALNAME = "labCoatGoggles";
 
     // Combined Genome Data Reels
     public static void createCombinedGenomeMonsterPlacer(int itemID)
@@ -127,5 +131,13 @@ public class MadEntities
         MadScience.logger.info("-LabCoat Leggings");
         LABCOAT_LEGGINGS = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_LEGGINGS_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_LEGGINGS, LABCOAT_LEGGINGS_INTERNALNAME);
+    }
+
+    // Lab Coat Goggles
+    public static void createLabCoatGoggles(int itemID, int armorID)
+    {
+        MadScience.logger.info("-LabCoat Goggles");
+        LABCOAT_GOGGLES = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_GOGGLES_INTERNALNAME);
+        GameRegistry.registerItem(LABCOAT_GOGGLES, LABCOAT_GOGGLES_INTERNALNAME);
     }
 }

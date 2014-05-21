@@ -393,7 +393,11 @@ public class MadConfig
     
     // Lab Coat Leggings
     public static @CfgId
-    int LABCOAT_LEGGINGS = getNextItemID();    
+    int LABCOAT_LEGGINGS = getNextItemID();  
+    
+    // Lab Coat Goggles
+    public static @CfgId
+    int LABCOAT_GOGGLES = getNextItemID();
 
     // -------
     // NEEDLES

@@ -82,7 +82,7 @@ public class MadScience
     // Excellent reference to how many ticks make up a second.
     public static final int SECOND_IN_TICKS = 20;
 
-    // Hook Forge's standardized logging class so we can report data on the console without stdout.
+    // Hook Forge's standardized logging class so we can report data on the console without standard out.
     public static Logger logger;
 
     // Proxy that runs commands based on where they are from so we can separate server and client logic easily.
@@ -385,6 +385,7 @@ public class MadScience
         // -----
 
         // Note: Armor follows an array 0,1,2,3 for helmet, body, leggings, boots.
+        MadEntities.createLabCoatGoggles(MadConfig.LABCOAT_GOGGLES, 0);
         MadEntities.createLabCoatBody(MadConfig.LABCOAT_BODY, 1);
         MadEntities.createLabCoatLeggings(MadConfig.LABCOAT_LEGGINGS, 2);
 
