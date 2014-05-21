@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadRecipes
@@ -24,6 +25,22 @@ public class MadRecipes
         '2', Block.slowSand,
         '3', new ItemStack(Item.skull, 1, 0),
         '4', new ItemStack(Item.egg, 1, 0)});
+        
+        // Laboratory Coat Recipe.
+        MadScience.logger.info("-Laboratory Coat recipe");
+        GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_BODY, new Object[]
+        { "W W",
+          "WWW",
+          "WWW", 
+          
+          'W', Item.dyePowder}));
+        
+        GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_LEGGINGS, new Object[]
+        { "WWW",
+          "W W",
+          "W W", 
+          
+          'W', Item.dyePowder }));
     }
     
     public static void createWeaponRecipes()
