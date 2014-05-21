@@ -3,9 +3,12 @@ package madscience;
 import madscience.items.CombinedGenomeMonsterPlacer;
 import madscience.items.GeneticallyModifiedMonsterPlacer;
 import madscience.items.ItemDataReelEmpty;
+import madscience.items.labcoat.ItemLabCoat;
 import madscience.metaitems.CombinedMemoryMonsterPlacer;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.EnumHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadEntities
@@ -28,6 +31,17 @@ public class MadEntities
 
     // Allows mod to store all it's items under its own tab in creative mode.
     public static CreativeTabs tabMadScience;
+    
+    // Gives our armor a custom material so that we can detect when various events interact with it.
+    public static final EnumArmorMaterial labCoatArmorMaterial = EnumHelper.addArmorMaterial("LABCOAT", 0, new int[] { 0, 0, 0, 0 }, 0);
+    
+    // Labcoat Body
+    public static ItemLabCoat LABCOAT_BODY;
+    public static final String LABCOAT_BODY_INTERNALNAME = "labCoatBody";
+    
+    // Labcoat Leggings
+    public static ItemLabCoat LABCOAT_LEGGINGS;
+    public static final String LABCOAT_LEGGINGS_INTERNALNAME = "labCoatLeggings";
 
     // Combined Genome Data Reels
     public static void createCombinedGenomeMonsterPlacer(int itemID)
@@ -97,5 +111,21 @@ public class MadEntities
         GENETICALLYMODIFIED_MONSTERPLACER.setTextureName(MadScience.ID + ":" + GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setCreativeTab(tabMadScience);
         GameRegistry.registerItem(GENETICALLYMODIFIED_MONSTERPLACER, GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
+    }
+
+    // Lab Coat Body
+    public static void createLabCoatBody(int itemID, int armorID)
+    {
+        MadScience.logger.info("-LabCoat Body");
+        LABCOAT_BODY = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_BODY_INTERNALNAME);
+        GameRegistry.registerItem(LABCOAT_BODY, LABCOAT_BODY_INTERNALNAME);
+    }
+
+    // Lab Coat Leggings
+    public static void createLabCoatLeggings(int itemID, int armorID)
+    {
+        MadScience.logger.info("-LabCoat Leggings");
+        LABCOAT_LEGGINGS = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_LEGGINGS_INTERNALNAME);
+        GameRegistry.registerItem(LABCOAT_LEGGINGS, LABCOAT_LEGGINGS_INTERNALNAME);
     }
 }

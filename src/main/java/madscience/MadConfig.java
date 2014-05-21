@@ -386,6 +386,14 @@ public class MadConfig
     // Empty Data Reel
     public static @CfgId
     int DATAREEL_EMPTY = getNextItemID();
+    
+    // Lab Coat Body
+    public static @CfgId
+    int LABCOAT_BODY = getNextItemID();    
+    
+    // Lab Coat Leggings
+    public static @CfgId
+    int LABCOAT_LEGGINGS = getNextItemID();    
 
     // -------
     // NEEDLES

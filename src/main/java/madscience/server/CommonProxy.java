@@ -14,6 +14,11 @@ public class CommonProxy
 {
     // Modified from Source
     // http://www.minecraftforge.net/wiki/Reference_Mod_File
+    
+    public int getArmorIndex(String armor)
+    {
+        return 0;
+    }
 
     public void addLocalization(String s1, String string)
     {

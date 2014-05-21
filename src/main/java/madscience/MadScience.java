@@ -66,9 +66,9 @@ public class MadScience
     // Directories definition for assets and localization files.
     public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
     public static final String LANGUAGE_DIRECTORY = RESOURCE_DIRECTORY + "languages/";
-    public static final String BASE_DIRECTORY_NO_SLASH = "madscience/";
+    public static final String BASE_DIRECTORY_NO_SLASH = ID + "/";
     public static final String BASE_DIRECTORY = "/" + BASE_DIRECTORY_NO_SLASH;
-    public static final String ASSET_DIRECTORY = "/assets/madscience/";
+    public static final String ASSET_DIRECTORY = "/assets/" + ID + "/";
     public static final String TEXTURE_DIRECTORY = "textures/";
     public static final String GUI_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
     public static final String BLOCK_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
@@ -379,6 +379,14 @@ public class MadScience
         MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
         MadFurnaces.createCnCMachineTileEntity(MadConfig.CNCMACHINE);
         MadFurnaces.createCnCMachineGhostTileEntity(MadConfig.CNCMACHINEGHOST);
+        
+        // -----
+        // ARMOR
+        // -----
+
+        // Note: Armor follows an array 0,1,2,3 for helmet, body, leggings, boots.
+        MadEntities.createLabCoatBody(MadConfig.LABCOAT_BODY, 1);
+        MadEntities.createLabCoatLeggings(MadConfig.LABCOAT_LEGGINGS, 2);
 
         // --------------------
         // MONSTER PLACER ITEMS

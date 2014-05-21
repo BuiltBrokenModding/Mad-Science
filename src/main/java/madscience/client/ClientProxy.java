@@ -106,6 +106,12 @@ public class ClientProxy extends CommonProxy
     {
         AdvancedModelLoader.registerModelHandler(new MadTechneModelLoader());
     }
+    
+    @Override
+    public int getArmorIndex(String armor)
+    {
+        return RenderingRegistry.addNewArmourRendererPrefix(armor);
+    }
 
     /* INSTANCES */
     @Override
