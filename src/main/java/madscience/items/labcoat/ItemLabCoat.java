@@ -1,17 +1,24 @@
 package madscience.items.labcoat;
 
+import java.util.List;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadEntities;
 import madscience.MadScience;
+import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
 
 public class ItemLabCoat extends ItemArmor
 {
@@ -41,5 +48,24 @@ public class ItemLabCoat extends ItemArmor
     public void registerIcons(IconRegister par1IconRegister)
     {
         this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + (this.getUnlocalizedName().substring(5)));
+    }
+    
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
+    {
+        // Only displays tooltip information when SHIFT key is pressed.
+        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+        String defaultTooltip = StatCollector.translateToLocal("noshift.tooltip");
+        boolean isShiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+
+        // Use LWJGL to detect what key is being pressed.
+        if (tooltip != null && tooltip.length() > 0 && isShiftPressed)
+        {
+            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
+        else if (defaultTooltip != null && defaultTooltip.length() > 0 && !isShiftPressed)
+        {
+            info.addAll(MadUtils.splitStringPerWord(String.valueOf(defaultTooltip), 10));
+        }
     }
 }
