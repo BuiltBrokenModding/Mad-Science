@@ -138,12 +138,18 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         if (cryotubeOutput != null)
         {
             // Check if output slot 1 is over stack limit.
-            int slot1Result = cryotubeOutput[0].stackSize;
-            slot1Overlimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= cryotubeOutput[0].getMaxStackSize());
+            if (cryotubeOutput[0] != null)
+            {
+                int slot1Result = cryotubeOutput[0].stackSize;
+                slot1Overlimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= cryotubeOutput[0].getMaxStackSize());
+            }
         
             // Check if output slot 2 is over stack limit.
-            int slot2Result = cryotubeOutput[1].stackSize;
-            slot2Overlimit = (slot2Result <= getInventoryStackLimit() && slot2Result <= cryotubeOutput[1].getMaxStackSize());
+            if (cryotubeOutput[1] != null)
+            {
+                int slot2Result = cryotubeOutput[1].stackSize;
+                slot2Overlimit = (slot2Result <= getInventoryStackLimit() && slot2Result <= cryotubeOutput[1].getMaxStackSize());
+            }
         }
 
         // If either slot is over we return false.
