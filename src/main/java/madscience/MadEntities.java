@@ -4,11 +4,14 @@ import madscience.items.CombinedGenomeMonsterPlacer;
 import madscience.items.GeneticallyModifiedMonsterPlacer;
 import madscience.items.ItemDataReelEmpty;
 import madscience.items.labcoat.ItemLabCoat;
+import madscience.items.warningsign.WarningSignEntity;
+import madscience.items.warningsign.WarningSignItem;
 import madscience.metaitems.CombinedMemoryMonsterPlacer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.EnumHelper;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadEntities
@@ -46,6 +49,10 @@ public class MadEntities
     // Labcoat Goggles
     public static ItemLabCoat LABCOAT_GOGGLES;
     public static final String LABCOAT_GOGGLES_INTERNALNAME = "labCoatGoggles";
+    
+    // Warning Sign
+    public static WarningSignItem WARNING_SIGN;
+    public static final String WARNING_SIGN_INTERNALNAME = "warningSign";
 
     // Combined Genome Data Reels
     public static void createCombinedGenomeMonsterPlacer(int itemID)
@@ -139,5 +146,15 @@ public class MadEntities
         MadScience.logger.info("-LabCoat Goggles");
         LABCOAT_GOGGLES = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_GOGGLES_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_GOGGLES, LABCOAT_GOGGLES_INTERNALNAME);
+    }
+
+    // Warning Sign
+    public static void createWarningSign(int itemID)
+    {
+        MadScience.logger.info("-Warning Sign Painting");
+        WARNING_SIGN = (WarningSignItem) new WarningSignItem(itemID).setUnlocalizedName(WARNING_SIGN_INTERNALNAME);
+        EntityRegistry.registerModEntity(WarningSignEntity.class, WARNING_SIGN_INTERNALNAME, itemID, MadScience.instance, 120, 3, false);
+        GameRegistry.registerItem(WARNING_SIGN, WARNING_SIGN_INTERNALNAME);
+        MadScience.proxy.registerRenderingHandler(itemID);
     }
 }

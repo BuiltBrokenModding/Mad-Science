@@ -1,6 +1,9 @@
 package madscience.network;
 
 import madscience.MadScience;
+import madscience.items.warningsign.WarningSignPacketClientRequestSignType;
+import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
+import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
 import madscience.items.weapons.pulserifle.PulseRiflePackets;
 import madscience.tileentities.clayfurnace.ClayfurnacePackets;
 import madscience.tileentities.cncmachine.CnCMachinePackets;
@@ -110,6 +113,15 @@ public abstract class MadPackets
         
         // CnC Machine
         builder.put(Integer.valueOf(16), CnCMachinePackets.class);
+        
+        // Warning Sign Server (Sent from server to all clients to change Sign Type)
+        builder.put(Integer.valueOf(17), WarningSignPacketServerUpdateSignType.class);
+        
+        // Warning Sign Server (Sent from server to specific client)
+        builder.put(Integer.valueOf(18), WarningSignPacketServerRequestReplySignType.class);
+        
+        // Warning Sign Client (Sent by clients to server to ask for painting)
+        builder.put(Integer.valueOf(19), WarningSignPacketClientRequestSignType.class);
 
         idMap = builder.build();
     }

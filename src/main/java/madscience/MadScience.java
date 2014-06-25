@@ -388,6 +388,12 @@ public class MadScience
         MadEntities.createLabCoatGoggles(MadConfig.LABCOAT_GOGGLES, 0);
         MadEntities.createLabCoatBody(MadConfig.LABCOAT_BODY, 1);
         MadEntities.createLabCoatLeggings(MadConfig.LABCOAT_LEGGINGS, 2);
+        
+        // -----
+        // ITEMS
+        // -----
+        
+        MadEntities.createWarningSign(MadConfig.WARNING_SIGN);
 
         // --------------------
         // MONSTER PLACER ITEMS

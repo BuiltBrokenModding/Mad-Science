@@ -2,6 +2,7 @@ package madscience.client;
 
 import madscience.MadComponents;
 import madscience.MadConfig;
+import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadSounds;
@@ -14,6 +15,9 @@ import madscience.items.components.pulserifle.ComponentPulseRifleBulletCasingIte
 import madscience.items.components.pulserifle.ComponentPulseRifleGrenadeCasingItemRender;
 import madscience.items.components.pulserifle.ComponentPulseRifleReceiverItemRender;
 import madscience.items.components.pulserifle.ComponentPulseRifleTriggerItemRender;
+import madscience.items.warningsign.WarningSignEntity;
+import madscience.items.warningsign.WarningSignEntityRender;
+import madscience.items.warningsign.WarningSignItemRender;
 import madscience.items.weapons.pulserifle.PulseRifleItemRender;
 import madscience.items.weapons.pulserifle.PulseRifleItemRenderPlayer;
 import madscience.items.weapons.pulserifle.PulseRifleItemTickHandler;
@@ -414,6 +418,17 @@ public class ClientProxy extends CommonProxy
         if (blockID == MadConfig.COMPONENT_PULSERIFLEGRENADECASING)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEGRENADECASING.itemID, new ComponentPulseRifleGrenadeCasingItemRender());
+        }
+        
+        // -----
+        // ITEMS
+        // -----
+        
+        // Warning Sign
+        if (blockID == MadConfig.WARNING_SIGN)
+        {
+            MinecraftForgeClient.registerItemRenderer(MadEntities.WARNING_SIGN.itemID, new WarningSignItemRender());
+            RenderingRegistry.registerEntityRenderingHandler(WarningSignEntity.class, new WarningSignEntityRender());
         }
 
         // ----

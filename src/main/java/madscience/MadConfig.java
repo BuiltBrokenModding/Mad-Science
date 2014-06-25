@@ -398,6 +398,10 @@ public class MadConfig
     // Lab Coat Goggles
     public static @CfgId
     int LABCOAT_GOGGLES = getNextItemID();
+    
+    // Warning Sign
+    public static @CfgId
+    int WARNING_SIGN = getNextItemID();
 
     // -------
     // NEEDLES
