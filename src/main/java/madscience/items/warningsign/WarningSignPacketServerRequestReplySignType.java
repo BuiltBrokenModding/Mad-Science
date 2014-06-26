@@ -54,13 +54,13 @@ public class WarningSignPacketServerRequestReplySignType extends MadPackets
                 // If client already matched response from server then we don't need to update anything.
                 if (this.ENTITY.clientCurrentSignType.ordinal() == signType)
                 {
-                    MadScience.logger.info("[Client][WarningSignPacketServerLoginReply]Recieved update packet for Warning Sign ID " + this.entityID + " but don't have to update because sign types matched.");
+                    //MadScience.logger.info("[Client][WarningSignPacketServerLoginReply]Recieved update packet for Warning Sign ID " + this.entityID + " but don't have to update because sign types matched.");
                 }
                 else
                 {
                     // Changes the client image to match what the server told us to.
                     this.ENTITY.clientCurrentSignType = WarningSignEnum.values()[signType];
-                    MadScience.logger.info("[Client][WarningSignPacketServerLoginReply]Recieved update packet for Warning Sign ID " + this.entityID + " to become sign type " + this.ENTITY.clientCurrentSignType.title);
+                    //MadScience.logger.info("[Client][WarningSignPacketServerLoginReply]Recieved update packet for Warning Sign ID " + this.entityID + " to become sign type " + this.ENTITY.clientCurrentSignType.title);
                 }
             }
         }

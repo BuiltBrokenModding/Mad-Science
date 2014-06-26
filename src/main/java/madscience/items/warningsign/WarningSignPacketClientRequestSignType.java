@@ -52,16 +52,16 @@ public class WarningSignPacketClientRequestSignType extends MadPackets
                 PacketDispatcher.sendPacketToPlayer(new WarningSignPacketServerRequestReplySignType(this.ENTITY.entityId, this.ENTITY.serverCurrentSignType.ordinal()).makePacket(), (Player) player);
 
                 // Debugging!
-                if (this.ENTITY.serverCurrentSignType.ordinal() != this.signType)
-                {
-                    MadScience.logger.info("[Server][WarningSignPacket]Recieved client (" + player.username + ") request packet against sign " + this.entityID + " with type " + WarningSignEnum.values()[this.signType].title + " and replied "
-                            + this.ENTITY.serverCurrentSignType.title);
-                }
-                else
-                {
-                    MadScience.logger.info("[Server][WarningSignPacket]Recieved client (" + player.username + ") request packet for sign " + this.entityID + " but they already matched on server! Replied with confirmation packet sign type "
-                            + this.ENTITY.serverCurrentSignType.title + ".");
-                }
+//                if (this.ENTITY.serverCurrentSignType.ordinal() != this.signType)
+//                {
+//                    MadScience.logger.info("[Server][WarningSignPacket]Recieved client (" + player.username + ") request packet against sign " + this.entityID + " with type " + WarningSignEnum.values()[this.signType].title + " and replied "
+//                            + this.ENTITY.serverCurrentSignType.title);
+//                }
+//                else
+//                {
+//                    MadScience.logger.info("[Server][WarningSignPacket]Recieved client (" + player.username + ") request packet for sign " + this.entityID + " but they already matched on server! Replied with confirmation packet sign type "
+//                            + this.ENTITY.serverCurrentSignType.title + ".");
+//                }
             }
         }
         else

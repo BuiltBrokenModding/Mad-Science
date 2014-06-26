@@ -18,18 +18,24 @@ public class WarningSignPacketServerUpdateSignType extends MadPackets
     // Current sign to display.
     private int signType;
 
+    // Direction we are hanging.
+    // private int hangingDir;
+
     public WarningSignPacketServerUpdateSignType()
     {
         // Required for reflection.
     }
 
-    public WarningSignPacketServerUpdateSignType(int entityID, int imgType)
+    public WarningSignPacketServerUpdateSignType(int entityID, int imgType /* , int direction */)
     {
         // Entity ID for the world.
         this.entityID = entityID;
 
         // Image type information.
         this.signType = imgType;
+
+        // Direction
+        // this.hangingDir = direction;
     }
 
     @Override
@@ -44,7 +50,11 @@ public class WarningSignPacketServerUpdateSignType extends MadPackets
 
             // Image type information.
             this.ENTITY.clientCurrentSignType = WarningSignEnum.values()[signType];
-            MadScience.logger.info("[Client][WarningSignEntity]Recieved update packet for Warning Sign ID " + this.entityID + " to become sign type " + this.ENTITY.clientCurrentSignType.title);
+            //MadScience.logger.info("[Client][WarningSignEntity]Recieved update packet for Warning Sign ID " + this.entityID + " to become sign type " + this.ENTITY.clientCurrentSignType.title);
+
+            // Direction information.
+            // TODO: Find out if this can be removed completely.
+            // this.ENTITY.setDirection(hangingDir);
         }
         else
         {
@@ -60,6 +70,9 @@ public class WarningSignPacketServerUpdateSignType extends MadPackets
 
         // Image type information.
         this.signType = in.readInt();
+
+        // Direction.
+        // this.hangingDir = in.readInt();
     }
 
     @Override
@@ -70,5 +83,8 @@ public class WarningSignPacketServerUpdateSignType extends MadPackets
 
         // Image type information.
         out.writeInt(this.signType);
+
+        // Direction.
+        // out.writeInt(this.hangingDir);
     }
 }

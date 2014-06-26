@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -80,6 +81,19 @@ public class WarningSignEntity extends EntityHanging
     {
         return 16;
     }
+    
+    /**
+     * Returns true if other Entities should be prevented from moving through this Entity.
+     */
+    public boolean canBeCollidedWith()
+    {
+        return true;
+    }
+    
+    protected boolean shouldSetPosAfterLoading()
+    {
+        return false;
+    }
 
     @Override
     public boolean hitByEntity(Entity par1Entity)
@@ -110,7 +124,7 @@ public class WarningSignEntity extends EntityHanging
                     }
 
                     // Debugging!
-                    MadScience.logger.info("[Server][WarningSignEntity]Changing server signType to " + this.serverCurrentSignType.title);
+                    //MadScience.logger.info("[Server][WarningSignEntity]Changing server signType to " + this.serverCurrentSignType.title);
                 }
 
                 // Cancels the attack on server and client!
@@ -169,7 +183,7 @@ public class WarningSignEntity extends EntityHanging
                     PacketDispatcher.sendPacketToServer(new WarningSignPacketClientRequestSignType(this.entityId, this.clientCurrentSignType.ordinal()).makePacket());
 
                     // Debugging!
-                    MadScience.logger.info("[Client][WarningSignEntity]Sent request packet to server for Warning Sign ID " + this.entityId + " saying we are " + this.clientCurrentSignType.title);
+                    //MadScience.logger.info("[Client][WarningSignEntity]Sent request packet to server for Warning Sign ID " + this.entityId + " saying we are " + this.clientCurrentSignType.title);
                 }
             }
         }
@@ -178,13 +192,13 @@ public class WarningSignEntity extends EntityHanging
         if (worldObj != null && !worldObj.isRemote && serverShouldUpdate)
         {
             // Note: This always uses the default sign first which is index zero in array.
-            PacketDispatcher.sendPacketToAllInDimension(new WarningSignPacketServerUpdateSignType(this.entityId, this.serverCurrentSignType.ordinal()).makePacket(), worldObj.provider.dimensionId);
+            PacketDispatcher.sendPacketToAllInDimension(new WarningSignPacketServerUpdateSignType(this.entityId, this.serverCurrentSignType.ordinal() /*, this.hangingDirection */).makePacket(), worldObj.provider.dimensionId);
 
             // Prevents this from running all the time.
             serverShouldUpdate = false;
 
             // Debugging!
-            MadScience.logger.info("[Server][WarningSignEntity]Sent update packet for Warning Sign ID " + this.entityId + " to become sign type " + this.serverCurrentSignType.title);
+            //MadScience.logger.info("[Server][WarningSignEntity]Sent update packet for Warning Sign ID " + this.entityId + " to become sign type " + this.serverCurrentSignType.title);
         }
     }
 
@@ -208,7 +222,7 @@ public class WarningSignEntity extends EntityHanging
                 this.serverCurrentSignType = enumart;
 
                 // Debugging!
-                MadScience.logger.info("[Server][WarningSignEntity] Reloaded Sign From NBT and got " + this.serverCurrentSignType.title);
+                //MadScience.logger.info("[Server][WarningSignEntity] Reloaded Sign From NBT and got " + this.serverCurrentSignType.title);
             }
         }
 
@@ -226,8 +240,13 @@ public class WarningSignEntity extends EntityHanging
     @Override
     public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
     {
-        par1NBTTagCompound.setString("Motive", this.serverCurrentSignType.title);
-        MadScience.logger.info("[WarningSignEntity] Saved Sign NBT and with " + this.serverCurrentSignType.title);
+        // Only save the information about what sign to display if we have something.
+        if (serverCurrentSignType != null)
+        {
+            par1NBTTagCompound.setString("Motive", this.serverCurrentSignType.title);
+            //MadScience.logger.info("[WarningSignEntity] Saved Sign NBT and with " + this.serverCurrentSignType.title);
+        }
+        
         super.writeEntityToNBT(par1NBTTagCompound);
     }
 }

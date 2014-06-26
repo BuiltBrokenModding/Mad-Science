@@ -23,34 +23,30 @@ public class WarningSignEntityRender extends Render
 
     private void adjustDirection(WarningSignEntity par1EntityPainting, float par2, float par3)
     {
-        int i = MathHelper.floor_double(par1EntityPainting.posX);
-        int j = MathHelper.floor_double(par1EntityPainting.posY + par3 / 16.0F);
-        int k = MathHelper.floor_double(par1EntityPainting.posZ);
+        int fX = MathHelper.floor_double(par1EntityPainting.posX);
+        int fY = MathHelper.floor_double(par1EntityPainting.posY + par3 / 16.0F);
+        int fZ = MathHelper.floor_double(par1EntityPainting.posZ);
 
         if (par1EntityPainting.hangingDirection == 2)
         {
-            i = MathHelper.floor_double(par1EntityPainting.posX + par2 / 16.0F);
+            fX = MathHelper.floor_double(par1EntityPainting.posX + par2 / 16.0F);
         }
 
         if (par1EntityPainting.hangingDirection == 1)
         {
-            k = MathHelper.floor_double(par1EntityPainting.posZ - par2 / 16.0F);
+            fZ = MathHelper.floor_double(par1EntityPainting.posZ - par2 / 16.0F);
         }
 
         if (par1EntityPainting.hangingDirection == 0)
         {
-            i = MathHelper.floor_double(par1EntityPainting.posX - par2 / 16.0F);
+            fX = MathHelper.floor_double(par1EntityPainting.posX - par2 / 16.0F);
         }
 
         if (par1EntityPainting.hangingDirection == 3)
         {
-            k = MathHelper.floor_double(par1EntityPainting.posZ + par2 / 16.0F);
+            fZ = MathHelper.floor_double(par1EntityPainting.posZ + par2 / 16.0F);
         }
 
-        int l = this.renderManager.worldObj.getLightBrightnessForSkyBlocks(i, j, k, 0);
-        int i1 = l % 65536;
-        int j1 = l / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, i1, j1);
         GL11.glColor3f(1.0F, 1.0F, 1.0F);
     }
 
@@ -80,13 +76,17 @@ public class WarningSignEntityRender extends Render
                 float f16 = f + i1 * 16;
                 float f17 = f1 + (j1 + 1) * 16;
                 float f18 = f1 + j1 * 16;
+                
                 this.adjustDirection(par1EntityPainting, (f15 + f16) / 2.0F, (f17 + f18) / 2.0F);
+                
                 float f19 = (par4 + par2 - i1 * 16) / 256.0F;
                 float f20 = (par4 + par2 - (i1 + 1) * 16) / 256.0F;
                 float f21 = (par5 + par3 - j1 * 16) / 256.0F;
                 float f22 = (par5 + par3 - (j1 + 1) * 16) / 256.0F;
+                
                 Tessellator tessellator = Tessellator.instance;
-                tessellator.startDrawingQuads();
+                tessellator.startDrawing(GL11.GL_QUADS);
+                
                 tessellator.setNormal(0.0F, 0.0F, -1.0F);
                 tessellator.addVertexWithUV(f15, f18, (-f2), f20, f21);
                 tessellator.addVertexWithUV(f16, f18, (-f2), f19, f21);
@@ -142,26 +142,26 @@ public class WarningSignEntityRender extends Render
         return TEXTURE;
     }
 
-    public void renderThePainting(WarningSignEntity par1EntityPainting, double par2, double par4, double par6, float par8, float par9)
+    public void renderThePainting(WarningSignEntity entity, double x, double y, double z, float rotation, float k)
     {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) par2, (float) par4, (float) par6);
-        GL11.glRotatef(par8, 0.0F, 1.0F, 0.0F);
+        GL11.glTranslatef((float) x, (float) y, (float) z);
+        GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
         // Set the texture to current one we should be using (which contains them all).
-        this.bindEntityTexture(par1EntityPainting);
+        this.bindEntityTexture(entity);
 
         // Set the array to proper one we will be using.
         WarningSignEnum enumart = null;
-        if (par1EntityPainting.clientCurrentSignType != null)
+        if (entity.clientCurrentSignType != null)
         {
-            enumart = par1EntityPainting.clientCurrentSignType;
+            enumart = entity.clientCurrentSignType;
         }
         else
         {
             // Tell client it should request from server correct sign type.
-            par1EntityPainting.clientShouldRequestSignType = true;
+            entity.clientShouldRequestSignType = true;
         }
 
         // Default entry if none is provided.
@@ -171,9 +171,9 @@ public class WarningSignEntityRender extends Render
         }
 
         // Scale the image to correct size.
-        float f2 = 0.0625F;
-        GL11.glScalef(f2, f2, f2);
-        this.adjustToImageSize(par1EntityPainting, 16, 16, enumart.offsetX, enumart.offsetY);
+        float halfOfBlock = 0.03125F;
+        GL11.glScalef(halfOfBlock, halfOfBlock, halfOfBlock);
+        this.adjustToImageSize(entity, 32, 32, enumart.offsetX, enumart.offsetY);
 
         // Re-enable rescaling.
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);

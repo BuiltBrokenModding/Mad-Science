@@ -66,11 +66,11 @@ public class WarningSignItem extends ItemHangingEntity
                 return false;
             }
             else
-            {
+            {                
                 // Create the entity on the server world.
                 int dirValue = Direction.facingToDirection[direction];
                 WarningSignEntity entityhanging = new WarningSignEntity(gameWorld, xCoord, yCoord, zCoord, dirValue, WarningSignEnum.GenericWarning.ordinal());
-
+                
                 // Ensure the painting is on a valid surface (ex. no water, lava, air).
                 if (entityhanging != null && entityhanging.onValidSurface())
                 {
