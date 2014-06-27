@@ -1,12 +1,12 @@
 package madscience;
 
-import madscience.items.NeedleDirtyItem;
-import madscience.items.NeedleEmptyItem;
 import madscience.items.needles.NeedleBat;
 import madscience.items.needles.NeedleCaveSpider;
 import madscience.items.needles.NeedleChicken;
 import madscience.items.needles.NeedleCow;
 import madscience.items.needles.NeedleCreeper;
+import madscience.items.needles.NeedleDirtyItem;
+import madscience.items.needles.NeedleEmptyItem;
 import madscience.items.needles.NeedleEnderman;
 import madscience.items.needles.NeedleHorse;
 import madscience.items.needles.NeedleMushroomCow;
