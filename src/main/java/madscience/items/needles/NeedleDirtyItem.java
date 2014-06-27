@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.items.needles;
 
 import java.util.List;
 

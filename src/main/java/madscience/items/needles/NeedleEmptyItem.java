@@ -1,11 +1,10 @@
-package madscience.items;
+package madscience.items.needles;
 
 import java.util.List;
 
 import madscience.MadEntities;
 import madscience.MadNeedles;
 import madscience.MadScience;
-import madscience.items.needles.NeedleSounds;
 import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -166,6 +165,16 @@ public class NeedleEmptyItem extends Item
             }
             return false;
         }
+        
+        // Mooshroom
+        if (entity instanceof EntityMooshroom)
+        {
+            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_MUSHROOMCOW)))
+            {
+                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_MUSHROOMCOW));
+            }
+            return false;
+        }
 
         // ---------
         // BASE MOBS
@@ -237,16 +246,6 @@ public class NeedleEmptyItem extends Item
             if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_HORSE)))
             {
                 player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_HORSE));
-            }
-            return false;
-        }
-
-        // Mooshroom
-        if (entity instanceof EntityMooshroom)
-        {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_MUSHROOMCOW)))
-            {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_MUSHROOMCOW));
             }
             return false;
         }
