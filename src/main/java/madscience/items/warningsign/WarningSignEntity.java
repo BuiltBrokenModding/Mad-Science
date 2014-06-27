@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -33,6 +34,9 @@ public class WarningSignEntity extends EntityHanging
     /* Determines if this warning sign has received a reply from server in response to request. */
     public boolean clientHasRecievedServerReply;
 
+    /* Determines who the owner of this sign is. */
+    public String serverOwnerName;
+
     /* Required for reflection */
     public WarningSignEntity(World gameWorld)
     {
@@ -40,7 +44,7 @@ public class WarningSignEntity extends EntityHanging
     }
 
     /* Called from WarningSignItem on right-click with a warning sign item. */
-    public WarningSignEntity(World par1World, int posX, int posY, int posZ, int direction, int signType)
+    public WarningSignEntity(World par1World, int posX, int posY, int posZ, int direction, int signType, String ownerName)
     {
         super(par1World, posX, posY, posZ, direction);
         ArrayList arraylist = new ArrayList();
@@ -63,6 +67,9 @@ public class WarningSignEntity extends EntityHanging
         // Set our direction as dictated from params.
         this.setDirection(direction);
 
+        // Set owner information.
+        this.serverOwnerName = ownerName;
+
         if (!par1World.isRemote)
         {
             // Forces server to send packet to all clients on server with warning sign type.
@@ -81,15 +88,13 @@ public class WarningSignEntity extends EntityHanging
     {
         return 16;
     }
-    
-    /**
-     * Returns true if other Entities should be prevented from moving through this Entity.
-     */
+
+    /** Returns true if other Entities should be prevented from moving through this Entity. */
     public boolean canBeCollidedWith()
     {
         return true;
     }
-    
+
     protected boolean shouldSetPosAfterLoading()
     {
         return false;
@@ -101,13 +106,23 @@ public class WarningSignEntity extends EntityHanging
         // Check if it was a player that hit the sign.
         if (par1Entity instanceof EntityPlayer)
         {
+            // Cast entity we have determined to be a player to that type of object.
+            EntityPlayer entityPlayer = (EntityPlayer) par1Entity;
+
             // If the player hits us while sneaking we will update the picture.
-            EntityPlayer entityplayer = (EntityPlayer) par1Entity;
-            if (entityplayer.isSneaking())
+            if (entityPlayer.isSneaking())
             {
                 // Only the server needs to know about the update, it will tell others about it for us.
-                if (entityplayer.worldObj != null && !entityplayer.worldObj.isRemote)
+                if (entityPlayer.worldObj != null && !entityPlayer.worldObj.isRemote)
                 {
+                    // Check if username matches owner information.
+                    if (!isOwner(entityPlayer))
+                    {
+                        // Incorrect permissions error for player.
+                        entityPlayer.addChatMessage("Warning sign belongs to " + this.serverOwnerName + ". " + entityPlayer.username + " cannot edit or break it.");
+                        return true;
+                    }
+                    
                     // Change picture array number and send new update packet.
                     serverShouldUpdate = true;
 
@@ -120,11 +135,24 @@ public class WarningSignEntity extends EntityHanging
                     }
                     else
                     {
+                        // We change nextSign so player read out will look correct, has no bearing in code execution since we force it to zero.
+                        nextSign = 1;
                         this.serverCurrentSignType = WarningSignEnum.values()[0];
+                    }
+                    
+                    String signDesc = getServerSignTypeDescription();
+                    if (signDesc != null && !signDesc.isEmpty())
+                    {
+                        // Since you are the owner and are changing the sign we tell you which one you are one and what it means.
+                        entityPlayer.addChatMessage(nextSign + "/" + warningEnumLength + ": " + this.serverCurrentSignType.title + ": " + signDesc);                        
+                    }
+                    else
+                    {
+                        entityPlayer.addChatMessage(nextSign + "/" + warningEnumLength + ": " + this.serverCurrentSignType.title);
                     }
 
                     // Debugging!
-                    //MadScience.logger.info("[Server][WarningSignEntity]Changing server signType to " + this.serverCurrentSignType.title);
+                    // MadScience.logger.info("[Server][WarningSignEntity]Changing server signType to " + this.serverCurrentSignType.title);
                 }
 
                 // Cancels the attack on server and client!
@@ -132,13 +160,68 @@ public class WarningSignEntity extends EntityHanging
             }
             else
             {
-                // Attempts to break the sign and give it back to the player as an item.
-                this.attackEntityFrom(DamageSource.causePlayerDamage(entityplayer), 0.0F);
-                return false;
+                // Check if we should break the object because owner hit us or just transmit description of what sign means.
+                if (entityPlayer.worldObj != null && !entityPlayer.worldObj.isRemote)
+                {
+                    // Check if username matches owner information.
+                    if (!isOwner(entityPlayer))
+                    {
+                        String signDesc = getServerSignTypeDescription();
+                        if (signDesc != null && !signDesc.isEmpty())
+                        {
+                            entityPlayer.addChatMessage(signDesc);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        // Attempts to break the sign and give it back to the player as an item.
+                        this.attackEntityFrom(DamageSource.causePlayerDamage(entityPlayer), 0.0F);
+                        return false;
+                    }
+                }
             }
         }
 
         return false;
+    }
+
+    /**
+     * Returns string of localized warning sign description.
+     */
+    private String getServerSignTypeDescription()
+    {
+        // Grab the localized string for the warning sign description based on title.
+        String signTypeDescriptionTranslated = StatCollector.translateToLocal("warningSign.description." + this.serverCurrentSignType.title);
+        String signTypeDescriptionPrefix = StatCollector.translateToLocal("warningSign.description.prefix");
+        
+        // Only display the string if is is actually there and has something.
+        if (signTypeDescriptionTranslated != null && !signTypeDescriptionTranslated.isEmpty())
+        {
+            // Note: the space is added to prevent any trimming errors with localization manager.
+            return signTypeDescriptionPrefix + " " + signTypeDescriptionTranslated;
+        }
+        
+        // Default response is to return empty string is isEmpty() checks will work.
+        return "";
+    }
+
+    /**
+     * @param entityPlayer
+     * @return boolean
+     */
+    private boolean isOwner(EntityPlayer entityPlayer)
+    {
+        if (this.serverOwnerName != null && !this.serverOwnerName.isEmpty())
+        {
+            if (!entityPlayer.username.equals(this.serverOwnerName))
+            {
+                // Cancel the attack since you are not the owner!
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     /** Called when this entity is broken. Entity parameter may be null. */
@@ -183,7 +266,7 @@ public class WarningSignEntity extends EntityHanging
                     PacketDispatcher.sendPacketToServer(new WarningSignPacketClientRequestSignType(this.entityId, this.clientCurrentSignType.ordinal()).makePacket());
 
                     // Debugging!
-                    //MadScience.logger.info("[Client][WarningSignEntity]Sent request packet to server for Warning Sign ID " + this.entityId + " saying we are " + this.clientCurrentSignType.title);
+                    // MadScience.logger.info("[Client][WarningSignEntity]Sent request packet to server for Warning Sign ID " + this.entityId + " saying we are " + this.clientCurrentSignType.title);
                 }
             }
         }
@@ -192,13 +275,13 @@ public class WarningSignEntity extends EntityHanging
         if (worldObj != null && !worldObj.isRemote && serverShouldUpdate)
         {
             // Note: This always uses the default sign first which is index zero in array.
-            PacketDispatcher.sendPacketToAllInDimension(new WarningSignPacketServerUpdateSignType(this.entityId, this.serverCurrentSignType.ordinal() /*, this.hangingDirection */).makePacket(), worldObj.provider.dimensionId);
+            PacketDispatcher.sendPacketToAllInDimension(new WarningSignPacketServerUpdateSignType(this.entityId, this.serverCurrentSignType.ordinal() /* , this.hangingDirection */).makePacket(), worldObj.provider.dimensionId);
 
             // Prevents this from running all the time.
             serverShouldUpdate = false;
 
             // Debugging!
-            //MadScience.logger.info("[Server][WarningSignEntity]Sent update packet for Warning Sign ID " + this.entityId + " to become sign type " + this.serverCurrentSignType.title);
+            // MadScience.logger.info("[Server][WarningSignEntity]Sent update packet for Warning Sign ID " + this.entityId + " to become sign type " + this.serverCurrentSignType.title);
         }
     }
 
@@ -207,23 +290,30 @@ public class WarningSignEntity extends EntityHanging
     public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
     {
         // Get the sign type from NBT stored data.
-        String s = par1NBTTagCompound.getString("Motive");
+        String savedSignType = par1NBTTagCompound.getString("Motive");
 
         // Loop through all warning sign artwork and look for matching value.
-        WarningSignEnum[] aenumart = WarningSignEnum.values();
-        int i = aenumart.length;
+        WarningSignEnum[] allWarningSignsTypes = WarningSignEnum.values();
+        int i = allWarningSignsTypes.length;
 
         for (int j = 0; j < i; ++j)
         {
             // Check if stored NBT sign name exists in current enumeration of signs.
-            WarningSignEnum enumart = aenumart[j];
-            if (enumart.title.equals(s))
+            WarningSignEnum enumart = allWarningSignsTypes[j];
+            if (enumart.title.equals(savedSignType))
             {
                 this.serverCurrentSignType = enumart;
 
                 // Debugging!
-                //MadScience.logger.info("[Server][WarningSignEntity] Reloaded Sign From NBT and got " + this.serverCurrentSignType.title);
+                // MadScience.logger.info("[Server][WarningSignEntity] Reloaded Sign From NBT and got " + this.serverCurrentSignType.title);
             }
+        }
+        
+        // Get the username from the NBT stored data.
+        String savedOwner = par1NBTTagCompound.getString("Owner");
+        if (savedOwner != null && !savedOwner.isEmpty())
+        {
+            this.serverOwnerName = savedOwner;
         }
 
         super.readEntityFromNBT(par1NBTTagCompound);
@@ -244,9 +334,15 @@ public class WarningSignEntity extends EntityHanging
         if (serverCurrentSignType != null)
         {
             par1NBTTagCompound.setString("Motive", this.serverCurrentSignType.title);
-            //MadScience.logger.info("[WarningSignEntity] Saved Sign NBT and with " + this.serverCurrentSignType.title);
+            // MadScience.logger.info("[WarningSignEntity] Saved Sign NBT and with " + this.serverCurrentSignType.title);
         }
         
+        // Only save a username if we actually have one worth saving.
+        if (this.serverOwnerName != null && !this.serverOwnerName.isEmpty())
+        {
+            par1NBTTagCompound.setString("Owner", this.serverOwnerName);   
+        }
+
         super.writeEntityToNBT(par1NBTTagCompound);
     }
 }

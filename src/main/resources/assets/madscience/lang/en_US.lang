@@ -92,7 +92,36 @@ item.labCoatLeggings.tooltip="I soak my white socks in coffee, so I can wear the
 
 # Items
 item.warningSign.name=Warning Sign
-item.warningSign.tooltip=Contains several standardized symbols for harmful or dangerous materials.
+item.warningSign.tooltip=Contains several standardized symbols for harmful or dangerous materials. Shift + Left-Click to change sign type.
+
+# Warning Sign Descriptions
+warningSign.description.prefix=Warning:
+warningSign.description.MagneticField1=Magnetic field is active nearby
+warningSign.description.ExplosibleRegion=This area is an explosible region use extreme caution!
+warningSign.description.WarningAuger=Auger machine in operation nearby.
+warningSign.description.Corrosive=Hazard symbol corrosive substances.
+warningSign.description.Flammable=Flammable substances!
+warningSign.description.CompressedGas=Hazard symbol gas bottles.
+warningSign.description.HotSurface=Hot surfaces nearby.
+warningSign.description.LaserBeam=Laser beam active in area.
+warningSign.description.MagneticField2=Strong magnetic field nearby.
+warningSign.description.OpticalRadiation=Optical radiation present in area, use protection.
+warningSign.description.Explosive=Explosive substances in area, use extreme caution!
+warningSign.description.Poisonous=Poisonous substances in area, risk of death!
+warningSign.description.Radioactive=Radioactive substances or ionising radiation!
+warningSign.description.Oxidising=Oxidising substances will react with surrounding air!
+warningSign.description.ElectromagneticRadiation=Non-ionising electromagnetic radiation in current area.
+warningSign.description.Falling=Risk of falling, watch your step!
+warningSign.description.Biohazard=Biological substances that pose bodily harm or death.
+warningSign.description.Battery=Danger from batteries acid or explosions, wear protection!
+warningSign.description.RemoteStart=Remotely started equipment in area, be aware of your surroundings!
+warningSign.description.FingerSandwich=Risk of severe hand injury or disfigurement.
+warningSign.description.Slipping=Wet surfaces, slipping hazard.
+warningSign.description.LowCeiling=Low hanging ceiling, watch your step!
+warningSign.description.Pointy=Pointy objects are within the present area, watch your step.
+warningSign.description.Conveyor=Conveyor belt system or tracks in immediate area.
+warningSign.description.Entanglement=Risk of entanglement and dismemberment, be aware of your surroundings!
+warningSign.description.GenericWarning=Generic warning symbol, be aware of your surroundings!
 
 # GMO Mobs
 entity.gmoWerewolf.name=Werewolf
