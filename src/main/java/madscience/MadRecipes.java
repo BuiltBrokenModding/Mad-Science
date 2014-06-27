@@ -37,7 +37,7 @@ public class MadRecipes
           'W', new ItemStack(Block.cloth, 1, 0),
           
           // Light Blue Wool (Shirt)
-          'S', new ItemStack(Block.cloth, 3, 3),
+          'S', new ItemStack(Block.cloth, 1, 3),
         }));
         
         // Laboratory Coat Leggings.
@@ -63,6 +63,19 @@ public class MadRecipes
           
           'S', new ItemStack(Item.silk, 1, 0),
           'G', new ItemStack(Block.glass, 1, 0)
+          }));
+        
+        // Warning Sign
+        MadScience.logger.info("-Warning Sign recipe");
+        GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.WARNING_SIGN, new Object[]
+        { "WWW",
+          "IPI",
+          "WWW", 
+          
+          // Yellow Wool
+          'W', new ItemStack(Block.cloth, 1, 4),
+          'I', new ItemStack(Item.ingotIron, 1, 0),
+          'P', new ItemStack(Item.painting, 1, 0)
           }));
     }
     
