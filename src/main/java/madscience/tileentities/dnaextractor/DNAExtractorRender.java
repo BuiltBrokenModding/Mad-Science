@@ -34,19 +34,19 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
     // Refers to location in asset folder with other textures and sounds.
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/idle.png");
 
     // Reference to our tile entity.
-    private DNAExtractorEntity lastPlacedTileEntity;
+    private DNAExtractorEntity ENTITY;
 
     @Override
     public int getRenderId()
     {
         // Returns our unique rendering ID for this specific tile entity.
-        return modelRenderID;
+        return RENDERID;
     }
 
     @Override
@@ -155,18 +155,18 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         }
     }
     
-    public void renderAModelAt(DNAExtractorEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(DNAExtractorEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        lastPlacedTileEntity = (DNAExtractorEntity) tileEntity;
-        if (lastPlacedTileEntity == null)
+        ENTITY = (DNAExtractorEntity) tileEntity;
+        if (ENTITY == null)
         {
             return;
         }
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
-        switch (lastPlacedTileEntity.getBlockMetadata() % 4)
+        switch (ENTITY.getBlockMetadata() % 4)
         {
         case 0:
             rotation = 0;
@@ -208,9 +208,9 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         }
 
         // Apply our custom texture from asset directory.
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.dnaExtractorTexture != null && !lastPlacedTileEntity.dnaExtractorTexture.isEmpty())
+        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.dnaExtractorTexture));
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
         }
         else
         {

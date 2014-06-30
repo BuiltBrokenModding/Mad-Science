@@ -29,30 +29,11 @@ public class DNAExtractorRecipes
         metaExperience.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
     }
 
-    /** Grabs the amount of base experience for this item to give when pulled from the furnace slot. */
-    public static float getExperience(ItemStack item)
-    {
-        if (item == null || item.getItem() == null)
-        {
-            return 0;
-        }
-        float ret = item.getItem().getSmeltingExperience(item);
-        if (ret < 0 && metaExperience.containsKey(Arrays.asList(item.itemID, item.getItemDamage())))
-        {
-            ret = metaExperience.get(Arrays.asList(item.itemID, item.getItemDamage()));
-        }
-        if (ret < 0 && experienceList.containsKey(item.itemID))
-        {
-            ret = ((Float) experienceList.get(item.itemID)).floatValue();
-        }
-        return (ret < 0 ? 0 : ret);
-    }
-
     /** Used to get the resulting ItemStack form a source ItemStack
      * 
      * @param item The Source ItemStack
      * @return The result ItemStack */
-    public static ItemStack getSmeltingResult(ItemStack item)
+    static ItemStack getSmeltingResult(ItemStack item)
     {
         if (item == null)
         {
@@ -66,12 +47,7 @@ public class DNAExtractorRecipes
         return (ItemStack) smeltingList.get(Integer.valueOf(item.itemID));
     }
 
-    @Deprecated
-    // In favor of ItemStack sensitive version
-    public float getExperience(int par1)
-    {
-        return DNAExtractorRecipes.experienceList.containsKey(Integer.valueOf(par1)) ? ((Float) DNAExtractorRecipes.experienceList.get(Integer.valueOf(par1))).floatValue() : 0.0F;
-    }
+    
 
     public Map<List<Integer>, ItemStack> getMetaSmeltingList()
     {
@@ -81,12 +57,5 @@ public class DNAExtractorRecipes
     public Map getSmeltingList()
     {
         return DNAExtractorRecipes.smeltingList;
-    }
-
-    /** Returns the smelting result of an item. Deprecated in favor of a metadata sensitive version */
-    @Deprecated
-    public ItemStack getSmeltingResult(int par1)
-    {
-        return (ItemStack) DNAExtractorRecipes.smeltingList.get(Integer.valueOf(par1));
     }
 }

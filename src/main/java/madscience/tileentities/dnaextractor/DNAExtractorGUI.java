@@ -41,8 +41,7 @@ public class DNAExtractorGUI extends GUIContainerBase
         // Variable to keep track of block texture segments.
         int start = 0;
 
-        // Grab the icon of the liquid by looking at fluid properties in
-        // internal tank.
+        // Grab the icon of the liquid by looking at fluid properties in internal tank.
         Icon liquidIcon = MadFluids.LIQUIDDNA_MUTANT.getStillIcon();
 
         // Bind the texture we grabbed so we can use it in rendering.
@@ -68,13 +67,8 @@ public class DNAExtractorGUI extends GUIContainerBase
                 squaled = 0;
             }
 
-            // ------------
-            // PROGRESS BAR
-            // ------------
-            // Screen Coords: 131x19
-            // Filler Coords: 176x31
-            // Image Size WH: 16x58
-            drawTexturedModelRectFromIcon(screenX + col, screenY + line + 58 - x - start, liquidIcon, 16, 16 - (16 - x));
+            // Draw mutant DNA tank with proper offset.
+            drawTexturedModelRectFromIcon(screenX + col, screenY + line + DNAExtractorEnumGUI.MutantDNATank.sizeY() - x - start, liquidIcon, 16, 16 - (16 - x));
             start = start + 16;
 
             if (x == 0 || squaled == 0)
@@ -86,7 +80,11 @@ public class DNAExtractorGUI extends GUIContainerBase
         // Re-draws gauge lines ontop of scaled fluid amount to make it look
         // like the fluid is behind the gauge lines.
         mc.renderEngine.bindTexture(TEXTURE);
-        drawTexturedModalRect(screenX + col, screenY + line, 176, 31, 16, 58);
+        drawTexturedModalRect(screenX + col, screenY + line,
+                DNAExtractorEnumGUI.MutantDNATank.fillerX(),
+                DNAExtractorEnumGUI.MutantDNATank.fillerY(),
+                DNAExtractorEnumGUI.MutantDNATank.sizeX(),
+                DNAExtractorEnumGUI.MutantDNATank.sizeY());
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
@@ -97,20 +95,29 @@ public class DNAExtractorGUI extends GUIContainerBase
 
         // -----------
         // POWER LEVEL
-        int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(14);
+        // -----------
+        int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(DNAExtractorEnumGUI.Power.sizeX());
         // Screen Coords: 10x49
         // Filler Coords: 176x0
         // Image Size WH: 14x14
-        this.drawTexturedModalRect(screenX + 10, screenY + 49 + 14 - powerRemianingPercentage, 176, 14 - powerRemianingPercentage, 14, powerRemianingPercentage + 2);
+        this.drawTexturedModalRect(screenX + DNAExtractorEnumGUI.Power.screenX(),
+                screenY + DNAExtractorEnumGUI.Power.screenY() + DNAExtractorEnumGUI.Power.sizeY() - powerRemianingPercentage,
+                DNAExtractorEnumGUI.Power.fillerX(),
+                DNAExtractorEnumGUI.Power.sizeX() - powerRemianingPercentage,
+                DNAExtractorEnumGUI.Power.sizeY(), powerRemianingPercentage + 2);
 
         // ---------------------
         // ITEM COOKING PROGRESS
         // ---------------------
-        int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(31);
+        int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(DNAExtractorEnumGUI.Work.screenY());
         // Screen Coords: 32x31
         // Filler Coords: 176x14
         // Image Size WH: 31x17
-        this.drawTexturedModalRect(screenX + 32, screenY + 31, 176, 14, powerCookPercentage + 1, 17);
+        this.drawTexturedModalRect(screenX + DNAExtractorEnumGUI.Work.screenX(),
+                screenY + DNAExtractorEnumGUI.Work.screenY(),
+                DNAExtractorEnumGUI.Work.fillerX(), DNAExtractorEnumGUI.Work.fillerY(),
+                powerCookPercentage + 1,
+                DNAExtractorEnumGUI.Work.sizeY());
 
         // ------------
         // PROGRESS BAR
@@ -118,7 +125,10 @@ public class DNAExtractorGUI extends GUIContainerBase
         // Screen Coords: 131x19
         // Filler Coords: 176x31
         // Image Size WH: 16x58
-        displayGauge(screenX, screenY, 19, 131, this.ENTITY.getWaterRemainingScaled(58));
+        displayGauge(screenX, screenY,
+                DNAExtractorEnumGUI.MutantDNATank.screenY(),
+                DNAExtractorEnumGUI.MutantDNATank.screenX(),
+                this.ENTITY.getWaterRemainingScaled(DNAExtractorEnumGUI.MutantDNATank.sizeY()));
     }
 
     /** Draw the foreground layer for the GuiContainer (everything in front of the items) */
@@ -136,45 +146,67 @@ public class DNAExtractorGUI extends GUIContainerBase
         this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
         
         // Power level
-        if (this.isPointInRegion(10, 49, 14, 14, mouseX, mouseY))
+        if (this.isPointInRegion(DNAExtractorEnumGUI.Power.screenX(),
+                DNAExtractorEnumGUI.Power.screenY(),
+                DNAExtractorEnumGUI.Power.sizeX(),
+                DNAExtractorEnumGUI.Power.sizeY(),
+                mouseX, mouseY))
         {
             String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
             this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
         }
         
         // Cooking progress
-        if (this.isPointInRegion(32, 31, 31, 17, mouseX, mouseY))
+        if (this.isPointInRegion(DNAExtractorEnumGUI.Work.screenX(),
+                DNAExtractorEnumGUI.Work.screenY(),
+                DNAExtractorEnumGUI.Work.sizeX(),
+                DNAExtractorEnumGUI.Work.sizeY(),
+                mouseX, mouseY))
         {
             String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
             this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
                     powerLevelLiteral);
         }
 
-        // Input slot help.
-        if (this.isPointInRegion(9, 32, 18, 18, mouseX, mouseY))
+        // Input slot for genetic material.
+        if (this.isPointInRegion(DNAExtractorEnumContainer.InputGeneticMatrial.offsetX(),
+                DNAExtractorEnumContainer.InputGeneticMatrial.offsetY(),
+                DNAExtractorEnumContainer.InputGeneticMatrial.sizeX(),
+                DNAExtractorEnumContainer.InputGeneticMatrial.sizeY(), mouseX, mouseY))
         {
-            if (this.ENTITY.internalLiquidDNAMutantTank.getFluidAmount() > 0 && this.ENTITY.getStackInSlot(0) == null)
+            if (this.ENTITY.internalLiquidDNAMutantTank.getFluidAmount() > 0 && this.ENTITY.getStackInSlot(DNAExtractorEnumContainer.InputGeneticMatrial.getSlotNumber()) == null)
+            {
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Input slot");
+            }
         }
 
         // Water bucket input help.
-        if (this.isPointInRegion(152, 61, 18, 18, mouseX, mouseY))
+        if (this.isPointInRegion(DNAExtractorEnumContainer.InputEmptyBucket.offsetX(),
+                DNAExtractorEnumContainer.InputEmptyBucket.offsetY(),
+                DNAExtractorEnumContainer.InputEmptyBucket.sizeX(),
+                DNAExtractorEnumContainer.InputEmptyBucket.sizeY(), mouseX, mouseY))
         {
-            if (this.ENTITY.getStackInSlot(1) == null)
+            if (this.ENTITY.getStackInSlot(DNAExtractorEnumContainer.InputEmptyBucket.getSlotNumber()) == null)
             {
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Place empty bucket");
             }
         }
 
         // Mutant DNA tank help.
-        if (this.isPointInRegion(131, 19, 16, 58, mouseX, mouseY) && this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
+        if (this.isPointInRegion(DNAExtractorEnumGUI.MutantDNATank.screenX(),
+                DNAExtractorEnumGUI.MutantDNATank.screenY(),
+                DNAExtractorEnumGUI.MutantDNATank.sizeX(),
+                DNAExtractorEnumGUI.MutantDNATank.sizeY(), mouseX, mouseY) && this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
         {
             if (this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
         }
         
         // Help link
-        if (this.isPointInRegion(166, 4, 6, 5, mouseX, mouseY))
+        if (this.isPointInRegion(DNAExtractorEnumGUI.Help.screenX(),
+                DNAExtractorEnumGUI.Help.screenY(),
+                DNAExtractorEnumGUI.Help.sizeX(),
+                DNAExtractorEnumGUI.Help.sizeY(), mouseX, mouseY))
         {
             if (this.isCtrlKeyDown())
             {
@@ -193,12 +225,12 @@ public class DNAExtractorGUI extends GUIContainerBase
     {
         super.initGui();
 
-        int posX = (this.width - 6) / 2;
-        int posY = (this.height - 5) / 2;
+        int posX = (this.width - DNAExtractorEnumGUI.Help.sizeX()) / 2;
+        int posY = (this.height - DNAExtractorEnumGUI.Help.sizeY()) / 2;
         
         // make buttons
         buttonList.clear();
-        buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76, 6, 5));
+        buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76, DNAExtractorEnumGUI.Help.sizeX(), DNAExtractorEnumGUI.Help.sizeY()));
     }
 
     @Override

@@ -9,27 +9,45 @@ import net.minecraft.item.ItemStack;
 
 public class DNAExtractorContainer extends Container
 {
-    private DNAExtractorEntity dnaExtractorTileEntity;
+    private DNAExtractorEntity ENTITY;
 
     public DNAExtractorContainer(InventoryPlayer par1InventoryPlayer, DNAExtractorEntity par2TileEntityFurnace)
     {
         // Hook the server world entity.
-        this.dnaExtractorTileEntity = par2TileEntityFurnace;
+        this.ENTITY = par2TileEntityFurnace;
 
         // Input Slot 1 - Incoming filled needles of DNA from mobs.
-        this.addSlotToContainer(new DNAExtractorSlotInput(par2TileEntityFurnace, 0, 9, 32));
+        this.addSlotToContainer(new DNAExtractorSlotInput(par2TileEntityFurnace,
+                DNAExtractorEnumContainer.InputGeneticMatrial.getSlotNumber(),
+                DNAExtractorEnumContainer.InputGeneticMatrial.offsetX(),
+                DNAExtractorEnumContainer.InputGeneticMatrial.offsetY()));
 
         // Input Slot 2 - Empty bucket to get filled with mutant DNA.
-        this.addSlotToContainer(new DNAExtractorSlotInputEmptyBucket(par2TileEntityFurnace, 1, 152, 61));
+        this.addSlotToContainer(new DNAExtractorSlotInputEmptyBucket(par2TileEntityFurnace,
+                DNAExtractorEnumContainer.InputEmptyBucket.getSlotNumber(),
+                DNAExtractorEnumContainer.InputEmptyBucket.offsetX(),
+                DNAExtractorEnumContainer.InputEmptyBucket.offsetY()));
 
         // Output Slot 1 - DNA sample.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 2, 72, 32));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player,
+                par2TileEntityFurnace,
+                DNAExtractorEnumContainer.OutputDNASample.getSlotNumber(),
+                DNAExtractorEnumContainer.OutputDNASample.offsetX(),
+                DNAExtractorEnumContainer.OutputDNASample.offsetY()));
 
         // Output Slot 2 - Dirty needles.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 3, 105, 32));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player,
+                par2TileEntityFurnace,
+                DNAExtractorEnumContainer.OutputDirtyNeedle.getSlotNumber(),
+                DNAExtractorEnumContainer.OutputDirtyNeedle.offsetX(),
+                DNAExtractorEnumContainer.OutputDirtyNeedle.offsetY()));
 
         // Output Slot 3 - Filled mutant DNA bucket.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player, par2TileEntityFurnace, 4, 152, 36));
+        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player,
+                par2TileEntityFurnace,
+                DNAExtractorEnumContainer.OutputFilledMutantDNABucket.getSlotNumber(),
+                DNAExtractorEnumContainer.OutputFilledMutantDNABucket.offsetX(),
+                DNAExtractorEnumContainer.OutputFilledMutantDNABucket.offsetY()));
 
         // Create slots for main player inventory area.
         int i;
@@ -51,31 +69,31 @@ public class DNAExtractorContainer extends Container
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.dnaExtractorTileEntity.isUseableByPlayer(par1EntityPlayer);
+        return this.ENTITY.isUseableByPlayer(par1EntityPlayer);
     }
 
     /** Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that. */
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
+    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotNumber)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(par2);
+        Slot slotContainer = (Slot) this.inventorySlots.get(slotNumber);
 
-        if (slot != null && slot.getHasStack())
+        if (slotContainer != null && slotContainer.getHasStack())
         {
-            ItemStack itemstack1 = slot.getStack();
+            ItemStack itemstack1 = slotContainer.getStack();
             itemstack = itemstack1.copy();
 
-            if (par2 == 2)
+            if (slotNumber == 2)
             {
                 if (!this.mergeItemStack(itemstack1, 3, 38, true))
                 {
                     return null;
                 }
 
-                slot.onSlotChange(itemstack1, itemstack);
+                slotContainer.onSlotChange(itemstack1, itemstack);
             }
-            else if (par2 != 1 && par2 != 0)
+            else if (slotNumber != 1 && slotNumber != 0)
             {
                 if (DNAExtractorRecipes.getSmeltingResult(itemstack1) != null)
                 {
@@ -84,14 +102,14 @@ public class DNAExtractorContainer extends Container
                         return null;
                     }
                 }
-                else if (par2 >= 3 && par2 < 30)
+                else if (slotNumber >= 3 && slotNumber < 30)
                 {
                     if (!this.mergeItemStack(itemstack1, 30, 38, false))
                     {
                         return null;
                     }
                 }
-                else if (par2 >= 30 && par2 < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
+                else if (slotNumber >= 30 && slotNumber < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
                 {
                     return null;
                 }
@@ -103,11 +121,11 @@ public class DNAExtractorContainer extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack) null);
+                slotContainer.putStack((ItemStack) null);
             }
             else
             {
-                slot.onSlotChanged();
+                slotContainer.onSlotChanged();
             }
 
             if (itemstack1.stackSize == itemstack.stackSize)
@@ -115,7 +133,7 @@ public class DNAExtractorContainer extends Container
                 return null;
             }
 
-            slot.onPickupFromSlot(par1EntityPlayer, itemstack1);
+            slotContainer.onPickupFromSlot(entityPlayer, itemstack1);
         }
 
         return itemstack;

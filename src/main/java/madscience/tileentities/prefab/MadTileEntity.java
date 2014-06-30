@@ -13,7 +13,7 @@ import universalelectricity.api.energy.IEnergyInterface;
 import universalelectricity.api.vector.Vector3;
 
 @UniversalClass
-public abstract class MadTileEntity extends MadTileEntityRedstone implements IEnergyInterface, IEnergyContainer
+public abstract class MadTileEntity extends MadTileEntityInventory implements IEnergyInterface, IEnergyContainer
 {
     protected EnergyStorageHandler energy;
 
@@ -22,7 +22,7 @@ public abstract class MadTileEntity extends MadTileEntityRedstone implements IEn
         this(0);
     }
 
-    public MadTileEntity(long capacity)
+    private MadTileEntity(long capacity)
     {
         this(capacity, capacity, capacity);
     }
@@ -43,7 +43,7 @@ public abstract class MadTileEntity extends MadTileEntityRedstone implements IEn
         return true;
     }
 
-    protected void consume()
+    private void consume()
     {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS)
         {

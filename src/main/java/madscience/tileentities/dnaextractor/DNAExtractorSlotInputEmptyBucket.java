@@ -5,9 +5,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class DNAExtractorSlotInputEmptyBucket extends Slot
+class DNAExtractorSlotInputEmptyBucket extends Slot
 {
-    public DNAExtractorSlotInputEmptyBucket(IInventory inv, int index, int x, int y)
+    DNAExtractorSlotInputEmptyBucket(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

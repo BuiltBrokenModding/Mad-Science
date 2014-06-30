@@ -2,7 +2,7 @@ package madscience.tileentities.prefab;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public abstract class MadTileEntityRedstone extends MadTileEntityBase
+abstract class MadTileEntityRedstone extends MadTileEntityBase
 {
     /** Determines if we have redstone powering us */
     public boolean isRedstonePowered = false;

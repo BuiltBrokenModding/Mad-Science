@@ -4,9 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public abstract class MadTileEntityBase extends TileEntity
+abstract class MadTileEntityBase extends TileEntity
 {
-    protected long ticks = 0;
+    private long ticks = 0;
 
     @Override
     public int getBlockMetadata()

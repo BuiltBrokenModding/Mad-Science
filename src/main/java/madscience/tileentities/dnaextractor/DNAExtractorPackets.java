@@ -41,7 +41,7 @@ public class DNAExtractorPackets extends MadPackets
         // Required for reflection.
     }
 
-    public DNAExtractorPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int mutantDNALevel, int mutantDNAMaximum, String tileTexture)
+    DNAExtractorPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int mutantDNALevel, int mutantDNAMaximum, String tileTexture)
     {
         // World position information.
         tilePosX = posX;
@@ -91,7 +91,7 @@ public class DNAExtractorPackets extends MadPackets
             this.dnaExtractorTileEntity.internalLiquidDNAMutantTank.setCapacity(lastLiquidDNAMutantMaximum);
 
             // Tile entity texture.
-            this.dnaExtractorTileEntity.dnaExtractorTexture = lastTexture;
+            this.dnaExtractorTileEntity.TEXTURE = lastTexture;
         }
         else
         {

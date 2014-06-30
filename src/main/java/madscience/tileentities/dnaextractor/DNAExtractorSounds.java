@@ -9,8 +9,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class DNAExtractorSounds
 {
     // DNA Extractor
-    public static final String DNAEXTRACTOR_FINISH = MadScience.ID + ":" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".Finish";
-    public static final String DNAEXTRACTOR_IDLE = MadScience.ID + ":" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".Idle";
+    static final String DNAEXTRACTOR_FINISH = MadScience.ID + ":" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".Finish";
+    static final String DNAEXTRACTOR_IDLE = MadScience.ID + ":" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".Idle";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)
