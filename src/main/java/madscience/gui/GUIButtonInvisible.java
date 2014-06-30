@@ -15,14 +15,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GUIButtonInvisible extends GuiButton
 {
-    protected static final ResourceLocation sandraBullock = new ResourceLocation(MadScience.ID, "textures/gui/sandraBullock.png");
+    private static final ResourceLocation sandraBullock = new ResourceLocation(MadScience.ID, "textures/gui/sandraBullock.png");
 
     public GUIButtonInvisible(int par1, int par2, int par3, int par4, int par5)
     {
         super(par1, par2, par3, par4, par5, "");
     }
 
-    public static void drawTexturedQuadFit(double x, double y, double width, double height, double zLevel)
+    private static void drawTexturedQuadFit(double x, double y, double width, double height, double zLevel)
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();

@@ -32,7 +32,7 @@ public class MadSounds
 {
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe
-    public void onSoundLoad(SoundLoadEvent event)
+    public void onSoundLoad(SoundLoadEvent event) // NO_UCD (unused code)
     {
         try
         {

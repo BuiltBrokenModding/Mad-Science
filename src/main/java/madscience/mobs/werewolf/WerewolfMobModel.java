@@ -11,16 +11,16 @@ import net.minecraft.util.MathHelper;
 public class WerewolfMobModel extends ModelBase
 {
     // fields
-    ModelRenderer tail;
-    ModelRenderer nose;
-    ModelRenderer wolfhead;
-    ModelRenderer ear2;
-    ModelRenderer ear1;
-    ModelRenderer body;
-    ModelRenderer rightarm;
-    ModelRenderer leftarm;
-    ModelRenderer rightleg;
-    ModelRenderer leftleg;
+    private ModelRenderer tail;
+    private ModelRenderer nose;
+    private ModelRenderer wolfhead;
+    private ModelRenderer ear2;
+    private ModelRenderer ear1;
+    private ModelRenderer body;
+    private ModelRenderer rightarm;
+    private ModelRenderer leftarm;
+    private ModelRenderer rightleg;
+    private ModelRenderer leftleg;
 
     public WerewolfMobModel()
     {
@@ -112,10 +112,7 @@ public class WerewolfMobModel extends ModelBase
         leftleg.render(f5);
     }
 
-    /** Used for easily adding entity-dependent animations. The second and third float params here are the same second and third as in the setRotationAngles method. */
-    public void setLivingAnimations(EntityLiving par1EntityLiving, float par2, float par3, float par4)
-    {
-    }
+    
 
     private void setRotation(ModelRenderer model, float x, float y, float z)
     {

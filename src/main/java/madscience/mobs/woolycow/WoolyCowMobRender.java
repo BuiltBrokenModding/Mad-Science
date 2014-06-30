@@ -48,12 +48,12 @@ public class WoolyCowMobRender extends RenderLiving
         return this.setSheeredTexture((WoolyCowMobEntity) par1Entity);
     }
 
-    protected ResourceLocation setSheeredTexture(WoolyCowMobEntity par1EntitySheep)
+    private ResourceLocation setSheeredTexture(WoolyCowMobEntity par1EntitySheep)
     {
         return shearedSheepTextures;
     }
 
-    protected int setWoolColorAndRender(WoolyCowMobEntity par1EntitySheep, int par2, float par3)
+    private int setWoolColorAndRender(WoolyCowMobEntity par1EntitySheep, int par2, float par3)
     {
         if (par2 == 0 && !par1EntitySheep.getSheared())
         {

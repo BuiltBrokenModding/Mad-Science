@@ -35,13 +35,13 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png");
 
     // Tile Entity that our block inits.
-    private CryotubeEntity lastPlacedTileEntity;
+    private CryotubeEntity ENTITY;
 
     // The model of your block
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CRYOTUBE_INTERNALNAME + "/" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
     public int getRenderId()
@@ -162,18 +162,18 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
         this.renderAModelAt((CryotubeEntity) tileEntity, x, y, z, scale);
     }
 
-    public void renderAModelAt(CryotubeEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(CryotubeEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        lastPlacedTileEntity = (CryotubeEntity) tileEntity;
-        if (lastPlacedTileEntity == null)
+        ENTITY = (CryotubeEntity) tileEntity;
+        if (ENTITY == null)
         {
             return;
         }
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
-        switch (lastPlacedTileEntity.getBlockMetadata() % 4)
+        switch (ENTITY.getBlockMetadata() % 4)
         {
         case 0:
             rotation = 0;
@@ -214,10 +214,10 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
             break;
         }
 
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.TEXTURE != null && !lastPlacedTileEntity.TEXTURE.isEmpty())
+        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.TEXTURE));
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
         }
         else
         {

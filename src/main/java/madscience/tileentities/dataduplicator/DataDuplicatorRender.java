@@ -35,7 +35,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
     // Tile Entity that our block inits.
     private DataDuplicatorEntity lastPlacedTileEntity;
@@ -155,7 +155,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         }
     }
 
-    public void renderAModelAt(DataDuplicatorEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(DataDuplicatorEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (DataDuplicatorEntity) tileEntity;

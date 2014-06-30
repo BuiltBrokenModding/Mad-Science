@@ -7,9 +7,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class MainframeSlotInputGenome extends Slot
+class MainframeSlotInputGenome extends Slot
 {
-    public MainframeSlotInputGenome(IInventory inv, int index, int x, int y)
+    MainframeSlotInputGenome(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

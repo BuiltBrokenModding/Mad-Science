@@ -20,9 +20,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class PulseRifleItemTickHandler implements ITickHandler
 {
-    GameSettings gs = null;
-    KeyBindingInterceptor intLeft = null;
-    KeyBindingInterceptor intRight = null;
+    private GameSettings gs = null;
+    private KeyBindingInterceptor intLeft = null;
+    private KeyBindingInterceptor intRight = null;
 
     public PulseRifleItemTickHandler()
     {
@@ -56,7 +56,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
         }
     }
 
-    public void disableKeyIntercepter()
+    private void disableKeyIntercepter()
     {
         // Remove key intercepter so we can have relinquish full control over left and right click events.
         if (intLeft != null)

@@ -34,23 +34,9 @@ public class CnCMachineRecipes
         CnCMachineRecipes.weaponExperiencePerCode.put(String.valueOf(binaryASCII), Float.valueOf(experience));
     }
 
-    public static float getExperience(String binaryText)
-    {
-        // Returns a certain amount of experience for smelting the item.
-        if (binaryText == null)
-        {
-            return 0;
-        }
+    
 
-        float ret = 0.0F;
-        if (weaponExperiencePerCode.containsKey(String.valueOf(binaryText.toLowerCase().toString())))
-        {
-            ret = ((Float) weaponExperiencePerCode.get(String.valueOf(binaryText.toLowerCase().toString()))).floatValue();
-        }
-        return (ret < 0 ? 0 : ret);
-    }
-
-    public static ItemStack getSmeltingResult(String binaryText)
+    static ItemStack getSmeltingResult(String binaryText)
     {
         // Returns the smelting result from a given binary piece of text.
         if (binaryText == null)

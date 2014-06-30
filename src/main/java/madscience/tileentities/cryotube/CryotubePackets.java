@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.Side;
 public class CryotubePackets extends MadPackets
 {
     // Tile entity.
-    private CryotubeEntity cryoTubeTileEntity;
+    private CryotubeEntity ENTITY;
 
     // Energy.
     private long lastEnergy;
@@ -44,7 +44,7 @@ public class CryotubePackets extends MadPackets
         // Required for reflection.
     }
 
-    public CryotubePackets(int posX, int posY, int posZ, int hatchTime, int hatchTimeMax, long energyStored, long energyMax, int subjectHealth, int subjectMaxHealth, int neuralActivity, int neuralActivityMax, String tileTexture)
+    CryotubePackets(int posX, int posY, int posZ, int hatchTime, int hatchTimeMax, long energyStored, long energyMax, int subjectHealth, int subjectMaxHealth, int neuralActivity, int neuralActivityMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;
@@ -82,28 +82,28 @@ public class CryotubePackets extends MadPackets
         if (side.isClient())
         {
             // Get tile entity from world.
-            cryoTubeTileEntity = (CryotubeEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (cryoTubeTileEntity == null)
+            ENTITY = (CryotubeEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
+            if (ENTITY == null)
                 return;
 
             // Hatch time.
-            this.cryoTubeTileEntity.hatchTimeCurrentValue = lastHatchTime;
-            this.cryoTubeTileEntity.hatchTimeMaximum = lastHatchTimeMax;
+            this.ENTITY.hatchTimeCurrentValue = lastHatchTime;
+            this.ENTITY.hatchTimeMaximum = lastHatchTimeMax;
 
             // Energy.
-            this.cryoTubeTileEntity.setEnergy(ForgeDirection.UNKNOWN, lastEnergy);
-            this.cryoTubeTileEntity.setEnergyCapacity(lastEnergyMax);
+            this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastEnergy);
+            this.ENTITY.setEnergyCapacity(lastEnergyMax);
 
             // Subject Health.
-            this.cryoTubeTileEntity.subjectCurrentHealth = lastSubjectHealth;
-            this.cryoTubeTileEntity.subjectMaximumHealth = lastSubjectHealthMax;
+            this.ENTITY.subjectCurrentHealth = lastSubjectHealth;
+            this.ENTITY.subjectMaximumHealth = lastSubjectHealthMax;
 
             // Subject Neural Activity.
-            this.cryoTubeTileEntity.neuralActivityValue = lastSubjectNeuralActivity;
-            this.cryoTubeTileEntity.neuralActivityMaximum = lastSubjectNeuralActivityMax;
+            this.ENTITY.neuralActivityValue = lastSubjectNeuralActivity;
+            this.ENTITY.neuralActivityMaximum = lastSubjectNeuralActivityMax;
 
             // Tile entity texture.
-            this.cryoTubeTileEntity.TEXTURE = lastTexture;
+            this.ENTITY.TEXTURE = lastTexture;
         }
         else
         {

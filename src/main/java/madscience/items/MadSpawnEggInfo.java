@@ -4,12 +4,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class MadSpawnEggInfo
 {
-
     public final short eggID;
     public final String mobID;
-    public final NBTTagCompound spawnData;
-    public final int primaryColor;
-    public final int secondaryColor;
+    final NBTTagCompound spawnData;
+    final int primaryColor;
+    final int secondaryColor;
 
     public MadSpawnEggInfo(short eggID, String mobID, NBTTagCompound spawnData, int primaryColor, int secondaryColor)
     {

@@ -35,7 +35,7 @@ public class MainframeRender extends TileEntitySpecialRenderer implements ISimpl
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAINFRAME_INTERNALNAME + "/" + MadFurnaces.MAINFRAME_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
     // Reference to our tile entity block which does all the main work for us.
     private MainframeEntity lastPlacedTileEntity;
@@ -157,7 +157,7 @@ public class MainframeRender extends TileEntitySpecialRenderer implements ISimpl
         }
     }
     
-    public void renderAModelAt(MainframeEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(MainframeEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (MainframeEntity) tileEntity;

@@ -71,7 +71,7 @@ public class NeedleEmptyItem extends Item
         return false;
     }
 
-    public int getDamageVsEntity(Entity par1Entity)
+    public int getDamageVsEntity(Entity par1Entity) // NO_UCD (unused code)
     {
         // Stabbing another entity other than yourself takes 1 heart.
         return 2;

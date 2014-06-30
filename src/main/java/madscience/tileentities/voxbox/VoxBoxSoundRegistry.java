@@ -2,10 +2,10 @@ package madscience.tileentities.voxbox;
 
 import java.util.HashSet;
 
-public final class VoxBoxSoundRegistry
+final class VoxBoxSoundRegistry
 {
     /** Defines a list of VOX sounds and their corresponding length. */
-    public static final HashSet<VoxBoxSoundItem> voxWords;
+    static final HashSet<VoxBoxSoundItem> voxWords;
 
     static
     {
@@ -631,7 +631,7 @@ public final class VoxBoxSoundRegistry
         addWord(new VoxBoxSoundItem(0.43F, "_period", "_period.ogg"));
     }
     
-    public static VoxBoxSoundItem getSoundByName(String word)
+    static VoxBoxSoundItem getSoundByName(String word)
     {
         // Returns a sound from registry if it exists.
         for (VoxBoxSoundItem voxSound : voxWords)
@@ -645,7 +645,7 @@ public final class VoxBoxSoundRegistry
         return null;
     }
 
-    public static void addWord(VoxBoxSoundItem word)
+    private static void addWord(VoxBoxSoundItem word)
     {
         // Adds support to the VOX announcements system for saying other words.
         if (!voxWords.contains(word))

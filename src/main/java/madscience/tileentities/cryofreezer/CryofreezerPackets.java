@@ -39,7 +39,7 @@ public class CryofreezerPackets extends MadPackets
         // Required for reflection.
     }
 
-    public CryofreezerPackets(int posX, int posY, int posZ,
+    CryofreezerPackets(int posX, int posY, int posZ,
             int cookTime, int cookTimeMax,
             long energyStored, long energyMax,
             String tileTexture)
@@ -75,7 +75,7 @@ public class CryofreezerPackets extends MadPackets
             this.cryoFreezerTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
             this.cryoFreezerTileEntity.setEnergyCapacity(lastItemStoredMaxEnergy);
             this.cryoFreezerTileEntity.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
-            this.cryoFreezerTileEntity.cryofreezerTexture = texturePath;
+            this.cryoFreezerTileEntity.TEXTURE = texturePath;
         }
         else
         {

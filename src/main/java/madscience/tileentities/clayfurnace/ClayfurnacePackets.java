@@ -23,16 +23,16 @@ public class ClayfurnacePackets extends MadPackets
     private int lastItemCookTimeMaximum;
 
     // Determines if this block has been lit on fire by the player with flint and steel.
-    public boolean hasBeenLit = false;
+    private boolean hasBeenLit = false;
 
     // Determines if this block has been hit by the player after a burn cycle completed.
-    public boolean hasStoppedSmoldering = false;
+    private boolean hasStoppedSmoldering = false;
 
     // Determines if clay furnace has been burning long enough to consider it a full cycle.
-    public boolean hasCompletedBurnCycle = false;
+    private boolean hasCompletedBurnCycle = false;
 
     // Determines if the block has
-    public boolean hasCooledDown = false;
+    private boolean hasCooledDown = false;
 
     // Last texture to be displayed.
     private String lastTexture;
@@ -42,7 +42,7 @@ public class ClayfurnacePackets extends MadPackets
         // Required for reflection.
     }
 
-    public ClayfurnacePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, boolean beenLit, boolean stoppedSmoldering, boolean completedBurn, boolean cooledDown, String tileTexture)
+    ClayfurnacePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, boolean beenLit, boolean stoppedSmoldering, boolean completedBurn, boolean cooledDown, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

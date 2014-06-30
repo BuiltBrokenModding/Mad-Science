@@ -31,7 +31,7 @@ public class PulseRiflePackets extends MadPackets
         // Required for reflection.
     }
 
-    public PulseRiflePackets(int fireTime, int lastFireTime, int rightClickTime, int buttonPressed, int primaryAmmo, int secondaryAmmo, boolean primaryFire, boolean primaryEmpty, boolean secondaryEmpty, boolean shouldUnload, boolean isLeftMouseDown,
+    PulseRiflePackets(int fireTime, int lastFireTime, int rightClickTime, int buttonPressed, int primaryAmmo, int secondaryAmmo, boolean primaryFire, boolean primaryEmpty, boolean secondaryEmpty, boolean shouldUnload, boolean isLeftMouseDown,
             boolean isRightMouseDown, boolean magazineLoaded)
     {
         playerFireTime = fireTime;

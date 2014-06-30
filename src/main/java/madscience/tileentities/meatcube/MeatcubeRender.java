@@ -31,7 +31,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
     }
 
     // Unique ID for our model to render in the world.
-    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
+    private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
     
     // Difference pieces of our model that all together makeup a complete model.
     private MadTechneModel MEATCUBE_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".mad");
@@ -168,7 +168,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         }
     }
     
-    public void renderAModelAt(MeatcubeEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(MeatcubeEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         ENTITY = (MeatcubeEntity) tileEntity;
@@ -324,7 +324,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         GL11.glPopMatrix();
     }
 
-    public void showAllMeatCubePieces()
+    private void showAllMeatCubePieces()
     {
         // Base meatcube with piece zero.
         MEATCUBE_BASE.renderAll();

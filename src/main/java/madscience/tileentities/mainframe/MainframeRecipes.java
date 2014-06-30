@@ -14,13 +14,13 @@ import com.google.common.base.Objects;
 
 public final class MainframeRecipes
 {
-    public static final class GenomeRecipe implements Comparable<GenomeRecipe>
+    static final class GenomeRecipe implements Comparable<GenomeRecipe>
     {
 
-        public final ItemStack ingredient1;
-        public final ItemStack ingredient2;
-        public final ItemStack result;
-        public final int delay;
+        private final ItemStack ingredient1;
+        private final ItemStack ingredient2;
+        final ItemStack result;
+        final int delay;
 
         private GenomeRecipe(ItemStack ingredient1, ItemStack ingredient2, ItemStack result, int delay)
         {
@@ -81,7 +81,7 @@ public final class MainframeRecipes
         recipes.add(recipe);
     }
 
-    public static GenomeRecipe findGenomeRecipe(ItemStack item1, ItemStack item2)
+    static GenomeRecipe findGenomeRecipe(ItemStack item1, ItemStack item2)
     {
         // Loop through all the recipes that we have for the mainframe computer.
         for (GenomeRecipe recipe : recipes)
@@ -102,8 +102,5 @@ public final class MainframeRecipes
         return null;
     }
 
-    public static SortedSet<GenomeRecipe> getRecipes()
-    {
-        return Collections.unmodifiableSortedSet(recipes);
-    }
+    
 }

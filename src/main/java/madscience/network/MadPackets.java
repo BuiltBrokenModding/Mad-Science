@@ -36,7 +36,6 @@ public abstract class MadPackets
 {
     public static class ProtocolException extends Exception
     {
-
         public ProtocolException()
         {
         }
@@ -44,16 +43,6 @@ public abstract class MadPackets
         public ProtocolException(String message)
         {
             super(message);
-        }
-
-        public ProtocolException(String message, Throwable cause)
-        {
-            super(message, cause);
-        }
-
-        public ProtocolException(Throwable cause)
-        {
-            super(cause);
         }
     }
 
@@ -126,7 +115,7 @@ public abstract class MadPackets
         idMap = builder.build();
     }
 
-    public static MadPackets constructPacket(int packetId) throws ProtocolException, ReflectiveOperationException
+    static MadPackets constructPacket(int packetId) throws ProtocolException, ReflectiveOperationException
     {
         Class<? extends MadPackets> clazz = idMap.get(Integer.valueOf(packetId));
         if (clazz == null)

@@ -3,15 +3,15 @@ package madscience.mobs.creepercow;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 
-public class CreeperCowEntityAISwell extends EntityAIBase
+class CreeperCowEntityAISwell extends EntityAIBase
 {
     /** The creeper's attack target. This is used for the changing of the creeper's state. */
-    EntityLivingBase creeperCowAttackTarget;
+    private EntityLivingBase creeperCowAttackTarget;
 
     /** The creeper that is swelling. */
-    CreeperCowMobEntity swellingCreeperCow;
+    private CreeperCowMobEntity swellingCreeperCow;
 
-    public CreeperCowEntityAISwell(CreeperCowMobEntity par1EntityCreeper)
+    CreeperCowEntityAISwell(CreeperCowMobEntity par1EntityCreeper)
     {
         this.swellingCreeperCow = par1EntityCreeper;
         this.setMutexBits(1);

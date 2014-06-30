@@ -28,56 +28,56 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class MadComponents
 {
     // Case
-    public static ComponentCase COMPONENT_CASE;
-    public static final String COMPONENT_CASE_INTERNALNAME = "componentCase";
+    static ComponentCase COMPONENT_CASE;
+    private static final String COMPONENT_CASE_INTERNALNAME = "componentCase";
 
     // CPU
-    public static ComponentCPU COMPONENT_CPU;
-    public static final String COMPONENT_CPU_INTERNALNAME = "componentCPU";
+    static ComponentCPU COMPONENT_CPU;
+    private static final String COMPONENT_CPU_INTERNALNAME = "componentCPU";
 
     // Fan
-    public static ComponentFan COMPONENT_FAN;
-    public static final String COMPONENT_FAN_INTERNALNAME = "componentFan";
+    static ComponentFan COMPONENT_FAN;
+    private static final String COMPONENT_FAN_INTERNALNAME = "componentFan";
 
     // Power Supply
-    public static ComponentPowerSupply COMPONENT_POWERSUPPLY;
-    public static final String COMPONENT_POWERSUPPLY_INTERNALNAME = "componentPowerSupply";
+    static ComponentPowerSupply COMPONENT_POWERSUPPLY;
+    private static final String COMPONENT_POWERSUPPLY_INTERNALNAME = "componentPowerSupply";
 
     // RAM
-    public static ComponentRAM COMPONENT_RAM;
-    public static final String COMPONENT_RAM_INTERNALNAME = "componentRAM";
+    static ComponentRAM COMPONENT_RAM;
+    private static final String COMPONENT_RAM_INTERNALNAME = "componentRAM";
 
     // Silicon Wafer
-    public static ComponentSiliconWafer COMPONENT_SILICONWAFER;
-    public static final String COMPONENT_SILICONWAFER_INTERNALNAME = "componentSiliconWafer";
+    static ComponentSiliconWafer COMPONENT_SILICONWAFER;
+    private static final String COMPONENT_SILICONWAFER_INTERNALNAME = "componentSiliconWafer";
 
     // Computer
-    public static ComponentComputer COMPONENT_COMPUTER;
-    public static final String COMPONENT_COMPUTER_INTERNALNAME = "componentComputer";
+    static ComponentComputer COMPONENT_COMPUTER;
+    private static final String COMPONENT_COMPUTER_INTERNALNAME = "componentComputer";
 
     // Screen
-    public static ComponentScreen COMPONENT_SCREEN;
-    public static final String COMPONENT_SCREEN_INTERNALNAME = "componentScreen";
+    static ComponentScreen COMPONENT_SCREEN;
+    private static final String COMPONENT_SCREEN_INTERNALNAME = "componentScreen";
 
     // Transistor
-    public static ComponentTransistor COMPONENT_TRANSISTOR;
-    public static final String COMPONENT_TRANSISTOR_INTERNALNAME = "componentTransistor";
+    static ComponentTransistor COMPONENT_TRANSISTOR;
+    private static final String COMPONENT_TRANSISTOR_INTERNALNAME = "componentTransistor";
 
     // Fused Quartz
-    public static ComponentFusedQuartz COMPONENT_FUSEDQUARTZ;
-    public static final String COMPONENT_FUSEDQUARTZ_INTERNALNAME = "componentFusedQuartz";
+    static ComponentFusedQuartz COMPONENT_FUSEDQUARTZ;
+    private static final String COMPONENT_FUSEDQUARTZ_INTERNALNAME = "componentFusedQuartz";
 
     // Magnetic Tape
-    public static ComponentMagneticTape COMPONENT_MAGNETICTAPE;
-    public static final String COMPONENT_MAGNETICTAPE_INTERNALNAME = "componentMagneticTape";
+    static ComponentMagneticTape COMPONENT_MAGNETICTAPE;
+    private static final String COMPONENT_MAGNETICTAPE_INTERNALNAME = "componentMagneticTape";
     
     // Thumper
-    public static ComponentThumper COMPONENT_THUMPER;
-    public static final String COMPONENT_THUMPER_INTERNALNAME = "componentThumper";
+    static ComponentThumper COMPONENT_THUMPER;
+    private static final String COMPONENT_THUMPER_INTERNALNAME = "componentThumper";
     
     // Ender Slime
     public static ComponentEnderslime COMPONENT_ENDERSLIME;
-    public static final String COMPONENT_ENDERSLIME_INTERNALNAME = "componentEnderslime";
+    private static final String COMPONENT_ENDERSLIME_INTERNALNAME = "componentEnderslime";
     
     // M41A Barrel
     public static ComponentPulseRifleBarrel COMPONENT_PULSERIFLEBARREL;
@@ -103,98 +103,98 @@ public class MadComponents
     public static ComponentPulseRifleGrenadeCasing COMPONENT_PULSERIFLEGRENADECASING;
     public static final String COMPONENT_PULSERIFLEGRENADECASING_INTERNALNAME = "componentPulseRifleGrenadeCasing";
     
-    public static void createComponentCaseItem(int itemID)
+    static void createComponentCaseItem(int itemID)
     {
         MadScience.logger.info("-Component Case");
         COMPONENT_CASE = (ComponentCase) new ComponentCase(itemID).setUnlocalizedName(COMPONENT_CASE_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_CASE, COMPONENT_CASE_INTERNALNAME);
     }
 
-    public static void createComponentComputerItem(int itemID)
+    static void createComponentComputerItem(int itemID)
     {
         MadScience.logger.info("-Component Computer");
         COMPONENT_COMPUTER = (ComponentComputer) new ComponentComputer(itemID).setUnlocalizedName(COMPONENT_COMPUTER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_COMPUTER, COMPONENT_COMPUTER_INTERNALNAME);
     }
 
-    public static void createComponentCPUItem(int itemID)
+    static void createComponentCPUItem(int itemID)
     {
         MadScience.logger.info("-Component CPU");
         COMPONENT_CPU = (ComponentCPU) new ComponentCPU(itemID).setUnlocalizedName(COMPONENT_CPU_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_CPU, COMPONENT_CPU_INTERNALNAME);
     }
 
-    public static void createComponentFanItem(int itemID)
+    static void createComponentFanItem(int itemID)
     {
         MadScience.logger.info("-Component Fan");
         COMPONENT_FAN = (ComponentFan) new ComponentFan(itemID).setUnlocalizedName(COMPONENT_FAN_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_FAN, COMPONENT_FAN_INTERNALNAME);
     }
 
-    public static void createComponentFusedQuartzItem(int itemID)
+    static void createComponentFusedQuartzItem(int itemID)
     {
         MadScience.logger.info("-Component Fused Quartz");
         COMPONENT_FUSEDQUARTZ = (ComponentFusedQuartz) new ComponentFusedQuartz(itemID).setUnlocalizedName(COMPONENT_FUSEDQUARTZ_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_FUSEDQUARTZ, COMPONENT_FUSEDQUARTZ_INTERNALNAME);
     }
 
-    public static void createComponentMagneticTapeItem(int itemID)
+    static void createComponentMagneticTapeItem(int itemID)
     {
         MadScience.logger.info("-Component Magnetic Tape");
         COMPONENT_MAGNETICTAPE = (ComponentMagneticTape) new ComponentMagneticTape(itemID).setUnlocalizedName(COMPONENT_MAGNETICTAPE_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_MAGNETICTAPE, COMPONENT_MAGNETICTAPE_INTERNALNAME);
     }
 
-    public static void createComponentPowerSupplyItem(int itemID)
+    static void createComponentPowerSupplyItem(int itemID)
     {
         MadScience.logger.info("-Component Power Supply");
         COMPONENT_POWERSUPPLY = (ComponentPowerSupply) new ComponentPowerSupply(itemID).setUnlocalizedName(COMPONENT_POWERSUPPLY_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_POWERSUPPLY, COMPONENT_POWERSUPPLY_INTERNALNAME);
     }
 
-    public static void createComponentRAMItem(int itemID)
+    static void createComponentRAMItem(int itemID)
     {
         MadScience.logger.info("-Component RAM");
         COMPONENT_RAM = (ComponentRAM) new ComponentRAM(itemID).setUnlocalizedName(COMPONENT_RAM_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_RAM, COMPONENT_RAM_INTERNALNAME);
     }
 
-    public static void createComponentScreenItem(int itemID)
+    static void createComponentScreenItem(int itemID)
     {
         MadScience.logger.info("-Component Screen");
         COMPONENT_SCREEN = (ComponentScreen) new ComponentScreen(itemID).setUnlocalizedName(COMPONENT_SCREEN_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_SCREEN, COMPONENT_SCREEN_INTERNALNAME);
     }
 
-    public static void createComponentSiliconWaferItem(int itemID)
+    static void createComponentSiliconWaferItem(int itemID)
     {
         MadScience.logger.info("-Component Silicon Wafer");
         COMPONENT_SILICONWAFER = (ComponentSiliconWafer) new ComponentSiliconWafer(itemID).setUnlocalizedName(COMPONENT_SILICONWAFER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_SILICONWAFER, COMPONENT_SILICONWAFER_INTERNALNAME);
     }
 
-    public static void createComponentTransistorItem(int itemID)
+    static void createComponentTransistorItem(int itemID)
     {
         MadScience.logger.info("-Component Transistor");
         COMPONENT_TRANSISTOR = (ComponentTransistor) new ComponentTransistor(itemID).setUnlocalizedName(COMPONENT_TRANSISTOR_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_TRANSISTOR, COMPONENT_TRANSISTOR_INTERNALNAME);
     }
 
-    public static void createComponentThumperItem(int itemID)
+    static void createComponentThumperItem(int itemID)
     {
         MadScience.logger.info("-Component Thumper");
         COMPONENT_THUMPER = (ComponentThumper) new ComponentThumper(itemID).setUnlocalizedName(COMPONENT_THUMPER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_THUMPER, COMPONENT_THUMPER_INTERNALNAME);
     }
 
-    public static void createComponentEnderslimeItem(int itemID)
+    static void createComponentEnderslimeItem(int itemID)
     {
         MadScience.logger.info("-Component Enderslime");
         COMPONENT_ENDERSLIME = (ComponentEnderslime) new ComponentEnderslime(itemID).setUnlocalizedName(COMPONENT_ENDERSLIME_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_ENDERSLIME, COMPONENT_ENDERSLIME_INTERNALNAME);      
     }
     
-    public static void createComponentPulseRifleBarrelItem(int itemID)
+    static void createComponentPulseRifleBarrelItem(int itemID)
     {
         // M41A Barrel
         MadScience.logger.info("-Component Pulse Rifle Barrel");
@@ -203,7 +203,7 @@ public class MadComponents
         MadScience.proxy.registerRenderingHandler(itemID);
     }
 
-    public static void createComponentPulseRifleBoltItem(int itemID)
+    static void createComponentPulseRifleBoltItem(int itemID)
     {
         // M41A Bolt
         MadScience.logger.info("-Component Pulse Rifle Bolt");
@@ -212,7 +212,7 @@ public class MadComponents
         MadScience.proxy.registerRenderingHandler(itemID);
     }
 
-    public static void createComponentPulseRifleReceiverItem(int itemID)
+    static void createComponentPulseRifleReceiverItem(int itemID)
     {
         // M41A Receiver
         MadScience.logger.info("-Component Pulse Rifle Receiver");
@@ -221,7 +221,7 @@ public class MadComponents
         MadScience.proxy.registerRenderingHandler(itemID);
     }
 
-    public static void createComponentPulseRifleTriggerItem(int itemID)
+    static void createComponentPulseRifleTriggerItem(int itemID)
     {
         // M41A Trigger
         MadScience.logger.info("-Component Pulse Rifle Trigger");
@@ -230,7 +230,7 @@ public class MadComponents
         MadScience.proxy.registerRenderingHandler(itemID);
     }
 
-    public static void createComponentPulseRifleBulletCasingItem(int itemID)
+    static void createComponentPulseRifleBulletCasingItem(int itemID)
     {
         // M41A Bullet Casing
         MadScience.logger.info("-Component Pulse Rifle Bullet Casing");
@@ -239,7 +239,7 @@ public class MadComponents
         MadScience.proxy.registerRenderingHandler(itemID);
     }
 
-    public static void createComponentPulseRifleGrenadeCasingItem(int itemID)
+    static void createComponentPulseRifleGrenadeCasingItem(int itemID)
     {
         // M41A Grenade Casing
         MadScience.logger.info("-Component Pulse Rifle Grenade Casing");

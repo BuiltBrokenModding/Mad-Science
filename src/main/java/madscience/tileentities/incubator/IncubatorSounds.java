@@ -9,9 +9,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class IncubatorSounds
 {
     // Genome Incubator
-    public static final String INCUBATOR_FINISH = MadScience.ID + ":" + MadFurnaces.INCUBATOR_INTERNALNAME + ".Finish";
-    public static final String INCUBATOR_START = MadScience.ID + ":" + MadFurnaces.INCUBATOR_INTERNALNAME + ".Start";
-    public static final String INCUBATOR_WORK = MadScience.ID + ":" + MadFurnaces.INCUBATOR_INTERNALNAME + ".Work";
+    static final String INCUBATOR_FINISH = MadScience.ID + ":" + MadFurnaces.INCUBATOR_INTERNALNAME + ".Finish";
+    static final String INCUBATOR_START = MadScience.ID + ":" + MadFurnaces.INCUBATOR_INTERNALNAME + ".Start";
+    static final String INCUBATOR_WORK = MadScience.ID + ":" + MadFurnaces.INCUBATOR_INTERNALNAME + ".Work";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

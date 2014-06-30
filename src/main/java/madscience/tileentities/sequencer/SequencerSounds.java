@@ -9,9 +9,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SequencerSounds
 {
     // Genome Sequencer
-    public static final String SEQUENCER_FINISH = MadScience.ID + ":" + MadFurnaces.SEQUENCER_INTERNALNAME + ".Finish";
-    public static final String SEQUENCER_START = MadScience.ID + ":" + MadFurnaces.SEQUENCER_INTERNALNAME + ".Start";
-    public static final String SEQUENCER_WORK = MadScience.ID + ":" + MadFurnaces.SEQUENCER_INTERNALNAME + ".Work";
+    static final String SEQUENCER_FINISH = MadScience.ID + ":" + MadFurnaces.SEQUENCER_INTERNALNAME + ".Finish";
+    static final String SEQUENCER_START = MadScience.ID + ":" + MadFurnaces.SEQUENCER_INTERNALNAME + ".Start";
+    static final String SEQUENCER_WORK = MadScience.ID + ":" + MadFurnaces.SEQUENCER_INTERNALNAME + ".Work";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

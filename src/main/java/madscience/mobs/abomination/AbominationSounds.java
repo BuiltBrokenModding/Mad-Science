@@ -8,14 +8,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class AbominationSounds
 {
-    // monodemono(coolplanet3000@gmail.com)
-    // The Abomination [Enderman + Spider]
-    public static final String ABOMINATION_ATTACK = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".attack";
-    public static final String ABOMINATION_HISS = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".hiss";
-    public static final String ABOMINATION_GROWL = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".growl";
-    public static final String ABOMINATION_DEATH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".death";
-    public static final String ABOMINATION_STEP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".step";
-    public static final String ABOMINATION_PAIN = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".pain";
+    
+    static final String ABOMINATION_HISS = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".hiss";
+    static final String ABOMINATION_GROWL = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".growl";
+    static final String ABOMINATION_DEATH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".death";
+    static final String ABOMINATION_STEP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".step";
+    static final String ABOMINATION_PAIN = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".pain";
     public static final String ABOMINATION_EGG = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egg";
     public static final String ABOMINATION_HATCH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egghatch";
     public static final String ABOMINATION_EGGPOP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".eggpop";
@@ -25,7 +23,7 @@ public class AbominationSounds
     {
         // monodemono(coolplanet3000@gmail.com)
         // The Abomination [Enderman + Spider]
-        event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/attack.ogg");
+        //event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/attack.ogg");
         event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/death.ogg");
         event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/egg.ogg");
         event.manager.addSound(MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/egghatch.ogg");

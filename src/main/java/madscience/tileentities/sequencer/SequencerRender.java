@@ -34,7 +34,7 @@ public class SequencerRender extends TileEntitySpecialRenderer implements ISimpl
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.SEQUENCER_INTERNALNAME + "/" + MadFurnaces.SEQUENCER_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
     // Tile Entity that our block inits.
     private SequencerEntity lastPlacedTileEntity;
@@ -154,7 +154,7 @@ public class SequencerRender extends TileEntitySpecialRenderer implements ISimpl
         }
     }
     
-    public void renderAModelAt(SequencerEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(SequencerEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (SequencerEntity) tileEntity;

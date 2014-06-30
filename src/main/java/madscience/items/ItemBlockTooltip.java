@@ -12,7 +12,7 @@ import net.minecraft.util.StatCollector;
 
 public class ItemBlockTooltip extends ItemBlock
 {
-    public ItemBlockTooltip(int id)
+    public ItemBlockTooltip(int id) // NO_UCD (unused code)
     {
         super(id);
     }

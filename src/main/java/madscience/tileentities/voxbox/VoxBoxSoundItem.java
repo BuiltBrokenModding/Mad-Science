@@ -1,12 +1,12 @@
 package madscience.tileentities.voxbox;
 
-public class VoxBoxSoundItem
+class VoxBoxSoundItem
 {
-    public float duration;
-    public String fileName;
-    public String internalName;
+    float duration;
+    String fileName;
+    String internalName;
 
-    public VoxBoxSoundItem(float length, String name, String file)
+    VoxBoxSoundItem(float length, String name, String file)
     {
         duration = length;
         internalName = name;

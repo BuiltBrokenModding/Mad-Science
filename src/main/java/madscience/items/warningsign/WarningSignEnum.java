@@ -1,6 +1,6 @@
 package madscience.items.warningsign;
 
-public enum WarningSignEnum
+enum WarningSignEnum
 {    
     MagneticField1("MagneticField1", 0, 0),
     ExplosibleRegion("ExplosibleRegion", 32, 0),

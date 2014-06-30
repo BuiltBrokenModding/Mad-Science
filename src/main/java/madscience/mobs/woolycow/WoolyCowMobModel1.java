@@ -12,7 +12,7 @@ public class WoolyCowMobModel1 extends ModelQuadruped
     private float headRotationAngleX;
 
     // fields
-    ModelRenderer udders;
+    private ModelRenderer udders;
 
     public WoolyCowMobModel1()
     {

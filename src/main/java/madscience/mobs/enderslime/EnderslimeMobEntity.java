@@ -31,12 +31,12 @@ import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
 public class EnderslimeMobEntity extends EntityLiving implements IMob
 {
-    public float prevSquishFactor;
+    float prevSquishFactor;
     /** the time between each jump of the slime */
     private int slimeJumpDelay;
-    public float squishAmount;
+    private float squishAmount;
 
-    public float squishFactor;
+    float squishFactor;
 
     private Random rand = new Random();
 
@@ -45,7 +45,7 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
 
     private Entity lastEntityToAttack;
 
-    public EnderslimeMobEntity(World par1World)
+    private EnderslimeMobEntity(World par1World)
     {
         super(par1World);
 
@@ -66,7 +66,7 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
         this.tasks.addTask(0, new EntityAISwimming(this));
     }
 
-    protected void alterSquishAmount()
+    private void alterSquishAmount()
     {
         this.squishAmount *= 0.9F;
     }
@@ -127,7 +127,7 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
     }
 
     /** Indicates weather the slime is able to damage the player (based upon the slime's size) */
-    protected boolean canDamagePlayer()
+    private boolean canDamagePlayer()
     {
         return this.getSlimeSize() > 1;
     }
@@ -145,12 +145,12 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
 
     // This is required regardless of if your animal can breed or not. Set to
     // null if it can't breed - I wont cover breeding here.
-    public EntityAgeable createChild(EntityAgeable var1)
+    public EntityAgeable createChild(EntityAgeable var1) // NO_UCD (unused code)
     {
         return null;
     }
 
-    protected EnderslimeMobEntity createInstance()
+    private EnderslimeMobEntity createInstance()
     {
         return new EnderslimeMobEntity(this.worldObj);
     }
@@ -177,7 +177,7 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
     }
 
     /** Gets the amount of damage dealt to the player when "attacked" by the slime. */
-    protected int getAttackStrength()
+    private int getAttackStrength()
     {
         return this.getSlimeSize();
     }
@@ -236,19 +236,19 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
     }
 
     /** Gets the amount of time the slime needs to wait between jumps. */
-    protected int getJumpDelay()
+    private int getJumpDelay()
     {
         return this.rand.nextInt(2) + 10;
     }
 
     /** Returns the name of the sound played when the slime jumps. */
-    protected String getJumpSound()
+    private String getJumpSound()
     {
         return "mob.slime." + (this.getSlimeSize() > 1 ? "big" : "small");
     }
 
     /** Returns the name of a particle effect that may be randomly created by EntitySlime.onUpdate() */
-    protected String getSlimeParticle()
+    private String getSlimeParticle()
     {
         return "slime";
     }
@@ -298,13 +298,13 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
     }
 
     /** Returns true if the slime makes a sound when it jumps (based upon the slime's size) */
-    protected boolean makesSoundOnJump()
+    private boolean makesSoundOnJump()
     {
         return this.getSlimeSize() > 0;
     }
 
     /** Returns true if the slime makes a sound when it lands after a jump (based upon the slime's size) */
-    protected boolean makesSoundOnLand()
+    private boolean makesSoundOnLand()
     {
         return this.getSlimeSize() > 2;
     }
@@ -431,7 +431,7 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
         super.setDead();
     }
 
-    protected void setSlimeSize(int par1)
+    private void setSlimeSize(int par1)
     {
         this.dataWatcher.updateObject(16, new Byte((byte) par1));
         this.setSize(0.6F * par1, 0.6F * par1);
@@ -454,7 +454,7 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
     }
 
     /** Teleport the enderman to a random nearby position */
-    protected boolean teleportRandomly()
+    private boolean teleportRandomly()
     {
         double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
         double d1 = this.posY + (this.rand.nextInt(64) - 32);
@@ -463,7 +463,7 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
     }
 
     /** Teleport the enderman */
-    protected boolean teleportTo(double par1, double par3, double par5)
+    private boolean teleportTo(double par1, double par3, double par5)
     {
         if (!MadConfig.ABOMINATION_TELEPORTS)
         {
@@ -543,18 +543,6 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
             this.playSound("mob.endermen.portal", 1.0F, 1.0F);
             return true;
         }
-    }
-
-    /** Teleport the enderman to another entity */
-    protected boolean teleportToEntity(Entity par1Entity)
-    {
-        Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX - par1Entity.posX, this.boundingBox.minY + this.height / 2.0F - par1Entity.posY + par1Entity.getEyeHeight(), this.posZ - par1Entity.posZ);
-        vec3 = vec3.normalize();
-        double d0 = 16.0D;
-        double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3.xCoord * d0;
-        double d2 = this.posY + (this.rand.nextInt(16) - 8) - vec3.yCoord * d0;
-        double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3.zCoord * d0;
-        return this.teleportTo(d1, d2, d3);
     }
 
     @Override

@@ -8,9 +8,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class MadRecipes
+class MadRecipes
 {    
-    public static void createOtherRecipes()
+    static void createOtherRecipes()
     {
         // Creates recipes that fit in no other category, such as one to aid in creation of wither skeletons in early-game.
 
@@ -79,7 +79,7 @@ public class MadRecipes
           }));
     }
     
-    public static void createWeaponRecipes()
+    static void createWeaponRecipes()
     {
         // Creates all the needed recipes to craft and interact with weapons.
         
@@ -142,7 +142,7 @@ public class MadRecipes
           '5', Block.obsidian,});
     }
     
-    public static void createCircuitRecipes()
+    static void createCircuitRecipes()
     {
         // Create circuits which are used in the creation of other machines in the mod.
         
@@ -227,7 +227,7 @@ public class MadRecipes
         'S', Item.spiderEye, });
     }
 
-    public static void createComponentsRecipes()
+    static void createComponentsRecipes()
     {
         // Create components that are needed to craft everything else in the mod.
         

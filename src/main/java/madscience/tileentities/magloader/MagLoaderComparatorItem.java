@@ -1,11 +1,11 @@
 package madscience.tileentities.magloader;
 
-public class MagLoaderComparatorItem
+class MagLoaderComparatorItem
 {
-    public int bulletCount;
-    public int slotNumber;
+    int bulletCount;
+    int slotNumber;
 
-    public MagLoaderComparatorItem(int slot, int bullets)
+    MagLoaderComparatorItem(int slot, int bullets)
     {
         slotNumber = slot;
         bulletCount = bullets;

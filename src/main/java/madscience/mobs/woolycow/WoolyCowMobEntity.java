@@ -33,7 +33,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WoolyCowMobEntity extends EntityAnimal implements IShearable
 {
     /** Holds the RGB table of the sheep colors - in OpenGL glColor3f values - used to render the sheep colored fleece. */
-    public static final float[][] fleeceColorTable = new float[][]
+    static final float[][] fleeceColorTable = new float[][]
     {
     { 1.0F, 1.0F, 1.0F },
     { 0.85F, 0.5F, 0.2F },
@@ -53,7 +53,7 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
     { 0.1F, 0.1F, 0.1F } };
 
     /** This method is called when a sheep spawns in the world to select the color of sheep fleece. */
-    public static int getRandomFleeceColor(Random par0Random)
+    private static int getRandomFleeceColor(Random par0Random)
     {
         int i = par0Random.nextInt(100);
         return i < 5 ? 15 : (i < 10 ? 7 : (i < 15 ? 8 : (i < 18 ? 12 : (par0Random.nextInt(500) == 0 ? 6 : 0))));
@@ -67,7 +67,7 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
     /** Used to control movement as well as wool regrowth. Set to 40 on handleHealthUpdate and counts down with each tick. */
     private int sheepTimer;
 
-    public WoolyCowMobEntity(World par1World)
+    private WoolyCowMobEntity(World par1World)
     {
         super(par1World);
 
@@ -164,15 +164,6 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
         this.dataWatcher.addObject(16, new Byte((byte) 0));
     }
 
-    public WoolyCowMobEntity func_90015_b(EntityAgeable par1EntityAgeable)
-    {
-        WoolyCowMobEntity entitysheep = (WoolyCowMobEntity) par1EntityAgeable;
-        WoolyCowMobEntity entitysheep1 = new WoolyCowMobEntity(this.worldObj);
-        int i = this.updateSheepContainer(this, entitysheep);
-        entitysheep1.setFleeceColor(15 - i);
-        return entitysheep1;
-    }
-
     @Override
     public float getBlockPathWeight(int i, int j, int k)
     {
@@ -220,8 +211,7 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
         return this.dataWatcher.getWatchableObjectByte(16) & 15;
     }
 
-    @SideOnly(Side.CLIENT)
-    public float getHeadRotationX(float par1)
+    @SideOnly(Side.CLIENT) float getHeadRotationX(float par1)
     {
         if (this.sheepTimer > 4 && this.sheepTimer <= 36)
         {
@@ -234,8 +224,8 @@ public class WoolyCowMobEntity extends EntityAnimal implements IShearable
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    public float getHeadRotationY(float par1)
+    @SideOnly(Side.CLIENT) 
+    float getHeadRotationY(float par1)
     {
         return this.sheepTimer <= 0 ? 0.0F : (this.sheepTimer >= 4 && this.sheepTimer <= 36 ? 1.0F : (this.sheepTimer < 4 ? (this.sheepTimer - par1) / 4.0F : -(this.sheepTimer - 40 - par1) / 4.0F));
     }

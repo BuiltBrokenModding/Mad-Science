@@ -2,7 +2,6 @@ package madscience.tileentities.thermosonicbonder;
 
 import java.util.Random;
 
-import madscience.MadCircuits;
 import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
@@ -34,28 +33,25 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     private ItemStack[] thermosonicbonderInput = new ItemStack[2];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     /** Current level of heat that the machine has accumulated while powered and active. */
-    public int currentHeatValue;
+    int currentHeatValue;
 
     /** Maximum allowed heat value and also when the machine is considered ready. */
-    public int currentHeatMaximum = 1000;
-
-    /** Random number generator used to spit out food stuffs. */
-    public Random animRand = new Random();
+    int currentHeatMaximum = 1000;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
     /** Texture that should be displayed on our model. */
-    public String thermosonicbonderTexture = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
+    String TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
 
     public ThermosonicBonderEntity()
     {
@@ -83,7 +79,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if power levels are at proper values before cooking.
         if (!this.isPowered())
@@ -249,7 +245,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         return currentHeatValue;
     }
 
-    public int getHeatLevelTimeScaled(int pxl)
+    int getHeatLevelTimeScaled(int pxl)
     {
         // Returns scaled percentage of heat level used in GUI to show temperature.
         return (int) (this.getHeatAmount() * (pxl / this.getMaxHeatAmount()));
@@ -270,7 +266,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    public int getItemCookTimeScaled(int prgPixels)
+    int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -493,7 +489,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         this.currentHeatValue = nbt.getShort("HeatLevel");
 
         // Path to current texture what should be loaded onto the model.
-        this.thermosonicbonderTexture = nbt.getString("TexturePath");
+        this.TEXTURE = nbt.getString("TexturePath");
     }
 
     private void setHeatLevel(int amount)
@@ -528,7 +524,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Output 1 - Transformed mainframe component.
         ItemStack craftedItem = ThermosonicBonderRecipes.getSmeltingResult(this.thermosonicbonderInput[1]);
@@ -573,7 +569,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         if (!isRedstonePowered())
         {
             // Turned off.
-            thermosonicbonderTexture = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
+            TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
             return;
         }
 
@@ -583,7 +579,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
             if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
-                thermosonicbonderTexture = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/run_" + curFrame + ".png";
+                TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/run_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -599,14 +595,14 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         if (!canSmelt() && isPowered() && !isHeatedEnough() && isRedstonePowered())
         {
             // Powered up but still very cold, not ready!
-            thermosonicbonderTexture = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/power_" + this.getHeatLevelTimeScaled(6) + ".png";
+            TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/power_" + this.getHeatLevelTimeScaled(6) + ".png";
             return;
         }
 
         if (isPowered() && isHeatedEnough() && !canSmelt() && isRedstonePowered())
         {
             // Powered up, heater on. Just nothing inside of me!
-            thermosonicbonderTexture = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/laser_off.png";
+            TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/laser_off.png";
             return;
         }
     }
@@ -691,7 +687,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
 
             // Send update about block to all other players in the world.
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new ThermosonicBonderPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
-                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), currentHeatValue, currentHeatMaximum, this.thermosonicbonderTexture).makePacket());
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), currentHeatValue, currentHeatMaximum, this.TEXTURE).makePacket());
         }
 
         if (inventoriesChanged)
@@ -735,7 +731,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         nbt.setShort("HeatLevel", (short) this.currentHeatValue);
 
         // Path to current texture that should be loaded onto the model.
-        nbt.setString("TexturePath", this.thermosonicbonderTexture);
+        nbt.setString("TexturePath", this.TEXTURE);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();

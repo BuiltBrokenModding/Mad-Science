@@ -5,9 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ClayfurnaceSlotInputCoal extends Slot
+class ClayfurnaceSlotInputCoal extends Slot
 {
-    public ClayfurnaceSlotInputCoal(IInventory inv, int index, int x, int y)
+    ClayfurnaceSlotInputCoal(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

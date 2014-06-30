@@ -32,28 +32,25 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
     private ItemStack[] incubatorInput = new ItemStack[2];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     /** Current level of heat that the machine has accumulated while powered and active. */
-    public int currentHeatValue;
+    int currentHeatValue;
 
     /** Maximum allowed heat value and also when the machine is considered ready. */
-    public int currentHeatMaximum = 1000;
-
-    /** Random number generator used to spit out food stuffs. */
-    public Random RAND = new Random();
+    int currentHeatMaximum = 1000;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
     /** Texture that should be displayed on our model. */
-    public String TEXTURE = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/idle.png";
+    String TEXTURE = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/idle.png";
 
     public IncubatorEntity()
     {
@@ -88,7 +85,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if power levels are at proper values before cooking.
         if (!this.isPowered())
@@ -255,7 +252,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
         return currentHeatValue;
     }
 
-    public int getHeatLevelTimeScaled(int pxl)
+    int getHeatLevelTimeScaled(int pxl)
     {
         // Returns scaled percentage of heat level used in GUI to show temperature.
         return (int) (this.getHeatAmount() * (pxl / this.getMaxHeatAmount()));
@@ -279,8 +276,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
     /**
      * Returns an integer between 0 and the passed value representing how close the current item is to being completely
      * cooked
-     */
-    public int getItemCookTimeScaled(int prgPixels)
+     */ int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -522,7 +518,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Output 1 - Encoded mob egg from genome and fresh egg.
         ItemStack craftedItem = IncubatorRecipes.getSmeltingResult(this.incubatorInput[1]);

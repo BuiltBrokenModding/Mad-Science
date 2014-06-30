@@ -55,7 +55,7 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
     private MadTechneModel MAGLOADER_PUSH5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push5.mad");
     
     // Next available render ID for model instancing.
-    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
+    private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
     // Texture that is used when bullets have been loaded into the machine.
     private ResourceLocation TEXTURE_HASBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/full.png");
@@ -84,7 +84,7 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
         }
     }
 
-    public void renderAModelAt(MagLoaderEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(MagLoaderEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         ENTITY = tileEntity;

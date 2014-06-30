@@ -18,7 +18,7 @@ public class LiquidDNAMutantRender implements ISimpleBlockRenderingHandler
     }
 
     @ForgeSubscribe
-    public void postStitch(TextureStitchEvent.Post event)
+    public void postStitch(TextureStitchEvent.Post event) // NO_UCD (unused code)
     {
         MadFluids.LIQUIDDNA_MUTANT.setIcons(MadFluids.LIQUIDDNA_MUTANT_BLOCK.getBlockTextureFromSide(0), MadFluids.LIQUIDDNA_MUTANT_BLOCK.getBlockTextureFromSide(1));
     }

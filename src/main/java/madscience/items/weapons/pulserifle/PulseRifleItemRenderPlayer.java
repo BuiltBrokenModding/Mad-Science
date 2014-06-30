@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PulseRifleItemRenderPlayer
 {
     @ForgeSubscribe
-    public void onRender(RenderPlayerEvent.Pre ev)
+    public void onRender(RenderPlayerEvent.Pre ev) // NO_UCD (unused code)
     {
         // Ensure the event is not null.
         if (ev == null)

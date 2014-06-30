@@ -9,11 +9,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ThermosonicBonderSounds
 {
     // Thermosonic Bonder
-    public static final String THERMOSONICBONDER_IDLE = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".Idle";
-    public static final String THERMOSONICBONDER_LASERSTART = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserStart";
-    public static final String THERMOSONICBONDER_LASERSTOP = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserStop";
-    public static final String THERMOSONICBONDER_LASERWORK = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserWorking";
-    public static final String THERMOSONICBONDER_STAMP = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".Stamp";
+    static final String THERMOSONICBONDER_IDLE = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".Idle";
+    static final String THERMOSONICBONDER_LASERSTART = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserStart";
+    
+    static final String THERMOSONICBONDER_LASERWORK = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".LaserWorking";
+    static final String THERMOSONICBONDER_STAMP = MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".Stamp";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)
@@ -25,7 +25,7 @@ public class ThermosonicBonderSounds
         event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/LaserStart.ogg");
 
         // Laser Stop
-        event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/LaserStop.ogg");
+        //event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/LaserStop.ogg");
 
         // Laser Working
         event.manager.addSound(MadScience.ID + ":" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/LaserWorking.ogg");

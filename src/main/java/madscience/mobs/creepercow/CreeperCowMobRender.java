@@ -44,7 +44,7 @@ public class CreeperCowMobRender extends RenderLiving
         super.doRenderLiving(entityliving, d, d1, d2, f, f1);
     }
 
-    protected int func_77061_b(CreeperCowMobEntity par1EntityCreeper, int par2, float par3)
+    private int func_77061_b(CreeperCowMobEntity par1EntityCreeper, int par2, float par3)
     {
         return -1;
     }
@@ -56,7 +56,7 @@ public class CreeperCowMobRender extends RenderLiving
         return this.updateCreeperColorMultiplier((CreeperCowMobEntity) par1EntityLivingBase, par2, par3);
     }
 
-    protected ResourceLocation getCreeperTextures(CreeperCowMobEntity par1EntityCreeper)
+    private ResourceLocation getCreeperTextures(CreeperCowMobEntity par1EntityCreeper)
     {
         return mobTexture;
     }
@@ -82,7 +82,7 @@ public class CreeperCowMobRender extends RenderLiving
     }
 
     /** A method used to render a creeper's powered form as a pass model. */
-    protected int renderCreeperPassModel(CreeperCowMobEntity par1EntityCreeper, int par2, float par3)
+    private int renderCreeperPassModel(CreeperCowMobEntity par1EntityCreeper, int par2, float par3)
     {
         if (par1EntityCreeper.getPowered())
         {
@@ -135,7 +135,7 @@ public class CreeperCowMobRender extends RenderLiving
     }
 
     /** Updates color multiplier based on creeper state called by getColorMultiplier */
-    protected int updateCreeperColorMultiplier(CreeperCowMobEntity par1EntityCreeper, float par2, float par3)
+    private int updateCreeperColorMultiplier(CreeperCowMobEntity par1EntityCreeper, float par2, float par3)
     {
         float f2 = par1EntityCreeper.getCreeperFlashIntensity(par3);
 
@@ -165,7 +165,7 @@ public class CreeperCowMobRender extends RenderLiving
     }
 
     /** Updates creeper scale in prerender callback */
-    protected void updateCreeperScale(CreeperCowMobEntity par1EntityCreeper, float par2)
+    private void updateCreeperScale(CreeperCowMobEntity par1EntityCreeper, float par2)
     {
         float f1 = par1EntityCreeper.getCreeperFlashIntensity(par2);
         float f2 = 1.0F + MathHelper.sin(f1 * 100.0F) * f1 * 0.01F;

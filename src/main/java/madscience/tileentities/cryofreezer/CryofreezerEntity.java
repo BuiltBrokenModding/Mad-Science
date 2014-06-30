@@ -31,16 +31,13 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
     private ItemStack[] cryoFreezerStorage = new ItemStack[21];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     // Path to texture that should be displayed on our model.
-    public String cryofreezerTexture = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png";
-
-    // Holds all of the slots for the freezer on the server.
-    public CryofreezerContainer container;
+    String TEXTURE = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png";
 
     public CryofreezerEntity()
     {
@@ -63,7 +60,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if we have valid fuel and items to keep cold.
         if (this.cryofreezerInput == null || this.cryoFreezerStorage == null)
@@ -195,7 +192,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    public int getItemCookTimeScaled(int prgPixels)
+    int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -336,7 +333,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
         this.currentItemCookingValue = nbt.getShort("CookTime");
 
         // Path to current texture what should be loaded onto the model.
-        this.cryofreezerTexture = nbt.getString("TexturePath");
+        this.TEXTURE = nbt.getString("TexturePath");
     }
 
     // This sets the slots contents, it has 2 params
@@ -365,7 +362,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Converts input item into result item along with waste items.
         if (this.canSmelt())
@@ -413,7 +410,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
         if (this.canSmelt() && isPowered())
         {
             // Load this texture onto the entity.
-            cryofreezerTexture = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/powered.png";
+            TEXTURE = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/powered.png";
 
             // Play a sound of the freezer working and doing cold things.
             if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
@@ -424,7 +421,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
         else
         {
             // Idle state single texture.
-            cryofreezerTexture = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png";
+            TEXTURE = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png";
         }
     }
 
@@ -487,7 +484,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
             }
 
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new CryofreezerPackets(this.xCoord, this.yCoord, this.zCoord, currentItemCookingValue, currentItemCookingMaximum,
-                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.cryofreezerTexture).makePacket());
+                    getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.TEXTURE).makePacket());
         }
 
         if (inventoriesChanged)
@@ -507,7 +504,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
         nbt.setShort("CookTime", (short) this.currentItemCookingValue);
 
         // Path to current texture that should be loaded onto the model.
-        nbt.setString("TexturePath", this.cryofreezerTexture);
+        nbt.setString("TexturePath", this.TEXTURE);
 
         // Two tag lists for each type of items we have in this entity.
         NBTTagList inputItems = new NBTTagList();

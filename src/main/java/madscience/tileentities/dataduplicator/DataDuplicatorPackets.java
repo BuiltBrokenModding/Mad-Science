@@ -35,7 +35,7 @@ public class DataDuplicatorPackets extends MadPackets
         // Required for reflection.
     }
 
-    public DataDuplicatorPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, String tileTexture)
+    DataDuplicatorPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

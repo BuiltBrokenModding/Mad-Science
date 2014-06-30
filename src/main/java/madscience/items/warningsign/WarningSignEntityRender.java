@@ -137,12 +137,12 @@ public class WarningSignEntityRender extends Render
         return this.getTexture((WarningSignEntity) par1Entity);
     }
 
-    protected ResourceLocation getTexture(WarningSignEntity par1EntityPainting)
+    private ResourceLocation getTexture(WarningSignEntity par1EntityPainting)
     {
         return TEXTURE;
     }
 
-    public void renderThePainting(WarningSignEntity entity, double x, double y, double z, float rotation, float k)
+    private void renderThePainting(WarningSignEntity entity, double x, double y, double z, float rotation, float k)
     {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, (float) z);

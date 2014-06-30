@@ -46,7 +46,7 @@ public class VoxBoxPackets extends MadPackets
         // Required for reflection.
     }
 
-    public VoxBoxPackets(int posX, int posY, int posZ,
+    VoxBoxPackets(int posX, int posY, int posZ,
             long energyStored, long energyMax,
             int talk, int talkMax,
             float wordStep, float wordStepMaximum,

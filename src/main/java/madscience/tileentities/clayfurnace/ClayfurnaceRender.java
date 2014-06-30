@@ -30,7 +30,7 @@ public class ClayfurnaceRender extends TileEntitySpecialRenderer implements ISim
         NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
     }
 
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + ".mad");
     private ClayfurnaceEntity ENTITY;
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png");
@@ -57,7 +57,7 @@ public class ClayfurnaceRender extends TileEntitySpecialRenderer implements ISim
         }
     }
 
-    public void renderAModelAt(ClayfurnaceEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(ClayfurnaceEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         ENTITY = tileEntity;

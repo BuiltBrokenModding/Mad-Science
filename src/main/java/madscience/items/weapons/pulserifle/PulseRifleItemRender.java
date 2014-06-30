@@ -98,7 +98,7 @@ public class PulseRifleItemRender implements IItemRenderer
         }
     }
 
-    public void hideMovingParts(int randomizer)
+    private void hideMovingParts(int randomizer)
     {
         // Hide 'moving' parts of the pulse rifle by default.
         MODEL_RIFLE.parts.get("Bolt").showModel = true;
@@ -557,7 +557,7 @@ public class PulseRifleItemRender implements IItemRenderer
         }
     }
 
-    public void showMovingParts(int randomizer)
+    private void showMovingParts(int randomizer)
     {
         // Show 'moving' parts of the rifle during firing.
         MODEL_RIFLE.parts.get("Bolt").showModel = false;

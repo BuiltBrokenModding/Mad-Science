@@ -35,22 +35,19 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
     private ItemStack[] dataduplicatorInput = new ItemStack[2];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
-
-    /** Random number generator used to spit out food stuffs. */
-    public Random animRand = new Random();
+    int currentItemCookingValue;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
     /** Path to texture that we would like displayed on this block. */
-    public String TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
+    String TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
 
     public DataDuplicatorEntity()
     {
@@ -85,7 +82,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if we have redstone power applied to us.
         if (!this.isRedstonePowered())
@@ -219,8 +216,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
     /**
      * Returns an integer between 0 and the passed value representing how close the current item is to being completely
      * cooked
-     */
-    public int getItemCookTimeScaled(int prgPixels)
+     */ int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -460,7 +456,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Check if we should damage the genome (new), or increase health by
         // eating DNA samples.

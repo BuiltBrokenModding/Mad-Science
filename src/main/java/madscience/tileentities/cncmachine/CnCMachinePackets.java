@@ -54,7 +54,7 @@ public class CnCMachinePackets extends MadPackets
         // Required for reflection.
     }
 
-    public CnCMachinePackets(int posX, int posY, int posZ,
+    CnCMachinePackets(int posX, int posY, int posZ,
             int cookTime, int cookTimeMax,
             long energyStored, long energyMax,
             int waterLevel, int waterLevelMaximum,

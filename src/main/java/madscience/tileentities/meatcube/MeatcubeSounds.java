@@ -9,11 +9,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class MeatcubeSounds
 {
     // Meatcube
-    public static final String MEATCUBE_REGROW = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Belly";
-    public static final String MEATCUBE_HEARTBEAT = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Heartbeat";
-    public static final String MEATCUBE_IDLE = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Idle";
-    public static final String MEATCUBE_MEATSLAP = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Meatslap";
-    public static final String MEATCUBE_MOOANING = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Moo";
+    static final String MEATCUBE_REGROW = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Belly";
+    static final String MEATCUBE_HEARTBEAT = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Heartbeat";
+    static final String MEATCUBE_IDLE = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Idle";
+    static final String MEATCUBE_MEATSLAP = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Meatslap";
+    static final String MEATCUBE_MOOANING = MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME + ".Moo";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

@@ -41,7 +41,7 @@ public class CreeperCowMobEntity extends EntityMob
     /** The amount of time since the creeper was close enough to the player to ignite */
     private int timeSinceIgnited;
 
-    public CreeperCowMobEntity(World par1World)
+    public CreeperCowMobEntity(World par1World) // NO_UCD (unused code)
     {
         super(par1World);
         this.setSize(0.9F, 1.3F);
@@ -86,7 +86,7 @@ public class CreeperCowMobEntity extends EntityMob
 
     // This is required regardless of if your animal can breed or not. Set to
     // null if it can't breed - I wont cover breeding here.
-    public EntityAgeable createChild(EntityAgeable var1)
+    public EntityAgeable createChild(EntityAgeable var1) // NO_UCD (unused code)
     {
         return null;
     }
@@ -173,8 +173,8 @@ public class CreeperCowMobEntity extends EntityMob
     @SideOnly(Side.CLIENT)
     /**
      * Params: (Float)Render tick. Returns the intensity of the creeper's flash when it is ignited.
-     */
-    public float getCreeperFlashIntensity(float par1)
+     */ 
+    float getCreeperFlashIntensity(float par1)
     {
         return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * par1) / (this.fuseTime - 2);
     }

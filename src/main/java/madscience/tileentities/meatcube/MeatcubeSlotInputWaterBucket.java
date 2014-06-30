@@ -5,9 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class MeatcubeSlotInputWaterBucket extends Slot
+class MeatcubeSlotInputWaterBucket extends Slot
 {
-    public MeatcubeSlotInputWaterBucket(IInventory inv, int index, int x, int y)
+    MeatcubeSlotInputWaterBucket(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

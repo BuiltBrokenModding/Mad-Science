@@ -1,13 +1,13 @@
 package madscience.tileentities.soniclocator;
 
-public class SoniclocatorLocationItem
+class SoniclocatorLocationItem
 {
     // Defines where the object is in global coordinates.
-    public int posX;
-    public int posY;
-    public int posZ;
+    int posX;
+    int posY;
+    int posZ;
     
-    public SoniclocatorLocationItem(int x, int y, int z)
+    SoniclocatorLocationItem(int x, int y, int z)
     {
         // Floors the numbers and stores them for later lookup.
         posX = x;

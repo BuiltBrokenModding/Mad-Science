@@ -88,7 +88,7 @@ public class CombinedMemoryMonsterPlacer extends Item
         return entityegginfo != null ? (par2 == 0 ? entityegginfo.primaryColor : entityegginfo.secondaryColor) : 16777215;
     }
 
-    public int getDamageVsEntity(Entity par1Entity)
+    public int getDamageVsEntity(Entity par1Entity) // NO_UCD (unused code)
     {
         return 2;
     }
@@ -182,7 +182,7 @@ public class CombinedMemoryMonsterPlacer extends Item
         return nameFromDamage(stack.getItemDamage());
     }
 
-    public String nameFromDamage(int whatDamage)
+    private String nameFromDamage(int whatDamage)
     {
         // Memory profiles are hard coded.
         String theDefault = "item." + MadEntities.COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME + "name";

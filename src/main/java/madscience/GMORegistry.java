@@ -21,12 +21,12 @@ public class GMORegistry
         return Collections.unmodifiableCollection(eggs.values());
     }
 
-    public static boolean isValidSpawnEggID(short id)
+    private static boolean isValidSpawnEggID(short id)
     {
         return !eggs.containsKey(id);
     }
 
-    public static void registerSpawnEgg(MadSpawnEggInfo info) throws IllegalArgumentException
+    static void registerSpawnEgg(MadSpawnEggInfo info) throws IllegalArgumentException
     {
         if (info == null)
         {

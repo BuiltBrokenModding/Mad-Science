@@ -15,14 +15,14 @@ import net.minecraft.world.chunk.Chunk;
 
 public class ShoggothMobEntity extends EntityLiving implements IMob
 {
-    public float prevSquishFactor;
+    float prevSquishFactor;
     /** the time between each jump of the slime */
     private int slimeJumpDelay;
-    public float squishAmount;
+    private float squishAmount;
 
-    public float squishFactor;
+    float squishFactor;
 
-    public ShoggothMobEntity(World par1World)
+    private ShoggothMobEntity(World par1World)
     {
         super(par1World);
 
@@ -36,7 +36,7 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
         this.getNavigator().setAvoidsWater(false);
     }
 
-    protected void alterSquishAmount()
+    private void alterSquishAmount()
     {
         this.squishAmount *= 0.9F;
     }
@@ -49,12 +49,12 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
     }
 
     /** Indicates weather the slime is able to damage the player (based upon the slime's size) */
-    protected boolean canDamagePlayer()
+    private boolean canDamagePlayer()
     {
         return this.getSlimeSize() > 1;
     }
 
-    protected ShoggothMobEntity createInstance()
+    private ShoggothMobEntity createInstance()
     {
         return new ShoggothMobEntity(this.worldObj);
     }
@@ -67,7 +67,7 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
     }
 
     /** Gets the amount of damage dealt to the player when "attacked" by the slime. */
-    protected int getAttackStrength()
+    private int getAttackStrength()
     {
         return this.getSlimeSize();
     }
@@ -126,19 +126,19 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
     }
 
     /** Gets the amount of time the slime needs to wait between jumps. */
-    protected int getJumpDelay()
+    private int getJumpDelay()
     {
         return this.rand.nextInt(2) + 10;
     }
 
     /** Returns the name of the sound played when the slime jumps. */
-    protected String getJumpSound()
+    private String getJumpSound()
     {
         return "mob.slime." + (this.getSlimeSize() > 1 ? "big" : "small");
     }
 
     /** Returns the name of a particle effect that may be randomly created by EntitySlime.onUpdate() */
-    protected String getSlimeParticle()
+    private String getSlimeParticle()
     {
         return "slime";
     }
@@ -189,13 +189,13 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
     }
 
     /** Returns true if the slime makes a sound when it jumps (based upon the slime's size) */
-    protected boolean makesSoundOnJump()
+    private boolean makesSoundOnJump()
     {
         return this.getSlimeSize() > 0;
     }
 
     /** Returns true if the slime makes a sound when it lands after a jump (based upon the slime's size) */
-    protected boolean makesSoundOnLand()
+    private boolean makesSoundOnLand()
     {
         return this.getSlimeSize() > 2;
     }
@@ -297,7 +297,7 @@ public class ShoggothMobEntity extends EntityLiving implements IMob
         super.setDead();
     }
 
-    protected void setSlimeSize(int par1)
+    private void setSlimeSize(int par1)
     {
         this.dataWatcher.updateObject(16, new Byte((byte) par1));
         this.setSize(0.6F * par1, 0.6F * par1);

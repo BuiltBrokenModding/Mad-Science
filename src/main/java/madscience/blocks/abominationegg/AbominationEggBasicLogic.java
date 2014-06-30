@@ -11,25 +11,25 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public abstract class AbominationEggBasicLogic
+abstract class AbominationEggBasicLogic
 {
     /** The distance from which a player activates the spawner. */
     private int activatingRangeFromPlayer = 5;
-    public double field_98284_d;
+    
 
     /** List of minecart to spawn. */
-    public double field_98287_c;
+    private double field_98287_c;
 
     private Entity field_98291_j;
 
     /** Amount of time it takes for an egg to 'grow' into a villager. */
-    public int hatchTimeCurrentValue;
+    private int hatchTimeCurrentValue;
     /** Maximum amount of time this roll it should take for this villager spawn egg to actually spawn in our test tube. */
-    public int hatchTimeMaximum;
+    private int hatchTimeMaximum;
     private int maxNearbyEntities = 5;
 
     /** Returns true if there's a player close enough to this mob spawner to activate it. */
-    public boolean canRun()
+    private boolean canRun()
     {
         return this.getSpawnerWorld().getClosestPlayer(this.getSpawnerX() + 0.5D, this.getSpawnerY() + 0.5D, this.getSpawnerZ() + 0.5D, this.activatingRangeFromPlayer) != null;
     }
@@ -50,7 +50,7 @@ public abstract class AbominationEggBasicLogic
 
     public abstract int getSpawnerZ();
 
-    public void readFromNBT(NBTTagCompound par1NBTTagCompound)
+    void readFromNBT(NBTTagCompound par1NBTTagCompound)
     {
         if (par1NBTTagCompound.hasKey("MaxNearbyEntities"))
         {
@@ -68,7 +68,7 @@ public abstract class AbominationEggBasicLogic
         }
     }
 
-    public Entity spawnEntityInWorld()
+    private Entity spawnEntityInWorld()
     {
         Entity entity = null;
         entity = EntityList.createEntityByName(MadMobs.GMO_ABOMINATION_INTERNALNAME, this.getSpawnerWorld());
@@ -90,7 +90,7 @@ public abstract class AbominationEggBasicLogic
         return entity;
     }
 
-    public void updateSpawner()
+    void updateSpawner()
     {
         double d0;
         if (this.getSpawnerWorld().isRemote && this.canRun())
@@ -99,8 +99,6 @@ public abstract class AbominationEggBasicLogic
             double d2 = this.getSpawnerY() + this.getSpawnerWorld().rand.nextFloat();
             d0 = this.getSpawnerZ() + this.getSpawnerWorld().rand.nextFloat();
             this.getSpawnerWorld().spawnParticle("portal", d1, d2, d0, 0.0D, 0.0D, 0.0D);
-
-            this.field_98284_d = this.field_98287_c;
             this.field_98287_c = (this.field_98287_c + 1000.0F / (MadScience.SECOND_IN_TICKS + 200.0F)) % 360.0D;
         }
 
@@ -168,7 +166,7 @@ public abstract class AbominationEggBasicLogic
         }
     }
 
-    public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+    void writeToNBT(NBTTagCompound par1NBTTagCompound)
     {
         par1NBTTagCompound.setShort("MaxNearbyEntities", (short) this.maxNearbyEntities);
         par1NBTTagCompound.setShort("RequiredPlayerRange", (short) this.activatingRangeFromPlayer);

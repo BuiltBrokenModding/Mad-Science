@@ -25,7 +25,7 @@ public class WarningSignPacketClientRequestSignType extends MadPackets
         // Required for reflection.
     }
 
-    public WarningSignPacketClientRequestSignType(int entityID, int imgType)
+    WarningSignPacketClientRequestSignType(int entityID, int imgType)
     {
         // Entity ID for the world.
         this.entityID = entityID;

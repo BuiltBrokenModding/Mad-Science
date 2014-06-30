@@ -31,8 +31,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     private static final int[] slots_top = new int[]
     { 0 };
 
-    /** Random number generator used to spit out food stuffs. */
-    public Random animRand = new Random();
+    
     
     /** Amount of time we will keep talking once activated. */
     private int talkTime;
@@ -42,10 +41,10 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     private List<VoxBoxSoundItem> talkTimeline;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     /** Path to texture that we would like displayed on this block. */
-    public String TEXTURE = "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png";
+    String TEXTURE = "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png";
 
     private ItemStack[] voxboxInput = new ItemStack[1];
 
@@ -88,7 +87,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // If our one and only input slot is not null then we are good to go!
         if (voxboxInput[0] != null)
@@ -524,7 +523,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    public void resetVOX()
+    private void resetVOX()
     {
         // Flatten the timer out to restart the process now that we are finished.
         talkTime = 0;
@@ -569,24 +568,21 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
         nbt.setTag("InputItems", inputItems);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void setTalkTime(int talkTime, int talkTimeMaximum)
+    @SideOnly(Side.CLIENT) void setTalkTime(int talkTime, int talkTimeMaximum)
     {
         // Total amount of time we have been talking on the current talk timeline.
         this.talkTime = talkTime;
         this.talkTimeMaximum = talkTimeMaximum;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void setWordStep(float wordStep, float wordStepMaximum)
+    @SideOnly(Side.CLIENT) void setWordStep(float wordStep, float wordStepMaximum)
     {
         // Total amount of time we have been talking on the current word in the total talk timeline.
         this.currentTalkWordStep = wordStep;
         this.currentTalkWordMaximum = wordStepMaximum;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void setLastIndex(int lastWordIndex, int totalWordIndex)
+    @SideOnly(Side.CLIENT) void setLastIndex(int lastWordIndex, int totalWordIndex)
     {
         // Last known index of word that we spoke in the talk timeline, prevents speech stuttering.
         this.lastWordIndex = lastWordIndex;

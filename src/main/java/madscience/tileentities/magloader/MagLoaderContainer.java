@@ -16,9 +16,6 @@ public class MagLoaderContainer extends Container
         // Hook the server world entity.
         this.ENTITY = par2TileEntityFurnace;
 
-        // Our container object.
-        this.ENTITY.CONTAINER = this;
-
         // Input Slot 1 - Pulse Rifle Magazine that needs filling.
         this.addSlotToContainer(new MagLoaderSlotInput(par2TileEntityFurnace, 0, 89, 34));
 

@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class CreeperCowSounds
 {
     // Creeper Cow [Creeper + Cow]
-    public static final String CREEPERCOW_ATTACK = MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + ".Attack";
+    static final String CREEPERCOW_ATTACK = MadScience.ID + ":" + MadMobs.GMO_CREEPERCOW_INTERNALNAME + ".Attack";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

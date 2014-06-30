@@ -14,14 +14,14 @@ import org.w3c.dom.Node;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-public class MadUpdates
+class MadUpdates
 {
     /** Pings a HTTP URL. This effectively sends a HEAD request and returns <code>true</code> if the response code is in the 200-399 range.
      * 
      * @param url The HTTP URL to be pinged.
      * @param timeout The timeout in millis for both the connection timeout and the response read timeout. Note that the total timeout is effectively two times the given timeout.
      * @return <code>true</code> if the given HTTP URL has returned response code 200-399 on a HEAD request within the given timeout, otherwise <code>false</code>. */
-    public static boolean ping(String url, int timeout)
+    private static boolean ping(String url, int timeout)
     {
         url = url.replaceFirst("https", "http"); // Otherwise an exception may be thrown on invalid SSL certificates.
 
@@ -40,7 +40,7 @@ public class MadUpdates
         }
     }
 
-    public static void checkJenkinsBuildNumbers()
+    static void checkJenkinsBuildNumbers()
     {
         // Determine if we should check for updates by comparing build numbers in our Jenkins build server.
         if (MadConfig.UPDATE_CHECKER)

@@ -7,16 +7,16 @@ import net.minecraft.entity.Entity;
 public class EnderslimeMobModel extends ModelBase
 {
     /** The slime's bodies, both the inside box and the outside box */
-    ModelRenderer slimeBodies;
+    private ModelRenderer slimeBodies;
 
     /** The slime's left eye */
-    ModelRenderer slimeLeftEye;
+    private ModelRenderer slimeLeftEye;
 
     /** The slime's mouth */
-    ModelRenderer slimeMouth;
+    private ModelRenderer slimeMouth;
 
     /** The slime's right eye */
-    ModelRenderer slimeRightEye;
+    private ModelRenderer slimeRightEye;
 
     public EnderslimeMobModel(int par1)
     {

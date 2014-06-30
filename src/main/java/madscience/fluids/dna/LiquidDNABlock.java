@@ -15,9 +15,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class LiquidDNABlock extends BlockFluidClassic
 {
     @SideOnly(Side.CLIENT)
-    protected Icon stillIcon;
+    private Icon stillIcon;
+    
     @SideOnly(Side.CLIENT)
-    protected Icon flowingIcon;
+    private Icon flowingIcon;
 
     public LiquidDNABlock(int id)
     {

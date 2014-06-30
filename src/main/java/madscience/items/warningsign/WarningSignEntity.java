@@ -20,31 +20,31 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WarningSignEntity extends EntityHanging
 {
     /* Current sign that we want to be displayed on all clients. */
-    public WarningSignEnum serverCurrentSignType;
+    WarningSignEnum serverCurrentSignType;
 
     /* Current sign that is being displayed on the client. */
-    public WarningSignEnum clientCurrentSignType;
+    WarningSignEnum clientCurrentSignType;
 
     /* Should update packet information and send it to all clients in current dimension the entity is within. */
-    public boolean serverShouldUpdate;
+    private boolean serverShouldUpdate;
 
     /* Determines if client has sent request for correct sign type. */
-    public boolean clientShouldRequestSignType;
+    boolean clientShouldRequestSignType;
 
     /* Determines if this warning sign has received a reply from server in response to request. */
-    public boolean clientHasRecievedServerReply;
+    boolean clientHasRecievedServerReply;
 
     /* Determines who the owner of this sign is. */
-    public String serverOwnerName;
+    private String serverOwnerName;
 
     /* Required for reflection */
-    public WarningSignEntity(World gameWorld)
+    public WarningSignEntity(World gameWorld) // NO_UCD (unused code)
     {
         super(gameWorld);
     }
 
     /* Called from WarningSignItem on right-click with a warning sign item. */
-    public WarningSignEntity(World par1World, int posX, int posY, int posZ, int direction, int signType, String ownerName)
+    WarningSignEntity(World par1World, int posX, int posY, int posZ, int direction, int signType, String ownerName)
     {
         super(par1World, posX, posY, posZ, direction);
         ArrayList arraylist = new ArrayList();

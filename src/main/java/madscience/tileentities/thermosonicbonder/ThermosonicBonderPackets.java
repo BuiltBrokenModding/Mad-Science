@@ -39,7 +39,7 @@ public class ThermosonicBonderPackets extends MadPackets
         // Required for reflection.
     }
 
-    public ThermosonicBonderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int heatValue, int heatMax, String tileTexture)
+    ThermosonicBonderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int heatValue, int heatMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;
@@ -89,7 +89,7 @@ public class ThermosonicBonderPackets extends MadPackets
             this.thermosonicBonderTileEntity.currentHeatMaximum = lastHeatMaximum;
 
             // Texture.
-            this.thermosonicBonderTileEntity.thermosonicbonderTexture = lastTexture;
+            this.thermosonicBonderTileEntity.TEXTURE = lastTexture;
         }
         else
         {

@@ -5,9 +5,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class VoxBoxSlotInputFinishedBook extends Slot
+class VoxBoxSlotInputFinishedBook extends Slot
 {
-    public VoxBoxSlotInputFinishedBook(IInventory inv, int index, int x, int y)
+    VoxBoxSlotInputFinishedBook(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

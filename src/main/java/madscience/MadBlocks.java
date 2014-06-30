@@ -17,7 +17,7 @@ public class MadBlocks
     public static Block ENDERSLIMEBLOCK;
     public static final String ENDERSLIMEBLOCK_INTERNALNAME = "enderslimeBlock";
 
-    public static void createAbominationEgg(int blockID)
+    static void createAbominationEgg(int blockID)
     {
         MadScience.logger.info("-Abomination Egg");
         ABOMINATIONEGGBLOCK = new AbominationEggBlock(blockID).setUnlocalizedName(ABOMINATIONEGG_INTERNALNAME);
@@ -30,7 +30,7 @@ public class MadBlocks
         MadScience.proxy.registerRenderingHandler(blockID);
     }
 
-    public static void createEnderslimeBlock(int blockID)
+    static void createEnderslimeBlock(int blockID)
     {
         MadScience.logger.info("-Enderslime Block");
         ENDERSLIMEBLOCK = new EnderslimeBlock(blockID).setUnlocalizedName(ENDERSLIMEBLOCK_INTERNALNAME);

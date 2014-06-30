@@ -1,13 +1,11 @@
 package madscience.items;
 
-
 public class MadGenomeInfo
 {
-
     public final short genomeID;
-    public final String mobID;
-    public final int primaryColor;
-    public final int secondaryColor;
+    final String mobID;
+    final int primaryColor;
+    final int secondaryColor;
 
     public MadGenomeInfo(short genomeID, String mobID, int primaryColor, int secondaryColor)
     {

@@ -5,14 +5,7 @@ import net.minecraft.nbt.NBTTagList;
 
 public class MadTags
 {
-    public static NBTTagCompound babyZombie()
-    {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setByte("IsBaby", (byte) 1);
-        return tag;
-    }
-
-    public static NBTTagCompound createItemTag(byte count, short damage, short id)
+    private static NBTTagCompound createItemTag(byte count, short damage, short id)
     {
         NBTTagCompound item = new NBTTagCompound();
         item.setByte("Count", count);
@@ -21,7 +14,7 @@ public class MadTags
         return item;
     }
 
-    public static NBTTagCompound getEntityTag(String entityID)
+    private static NBTTagCompound getEntityTag(String entityID)
     {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("id", entityID);
@@ -33,27 +26,6 @@ public class MadTags
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("Type", type);
         return tag;
-    }
-
-    public static NBTTagCompound poweredCreeper()
-    {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setByte("powered", (byte) 1);
-        return tag;
-    }
-
-    public static NBTTagCompound ridingTag(NBTTagCompound ridden)
-    {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setTag("Riding", ridden);
-        return tag;
-    }
-
-    public static NBTTagCompound spiderJockey(boolean wither)
-    {
-        NBTTagCompound skele = (wither) ? witherSkeleton() : new NBTTagCompound();
-        skele.setTag("Riding", getEntityTag("Spider"));
-        return skele;
     }
 
     public static NBTTagCompound villagerZombie()

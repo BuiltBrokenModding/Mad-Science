@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 class AbominationEggMobSpawnerLogic extends AbominationEggBasicLogic
 {
     /** The mob spawner we deal with */
-    final AbominationEggMobSpawnerTileEntity mobSpawnerEntity;
+    private final AbominationEggMobSpawnerTileEntity mobSpawnerEntity;
 
     AbominationEggMobSpawnerLogic(AbominationEggMobSpawnerTileEntity par1TileEntityMobSpawner)
     {

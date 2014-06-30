@@ -36,12 +36,12 @@ public class AbominationMobRender extends RenderLiving
         return this.getSpiderTextures((AbominationMobEntity) par1Entity);
     }
 
-    protected ResourceLocation getSpiderTextures(AbominationMobEntity par1EntitySpider)
+    private ResourceLocation getSpiderTextures(AbominationMobEntity par1EntitySpider)
     {
         return mobTexture;
     }
 
-    protected float setSpiderDeathMaxRotation(AbominationMobEntity par1EntitySpider)
+    private float setSpiderDeathMaxRotation(AbominationMobEntity par1EntitySpider)
     {
         return 180.0F;
     }

@@ -125,7 +125,7 @@ public class PulseRifleItem extends ItemBow
         return 16777215;
     }
 
-    public int getDamageVsEntity(Entity par1Entity)
+    public int getDamageVsEntity(Entity par1Entity) // NO_UCD (unused code)
     {
         // You cannot hurt other people with the weapon in melee
         return 0;
@@ -222,7 +222,7 @@ public class PulseRifleItem extends ItemBow
         // Prevent the underlying bow class from firing an arrow when we let go of the fire button.
     }
 
-    public void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
+    void onRecievePacketFromClient(int clientFireTime, int clientpreviousFireTime, int clientrightClickTime, int clientButtonPressed, boolean clientprimaryFireModeEnabled, boolean clientshouldUnloadWeapon, boolean clientisPrimaryEmpty,
             boolean clientisSecondaryEmpty, boolean leftPressed, boolean rightPressed, boolean magazineInserted, EntityPlayer player)
     {
         // Hook the item the player is currently holding in his hand (if there is any).
@@ -500,8 +500,7 @@ public class PulseRifleItem extends ItemBow
                 clientisSecondaryEmpty, player.isSneaking(), isLeftPressed, isRightPressed, magazineInserted).makePacket(), (Player) player);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void onRecievePacketFromServer(int playerFireTime, int previousFireTime, int rightClickTime, int playerButtonPressed, int primaryAmmoCount, int secondaryAmmoCount, boolean primaryFireModeEnabled, boolean shouldUnloadWeapon,
+    @SideOnly(Side.CLIENT) void onRecievePacketFromServer(int playerFireTime, int previousFireTime, int rightClickTime, int playerButtonPressed, int primaryAmmoCount, int secondaryAmmoCount, boolean primaryFireModeEnabled, boolean shouldUnloadWeapon,
             boolean isPrimaryEmpty, boolean isSecondaryEmpty, boolean leftPressed, boolean rightPressed, boolean insertedMagazine, EntityPlayer player)
     {
         // Check if there is a world.
@@ -695,7 +694,7 @@ public class PulseRifleItem extends ItemBow
         this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + (this.getUnlocalizedName().substring(5)));
     }
 
-    public int reloadGrenades(EntityPlayer player, ItemStack playerItem, int secondaryAmmoCount)
+    private int reloadGrenades(EntityPlayer player, ItemStack playerItem, int secondaryAmmoCount)
     {
         // ---------------
         // RELOAD GRENADES
@@ -761,7 +760,7 @@ public class PulseRifleItem extends ItemBow
         return secondaryAmmoCount;
     }
 
-    public int reloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount, boolean insertedMagazine)
+    private int reloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount, boolean insertedMagazine)
     {
         // ---------------
         // RELOAD MAGAZINE
@@ -844,7 +843,7 @@ public class PulseRifleItem extends ItemBow
         return true;
     }
 
-    public int unloadGrenades(EntityPlayer player, int secondaryAmmoCount)
+    private int unloadGrenades(EntityPlayer player, int secondaryAmmoCount)
     {
         // ---------------
         // UNLOAD GRENADES
@@ -862,7 +861,7 @@ public class PulseRifleItem extends ItemBow
         return secondaryAmmoCount;
     }
 
-    public int unloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount)
+    private int unloadMagazine(EntityPlayer player, ItemStack playerItem, int primaryAmmoCount)
     {
         // ---------------
         // UNLOAD MAGAZINE

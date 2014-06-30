@@ -11,16 +11,16 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public final class SoniclocatorLocationRegistry
+final class SoniclocatorLocationRegistry
 {
     /** Defines a list of known sonic locators that have been placed in the world */
-    public static final HashSet <SoniclocatorLocationItem> otherSoniclocators;
+    static final HashSet <SoniclocatorLocationItem> otherSoniclocators;
     
     /** Stores the instance of the Minecraft server we will query for tile entities. */
-    public static MinecraftServer server;
+    private static MinecraftServer server;
     
     /** World instance from the server which we need to query tile entities. */
-    public static World world;
+    private static World world;
 
     static
     {
@@ -28,7 +28,7 @@ public final class SoniclocatorLocationRegistry
         otherSoniclocators = new HashSet <SoniclocatorLocationItem>();
     }
     
-    public static void addLocation(SoniclocatorLocationItem newLocation)
+    static void addLocation(SoniclocatorLocationItem newLocation)
     {
         // Attempts to add a given location of a sonic locator to the registry.
         if (!otherSoniclocators.contains(newLocation))
@@ -38,7 +38,7 @@ public final class SoniclocatorLocationRegistry
         }
     }
     
-    public static void removeLocation(SoniclocatorLocationItem rmLocation)
+    static void removeLocation(SoniclocatorLocationItem rmLocation)
     {
         // Attempts to add a given location of a sonic locator to the registry.
         if (!otherSoniclocators.contains(rmLocation))
@@ -48,7 +48,7 @@ public final class SoniclocatorLocationRegistry
         }
     }
     
-    public static long queryDistanceBetweenSonicLocators (SoniclocatorLocationItem startPoint, SoniclocatorLocationItem endPoint)
+    static long queryDistanceBetweenSonicLocators (SoniclocatorLocationItem startPoint, SoniclocatorLocationItem endPoint)
     {
         try
         {

@@ -9,10 +9,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class DataDuplicatorSounds
 {
     // Data Reel Duplicator
-    public static final String DATADUPLICATOR_WORK = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Work";
-    public static final String DATADUPLICATOR_IDLE = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Idle";
-    public static final String DATADUPLICATOR_FINISH = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Finish";
-    public static final String DATADUPLICATOR_START = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Start";
+    static final String DATADUPLICATOR_WORK = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Work";
+    static final String DATADUPLICATOR_IDLE = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Idle";
+    static final String DATADUPLICATOR_FINISH = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Finish";
+    static final String DATADUPLICATOR_START = MadScience.ID + ":" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".Start";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

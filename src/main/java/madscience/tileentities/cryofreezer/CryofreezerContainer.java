@@ -15,9 +15,6 @@ public class CryofreezerContainer extends Container
         // Hook the server world entity.
         this.cryoFreezerTileEntity = par2TileEntityFurnace;
 
-        // Our container object.
-        this.cryoFreezerTileEntity.container = this;
-
         // Input Slot 1 - Iceblock or snowball input for freezer fuel.
         this.addSlotToContainer(new CryofreezerSlotInput(par2TileEntityFurnace, 0, 9, 35));
 

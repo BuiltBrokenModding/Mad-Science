@@ -9,13 +9,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class CryotubeSounds
 {
     // Cryogenic Tube
-    public static final String CRYOTUBE_STILLBIRTH = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Stillbirth";
-    public static final String CRYOTUBE_WORK = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Work";
-    public static final String CRYOTUBE_HATCH = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Hatch";
-    public static final String CRYOTUBE_HATCHING = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Hatching";
-    public static final String CRYOTUBE_CRACKEGG = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".CrackEgg";
-    public static final String CRYOTUBE_IDLE = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Idle";
-    public static final String CRYOTUBE_OFF = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Off";
+    static final String CRYOTUBE_STILLBIRTH = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Stillbirth";
+    static final String CRYOTUBE_WORK = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Work";
+    static final String CRYOTUBE_HATCH = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Hatch";
+    static final String CRYOTUBE_HATCHING = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Hatching";
+    static final String CRYOTUBE_CRACKEGG = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".CrackEgg";
+    static final String CRYOTUBE_IDLE = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Idle";
+    static final String CRYOTUBE_OFF = MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".Off";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

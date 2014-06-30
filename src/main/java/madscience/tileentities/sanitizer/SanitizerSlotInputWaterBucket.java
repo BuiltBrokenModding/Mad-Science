@@ -5,9 +5,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class SanitizerSlotInputWaterBucket extends Slot
+class SanitizerSlotInputWaterBucket extends Slot
 {
-    public SanitizerSlotInputWaterBucket(IInventory inv, int index, int x, int y)
+    SanitizerSlotInputWaterBucket(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

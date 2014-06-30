@@ -10,9 +10,9 @@ public class WoolyCowSounds
 {
     // Bart74(bart.74@hotmail.fr)
     // Wooly cow [Cow + Sheep]
-    public static final String WOOLYCOW_HURT = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".hurt";
-    public static final String WOOLYCOW_SAY = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".say";
-    public static final String WOOLYCOW_STEP = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".step";
+    static final String WOOLYCOW_HURT = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".hurt";
+    static final String WOOLYCOW_SAY = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".say";
+    static final String WOOLYCOW_STEP = MadScience.ID + ":" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".step";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

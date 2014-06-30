@@ -38,85 +38,85 @@ public class MadNeedles
 
     // Dirty needle.
     public static NeedleDirtyItem NEEDLE_DIRTY;
-    public static final String NEEDLEDIRTY_ITEM_INTERNALNAME = "needleDirty";
+    private static final String NEEDLEDIRTY_ITEM_INTERNALNAME = "needleDirty";
 
     // Needle with cave spider DNA.
     public static NeedleCaveSpider NEEDLE_CAVESPIDER;
-    public static final String NEEDLE_CAVESPIDER_INTERNALNAME = "needleCaveSpider";
+    private static final String NEEDLE_CAVESPIDER_INTERNALNAME = "needleCaveSpider";
 
     // Needle with chicken DNA.
     public static NeedleChicken NEEDLE_CHICKEN;
-    public static final String NEEDLE_CHICKEN_INTERNALNAME = "needleChicken";
+    private static final String NEEDLE_CHICKEN_INTERNALNAME = "needleChicken";
 
     // Needle with cow DNA.
     public static NeedleCow NEEDLE_COW;
-    public static final String NEEDLE_COW_INTERNALNAME = "needleCow";
+    private static final String NEEDLE_COW_INTERNALNAME = "needleCow";
 
     // Needle with creeper DNA.
     public static NeedleCreeper NEEDLE_CREEPER;
-    public static final String NEEDLE_CREEPER_INTERNALNAME = "needleCreeper";
+    private static final String NEEDLE_CREEPER_INTERNALNAME = "needleCreeper";
 
     // Needle with enderman DNA.
     public static NeedleEnderman NEEDLE_ENDERMAN;
-    public static final String NEEDLE_ENDERMAN_INTERNALNAME = "needleEnderman";
+    private static final String NEEDLE_ENDERMAN_INTERNALNAME = "needleEnderman";
 
     // Needle with horse DNA.
     public static NeedleHorse NEEDLE_HORSE;
-    public static final String NEEDLE_HORSE_INTERNALNAME = "needleHorse";
+    private static final String NEEDLE_HORSE_INTERNALNAME = "needleHorse";
 
     // Needle with mushroom cow DNA.
     public static NeedleMushroomCow NEEDLE_MUSHROOMCOW;
-    public static final String NEEDLE_MUSHROOMCOW_INTERNALNAME = "needleMushroomCow";
+    private static final String NEEDLE_MUSHROOMCOW_INTERNALNAME = "needleMushroomCow";
 
     // Needle with ocelot DNA.
     public static NeedleOcelot NEEDLE_OCELOT;
-    public static final String NEEDLE_OCELOT_INTERNALNAME = "needleOcelot";
+    private static final String NEEDLE_OCELOT_INTERNALNAME = "needleOcelot";
 
     // Needle with pig DNA.
     public static NeedlePig NEEDLE_PIG;
-    public static final String NEEDLE_PIG_INTERNALNAME = "needlePig";
+    private static final String NEEDLE_PIG_INTERNALNAME = "needlePig";
 
     // Needle with sheep DNA.
     public static NeedleSheep NEEDLE_SHEEP;
-    public static final String NEEDLE_SHEEP_INTERNALNAME = "needleSheep";
+    private static final String NEEDLE_SHEEP_INTERNALNAME = "needleSheep";
 
     // Needle with spider DNA.
     public static NeedleSpider NEEDLE_SPIDER;
-    public static final String NEEDLE_SPIDER_INTERNALNAME = "needleSpider";
+    private static final String NEEDLE_SPIDER_INTERNALNAME = "needleSpider";
 
     // Needle with squid DNA.
     public static NeedleSquid NEEDLE_SQUID;
-    public static final String NEEDLE_SQUID_INTERNALNAME = "needleSquid";
+    private static final String NEEDLE_SQUID_INTERNALNAME = "needleSquid";
 
     // Needle with villager DNA.
     public static NeedleVillager NEEDLE_VILLAGER;
-    public static final String NEEDLE_VILLAGER_INTERNALNAME = "needleVillager";
+    private static final String NEEDLE_VILLAGER_INTERNALNAME = "needleVillager";
 
     // Needle with witch DNA.
     public static NeedleWitch NEEDLE_WITCH;
-    public static final String NEEDLE_WITCH_INTERNALNAME = "needleWitch";
+    private static final String NEEDLE_WITCH_INTERNALNAME = "needleWitch";
 
     // Needle with wolf DNA.
     public static NeedleWolf NEEDLE_WOLF;
-    public static final String NEEDLE_WOLF_INTERNALNAME = "needleWolf";
+    private static final String NEEDLE_WOLF_INTERNALNAME = "needleWolf";
 
     // Needle with zombie DNA.
     public static NeedleZombie NEEDLE_ZOMBIE;
-    public static final String NEEDLE_ZOMBIE_INTERNALNAME = "needleZombie";
+    private static final String NEEDLE_ZOMBIE_INTERNALNAME = "needleZombie";
 
     // Needle with mutant DNA.
     public static NeedleMutant NEEDLE_MUTANT;
-    public static final String NEEDLE_MUTANT_INTERNALNAME = "needleMutant";
+    private static final String NEEDLE_MUTANT_INTERNALNAME = "needleMutant";
 
     // Needle with bat DNA.
     public static NeedleBat NEEDLE_BAT;
-    public static String NEEDLE_BAT_INTERNALNAME = "needleBat";
+    private static String NEEDLE_BAT_INTERNALNAME = "needleBat";
 
     // -------------------
     // NEEDLE REGISTRY ADD
     // -------------------
 
-    public static void createBatNeedle(int itemID)
+    static void createBatNeedle(int itemID)
     {
         // Adds needle filled with Bat blood.
         MadScience.logger.info("-Needle Bat Blood");
@@ -124,7 +124,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_BAT, NEEDLE_BAT_INTERNALNAME);
     }
 
-    public static void createCaveSpiderNeedle(int itemID)
+    static void createCaveSpiderNeedle(int itemID)
     {
         // Adds needle filled with Cave Spider blood.
         MadScience.logger.info("-Needle Cave Spider Blood");
@@ -132,7 +132,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_CAVESPIDER, NEEDLE_CAVESPIDER_INTERNALNAME);
     }
 
-    public static void createChickenNeedle(int itemID)
+    static void createChickenNeedle(int itemID)
     {
         // Adds needle filled with Chicken blood.
         MadScience.logger.info("-Needle Chicken Blood");
@@ -140,7 +140,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_CHICKEN, NEEDLE_CHICKEN_INTERNALNAME);
     }
 
-    public static void createCowNeedle(int itemID)
+    static void createCowNeedle(int itemID)
     {
         // Adds needle filled with Cow blood.
         MadScience.logger.info("-Needle Cow Blood");
@@ -148,7 +148,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_COW, NEEDLE_COW_INTERNALNAME);
     }
 
-    public static void createCreeperNeedle(int itemID)
+    static void createCreeperNeedle(int itemID)
     {
         // Adds needle filled with Creeper blood.
         MadScience.logger.info("-Needle Creeper Blood");
@@ -156,7 +156,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_CREEPER, NEEDLE_CREEPER_INTERNALNAME);
     }
 
-    public static void createDirtyNeedle(int itemID)
+    static void createDirtyNeedle(int itemID)
     {
         // Adds dirty needle that is left over from extraction.
         MadScience.logger.info("-Dirty Needle");
@@ -167,7 +167,7 @@ public class MadNeedles
         SanitizerRecipes.addSmelting(NEEDLE_DIRTY.itemID, new ItemStack(NEEDLE_ITEM), 0.15F);
     }
 
-    public static void createEmptyNeedle(int itemID)
+    static void createEmptyNeedle(int itemID)
     {
         // Adds empty needle to the game used for taking DNA out of mobs.
         MadScience.logger.info("-Empty Needle");
@@ -184,7 +184,7 @@ public class MadNeedles
                 'G', Block.glass, 'I', Item.ingotIron, 'S', Item.stick });
     }
 
-    public static void createEndermanNeedle(int itemID)
+    static void createEndermanNeedle(int itemID)
     {
         // Adds needle filled with Enderman blood.
         MadScience.logger.info("-Needle Enderman Blood");
@@ -192,7 +192,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_ENDERMAN, NEEDLE_ENDERMAN_INTERNALNAME);
     }
 
-    public static void createHorseNeedle(int itemID)
+    static void createHorseNeedle(int itemID)
     {
         // Adds needle filled with Horse blood.
         MadScience.logger.info("-Needle Horse Blood");
@@ -200,7 +200,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_HORSE, NEEDLE_HORSE_INTERNALNAME);
     }
 
-    public static void createMushroomCowNeedle(int itemID)
+    static void createMushroomCowNeedle(int itemID)
     {
         // Adds needle filled with Mushroom Cow blood.
         MadScience.logger.info("-Needle Mushroom Cow Blood");
@@ -208,7 +208,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_MUSHROOMCOW, NEEDLE_MUSHROOMCOW_INTERNALNAME);
     }
 
-    public static void createMutantNeedle(int itemID)
+    static void createMutantNeedle(int itemID)
     {
         // Adds needle filled with Mutant blood.
         MadScience.logger.info("-Needle Mutant Blood");
@@ -216,7 +216,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_MUTANT, NEEDLE_MUTANT_INTERNALNAME);
     }
 
-    public static void createOcelotNeedle(int itemID)
+    static void createOcelotNeedle(int itemID)
     {
         // Adds needle filled with Ocelot blood.
         MadScience.logger.info("-Needle Ocelot Blood");
@@ -224,7 +224,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_OCELOT, NEEDLE_OCELOT_INTERNALNAME);
     }
 
-    public static void createPigNeedle(int itemID)
+    static void createPigNeedle(int itemID)
     {
         // Adds needle filled with Pig blood.
         MadScience.logger.info("-Needle Pig Blood");
@@ -232,7 +232,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_PIG, NEEDLE_PIG_INTERNALNAME);
     }
 
-    public static void createSheepNeedle(int itemID)
+    static void createSheepNeedle(int itemID)
     {
         // Adds needle filled with Sheep blood.
         MadScience.logger.info("-Needle Sheep Blood");
@@ -240,7 +240,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_SHEEP, NEEDLE_SHEEP_INTERNALNAME);
     }
 
-    public static void createSpiderNeedle(int itemID)
+    static void createSpiderNeedle(int itemID)
     {
         // Adds needle filled with Spider blood.
         MadScience.logger.info("-Needle Spider Blood");
@@ -248,7 +248,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_SPIDER, NEEDLE_SPIDER_INTERNALNAME);
     }
 
-    public static void createSquidNeedle(int itemID)
+    static void createSquidNeedle(int itemID)
     {
         // Adds needle filled with Squid blood.
         MadScience.logger.info("-Needle Squid Blood");
@@ -256,7 +256,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_SQUID, NEEDLE_SQUID_INTERNALNAME);
     }
 
-    public static void createVillagerNeedle(int itemID)
+    static void createVillagerNeedle(int itemID)
     {
         // Adds needle filled with Villager blood.
         MadScience.logger.info("-Needle Villager Blood");
@@ -264,7 +264,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_VILLAGER, NEEDLE_VILLAGER_INTERNALNAME);
     }
 
-    public static void createWitchNeedle(int itemID)
+    static void createWitchNeedle(int itemID)
     {
         // Adds needle filled with Witch blood.
         MadScience.logger.info("-Needle Witch Blood");
@@ -272,7 +272,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_WITCH, NEEDLE_WITCH_INTERNALNAME);
     }
 
-    public static void createWolfNeedle(int itemID)
+    static void createWolfNeedle(int itemID)
     {
         // Adds needle filled with Wolf blood.
         MadScience.logger.info("-Needle Wolf Blood");
@@ -280,7 +280,7 @@ public class MadNeedles
         GameRegistry.registerItem(NEEDLE_WOLF, NEEDLE_WOLF_INTERNALNAME);
     }
 
-    public static void createZombieNeedle(int itemID)
+    static void createZombieNeedle(int itemID)
     {
         // Adds needle filled with Zombie blood.
         MadScience.logger.info("-Needle Zombie Blood");

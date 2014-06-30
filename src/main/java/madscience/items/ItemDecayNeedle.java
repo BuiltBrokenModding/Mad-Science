@@ -13,10 +13,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemDecayNeedle extends ItemDecay
 {
     /** Base color of the egg */
-    public int primaryColor;
+    private int primaryColor;
 
     /** Color of the egg spots */
-    public int secondaryColor;
+    private int secondaryColor;
 
     @SideOnly(Side.CLIENT)
     private Icon needleReelLayer1;

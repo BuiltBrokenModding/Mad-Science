@@ -8,9 +8,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class DataDuplicatorSlotInputFullDataReel extends Slot
+class DataDuplicatorSlotInputFullDataReel extends Slot
 {
-    public DataDuplicatorSlotInputFullDataReel(IInventory inv, int index, int x, int y)
+    DataDuplicatorSlotInputFullDataReel(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

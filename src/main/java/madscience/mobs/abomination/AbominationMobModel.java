@@ -10,18 +10,18 @@ import net.minecraft.util.MathHelper;
 
 public class AbominationMobModel extends ModelBase
 {
-    ModelRenderer Body;
+    private ModelRenderer Body;
     // fields
-    ModelRenderer Head;
-    ModelRenderer Leg1;
-    ModelRenderer Leg2;
-    ModelRenderer Leg3;
-    ModelRenderer Leg4;
-    ModelRenderer Leg5;
-    ModelRenderer Leg6;
-    ModelRenderer Leg7;
-    ModelRenderer Leg8;
-    ModelRenderer RearEnd;
+    private ModelRenderer Head;
+    private ModelRenderer Leg1;
+    private ModelRenderer Leg2;
+    private ModelRenderer Leg3;
+    private ModelRenderer Leg4;
+    private ModelRenderer Leg5;
+    private ModelRenderer Leg6;
+    private ModelRenderer Leg7;
+    private ModelRenderer Leg8;
+    private ModelRenderer RearEnd;
 
     public AbominationMobModel()
     {
@@ -121,11 +121,6 @@ public class AbominationMobModel extends ModelBase
         Leg5.render(f5);
         Leg3.render(f5);
         Leg1.render(f5);
-    }
-
-    /** Used for easily adding entity-dependent animations. The second and third float params here are the same second and third as in the setRotationAngles method. */
-    public void setLivingAnimations(EntityLiving par1EntityLiving, float par2, float par3, float par4)
-    {
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z)

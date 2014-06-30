@@ -25,17 +25,11 @@ public class IncubatorRecipes
         IncubatorRecipes.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
     }
 
-    /** Grabs the amount of base experience for this item to give when pulled from the furnace slot. */
-    public static float getExperience(ItemStack item)
-    {
-        return 0.0F;
-    }
-
     /** Used to get the resulting ItemStack form a source ItemStack
      * 
      * @param item The Source ItemStack
      * @return The result ItemStack */
-    public static ItemStack getSmeltingResult(ItemStack item)
+    static ItemStack getSmeltingResult(ItemStack item)
     {
         if (item == null)
         {

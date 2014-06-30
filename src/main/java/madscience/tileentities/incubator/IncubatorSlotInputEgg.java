@@ -5,9 +5,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class IncubatorSlotInputEgg extends Slot
+class IncubatorSlotInputEgg extends Slot
 {
-    public IncubatorSlotInputEgg(IInventory inv, int index, int x, int y)
+    IncubatorSlotInputEgg(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

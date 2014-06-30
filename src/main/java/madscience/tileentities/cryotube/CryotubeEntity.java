@@ -38,28 +38,28 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     private ItemStack[] cryotubeOutput = new ItemStack[2];
 
     /** Path to texture that we would like displayed on this block. */
-    public String TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
+    String TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
-    public int hatchTimeCurrentValue;
+    int hatchTimeCurrentValue;
 
     // Hatch time.
-    public int hatchTimeMaximum;
+    int hatchTimeMaximum;
 
     // Subject Neural Activity.
-    public int neuralActivityMaximum;
-    public int neuralActivityValue;
+    int neuralActivityMaximum;
+    int neuralActivityValue;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
-    public int subjectCurrentHealth;
+    private boolean shouldPlay;
+    int subjectCurrentHealth;
 
     /** Keeps track of what state we are supposed to be in. */
-    public boolean subjectIsAlive = false;
+    private boolean subjectIsAlive = false;
     // Subject Health.
-    public int subjectMaximumHealth;
+    int subjectMaximumHealth;
 
     public CryotubeEntity()
     {
@@ -94,7 +94,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if we have water bucket and dirty needles in input slots and
         // that our internal tank has fluid.
@@ -350,8 +350,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     /**
      * Returns an integer between 0 and the passed value representing how close the current item is to being completely
      * cooked
-     */
-    public int getHatchTimeScaled(int prgPixels)
+     */ int getHatchTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (hatchTimeMaximum == 0)
@@ -412,7 +411,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         return neuralActivityValue;
     }
 
-    public int getNeuralActivityScaled(int prgPixels)
+    int getNeuralActivityScaled(int prgPixels)
     {
         if (neuralActivityMaximum == 0)
         {
@@ -543,8 +542,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
-    public int getSubjectHealthScaled(int prgPixels)
+    @SideOnly(Side.CLIENT) int getSubjectHealthScaled(int prgPixels)
     {
         return (int) (((float) subjectCurrentHealth * prgPixels) / subjectMaximumHealth);
     }

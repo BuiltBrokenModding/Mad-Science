@@ -5,9 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class MagLoaderSlotStorage extends Slot
+class MagLoaderSlotStorage extends Slot
 {
-    public MagLoaderSlotStorage(IInventory inv, int index, int x, int y)
+    MagLoaderSlotStorage(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

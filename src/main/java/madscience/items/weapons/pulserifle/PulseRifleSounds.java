@@ -9,14 +9,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PulseRifleSounds
 {
     // Pulse Rifle
-    public static final String PULSERIFLE_FIRE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Fire";
-    public static final String PULSERIFLE_EMPTY = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Empty";
-    public static final String PULSERIFLE_FIREGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".FireGrenade";
+    static final String PULSERIFLE_FIRE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Fire";
+    static final String PULSERIFLE_EMPTY = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Empty";
+    static final String PULSERIFLE_FIREGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".FireGrenade";
     public static final String PULSERIFLE_GRENADEEXPLODE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".GrenadeExplode";
-    public static final String PULSERIFLE_RELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Reload";
-    public static final String PULSERIFLE_UNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Unload";
-    public static final String PULSERIFLE_RELOADGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ReloadGrenade";
-    public static final String PULSERIFLE_CHAMBERGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ChamberGrenade";
+    static final String PULSERIFLE_RELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Reload";
+    static final String PULSERIFLE_UNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Unload";
+    static final String PULSERIFLE_RELOADGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ReloadGrenade";
+    static final String PULSERIFLE_CHAMBERGRENADE = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".ChamberGrenade";
     public static final String PULSERIFLE_MAGAZINERELOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".MagazineReload";
     public static final String PULSERIFLE_MAGAZINEUNLOAD = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".MagazineUnload";
     public static final String PULSERIFLE_RICOCHET = MadScience.ID + ":" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".Ricochet";

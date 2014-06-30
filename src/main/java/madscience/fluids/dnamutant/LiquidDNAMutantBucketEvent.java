@@ -10,7 +10,7 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 
 public class LiquidDNAMutantBucketEvent
 {
-    public ItemStack fillCustomBucket(World world, MovingObjectPosition pos)
+    private ItemStack fillCustomBucket(World world, MovingObjectPosition pos)
     {
         int blockID = world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
 
@@ -26,7 +26,7 @@ public class LiquidDNAMutantBucketEvent
     }
 
     @ForgeSubscribe
-    public void onBucketFill(FillBucketEvent event)
+    public void onBucketFill(FillBucketEvent event) // NO_UCD (unused code)
     {
         ItemStack result = fillCustomBucket(event.world, event.target);
 

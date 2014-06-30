@@ -5,9 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SanitizerSlotInputDirtyNeedles extends Slot
+class SanitizerSlotInputDirtyNeedles extends Slot
 {
-    public SanitizerSlotInputDirtyNeedles(IInventory inv, int index, int x, int y)
+    SanitizerSlotInputDirtyNeedles(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

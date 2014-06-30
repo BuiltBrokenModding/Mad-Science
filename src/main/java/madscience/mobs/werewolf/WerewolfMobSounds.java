@@ -9,9 +9,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WerewolfMobSounds
 {
     // Werewolf [Villager + Wolf]
-    public static final String WEREWOLF_ATTACK = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Attack";
-    public static final String WEREWOLF_IDLE = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Death";
-    public static final String WEREWOLF_DEATH = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Snarl";
+    static final String WEREWOLF_ATTACK = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Attack";
+    static final String WEREWOLF_IDLE = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Death";
+    static final String WEREWOLF_DEATH = MadScience.ID + ":" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".Snarl";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

@@ -5,9 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SequencerSlotInputDNASample extends Slot
+class SequencerSlotInputDNASample extends Slot
 {
-    public SequencerSlotInputDNASample(IInventory inv, int index, int x, int y)
+    SequencerSlotInputDNASample(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

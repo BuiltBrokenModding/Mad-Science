@@ -47,7 +47,7 @@ public class AbominationMobEntity extends EntityMob
     /** Counter to delay the teleportation of an enderman towards the currently attacked target */
     private int teleportDelay;
 
-    public AbominationMobEntity(World par1World)
+    public AbominationMobEntity(World par1World) // NO_UCD (unused code)
     {
         super(par1World);
 
@@ -177,7 +177,7 @@ public class AbominationMobEntity extends EntityMob
 
     // This is required regardless of if your animal can breed or not. Set to
     // null if it can't breed - I wont cover breeding here.
-    public EntityAgeable createChild(EntityAgeable var1)
+    public EntityAgeable createChild(EntityAgeable var1) // NO_UCD (unused code)
     {
         return null;
     }
@@ -436,7 +436,7 @@ public class AbominationMobEntity extends EntityMob
     }
 
     /** Teleport the enderman to a random nearby position */
-    protected boolean teleportRandomly()
+    private boolean teleportRandomly()
     {
         if (!MadConfig.ABOMINATION_TELEPORTS)
         {
@@ -450,7 +450,7 @@ public class AbominationMobEntity extends EntityMob
     }
 
     /** Teleport the enderman */
-    protected boolean teleportTo(double par1, double par3, double par5)
+    private boolean teleportTo(double par1, double par3, double par5)
     {
         if (!MadConfig.ABOMINATION_TELEPORTS)
         {
@@ -530,22 +530,5 @@ public class AbominationMobEntity extends EntityMob
             this.playSound("mob.endermen.portal", 1.0F, 1.0F);
             return true;
         }
-    }
-
-    /** Teleport the enderman to another entity */
-    protected boolean teleportToEntity(Entity par1Entity)
-    {
-        if (!MadConfig.ABOMINATION_TELEPORTS)
-        {
-            return false;
-        }
-
-        Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX - par1Entity.posX, this.boundingBox.minY + this.height / 2.0F - par1Entity.posY + par1Entity.getEyeHeight(), this.posZ - par1Entity.posZ);
-        vec3 = vec3.normalize();
-        double d0 = 16.0D;
-        double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3.xCoord * d0;
-        double d2 = this.posY + (this.rand.nextInt(16) - 8) - vec3.yCoord * d0;
-        double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3.zCoord * d0;
-        return this.teleportTo(d1, d2, d3);
     }
 }

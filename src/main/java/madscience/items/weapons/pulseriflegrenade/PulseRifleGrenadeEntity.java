@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PulseRifleGrenadeEntity extends Entity implements IProjectile
 {
     /** Seems to be some sort of timer for animating an arrow. */
-    public int arrowShake;
+    private int arrowShake;
     private double damage = 50.0D;
     private int inData;
     private boolean inGround;
@@ -35,55 +35,13 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
     private int knockbackStrength;
 
     /** The owner of this arrow. */
-    public Entity shootingEntity;
+    private Entity shootingEntity;
 
     private int ticksInAir;
     private int xTile = -1;
     private int yTile = -1;
-
     private int zTile = -1;
-
-    public PulseRifleGrenadeEntity(World par1World)
-    {
-        super(par1World);
-        this.renderDistanceWeight = 10.0D;
-        this.setSize(0.5F, 0.5F);
-    }
-
-    public PulseRifleGrenadeEntity(World par1World, double par2, double par4, double par6)
-    {
-        super(par1World);
-        this.renderDistanceWeight = 10.0D;
-        this.setSize(0.5F, 0.5F);
-        this.setPosition(par2, par4, par6);
-        this.yOffset = 0.0F;
-    }
-
-    public PulseRifleGrenadeEntity(World par1World, EntityLivingBase par2EntityLivingBase, EntityLivingBase par3EntityLivingBase, float par4, float par5)
-    {
-        super(par1World);
-        this.renderDistanceWeight = 10.0D;
-        this.shootingEntity = par2EntityLivingBase;
-
-        this.posY = par2EntityLivingBase.posY + par2EntityLivingBase.getEyeHeight() - 0.10000000149011612D;
-        double d0 = par3EntityLivingBase.posX - par2EntityLivingBase.posX;
-        double d1 = par3EntityLivingBase.boundingBox.minY + par3EntityLivingBase.height / 3.0F - this.posY;
-        double d2 = par3EntityLivingBase.posZ - par2EntityLivingBase.posZ;
-        double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
-
-        if (d3 >= 1.0E-7D)
-        {
-            float f2 = (float) (Math.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
-            float f3 = (float) (-(Math.atan2(d1, d3) * 180.0D / Math.PI));
-            double d4 = d0 / d3;
-            double d5 = d2 / d3;
-            this.setLocationAndAngles(par2EntityLivingBase.posX + d4, this.posY, par2EntityLivingBase.posZ + d5, f2, f3);
-            this.yOffset = 0.0F;
-            float f4 = (float) d3 * 0.2F;
-            this.setThrowableHeading(d0, d1 + f4, d2, par4, par5);
-        }
-    }
-
+    
     public PulseRifleGrenadeEntity(World par1World, EntityLivingBase par2EntityLivingBase, float par3)
     {
         super(par1World);
@@ -123,7 +81,7 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
         this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
     }
 
-    public void fireGrenade(double x, double y, double z)
+    private void fireGrenade(double x, double y, double z)
     {
         if (!this.worldObj.isRemote)
         {
@@ -153,7 +111,7 @@ public class PulseRifleGrenadeEntity extends Entity implements IProjectile
     }
 
     /** Creates a custom explosion based on the default Minecraft one. */
-    public MadExplosion newExplosion(Entity par1Entity, double par2, double par4, double par6, float par8, boolean par9, boolean par10)
+    private MadExplosion newExplosion(Entity par1Entity, double par2, double par4, double par6, float par8, boolean par9, boolean par10)
     {
         MadExplosion explosion = new MadExplosion(this.worldObj, par1Entity, par2, par4, par6, par8, par9, par10);
         explosion.isFlaming = par9;

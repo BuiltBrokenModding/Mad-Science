@@ -28,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, IFluidHandler
 {
     // ** Maximum number of buckets of water this machine can hold internally */
-    public static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;
+    private static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;
 
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
@@ -39,7 +39,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     { 0 };
 
     /** If we start smelting we want client GUI's to know what part they are making for effect. */
-    public String BOOK_DECODED = "INVALID BOOK";
+    String BOOK_DECODED = "INVALID BOOK";
 
     private ItemStack[] CnCMachineInput = new ItemStack[3];
 
@@ -47,29 +47,29 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     private ItemStack[] CnCMachineOutput = new ItemStack[2];
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     /** Determines if we have iron block currently placed in input slot 1. */
-    public boolean hasIronBlock;
+    boolean hasIronBlock;
 
     /** Texture that should be displayed on our model. */
-    public String TEXTURE = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+    String TEXTURE = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
 
     /** Internal reserve of water */
     protected FluidTank WATER_TANK = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
     
     // Sound tracking variables.
-    public boolean clientSound_FinishedCrushing;
-    public boolean clientSound_InsertIronBlock;
-    public boolean clientSound_InvalidBook;
-    public boolean clientSound_PowerOn;
-    public boolean clientSound_PressStop;
+    boolean clientSound_FinishedCrushing;
+    boolean clientSound_InsertIronBlock;
+    boolean clientSound_InvalidBook;
+    boolean clientSound_PowerOn;
+    boolean clientSound_PressStop;
 
     public CnCMachineEntity()
     {
@@ -178,7 +178,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return this.isItemValidForSlot(slot, items);
     }
 
-    public boolean canSmelt()
+    boolean canSmelt()
     {
         // Check if we have a block of iron in input slot 2.
         if (!this.hasIronBlock())
@@ -318,7 +318,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return null;
     }
 
-    public void drainEnergy(boolean drainWater)
+    private void drainEnergy(boolean drainWater)
     {
         if (this.isPowered() && this.canSmelt() && this.isRedstonePowered())
         {
@@ -364,7 +364,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return MadFurnaces.CNCMACHINE_INTERNALNAME;
     }
 
-    public int getItemCookTimeScaled(int prgPixels)
+    int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -567,8 +567,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         { WATER_TANK.getInfo() };
     }
 
-    @SideOnly(Side.CLIENT)
-    public int getWaterRemainingScaled(int i)
+    @SideOnly(Side.CLIENT) 
+    int getWaterRemainingScaled(int i)
     {
         return WATER_TANK.getFluid() != null ? (int) (((float) WATER_TANK.getFluid().amount / (float) (MAX_WATER)) * i) : 0;
     }
@@ -755,7 +755,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Converts input item into resulting weapon component part.
         if (this.canSmelt())

@@ -6,9 +6,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class CryofreezerSlotInput extends Slot
+class CryofreezerSlotInput extends Slot
 {
-    public CryofreezerSlotInput(IInventory inv, int index, int x, int y)
+    CryofreezerSlotInput(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

@@ -28,101 +28,101 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class MadGenomes
+class MadGenomes
 {
     // -----------------
     // GENOME DATA REELS
     // -----------------
 
     // Cave Spider Genome Data Reel
-    public static GenomeCaveSpider GENOME_CAVESPIDER;
-    public static final String GENOME_CAVESPIDER_INTERNALNAME = "genomeCaveSpider";
+    private static GenomeCaveSpider GENOME_CAVESPIDER;
+    private static final String GENOME_CAVESPIDER_INTERNALNAME = "genomeCaveSpider";
 
     // Chicken Genome Data Reel
-    public static GenomeChicken GENOME_CHICKEN;
-    public static final String GENOME_CHICKEN_INTERNALNAME = "genomeChicken";
+    static GenomeChicken GENOME_CHICKEN;
+    private static final String GENOME_CHICKEN_INTERNALNAME = "genomeChicken";
 
     // Cow Genome Data Reel
-    public static GenomeCow GENOME_COW;
-    public static final String GENOME_COW_INTERNALNAME = "genomeCow";
+    static GenomeCow GENOME_COW;
+    private static final String GENOME_COW_INTERNALNAME = "genomeCow";
 
     // Creeper Genome Data Reel
-    public static GenomeCreeper GENOME_CREEPER;
-    public static final String GENOME_CREEPER_INTERNALNAME = "genomeCreeper";
+    static GenomeCreeper GENOME_CREEPER;
+    private static final String GENOME_CREEPER_INTERNALNAME = "genomeCreeper";
 
     // Enderman Genome Data Reel
-    public static GenomeEnderman GENOME_ENDERMAN;
-    public static final String GENOME_ENDERMAN_INTERNALNAME = "genomeEnderman";
+    static GenomeEnderman GENOME_ENDERMAN;
+    private static final String GENOME_ENDERMAN_INTERNALNAME = "genomeEnderman";
 
     // Ghast Genome Data Reel
-    public static GenomeGhast GENOME_GHAST;
-    public static final String GENOME_GHAST_INTERNALNAME = "genomeGhast";
+    private static GenomeGhast GENOME_GHAST;
+    private static final String GENOME_GHAST_INTERNALNAME = "genomeGhast";
 
     // Horse Genome Data Reel
-    public static GenomeHorse GENOME_HORSE;
-    public static final String GENOME_HORSE_INTERNALNAME = "genomeHorse";
+    static GenomeHorse GENOME_HORSE;
+    private static final String GENOME_HORSE_INTERNALNAME = "genomeHorse";
 
     // Mushroom Cow Genome Data Reel
-    public static GenomeMushroomCow GENOME_MUSHROOMCOW;
-    public static final String GENOME_MUSHROOMCOW_INTERNALNAME = "genomeMushroomCow";
+    private static GenomeMushroomCow GENOME_MUSHROOMCOW;
+    private static final String GENOME_MUSHROOMCOW_INTERNALNAME = "genomeMushroomCow";
 
     // Ocelot Genome Data Reel
-    public static GenomeOcelot GENOME_OCELOT;
-    public static final String GENOME_OCELOT_INTERNALNAME = "genomeOcelot";
+    private static GenomeOcelot GENOME_OCELOT;
+    private static final String GENOME_OCELOT_INTERNALNAME = "genomeOcelot";
 
     // Pig Genome Data Reel
-    public static GenomePig GENOME_PIG;
-    public static final String GENOME_PIG_INTERNALNAME = "genomePig";
+    static GenomePig GENOME_PIG;
+    private static final String GENOME_PIG_INTERNALNAME = "genomePig";
 
     // Pig Zombie Genome Data Reel
-    public static GenomePigZombie GENOME_PIGZOMBIE;
-    public static final String GENOME_PIGZOMBIE_INTERNALNAME = "genomePigZombie";
+    private static GenomePigZombie GENOME_PIGZOMBIE;
+    private static final String GENOME_PIGZOMBIE_INTERNALNAME = "genomePigZombie";
 
     // Sheep Genome Data Reel
-    public static GenomeSheep GENOME_SHEEP;
-    public static final String GENOME_SHEEP_INTERNALNAME = "genomeSheep";
+    static GenomeSheep GENOME_SHEEP;
+    private static final String GENOME_SHEEP_INTERNALNAME = "genomeSheep";
 
     // Skeleton Genome Data Reel
-    public static GenomeSkeleton GENOME_SKELETON;
-    public static final String GENOME_SKELETON_INTERNALNAME = "genomeSkeleton";
+    static GenomeSkeleton GENOME_SKELETON;
+    private static final String GENOME_SKELETON_INTERNALNAME = "genomeSkeleton";
 
     // Squid Genome Data Reel
-    public static GenomeSquid GENOME_SQUID;
-    public static final String GENOME_SQUID_INTERNALNAME = "genomeSquid";
+    static GenomeSquid GENOME_SQUID;
+    private static final String GENOME_SQUID_INTERNALNAME = "genomeSquid";
 
     // Spider Genome Data Reel
-    public static GenomeSpider GENOME_SPIDER;
-    public static final String GENOME_SPIDER_INTERNALNAME = "genomeSpider";
+    static GenomeSpider GENOME_SPIDER;
+    private static final String GENOME_SPIDER_INTERNALNAME = "genomeSpider";
 
     // Villager Genome Data Reel
-    public static GenomeVillager GENOME_VILLAGER;
-    public static final String GENOME_VILLAGER_INTERNALNAME = "genomeVillager";
+    static GenomeVillager GENOME_VILLAGER;
+    private static final String GENOME_VILLAGER_INTERNALNAME = "genomeVillager";
 
     // Witch Genome Data Reel
-    public static GenomeWitch GENOME_WITCH;
-    public static final String GENOME_WITCH_INTERNALNAME = "genomeWitch";
+    private static GenomeWitch GENOME_WITCH;
+    private static final String GENOME_WITCH_INTERNALNAME = "genomeWitch";
 
     // Wolf Genome Data Reel
-    public static GenomeWolf GENOME_WOLF;
-    public static final String GENOME_WOLF_INTERNALNAME = "genomeWolf";
+    static GenomeWolf GENOME_WOLF;
+    private static final String GENOME_WOLF_INTERNALNAME = "genomeWolf";
 
     // Zombie Genome Data Reel
-    public static GenomeZombie GENOME_ZOMBIE;
-    public static final String GENOME_ZOMBIE_INTERNALNAME = "genomeZombie";
+    static GenomeZombie GENOME_ZOMBIE;
+    private static final String GENOME_ZOMBIE_INTERNALNAME = "genomeZombie";
 
     // Bat Genome Data Reel
-    public static GenomeBat GENOME_BAT;
-    public static final String GENOME_BAT_INTERNALNAME = "genomeBat";
+    private static GenomeBat GENOME_BAT;
+    private static final String GENOME_BAT_INTERNALNAME = "genomeBat";
 
     // Slime Genome Data Reel
-    public static GenomeSlime GENOME_SLIME;
-    public static final String GENOME_SLIME_INTERNALNAME = "genomeSlime";
+    static GenomeSlime GENOME_SLIME;
+    private static final String GENOME_SLIME_INTERNALNAME = "genomeSlime";
 
     // -----------------
     // GENOME DATA REELS
     // -----------------
 
-    public static void createBatGenome(int itemID)
+    static void createBatGenome(int itemID)
     {
         // Bat Genome Data Reel
         GENOME_BAT = (GenomeBat) new GenomeBat(itemID, 4996656, 986895).setUnlocalizedName(GENOME_BAT_INTERNALNAME);
@@ -136,7 +136,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_BAT.itemID, new ItemStack(GENOME_BAT), 0.05F);
     }
 
-    public static void createCaveSpiderGenome(int itemID)
+    static void createCaveSpiderGenome(int itemID)
     {
         GENOME_CAVESPIDER = (GenomeCaveSpider) new GenomeCaveSpider(itemID, 803406, 11013646).setUnlocalizedName(GENOME_CAVESPIDER_INTERNALNAME);
         GameRegistry.registerItem(GENOME_CAVESPIDER, GENOME_CAVESPIDER_INTERNALNAME);
@@ -149,7 +149,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_CAVESPIDER.itemID, new ItemStack(GENOME_CAVESPIDER), 0.05F);
     }
 
-    public static void createChickenGenome(int itemID)
+    static void createChickenGenome(int itemID)
     {
         // Chicken Genome Data Reel
         GENOME_CHICKEN = (GenomeChicken) new GenomeChicken(itemID, 10592673, 16711680).setUnlocalizedName(GENOME_CHICKEN_INTERNALNAME);
@@ -163,7 +163,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_CHICKEN.itemID, new ItemStack(GENOME_CHICKEN), 0.05F);
     }
 
-    public static void createCowGenome(int itemID)
+    static void createCowGenome(int itemID)
     {
         // Cow Genome Data Reel
         GENOME_COW = (GenomeCow) new GenomeCow(itemID, 4470310, 10592673).setUnlocalizedName(GENOME_COW_INTERNALNAME);
@@ -177,7 +177,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_COW.itemID, new ItemStack(GENOME_COW), 0.05F);
     }
 
-    public static void createCreeperGenome(int itemID)
+    static void createCreeperGenome(int itemID)
     {
         // Creeper Genome Data Reel
         GENOME_CREEPER = (GenomeCreeper) new GenomeCreeper(itemID, 894731, 0).setUnlocalizedName(GENOME_CREEPER_INTERNALNAME);
@@ -191,7 +191,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_CREEPER.itemID, new ItemStack(GENOME_CREEPER), 0.05F);
     }
 
-    public static void createEndermanGenome(int itemID)
+    static void createEndermanGenome(int itemID)
     {
         GENOME_ENDERMAN = (GenomeEnderman) new GenomeEnderman(itemID, 1447446, 0).setUnlocalizedName(GENOME_ENDERMAN_INTERNALNAME);
         GameRegistry.registerItem(GENOME_ENDERMAN, GENOME_ENDERMAN_INTERNALNAME);
@@ -204,7 +204,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_ENDERMAN.itemID, new ItemStack(GENOME_ENDERMAN), 0.05F);
     }
 
-    public static void createGhastGenome(int itemID)
+    static void createGhastGenome(int itemID)
     {
         GENOME_GHAST = (GenomeGhast) new GenomeGhast(itemID, 16382457, 12369084).setUnlocalizedName(GENOME_GHAST_INTERNALNAME);
         GameRegistry.registerItem(GENOME_GHAST, GENOME_GHAST_INTERNALNAME);
@@ -217,7 +217,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_GHAST.itemID, new ItemStack(GENOME_GHAST), 0.05F);
     }
 
-    public static void createHorseGenome(int itemID)
+    static void createHorseGenome(int itemID)
     {
         GENOME_HORSE = (GenomeHorse) new GenomeHorse(itemID, 12623485, 15656192).setUnlocalizedName(GENOME_HORSE_INTERNALNAME);
         GameRegistry.registerItem(GENOME_HORSE, GENOME_HORSE_INTERNALNAME);
@@ -230,7 +230,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_HORSE.itemID, new ItemStack(GENOME_HORSE), 0.05F);
     }
 
-    public static void createMushroomCowGenome(int itemID)
+    static void createMushroomCowGenome(int itemID)
     {
         GENOME_MUSHROOMCOW = (GenomeMushroomCow) new GenomeMushroomCow(itemID, 10489616, 12040119).setUnlocalizedName(GENOME_MUSHROOMCOW_INTERNALNAME);
         GameRegistry.registerItem(GENOME_MUSHROOMCOW, GENOME_MUSHROOMCOW_INTERNALNAME);
@@ -243,7 +243,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_MUSHROOMCOW.itemID, new ItemStack(GENOME_MUSHROOMCOW), 0.05F);
     }
 
-    public static void createOcelotGenome(int itemID)
+    static void createOcelotGenome(int itemID)
     {
         GENOME_OCELOT = (GenomeOcelot) new GenomeOcelot(itemID, 15720061, 5653556).setUnlocalizedName(GENOME_OCELOT_INTERNALNAME);
         GameRegistry.registerItem(GENOME_OCELOT, GENOME_OCELOT_INTERNALNAME);
@@ -257,7 +257,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_OCELOT.itemID, new ItemStack(GENOME_OCELOT), 0.05F);
     }
 
-    public static void createPigGenome(int itemID)
+    static void createPigGenome(int itemID)
     {
         // Pig Genome Data Reel
         GENOME_PIG = (GenomePig) new GenomePig(itemID, 15771042, 14377823).setUnlocalizedName(GENOME_PIG_INTERNALNAME);
@@ -271,7 +271,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_PIG.itemID, new ItemStack(GENOME_PIG), 0.05F);
     }
 
-    public static void createPigZombieGenome(int itemID)
+    static void createPigZombieGenome(int itemID)
     {
         // PigZombie is a mutant, so he can only be created by merging pig and zombie genomes in mainframe.
         GENOME_PIGZOMBIE = (GenomePigZombie) new GenomePigZombie(itemID, 15373203, 5009705).setUnlocalizedName(GENOME_PIGZOMBIE_INTERNALNAME);
@@ -283,7 +283,7 @@ public class MadGenomes
         IncubatorRecipes.addSmelting(GENOME_PIGZOMBIE.itemID, new ItemStack(Item.monsterPlacer, 1, 57));
     }
 
-    public static void createSheepGenome(int itemID)
+    static void createSheepGenome(int itemID)
     {
         GENOME_SHEEP = (GenomeSheep) new GenomeSheep(itemID, 15198183, 16758197).setUnlocalizedName(GENOME_SHEEP_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SHEEP, GENOME_SHEEP_INTERNALNAME);
@@ -296,7 +296,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_SHEEP.itemID, new ItemStack(GENOME_SHEEP), 0.05F);
     }
 
-    public static void createSkeletonGenome(int itemID)
+    static void createSkeletonGenome(int itemID)
     {
         GENOME_SKELETON = (GenomeSkeleton) new GenomeSkeleton(itemID, 12698049, 4802889).setUnlocalizedName(GENOME_SKELETON_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SKELETON, GENOME_SKELETON_INTERNALNAME);
@@ -309,7 +309,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_SKELETON.itemID, new ItemStack(GENOME_SKELETON), 0.05F);
     }
 
-    public static void createSlimeGenome(int itemID)
+    static void createSlimeGenome(int itemID)
     {
         // Slime Genome Data Reel
         GENOME_SLIME = (GenomeSlime) new GenomeSlime(itemID, 5349438, 8306542).setUnlocalizedName(GENOME_SLIME_INTERNALNAME);
@@ -323,7 +323,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_SLIME.itemID, new ItemStack(GENOME_SLIME), 0.05F);
     }
 
-    public static void createSpiderGenome(int itemID)
+    static void createSpiderGenome(int itemID)
     {
         // Spider Genome Data Reel
         GENOME_SPIDER = (GenomeSpider) new GenomeSpider(itemID, 3419431, 11013646).setUnlocalizedName(GENOME_SPIDER_INTERNALNAME);
@@ -337,7 +337,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_SPIDER.itemID, new ItemStack(GENOME_SPIDER), 0.05F);
     }
 
-    public static void createSquidGenome(int itemID)
+    static void createSquidGenome(int itemID)
     {
         GENOME_SQUID = (GenomeSquid) new GenomeSquid(itemID, 2243405, 7375001).setUnlocalizedName(GENOME_SQUID_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SQUID, GENOME_SQUID_INTERNALNAME);
@@ -350,7 +350,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_SQUID.itemID, new ItemStack(GENOME_SQUID), 0.05F);
     }
 
-    public static void createVillagerGenome(int itemID)
+    static void createVillagerGenome(int itemID)
     {
         // Villager Genome Data Reel
         GENOME_VILLAGER = (GenomeVillager) new GenomeVillager(itemID, 5651507, 12422002).setUnlocalizedName(GENOME_VILLAGER_INTERNALNAME);
@@ -364,7 +364,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_VILLAGER.itemID, new ItemStack(GENOME_VILLAGER), 0.05F);
     }
 
-    public static void createWitchGenome(int itemID)
+    static void createWitchGenome(int itemID)
     {
         GENOME_WITCH = (GenomeWitch) new GenomeWitch(itemID, 3407872, 5349438).setUnlocalizedName(GENOME_WITCH_INTERNALNAME);
         GameRegistry.registerItem(GENOME_WITCH, GENOME_WITCH_INTERNALNAME);
@@ -377,7 +377,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_WITCH.itemID, new ItemStack(GENOME_WITCH), 0.05F);
     }
 
-    public static void createWolfGenome(int itemID)
+    static void createWolfGenome(int itemID)
     {
         GENOME_WOLF = (GenomeWolf) new GenomeWolf(itemID, 14144467, 13545366).setUnlocalizedName(GENOME_WOLF_INTERNALNAME);
         GameRegistry.registerItem(GENOME_WOLF, GENOME_WOLF_INTERNALNAME);
@@ -390,7 +390,7 @@ public class MadGenomes
         SequencerRecipes.addSmelting(MadDNA.DNA_WOLF.itemID, new ItemStack(GENOME_WOLF), 0.05F);
     }
 
-    public static void createZombieGenome(int itemID)
+    static void createZombieGenome(int itemID)
     {
         // Zombie Genome Data Reel
         GENOME_ZOMBIE = (GenomeZombie) new GenomeZombie(itemID, 44975, 7969893).setUnlocalizedName(GENOME_ZOMBIE_INTERNALNAME);

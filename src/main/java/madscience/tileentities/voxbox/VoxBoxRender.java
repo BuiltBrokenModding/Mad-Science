@@ -31,7 +31,7 @@ public class VoxBoxRender extends TileEntitySpecialRenderer implements ISimpleBl
 
     private VoxBoxEntity ENTITY;
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.VOXBOX_INTERNALNAME + "/" + MadFurnaces.VOXBOX_INTERNALNAME + ".mad");
-    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
+    private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png");
 
     @Override
@@ -55,7 +55,7 @@ public class VoxBoxRender extends TileEntitySpecialRenderer implements ISimpleBl
         }
     }
 
-    public void renderAModelAt(VoxBoxEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(VoxBoxEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         ENTITY = tileEntity;

@@ -57,27 +57,22 @@ public class MadScience
     public static final String NAME = "Mad Science";
 
     // Version identification.
-    public static final String V_MAJOR = "@MAJOR@";
-    public static final String V_MINOR = "@MINOR@";
-    public static final String V_REVIS = "@REVIS@";
+    private static final String V_MAJOR = "@MAJOR@";
+    private static final String V_MINOR = "@MINOR@";
+    private static final String V_REVIS = "@REVIS@";
     public static final String V_BUILD = "@BUILD@";
-    public static final String VERSION_FULL = V_MAJOR + "." + V_MINOR + V_REVIS + "." + V_BUILD;
+    protected static final String VERSION_FULL = V_MAJOR + "." + V_MINOR + V_REVIS + "." + V_BUILD; // NO_UCD (use private)
 
     // Directories definition for assets and localization files.
-    public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
-    public static final String LANGUAGE_DIRECTORY = RESOURCE_DIRECTORY + "languages/";
-    public static final String BASE_DIRECTORY_NO_SLASH = ID + "/";
-    public static final String BASE_DIRECTORY = "/" + BASE_DIRECTORY_NO_SLASH;
-    public static final String ASSET_DIRECTORY = "/assets/" + ID + "/";
-    public static final String TEXTURE_DIRECTORY = "textures/";
-    public static final String GUI_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
-    public static final String BLOCK_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
-    public static final String ITEM_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "items/";
+    private static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
+    private static final String BASE_DIRECTORY_NO_SLASH = ID + "/";
+    private static final String ASSET_DIRECTORY = "/assets/" + ID + "/";
+    private static final String TEXTURE_DIRECTORY = "textures/";
     public static final String MODEL_DIRECTORY = "models/";
     public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
 
     // Gradle imprints MD5 of source code into this file upon compilation for integrity check.
-    public static final String FINGERPRINT = "@FINGERPRINT@";
+    private static final String FINGERPRINT = "@FINGERPRINT@";
 
     // Excellent reference to how many ticks make up a second.
     public static final int SECOND_IN_TICKS = 20;
@@ -95,19 +90,18 @@ public class MadScience
 
     // Public extra data about our mod that Forge uses in the mods listing page for more information.
     @Mod.Metadata(MadScience.ID)
-    public static ModMetadata metadata;
+    private static ModMetadata metadata;
 
     // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
-    public static MadGUI guiHandler = new MadGUI();
+    static MadGUI guiHandler = new MadGUI();
 
     // Link to our configuration file which Forge also handles in a standardized way.
     private static Configuration config;
 
     /** @param event */
     @EventHandler
-    @SuppressWarnings(
-    { "rawtypes", "unchecked" })
-    public static void postInit(FMLPostInitializationEvent event)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public static void postInit(FMLPostInitializationEvent event) // NO_UCD (unused code)
     {
         // Interface with NEI and attempt to call functions from it if it exists.
         // Note: This method was given by Alex_hawks, buy him a beer if you see him!
@@ -147,7 +141,7 @@ public class MadScience
 
     /** @param event */
     @EventHandler
-    public void init(FMLInitializationEvent event)
+    public void init(FMLInitializationEvent event) // NO_UCD (unused code)
     {
         // Register any custom sounds we want to play (Client only).
         proxy.registerSoundHandler();
@@ -157,7 +151,7 @@ public class MadScience
     }
 
     @EventHandler
-    public void invalidFingerprint(FMLFingerprintViolationEvent event)
+    public void invalidFingerprint(FMLFingerprintViolationEvent event) // NO_UCD (unused code)
     {
         // Report (log) to the user that the version of Mad Science
         // they are using has been changed/tampered with
@@ -172,7 +166,7 @@ public class MadScience
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
+    public void preInit(FMLPreInitializationEvent event) // NO_UCD (unused code)
     {
         // --------------
         // PRE-INT CONFIG

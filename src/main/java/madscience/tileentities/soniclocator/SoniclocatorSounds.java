@@ -9,18 +9,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SoniclocatorSounds
 {
     // Soniclocator Device
-    public static final String SONICLOCATOR_PLACE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Place";
-    public static final String SONICLOCATOR_IDLE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Idle";
-    public static final String SONICLOCATOR_IDLECHARGED = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".IdleCharged";
-    public static final String SONICLOCATOR_FINISH = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Finish";
-    public static final String SONICLOCATOR_EMPTY = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Empty";
-    public static final String SONICLOCATOR_THUMP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Thump";
-    public static final String SONICLOCATOR_THUMPCHARGE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpCharge";
-    public static final String SONICLOCATOR_THUMPSTART = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpStart";
-    public static final String SONICLOCATOR_COOLDOWNBEEP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".CooldownBeep";
-    public static final String SONICLOCATOR_COOLDOWN = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Cooldown";
-    public static final String SONICLOCATOR_EXPLODE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Explode";
-    public static final String SONICLOCATOR_OVERLOAD = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Overload";
+    static final String SONICLOCATOR_PLACE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Place";
+    static final String SONICLOCATOR_IDLE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Idle";
+    static final String SONICLOCATOR_IDLECHARGED = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".IdleCharged";
+    static final String SONICLOCATOR_FINISH = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Finish";
+    static final String SONICLOCATOR_EMPTY = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Empty";
+    static final String SONICLOCATOR_THUMP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Thump";
+    static final String SONICLOCATOR_THUMPCHARGE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpCharge";
+    static final String SONICLOCATOR_THUMPSTART = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".ThumpStart";
+    static final String SONICLOCATOR_COOLDOWNBEEP = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".CooldownBeep";
+    static final String SONICLOCATOR_COOLDOWN = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Cooldown";
+    static final String SONICLOCATOR_EXPLODE = MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".Explode";
+    
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)
@@ -62,6 +62,6 @@ public class SoniclocatorSounds
         event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Explode.ogg");
         
         // Overload
-        event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Overload.ogg");
+        //event.manager.addSound(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/Overload.ogg");
     }
 }

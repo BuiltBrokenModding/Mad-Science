@@ -10,9 +10,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class SoniclocatorSlotInputBlock extends Slot
+class SoniclocatorSlotInputBlock extends Slot
 {
-    public SoniclocatorSlotInputBlock(IInventory inv, int index, int x, int y)
+    SoniclocatorSlotInputBlock(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

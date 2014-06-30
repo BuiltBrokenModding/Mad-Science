@@ -23,14 +23,14 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     private static final int[] slots_sides = new int[]
     { 1 };
     private ItemStack[] clayfurnaceInput = new ItemStack[2];
-    public int currentItemCookingMaximum;
-    public int currentItemCookingValue;
-    public int animationCurrentFrame;
-    public String TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png";
-    public boolean hasBeenLit = false;
-    public boolean hasStoppedSmoldering = false;
-    public boolean hasCompletedBurnCycle = false;
-    public boolean hasCooledDown = false;
+    int currentItemCookingMaximum;
+    int currentItemCookingValue;
+    int animationCurrentFrame;
+    String TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png";
+    boolean hasBeenLit = false;
+    boolean hasStoppedSmoldering = false;
+    boolean hasCompletedBurnCycle = false;
+    boolean hasCooledDown = false;
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
     @Override
@@ -89,7 +89,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     {
     }
 
-    public ItemStack createEndResult()
+    ItemStack createEndResult()
     {
         // Get the final form of the inputed block will be from recipe list.
         ItemStack convertedOreRecipe = ClayfurnaceRecipes.getSmeltingResult(this.clayfurnaceInput[1]);
@@ -116,7 +116,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         return convertedOreRecipe;
     }
 
-    public void createRandomSmoke()
+    private void createRandomSmoke()
     {
         // A little bit of smoke coming off.
         int smokeRadnomizer = Math.abs(worldObj.rand.nextInt(5));
@@ -198,7 +198,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    public int getItemCookTimeScaled(int prgPixels)
+    int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -400,7 +400,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         hasBeenLit = true;
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         if (this.canSmelt())
         {

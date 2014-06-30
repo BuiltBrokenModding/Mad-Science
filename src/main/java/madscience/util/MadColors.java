@@ -125,22 +125,22 @@ public class MadColors
         return null;
     }
     
-    public static int batEgg()
+    private static int batEgg()
     {
         return new Color(71, 58, 45).getRGB();
     }
 
-    public static int blazeEgg()
+    private static int blazeEgg()
     {
         return new Color(223, 161, 1).getRGB();
     }
 
-    public static int caveSpiderEgg()
+    private static int caveSpiderEgg()
     {
         return new Color(11, 63, 74).getRGB();
     }
 
-    public static int chickenEgg()
+    private static int chickenEgg()
     {
         return new Color(153, 153, 153).getRGB();
     }
@@ -160,7 +160,7 @@ public class MadColors
         return new Color(21, 21, 21).getRGB();
     }
 
-    public static int ghastEgg()
+    private static int ghastEgg()
     {
         return new Color(214, 214, 214).getRGB();
     }
@@ -170,17 +170,17 @@ public class MadColors
         return new Color(174, 143, 113).getRGB();
     }
 
-    public static int magmaCubeEgg()
+    private static int magmaCubeEgg()
     {
         return new Color(49, 0, 0).getRGB();
     }
 
-    public static int mooshroomCowEgg()
+    private static int mooshroomCowEgg()
     {
         return new Color(150, 14, 15).getRGB();
     }
 
-    public static int ocelotEgg()
+    private static int ocelotEgg()
     {
         return new Color(224, 208, 117).getRGB();
     }
@@ -195,7 +195,7 @@ public class MadColors
         return new Color(198, 198, 198).getRGB();
     }
 
-    public static int silverFishEgg()
+    private static int silverFishEgg()
     {
         return new Color(100, 100, 100).getRGB();
     }
@@ -225,7 +225,7 @@ public class MadColors
         return new Color(78, 54, 46).getRGB();
     }
 
-    public static int witchEgg()
+    private static int witchEgg()
     {
         return new Color(47, 0, 0).getRGB();
     }

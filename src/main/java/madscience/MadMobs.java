@@ -18,15 +18,15 @@ public class MadMobs
 
     // Werewolf [Wolf + Villager]
     public static final String GMO_WEREWOLF_INTERNALNAME = "gmoWerewolf";
-    public static final String GENOME_WEREWOLF_INTERNALNAME = "genomeWerewolf";
+    static final String GENOME_WEREWOLF_INTERNALNAME = "genomeWerewolf";
 
     // Creeper Cow [Cow + Creeper]
     public static final String GMO_CREEPERCOW_INTERNALNAME = "gmoCreeperCow";
-    public static final String GENOME_CREEPERCOW_INTERNALNAME = "genomeCreeperCow";
+    static final String GENOME_CREEPERCOW_INTERNALNAME = "genomeCreeperCow";
     
     // Enderslime [Enderman + Slime]
     public static final String GMO_ENDERSLIME_INTERNALNAME = "gmoEnderslime";
-    public static final String GENOME_ENDERSLIME_INTERNALNAME = "genomeEnderslime";
+    static final String GENOME_ENDERSLIME_INTERNALNAME = "genomeEnderslime";
 
     // --------------------------
     // Bart74(bart.74@hotmail.fr)
@@ -34,7 +34,7 @@ public class MadMobs
 
     // Wooly Cow [Cow + Sheep]
     public static final String GMO_WOOLYCOW_INTERNALNAME = "gmoWoolyCow";
-    public static final String GENOME_WOOLYCOW_INTERNALNAME = "genomeWoolyCow";
+    static final String GENOME_WOOLYCOW_INTERNALNAME = "genomeWoolyCow";
 
     // ----------------------------------------
     // Deuce_Loosely(captainlunautic@yahoo.com)
@@ -42,7 +42,7 @@ public class MadMobs
 
     // Shoggoth [Slime + Squid]
     public static final String GMO_SHOGGOTH_INTERNALNAME = "gmoShoggoth";
-    public static final String GENOME_SHOGGOTH_INTERNALNAME = "genomeShoggoth";
+    static final String GENOME_SHOGGOTH_INTERNALNAME = "genomeShoggoth";
 
     // ------------------------------------
     // monodemono(coolplanet3000@gmail.com)
@@ -50,23 +50,23 @@ public class MadMobs
 
     // The Abomination [Enderman + Spider]
     public static final String GMO_ABOMINATION_INTERNALNAME = "gmoAbomination";
-    public static final String GENOME_ABOMINATION_INTERNALNAME = "genomeAbomination";
+    static final String GENOME_ABOMINATION_INTERNALNAME = "genomeAbomination";
 
     // ---------------------------------
     // Pyrobrine(haskar.spore@gmail.com)
     // ---------------------------------
 
     // Wither Skeleton [Enderman + Skeleton]
-    public static final String GENOME_WITHERSKELETON_INTERNALNAME = "genomeWitherSkeleton";
+    static final String GENOME_WITHERSKELETON_INTERNALNAME = "genomeWitherSkeleton";
 
     // Villager Zombie [Villager + Zombie]
-    public static final String GENOME_VILLAGERZOMBIE_INTERNALNAME = "genomeVillagerZombie";
+    static final String GENOME_VILLAGERZOMBIE_INTERNALNAME = "genomeVillagerZombie";
 
     // Skeleton Horse [Horse + Skeleton]
-    public static final String GENOME_SKELETONHORSE_INTERNALNAME = "genomeSkeletonHorse";
+    static final String GENOME_SKELETONHORSE_INTERNALNAME = "genomeSkeletonHorse";
 
     // Zombie Horse [Zombie + Horse]
-    public static final String GENOME_ZOMBIEHORSE_INTERNALNAME = "genomeZombieHorse";
+    static final String GENOME_ZOMBIEHORSE_INTERNALNAME = "genomeZombieHorse";
 
     // ---------------------------------
     // TheTechnician(tallahlf@gmail.com)
@@ -74,10 +74,10 @@ public class MadMobs
 
     // Ender Squid [Enderman + Squid]
     public static final String GMO_ENDERSQUID_INTERNALNAME = "gmoEnderSquid";
-    public static final String GENOME_ENDERSQUID_INTERNALNAME = "genomeEnderSquid";
+    static final String GENOME_ENDERSQUID_INTERNALNAME = "genomeEnderSquid";
 
     @EventHandler
-    public static void createGMOMob(int metaID, Class mobEntity, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome,
+    static void createGMOMob(int metaID, Class mobEntity, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome,
             int mainframeComputeTime)
     {
         // Add mob to genetically modified mob list so it can be spawned.
@@ -100,7 +100,7 @@ public class MadMobs
     }
 
     @EventHandler
-    public static void createVanillaGMOMob(int metaID, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome, int mainframeComputeTime)
+    static void createVanillaGMOMob(int metaID, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome, int mainframeComputeTime)
     {
         GMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, spawnData, primaryColor, secondaryColor));
 

@@ -32,22 +32,19 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
     private ItemStack[] bulletStorage = new ItemStack[13];
 
     /** Total number of bullets that we have stored inside our inventory from the server. */
-    public int clientBulletCount = 0;
+    int clientBulletCount = 0;
 
     /** Total number of magazine in the input slot. */
-    public int clientMagazineCount = 0;
-
-    // Holds all of the slots for the freezer on the server.
-    public MagLoaderContainer CONTAINER;
+    int clientMagazineCount = 0;
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     /** Keeps track if we have played the sound of a magazine ItemStack being inserted into input slot 1. */
-    public boolean hasPlayedMagazineInsertSound = false;
+    boolean hasPlayedMagazineInsertSound = false;
 
     /** Stack of empty of magazine at some variable health that needs to be filled. */
     private ItemStack[] magloaderInput = new ItemStack[1];
@@ -59,7 +56,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
     private int MAXIMUM_ROUNDS = 95;
 
     /** Number of magazines that are currently being stored in the output slot. */
-    public int clientOutputMagazineCount;
+    int clientOutputMagazineCount;
 
     public MagLoaderEntity()
     {
@@ -81,7 +78,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         return this.isItemValidForSlot(slot, items);
     }
 
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if there are no bullets or magazines in the device then it cannot operate.
         if (this.magloaderInput == null || this.bulletStorage == null)
@@ -200,7 +197,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    public int getItemCookTimeScaled(int prgPixels)
+    int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -478,7 +475,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Converts input item into result item along with waste items.
         if (this.canSmelt())

@@ -40,28 +40,25 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
     private ItemStack[] sanitizerInput = new ItemStack[2];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     // ** Maximum number of buckets of water this machine can hold internally */
-    public static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;
+    private static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;
 
     /** Internal reserve of water */
     protected FluidTank internalWaterTank = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
 
-    /** Random number generator used to spit out food stuffs. */
-    public Random animRand = new Random();
-
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
     /** Path to texture that we want rendered onto our model. */
-    public String sanitizerTexturePath = "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png";
+    String sanitizerTexturePath = "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png";
 
     public SanitizerEntity()
     {
@@ -177,7 +174,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if we have water bucket and dirty needles in input slots and
         // that our internal tank has fluid.
@@ -355,7 +352,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
     }
 
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    public int getItemCookTimeScaled(int prgPixels)
+    int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -474,8 +471,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         { internalWaterTank.getInfo() };
     }
 
-    @SideOnly(Side.CLIENT)
-    public int getWaterRemainingScaled(int i)
+    @SideOnly(Side.CLIENT) int getWaterRemainingScaled(int i)
     {
         return internalWaterTank.getFluid() != null ? (int) (((float) internalWaterTank.getFluid().amount / (float) (MAX_WATER)) * i) : 0;
     }
@@ -609,7 +605,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Converts input item into result item along with waste items.
         if (this.canSmelt())

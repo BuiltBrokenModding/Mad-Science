@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 public class MadUtils
 {
@@ -80,52 +81,6 @@ public class MadUtils
 
             return null;
         }
-    }
-
-    public static String getMD5String(String unencodedText)
-    {
-        MessageDigest md = null;
-        try
-        {
-            md = MessageDigest.getInstance("MD5");
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-
-        md.update(unencodedText.getBytes());
-
-        byte byteData[] = md.digest();
-
-        return getHexString(byteData);
-    }
-
-    public static String getSHA1String(String unencodedText)
-    {
-        // Creates SHA1 String of given text for comparison purposes over network.
-        MessageDigest md = null;
-
-        try
-        {
-            md = MessageDigest.getInstance("SHA-1");
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-
-        byte[] unencodedBytes = null;
-        try
-        {
-            unencodedBytes = unencodedText.getBytes("UTF-8");
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-
-        return getHexString(unencodedBytes);
     }
 
     private static String getHexString(byte[] raw)

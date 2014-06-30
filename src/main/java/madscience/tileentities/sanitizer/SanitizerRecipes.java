@@ -23,30 +23,13 @@ public class SanitizerRecipes
         SanitizerRecipes.experienceList.put(Integer.valueOf(par2ItemStack.itemID), Float.valueOf(par3));
     }
 
-    /** Grabs the amount of base experience for this item to give when pulled from the furnace slot. */
-    public static float getExperience(ItemStack item)
-    {
-        if (item == null || item.getItem() == null)
-        {
-            return 0;
-        }
-        float ret = item.getItem().getSmeltingExperience(item);
-        if (ret < 0 && metaExperience.containsKey(Arrays.asList(item.itemID, item.getItemDamage())))
-        {
-            ret = metaExperience.get(Arrays.asList(item.itemID, item.getItemDamage()));
-        }
-        if (ret < 0 && experienceList.containsKey(item.itemID))
-        {
-            ret = ((Float) experienceList.get(item.itemID)).floatValue();
-        }
-        return (ret < 0 ? 0 : ret);
-    }
+    
 
     /** Used to get the resulting ItemStack form a source ItemStack
      * 
      * @param item The Source ItemStack
      * @return The result ItemStack */
-    public static ItemStack getSmeltingResult(ItemStack item)
+    static ItemStack getSmeltingResult(ItemStack item)
     {
         if (item == null)
         {
@@ -60,12 +43,7 @@ public class SanitizerRecipes
         return (ItemStack) smeltingList.get(Integer.valueOf(item.itemID));
     }
 
-    /** A metadata sensitive version of adding a furnace recipe. */
-    public void addSmelting(int itemID, int metadata, ItemStack itemstack, float experience)
-    {
-        metaSmeltingList.put(Arrays.asList(itemID, metadata), itemstack);
-        metaExperience.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
-    }
+    
 
     public Map<List<Integer>, ItemStack> getMetaSmeltingList()
     {

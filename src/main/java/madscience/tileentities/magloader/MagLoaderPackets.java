@@ -48,7 +48,7 @@ public class MagLoaderPackets extends MadPackets
         // Required for reflection.
     }
 
-    public MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int storageItemsCount, int inputItemsCount, boolean playedMagInsertSound, int outputtedMagazines)
+    MagLoaderPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int storageItemsCount, int inputItemsCount, boolean playedMagInsertSound, int outputtedMagazines)
     {
         // World position information.
         tilePosX = posX;

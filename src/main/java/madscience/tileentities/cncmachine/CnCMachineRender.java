@@ -72,7 +72,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     private MadTechneModel MODEL_WATER8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water8.mad");
 
     // Default render ID for base machine.
-    public int RENDERID = RenderingRegistry.getNextAvailableRenderId();
+    private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
     // Default texture used for icon rendering and base machine.
     private ResourceLocation TEXTURE_OFF = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png");
@@ -98,7 +98,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         }
     }
 
-    public void renderAllCutBlocks()
+    private void renderAllCutBlocks()
     {
         MODEL_CUTBLOCK0.renderAll();
         MODEL_CUTBLOCK1.renderAll();
@@ -111,7 +111,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         MODEL_CUTBLOCK8.renderAll();
     }
 
-    public void renderAModelAt(CnCMachineEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(CnCMachineEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         ENTITY = tileEntity;
@@ -385,7 +385,7 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
         GL11.glPopMatrix();
     }
 
-    public void renderBaseMachine()
+    private void renderBaseMachine()
     {
         // Always visible base pieces of CnC Machine.
         MODEL_BASE.renderAll();

@@ -96,7 +96,7 @@ public class CombinedGenomeMonsterPlacer extends Item
         return color;
     }
 
-    public int getDamageVsEntity(Entity par1Entity)
+    public int getDamageVsEntity(Entity par1Entity) // NO_UCD (unused code)
     {
         return 2;
     }

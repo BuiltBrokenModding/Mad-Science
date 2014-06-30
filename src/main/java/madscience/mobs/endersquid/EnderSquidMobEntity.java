@@ -24,7 +24,7 @@ public class EnderSquidMobEntity extends EntityMob
 {
     private static final UUID attackingSpeedBoostModifierUUID = UUID.fromString("020E0DFB-87AE-4653-9556-831010E291A0");
     private static final AttributeModifier attackingSpeedBoostModifier = (new AttributeModifier(attackingSpeedBoostModifierUUID, "Attacking speed boost", 6.199999809265137D, 0)).setSaved(false);
-    public static boolean[] carriableBlocks = new boolean[256];
+    private static boolean[] carriableBlocks = new boolean[256];
 
     /** Counter to delay the teleportation of an enderman towards the currently attacked target */
     private int teleportDelay;
@@ -52,7 +52,7 @@ public class EnderSquidMobEntity extends EntityMob
         carriableBlocks[Block.mycelium.blockID] = true;
     }
 
-    public EnderSquidMobEntity(World par1World)
+    public EnderSquidMobEntity(World par1World) // NO_UCD (unused code)
     {
         super(par1World);
         this.setSize(0.6F, 2.9F);
@@ -300,7 +300,7 @@ public class EnderSquidMobEntity extends EntityMob
     }
 
     /** Teleport the enderman */
-    protected boolean teleportTo(double par1, double par3, double par5)
+    private boolean teleportTo(double par1, double par3, double par5)
     {
         EnderTeleportEvent event = new EnderTeleportEvent(this, par1, par3, par5, 0);
         if (MinecraftForge.EVENT_BUS.post(event))
@@ -378,7 +378,7 @@ public class EnderSquidMobEntity extends EntityMob
     }
 
     /** Teleport the enderman to another entity */
-    protected boolean teleportToEntity(Entity par1Entity)
+    private boolean teleportToEntity(Entity par1Entity)
     {
         Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX - par1Entity.posX, this.boundingBox.minY + this.height / 2.0F - par1Entity.posY + par1Entity.getEyeHeight(), this.posZ - par1Entity.posZ);
         vec3 = vec3.normalize();

@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 public class ItemDecay extends Item
 {
-    public ItemDecay(int id)
+    ItemDecay(int id)
     {
         super(id);
 
@@ -54,7 +54,7 @@ public class ItemDecay extends Item
         return false;
     }
 
-    public int getDamageVsEntity(Entity par1Entity)
+    public int getDamageVsEntity(Entity par1Entity) // NO_UCD (unused code)
     {
         // Stabbing another entity other than yourself takes 1 heart.
         return 2;

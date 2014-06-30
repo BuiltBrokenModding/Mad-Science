@@ -33,7 +33,7 @@ public class MadWeapons
     public static PulseRifleMagazineItem WEAPONITEM_MAGAZINEITEM;
     public static final String WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME = "pulseRifleMagazine";
     
-    public static void createPulseRifle(int itemID)
+    static void createPulseRifle(int itemID)
     {
         // Totally not a rip off from that movie with Sigourney Weaver.
         MadScience.logger.info("-M41A Pulse Rifle");
@@ -59,7 +59,7 @@ public class MadWeapons
         });
     }
 
-    public static void createPulseRifleBullet(int itemID)
+    static void createPulseRifleBullet(int itemID)
     {
         // Bullet for the gun that is rendered in the world.
         MadScience.logger.info("-Pulse Rifle Bullet");
@@ -69,7 +69,7 @@ public class MadWeapons
         MadScience.proxy.registerRenderingHandler(itemID);
     }
 
-    public static void createPulseRifleGrenade(int itemID)
+    static void createPulseRifleGrenade(int itemID)
     {
         // Grenade for the gun that is rendered in the world.
         MadScience.logger.info("-Pulse Rifle Grenade");
@@ -79,7 +79,7 @@ public class MadWeapons
         MadScience.proxy.registerRenderingHandler(itemID);        
     }
 
-    public static void createPulseRifleMagazine(int itemID)
+    static void createPulseRifleMagazine(int itemID)
     {
         // Magazine that is crafted with bullets to fill them and loaded into rifle.
         MadScience.logger.info("-Pulse Rifle Magazine");

@@ -42,19 +42,19 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     private ItemStack[] mainframeInput = new ItemStack[4];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     /** Current level of heat that the machine has accumulated while powered and active. */
-    public int currentHeatValue;
+    int currentHeatValue;
 
     /** Maximum allowed heat value and also when the machine is considered ready. */
-    public int currentHeatMaximum = 1000;
+    int currentHeatMaximum = 1000;
 
     // ** Maximum number of buckets of water this machine can hold internally */
-    public static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;
+    private static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;
 
     /** Internal reserve of water */
     protected FluidTank internalWaterTank = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
@@ -63,19 +63,18 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     private Random randomNumberGenny = new Random();
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     /** Current frame of animation we should use to display in world. */
-    public int animFrame;
+    private int animFrame;
 
-    /** Currently assigned texture that our renderer will reference */
-    public ResourceLocation mainframeTexture;
+    
 
     /** Currently assigned texture path which is saved to NBT. */
-    public String mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/off.png";
+    String mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/off.png";
 
     /** Determines if debugging information is shown for this object. */
-    public boolean showDebuggingInfo = false;
+    private boolean showDebuggingInfo = false;
 
     public MainframeEntity()
     {
@@ -186,7 +185,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if we have all the genome slots filled and internal tank is not
         // null.
@@ -434,7 +433,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         return currentHeatValue;
     }
 
-    public int getHeatLevelTimeScaled(int pxl)
+    int getHeatLevelTimeScaled(int pxl)
     {
         // Returns scaled percentage of heat level used in GUI to show
         // temperature.
@@ -499,8 +498,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     /**
      * Returns an integer between 0 and the passed value representing how close the current item is to being completely
      * cooked
-     */
-    public int getItemCookTimeScaled(int prgPixels)
+     */ int getItemCookTimeScaled(int prgPixels)
     {
         // Prevent divide by zero exception by setting ceiling.
         if (currentItemCookingMaximum == 0)
@@ -678,8 +676,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         { internalWaterTank.getInfo() };
     }
 
-    @SideOnly(Side.CLIENT)
-    public int getWaterRemainingScaled(int i)
+    @SideOnly(Side.CLIENT) int getWaterRemainingScaled(int i)
     {
         return internalWaterTank.getFluid() != null ? (int) (((float) internalWaterTank.getFluid().amount / (float) (MAX_WATER)) * i) : 0;
     }
@@ -931,7 +928,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Converts input item into result item along with waste items.
         GenomeRecipe currentRecipe = MainframeRecipes.findGenomeRecipe(this.getInputSlot_GenomeReel1(), this.getInputSlot_GenomeReel2());
@@ -985,7 +982,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/work_" + animFrame + ".png";
-                mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
             }
@@ -1006,13 +1003,13 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/idle_0.png";
-                mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 hasChanged = true;
             }
             else
             {
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/idle_1.png";
-                mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 hasChanged = true;
             }
         }
@@ -1032,7 +1029,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/warning_" + animFrame + ".png";
-                mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
             }
@@ -1054,7 +1051,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/no_water_" + animFrame + ".png";
-                mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
             }

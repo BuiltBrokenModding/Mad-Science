@@ -39,7 +39,7 @@ public class IncubatorPackets extends MadPackets
         // Required for reflection.
     }
 
-    public IncubatorPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int heatValue, int heatMax, String tileTexture)
+    IncubatorPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int heatValue, int heatMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

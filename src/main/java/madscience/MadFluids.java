@@ -56,7 +56,7 @@ public class MadFluids
     // -------------
 
     @EventHandler
-    public static void createLiquidDNA(int blockFluidID, int bucketItemID)
+    static void createLiquidDNA(int blockFluidID, int bucketItemID)
     {
         MadScience.logger.info("-Liquid DNA");
         
@@ -94,7 +94,7 @@ public class MadFluids
     }
 
     @EventHandler
-    public static void createLiquidDNAMutant(int blockFluidID, int bucketItemID)
+    static void createLiquidDNAMutant(int blockFluidID, int bucketItemID)
     {
         MadScience.logger.info("-Liquid Mutant DNA");
         LIQUIDDNA_MUTANT = (LiquidDNAMutant) new LiquidDNAMutant(LIQUIDDNA_MUTANT_INTERNALNAME).setUnlocalizedName(LIQUIDDNA_MUTANT_INTERNALNAME);

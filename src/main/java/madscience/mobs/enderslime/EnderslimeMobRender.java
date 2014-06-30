@@ -33,7 +33,7 @@ public class EnderslimeMobRender extends RenderLiving
         return this.getSlimeTextures((EnderslimeMobEntity) par1Entity);
     }
 
-    protected ResourceLocation getSlimeTextures(EnderslimeMobEntity par1EntitySlime)
+    private ResourceLocation getSlimeTextures(EnderslimeMobEntity par1EntitySlime)
     {
         return mobTexture;
     }
@@ -46,7 +46,7 @@ public class EnderslimeMobRender extends RenderLiving
     }
 
     /** sets the scale for the slime based on getSlimeSize in EntitySlime */
-    protected void scaleSlime(EnderslimeMobEntity par1EntitySlime, float par2)
+    private void scaleSlime(EnderslimeMobEntity par1EntitySlime, float par2)
     {
         float f1 = par1EntitySlime.getSlimeSize();
         float f2 = (par1EntitySlime.prevSquishFactor + (par1EntitySlime.squishFactor - par1EntitySlime.prevSquishFactor) * par2) / (f1 * 0.5F + 1.0F);
@@ -62,7 +62,7 @@ public class EnderslimeMobRender extends RenderLiving
     }
 
     /** Determines whether Slime Render should pass or not. */
-    protected int shouldSlimeRenderPass(EnderslimeMobEntity par1EntitySlime, int par2, float par3)
+    private int shouldSlimeRenderPass(EnderslimeMobEntity par1EntitySlime, int par2, float par3)
     {
         if (par1EntitySlime.isInvisible())
         {

@@ -5,9 +5,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class CryotubeSlotInputSpawnEgg extends Slot
+class CryotubeSlotInputSpawnEgg extends Slot
 {
-    public CryotubeSlotInputSpawnEgg(IInventory inv, int index, int x, int y)
+    CryotubeSlotInputSpawnEgg(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

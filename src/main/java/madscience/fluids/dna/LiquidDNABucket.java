@@ -159,7 +159,7 @@ public class LiquidDNABucket extends ItemFluidContainer
         this.itemIcon = ir.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_BUCKET_INTERNALNAME);
     }
 
-    public boolean tryPlaceContainedLiquid(World w, int x, int y, int z)
+    private boolean tryPlaceContainedLiquid(World w, int x, int y, int z)
     {
         // Attempts to place the MazFluid contained inside the bucket.
         Material material = w.getBlockMaterial(x, y, z);

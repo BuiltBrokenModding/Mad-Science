@@ -41,7 +41,7 @@ public class SanitizerPackets extends MadPackets
         // Required for reflection.
     }
 
-    public SanitizerPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMaximum, String tileTexture)
+    SanitizerPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMaximum, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

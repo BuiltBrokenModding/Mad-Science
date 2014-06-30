@@ -42,12 +42,6 @@ public class GeneticallyModifiedMonsterPlacer extends Item
 
         entity.readFromNBT(newTag);
     }
-
-    public static String attemptToTranslate(String key, String _default)
-    {
-        String result = StatCollector.translateToLocal(key);
-        return (result.equals(key)) ? _default : result;
-    }
     
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
@@ -62,7 +56,7 @@ public class GeneticallyModifiedMonsterPlacer extends Item
         }
     }
 
-    public static Entity spawnCreature(World world, ItemStack stack, double x, double y, double z)
+    private static Entity spawnCreature(World world, ItemStack stack, double x, double y, double z)
     {
         MadSpawnEggInfo info = GMORegistry.getEggInfo((short) stack.getItemDamage());
 

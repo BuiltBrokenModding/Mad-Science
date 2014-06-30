@@ -10,19 +10,19 @@ import net.minecraft.util.MathHelper;
 
 public class CreeperCowMobModel extends ModelQuadruped
 {
-    public ModelRenderer field_78133_b;
+    private ModelRenderer field_78133_b;
     // fields
-    ModelRenderer horn1;
-    ModelRenderer horn2;
+    private ModelRenderer horn1;
+    private ModelRenderer horn2;
 
-    ModelRenderer udders;
+    private ModelRenderer udders;
 
     public CreeperCowMobModel()
     {
         this(0.0F);
     }
 
-    public CreeperCowMobModel(float par1)
+    CreeperCowMobModel(float par1)
     {
         super(12, 0.0F);
 
@@ -99,11 +99,6 @@ public class CreeperCowMobModel extends ModelQuadruped
         this.leg2.render(f5);
         this.leg3.render(f5);
         this.leg4.render(f5);
-    }
-
-    /** Used for easily adding entity-dependent animations. The second and third float params here are the same second and third as in the setRotationAngles method. */
-    public void setLivingAnimations(EntityLiving par1EntityLiving, float par2, float par3, float par4)
-    {
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z)

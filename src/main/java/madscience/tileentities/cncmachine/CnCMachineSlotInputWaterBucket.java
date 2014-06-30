@@ -5,9 +5,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class CnCMachineSlotInputWaterBucket extends Slot
+class CnCMachineSlotInputWaterBucket extends Slot
 {
-    public CnCMachineSlotInputWaterBucket(IInventory inv, int index, int x, int y)
+    CnCMachineSlotInputWaterBucket(IInventory inv, int index, int x, int y)
     {
         super(inv, index, x, y);
     }

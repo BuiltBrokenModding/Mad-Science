@@ -7,7 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class KeyBindingInterceptor extends KeyBinding
 {
-    protected KeyBinding interceptedKeyBinding;
+    private KeyBinding interceptedKeyBinding;
 
     private int interceptedPressTime;
 
@@ -40,7 +40,7 @@ public class KeyBindingInterceptor extends KeyBinding
     }
 
     @SideOnly(Side.CLIENT)
-    protected void copyClickInfoFromOriginal()
+    private void copyClickInfoFromOriginal()
     {
         // MadScience.logger.info("PRESS TIME: " + String.valueOf(this.pressTime));
         this.pressTime += interceptedKeyBinding.pressTime;
@@ -50,7 +50,7 @@ public class KeyBindingInterceptor extends KeyBinding
     }
 
     @SideOnly(Side.CLIENT)
-    protected void copyKeyCodeToOriginal()
+    private void copyKeyCodeToOriginal()
     {
         // only copy if necessary
         if (this.keyCode != interceptedKeyBinding.keyCode)

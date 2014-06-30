@@ -9,8 +9,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class NeedleSounds
 {
     // Needles
-    public static final String NEEDLEITEM_STABPLAYER = MadScience.ID + ":" + MadNeedles.NEEDLE_ITEM_INTERNALNAME + ".Stabself";
-    public static final String NEEDLEITEM_STABMOB = MadScience.ID + ":" + MadNeedles.NEEDLE_ITEM_INTERNALNAME + ".Stab";
+    static final String NEEDLEITEM_STABPLAYER = MadScience.ID + ":" + MadNeedles.NEEDLE_ITEM_INTERNALNAME + ".Stabself";
+    static final String NEEDLEITEM_STABMOB = MadScience.ID + ":" + MadNeedles.NEEDLE_ITEM_INTERNALNAME + ".Stab";
     
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

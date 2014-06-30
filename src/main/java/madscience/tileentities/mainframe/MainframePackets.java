@@ -45,7 +45,7 @@ public class MainframePackets extends MadPackets
         // Required for reflection.
     }
 
-    public MainframePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMax, int heatLevel, int heatMax, String tileTexture)
+    MainframePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int waterLevel, int waterLevelMax, int heatLevel, int heatMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

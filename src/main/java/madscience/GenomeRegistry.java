@@ -21,12 +21,12 @@ public class GenomeRegistry
         return Collections.unmodifiableCollection(genomes.values());
     }
 
-    public static boolean isValidSpawnGenomeID(short id)
+    private static boolean isValidSpawnGenomeID(short id)
     {
         return !genomes.containsKey(id);
     }
 
-    public static void registerGenome(MadGenomeInfo info) throws IllegalArgumentException
+    static void registerGenome(MadGenomeInfo info) throws IllegalArgumentException
     {
         if (info == null)
         {

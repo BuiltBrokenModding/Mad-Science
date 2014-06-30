@@ -35,15 +35,15 @@ public class GUIContainerBase extends GuiContainer
 
     public String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76";
 
-    public String tooltip = "";
-    protected HashMap<Region2, String> tooltips = new HashMap<Region2, String>();
+    private String tooltip = "";
+    private HashMap<Region2, String> tooltips = new HashMap<Region2, String>();
 
     protected int screenX = (this.width - this.xSize) / 2;
     protected int screenY = (this.height - this.ySize) / 2;
     private float lastChangeFrameTime;
 
-    public final int PROMPT_REPLY_ACTION = 0;
-    public URI displayedURI = null;
+    private final int PROMPT_REPLY_ACTION = 0;
+    private URI displayedURI = null;
 
     public GUIContainerBase(Container container)
     {
@@ -142,33 +142,7 @@ public class GUIContainerBase extends GuiContainer
         this.drawTexturedModalRect(this.screenX, this.screenY, 0, 0, this.xSize, this.ySize);
     }
 
-    protected void drawBulb(int x, int y, boolean isOn)
-    {
-        this.mc.renderEngine.bindTexture(this.TEXTURE);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-        if (isOn)
-        {
-            this.drawTexturedModalRect(this.screenX + x, this.screenY + y, 161, 0, 6, 6);
-
-        }
-        else
-        {
-            this.drawTexturedModalRect(this.screenX + x, this.screenY + y, 161, 4, 6, 6);
-        }
-    }
-
-    protected void drawSlot(int x, int y, ItemStack itemStack)
-    {
-        this.mc.renderEngine.bindTexture(this.TEXTURE);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-        this.drawTexturedModalRect(this.screenX + x, this.screenY + y, 0, 0, 18, 18);
-
-        this.drawItemStack(itemStack, this.screenX + x, this.screenY + y);
-    }
-
-    protected void drawItemStack(ItemStack itemStack, int x, int y)
+    private void drawItemStack(ItemStack itemStack, int x, int y)
     {
         x += 1;
         y += 1;
@@ -181,12 +155,12 @@ public class GUIContainerBase extends GuiContainer
         // GL11.glDisable(GL11.GL_BLEND);
     }
 
-    protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)
+    private void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)
     {
         this.drawTextWithTooltip(textName, format, x, y, mouseX, mouseY, 4210752);
     }
 
-    protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY, int color)
+    private void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY, int color)
     {
         String name = I18n.getString("gui." + textName + ".name");
         String text = format.replaceAll("%1", name);
@@ -201,11 +175,6 @@ public class GUIContainerBase extends GuiContainer
                 this.tooltip = tooltip;
             }
         }
-    }
-
-    protected void drawTextWithTooltip(String textName, int x, int y, int mouseX, int mouseY)
-    {
-        this.drawTextWithTooltip(textName, "%1", x, y, mouseX, mouseY);
     }
 
     public void drawTooltip(int x, int y, String... toolTips)

@@ -35,7 +35,7 @@ public class SequencerPackets extends MadPackets
         // Required for reflection.
     }
 
-    public SequencerPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, String tileTexture)
+    SequencerPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

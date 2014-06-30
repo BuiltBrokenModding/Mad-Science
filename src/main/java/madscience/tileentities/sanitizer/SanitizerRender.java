@@ -34,9 +34,9 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.SANTITIZER_INTERNALNAME + "/" + MadFurnaces.SANTITIZER_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
-    private SanitizerEntity lastPlacedTileEntity;
+    private SanitizerEntity ENTITY;
 
     // Refers to location in asset folder with other textures and sounds.
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png");
@@ -153,18 +153,18 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
         }
     }
     
-    public void renderAModelAt(SanitizerEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(SanitizerEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        lastPlacedTileEntity = (SanitizerEntity) tileEntity;
-        if (lastPlacedTileEntity == null)
+        ENTITY = (SanitizerEntity) tileEntity;
+        if (ENTITY == null)
         {
             return;
         }
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
-        switch (lastPlacedTileEntity.getBlockMetadata() % 4)
+        switch (ENTITY.getBlockMetadata() % 4)
         {
         case 0:
             rotation = 0;
@@ -205,10 +205,10 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
             break;
         }
 
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.sanitizerTexturePath != null && !lastPlacedTileEntity.sanitizerTexturePath.isEmpty())
+        if (ENTITY != null && ENTITY.sanitizerTexturePath != null && !ENTITY.sanitizerTexturePath.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.sanitizerTexturePath));
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.sanitizerTexturePath));
         }
         else
         {

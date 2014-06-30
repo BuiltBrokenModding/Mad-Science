@@ -5,11 +5,9 @@ import net.minecraft.inventory.Container;
 
 class WoolyCowContainer extends Container
 {
-    final WoolyCowMobEntity theWoolyCow;
-
     WoolyCowContainer(WoolyCowMobEntity par1EntitySheep)
     {
-        this.theWoolyCow = par1EntitySheep;
+
     }
 
     @Override

@@ -20,20 +20,6 @@ public class CommonProxy
         return 0;
     }
 
-    public void addLocalization(String s1, String string)
-    {
-    }
-
-    /* LOCALIZATION */
-    public void addName(Object obj, String s)
-    {
-    }
-
-    public Random createNewRandom(World world)
-    {
-        return new Random(world.getSeed());
-    }
-
     /* INSTANCES */
     public Object getClient()
     {
@@ -65,22 +51,7 @@ public class CommonProxy
         return Loader.instance().getMinecraftModContainer().getVersion();
     }
 
-    public boolean isRenderWorld(World world)
-    {
-        return world.isRemote;
-    }
-
-    public boolean isSimulating(World world)
-    {
-        return !world.isRemote;
-    }
-
-    public void registerBlock(Block block)
-    {
-        registerBlock(block, ItemBlockMadScience.class);
-    }
-
-    public void registerBlock(Block block, Class<? extends ItemBlock> item)
+    private void registerBlock(Block block, Class<? extends ItemBlock> item)
     {
         GameRegistry.registerBlock(block, item, block.getUnlocalizedName().replace("tile.", ""));
     }

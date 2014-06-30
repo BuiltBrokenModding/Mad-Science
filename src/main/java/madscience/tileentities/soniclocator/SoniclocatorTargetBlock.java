@@ -2,14 +2,14 @@ package madscience.tileentities.soniclocator;
 
 import net.minecraft.item.ItemStack;
 
-public class SoniclocatorTargetBlock
+class SoniclocatorTargetBlock
 {
-    public ItemStack foundItem;
-    public int targetX;
-    public int targetY;
-    public int targetZ;
+    ItemStack foundItem;
+    int targetX;
+    int targetY;
+    int targetZ;
 
-    public SoniclocatorTargetBlock(int posX, int posY, int posZ, ItemStack chunkItem)
+    SoniclocatorTargetBlock(int posX, int posY, int posZ, ItemStack chunkItem)
     {
         // Position of the block we want to replace.
         targetX = posX;

@@ -50,7 +50,7 @@ public class EnderSquidMobRender extends RenderLiving
         this.renderEnderman((EnderSquidMobEntity) par1EntityLiving, par2, par4, par6, par8, par9);
     }
 
-    protected ResourceLocation getEndermanTextures(EnderSquidMobEntity par1EntityEnderman)
+    private ResourceLocation getEndermanTextures(EnderSquidMobEntity par1EntityEnderman)
     {
         return endermanTextures;
     }
@@ -63,7 +63,7 @@ public class EnderSquidMobRender extends RenderLiving
     }
 
     /** Render the block an enderman is carrying */
-    protected void renderCarrying(EnderSquidMobEntity par1EntityEnderman, float par2)
+    private void renderCarrying(EnderSquidMobEntity par1EntityEnderman, float par2)
     {
         super.renderEquippedItems(par1EntityEnderman, par2);
 
@@ -91,7 +91,7 @@ public class EnderSquidMobRender extends RenderLiving
     }
 
     /** Renders the enderman */
-    public void renderEnderman(EnderSquidMobEntity par1EntityEnderman, double par2, double par4, double par6, float par8, float par9)
+    private void renderEnderman(EnderSquidMobEntity par1EntityEnderman, double par2, double par4, double par6, float par8, float par9)
     {
         this.endermanModel.isCarrying = par1EntityEnderman.getCarried() > 0;
         this.endermanModel.isAttacking = par1EntityEnderman.isScreaming();
@@ -113,7 +113,7 @@ public class EnderSquidMobRender extends RenderLiving
     }
 
     /** Render the endermans eyes */
-    protected int renderEyes(EnderSquidMobEntity par1EntityEnderman, int par2, float par3)
+    private int renderEyes(EnderSquidMobEntity par1EntityEnderman, int par2, float par3)
     {
         if (par2 != 0)
         {

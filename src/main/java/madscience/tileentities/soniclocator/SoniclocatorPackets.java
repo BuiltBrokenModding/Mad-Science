@@ -39,7 +39,7 @@ public class SoniclocatorPackets extends MadPackets
         // Required for reflection.
     }
 
-    public SoniclocatorPackets(int posX, int posY, int posZ, long energyStored, long energyMax, int heatValue, int heatMax, long totalTargets, long totalThumps, String tileTexture)
+    SoniclocatorPackets(int posX, int posY, int posZ, long energyStored, long energyMax, int heatValue, int heatMax, long totalTargets, long totalThumps, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

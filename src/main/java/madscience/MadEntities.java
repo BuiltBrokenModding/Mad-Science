@@ -17,12 +17,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class MadEntities
 {
     // Genetically Modified Monster Placer
-    public static GeneticallyModifiedMonsterPlacer GENETICALLYMODIFIED_MONSTERPLACER;
-    public static final String GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME = "gmoMonsterPlacer";
+    static GeneticallyModifiedMonsterPlacer GENETICALLYMODIFIED_MONSTERPLACER;
+    private static final String GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME = "gmoMonsterPlacer";
 
     // Combined Genome Monster Placer
-    public static CombinedGenomeMonsterPlacer COMBINEDGENOME_MONSTERPLACER;
-    public static final String COMBINEDGENOME_MONSTERPLACER_INTERNALNAME = "genomeMonsterPlacer";
+    static CombinedGenomeMonsterPlacer COMBINEDGENOME_MONSTERPLACER;
+    private static final String COMBINEDGENOME_MONSTERPLACER_INTERNALNAME = "genomeMonsterPlacer";
 
     // Combined Memory Monster Placer
     public static CombinedMemoryMonsterPlacer COMBINEDMEMORY_MONSTERPLACER;
@@ -30,32 +30,32 @@ public class MadEntities
 
     // Empty Data Reel
     public static ItemDataReelEmpty DATAREEL_EMPTY;
-    public static final String DATAREEL_EMPTY_INTERNALNAME = "dataReelEmpty";
+    private static final String DATAREEL_EMPTY_INTERNALNAME = "dataReelEmpty";
 
     // Allows mod to store all it's items under its own tab in creative mode.
     public static CreativeTabs tabMadScience;
     
     // Gives our armor a custom material so that we can detect when various events interact with it.
-    public static final EnumArmorMaterial labCoatArmorMaterial = EnumHelper.addArmorMaterial("LABCOAT", 0, new int[] { 0, 0, 0, 0 }, 0);
+    private static final EnumArmorMaterial labCoatArmorMaterial = EnumHelper.addArmorMaterial("LABCOAT", 0, new int[] { 0, 0, 0, 0 }, 0);
     
     // Labcoat Body
-    public static ItemLabCoat LABCOAT_BODY;
-    public static final String LABCOAT_BODY_INTERNALNAME = "labCoatBody";
+    static ItemLabCoat LABCOAT_BODY;
+    private static final String LABCOAT_BODY_INTERNALNAME = "labCoatBody";
     
     // Labcoat Leggings
-    public static ItemLabCoat LABCOAT_LEGGINGS;
-    public static final String LABCOAT_LEGGINGS_INTERNALNAME = "labCoatLeggings";
+    static ItemLabCoat LABCOAT_LEGGINGS;
+    private static final String LABCOAT_LEGGINGS_INTERNALNAME = "labCoatLeggings";
     
     // Labcoat Goggles
-    public static ItemLabCoat LABCOAT_GOGGLES;
-    public static final String LABCOAT_GOGGLES_INTERNALNAME = "labCoatGoggles";
+    static ItemLabCoat LABCOAT_GOGGLES;
+    private static final String LABCOAT_GOGGLES_INTERNALNAME = "labCoatGoggles";
     
     // Warning Sign
     public static WarningSignItem WARNING_SIGN;
     public static final String WARNING_SIGN_INTERNALNAME = "warningSign";
 
     // Combined Genome Data Reels
-    public static void createCombinedGenomeMonsterPlacer(int itemID)
+    static void createCombinedGenomeMonsterPlacer(int itemID)
     {
         MadScience.logger.info("-Combined Genome Metaitem");
         COMBINEDGENOME_MONSTERPLACER = new CombinedGenomeMonsterPlacer(itemID);
@@ -66,7 +66,7 @@ public class MadEntities
     }
 
     // Memory Data Reels
-    public static void createCombinedMemoryMonsterPlacer(int itemID)
+    static void createCombinedMemoryMonsterPlacer(int itemID)
     {
         // For storing memories of various villages based on their professions.
         MadScience.logger.info("-Combined Memory Metaitem");
@@ -82,7 +82,7 @@ public class MadEntities
         /* 0 - Priest [32 EU/t] 1 - Farmer [64 EU/t] 2 - Butcher [128 EU/t] 3 - Blacksmith [128 EU/t] 4 - Librarian [512 EU/t] */
     }
 
-    public static void createCustomCreativeTab(String tabInternalName, String tabDisplayName)
+    static void createCustomCreativeTab(String tabInternalName, String tabDisplayName)
     {
         // Creates custom tab that shows up in creative mode to organize.
         tabMadScience = new CreativeTabs(tabInternalName)
@@ -96,7 +96,7 @@ public class MadEntities
         };
     }
 
-    public static void createEmptyDataReel(int itemID)
+    static void createEmptyDataReel(int itemID)
     {
         // Empty Genome Data Reel
         MadScience.logger.info("-Empty Data Reel");
@@ -114,7 +114,7 @@ public class MadEntities
     }
 
     // Genetically Modified Mob Eggs
-    public static void createGeneticallyModifiedMonsterPlacer(int itemID)
+    static void createGeneticallyModifiedMonsterPlacer(int itemID)
     {
         MadScience.logger.info("-Genetically Modified Organism Placer");
         GENETICALLYMODIFIED_MONSTERPLACER = new GeneticallyModifiedMonsterPlacer(itemID);
@@ -125,7 +125,7 @@ public class MadEntities
     }
 
     // Lab Coat Body
-    public static void createLabCoatBody(int itemID, int armorID)
+    static void createLabCoatBody(int itemID, int armorID)
     {
         MadScience.logger.info("-LabCoat Body");
         LABCOAT_BODY = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_BODY_INTERNALNAME);
@@ -133,7 +133,7 @@ public class MadEntities
     }
 
     // Lab Coat Leggings
-    public static void createLabCoatLeggings(int itemID, int armorID)
+    static void createLabCoatLeggings(int itemID, int armorID)
     {
         MadScience.logger.info("-LabCoat Leggings");
         LABCOAT_LEGGINGS = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_LEGGINGS_INTERNALNAME);
@@ -141,7 +141,7 @@ public class MadEntities
     }
 
     // Lab Coat Goggles
-    public static void createLabCoatGoggles(int itemID, int armorID)
+    static void createLabCoatGoggles(int itemID, int armorID)
     {
         MadScience.logger.info("-LabCoat Goggles");
         LABCOAT_GOGGLES = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_GOGGLES_INTERNALNAME);
@@ -149,7 +149,7 @@ public class MadEntities
     }
 
     // Warning Sign
-    public static void createWarningSign(int itemID)
+    static void createWarningSign(int itemID)
     {
         MadScience.logger.info("-Warning Sign Painting");
         WARNING_SIGN = (WarningSignItem) new WarningSignItem(itemID).setUnlocalizedName(WARNING_SIGN_INTERNALNAME);

@@ -19,10 +19,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemGenome extends Item
 {
     /** Base color of the egg */
-    public int primaryColor;
+    private int primaryColor;
 
     /** Color of the egg spots */
-    public int secondaryColor;
+    private int secondaryColor;
 
     @SideOnly(Side.CLIENT)
     private Icon genomeReelLayer1;
@@ -84,7 +84,7 @@ public class ItemGenome extends Item
         return this != null ? (par2 == 0 ? this.primaryColor : this.secondaryColor) : 16777215;
     }
 
-    public int getDamageVsEntity(Entity par1Entity)
+    public int getDamageVsEntity(Entity par1Entity) // NO_UCD (unused code)
     {
         return 2;
     }

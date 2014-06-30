@@ -37,40 +37,40 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
     private ItemStack[] meatcubeInput = new ItemStack[1];
 
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
-    public int currentItemCookingMaximum;
+    int currentItemCookingMaximum;
 
     /** The number of ticks that the current item has been cooking for */
-    public int currentItemCookingValue;
+    int currentItemCookingValue;
 
     /** Stores maximum health level of this meat cube */
-    public int currentMaximumMeatCubeDamage = 14;
+    int currentMaximumMeatCubeDamage = 14;
 
     /** Stores current health level of this meat cube so we can display levels of damage based on it */
-    public int currentMeatCubeDamageValue = currentMaximumMeatCubeDamage;
+    int currentMeatCubeDamageValue = currentMaximumMeatCubeDamage;
 
     // ** Maximum number of buckets of water this machine can hold internally */
-    public static int MAX_MUTANTDNA = FluidContainerRegistry.BUCKET_VOLUME * 10;
+    private static int MAX_MUTANTDNA = FluidContainerRegistry.BUCKET_VOLUME * 10;
 
     /** Internal reserve of water */
     protected FluidTank internalLiquidDNAMutantTank = new FluidTank(MadFluids.LIQUIDDNA_MUTANT, 0, MAX_MUTANTDNA);
 
     /** Last amount of ticks waited before playing an animation. */
-    public long lastAnimTriggerTime = 42L;
+    private long lastAnimTriggerTime = 42L;
 
     /** Last known number of frames played. */
-    public int lastAnimFrameCount = 9;
+    private int lastAnimFrameCount = 9;
 
     /** Random number generator used to spit out food stuffs. */
-    public Random animRand = new Random();
+    private Random animRand = new Random();
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
     /** Current texture path that should be displayed on the model */
-    public String meatcubeTexturePath = "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png";
+    String meatcubeTexturePath = "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png";
 
     private void addBucketToInternalTank()
     {
@@ -332,17 +332,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         return MadFurnaces.MEATCUBE_INTERNALNAME;
     }
 
-    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    public int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            currentItemCookingMaximum = 200;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
-    }
+    
 
     public int getSizeInputInventory()
     {
@@ -421,7 +411,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         { internalLiquidDNAMutantTank.getInfo() };
     }
 
-    public int getWaterRemainingScaled(int i)
+    int getWaterRemainingScaled(int i)
     {
         return internalLiquidDNAMutantTank.getFluid() != null ? (int) (((float) internalLiquidDNAMutantTank.getFluid().amount / (float) (MAX_MUTANTDNA)) * i) : 0;
     }
@@ -555,7 +545,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Converts input item into result item along with waste items.
         if (this.canSmelt())

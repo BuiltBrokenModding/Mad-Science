@@ -8,16 +8,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class CnCMachineSounds
 {
-    public static final String CNCMACHINE_FINISHCRUSHING = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".FinishCrushing";
-    public static final String CNCMACHINE_FINISHED = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".Finished";
-    public static final String CNCMACHINE_INSERTIRONBLOCK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".InsertIronBlock";
-    public static final String CNCMACHINE_INVALIDBOOK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".InvalidBook";
-    public static final String CNCMACHINE_POWERON = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".PowerOn";
-    public static final String CNCMACHINE_PRESS = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".Press";
-    public static final String CNCMACHINE_PRESSINGWORK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".PressingWork";
-    public static final String CNCMACHINE_PRESSSTOP = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".PressStop";
-    public static final String CNCMACHINE_WATERFLOW = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".WaterFlow";
-    public static final String CNCMACHINE_WATERWORK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".WaterWork";
+    static final String CNCMACHINE_FINISHCRUSHING = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".FinishCrushing";
+    static final String CNCMACHINE_FINISHED = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".Finished";
+    static final String CNCMACHINE_INSERTIRONBLOCK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".InsertIronBlock";
+    static final String CNCMACHINE_INVALIDBOOK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".InvalidBook";
+    static final String CNCMACHINE_POWERON = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".PowerOn";
+    static final String CNCMACHINE_PRESS = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".Press";
+    static final String CNCMACHINE_PRESSINGWORK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".PressingWork";
+    static final String CNCMACHINE_PRESSSTOP = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".PressStop";
+    static final String CNCMACHINE_WATERFLOW = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".WaterFlow";
+    static final String CNCMACHINE_WATERWORK = MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME + ".WaterWork";
 
     @SideOnly(Side.CLIENT)
     public static void init(SoundLoadEvent event)

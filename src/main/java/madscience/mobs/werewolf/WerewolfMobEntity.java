@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 // Note: If your mob swims, change EntityAnimal to EntityWaterMob.
 public class WerewolfMobEntity extends EntityMob
 {
-    public WerewolfMobEntity(World par1World)
+    public WerewolfMobEntity(World par1World) // NO_UCD (unused code)
     {
         super(par1World);
 
@@ -133,7 +133,7 @@ public class WerewolfMobEntity extends EntityMob
 
     // This is required regardless of if your animal can breed or not. Set to
     // null if it can't breed - I wont cover breeding here.
-    public EntityAgeable createChild(EntityAgeable var1)
+    public EntityAgeable createChild(EntityAgeable var1) // NO_UCD (unused code)
     {
         return null;
     }

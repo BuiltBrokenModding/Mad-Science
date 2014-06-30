@@ -34,10 +34,10 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
     private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.THERMOSONIC_INTERNALNAME + "/" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
     // Tile entity that does all the work for this instance of the block.
-    private ThermosonicBonderEntity lastPlacedTileEntity;
+    private ThermosonicBonderEntity ENTITY;
 
     // Refers to location in asset folder with other textures and sounds.
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png");
@@ -155,18 +155,18 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
         }
     }
     
-    public void renderAModelAt(ThermosonicBonderEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(ThermosonicBonderEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        lastPlacedTileEntity = (ThermosonicBonderEntity) tileEntity;
-        if (lastPlacedTileEntity == null)
+        ENTITY = (ThermosonicBonderEntity) tileEntity;
+        if (ENTITY == null)
         {
             return;
         }
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
-        switch (lastPlacedTileEntity.getBlockMetadata() % 4)
+        switch (ENTITY.getBlockMetadata() % 4)
         {
         case 0:
             rotation = 0;
@@ -208,9 +208,9 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
         }
 
         // Apply our custom texture from asset directory.
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.thermosonicbonderTexture != null && !lastPlacedTileEntity.thermosonicbonderTexture.isEmpty())
+        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.thermosonicbonderTexture));
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
         }
         else
         {

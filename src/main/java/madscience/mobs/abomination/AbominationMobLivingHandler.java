@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 public class AbominationMobLivingHandler
 {
     @ForgeSubscribe
-    public void onEntityLivingDeath(LivingDeathEvent event)
+    public void onEntityLivingDeath(LivingDeathEvent event) // NO_UCD (unused code)
     {
         if (event.entityLiving.worldObj.isRemote)
         {

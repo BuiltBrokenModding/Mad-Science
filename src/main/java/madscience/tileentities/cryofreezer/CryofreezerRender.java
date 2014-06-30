@@ -34,7 +34,7 @@ public class CryofreezerRender extends TileEntitySpecialRenderer implements ISim
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png");
     
     // Unique ID for our model to render in the world.
-    public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
+    private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
 
     private CryofreezerEntity lastPlacedTileEntity;
 
@@ -147,7 +147,7 @@ public class CryofreezerRender extends TileEntitySpecialRenderer implements ISim
         }
     }
     
-    public void renderAModelAt(CryofreezerEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(CryofreezerEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         lastPlacedTileEntity = (CryofreezerEntity) tileEntity;
@@ -199,10 +199,10 @@ public class CryofreezerRender extends TileEntitySpecialRenderer implements ISim
             break;
         }
 
-        if (lastPlacedTileEntity != null && lastPlacedTileEntity.cryofreezerTexture != null && !lastPlacedTileEntity.cryofreezerTexture.isEmpty())
+        if (lastPlacedTileEntity != null && lastPlacedTileEntity.TEXTURE != null && !lastPlacedTileEntity.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.cryofreezerTexture));
+            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.TEXTURE));
         }
         else
         {

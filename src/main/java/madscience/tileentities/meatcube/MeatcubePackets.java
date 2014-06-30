@@ -40,7 +40,7 @@ public class MeatcubePackets extends MadPackets
         // Required for reflection.
     }
 
-    public MeatcubePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, int waterLevel, int waterMax, int damageLevel, int damageMax, String tileTexture)
+    MeatcubePackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, int waterLevel, int waterMax, int damageLevel, int damageMax, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

@@ -42,29 +42,28 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     { 1 };
     private static final int[] slots_top = new int[]
     { 0 };
-    /** Random number generator used to spit out food stuffs. */
-    public Random animRand = new Random();
+    
 
     /** Server only variable that determines if we are in cooldown mode */
-    public boolean cooldownMode = false;
+    private boolean cooldownMode = false;
 
     /** Current frame of animation we should use to display in world. */
-    public int curFrame;
+    private int curFrame;
 
     /** Maximum allowed heat value and also when the machine is considered ready. */
-    public int currentHeatMaximum = 400;
+    int currentHeatMaximum = 400;
 
     /** Current level of heat that the machine has accumulated while powered and active. */
-    public int currentHeatValue;
+    int currentHeatValue;
 
     /** Stores last known amount of targets this machine found, used for determining empty status */
-    public long lastKnownNumberOfTargets = 0;
+    long lastKnownNumberOfTargets = 0;
 
     /** Stores total number of thumps this machine has made, used for determining empty status */
-    public long lastKnownNumberOfTotalThumps = 0;
+    long lastKnownNumberOfTotalThumps = 0;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
-    public boolean shouldPlay;
+    private boolean shouldPlay;
 
     private ItemStack[] soniclocatorInput = new ItemStack[2];
 
@@ -72,7 +71,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     private ItemStack[] soniclocatorOutput = new ItemStack[1];
 
     /** Texture that should be displayed on our model. */
-    public String soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+    String soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
 
     public SoniclocatorEntity()
     {
@@ -105,7 +104,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    public boolean canSmelt()
+    private boolean canSmelt()
     {
         // Check if power levels are at proper values before cooking.
         if (!this.isPowered())
@@ -159,7 +158,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     {
     }
 
-    public void damageNearbyCreatures(int range)
+    private void damageNearbyCreatures(int range)
     {
         double px = this.xCoord;
         double py = this.yCoord;
@@ -294,7 +293,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         return currentHeatValue;
     }
 
-    public int getHeatLevelTimeScaled(int pxl)
+    int getHeatLevelTimeScaled(int pxl)
     {
         // Returns scaled percentage of heat level used in GUI to show temperature.
         return (int) (this.getHeatAmount() * (pxl / this.getMaxHeatAmount()));
@@ -695,7 +694,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    public void smeltItem()
+    private void smeltItem()
     {
         // Find out if there are any other Soniclocators nearby, and if so kill us all!
         locateNearbySoniclocators(2600);

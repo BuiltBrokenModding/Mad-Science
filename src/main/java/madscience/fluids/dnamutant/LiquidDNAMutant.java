@@ -24,7 +24,7 @@ public class LiquidDNAMutant extends Fluid
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int side, int meta)
+    public Icon getIcon(int side, int meta) // NO_UCD (unused code)
     {
         // Use the same default minecraft icon for water (for now).
         return Block.waterMoving.getIcon(side, meta);
