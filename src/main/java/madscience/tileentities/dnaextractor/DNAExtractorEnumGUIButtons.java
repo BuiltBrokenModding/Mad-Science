@@ -1,4 +1,4 @@
-package madscience.tileentities.dnaextractor.config;
+package madscience.tileentities.dnaextractor;
 
 import madscience.MadConfig;
 import madscience.factory.interfaces.buttons.MadGUIButtonClickActionEnum;
@@ -7,9 +7,9 @@ import madscience.factory.interfaces.buttons.MadGUIButtonTypeEnum;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 
-enum DNAExtractorEnumGUIButtons implements MadGUIButtonInterface
+public enum DNAExtractorEnumGUIButtons implements MadGUIButtonInterface
 {    
-    HelpLink(MadGUIButtonTypeEnum.InvisibleButton, MadGUIButtonClickActionEnum.OpenLink, MadConfig.DNAEXTRACTOR_HELP, 9, 32, 166, 4, 6, 5);
+    HelpLink(MadGUIButtonTypeEnum.InvisibleButton, MadGUIButtonClickActionEnum.OpenLink, MadConfig.DNAEXTRACTOR_HELP, 166, 4, 9, 32, 6, 5);
 
     /* Screen coordinates for where data where render. */
     private final int screenX;
@@ -71,7 +71,7 @@ enum DNAExtractorEnumGUIButtons implements MadGUIButtonInterface
         
         // Use the ordinal position in enumeration to get name and base tooltip token from it.
         // Note: Constructs a string that looks like "DNAExtractorEnumGUIButtons.HelpLink.tooltip"
-        String friendlyName = this.getClass().getSimpleName() + "." + this.values()[this.ordinal()].name() + ".tooltip";
+        String friendlyName = this.getClass().getSimpleName() + "." + this.name() + ".tooltip";
         
         // Grab the localized tooltip from our localization files based on the token.
         String slotTooltip = StatCollector.translateToLocal(friendlyName);

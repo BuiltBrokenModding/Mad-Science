@@ -1,10 +1,10 @@
-package madscience.tileentities.dnaextractor.config;
+package madscience.tileentities.dnaextractor;
 
 import madscience.factory.interfaces.slotcontainers.MadSlotContainerInterface;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 
-enum DNAExtractorEnumContainers implements MadSlotContainerInterface
+public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
 {    
     InputGeneticMaterial(ForgeDirection.UNKNOWN, ForgeDirection.NORTH, false, true, 9, 32, 18, 18),
     InputEmptyBucket(ForgeDirection.UNKNOWN, ForgeDirection.EAST, false, true, 152, 61, 18, 18),
@@ -67,7 +67,7 @@ enum DNAExtractorEnumContainers implements MadSlotContainerInterface
         
         // Use the ordinal position in enumeration to get name and base tooltip token from it.
         // Note: Constructs a string that looks like "DNAExtractorEnumContainers.InputGeneticMaterial.tooltip"
-        String friendlyName = this.getClass().getSimpleName() + "." + this.values()[this.ordinal()].name() + ".tooltip";
+        String friendlyName = this.getClass().getSimpleName() + "." + this.name() + ".tooltip";
         
         // Grab the localized tooltip from our localization files based on the token.
         String slotTooltip = StatCollector.translateToLocal(friendlyName);

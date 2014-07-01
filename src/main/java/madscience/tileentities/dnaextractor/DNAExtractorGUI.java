@@ -91,7 +91,7 @@ public class DNAExtractorGUI extends GUIContainerBase
             int x;
             if (percentLeft > control.sizeX())
             {
-                x = 16;
+                x = control.sizeX();
                 percentLeft -= control.sizeX();
             }
             else
@@ -101,7 +101,9 @@ public class DNAExtractorGUI extends GUIContainerBase
             }
 
             // Draw mutant DNA tank with proper offset.
-            drawTexturedModelRectFromIcon(screenX + control.sizeY(), screenY + control.screenX() + control.sizeY() - x - start, liquidIcon, control.sizeX(), control.sizeX() - (control.sizeX() - x));
+            drawTexturedModelRectFromIcon(screenX + control.sizeY(), screenY + control.screenX() + control.sizeY() - x - start,
+                    liquidIcon, control.sizeX(), control.sizeX() - (control.sizeX() - x));
+            
             start = start + control.sizeX();
 
             if (x == 0 || percentLeft == 0)
@@ -110,14 +112,11 @@ public class DNAExtractorGUI extends GUIContainerBase
             }
         }
 
-        // Re-draws gauge lines ontop of scaled fluid amount to make it look
-        // like the fluid is behind the gauge lines.
+        // Re-draws gauge lines ontop of scaled fluid amount to make it look like the fluid is behind the gauge lines.
         mc.renderEngine.bindTexture(TEXTURE);
-        drawTexturedModalRect(screenX + control.sizeY(), screenY + control.sizeX(),
-                control.fillerX(),
-                control.fillerY(),
-                control.sizeX(),
-                control.sizeY());
+        drawTexturedModalRect(screenX + control.screenX(), screenY + control.screenY(),
+                control.fillerX(), control.fillerY(),
+                control.sizeX(), control.sizeY());
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
@@ -162,8 +161,7 @@ public class DNAExtractorGUI extends GUIContainerBase
             // ------------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
             {
-                displayGauge(screenX, screenY,
-                        guiControl,
+                displayGauge(screenX, screenY, guiControl,
                         this.ENTITY.getWaterRemainingScaled(guiControl.sizeY()));
             }
         }
@@ -322,7 +320,7 @@ public class DNAExtractorGUI extends GUIContainerBase
             // Invisible button
             if (guiButton.getButtonType().equals(MadGUIButtonTypeEnum.InvisibleButton))
             {
-                buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76,
+                buttonList.add(new GUIButtonInvisible(guiButton.buttonID(), posX + 81, posY - 76,
                         guiButton.sizeX(), guiButton.sizeY()));
             }
         }

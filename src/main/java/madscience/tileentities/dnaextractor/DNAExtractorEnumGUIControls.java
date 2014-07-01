@@ -1,10 +1,10 @@
-package madscience.tileentities.dnaextractor.config;
+package madscience.tileentities.dnaextractor;
 
 import madscience.factory.interfaces.controls.MadGUIControlInterface;
 import madscience.factory.interfaces.controls.MadGUIControlTypeEnum;
 import net.minecraftforge.common.ForgeDirection;
 
-enum DNAExtractorEnumGUIControls implements MadGUIControlInterface
+public enum DNAExtractorEnumGUIControls implements MadGUIControlInterface
 {    
     MutantDNATank(MadGUIControlTypeEnum.TankGauge, 131, 19, 176, 31, 16, 58),
     Power(MadGUIControlTypeEnum.PowerLevelX, 10, 49, 176, 0, 14, 14),
