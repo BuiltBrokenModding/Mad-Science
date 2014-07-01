@@ -1,6 +1,7 @@
-package madscience.items;
+package madscience.items.dna;
 
 import madscience.MadScience;
+import madscience.items.ItemDecayBase;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +11,7 @@ import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemDecayDNA extends ItemDecay
+public class ItemDecayDNABase extends ItemDecayBase
 {
     /** Base color of the egg */
     private int primaryColor;
@@ -21,7 +22,7 @@ public class ItemDecayDNA extends ItemDecay
     @SideOnly(Side.CLIENT)
     private Icon dnaSampleOverlay;
 
-    public ItemDecayDNA(int id, int primaryColor, int secondaryColor)
+    public ItemDecayDNABase(int id, int primaryColor, int secondaryColor)
     {
         // Used to ensure that DNA samples decay into bad blood samples.
         super(id);

@@ -62,7 +62,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
 
     public SanitizerEntity()
     {
-        super(MadConfig.SANTITIZER_CAPACTITY, MadConfig.SANTITIZER_INPUT);
+        super(MadConfig.SANTITIZER_CAPACTITY, MadConfig.SANTITIZER_INPUT, 0);
     }
 
     private boolean addBucketToInternalTank()

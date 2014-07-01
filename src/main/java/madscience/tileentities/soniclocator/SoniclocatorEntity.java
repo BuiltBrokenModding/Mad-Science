@@ -75,7 +75,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
     public SoniclocatorEntity()
     {
-        super(MadConfig.SONICLOCATOR_CAPACTITY, MadConfig.SONICLOCATOR_INPUT);
+        super(MadConfig.SONICLOCATOR_CAPACTITY, MadConfig.SONICLOCATOR_INPUT, 0);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */

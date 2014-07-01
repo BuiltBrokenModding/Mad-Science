@@ -1,9 +1,8 @@
 package madscience.items.genomes;
 
 import madscience.MadEntities;
-import madscience.items.ItemGenome;
 
-public class GenomeSquid extends ItemGenome
+public class GenomeSquid extends ItemGenomeBase
 {
 
     public GenomeSquid(int id, int primaryColor, int secondaryColor)

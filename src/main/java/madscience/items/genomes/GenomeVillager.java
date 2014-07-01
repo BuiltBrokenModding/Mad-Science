@@ -1,9 +1,8 @@
 package madscience.items.genomes;
 
 import madscience.MadEntities;
-import madscience.items.ItemGenome;
 
-public class GenomeVillager extends ItemGenome
+public class GenomeVillager extends ItemGenomeBase
 {
 
     public GenomeVillager(int id, int primaryColor, int secondaryColor)

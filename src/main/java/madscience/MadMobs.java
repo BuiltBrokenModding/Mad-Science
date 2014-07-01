@@ -1,8 +1,10 @@
 package madscience;
 
-import madscience.items.ItemGenome;
-import madscience.items.MadGenomeInfo;
-import madscience.items.MadSpawnEggInfo;
+import madscience.items.combinedgenomes.MadGenomeInfo;
+import madscience.items.combinedgenomes.MadGenomeRegistry;
+import madscience.items.genomes.ItemGenomeBase;
+import madscience.items.spawnegg.MadGMORegistry;
+import madscience.items.spawnegg.MadSpawnEggInfo;
 import madscience.tileentities.incubator.IncubatorRecipes;
 import madscience.tileentities.mainframe.MainframeRecipes;
 import net.minecraft.item.ItemStack;
@@ -77,14 +79,14 @@ public class MadMobs
     static final String GENOME_ENDERSQUID_INTERNALNAME = "genomeEnderSquid";
 
     @EventHandler
-    static void createGMOMob(int metaID, Class mobEntity, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome,
+    static void createGMOMob(int metaID, Class mobEntity, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenomeBase primaryGenome, ItemGenomeBase secondaryGenome,
             int mainframeComputeTime)
     {
         // Add mob to genetically modified mob list so it can be spawned.
-        GMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, spawnData, primaryColor, secondaryColor));
+        MadGMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, spawnData, primaryColor, secondaryColor));
 
         // Add mob to combined genome entity list so it can be created.
-        GenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, genomeInternalName, primaryColor, secondaryColor));
+        MadGenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, genomeInternalName, primaryColor, secondaryColor));
 
         // Get a free and unique entity ID for our mob.
         int freeMobID = EntityRegistry.findGlobalUniqueEntityId();
@@ -100,12 +102,12 @@ public class MadMobs
     }
 
     @EventHandler
-    static void createVanillaGMOMob(int metaID, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenome primaryGenome, ItemGenome secondaryGenome, int mainframeComputeTime)
+    static void createVanillaGMOMob(int metaID, NBTTagCompound spawnData, String eggInternalName, String genomeInternalName, int primaryColor, int secondaryColor, ItemGenomeBase primaryGenome, ItemGenomeBase secondaryGenome, int mainframeComputeTime)
     {
-        GMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, spawnData, primaryColor, secondaryColor));
+        MadGMORegistry.registerSpawnEgg(new MadSpawnEggInfo((short) metaID, eggInternalName, spawnData, primaryColor, secondaryColor));
 
         // Add mob to combined genome entity list so it can be created.
-        GenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, genomeInternalName, primaryColor, secondaryColor));
+        MadGenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, genomeInternalName, primaryColor, secondaryColor));
 
         // Recipes for creating this vanilla mob.
         MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);

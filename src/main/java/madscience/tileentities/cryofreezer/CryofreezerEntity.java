@@ -3,7 +3,7 @@ package madscience.tileentities.cryofreezer;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.items.ItemDecay;
+import madscience.items.ItemDecayBase;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,7 +41,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
 
     public CryofreezerEntity()
     {
-        super(MadConfig.CRYOFREEZER_CAPACTITY, MadConfig.CRYOFREEZER_INPUT);
+        super(MadConfig.CRYOFREEZER_CAPACTITY, MadConfig.CRYOFREEZER_INPUT, 0);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -378,7 +378,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
 
                     // Heal ourselves for being inside a powered and equipped
                     // freezer.
-                    if (cryoFreezerStorage[i] != null && cryoFreezerStorage[i].getItem() instanceof ItemDecay && dmg <= cryoFreezerStorage[i].getMaxDamage())
+                    if (cryoFreezerStorage[i] != null && cryoFreezerStorage[i].getItem() instanceof ItemDecayBase && dmg <= cryoFreezerStorage[i].getMaxDamage())
                     {
                         cryoFreezerStorage[i].setItemDamage(dmg - 1);
 

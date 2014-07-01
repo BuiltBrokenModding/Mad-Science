@@ -1,9 +1,8 @@
 package madscience.items.dna;
 
 import madscience.MadEntities;
-import madscience.items.ItemDecayDNA;
 
-public class DNAGhast extends ItemDecayDNA
+public class DNAGhast extends ItemDecayDNABase
 {
 
     public DNAGhast(int id, int primaryColor, int secondaryColor)

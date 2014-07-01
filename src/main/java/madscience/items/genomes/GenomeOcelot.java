@@ -1,9 +1,8 @@
 package madscience.items.genomes;
 
 import madscience.MadEntities;
-import madscience.items.ItemGenome;
 
-public class GenomeOcelot extends ItemGenome
+public class GenomeOcelot extends ItemGenomeBase
 {
 
     public GenomeOcelot(int id, int primaryColor, int secondaryColor)

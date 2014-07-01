@@ -1,4 +1,4 @@
-package madscience.metaitems;
+package madscience.items.memories;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

@@ -1,9 +1,8 @@
-package madscience.items;
+package madscience.items.combinedgenomes;
 
 import java.util.Collection;
 import java.util.List;
 
-import madscience.GenomeRegistry;
 import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.util.MadColors;
@@ -68,7 +67,7 @@ public class CombinedGenomeMonsterPlacer extends Item
     @Override
     public int getColorFromItemStack(ItemStack stack, int par2)
     {
-        MadGenomeInfo info = GenomeRegistry.getGenomeInfo((short) stack.getItemDamage());
+        MadGenomeInfo info = MadGenomeRegistry.getGenomeInfo((short) stack.getItemDamage());
 
         // Return white if info is null.
         if (info == null)
@@ -82,7 +81,7 @@ public class CombinedGenomeMonsterPlacer extends Item
             return 16777215;
         }
 
-        int color = (par2 == 0) ? info.primaryColor : info.secondaryColor;
+        int color = (par2 == 0) ? info.getPrimaryColor() : info.getSecondaryColor();
 
         if (stack.hasTagCompound())
         {
@@ -164,7 +163,7 @@ public class CombinedGenomeMonsterPlacer extends Item
     @Override
     public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list)
     {
-        for (MadGenomeInfo info : GenomeRegistry.getGenomeInfoList())
+        for (MadGenomeInfo info : MadGenomeRegistry.getGenomeInfoList())
             list.add(new ItemStack(par1, 1, info.genomeID));
     }
 
@@ -172,12 +171,12 @@ public class CombinedGenomeMonsterPlacer extends Item
     public String getUnlocalizedName(ItemStack stack)
     {
         String name = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
-        MadGenomeInfo info = GenomeRegistry.getGenomeInfo((short) stack.getItemDamage());
+        MadGenomeInfo info = MadGenomeRegistry.getGenomeInfo((short) stack.getItemDamage());
 
         if (info == null)
             return name;
 
-        String mobID = info.mobID;
+        String mobID = info.getMobID();
         if (stack.hasTagCompound())
         {
             NBTTagCompound compound = stack.getTagCompound();

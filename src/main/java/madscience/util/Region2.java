@@ -2,7 +2,7 @@ package madscience.util;
 
 import universalelectricity.api.vector.Vector2;
 
-class Region2
+public class Region2
 {
         private Vector2 min;
         private Vector2 max;
@@ -21,7 +21,7 @@ class Region2
         /**
          * Checks if a point is located inside a region
          */
-        boolean isIn(Vector2 point)
+        public boolean isIn(Vector2 point)
         {
                 return (point.x > this.min.x && point.x < this.max.x) && (point.y > this.min.y && point.y < this.max.y);
         }

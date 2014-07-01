@@ -1,5 +1,8 @@
 package madscience.tileentities.dnaextractor;
 
+import madscience.factory.interfaces.slotcontainers.MadSlotContainerInterface;
+import madscience.factory.tileentity.MadTileEntityFactory;
+import madscience.factory.tileentity.MadTileEntityTemplate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -11,43 +14,26 @@ public class DNAExtractorContainer extends Container
 {
     private DNAExtractorEntity ENTITY;
 
-    public DNAExtractorContainer(InventoryPlayer par1InventoryPlayer, DNAExtractorEntity par2TileEntityFurnace)
+    public DNAExtractorContainer(InventoryPlayer playerEntity, DNAExtractorEntity worldEntity)
     {
         // Hook the server world entity.
-        this.ENTITY = par2TileEntityFurnace;
-
-        // Input Slot 1 - Incoming filled needles of DNA from mobs.
-        this.addSlotToContainer(new DNAExtractorSlotInput(par2TileEntityFurnace,
-                DNAExtractorEnumContainer.InputGeneticMatrial.getSlotNumber(),
-                DNAExtractorEnumContainer.InputGeneticMatrial.offsetX(),
-                DNAExtractorEnumContainer.InputGeneticMatrial.offsetY()));
-
-        // Input Slot 2 - Empty bucket to get filled with mutant DNA.
-        this.addSlotToContainer(new DNAExtractorSlotInputEmptyBucket(par2TileEntityFurnace,
-                DNAExtractorEnumContainer.InputEmptyBucket.getSlotNumber(),
-                DNAExtractorEnumContainer.InputEmptyBucket.offsetX(),
-                DNAExtractorEnumContainer.InputEmptyBucket.offsetY()));
-
-        // Output Slot 1 - DNA sample.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player,
-                par2TileEntityFurnace,
-                DNAExtractorEnumContainer.OutputDNASample.getSlotNumber(),
-                DNAExtractorEnumContainer.OutputDNASample.offsetX(),
-                DNAExtractorEnumContainer.OutputDNASample.offsetY()));
-
-        // Output Slot 2 - Dirty needles.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player,
-                par2TileEntityFurnace,
-                DNAExtractorEnumContainer.OutputDirtyNeedle.getSlotNumber(),
-                DNAExtractorEnumContainer.OutputDirtyNeedle.offsetX(),
-                DNAExtractorEnumContainer.OutputDirtyNeedle.offsetY()));
-
-        // Output Slot 3 - Filled mutant DNA bucket.
-        this.addSlotToContainer(new SlotFurnace(par1InventoryPlayer.player,
-                par2TileEntityFurnace,
-                DNAExtractorEnumContainer.OutputFilledMutantDNABucket.getSlotNumber(),
-                DNAExtractorEnumContainer.OutputFilledMutantDNABucket.offsetX(),
-                DNAExtractorEnumContainer.OutputFilledMutantDNABucket.offsetY()));
+        this.ENTITY = worldEntity;
+        
+        // Query machine registry for slot container information.
+        MadTileEntityTemplate MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getInvName());
+        
+        // Grab our array of containers from the template object.
+        MadSlotContainerInterface[] CONTAINERS = MACHINE.getSlotContainers();
+        
+        // Loop through the containers and use the data inside them to prepare the server slot containers.
+        for(int i = 0; i < CONTAINERS.length; i++)
+        {
+            MadSlotContainerInterface slotContainer = CONTAINERS[i];
+            this.addSlotToContainer(new Slot(worldEntity,
+                    slotContainer.slot(),
+                    slotContainer.offsetX(),
+                    slotContainer.offsetY()));
+        }
 
         // Create slots for main player inventory area.
         int i;
@@ -55,14 +41,14 @@ public class DNAExtractorContainer extends Container
         {
             for (int j = 0; j < 9; ++j)
             {
-                this.addSlotToContainer(new Slot(par1InventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(playerEntity, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         // Create slots for player inventory hotbar area.
         for (i = 0; i < 9; ++i)
         {
-            this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
+            this.addSlotToContainer(new Slot(playerEntity, i, 8 + i * 18, 142));
         }
     }
 

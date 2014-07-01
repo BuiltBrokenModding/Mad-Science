@@ -1,4 +1,4 @@
-package madscience.metaitems;
+package madscience.items.memories;
 
 import java.awt.Color;
 import java.util.Iterator;

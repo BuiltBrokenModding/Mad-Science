@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.items.genomes;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemGenome extends Item
+public class ItemGenomeBase extends Item
 {
     /** Base color of the egg */
     private int primaryColor;
@@ -30,7 +30,7 @@ public class ItemGenome extends Item
     @SideOnly(Side.CLIENT)
     private Icon genomeReelLayer2;
 
-    public ItemGenome(int id, int primaryColor, int secondaryColor)
+    public ItemGenomeBase(int id, int primaryColor, int secondaryColor)
     {
         super(id);
 

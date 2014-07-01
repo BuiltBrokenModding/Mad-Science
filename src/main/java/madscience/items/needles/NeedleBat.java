@@ -1,8 +1,7 @@
 package madscience.items.needles;
 
-import madscience.items.ItemDecayNeedle;
 
-public class NeedleBat extends ItemDecayNeedle
+public class NeedleBat extends ItemDecayNeedleBase
 {
     public NeedleBat(int id, int primaryColor, int secondaryColor)
     {

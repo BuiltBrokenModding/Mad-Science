@@ -1,7 +1,8 @@
-package madscience.items;
+package madscience.items.needles;
 
 import madscience.MadNeedles;
 import madscience.MadScience;
+import madscience.items.ItemDecayBase;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +11,7 @@ import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemDecayNeedle extends ItemDecay
+public class ItemDecayNeedleBase extends ItemDecayBase
 {
     /** Base color of the egg */
     private int primaryColor;
@@ -24,7 +25,7 @@ public class ItemDecayNeedle extends ItemDecay
     @SideOnly(Side.CLIENT)
     private Icon needleReelLayer2;
 
-    public ItemDecayNeedle(int id, int primaryColor, int secondaryColor)
+    public ItemDecayNeedleBase(int id, int primaryColor, int secondaryColor)
     {
         // Used to determine that we should return a dirty needle.
         super(id);

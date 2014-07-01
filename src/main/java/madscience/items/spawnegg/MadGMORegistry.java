@@ -1,13 +1,11 @@
-package madscience;
+package madscience.items.spawnegg;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.items.MadSpawnEggInfo;
-
-public class GMORegistry
+public class MadGMORegistry
 {
     private static final Map<Short, MadSpawnEggInfo> eggs = new LinkedHashMap<Short, MadSpawnEggInfo>();
 
@@ -26,7 +24,7 @@ public class GMORegistry
         return !eggs.containsKey(id);
     }
 
-    static void registerSpawnEgg(MadSpawnEggInfo info) throws IllegalArgumentException
+    public static void registerSpawnEgg(MadSpawnEggInfo info) throws IllegalArgumentException
     {
         if (info == null)
         {

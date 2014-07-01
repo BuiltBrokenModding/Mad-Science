@@ -1,9 +1,9 @@
 package madscience.items.circuits;
 
-import madscience.items.ItemComponent;
+import madscience.items.components.ItemComponentBase;
 import net.minecraft.item.Item;
 
-public class CircuitGlowstone extends ItemComponent
+public class CircuitGlowstone extends ItemComponentBase
 {
 
     public CircuitGlowstone(int itemID)

@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.items.components;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-public class ItemComponent extends Item
+public class ItemComponentBase extends Item
 {
-    public ItemComponent(int itemID)
+    public ItemComponentBase(int itemID)
     {
         super(itemID);
         

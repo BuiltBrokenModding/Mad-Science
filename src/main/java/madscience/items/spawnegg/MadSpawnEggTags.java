@@ -1,9 +1,9 @@
-package madscience.util;
+package madscience.items.spawnegg;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class MadTags
+public class MadSpawnEggTags
 {
     private static NBTTagCompound createItemTag(byte count, short damage, short id)
     {

@@ -61,7 +61,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
     public VoxBoxEntity()
     {
-        super(MadConfig.VOXBOX_CAPACTITY, MadConfig.VOXBOX_INPUT);
+        super(MadConfig.VOXBOX_CAPACTITY, MadConfig.VOXBOX_INPUT, 0);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */

@@ -60,7 +60,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
     public MagLoaderEntity()
     {
-        super(MadConfig.MAGLOADER_CAPACTITY, MadConfig.MAGLOADER_INPUT);
+        super(MadConfig.MAGLOADER_CAPACTITY, MadConfig.MAGLOADER_INPUT, 0);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */

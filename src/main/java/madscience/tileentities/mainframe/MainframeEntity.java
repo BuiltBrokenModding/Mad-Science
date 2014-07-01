@@ -78,7 +78,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
 
     public MainframeEntity()
     {
-        super(MadConfig.MAINFRAME_CAPACTITY, MadConfig.MAINFRAME_INPUT);
+        super(MadConfig.MAINFRAME_CAPACTITY, MadConfig.MAINFRAME_INPUT, 0);
     }
 
     private void addBucketToInternalTank()

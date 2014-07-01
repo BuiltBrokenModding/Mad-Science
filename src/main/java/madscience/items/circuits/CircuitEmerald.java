@@ -1,9 +1,9 @@
 package madscience.items.circuits;
 
-import madscience.items.ItemComponent;
+import madscience.items.components.ItemComponentBase;
 import net.minecraft.item.Item;
 
-public class CircuitEmerald extends ItemComponent
+public class CircuitEmerald extends ItemComponentBase
 {
 
     public CircuitEmerald(int itemID)

@@ -1,7 +1,10 @@
 package madscience;
 
+import madscience.factory.tileentity.MadTileEntityFactory;
+import madscience.factory.tileentity.MadTileEntityTemplate;
 import madscience.items.ItemBlockTooltip;
-import madscience.items.MadGenomeInfo;
+import madscience.items.combinedgenomes.MadGenomeInfo;
+import madscience.items.combinedgenomes.MadGenomeRegistry;
 import madscience.tileentities.clayfurnace.ClayfurnaceBlock;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceRecipes;
@@ -231,8 +234,13 @@ public class MadFurnaces
 
     @EventHandler
     static void createDNAExtractorTileEntity(int blockID)
-    {
-        MadScience.logger.info("-DNA Extrator Tile Entity");
+    {        
+        // Register machine with the registry so we can generate all needed MC/Forge data.
+        MadTileEntityFactory.registerMachine(new MadTileEntityTemplate(DNAEXTRACTOR_INTERNALNAME,
+                DNAExtractorEnumContainers.values(),
+                DNAExtractorEnumGUIControls.values(),
+                DNAExtractorEnumGUIButtons.values()));
+        
         // Populate our static instance.
         DNAEXTRACTOR_TILEENTITY = (BlockContainer) new DNAExtractorBlock(blockID).setUnlocalizedName(DNAEXTRACTOR_INTERNALNAME);
 
@@ -248,7 +256,7 @@ public class MadFurnaces
         // Register our rendering handles on clients and ignore them on servers.
         MadScience.proxy.registerRenderingHandler(blockID);
 
-        // Shaped Recipe
+        // Shaped Recipe.
         GameRegistry.addRecipe(new ItemStack(DNAEXTRACTOR_TILEENTITY, 1), new Object[]
         { "414",
           "424",
@@ -375,7 +383,7 @@ public class MadFurnaces
         MadScience.proxy.registerRenderingHandler(blockID);
 
         // Add mob to combined genome entity list so it can be created by other
-        GenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, MEATCUBE_INTERNALNAME, primaryColor, secondaryColor));
+        MadGenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, MEATCUBE_INTERNALNAME, primaryColor, secondaryColor));
 
         // Create meatcube with slime and pig, cow or chicken genomes!
         MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_COW), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);

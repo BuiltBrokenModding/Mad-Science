@@ -2,6 +2,8 @@ package madscience.tileentities.prefab;
 
 import java.util.ArrayList;
 
+import madscience.factory.interfaces.slotcontainers.MadSlotContainerInterface;
+import madscience.factory.tileentity.MadTileEntityFactory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -12,7 +14,7 @@ import net.minecraftforge.common.ForgeDirection;
 class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInventory
 {
     /** The ItemStacks that hold the items currently being used in the furnace */
-    private ItemStack[] INVENTORY = new ItemStack[MadContainerInterface.class.getEnumConstants().length];
+    private ItemStack[] INVENTORY = new ItemStack[MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length];
     
     @Override
     public void initiate()
@@ -34,7 +36,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
-            if (b0 >= 0 && b0 < MadContainerInterface.class.getEnumConstants().length)
+            if (b0 >= 0 && b0 < MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length)
             {
                 this.setInventorySlotContents(b0, ItemStack.loadItemStackFromNBT(nbttagcompound1));
             }
@@ -56,7 +58,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
         
         // Reload from NBT data what items was inside our container slots.
         NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < MadContainerInterface.class.getEnumConstants().length; ++i)
+        for (int i = 0; i < MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length; ++i)
         {
             if (this.getStackInSlot(i) != null)
             {
@@ -85,14 +87,14 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         
         // Grab a list of all container values from enumeration.
-        MadContainerInterface[] containerSlots = MadContainerInterface.class.getEnumConstants();
+        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers();
         int i = containerSlots.length;
 
         // Loop through all the gathered slots.
         for (int j = 0; j < i; ++j)
         {
             // Check if they match the side we decoded from parameter.
-            MadContainerInterface currentContainer = containerSlots[j];
+            MadSlotContainerInterface currentContainer = containerSlots[j];
             if (currentContainer.getExtractDirection().equals(dir) && currentContainer.canExtract())
             {
                 // Allows the item to be extracted from the given slot.
@@ -108,8 +110,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
     @Override
     public int getSizeInventory()
     {
-        // http://stackoverflow.com/questions/21821751/get-enum-size-from-parent-interface-in-java
-        return MadContainerInterface.class.getEnumConstants().length;
+        return MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length;
     }
 
     /** Returns the stack in slot i */
@@ -231,7 +232,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         
         // Grab a list of all container values from enumeration.
-        MadContainerInterface[] containerSlots = MadContainerInterface.class.getEnumConstants();
+        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers();
         int i = containerSlots.length;
         
         // List which will store our integers for allowed sides.
@@ -241,7 +242,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
         for (int j = 0; j < i; ++j)
         {
             // Check if they match the side we decoded from parameter.
-            MadContainerInterface currentContainer = containerSlots[j];
+            MadSlotContainerInterface currentContainer = containerSlots[j];
             
             // To prevent duplicate sides being added we only add based on one or the other.
             if (currentContainer.getExtractDirection().equals(dir) && currentContainer.canExtract())

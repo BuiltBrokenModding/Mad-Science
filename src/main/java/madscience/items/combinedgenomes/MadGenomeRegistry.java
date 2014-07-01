@@ -1,13 +1,11 @@
-package madscience;
+package madscience.items.combinedgenomes;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.items.MadGenomeInfo;
-
-public class GenomeRegistry
+public class MadGenomeRegistry
 {
     private static final Map<Short, MadGenomeInfo> genomes = new LinkedHashMap<Short, MadGenomeInfo>();
 
@@ -26,7 +24,7 @@ public class GenomeRegistry
         return !genomes.containsKey(id);
     }
 
-    static void registerGenome(MadGenomeInfo info) throws IllegalArgumentException
+    public static void registerGenome(MadGenomeInfo info) throws IllegalArgumentException
     {
         if (info == null)
         {

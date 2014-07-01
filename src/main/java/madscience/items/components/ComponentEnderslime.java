@@ -1,8 +1,7 @@
 package madscience.items.components;
 
-import madscience.items.ItemComponent;
 
-public class ComponentEnderslime extends ItemComponent
+public class ComponentEnderslime extends ItemComponentBase
 {
 
     public ComponentEnderslime(int itemID)

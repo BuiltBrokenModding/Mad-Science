@@ -1,9 +1,8 @@
 package madscience.items.genomes;
 
 import madscience.MadEntities;
-import madscience.items.ItemGenome;
 
-public class GenomeWitch extends ItemGenome
+public class GenomeWitch extends ItemGenomeBase
 {
 
     public GenomeWitch(int id, int primaryColor, int secondaryColor)

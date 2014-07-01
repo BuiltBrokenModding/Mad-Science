@@ -1,12 +1,9 @@
-package madscience.tileentities.prefab;
+package madscience.factory.interfaces.slotcontainers;
 
 import net.minecraftforge.common.ForgeDirection;
 
-public interface MadContainerInterface
-{        
-    /* Returns the slot number for the given container based on it's order in the list. */
-    public abstract int getSlotNumber();
-
+public interface MadSlotContainerInterface
+{
     /* Returns the valid input direction for a given container slot. */
     public abstract ForgeDirection getInputDirection();
 
@@ -18,16 +15,22 @@ public interface MadContainerInterface
 
     /* Returns true if we are allowed to extract items from the given container slot. */
     public abstract boolean canExtract();
-    
+
     /* Position on texture where slot can be located. */
     public abstract int offsetX();
-    
+
     /* Position on texture where slot can be located. */
     public abstract int offsetY();
-    
+
     /* Size of slot. */
     public abstract int sizeX();
-    
+
     /* Size of slot. */
     public abstract int sizeY();
+    
+    /* Index that this particular container instance will reference. */
+    public abstract int slot();
+    
+    /* Internal string used to search in localization files.  */
+    public abstract String getTooltip();
 }

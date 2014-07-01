@@ -1,9 +1,8 @@
 package madscience.items.genomes;
 
 import madscience.MadEntities;
-import madscience.items.ItemGenome;
 
-public class GenomeZombie extends ItemGenome
+public class GenomeZombie extends ItemGenomeBase
 {
 
     public GenomeZombie(int id, int primaryColor, int secondaryColor)

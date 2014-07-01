@@ -6,9 +6,9 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.ItemGenome;
-import madscience.metaitems.CombinedMemoryMonsterPlacer;
+import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
+import madscience.items.genomes.ItemGenomeBase;
+import madscience.items.memories.CombinedMemoryMonsterPlacer;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -51,7 +51,7 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
 
     public DataDuplicatorEntity()
     {
-        super(MadConfig.DATADUPLICATOR_CAPACTITY, MadConfig.DATADUPLICATOR_INPUT);
+        super(MadConfig.DATADUPLICATOR_CAPACTITY, MadConfig.DATADUPLICATOR_INPUT, 0);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -342,13 +342,13 @@ public class DataDuplicatorEntity extends MadTileEntity implements ISidedInvento
             }
 
             // Check if we are a genome data reel that is unfinished (AKA damaged).
-            if (items != null && items.getItem() instanceof ItemGenome && items.isItemDamaged())
+            if (items != null && items.getItem() instanceof ItemGenomeBase && items.isItemDamaged())
             {
                 return false;
             }
 
             // Completed genomes are allowed to be duplicated.
-            if (items != null && items.getItem() instanceof ItemGenome && !items.isItemDamaged())
+            if (items != null && items.getItem() instanceof ItemGenomeBase && !items.isItemDamaged())
             {
                 return true;
             }

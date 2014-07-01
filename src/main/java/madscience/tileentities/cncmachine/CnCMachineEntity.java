@@ -73,7 +73,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
     public CnCMachineEntity()
     {
-        super(MadConfig.CNCMACHINE_CAPACTITY, MadConfig.CNCMACHINE_INPUT);
+        super(MadConfig.CNCMACHINE_CAPACTITY, MadConfig.CNCMACHINE_INPUT, 0);
     }
 
     private boolean addBucketToInternalTank()

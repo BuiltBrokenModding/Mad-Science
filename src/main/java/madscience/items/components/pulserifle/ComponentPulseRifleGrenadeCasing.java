@@ -1,9 +1,9 @@
 package madscience.items.components.pulserifle;
 
-import madscience.items.ItemComponent;
+import madscience.items.components.ItemComponentBase;
 import net.minecraft.item.Item;
 
-public class ComponentPulseRifleGrenadeCasing extends ItemComponent
+public class ComponentPulseRifleGrenadeCasing extends ItemComponentBase
 {
 
     public ComponentPulseRifleGrenadeCasing(int itemID)

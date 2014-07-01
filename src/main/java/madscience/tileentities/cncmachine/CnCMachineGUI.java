@@ -8,7 +8,7 @@ import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.gui.GUIButtonInvisible;
-import madscience.util.GUIContainerBase;
+import madscience.gui.GUIContainerBase;
 import madscience.util.MadUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

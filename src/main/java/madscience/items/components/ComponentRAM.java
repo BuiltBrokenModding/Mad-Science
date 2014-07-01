@@ -1,9 +1,8 @@
 package madscience.items.components;
 
-import madscience.items.ItemComponent;
 import net.minecraft.item.Item;
 
-public class ComponentRAM extends ItemComponent
+public class ComponentRAM extends ItemComponentBase
 {
 
     public ComponentRAM(int itemID)

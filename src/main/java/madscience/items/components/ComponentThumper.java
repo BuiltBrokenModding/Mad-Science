@@ -1,8 +1,7 @@
 package madscience.items.components;
 
-import madscience.items.ItemComponent;
 
-public class ComponentThumper extends ItemComponent
+public class ComponentThumper extends ItemComponentBase
 {
     public ComponentThumper(int itemID)
     {

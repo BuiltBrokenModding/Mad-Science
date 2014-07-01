@@ -1,13 +1,14 @@
-package madscience.tileentities.dnaextractor;
+package madscience.tileentities.dnaextractor.config;
 
+import madscience.factory.interfaces.controls.MadGUIControlInterface;
+import madscience.factory.interfaces.controls.MadGUIControlTypeEnum;
 import net.minecraftforge.common.ForgeDirection;
 
-enum DNAExtractorEnumGUI
+enum DNAExtractorEnumGUIControls implements MadGUIControlInterface
 {    
-    MutantDNATank(131, 19, 176, 31, 16, 58),
-    Power(10, 49, 176, 0, 14, 14),
-    Work(32, 31, 176, 14, 31, 17),
-    Help(9, 32, 166, 4, 6, 5);
+    MutantDNATank(MadGUIControlTypeEnum.TankGauge, 131, 19, 176, 31, 16, 58),
+    Power(MadGUIControlTypeEnum.PowerLevelX, 10, 49, 176, 0, 14, 14),
+    Work(MadGUIControlTypeEnum.CookingProgressY, 32, 31, 176, 14, 31, 17);
     
     /* Screen coordinates for where data where render. */
     private final int screenX;
@@ -26,9 +27,17 @@ enum DNAExtractorEnumGUI
     
     /* Total size of area that needs to be rendered. */
     private final int sizeY;
+    
+    /* Type of control based on enumeration. */
+    private final MadGUIControlTypeEnum controlType;
 
-    private DNAExtractorEnumGUI(int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY)
+    private DNAExtractorEnumGUIControls(MadGUIControlTypeEnum controlType,
+            int screenX, int screenY,
+            int fillX, int fillY,
+            int sizeX, int sizeY)
     {
+        this.controlType = controlType;
+        
         this.screenX = screenX;
         this.screenY = screenY;
         
@@ -39,33 +48,45 @@ enum DNAExtractorEnumGUI
         this.sizeY = sizeY;
     }
     
+    @Override
     public int screenY()
     {
         return this.screenY;
     }
     
+    @Override
     public int screenX()
     {
         return this.screenX;
     }
     
+    @Override
     public int fillerY()
     {
         return this.fillerY;
     }
     
+    @Override
     public int fillerX()
     {
         return this.fillerX;
     }
     
+    @Override
     public int sizeY()
     {
         return this.sizeY;
     }
     
+    @Override
     public int sizeX()
     {
         return this.sizeX;
+    }
+
+    @Override
+    public MadGUIControlTypeEnum getControlType()
+    {
+        return this.controlType;
     }
 }

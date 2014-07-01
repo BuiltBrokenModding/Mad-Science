@@ -1,9 +1,8 @@
 package madscience.items.components;
 
-import madscience.items.ItemComponent;
 import net.minecraft.item.Item;
 
-public class ComponentPowerSupply extends ItemComponent
+public class ComponentPowerSupply extends ItemComponentBase
 {
 
     public ComponentPowerSupply(int itemID)

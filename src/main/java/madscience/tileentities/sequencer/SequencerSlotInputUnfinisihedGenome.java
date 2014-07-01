@@ -1,7 +1,7 @@
 package madscience.tileentities.sequencer;
 
-import madscience.items.ItemDataReelEmpty;
-import madscience.items.ItemGenome;
+import madscience.items.datareel.ItemDataReelEmpty;
+import madscience.items.genomes.ItemGenomeBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ class SequencerSlotInputUnfinisihedGenome extends Slot
         }
 
         // Check if we are a genome data reel that is unfinished (AKA damaged).
-        if (stack != null && stack.getItem() instanceof ItemGenome && stack.isItemDamaged())
+        if (stack != null && stack.getItem() instanceof ItemGenomeBase && stack.isItemDamaged())
         {
             return true;
         }

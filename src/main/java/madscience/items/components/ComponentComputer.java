@@ -1,9 +1,8 @@
 package madscience.items.components;
 
-import madscience.items.ItemComponent;
 import net.minecraft.item.Item;
 
-public class ComponentComputer extends ItemComponent
+public class ComponentComputer extends ItemComponentBase
 {
 
     public ComponentComputer(int itemID)

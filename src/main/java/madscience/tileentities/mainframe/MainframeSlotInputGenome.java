@@ -1,8 +1,8 @@
 package madscience.tileentities.mainframe;
 
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.ItemDataReelEmpty;
-import madscience.items.ItemGenome;
+import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
+import madscience.items.datareel.ItemDataReelEmpty;
+import madscience.items.genomes.ItemGenomeBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ class MainframeSlotInputGenome extends Slot
         }
 
         // Check if we are a genome data reel.
-        if (stack != null && stack.getItem() instanceof ItemGenome)
+        if (stack != null && stack.getItem() instanceof ItemGenomeBase)
         {
             return true;
         }

@@ -1,7 +1,7 @@
 package madscience.tileentities.incubator;
 
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.ItemGenome;
+import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
+import madscience.items.genomes.ItemGenomeBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ class IncubatorSlotInputGenome extends Slot
     public boolean isItemValid(ItemStack stack)
     {
         // Check if we are a genome data reel.
-        if (stack != null && stack.getItem() instanceof ItemGenome)
+        if (stack != null && stack.getItem() instanceof ItemGenomeBase)
         {
             return true;
         }

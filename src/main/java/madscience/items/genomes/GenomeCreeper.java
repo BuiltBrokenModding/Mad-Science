@@ -1,9 +1,8 @@
 package madscience.items.genomes;
 
 import madscience.MadEntities;
-import madscience.items.ItemGenome;
 
-public class GenomeCreeper extends ItemGenome
+public class GenomeCreeper extends ItemGenomeBase
 {
 
     public GenomeCreeper(int id, int primaryColor, int secondaryColor)

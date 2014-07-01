@@ -1,9 +1,9 @@
 package madscience.items.components.pulserifle;
 
-import madscience.items.ItemComponent;
+import madscience.items.components.ItemComponentBase;
 import net.minecraft.item.Item;
 
-public class ComponentPulseRifleTrigger extends ItemComponent
+public class ComponentPulseRifleTrigger extends ItemComponentBase
 {
 
     public ComponentPulseRifleTrigger(int itemID)

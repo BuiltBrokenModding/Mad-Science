@@ -55,7 +55,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
 
     public ThermosonicBonderEntity()
     {
-        super(MadConfig.THERMOSONIC_CAPACTITY, MadConfig.THERMOSONIC_INPUT);
+        super(MadConfig.THERMOSONIC_CAPACTITY, MadConfig.THERMOSONIC_INPUT, 0);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */

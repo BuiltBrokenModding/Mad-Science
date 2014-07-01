@@ -1,7 +1,7 @@
 package madscience.tileentities.thermosonicbonder;
 
 import madscience.MadComponents;
-import madscience.items.ItemComponent;
+import madscience.items.components.ItemComponentBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

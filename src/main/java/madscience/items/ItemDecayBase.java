@@ -16,9 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class ItemDecay extends Item
+public class ItemDecayBase extends Item
 {
-    ItemDecay(int id)
+    protected ItemDecayBase(int id)
     {
         super(id);
 

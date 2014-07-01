@@ -1,9 +1,9 @@
 package madscience.tileentities.dataduplicator;
 
 import madscience.MadEntities;
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.ItemGenome;
-import madscience.metaitems.CombinedMemoryMonsterPlacer;
+import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
+import madscience.items.genomes.ItemGenomeBase;
+import madscience.items.memories.CombinedMemoryMonsterPlacer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -26,13 +26,13 @@ class DataDuplicatorSlotInputFullDataReel extends Slot
         }
 
         // Check if we are a genome data reel that is unfinished (AKA damaged).
-        if (stack != null && stack.getItem() instanceof ItemGenome && stack.isItemDamaged())
+        if (stack != null && stack.getItem() instanceof ItemGenomeBase && stack.isItemDamaged())
         {
             return false;
         }
 
         // Completed genomes are allowed to be duplicated.
-        if (stack != null && stack.getItem() instanceof ItemGenome && !stack.isItemDamaged())
+        if (stack != null && stack.getItem() instanceof ItemGenomeBase && !stack.isItemDamaged())
         {
             return true;
         }

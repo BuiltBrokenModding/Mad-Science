@@ -1,4 +1,4 @@
-package madscience.util;
+package madscience.gui;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import madscience.util.MadUtils;
+import madscience.util.Region2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;

@@ -1,9 +1,8 @@
-package madscience.items;
+package madscience.items.spawnegg;
 
 import java.util.Collection;
 import java.util.List;
 
-import madscience.GMORegistry;
 import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.util.MadColors;
@@ -58,13 +57,13 @@ public class GeneticallyModifiedMonsterPlacer extends Item
 
     private static Entity spawnCreature(World world, ItemStack stack, double x, double y, double z)
     {
-        MadSpawnEggInfo info = GMORegistry.getEggInfo((short) stack.getItemDamage());
+        MadSpawnEggInfo info = MadGMORegistry.getEggInfo((short) stack.getItemDamage());
 
         if (info == null)
             return null;
 
         String mobID = info.mobID;
-        NBTTagCompound spawnData = info.spawnData;
+        NBTTagCompound spawnData = info.getSpawnData();
 
         if (stack.hasTagCompound())
         {
@@ -132,12 +131,12 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     @Override
     public int getColorFromItemStack(ItemStack stack, int par2)
     {
-        MadSpawnEggInfo info = GMORegistry.getEggInfo((short) stack.getItemDamage());
+        MadSpawnEggInfo info = MadGMORegistry.getEggInfo((short) stack.getItemDamage());
 
         if (info == null)
             return 16777215;
 
-        int color = (par2 == 0) ? info.primaryColor : info.secondaryColor;
+        int color = (par2 == 0) ? info.getPrimaryColor() : info.getSecondaryColor();
 
         if (stack.hasTagCompound())
         {
@@ -160,7 +159,7 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     @Override
     public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list)
     {
-        for (MadSpawnEggInfo info : GMORegistry.getEggInfoList())
+        for (MadSpawnEggInfo info : MadGMORegistry.getEggInfoList())
             list.add(new ItemStack(par1, 1, info.eggID));
     }
 
@@ -168,7 +167,7 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     public String getUnlocalizedName(ItemStack stack)
     {
         String name = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
-        MadSpawnEggInfo info = GMORegistry.getEggInfo((short) stack.getItemDamage());
+        MadSpawnEggInfo info = MadGMORegistry.getEggInfo((short) stack.getItemDamage());
 
         if (info == null)
             return name;
