@@ -41,7 +41,7 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
 
     public CryofreezerEntity()
     {
-        super(MadConfig.CRYOFREEZER_CAPACTITY, MadConfig.CRYOFREEZER_INPUT, 0);
+        super(MadFurnaces.CRYOFREEZER_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -60,7 +60,8 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if we have valid fuel and items to keep cold.
         if (this.cryofreezerInput == null || this.cryoFreezerStorage == null)
@@ -186,21 +187,9 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.CRYOFREEZER_INTERNALNAME;
-    }
-
-    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            currentItemCookingMaximum = 200;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
     public int getSizeInputInventory()
@@ -362,7 +351,8 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Converts input item into result item along with waste items.
         if (this.canSmelt())
@@ -404,7 +394,8 @@ public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
     /**
      * 
      */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         // Active state has many textures based on item cook progress.
         if (this.canSmelt() && isPowered())

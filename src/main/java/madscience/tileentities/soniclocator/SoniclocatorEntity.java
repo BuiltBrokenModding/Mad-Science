@@ -3,21 +3,15 @@ package madscience.tileentities.soniclocator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Random;
-
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.network.MadParticlePacket;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -27,7 +21,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
@@ -75,7 +68,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
     public SoniclocatorEntity()
     {
-        super(MadConfig.SONICLOCATOR_CAPACTITY, MadConfig.SONICLOCATOR_INPUT, 0);
+        super(MadFurnaces.SONICLOCATOR_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -104,7 +97,8 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if power levels are at proper values before cooking.
         if (!this.isPowered())
@@ -308,7 +302,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.SONICLOCATOR_INTERNALNAME;
     }
@@ -694,7 +688,8 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Find out if there are any other Soniclocators nearby, and if so kill us all!
         locateNearbySoniclocators(2600);
@@ -751,7 +746,7 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
             Iterator<SoniclocatorLocationItem> listIterator = SoniclocatorLocationRegistry.otherSoniclocators.iterator();
             while (listIterator.hasNext())
             {
-                SoniclocatorLocationItem locationItem = (SoniclocatorLocationItem) listIterator.next();
+                SoniclocatorLocationItem locationItem = listIterator.next();
                 if (locationItem == null)
                 {
                     return;
@@ -773,8 +768,8 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_EXPLODE, 1.0F, 1.0F);
                     this.worldObj.destroyBlock(locationItem.posX, locationItem.posY, locationItem.posZ, false);
                     this.worldObj.destroyBlock(this.xCoord, this.yCoord, this.zCoord, false);
-                    this.worldObj.createExplosion((Entity) null, locationItem.posX, locationItem.posY, locationItem.posZ, (float) 6, true);
-                    this.worldObj.createExplosion((Entity) null, this.xCoord, this.yCoord, this.zCoord, (float) 6, true);
+                    this.worldObj.createExplosion((Entity) null, locationItem.posX, locationItem.posY, locationItem.posZ, 6, true);
+                    this.worldObj.createExplosion((Entity) null, this.xCoord, this.yCoord, this.zCoord, 6, true);
                 }
             }
         }
@@ -786,7 +781,8 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Update current frame of animation we should be displaying. */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         // Cooldown mode that is fired after a thump.
         if (canSmelt() && isPowered() && isRedstonePowered() && cooldownMode)
@@ -972,7 +968,8 @@ public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    private void updateSound()
+    @Override
+    public void updateSound()
     {
         // Check if we should be playing the idle sound.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2.3f) == 0L)

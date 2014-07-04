@@ -1,7 +1,5 @@
 package madscience.tileentities.sanitizer;
 
-import java.util.Random;
-
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadNeedles;
@@ -62,7 +60,7 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
 
     public SanitizerEntity()
     {
-        super(MadConfig.SANTITIZER_CAPACTITY, MadConfig.SANTITIZER_INPUT, 0);
+        super(MadFurnaces.SANTITIZER_INTERNALNAME);
     }
 
     private boolean addBucketToInternalTank()
@@ -174,7 +172,8 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if we have water bucket and dirty needles in input slots and
         // that our internal tank has fluid.
@@ -346,22 +345,9 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.SANTITIZER_INTERNALNAME;
-    }
-
-    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            // MadScience.logger.info("CLIENT: getItemCookTimeScaled() was called with currentItemCookingMaximum being zero!");
-            currentItemCookingMaximum = 200;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
     public int getSizeInputInventory()
@@ -605,7 +591,8 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Converts input item into result item along with waste items.
         if (this.canSmelt())
@@ -633,7 +620,8 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
     }
 
     /** Update current animation that we should be playing on this tile entity. */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         // Active state has many textures based on item cook progress.
         if (canSmelt() && isPowered())
@@ -737,7 +725,8 @@ public class SanitizerEntity extends MadTileEntity implements ISidedInventory, I
         }
     }
 
-    private void updateSound()
+    @Override
+    public void updateSound()
     {
         // Check if we should be playing working sounds.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3.0F) == 0L)

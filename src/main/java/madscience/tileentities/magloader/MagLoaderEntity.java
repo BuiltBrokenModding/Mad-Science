@@ -60,7 +60,7 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
     public MagLoaderEntity()
     {
-        super(MadConfig.MAGLOADER_CAPACTITY, MadConfig.MAGLOADER_INPUT, 0);
+        super(MadFurnaces.MAGLOADER_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -78,7 +78,8 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         return this.isItemValidForSlot(slot, items);
     }
 
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if there are no bullets or magazines in the device then it cannot operate.
         if (this.magloaderInput == null || this.bulletStorage == null)
@@ -191,21 +192,9 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.MAGLOADER_INTERNALNAME;
-    }
-
-    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            currentItemCookingMaximum = 200;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
     public int getNumberOfBulletsInStorageInventory()
@@ -475,7 +464,8 @@ public class MagLoaderEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Converts input item into result item along with waste items.
         if (this.canSmelt())

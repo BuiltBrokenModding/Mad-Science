@@ -1,91 +1,267 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.templates;
 
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
-import madscience.MadConfig;
-import madscience.MadFluids;
-import madscience.MadFurnaces;
-import madscience.MadScience;
-import madscience.factory.interfaces.buttons.MadGUIButtonClickActionEnum;
-import madscience.factory.interfaces.buttons.MadGUIButtonInterface;
-import madscience.factory.interfaces.buttons.MadGUIButtonTypeEnum;
-import madscience.factory.interfaces.controls.MadGUIControlInterface;
-import madscience.factory.interfaces.controls.MadGUIControlTypeEnum;
-import madscience.factory.interfaces.slotcontainers.MadSlotContainerInterface;
-import madscience.factory.tileentity.MadTileEntityFactory;
-import madscience.factory.tileentity.MadTileEntityTemplate;
-import madscience.gui.GUIButtonInvisible;
-import madscience.gui.GUIContainerBase;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import universalelectricity.api.vector.Vector2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiConfirmOpenLink;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
+import madscience.MadFluids;
+import madscience.MadFurnaces;
+import madscience.MadScience;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.buttons.MadGUIButtonClickActionEnum;
+import madscience.factory.buttons.MadGUIButtonInterface;
+import madscience.factory.buttons.MadGUIButtonInvisibleControl;
+import madscience.factory.buttons.MadGUIButtonTypeEnum;
+import madscience.factory.controls.MadGUIControlInterface;
+import madscience.factory.controls.MadGUIControlTypeEnum;
+import madscience.factory.slotcontainers.MadSlotContainerInterface;
+import madscience.tileentities.prefab.MadTileEntity;
+import madscience.util.MadUtils;
+import madscience.util.Region2;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
-public class DNAExtractorGUI extends GUIContainerBase
+public class MadGUITemplate extends GuiContainer
 {
-    /* Tile entity that is sitting in the game world */
-    private DNAExtractorEntity ENTITY;
+    protected MadTileEntity ENTITY;
+    protected MadGUIControlInterface[] GUICONTROLS;
+    protected MadSlotContainerInterface[] CONTAINERS;
+    protected MadGUIButtonInterface[] BUTTONS;
     
-    /* Every GUI control like power, cook time, tank gauges, etc. */
-    private MadGUIControlInterface[] GUICONTROLS;
-    
-    /* Every Container such as input and output slots. */
-    private MadSlotContainerInterface[] CONTAINERS;
-    
-    /* Every button we want to display and hook on this GUI */
-    private MadGUIButtonInterface[] BUTTONS;
+    public ResourceLocation TEXTURE;
 
-    public DNAExtractorGUI(InventoryPlayer entityPlayer, DNAExtractorEntity worldEntity)
+    public String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76";
+
+    private String tooltip = "";
+    private HashMap<Region2, String> tooltips = new HashMap<Region2, String>();
+
+    protected int screenX = (this.width - this.xSize) / 2;
+    protected int screenY = (this.height - this.ySize) / 2;
+    private float lastChangeFrameTime;
+
+    private final int PROMPT_REPLY_ACTION = 0;
+    private URI displayedURI = null;
+
+    public MadGUITemplate(Container container)
     {
-        super(new DNAExtractorContainer(entityPlayer, worldEntity));
+        super(container);
+    }
+    
+    public MadGUITemplate(InventoryPlayer entityPlayer, MadTileEntity worldEntity)
+    {
+        super(new MadContainerTemplate(entityPlayer, worldEntity));
         this.ENTITY = worldEntity;
         
         // Query machine registry for GUI control information.
-        MadTileEntityTemplate MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getInvName());
+        MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
         
         // Grab our array of GUI controls from the template object.
-        this.GUICONTROLS = MACHINE.getGUIControls();
+        this.GUICONTROLS = MACHINE.getGuiControlsTemplate();
         
         // Grab our array of container slots so we can provide them with tooltip from client renderer.
-        this.CONTAINERS = MACHINE.getSlotContainers();
+        this.CONTAINERS = MACHINE.getContainerTemplate();
         
         // Grab our array of buttons that we want to initialize and associate with this GUI.
-        this.BUTTONS = MACHINE.getGUIButtons();
+        this.BUTTONS = MACHINE.getGuiButtonTemplate();
         
         // Grab the texture for the GUI control based off our name.
         this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".png");
+    }
+
+    @Override
+    public void confirmClicked(boolean result, int action)
+    {
+        // Returns MC internal click codes for the URL response.
+        if (action == PROMPT_REPLY_ACTION && result)
+        {
+            openURI(this.displayedURI);
+            this.displayedURI = null;
+        }
+
+        this.mc.displayGuiScreen(this);
+    }
+
+    private void openURI(URI uri)
+    {
+        try
+        {
+            // Opens default browser on system with URL.
+            Desktop.getDesktop().browse(uri);
+        }
+        catch (IOException e)
+        {
+            // Nothing to see here.
+        }
+    }
+
+    public void passClick(URI webLocation)
+    {
+        // Rude not to ask if user has chat link prompts disabled.
+        if (Minecraft.getMinecraft().gameSettings.chatLinksPrompt)
+        {
+            this.displayedURI = webLocation;
+            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, this.displayedURI.toString(), PROMPT_REPLY_ACTION, false));
+        }
+        else
+        {
+            // Open the URL normally without asking anything.
+            openURI(webLocation);
+        }
+    }
+
+    @Override
+    public boolean doesGuiPauseGame()
+    {
+        return false;
+    }
+
+    @Override
+    public void onGuiClosed()
+    {
+        Keyboard.enableRepeatEvents(false);
+        super.onGuiClosed();
+    }
+
+    private void drawItemStack(ItemStack itemStack, int x, int y)
+    {
+        x += 1;
+        y += 1;
+        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+
+        // drawTexturedModelRectFromIcon
+        // GL11.glEnable(GL11.GL_BLEND);
+        // GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, itemStack, x, y);
+        // GL11.glDisable(GL11.GL_BLEND);
+    }
+
+    private void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY)
+    {
+        this.drawTextWithTooltip(textName, format, x, y, mouseX, mouseY, 4210752);
+    }
+
+    private void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY, int color)
+    {
+        String name = I18n.getString("gui." + textName + ".name");
+        String text = format.replaceAll("%1", name);
+        this.fontRenderer.drawString(text, x, y, color);
+
+        String tooltip = I18n.getString("gui." + textName + ".tooltip");
+
+        if (tooltip != null && tooltip != "")
+        {
+            if (this.isPointInRegion(x, y, (int) (text.length() * 4.8), 12, mouseX, mouseY))
+            {
+                this.tooltip = tooltip;
+            }
+        }
+    }
+
+    public void drawTooltip(int x, int y, String... toolTips)
+    {
+        if (!GuiScreen.isShiftKeyDown())
+        {
+            if (toolTips != null)
+            {
+                GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+                GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+                int var5 = 0;
+                int var6;
+                int var7;
+
+                for (var6 = 0; var6 < toolTips.length; ++var6)
+                {
+                    var7 = this.fontRenderer.getStringWidth(toolTips[var6]);
+
+                    if (var7 > var5)
+                    {
+                        var5 = var7;
+                    }
+                }
+
+                var6 = x + 12;
+                var7 = y - 12;
+
+                int var9 = 8;
+
+                if (toolTips.length > 1)
+                {
+                    var9 += 2 + (toolTips.length - 1) * 10;
+                }
+
+                if (this.guiTop + var7 + var9 + 6 > this.height)
+                {
+                    var7 = this.height - var9 - this.guiTop - 6;
+                }
+
+                this.zLevel = 300;
+                int var10 = -267386864;
+                this.drawGradientRect(var6 - 3, var7 - 4, var6 + var5 + 3, var7 - 3, var10, var10);
+                this.drawGradientRect(var6 - 3, var7 + var9 + 3, var6 + var5 + 3, var7 + var9 + 4, var10, var10);
+                this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 + var9 + 3, var10, var10);
+                this.drawGradientRect(var6 - 4, var7 - 3, var6 - 3, var7 + var9 + 3, var10, var10);
+                this.drawGradientRect(var6 + var5 + 3, var7 - 3, var6 + var5 + 4, var7 + var9 + 3, var10, var10);
+                int var11 = 1347420415;
+                int var12 = (var11 & 16711422) >> 1 | var11 & -16777216;
+                this.drawGradientRect(var6 - 3, var7 - 3 + 1, var6 - 3 + 1, var7 + var9 + 3 - 1, var11, var12);
+                this.drawGradientRect(var6 + var5 + 2, var7 - 3 + 1, var6 + var5 + 3, var7 + var9 + 3 - 1, var11, var12);
+                this.drawGradientRect(var6 - 3, var7 - 3, var6 + var5 + 3, var7 - 3 + 1, var11, var11);
+                this.drawGradientRect(var6 - 3, var7 + var9 + 2, var6 + var5 + 3, var7 + var9 + 3, var12, var12);
+
+                for (int var13 = 0; var13 < toolTips.length; ++var13)
+                {
+                    String var14 = toolTips[var13];
+
+                    this.fontRenderer.drawStringWithShadow(var14, var6, var7, -1);
+                    var7 += 10;
+                }
+
+                this.zLevel = 0;
+
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
+                GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+            }
+        }
     }
 
     private void displayGauge(int screenX, int screenY, MadGUIControlInterface control, int percentLeft)
     {
         // Variable to keep track of block texture segments.
         int start = 0;
-
+    
         // Grab the icon of the liquid by looking at fluid properties in internal tank.
         Icon liquidIcon = MadFluids.LIQUIDDNA_MUTANT.getStillIcon();
-
+    
         // Bind the texture we grabbed so we can use it in rendering.
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-
+    
         // We can only display the water icon if it is not null.
         if (liquidIcon == null)
         {
             return;
         }
-
+    
         while (true)
         {
             int x;
@@ -99,19 +275,19 @@ public class DNAExtractorGUI extends GUIContainerBase
                 x = percentLeft;
                 percentLeft = 0;
             }
-
+    
             // Draw mutant DNA tank with proper offset.
-            drawTexturedModelRectFromIcon(screenX + control.sizeY(), screenY + control.screenX() + control.sizeY() - x - start,
+            drawTexturedModelRectFromIcon(screenX + control.screenX(), screenY + control.screenY() + control.sizeY() - x - start,
                     liquidIcon, control.sizeX(), control.sizeX() - (control.sizeX() - x));
             
             start = start + control.sizeX();
-
+    
             if (x == 0 || percentLeft == 0)
             {
                 break;
             }
         }
-
+    
         // Re-draws gauge lines ontop of scaled fluid amount to make it look like the fluid is behind the gauge lines.
         mc.renderEngine.bindTexture(TEXTURE);
         drawTexturedModalRect(screenX + control.screenX(), screenY + control.screenY(),
@@ -123,7 +299,16 @@ public class DNAExtractorGUI extends GUIContainerBase
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        super.drawGuiContainerBackgroundLayer(par1, par2, par3);
+        // Define the area of the screen.
+        this.screenX = (this.width - this.xSize) / 2;
+        this.screenY = (this.height - this.ySize) / 2;
+
+        // Bind the texture that will makeup our GUI overlay.
+        this.mc.renderEngine.bindTexture(this.TEXTURE);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // Draw the base texture we will draw controls and other elements.
+        this.drawTexturedModalRect(this.screenX, this.screenY, 0, 0, this.xSize, this.ySize);
         
         // Loop through the controls and use the data inside them to prepare the server client GUI rendering.
         for(int i = 0; i < this.GUICONTROLS.length; i++)
@@ -162,7 +347,7 @@ public class DNAExtractorGUI extends GUIContainerBase
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
             {
                 displayGauge(screenX, screenY, guiControl,
-                        this.ENTITY.getWaterRemainingScaled(guiControl.sizeY()));
+                        this.ENTITY.getFluidRemainingScaled(guiControl.sizeY()));
             }
         }
     }
@@ -176,7 +361,7 @@ public class DNAExtractorGUI extends GUIContainerBase
         // Name displayed above the GUI, typically name of the furnace.
         String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-
+    
         // Text that labels player inventory area as "Inventory".
         String x = I18n.getString("container.inventory");
         this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
@@ -214,7 +399,7 @@ public class DNAExtractorGUI extends GUIContainerBase
                         guiControl.sizeY(),
                         mouseX, mouseY))
                 {
-                    String powerLevelLiteral = String.valueOf(this.ENTITY.currentItemCookingValue) + "/" + String.valueOf(this.ENTITY.currentItemCookingMaximum);
+                    String powerLevelLiteral = String.valueOf(this.ENTITY.getProgressValue()) + "/" + String.valueOf(this.ENTITY.getProgressMaximum());
                     this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
                             powerLevelLiteral);
                 }
@@ -226,10 +411,12 @@ public class DNAExtractorGUI extends GUIContainerBase
                 if (this.isPointInRegion(guiControl.screenX(),
                         guiControl.screenY(),
                         guiControl.sizeX(),
-                        guiControl.sizeY(), mouseX, mouseY) && this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
+                        guiControl.sizeY(), mouseX, mouseY) && this.ENTITY.getFluidStack() != null)
                 {
-                    if (this.ENTITY.internalLiquidDNAMutantTank.getFluid() != null)
-                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.internalLiquidDNAMutantTank.getFluid().getFluid().getLocalizedName(), this.ENTITY.internalLiquidDNAMutantTank.getFluid().amount + " L");
+                    if (this.ENTITY.getFluidStack() != null)
+                    {
+                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.getFluidLocalizedName(), this.ENTITY.getFluidAmount() + " L");
+                    }
                 }
             }
         }
@@ -301,7 +488,7 @@ public class DNAExtractorGUI extends GUIContainerBase
     public void initGui()
     {
         super.initGui();
-
+    
         // --------------
         // CREATE BUTTONS
         // --------------
@@ -320,7 +507,7 @@ public class DNAExtractorGUI extends GUIContainerBase
             // Invisible button
             if (guiButton.getButtonType().equals(MadGUIButtonTypeEnum.InvisibleButton))
             {
-                buttonList.add(new GUIButtonInvisible(guiButton.buttonID(), posX + 81, posY - 76,
+                buttonList.add(new MadGUIButtonInvisibleControl(guiButton.buttonID(), posX + 81, posY - 76,
                         guiButton.sizeX(), guiButton.sizeY()));
             }
         }
@@ -392,4 +579,5 @@ public class DNAExtractorGUI extends GUIContainerBase
             }            
         }
     }
+
 }

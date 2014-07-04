@@ -7,8 +7,8 @@ import java.net.URI;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.gui.GUIButtonInvisible;
-import madscience.gui.GUIContainerBase;
+import madscience.factory.buttons.MadGUIButtonInvisibleControl;
+import madscience.factory.templates.MadGUITemplate;
 import madscience.util.MadUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -23,7 +23,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class CnCMachineGUI extends GUIContainerBase
+public class CnCMachineGUI extends MadGUITemplate
 {
     private CnCMachineEntity ENTITY;
 
@@ -265,6 +265,6 @@ public class CnCMachineGUI extends GUIContainerBase
 
         // make buttons
         buttonList.clear();
-        buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76, 6, 5));
+        buttonList.add(new MadGUIButtonInvisibleControl(1, posX + 81, posY - 76, 6, 5));
     }
 }

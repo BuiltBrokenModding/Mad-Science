@@ -6,8 +6,8 @@ import java.net.URI;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.gui.GUIButtonInvisible;
-import madscience.gui.GUIContainerBase;
+import madscience.factory.buttons.MadGUIButtonInvisibleControl;
+import madscience.factory.templates.MadGUITemplate;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -18,7 +18,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class MagLoaderGUI extends GUIContainerBase
+public class MagLoaderGUI extends MadGUITemplate
 {
     private MagLoaderEntity ENTITY;
 
@@ -154,6 +154,6 @@ public class MagLoaderGUI extends GUIContainerBase
 
         // make buttons
         buttonList.clear();
-        buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76, 6, 5));
+        buttonList.add(new MadGUIButtonInvisibleControl(1, posX + 81, posY - 76, 6, 5));
     }
 }

@@ -6,6 +6,8 @@ import java.util.Random;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.factory.tileentity.MadTileEntityInterface;
+import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -34,7 +36,7 @@ public class DNAExtractorBlock extends BlockContainer
     // random directions.
     private final Random RAND = new Random();
 
-    private DNAExtractorEntity ENTITY;
+    private MadTileEntity ENTITY;
 
     // This flag is used to prevent the furnace inventory to be dropped upon
     // block removal, is used internally when the furnace block changes from
@@ -124,7 +126,7 @@ public class DNAExtractorBlock extends BlockContainer
     public TileEntity createNewTileEntity(World world)
     {
         // Make sure you set this as your TileEntity class!
-        return new DNAExtractorEntity();
+        return new DNAExtractorEntity(MadFurnaces.DNAEXTRACTOR_INTERNALNAME);
     }
 
     @Override
@@ -137,7 +139,7 @@ public class DNAExtractorBlock extends BlockContainer
     public TileEntity getBlockEntity()
     {
         // Returns the TileEntity used by this block.
-        return new DNAExtractorEntity();
+        return new DNAExtractorEntity(MadFurnaces.DNAEXTRACTOR_INTERNALNAME);
     }
 
     /** If hasComparatorInputOverride returns true, the return value from this is used instead of the redstone signal strength when this block inputs to a comparator. */
@@ -220,7 +222,7 @@ public class DNAExtractorBlock extends BlockContainer
         else if (!par5EntityPlayer.isSneaking())
         {
             // Open GUI on the client...
-            DNAExtractorEntity tileentityfurnace = (DNAExtractorEntity) par1World.getBlockTileEntity(par2, par3, par4);
+            MadTileEntityInterface tileentityfurnace = (MadTileEntityInterface) par1World.getBlockTileEntity(par2, par3, par4);
 
             if (tileentityfurnace != null)
             {
@@ -245,7 +247,7 @@ public class DNAExtractorBlock extends BlockContainer
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, living, stack);
-        ENTITY = (DNAExtractorEntity) world.getBlockTileEntity(x, y, z);
+        ENTITY = (MadTileEntity) world.getBlockTileEntity(x, y, z);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
     }

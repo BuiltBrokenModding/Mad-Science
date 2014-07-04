@@ -71,7 +71,7 @@ public class SoniclocatorBlock extends BlockContainer
         super.randomDisplayTick(par1World, par2, par3, par4, par5Random);
         if (par5Random.nextInt(10) == 0)
         {
-            par1World.spawnParticle("townaura", (float)par2 + par5Random.nextInt(5), (float)par3 + 2.0F, (float)par4 + par5Random.nextInt(5), 0.0D, 0.0D, 0.0D);
+            par1World.spawnParticle("townaura", (float)par2 + par5Random.nextInt(5), par3 + 2.0F, (float)par4 + par5Random.nextInt(5), 0.0D, 0.0D, 0.0D);
         }
     }
 

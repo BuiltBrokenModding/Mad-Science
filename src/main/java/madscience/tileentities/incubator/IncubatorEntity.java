@@ -1,7 +1,5 @@
 package madscience.tileentities.incubator;
 
-import java.util.Random;
-
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -14,8 +12,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class IncubatorEntity extends MadTileEntity implements ISidedInventory
 {
@@ -54,7 +50,7 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
 
     public IncubatorEntity()
     {
-        super(MadConfig.INCUBATOR_CAPACTITY, MadConfig.INCUBATOR_INPUT, 0);
+        super(MadFurnaces.INCUBATOR_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -85,7 +81,8 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if power levels are at proper values before cooking.
         if (!this.isPowered())
@@ -267,24 +264,9 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.INCUBATOR_INTERNALNAME;
-    }
-
-    @SideOnly(Side.CLIENT)
-    /**
-     * Returns an integer between 0 and the passed value representing how close the current item is to being completely
-     * cooked
-     */ int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            currentItemCookingMaximum = 2600;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
     public float getMaxHeatAmount()
@@ -518,7 +500,8 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Output 1 - Encoded mob egg from genome and fresh egg.
         ItemStack craftedItem = IncubatorRecipes.getSmeltingResult(this.incubatorInput[1]);
@@ -551,7 +534,8 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
     /**
      * 
      */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         // Main state is when all four requirements have been met to cook items.
         if (canSmelt() && isPowered() && isHeatedEnough() && isRedstonePowered())
@@ -676,7 +660,8 @@ public class IncubatorEntity extends MadTileEntity implements ISidedInventory
         }
     }
 
-    private void updateSound()
+    @Override
+    public void updateSound()
     {
         // Check to see if we should play idle sounds.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)

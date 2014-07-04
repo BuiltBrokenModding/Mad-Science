@@ -6,22 +6,19 @@ import java.net.URI;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.gui.GUIButtonInvisible;
-import madscience.gui.GUIContainerBase;
+import madscience.factory.buttons.MadGUIButtonInvisibleControl;
+import madscience.factory.templates.MadGUITemplate;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeDirection;
-
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ThermosonicBonderGUI extends GUIContainerBase
+public class ThermosonicBonderGUI extends MadGUITemplate
 {
     private ThermosonicBonderEntity ENTITY;
 
@@ -121,7 +118,7 @@ public class ThermosonicBonderGUI extends GUIContainerBase
         // Help link
         if (this.isPointInRegion(166, 4, 6, 5, mouseX, mouseY))
         {
-            if (this.isCtrlKeyDown())
+            if (GuiScreen.isCtrlKeyDown())
             {
                 // The Net Reference - Easter Egg 1
                 this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Sandra Bullock Mode");
@@ -143,7 +140,7 @@ public class ThermosonicBonderGUI extends GUIContainerBase
         
         // make buttons
         buttonList.clear();
-        buttonList.add(new GUIButtonInvisible(1, posX + 81, posY - 76, 6, 5));
+        buttonList.add(new MadGUIButtonInvisibleControl(1, posX + 81, posY - 76, 6, 5));
     }
 
     @Override
@@ -153,7 +150,7 @@ public class ThermosonicBonderGUI extends GUIContainerBase
         
         if (button.id == 1 && Desktop.isDesktopSupported())
         {
-            if (this.isCtrlKeyDown() && this.isShiftKeyDown())
+            if (GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown())
             {
                 try
                 {

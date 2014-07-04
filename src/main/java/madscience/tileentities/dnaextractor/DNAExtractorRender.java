@@ -2,12 +2,12 @@ package madscience.tileentities.dnaextractor;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.factory.tileentity.MadTileEntityInterface;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -155,7 +155,7 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         }
     }
     
-    private void renderAModelAt(DNAExtractorEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(MadTileEntityInterface tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
         ENTITY = (DNAExtractorEntity) tileEntity;
@@ -208,9 +208,9 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         }
 
         // Apply our custom texture from asset directory.
-        if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
+        if (ENTITY != null && ENTITY.getEntityTexture() != null && !ENTITY.getEntityTexture().isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.getEntityTexture()));
         }
         else
         {
@@ -229,7 +229,7 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
     {
-        this.renderAModelAt((DNAExtractorEntity) tileEntity, x, y, z, scale);
+        this.renderAModelAt((MadTileEntityInterface) tileEntity, x, y, z, scale);
     }
 
     @Override

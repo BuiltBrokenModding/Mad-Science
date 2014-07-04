@@ -1,29 +1,34 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.templates;
 
-import madscience.factory.interfaces.slotcontainers.MadSlotContainerInterface;
-import madscience.factory.tileentity.MadTileEntityFactory;
-import madscience.factory.tileentity.MadTileEntityTemplate;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.slotcontainers.MadSlotContainerInterface;
+import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 
-public class DNAExtractorContainer extends Container
+public class MadContainerTemplate extends Container
 {
-    private DNAExtractorEntity ENTITY;
+    protected MadTileEntity ENTITY;
 
-    public DNAExtractorContainer(InventoryPlayer playerEntity, DNAExtractorEntity worldEntity)
+    public MadContainerTemplate()
+    {
+        super();
+    }
+    
+    public MadContainerTemplate(InventoryPlayer playerEntity, MadTileEntity worldEntity)
     {
         // Hook the server world entity.
         this.ENTITY = worldEntity;
         
         // Query machine registry for slot container information.
-        MadTileEntityTemplate MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getInvName());
+        MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
         
         // Grab our array of containers from the template object.
-        MadSlotContainerInterface[] CONTAINERS = MACHINE.getSlotContainers();
+        MadSlotContainerInterface[] CONTAINERS = MACHINE.getContainerTemplate();
         
         // Loop through the containers and use the data inside them to prepare the server slot containers.
         for(int i = 0; i < CONTAINERS.length; i++)
@@ -51,7 +56,7 @@ public class DNAExtractorContainer extends Container
             this.addSlotToContainer(new Slot(playerEntity, i, 8 + i * 18, 142));
         }
     }
-
+    
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
@@ -64,47 +69,26 @@ public class DNAExtractorContainer extends Container
     {
         ItemStack itemstack = null;
         Slot slotContainer = (Slot) this.inventorySlots.get(slotNumber);
-
+    
         if (slotContainer != null && slotContainer.getHasStack())
         {
             ItemStack itemstack1 = slotContainer.getStack();
             itemstack = itemstack1.copy();
-
+    
             if (slotNumber == 2)
             {
                 if (!this.mergeItemStack(itemstack1, 3, 38, true))
                 {
                     return null;
                 }
-
+    
                 slotContainer.onSlotChange(itemstack1, itemstack);
-            }
-            else if (slotNumber != 1 && slotNumber != 0)
-            {
-                if (DNAExtractorRecipes.getSmeltingResult(itemstack1) != null)
-                {
-                    if (!this.mergeItemStack(itemstack1, 0, 1, false))
-                    {
-                        return null;
-                    }
-                }
-                else if (slotNumber >= 3 && slotNumber < 30)
-                {
-                    if (!this.mergeItemStack(itemstack1, 30, 38, false))
-                    {
-                        return null;
-                    }
-                }
-                else if (slotNumber >= 30 && slotNumber < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
-                {
-                    return null;
-                }
             }
             else if (!this.mergeItemStack(itemstack1, 3, 38, false))
             {
                 return null;
             }
-
+    
             if (itemstack1.stackSize == 0)
             {
                 slotContainer.putStack((ItemStack) null);
@@ -113,15 +97,16 @@ public class DNAExtractorContainer extends Container
             {
                 slotContainer.onSlotChanged();
             }
-
+    
             if (itemstack1.stackSize == itemstack.stackSize)
             {
                 return null;
             }
-
+    
             slotContainer.onPickupFromSlot(entityPlayer, itemstack1);
         }
-
+    
         return itemstack;
     }
+
 }

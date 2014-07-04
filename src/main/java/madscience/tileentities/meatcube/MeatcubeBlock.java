@@ -6,7 +6,6 @@ import java.util.Random;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IconRegister;

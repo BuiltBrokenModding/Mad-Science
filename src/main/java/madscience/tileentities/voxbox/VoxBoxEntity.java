@@ -2,8 +2,6 @@ package madscience.tileentities.voxbox;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -15,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -31,8 +28,6 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     private static final int[] slots_top = new int[]
     { 0 };
 
-    
-    
     /** Amount of time we will keep talking once activated. */
     private int talkTime;
     private int talkTimeMaximum;
@@ -61,7 +56,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
     public VoxBoxEntity()
     {
-        super(MadConfig.VOXBOX_CAPACTITY, MadConfig.VOXBOX_INPUT, 0);
+        super(MadFurnaces.VOXBOX_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -87,7 +82,8 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // If our one and only input slot is not null then we are good to go!
         if (voxboxInput[0] != null)
@@ -159,7 +155,7 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.VOXBOX_INTERNALNAME;
     }
@@ -288,7 +284,8 @@ public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
     }
 
     /** Update current frame of animation that we should be playing. */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         // Active state has many textures based on item cook progress.
         if (this.canSmelt() && this.isPowered() && this.isRedstonePowered())

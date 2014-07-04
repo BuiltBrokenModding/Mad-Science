@@ -2,6 +2,9 @@ package madscience.tileentities.prefab;
 
 import java.util.EnumSet;
 
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.energy.MadEnergyInterface;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
@@ -13,19 +16,40 @@ import universalelectricity.api.energy.IEnergyInterface;
 import universalelectricity.api.vector.Vector3;
 
 @UniversalClass
-public abstract class MadTileEntityEnergy extends MadTileEntityInventory implements IEnergyInterface, IEnergyContainer
+public abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergyInterface, IEnergyContainer
 {
     protected EnergyStorageHandler energy;
     
     public MadTileEntityEnergy()
     {
-        // No energy is used if we just call to the object without the other overload.
-        this(0, 0, 0);
+        super();
     }
     
-    public MadTileEntityEnergy(long capacity, long maxReceive, long maxExtract)
+    public MadTileEntityEnergy(String machineName)
     {
-        energy = new EnergyStorageHandler(capacity, maxReceive, maxExtract);
+        super(machineName);
+        
+        // Grab our machine from the factory manager.
+        MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.getMachineInfo(machineName);
+        
+        // Grab energy information from factory product.
+        MadEnergyInterface[] energySupported = machineInfo.getEnergySupported();
+        
+        if (energySupported.length >= 1)
+        {
+            for(int i = 0; i < energySupported.length; i++)
+            {
+                MadEnergyInterface energyInterface = energySupported[i];
+                
+                // TODO: Only 1 energy storage handler is supported at this time.
+                energy = new EnergyStorageHandler(energyInterface.getEnergyCapacity(), energyInterface.getEnergyMaxRecieve(), energyInterface.getEnergyMaxExtract());
+            }
+        }
+        else
+        {
+            // No energy is used if we just call to the object without the other overload.
+            energy = new EnergyStorageHandler(0, 0, 0);
+        }
     }
     
     @Override
@@ -146,7 +170,31 @@ public abstract class MadTileEntityEnergy extends MadTileEntityInventory impleme
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        this.energy.readFromNBT(nbt);
+        
+        // Load only the amount of power since everything will be established if this exists.
+        if (this.energy != null)
+        {
+            // Current amount of energy.
+            this.energy.readFromNBT(nbt);
+        }
+        else
+        {
+            // Current energy levels.
+            long currentEnergy = nbt.getLong("energy");
+            
+            // Maximum amount of energy.
+            long maximumEnergy = nbt.getLong("energyMax");
+            
+            // Maximum receive energy.
+            long maxRecieve = nbt.getLong("energyMaxReceive");            
+            
+            // Maximum extract energy.
+            long maxExtract = nbt.getLong("energyMaxExtract");
+            
+            // Re-create energy state from NBT save data.
+            this.energy = new EnergyStorageHandler(maximumEnergy, maxRecieve, maxExtract);
+            this.energy.setEnergy(currentEnergy);
+        }
     }
 
     @Override
@@ -176,6 +224,17 @@ public abstract class MadTileEntityEnergy extends MadTileEntityInventory impleme
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
+        
+        // Current amount of energy.
         this.energy.writeToNBT(nbt);
+        
+        // Maximum amount of energy.
+        nbt.setLong("energyMax", this.energy.getEnergyCapacity());
+        
+        // Maximum receive.
+        nbt.setLong("energyMaxReceive", this.energy.getMaxReceive());
+        
+        // Maximum extract.
+        nbt.setLong("energyMaxExtract", this.energy.getMaxExtract());
     }
 }

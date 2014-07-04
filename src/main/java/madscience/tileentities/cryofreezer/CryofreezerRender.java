@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -150,7 +149,7 @@ public class CryofreezerRender extends TileEntitySpecialRenderer implements ISim
     private void renderAModelAt(CryofreezerEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        lastPlacedTileEntity = (CryofreezerEntity) tileEntity;
+        lastPlacedTileEntity = tileEntity;
         if (lastPlacedTileEntity == null)
         {
             return;

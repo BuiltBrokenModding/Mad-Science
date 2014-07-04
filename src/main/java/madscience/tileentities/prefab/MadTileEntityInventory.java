@@ -2,8 +2,8 @@ package madscience.tileentities.prefab;
 
 import java.util.ArrayList;
 
-import madscience.factory.interfaces.slotcontainers.MadSlotContainerInterface;
-import madscience.factory.tileentity.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.slotcontainers.MadSlotContainerInterface;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -11,11 +11,22 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 
-class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInventory
+public abstract class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInventory
 {
     /** The ItemStacks that hold the items currently being used in the furnace */
-    private ItemStack[] INVENTORY = new ItemStack[MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length];
+    private ItemStack[] INVENTORY;
     
+    public MadTileEntityInventory()
+    {
+        super();
+    }
+    
+    public MadTileEntityInventory(String machineName)
+    {
+        super(machineName);
+        INVENTORY = new ItemStack[MadTileEntityFactory.getMachineInfo(machineName).getContainerTemplate().length];
+    }
+
     @Override
     public void initiate()
     {
@@ -36,7 +47,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
-            if (b0 >= 0 && b0 < MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length)
+            if (b0 >= 0 && b0 < MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate().length)
             {
                 this.setInventorySlotContents(b0, ItemStack.loadItemStackFromNBT(nbttagcompound1));
             }
@@ -58,7 +69,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
         
         // Reload from NBT data what items was inside our container slots.
         NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length; ++i)
+        for (int i = 0; i < MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate().length; ++i)
         {
             if (this.getStackInSlot(i) != null)
             {
@@ -87,7 +98,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         
         // Grab a list of all container values from enumeration.
-        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers();
+        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate();
         int i = containerSlots.length;
 
         // Loop through all the gathered slots.
@@ -110,7 +121,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
     @Override
     public int getSizeInventory()
     {
-        return MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers().length;
+        return MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate().length;
     }
 
     /** Returns the stack in slot i */
@@ -176,7 +187,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
     public String getInvName()
     {
         // Default name for inventory if none is specified.
-        return "MadTileEntityInventory";
+        return "UnknownMachine";
     }
 
     /** If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's language. Otherwise it will be used directly. */
@@ -206,16 +217,10 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
     }
 
     @Override
-    public void openChest()
-    {
-        // TODO Auto-generated method stub
-    }
+    public void openChest() { }
 
     @Override
-    public void closeChest()
-    {
-        // TODO Auto-generated method stub
-    }
+    public void closeChest() { }
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack)
@@ -232,7 +237,7 @@ class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInve
         ForgeDirection dir = ForgeDirection.getOrientation(side);
         
         // Grab a list of all container values from enumeration.
-        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getInvName()).getSlotContainers();
+        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate();
         int i = containerSlots.length;
         
         // List which will store our integers for allowed sides.

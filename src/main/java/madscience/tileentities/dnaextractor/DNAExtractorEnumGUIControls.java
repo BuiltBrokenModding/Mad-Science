@@ -1,8 +1,7 @@
 package madscience.tileentities.dnaextractor;
 
-import madscience.factory.interfaces.controls.MadGUIControlInterface;
-import madscience.factory.interfaces.controls.MadGUIControlTypeEnum;
-import net.minecraftforge.common.ForgeDirection;
+import madscience.factory.controls.MadGUIControlInterface;
+import madscience.factory.controls.MadGUIControlTypeEnum;
 
 public enum DNAExtractorEnumGUIControls implements MadGUIControlInterface
 {    

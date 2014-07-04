@@ -2,13 +2,11 @@ package madscience.tileentities.cryotube;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -165,7 +163,7 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
     private void renderAModelAt(CryotubeEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        ENTITY = (CryotubeEntity) tileEntity;
+        ENTITY = tileEntity;
         if (ENTITY == null)
         {
             return;

@@ -6,7 +6,6 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.MadSounds;
 import madscience.items.datareel.ItemDataReelEmpty;
 import madscience.items.memories.CombinedMemoryMonsterPlacer;
 import madscience.tileentities.prefab.MadTileEntity;
@@ -63,7 +62,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
 
     public CryotubeEntity()
     {
-        super(MadConfig.CRYOTUBE_CAPACTITY, 0, MadConfig.CRYOTUBE_OUTPUT);
+        super(MadFurnaces.CRYOTUBE_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -94,7 +93,8 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if we have water bucket and dirty needles in input slots and
         // that our internal tank has fluid.
@@ -381,7 +381,7 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.CRYOTUBE_INTERNALNAME;
     }
@@ -705,7 +705,8 @@ public class CryotubeEntity extends MadTileEntity implements ISidedInventory, II
     }
 
     /** Changes model texture based on entity state in the game world and broadcasts these changes to other nearby players. */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         if (!isRedstonePowered())
         {

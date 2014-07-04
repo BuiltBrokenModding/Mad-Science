@@ -1,6 +1,6 @@
 package madscience.tileentities.dnaextractor;
 
-import madscience.factory.interfaces.slotcontainers.MadSlotContainerInterface;
+import madscience.factory.slotcontainers.MadSlotContainerInterface;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 

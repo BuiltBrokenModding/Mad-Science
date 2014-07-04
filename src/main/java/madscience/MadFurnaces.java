@@ -1,7 +1,7 @@
 package madscience;
 
-import madscience.factory.tileentity.MadTileEntityFactory;
-import madscience.factory.tileentity.MadTileEntityTemplate;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
@@ -22,6 +22,8 @@ import madscience.tileentities.dataduplicator.DataDuplicatorEntity;
 import madscience.tileentities.dnaextractor.DNAExtractorBlock;
 import madscience.tileentities.dnaextractor.DNAExtractorEntity;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumContainers;
+import madscience.tileentities.dnaextractor.DNAExtractorEnumEnergy;
+import madscience.tileentities.dnaextractor.DNAExtractorEnumFluids;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumGUIButtons;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumGUIControls;
 import madscience.tileentities.incubator.IncubatorBlock;
@@ -239,10 +241,12 @@ public class MadFurnaces
     static void createDNAExtractorTileEntity(int blockID)
     {        
         // Register machine with the registry so we can generate all needed MC/Forge data.
-        MadTileEntityFactory.registerMachine(new MadTileEntityTemplate(DNAEXTRACTOR_INTERNALNAME,
+        MadTileEntityFactory.registerMachine(DNAEXTRACTOR_INTERNALNAME, blockID,
                 DNAExtractorEnumContainers.values(),
                 DNAExtractorEnumGUIControls.values(),
-                DNAExtractorEnumGUIButtons.values()));
+                DNAExtractorEnumGUIButtons.values(),
+                DNAExtractorEnumFluids.values(),
+                DNAExtractorEnumEnergy.values());
         
         // Populate our static instance.
         DNAEXTRACTOR_TILEENTITY = (BlockContainer) new DNAExtractorBlock(blockID).setUnlocalizedName(DNAEXTRACTOR_INTERNALNAME);

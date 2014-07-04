@@ -73,7 +73,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
 
     public CnCMachineEntity()
     {
-        super(MadConfig.CNCMACHINE_CAPACTITY, MadConfig.CNCMACHINE_INPUT, 0);
+        super(MadFurnaces.CNCMACHINE_INTERNALNAME);
     }
 
     private boolean addBucketToInternalTank()
@@ -178,7 +178,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         return this.isItemValidForSlot(slot, items);
     }
 
-    boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if we have a block of iron in input slot 2.
         if (!this.hasIronBlock())
@@ -359,20 +360,9 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     }
 
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.CNCMACHINE_INTERNALNAME;
-    }
-
-    int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            currentItemCookingMaximum = 200;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
     public ItemStack getItemFromBookContents()
@@ -755,7 +745,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Converts input item into resulting weapon component part.
         if (this.canSmelt())

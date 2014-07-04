@@ -190,13 +190,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         return 64;
     }
 
-    /** Returns the name of the inventory. */
-    @Override
-    public String getInvName()
-    {
-        return MadFurnaces.CLAYFURNACE_INTERNALNAME;
-    }
-
     /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
     int getItemCookTimeScaled(int prgPixels)
     {
@@ -598,5 +591,11 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
 
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
+    }
+
+    @Override
+    public String getInvName()
+    {
+       return MadFurnaces.CLAYFURNACE_INTERNALNAME;
     }
 }

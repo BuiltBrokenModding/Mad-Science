@@ -1,4 +1,4 @@
-package madscience.gui;
+package madscience.factory.buttons;
 
 import madscience.MadScience;
 import net.minecraft.client.Minecraft;
@@ -13,11 +13,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GUIButtonInvisible extends GuiButton
+public class MadGUIButtonInvisibleControl extends GuiButton
 {
     private static final ResourceLocation sandraBullock = new ResourceLocation(MadScience.ID, "textures/gui/sandraBullock.png");
 
-    public GUIButtonInvisible(int par1, int par2, int par3, int par4, int par5)
+    public MadGUIButtonInvisibleControl(int par1, int par2, int par3, int par4, int par5)
     {
         super(par1, par2, par3, par4, par5, "");
     }

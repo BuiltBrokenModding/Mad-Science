@@ -3,13 +3,9 @@ package madscience.tileentities.soniclocator;
 import java.util.HashSet;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import madscience.MadScience;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 final class SoniclocatorLocationRegistry
 {

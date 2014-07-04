@@ -1,11 +1,10 @@
 package madscience.tileentities.dnaextractor;
 
-import madscience.MadFluids;
 import madscience.network.MadPackets;
+import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
@@ -19,7 +18,7 @@ public class DNAExtractorPackets extends MadPackets
     private int tilePosZ;
 
     // Tile entity from the world.
-    private DNAExtractorEntity dnaExtractorTileEntity;
+    private MadTileEntity ENTITY;
 
     // Stores intermediate amount of time item has cooked out of total.
     private int lastItemCookTimeValue;
@@ -74,24 +73,31 @@ public class DNAExtractorPackets extends MadPackets
         // Packet received by client, executing payload.
         if (side.isClient())
         {
-            dnaExtractorTileEntity = (DNAExtractorEntity) player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (dnaExtractorTileEntity == null)
+            // Grab our wanted entity from the game world.
+            TileEntity possibleTileEntity = player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
+            if (possibleTileEntity instanceof MadTileEntity)
+            {
+                ENTITY = (MadTileEntity) possibleTileEntity;
+            }
+            
+            // Null check.
+            if (ENTITY == null)
                 return;
 
             // Cook time.
-            this.dnaExtractorTileEntity.currentItemCookingValue = lastItemCookTimeValue;
-            this.dnaExtractorTileEntity.currentItemCookingMaximum = lastItemCookTimeMaximum;
+            this.ENTITY.setProgressValue(lastItemCookTimeValue);
+            this.ENTITY.setProgressMaximum(lastItemCookTimeMaximum);
 
             // Energy.
-            this.dnaExtractorTileEntity.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
-            this.dnaExtractorTileEntity.setEnergyCapacity(lastItemStoredEnergyMaximum);
+            this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
+            this.ENTITY.setEnergyCapacity(lastItemStoredEnergyMaximum);
 
             // Fluid amount.
-            this.dnaExtractorTileEntity.internalLiquidDNAMutantTank.setFluid(new FluidStack(MadFluids.LIQUIDDNA_MUTANT, lastLiquidDNAMutantLevel));
-            this.dnaExtractorTileEntity.internalLiquidDNAMutantTank.setCapacity(lastLiquidDNAMutantMaximum);
+            this.ENTITY.setFluidAmount(lastLiquidDNAMutantLevel);
+            this.ENTITY.setFluidCapacity(lastLiquidDNAMutantMaximum);
 
             // Tile entity texture.
-            this.dnaExtractorTileEntity.TEXTURE = lastTexture;
+            this.ENTITY.setEntityTexture(lastTexture);
         }
         else
         {

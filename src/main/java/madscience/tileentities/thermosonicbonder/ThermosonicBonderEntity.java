@@ -1,8 +1,5 @@
 package madscience.tileentities.thermosonicbonder;
 
-import java.util.Random;
-
-import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -55,7 +52,7 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
 
     public ThermosonicBonderEntity()
     {
-        super(MadConfig.THERMOSONIC_CAPACTITY, MadConfig.THERMOSONIC_INPUT, 0);
+        super(MadFurnaces.THERMOSONIC_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -79,7 +76,8 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if power levels are at proper values before cooking.
         if (!this.isPowered())
@@ -260,22 +258,9 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.THERMOSONIC_INTERNALNAME;
-    }
-
-    /** Returns an integer between 0 and the passed value representing how close the current item is to being completely cooked */
-    int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            // MadScience.logger.info("CLIENT: getItemCookTimeScaled() was called with currentItemCookingMaximum being zero!");
-            currentItemCookingMaximum = 2600;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
     public float getMaxHeatAmount()
@@ -524,7 +509,8 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Output 1 - Transformed mainframe component.
         ItemStack craftedItem = ThermosonicBonderRecipes.getSmeltingResult(this.thermosonicbonderInput[1]);
@@ -564,7 +550,8 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
     /**
      * 
      */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         if (!isRedstonePowered())
         {
@@ -696,7 +683,8 @@ public class ThermosonicBonderEntity extends MadTileEntity implements ISidedInve
         }
     }
 
-    private void updateSound()
+    @Override
+    public void updateSound()
     {
         // Check to see if we should play idle sounds.
         if (this.canSmelt() && this.isPowered() && isRedstonePowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L)

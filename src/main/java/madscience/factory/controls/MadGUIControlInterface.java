@@ -1,4 +1,4 @@
-package madscience.factory.interfaces.controls;
+package madscience.factory.controls;
 
 public interface MadGUIControlInterface
 {

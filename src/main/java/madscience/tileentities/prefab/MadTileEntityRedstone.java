@@ -2,10 +2,20 @@ package madscience.tileentities.prefab;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-abstract class MadTileEntityRedstone extends MadTileEntityBase
+public abstract class MadTileEntityRedstone extends MadTileEntityBase
 {
     /** Determines if we have redstone powering us */
     public boolean isRedstonePowered = false;
+    
+    public MadTileEntityRedstone()
+    {
+        super();
+    }
+
+    public MadTileEntityRedstone(String machineName)
+    {
+        super(machineName);
+    }
 
     public void checkRedstonePower()
     {

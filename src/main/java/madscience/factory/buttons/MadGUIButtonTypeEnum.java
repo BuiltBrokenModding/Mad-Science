@@ -1,4 +1,4 @@
-package madscience.factory.interfaces.buttons;
+package madscience.factory.buttons;
 
 public enum MadGUIButtonTypeEnum
 {

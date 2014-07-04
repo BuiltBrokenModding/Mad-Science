@@ -325,15 +325,6 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         return 64;
     }
 
-    /** Returns the name of the inventory. */
-    @Override
-    public String getInvName()
-    {
-        return MadFurnaces.MEATCUBE_INTERNALNAME;
-    }
-
-    
-
     public int getSizeInputInventory()
     {
         return this.meatcubeInput.length;
@@ -742,5 +733,11 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         // Save the input and output items.
         nbt.setTag("InputItems", inputItems);
         nbt.setTag("OutputItems", outputItems);
+    }
+
+    @Override
+    public String getInvName()
+    {
+        return MadFurnaces.MEATCUBE_INTERNALNAME;
     }
 }

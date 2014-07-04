@@ -14,7 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -78,7 +77,7 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
 
     public MainframeEntity()
     {
-        super(MadConfig.MAINFRAME_CAPACTITY, MadConfig.MAINFRAME_INPUT, 0);
+        super(MadFurnaces.MAINFRAME_INTERNALNAME);
     }
 
     private void addBucketToInternalTank()
@@ -185,7 +184,8 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
-    private boolean canSmelt()
+    @Override
+    public boolean canSmelt()
     {
         // Check if we have all the genome slots filled and internal tank is not
         // null.
@@ -489,25 +489,9 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
 
     /** Returns the name of the inventory. */
     @Override
-    public String getInvName()
+    public String getMachineInternalName()
     {
         return MadFurnaces.MAINFRAME_INTERNALNAME;
-    }
-
-    @SideOnly(Side.CLIENT)
-    /**
-     * Returns an integer between 0 and the passed value representing how close the current item is to being completely
-     * cooked
-     */ int getItemCookTimeScaled(int prgPixels)
-    {
-        // Prevent divide by zero exception by setting ceiling.
-        if (currentItemCookingMaximum == 0)
-        {
-            // MadScience.logger.info("CLIENT: getItemCookTimeScaled() was called with currentItemCookingMaximum being zero!");
-            currentItemCookingMaximum = 200;
-        }
-
-        return (currentItemCookingValue * prgPixels) / currentItemCookingMaximum;
     }
 
     public float getMaxHeatAmount()
@@ -928,7 +912,8 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         }
     }
 
-    private void smeltItem()
+    @Override
+    public void smeltItem()
     {
         // Converts input item into result item along with waste items.
         GenomeRecipe currentRecipe = MainframeRecipes.findGenomeRecipe(this.getInputSlot_GenomeReel1(), this.getInputSlot_GenomeReel2());
@@ -961,7 +946,8 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
     /**
      * 
      */
-    private void updateAnimation()
+    @Override
+    public void updateAnimation()
     {
         // For animation debugging.
         boolean hasChanged = false;
@@ -1160,7 +1146,8 @@ public class MainframeEntity extends MadTileEntity implements ISidedInventory, I
         }
     }
 
-    private void updateSound()
+    @Override
+    public void updateSound()
     {
         // Check if we should be playing working sounds.
         if (this.isRedstonePowered() && this.canSmelt() && this.isPowered() && !this.isOutOfWater() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.2F) == 0L)

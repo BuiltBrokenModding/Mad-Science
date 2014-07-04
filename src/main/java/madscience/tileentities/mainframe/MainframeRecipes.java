@@ -3,11 +3,9 @@
  * BuildCraft is distributed under the terms of the Minecraft Mod Public License 1.0, or MMPL. Please check the contents of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt */
 package madscience.tileentities.mainframe;
 
-import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import madscience.MadScience;
 import net.minecraft.item.ItemStack;
 
 import com.google.common.base.Objects;

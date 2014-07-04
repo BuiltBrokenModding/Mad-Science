@@ -2,6 +2,9 @@ package madscience.gui;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityInterface;
 import madscience.tileentities.clayfurnace.ClayfurnaceContainer;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceGUI;
@@ -17,9 +20,6 @@ import madscience.tileentities.cryotube.CryotubeGUI;
 import madscience.tileentities.dataduplicator.DataDuplicatorContainer;
 import madscience.tileentities.dataduplicator.DataDuplicatorEntity;
 import madscience.tileentities.dataduplicator.DataDuplicatorGUI;
-import madscience.tileentities.dnaextractor.DNAExtractorContainer;
-import madscience.tileentities.dnaextractor.DNAExtractorEntity;
-import madscience.tileentities.dnaextractor.DNAExtractorGUI;
 import madscience.tileentities.incubator.IncubatorContainer;
 import madscience.tileentities.incubator.IncubatorEntity;
 import madscience.tileentities.incubator.IncubatorGUI;
@@ -32,6 +32,7 @@ import madscience.tileentities.mainframe.MainframeGUI;
 import madscience.tileentities.meatcube.MeatcubeContainer;
 import madscience.tileentities.meatcube.MeatcubeEntity;
 import madscience.tileentities.meatcube.MeatcubeGUI;
+import madscience.tileentities.prefab.MadTileEntity;
 import madscience.tileentities.sanitizer.SanitizerContainer;
 import madscience.tileentities.sanitizer.SanitizerEntity;
 import madscience.tileentities.sanitizer.SanitizerGUI;
@@ -58,96 +59,109 @@ public class MadGUI implements IGuiHandler
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
         // Grab a running instance of the block on the server world.
-        TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
-
-        // DNA extractor.
-        if (ID == MadFurnaces.DNAEXTRACTOR_TILEENTITY.blockID)
+        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        
+        // Check if this block is one of ours.
+        if (tileEntity instanceof MadTileEntity)
         {
-            return new DNAExtractorGUI(player.inventory, (DNAExtractorEntity) tile_entity);
+            // Cast the object as MadTE so we can get internal name from it.
+            MadTileEntity madTile = (MadTileEntity) tileEntity;
+            
+            if (madTile != null)
+            {
+                // Check with machine factory if this is valid machine.
+                MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.getMachineInfo(madTile.getMachineInternalName());
+                
+                // Check if ID matches our factory product ID.
+                if (ID == machineInfo.getBlockID())
+                {
+                    return machineInfo.getClientGUIElement(player.inventory, madTile);
+                }
+            }
         }
 
         // Needle sanitizer.
         if (ID == MadFurnaces.SANTITIZER_TILEENTITY.blockID)
         {
-            return new SanitizerGUI(player.inventory, (SanitizerEntity) tile_entity);
+            return new SanitizerGUI(player.inventory, (SanitizerEntity) tileEntity);
         }
 
         // Computer Mainframe.
         if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
         {
-            return new MainframeGUI(player.inventory, (MainframeEntity) tile_entity);
+            return new MainframeGUI(player.inventory, (MainframeEntity) tileEntity);
         }
 
         // Genome Sequencer
         if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
         {
-            return new SequencerGUI(player.inventory, (SequencerEntity) tile_entity);
+            return new SequencerGUI(player.inventory, (SequencerEntity) tileEntity);
         }
 
         // Cryogenic Freezer
         if (ID == MadFurnaces.CRYOFREEZER_TILEENTITY.blockID)
         {
-            return new CryofreezerGUI(player.inventory, (CryofreezerEntity) tile_entity);
+            return new CryofreezerGUI(player.inventory, (CryofreezerEntity) tileEntity);
         }
 
         // Genome Incubator
         if (ID == MadFurnaces.INCUBATOR_TILEENTITY.blockID)
         {
-            return new IncubatorGUI(player.inventory, (IncubatorEntity) tile_entity);
+            return new IncubatorGUI(player.inventory, (IncubatorEntity) tileEntity);
         }
 
         // Meat Cube
         if (ID == MadFurnaces.MEATCUBE_TILEENTITY.blockID)
         {
-            return new MeatcubeGUI(player.inventory, (MeatcubeEntity) tile_entity);
+            return new MeatcubeGUI(player.inventory, (MeatcubeEntity) tileEntity);
         }
 
         // Cryogenic Tube
         if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
         {
-            return new CryotubeGUI(player.inventory, (CryotubeEntity) tile_entity);
+            return new CryotubeGUI(player.inventory, (CryotubeEntity) tileEntity);
         }
 
         // Thermosonic Bonder
         if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
         {
-            return new ThermosonicBonderGUI(player.inventory, (ThermosonicBonderEntity) tile_entity);
+            return new ThermosonicBonderGUI(player.inventory, (ThermosonicBonderEntity) tileEntity);
         }
 
         // Data Reel Duplicator
         if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
         {
-            return new DataDuplicatorGUI(player.inventory, (DataDuplicatorEntity) tile_entity);
+            return new DataDuplicatorGUI(player.inventory, (DataDuplicatorEntity) tileEntity);
         }
 
         // Soniclocator Device
         if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
         {
-            return new SoniclocatorGUI(player.inventory, (SoniclocatorEntity) tile_entity);
+            return new SoniclocatorGUI(player.inventory, (SoniclocatorEntity) tileEntity);
         }
         
         // Clay Furnace
         if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
         {
-            return new ClayfurnaceGUI(player.inventory, (ClayfurnaceEntity) tile_entity);
+            return new ClayfurnaceGUI(player.inventory, (ClayfurnaceEntity) tileEntity);
         }
         
         // VOX Box
         if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
         {
-            return new VoxBoxGUI(player.inventory, (VoxBoxEntity) tile_entity);
+            return new VoxBoxGUI(player.inventory, (VoxBoxEntity) tileEntity);
         }
         
         // Magazine Loader
         if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
         {
-            return new MagLoaderGUI(player.inventory, (MagLoaderEntity) tile_entity);
+            return new MagLoaderGUI(player.inventory, (MagLoaderEntity) tileEntity);
         }
         
         // CnC Machine
         if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
         {
-            return new CnCMachineGUI(player.inventory, (CnCMachineEntity) tile_entity);
+            return new CnCMachineGUI(player.inventory, (CnCMachineEntity) tileEntity);
         }
        
         // Default response is to return nothing.
@@ -158,96 +172,109 @@ public class MadGUI implements IGuiHandler
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
         // Grab the running instance of the block on the server world.
-        TileEntity tile_entity = world.getBlockTileEntity(x, y, z);
-
-        // DNA extractor.
-        if (ID == MadFurnaces.DNAEXTRACTOR_TILEENTITY.blockID)
+        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        
+        // Check if this block is one of ours.
+        if (tileEntity instanceof MadTileEntity)
         {
-            return new DNAExtractorContainer(player.inventory, (DNAExtractorEntity) tile_entity);
+            // Cast the object as MadTE so we can get internal name from it.
+            MadTileEntity madTile = (MadTileEntity) tileEntity;
+            
+            if (madTile != null)
+            {
+                // Check with machine factory if this is valid machine.
+                MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.getMachineInfo(madTile.getMachineInternalName());
+                
+                // Check if ID matches our factory product ID.
+                if (ID == machineInfo.getBlockID())
+                {
+                    return machineInfo.getServerGUIElement(player.inventory, madTile);
+                }
+            }
         }
 
         // Needle sanitizer.
         if (ID == MadFurnaces.SANTITIZER_TILEENTITY.blockID)
         {
-            return new SanitizerContainer(player.inventory, (SanitizerEntity) tile_entity);
+            return new SanitizerContainer(player.inventory, (SanitizerEntity) tileEntity);
         }
 
         // Computer Mainframe.
         if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
         {
-            return new MainframeContainer(player.inventory, (MainframeEntity) tile_entity);
+            return new MainframeContainer(player.inventory, (MainframeEntity) tileEntity);
         }
 
         // Genome Sequencer
         if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
         {
-            return new SequencerContainer(player.inventory, (SequencerEntity) tile_entity);
+            return new SequencerContainer(player.inventory, (SequencerEntity) tileEntity);
         }
 
         // Cryogenic Freezer
         if (ID == MadFurnaces.CRYOFREEZER_TILEENTITY.blockID)
         {
-            return new CryofreezerContainer(player.inventory, (CryofreezerEntity) tile_entity);
+            return new CryofreezerContainer(player.inventory, (CryofreezerEntity) tileEntity);
         }
 
         // Genome Incubator
         if (ID == MadFurnaces.INCUBATOR_TILEENTITY.blockID)
         {
-            return new IncubatorContainer(player.inventory, (IncubatorEntity) tile_entity);
+            return new IncubatorContainer(player.inventory, (IncubatorEntity) tileEntity);
         }
 
         // Meat Cube
         if (ID == MadFurnaces.MEATCUBE_TILEENTITY.blockID)
         {
-            return new MeatcubeContainer(player.inventory, (MeatcubeEntity) tile_entity);
+            return new MeatcubeContainer(player.inventory, (MeatcubeEntity) tileEntity);
         }
 
         // Cryogenic Tube
         if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
         {
-            return new CryotubeContainer(player.inventory, (CryotubeEntity) tile_entity);
+            return new CryotubeContainer(player.inventory, (CryotubeEntity) tileEntity);
         }
 
         // Thermosonic Bonder
         if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
         {
-            return new ThermosonicBonderContainer(player.inventory, (ThermosonicBonderEntity) tile_entity);
+            return new ThermosonicBonderContainer(player.inventory, (ThermosonicBonderEntity) tileEntity);
         }
 
         // Data Reel Duplicator
         if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
         {
-            return new DataDuplicatorContainer(player.inventory, (DataDuplicatorEntity) tile_entity);
+            return new DataDuplicatorContainer(player.inventory, (DataDuplicatorEntity) tileEntity);
         }
 
         // Soniclocator Device
         if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
         {
-            return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tile_entity);
+            return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tileEntity);
         }
         
         // Clay Furnace
         if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
         {
-            return new ClayfurnaceContainer(player.inventory, (ClayfurnaceEntity) tile_entity);
+            return new ClayfurnaceContainer(player.inventory, (ClayfurnaceEntity) tileEntity);
         }
         
         // VOX Box
         if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
         {
-            return new VoxBoxContainer(player.inventory, (VoxBoxEntity) tile_entity);
+            return new VoxBoxContainer(player.inventory, (VoxBoxEntity) tileEntity);
         }
         
         // Magazine Loader
         if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
         {
-            return new MagLoaderContainer(player.inventory, (MagLoaderEntity) tile_entity);
+            return new MagLoaderContainer(player.inventory, (MagLoaderEntity) tileEntity);
         }
         
         // CnC Machine
         if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
         {
-            return new CnCMachineContainer(player.inventory, (CnCMachineEntity) tile_entity);
+            return new CnCMachineContainer(player.inventory, (CnCMachineEntity) tileEntity);
         }
         
         // Default response is to return nothing.

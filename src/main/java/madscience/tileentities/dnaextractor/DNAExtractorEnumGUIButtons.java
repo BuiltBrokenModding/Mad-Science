@@ -1,11 +1,10 @@
 package madscience.tileentities.dnaextractor;
 
 import madscience.MadConfig;
-import madscience.factory.interfaces.buttons.MadGUIButtonClickActionEnum;
-import madscience.factory.interfaces.buttons.MadGUIButtonInterface;
-import madscience.factory.interfaces.buttons.MadGUIButtonTypeEnum;
+import madscience.factory.buttons.MadGUIButtonClickActionEnum;
+import madscience.factory.buttons.MadGUIButtonInterface;
+import madscience.factory.buttons.MadGUIButtonTypeEnum;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.ForgeDirection;
 
 public enum DNAExtractorEnumGUIButtons implements MadGUIButtonInterface
 {    
