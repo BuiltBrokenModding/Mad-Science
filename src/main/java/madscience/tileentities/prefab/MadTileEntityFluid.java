@@ -1,7 +1,5 @@
 package madscience.tileentities.prefab;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.fluids.MadFluidInterface;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,21 +11,23 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public abstract class MadTileEntityFluid extends MadTileEntityInventory implements IFluidHandler
+abstract class MadTileEntityFluid extends MadTileEntityInventory implements IFluidHandler
 {
     /** Internal reserve of some fluid. */
     private FluidTank internalTank = null;
-    
+
     /* Holds reference we get from machine factory about what type of fluid this tile entity works with. */
     private Fluid supportedFluid = null;
-    
+
     public MadTileEntityFluid()
     {
         super();
     }
 
-    public MadTileEntityFluid(String machineName)
+    MadTileEntityFluid(String machineName)
     {
         super(machineName);
 
@@ -41,70 +41,12 @@ public abstract class MadTileEntityFluid extends MadTileEntityInventory implemen
                 // Grab instance of this fluid from the registry so we can fill our tank with it.
                 Fluid fluidSupported = FluidRegistry.getFluid(currentFluid.getInternalName());
                 supportedFluid = fluidSupported;
-                
+
                 // Create the tank based on any information we have from machine factory.
                 // TODO: Only 1 internal tank is allowed to be automatically created at this time.
-                internalTank = new FluidTank(fluidSupported, currentFluid.getStartingAmount(), currentFluid.getMaximumAmount());                
+                internalTank = new FluidTank(fluidSupported, currentFluid.getStartingAmount(), currentFluid.getMaximumAmount());
             }
         }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public int getFluidRemainingScaled(int pixels)
-    {
-        return internalTank.getFluid() != null ? (int) (((float) internalTank.getFluid().amount / (float) (internalTank.getCapacity())) * pixels) : 0;
-    }
-
-    public int getFluidAmount()
-    {
-        if (this.internalTank == null)
-        {
-            return 0;
-        }
-        
-        return internalTank.getFluidAmount();
-    }
-
-    public int getFluidCapacity()
-    {
-        if (this.internalTank == null)
-        {
-            return 0;
-        }
-        
-        return internalTank.getCapacity();
-    }
-
-    public void setFluidAmount(int amount)
-    {
-        this.internalTank.setFluid(new FluidStack(supportedFluid, amount));
-    }
-
-    public void setFluidCapacity(int capacity)
-    {
-        this.internalTank.setCapacity(capacity);
-    }
-
-    public String getFluidLocalizedName()
-    {
-        return this.internalTank.getFluid().getFluid().getLocalizedName();
-    }
-
-    public FluidStack getFluidStack()
-    {
-        return this.internalTank.getFluid();
-    }
-
-    public boolean removeFluidAmountByBucket(int numberOfBuckets)
-    {
-        int totalBuckets = numberOfBuckets * FluidContainerRegistry.BUCKET_VOLUME;
-        FluidStack amountRemoved = internalTank.drain(totalBuckets, true);
-        if (amountRemoved != null && amountRemoved.amount > 0)
-        {
-            return true;
-        }
-
-        return false;
     }
 
     public boolean addFluidAmountByBucket(int numberOfBuckets)
@@ -121,16 +63,15 @@ public abstract class MadTileEntityFluid extends MadTileEntityInventory implemen
     }
 
     @Override
-    public FluidTankInfo[] getTankInfo(ForgeDirection from)
+    public boolean canDrain(ForgeDirection from, Fluid fluid)
     {
-        return new FluidTankInfo[]
-        { internalTank.getInfo() };
+        return false;
     }
 
     @Override
-    public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
+    public boolean canFill(ForgeDirection from, Fluid fluid)
     {
-        return 0;
+        return false;
     }
 
     @Override
@@ -151,15 +92,52 @@ public abstract class MadTileEntityFluid extends MadTileEntityInventory implemen
     }
 
     @Override
-    public boolean canFill(ForgeDirection from, Fluid fluid)
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
     {
-        return false;
+        return 0;
+    }
+
+    public int getFluidAmount()
+    {
+        if (this.internalTank == null)
+        {
+            return 0;
+        }
+
+        return internalTank.getFluidAmount();
+    }
+
+    public int getFluidCapacity()
+    {
+        if (this.internalTank == null)
+        {
+            return 0;
+        }
+
+        return internalTank.getCapacity();
+    }
+
+    public String getFluidLocalizedName()
+    {
+        return this.internalTank.getFluid().getFluid().getLocalizedName();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public int getFluidRemainingScaled(int pixels)
+    {
+        return internalTank.getFluid() != null ? (int) (((float) internalTank.getFluid().amount / (float) (internalTank.getCapacity())) * pixels) : 0;
+    }
+
+    public FluidStack getFluidStack()
+    {
+        return this.internalTank.getFluid();
     }
 
     @Override
-    public boolean canDrain(ForgeDirection from, Fluid fluid)
+    public FluidTankInfo[] getTankInfo(ForgeDirection from)
     {
-        return false;
+        return new FluidTankInfo[]
+        { internalTank.getInfo() };
     }
 
     @Override
@@ -174,26 +152,48 @@ public abstract class MadTileEntityFluid extends MadTileEntityInventory implemen
             short maxFluid = nbt.getShort("FluidTotal");
             short fluidAmt = nbt.getShort("FluidAmount");
             String storedFluidType = nbt.getString("FluidType");
-            
+
             // Check if the fluid type we want even exists.
             if (FluidRegistry.isFluidRegistered(storedFluidType))
             {
                 // Grab an instance of this fluid we want in our machine.
                 Fluid fluidSupported = FluidRegistry.getFluid(storedFluidType);
                 supportedFluid = fluidSupported;
-                
+
                 // Re-create the tank from save data.
-                internalTank = new FluidTank(fluidSupported, fluidAmt, maxFluid); 
+                internalTank = new FluidTank(fluidSupported, fluidAmt, maxFluid);
                 this.internalTank.setFluid(new FluidStack(fluidSupported, fluidAmt));
                 return;
             }
         }
-        
+
         // Set internal tank amount based on save data.
         if (this.supportedFluid != null)
         {
             this.internalTank.setFluid(new FluidStack(supportedFluid, nbt.getShort("FluidAmount")));
         }
+    }
+
+    public boolean removeFluidAmountByBucket(int numberOfBuckets)
+    {
+        int totalBuckets = numberOfBuckets * FluidContainerRegistry.BUCKET_VOLUME;
+        FluidStack amountRemoved = internalTank.drain(totalBuckets, true);
+        if (amountRemoved != null && amountRemoved.amount > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void setFluidAmount(int amount)
+    {
+        this.internalTank.setFluid(new FluidStack(supportedFluid, amount));
+    }
+
+    public void setFluidCapacity(int capacity)
+    {
+        this.internalTank.setCapacity(capacity);
     }
 
     @Override
@@ -209,10 +209,10 @@ public abstract class MadTileEntityFluid extends MadTileEntityInventory implemen
 
         // Amount of water that is currently stored.
         nbt.setShort("FluidAmount", (short) this.internalTank.getFluidAmount());
-        
+
         // Total amount of fluid we can store total.
         nbt.setShort("FluidTotal", (short) this.internalTank.getCapacity());
-        
+
         // Type of fluid which we need to remember.
         nbt.setString("FluidType", supportedFluid.getName());
     }

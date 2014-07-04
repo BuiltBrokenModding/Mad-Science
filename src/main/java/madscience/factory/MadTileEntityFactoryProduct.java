@@ -1,6 +1,5 @@
 package madscience.factory;
 
-import net.minecraft.entity.player.InventoryPlayer;
 import madscience.factory.buttons.MadGUIButtonInterface;
 import madscience.factory.controls.MadGUIControlInterface;
 import madscience.factory.energy.MadEnergyInterface;
@@ -9,6 +8,7 @@ import madscience.factory.slotcontainers.MadSlotContainerInterface;
 import madscience.factory.templates.MadContainerTemplate;
 import madscience.factory.templates.MadGUITemplate;
 import madscience.tileentities.prefab.MadTileEntity;
+import net.minecraft.entity.player.InventoryPlayer;
 
 public class MadTileEntityFactoryProduct
 {
@@ -29,7 +29,7 @@ public class MadTileEntityFactoryProduct
 
     /* Stores all of the fluids that this machine will be able to interface with it's internal tank methods. */
     private MadFluidInterface[] fluidsSupported = new MadFluidInterface[0];
-    
+
     /* Stores information about how we want to plugged into other electrical grids. */
     private MadEnergyInterface[] energySupported = new MadEnergyInterface[0];
 
@@ -39,16 +39,40 @@ public class MadTileEntityFactoryProduct
         this.blockID = blockID;
     }
 
+    public int getBlockID()
+    {
+        return blockID;
+    }
+
     /** Returns client GUI which can be pushed to renderer. */
     public MadGUITemplate getClientGUIElement(InventoryPlayer playerEntity, MadTileEntity worldEntity)
     {
         return new MadGUITemplate(playerEntity, worldEntity);
     }
 
-    /** Returns container slots for storing items in machines on server. */
-    public MadContainerTemplate getServerGUIElement(InventoryPlayer playerEntity, MadTileEntity worldEntity)
+    public MadSlotContainerInterface[] getContainerTemplate()
     {
-        return new MadContainerTemplate(playerEntity, worldEntity);
+        return containerTemplate;
+    }
+
+    public MadEnergyInterface[] getEnergySupported()
+    {
+        return energySupported;
+    }
+
+    public MadFluidInterface[] getFluidsSupported()
+    {
+        return fluidsSupported;
+    }
+
+    public MadGUIButtonInterface[] getGuiButtonTemplate()
+    {
+        return guiButtonTemplate;
+    }
+
+    public MadGUIControlInterface[] getGuiControlsTemplate()
+    {
+        return guiControlsTemplate;
     }
 
     /** Returns machines internal name as it should be referenced by rest of code. */
@@ -57,9 +81,10 @@ public class MadTileEntityFactoryProduct
         return machineName;
     }
 
-    public MadSlotContainerInterface[] getContainerTemplate()
+    /** Returns container slots for storing items in machines on server. */
+    public MadContainerTemplate getServerGUIElement(InventoryPlayer playerEntity, MadTileEntity worldEntity)
     {
-        return containerTemplate;
+        return new MadContainerTemplate(playerEntity, worldEntity);
     }
 
     public void setContainerTemplate(MadSlotContainerInterface[] containerTemplate)
@@ -67,34 +92,9 @@ public class MadTileEntityFactoryProduct
         this.containerTemplate = containerTemplate;
     }
 
-    public MadGUIControlInterface[] getGuiControlsTemplate()
+    public void setEnergySupported(MadEnergyInterface[] energySupported)
     {
-        return guiControlsTemplate;
-    }
-
-    public void setGuiControlsTemplate(MadGUIControlInterface[] guiControlsTemplate)
-    {
-        this.guiControlsTemplate = guiControlsTemplate;
-    }
-
-    public MadGUIButtonInterface[] getGuiButtonTemplate()
-    {
-        return guiButtonTemplate;
-    }
-
-    public void setGuiButtonTemplate(MadGUIButtonInterface[] guiButtonTemplate)
-    {
-        this.guiButtonTemplate = guiButtonTemplate;
-    }
-
-    public int getBlockID()
-    {
-        return blockID;
-    }
-
-    public MadFluidInterface[] getFluidsSupported()
-    {
-        return fluidsSupported;
+        this.energySupported = energySupported;
     }
 
     public void setFluidsSupported(MadFluidInterface[] fluidSupported)
@@ -102,13 +102,13 @@ public class MadTileEntityFactoryProduct
         this.fluidsSupported = fluidSupported;
     }
 
-    public MadEnergyInterface[] getEnergySupported()
+    public void setGuiButtonTemplate(MadGUIButtonInterface[] guiButtonTemplate)
     {
-        return energySupported;
+        this.guiButtonTemplate = guiButtonTemplate;
     }
 
-    public void setEnergySupported(MadEnergyInterface[] energySupported)
+    public void setGuiControlsTemplate(MadGUIControlInterface[] guiControlsTemplate)
     {
-        this.energySupported = energySupported;
+        this.guiControlsTemplate = guiControlsTemplate;
     }
 }

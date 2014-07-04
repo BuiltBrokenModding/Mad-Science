@@ -1,9 +1,9 @@
 package madscience.tileentities.prefab;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import madscience.factory.tileentity.MadTileEntityInterface;
 import net.minecraft.nbt.NBTTagCompound;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTileEntityInterface
 {
@@ -21,18 +21,34 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
 
     /** Path to current texture that should be displayed on our model. */
     private String entityTexture;
-    
+
     public MadTileEntity()
     {
         super();
     }
-    
+
     public MadTileEntity(String machineName)
     {
         super(machineName);
         this.entityTexture = "models/" + machineName + "/idle.png";
     }
-    
+
+    @Override
+    public boolean canSmelt()
+    {
+        return false;
+    }
+
+    public int getAnimationCurrentFrame()
+    {
+        return animationCurrentFrame;
+    }
+
+    public String getEntityTexture()
+    {
+        return entityTexture;
+    }
+
     @SideOnly(Side.CLIENT)
     /**
      * Returns an integer between 0 and the passed value representing how close the current item is to being completely
@@ -50,11 +66,26 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
         return (progressValue * prgPixels) / progressMaximum;
     }
 
+    public int getProgressMaximum()
+    {
+        return progressMaximum;
+    }
+
+    public int getProgressValue()
+    {
+        return progressValue;
+    }
+
+    public boolean isPlayingAnimation()
+    {
+        return playingAnimation;
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        
+
         // Current time left to cook item.
         this.progressValue = nbt.getShort("CookTime");
 
@@ -63,9 +94,46 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
 
         // Current frame of animation we are displaying.
         this.animationCurrentFrame = nbt.getInteger("CurrentFrame");
-        
+
         // Path to current texture what should be loaded onto the model.
         this.entityTexture = nbt.getString("TexturePath");
+    }
+
+    public void setAnimationCurrentFrame(int animationCurrentFrame)
+    {
+        this.animationCurrentFrame = animationCurrentFrame;
+    }
+
+    public void setEntityTexture(String entityTexture)
+    {
+        this.entityTexture = entityTexture;
+    }
+
+    public void setPlayingAnimation(boolean playingAnimation)
+    {
+        this.playingAnimation = playingAnimation;
+    }
+
+    public void setProgressMaximum(int progressMaximum)
+    {
+        this.progressMaximum = progressMaximum;
+    }
+
+    public void setProgressValue(int progressValue)
+    {
+        this.progressValue = progressValue;
+    }
+
+    @Override
+    public void smeltItem()
+    {
+
+    }
+
+    @Override
+    public void updateAnimation()
+    {
+
     }
 
     @Override
@@ -75,10 +143,16 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
     }
 
     @Override
+    public void updateSound()
+    {
+
+    }
+
+    @Override
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        
+
         // Time remaining of this needle extraction to get DNA sample.
         nbt.setShort("CookTime", (short) this.progressValue);
 
@@ -90,79 +164,5 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
 
         // Path to current texture that should be loaded onto the model.
         nbt.setString("TexturePath", this.entityTexture);
-    }
-
-    @Override
-    public void updateAnimation()
-    {
-        
-    }
-
-    @Override
-    public void updateSound()
-    {
-        
-    }
-
-    @Override
-    public void smeltItem()
-    {
-        
-    }
-
-    @Override
-    public boolean canSmelt()
-    {
-        return false;
-    }
-
-    public int getProgressMaximum()
-    {
-        return progressMaximum;
-    }
-
-    public void setProgressMaximum(int progressMaximum)
-    {
-        this.progressMaximum = progressMaximum;
-    }
-
-    public int getProgressValue()
-    {
-        return progressValue;
-    }
-
-    public void setProgressValue(int progressValue)
-    {
-        this.progressValue = progressValue;
-    }
-
-    public boolean isPlayingAnimation()
-    {
-        return playingAnimation;
-    }
-
-    public void setPlayingAnimation(boolean playingAnimation)
-    {
-        this.playingAnimation = playingAnimation;
-    }
-
-    public int getAnimationCurrentFrame()
-    {
-        return animationCurrentFrame;
-    }
-
-    public void setAnimationCurrentFrame(int animationCurrentFrame)
-    {
-        this.animationCurrentFrame = animationCurrentFrame;
-    }
-
-    public String getEntityTexture()
-    {
-        return entityTexture;
-    }
-
-    public void setEntityTexture(String entityTexture)
-    {
-        this.entityTexture = entityTexture;
     }
 }

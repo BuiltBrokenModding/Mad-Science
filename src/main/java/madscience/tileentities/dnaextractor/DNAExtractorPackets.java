@@ -5,6 +5,7 @@ import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
@@ -79,7 +80,7 @@ public class DNAExtractorPackets extends MadPackets
             {
                 ENTITY = (MadTileEntity) possibleTileEntity;
             }
-            
+
             // Null check.
             if (ENTITY == null)
                 return;

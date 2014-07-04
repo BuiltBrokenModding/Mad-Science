@@ -12,32 +12,29 @@ import net.minecraft.item.ItemStack;
 
 public class MadContainerTemplate extends Container
 {
-    protected MadTileEntity ENTITY;
+    private MadTileEntity ENTITY;
 
     public MadContainerTemplate()
     {
         super();
     }
-    
+
     public MadContainerTemplate(InventoryPlayer playerEntity, MadTileEntity worldEntity)
     {
         // Hook the server world entity.
         this.ENTITY = worldEntity;
-        
+
         // Query machine registry for slot container information.
         MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
-        
+
         // Grab our array of containers from the template object.
         MadSlotContainerInterface[] CONTAINERS = MACHINE.getContainerTemplate();
-        
+
         // Loop through the containers and use the data inside them to prepare the server slot containers.
-        for(int i = 0; i < CONTAINERS.length; i++)
+        for (int i = 0; i < CONTAINERS.length; i++)
         {
             MadSlotContainerInterface slotContainer = CONTAINERS[i];
-            this.addSlotToContainer(new Slot(worldEntity,
-                    slotContainer.slot(),
-                    slotContainer.offsetX(),
-                    slotContainer.offsetY()));
+            this.addSlotToContainer(new Slot(worldEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
         }
 
         // Create slots for main player inventory area.
@@ -56,7 +53,7 @@ public class MadContainerTemplate extends Container
             this.addSlotToContainer(new Slot(playerEntity, i, 8 + i * 18, 142));
         }
     }
-    
+
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
@@ -69,26 +66,26 @@ public class MadContainerTemplate extends Container
     {
         ItemStack itemstack = null;
         Slot slotContainer = (Slot) this.inventorySlots.get(slotNumber);
-    
+
         if (slotContainer != null && slotContainer.getHasStack())
         {
             ItemStack itemstack1 = slotContainer.getStack();
             itemstack = itemstack1.copy();
-    
+
             if (slotNumber == 2)
             {
                 if (!this.mergeItemStack(itemstack1, 3, 38, true))
                 {
                     return null;
                 }
-    
+
                 slotContainer.onSlotChange(itemstack1, itemstack);
             }
             else if (!this.mergeItemStack(itemstack1, 3, 38, false))
             {
                 return null;
             }
-    
+
             if (itemstack1.stackSize == 0)
             {
                 slotContainer.putStack((ItemStack) null);
@@ -97,15 +94,15 @@ public class MadContainerTemplate extends Container
             {
                 slotContainer.onSlotChanged();
             }
-    
+
             if (itemstack1.stackSize == itemstack.stackSize)
             {
                 return null;
             }
-    
+
             slotContainer.onPickupFromSlot(entityPlayer, itemstack1);
         }
-    
+
         return itemstack;
     }
 

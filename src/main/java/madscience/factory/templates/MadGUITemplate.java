@@ -4,27 +4,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import universalelectricity.api.vector.Vector2;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiConfirmOpenLink;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ForgeDirection;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadScience;
@@ -38,16 +18,32 @@ import madscience.factory.controls.MadGUIControlInterface;
 import madscience.factory.controls.MadGUIControlTypeEnum;
 import madscience.factory.slotcontainers.MadSlotContainerInterface;
 import madscience.tileentities.prefab.MadTileEntity;
-import madscience.util.MadUtils;
 import madscience.util.Region2;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiConfirmOpenLink;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeDirection;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class MadGUITemplate extends GuiContainer
 {
-    protected MadTileEntity ENTITY;
-    protected MadGUIControlInterface[] GUICONTROLS;
-    protected MadSlotContainerInterface[] CONTAINERS;
-    protected MadGUIButtonInterface[] BUTTONS;
-    
+    private MadTileEntity ENTITY;
+    private MadGUIControlInterface[] GUICONTROLS;
+    private MadSlotContainerInterface[] CONTAINERS;
+    private MadGUIButtonInterface[] BUTTONS;
+
     public ResourceLocation TEXTURE;
 
     public String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76";
@@ -66,26 +62,93 @@ public class MadGUITemplate extends GuiContainer
     {
         super(container);
     }
-    
+
     public MadGUITemplate(InventoryPlayer entityPlayer, MadTileEntity worldEntity)
     {
         super(new MadContainerTemplate(entityPlayer, worldEntity));
         this.ENTITY = worldEntity;
-        
+
         // Query machine registry for GUI control information.
         MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
-        
+
         // Grab our array of GUI controls from the template object.
         this.GUICONTROLS = MACHINE.getGuiControlsTemplate();
-        
+
         // Grab our array of container slots so we can provide them with tooltip from client renderer.
         this.CONTAINERS = MACHINE.getContainerTemplate();
-        
+
         // Grab our array of buttons that we want to initialize and associate with this GUI.
         this.BUTTONS = MACHINE.getGuiButtonTemplate();
-        
+
         // Grab the texture for the GUI control based off our name.
         this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".png");
+    }
+
+    @Override
+    public void actionPerformed(GuiButton button)
+    {
+        super.actionPerformed(button);
+
+        // -------------
+        // BUTTON ACTION
+        // -------------
+
+        // Loop through the buttons and decide how to proceed with given action.
+        for (int i = 0; i < BUTTONS.length; i++)
+        {
+            MadGUIButtonInterface guiButton = BUTTONS[i];
+
+            // Determine if button clicked matches any from our enumeration.
+            if (button.id == guiButton.buttonID())
+            {
+                // Open Link
+                if (guiButton.getClickAction().equals(MadGUIButtonClickActionEnum.OpenLink) && Desktop.isDesktopSupported())
+                {
+                    // Cast userdata object to string since we know it will be URL for wiki link.
+                    String helpLink;
+                    try
+                    {
+                        helpLink = (String) guiButton.getUserData();
+                    }
+                    catch (Exception err)
+                    {
+                        // Set the link to nothing we're aborting doctor!
+                        helpLink = "";
+                        MadScience.logger.info("[MadGUIButtonInterface]Unable to cast userData from action " + guiButton.getClickAction() + " to string!");
+
+                        // Stop further execution.
+                        return;
+                    }
+
+                    // Check that our userData object was correctly turned into a string.
+                    if (helpLink != null && !helpLink.isEmpty())
+                    {
+                        if (GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown())
+                        {
+                            try
+                            {
+                                this.passClick(new URI(this.SANDRA_YOUTUBE));
+                            }
+                            catch (Exception err)
+                            {
+                                MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                this.passClick(new URI(helpLink));
+                            }
+                            catch (Exception err)
+                            {
+                                MadScience.logger.info("Unable to open wiki link in default browser.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -101,32 +164,51 @@ public class MadGUITemplate extends GuiContainer
         this.mc.displayGuiScreen(this);
     }
 
-    private void openURI(URI uri)
+    private void displayGauge(int screenX, int screenY, MadGUIControlInterface control, int percentLeft)
     {
-        try
-        {
-            // Opens default browser on system with URL.
-            Desktop.getDesktop().browse(uri);
-        }
-        catch (IOException e)
-        {
-            // Nothing to see here.
-        }
-    }
+        // Variable to keep track of block texture segments.
+        int start = 0;
 
-    public void passClick(URI webLocation)
-    {
-        // Rude not to ask if user has chat link prompts disabled.
-        if (Minecraft.getMinecraft().gameSettings.chatLinksPrompt)
+        // Grab the icon of the liquid by looking at fluid properties in internal tank.
+        Icon liquidIcon = MadFluids.LIQUIDDNA_MUTANT.getStillIcon();
+
+        // Bind the texture we grabbed so we can use it in rendering.
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+
+        // We can only display the water icon if it is not null.
+        if (liquidIcon == null)
         {
-            this.displayedURI = webLocation;
-            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, this.displayedURI.toString(), PROMPT_REPLY_ACTION, false));
+            return;
         }
-        else
+
+        while (true)
         {
-            // Open the URL normally without asking anything.
-            openURI(webLocation);
+            int x;
+            if (percentLeft > control.sizeX())
+            {
+                x = control.sizeX();
+                percentLeft -= control.sizeX();
+            }
+            else
+            {
+                x = percentLeft;
+                percentLeft = 0;
+            }
+
+            // Draw mutant DNA tank with proper offset.
+            drawTexturedModelRectFromIcon(screenX + control.screenX(), screenY + control.screenY() + control.sizeY() - x - start, liquidIcon, control.sizeX(), control.sizeX() - (control.sizeX() - x));
+
+            start = start + control.sizeX();
+
+            if (x == 0 || percentLeft == 0)
+            {
+                break;
+            }
         }
+
+        // Re-draws gauge lines ontop of scaled fluid amount to make it look like the fluid is behind the gauge lines.
+        mc.renderEngine.bindTexture(TEXTURE);
+        drawTexturedModalRect(screenX + control.screenX(), screenY + control.screenY(), control.fillerX(), control.fillerY(), control.sizeX(), control.sizeY());
     }
 
     @Override
@@ -135,11 +217,165 @@ public class MadGUITemplate extends GuiContainer
         return false;
     }
 
+    /** Draw the background layer for the GuiContainer (everything behind the items) */
     @Override
-    public void onGuiClosed()
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
-        Keyboard.enableRepeatEvents(false);
-        super.onGuiClosed();
+        // Define the area of the screen.
+        this.screenX = (this.width - this.xSize) / 2;
+        this.screenY = (this.height - this.ySize) / 2;
+
+        // Bind the texture that will makeup our GUI overlay.
+        this.mc.renderEngine.bindTexture(this.TEXTURE);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+        // Draw the base texture we will draw controls and other elements.
+        this.drawTexturedModalRect(this.screenX, this.screenY, 0, 0, this.xSize, this.ySize);
+
+        // Loop through the controls and use the data inside them to prepare the server client GUI rendering.
+        for (int i = 0; i < this.GUICONTROLS.length; i++)
+        {
+            MadGUIControlInterface guiControl = this.GUICONTROLS[i];
+
+            // -------------
+            // POWER LEVEL X
+            // -------------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelX))
+            {
+                int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(guiControl.sizeX());
+                this.drawTexturedModalRect(screenX + guiControl.screenX(), screenY + guiControl.screenY() + guiControl.sizeY() - powerRemianingPercentage, guiControl.fillerX(), guiControl.sizeX() - powerRemianingPercentage, guiControl.sizeY(),
+                        powerRemianingPercentage + 2);
+            }
+
+            // ------------------
+            // COOKING PROGRESS Y
+            // ------------------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressY))
+            {
+                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.screenY());
+                this.drawTexturedModalRect(screenX + guiControl.screenX(), screenY + guiControl.screenY(), guiControl.fillerX(), guiControl.fillerY(), powerCookPercentage + 1, guiControl.sizeY());
+            }
+
+            // ------------
+            // PROGRESS BAR
+            // ------------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
+            {
+                displayGauge(screenX, screenY, guiControl, this.ENTITY.getFluidRemainingScaled(guiControl.sizeY()));
+            }
+        }
+    }
+
+    /** Draw the foreground layer for the GuiContainer (everything in front of the items) */
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+    {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+
+        // Name displayed above the GUI, typically name of the furnace.
+        String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
+        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+
+        // Text that labels player inventory area as "Inventory".
+        String x = I18n.getString("container.inventory");
+        this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+
+        // --------
+        // CONTROLS
+        // --------
+        for (int i = 0; i < this.GUICONTROLS.length; i++)
+        {
+            // Loop through the controls and use the data inside them to prepare the server client GUI rendering.
+            MadGUIControlInterface guiControl = this.GUICONTROLS[i];
+
+            // Power level X OR Y
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelX) || guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelY))
+            {
+                if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
+                {
+                    String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
+                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
+                }
+            }
+
+            // Cooking progress X OR Y
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressX) || guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressY))
+            {
+                if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
+                {
+                    String powerLevelLiteral = String.valueOf(this.ENTITY.getProgressValue()) + "/" + String.valueOf(this.ENTITY.getProgressMaximum());
+                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %", powerLevelLiteral);
+                }
+            }
+
+            // Tank fluid level information.
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
+            {
+                if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY) && this.ENTITY.getFluidStack() != null)
+                {
+                    if (this.ENTITY.getFluidStack() != null)
+                    {
+                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.getFluidLocalizedName(), this.ENTITY.getFluidAmount() + " L");
+                    }
+                }
+            }
+        }
+
+        // ----------
+        // CONTAINERS
+        // ----------
+        for (int i = 0; i < CONTAINERS.length; i++)
+        {
+            // Loop through the slot containers and add tooltip information based on their position relative to screen and GUI.
+            MadSlotContainerInterface slotContainer = CONTAINERS[i];
+
+            // Check if mouse cursor is within the given region of the GUI.
+            if (this.isPointInRegion(slotContainer.offsetX(), slotContainer.offsetY(), slotContainer.sizeX(), slotContainer.sizeY(), mouseX, mouseY))
+            {
+                // Standard Tooltip.
+                if (this.ENTITY.getStackInSlot(slotContainer.slot()) == null)
+                {
+                    // By design if the tooltip is empty we will render nothing for tooltip then.
+                    String slotTooltip = slotContainer.getTooltip();
+                    if (slotTooltip != null && !slotTooltip.isEmpty())
+                    {
+                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, slotTooltip);
+                    }
+                }
+            }
+        }
+
+        // -------
+        // BUTTONS
+        // -------
+        for (int i = 0; i < BUTTONS.length; i++)
+        {
+            // Loop through the buttons and determines if we need to show any tooltip information.
+            MadGUIButtonInterface guiButton = BUTTONS[i];
+
+            // Help link.
+            if (guiButton.getButtonType().equals(MadGUIButtonTypeEnum.InvisibleButton))
+            {
+                // Check if mouse cursor is within the given region of the GUI.
+                if (this.isPointInRegion(guiButton.screenX(), guiButton.screenY(), guiButton.sizeX(), guiButton.sizeY(), mouseX, mouseY))
+                {
+                    // By design if the tooltip is empty we will render nothing for tooltip then.
+                    String slotTooltip = guiButton.getTooltip();
+                    if (slotTooltip != null && !slotTooltip.isEmpty())
+                    {
+                        if (GuiScreen.isCtrlKeyDown())
+                        {
+                            // The Net Reference - Easter Egg 1
+                            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Sandra Bullock Mode");
+                        }
+                        else
+                        {
+                            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, slotTooltip);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void drawItemStack(ItemStack itemStack, int x, int y)
@@ -245,338 +481,66 @@ public class MadGUITemplate extends GuiContainer
         }
     }
 
-    private void displayGauge(int screenX, int screenY, MadGUIControlInterface control, int percentLeft)
-    {
-        // Variable to keep track of block texture segments.
-        int start = 0;
-    
-        // Grab the icon of the liquid by looking at fluid properties in internal tank.
-        Icon liquidIcon = MadFluids.LIQUIDDNA_MUTANT.getStillIcon();
-    
-        // Bind the texture we grabbed so we can use it in rendering.
-        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-    
-        // We can only display the water icon if it is not null.
-        if (liquidIcon == null)
-        {
-            return;
-        }
-    
-        while (true)
-        {
-            int x;
-            if (percentLeft > control.sizeX())
-            {
-                x = control.sizeX();
-                percentLeft -= control.sizeX();
-            }
-            else
-            {
-                x = percentLeft;
-                percentLeft = 0;
-            }
-    
-            // Draw mutant DNA tank with proper offset.
-            drawTexturedModelRectFromIcon(screenX + control.screenX(), screenY + control.screenY() + control.sizeY() - x - start,
-                    liquidIcon, control.sizeX(), control.sizeX() - (control.sizeX() - x));
-            
-            start = start + control.sizeX();
-    
-            if (x == 0 || percentLeft == 0)
-            {
-                break;
-            }
-        }
-    
-        // Re-draws gauge lines ontop of scaled fluid amount to make it look like the fluid is behind the gauge lines.
-        mc.renderEngine.bindTexture(TEXTURE);
-        drawTexturedModalRect(screenX + control.screenX(), screenY + control.screenY(),
-                control.fillerX(), control.fillerY(),
-                control.sizeX(), control.sizeY());
-    }
-
-    /** Draw the background layer for the GuiContainer (everything behind the items) */
-    @Override
-    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
-    {
-        // Define the area of the screen.
-        this.screenX = (this.width - this.xSize) / 2;
-        this.screenY = (this.height - this.ySize) / 2;
-
-        // Bind the texture that will makeup our GUI overlay.
-        this.mc.renderEngine.bindTexture(this.TEXTURE);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-        // Draw the base texture we will draw controls and other elements.
-        this.drawTexturedModalRect(this.screenX, this.screenY, 0, 0, this.xSize, this.ySize);
-        
-        // Loop through the controls and use the data inside them to prepare the server client GUI rendering.
-        for(int i = 0; i < this.GUICONTROLS.length; i++)
-        {
-            MadGUIControlInterface guiControl = this.GUICONTROLS[i];
-            
-            // -------------
-            // POWER LEVEL X
-            // -------------
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelX))
-            {
-                int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(guiControl.sizeX());
-                this.drawTexturedModalRect(screenX + guiControl.screenX(),
-                        screenY + guiControl.screenY() + guiControl.sizeY() - powerRemianingPercentage,
-                        guiControl.fillerX(),
-                        guiControl.sizeX() - powerRemianingPercentage,
-                        guiControl.sizeY(), powerRemianingPercentage + 2);
-            }
-            
-            // ------------------
-            // COOKING PROGRESS Y
-            // ------------------
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressY))
-            {
-                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.screenY());
-                this.drawTexturedModalRect(screenX + guiControl.screenX(),
-                        screenY + guiControl.screenY(),
-                        guiControl.fillerX(), guiControl.fillerY(),
-                        powerCookPercentage + 1,
-                        guiControl.sizeY());
-            }
-            
-            // ------------
-            // PROGRESS BAR
-            // ------------
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
-            {
-                displayGauge(screenX, screenY, guiControl,
-                        this.ENTITY.getFluidRemainingScaled(guiControl.sizeY()));
-            }
-        }
-    }
-
-    /** Draw the foreground layer for the GuiContainer (everything in front of the items) */
-    @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        
-        // Name displayed above the GUI, typically name of the furnace.
-        String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-    
-        // Text that labels player inventory area as "Inventory".
-        String x = I18n.getString("container.inventory");
-        this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
-        
-        // --------
-        // CONTROLS
-        // --------
-        for(int i = 0; i < this.GUICONTROLS.length; i++)
-        {
-            // Loop through the controls and use the data inside them to prepare the server client GUI rendering.
-            MadGUIControlInterface guiControl = this.GUICONTROLS[i];
-            
-            // Power level X OR Y
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelX) ||
-                    guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelY))
-            {
-                if (this.isPointInRegion(guiControl.screenX(),
-                        guiControl.screenY(),
-                        guiControl.sizeX(),
-                        guiControl.sizeY(),
-                        mouseX, mouseY))
-                {
-                    String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
-                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
-                }
-            }
-            
-            // Cooking progress X OR Y
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressX) ||
-                    guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressY))
-            {
-                if (this.isPointInRegion(guiControl.screenX(),
-                        guiControl.screenY(),
-                        guiControl.sizeX(),
-                        guiControl.sizeY(),
-                        mouseX, mouseY))
-                {
-                    String powerLevelLiteral = String.valueOf(this.ENTITY.getProgressValue()) + "/" + String.valueOf(this.ENTITY.getProgressMaximum());
-                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %",
-                            powerLevelLiteral);
-                }
-            }
-            
-            // Tank fluid level information.
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
-            {
-                if (this.isPointInRegion(guiControl.screenX(),
-                        guiControl.screenY(),
-                        guiControl.sizeX(),
-                        guiControl.sizeY(), mouseX, mouseY) && this.ENTITY.getFluidStack() != null)
-                {
-                    if (this.ENTITY.getFluidStack() != null)
-                    {
-                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.getFluidLocalizedName(), this.ENTITY.getFluidAmount() + " L");
-                    }
-                }
-            }
-        }
-        
-        // ----------
-        // CONTAINERS
-        // ----------
-        for(int i = 0; i < CONTAINERS.length; i++)
-        {
-            // Loop through the slot containers and add tooltip information based on their position relative to screen and GUI.
-            MadSlotContainerInterface slotContainer = CONTAINERS[i];
-            
-            // Check if mouse cursor is within the given region of the GUI.
-            if (this.isPointInRegion(slotContainer.offsetX(),
-                    slotContainer.offsetY(),
-                    slotContainer.sizeX(),
-                    slotContainer.sizeY(), mouseX, mouseY))
-            {
-                // Standard Tooltip.
-                if (this.ENTITY.getStackInSlot(slotContainer.slot()) == null)
-                {
-                    // By design if the tooltip is empty we will render nothing for tooltip then.
-                    String slotTooltip = slotContainer.getTooltip();
-                    if (slotTooltip != null && !slotTooltip.isEmpty())
-                    {
-                        this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, slotTooltip);
-                    }
-                }
-            }            
-        }
-        
-        // -------
-        // BUTTONS
-        // -------
-        for(int i = 0; i < BUTTONS.length; i++)
-        {
-            // Loop through the buttons and determines if we need to show any tooltip information.
-            MadGUIButtonInterface guiButton = BUTTONS[i];
-            
-            // Help link.
-            if (guiButton.getButtonType().equals(MadGUIButtonTypeEnum.InvisibleButton))
-            {
-                // Check if mouse cursor is within the given region of the GUI.
-                if (this.isPointInRegion(guiButton.screenX(),
-                        guiButton.screenY(),
-                        guiButton.sizeX(),
-                        guiButton.sizeY(), mouseX, mouseY))
-                {
-                    // By design if the tooltip is empty we will render nothing for tooltip then.
-                    String slotTooltip = guiButton.getTooltip();
-                    if (slotTooltip != null && !slotTooltip.isEmpty())
-                    {
-                        if (this.isCtrlKeyDown())
-                        {
-                            // The Net Reference - Easter Egg 1
-                            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Sandra Bullock Mode");
-                        }
-                        else
-                        {
-                            this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, slotTooltip);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public void initGui()
     {
         super.initGui();
-    
+
         // --------------
         // CREATE BUTTONS
         // --------------
-        
-        for(int i = 0; i < BUTTONS.length; i++)
+
+        for (int i = 0; i < BUTTONS.length; i++)
         {
             // Loop through the buttons and create them based on info in enumeration.
             MadGUIButtonInterface guiButton = BUTTONS[i];
-            
+
             int posX = (this.width - guiButton.sizeX()) / 2;
             int posY = (this.height - guiButton.sizeY()) / 2;
-            
+
             // Clear the internal button list before adding them.
             buttonList.clear();
-            
+
             // Invisible button
             if (guiButton.getButtonType().equals(MadGUIButtonTypeEnum.InvisibleButton))
             {
-                buttonList.add(new MadGUIButtonInvisibleControl(guiButton.buttonID(), posX + 81, posY - 76,
-                        guiButton.sizeX(), guiButton.sizeY()));
+                buttonList.add(new MadGUIButtonInvisibleControl(guiButton.buttonID(), posX + 81, posY - 76, guiButton.sizeX(), guiButton.sizeY()));
             }
         }
     }
 
     @Override
-    public void actionPerformed(GuiButton button)
+    public void onGuiClosed()
     {
-        super.actionPerformed(button);
-        
-        // -------------
-        // BUTTON ACTION
-        // -------------
-        
-        // Loop through the buttons and decide how to proceed with given action.
-        for(int i = 0; i < BUTTONS.length; i++)
+        Keyboard.enableRepeatEvents(false);
+        super.onGuiClosed();
+    }
+
+    private void openURI(URI uri)
+    {
+        try
         {
-            MadGUIButtonInterface guiButton = BUTTONS[i];
-            
-            // Determine if button clicked matches any from our enumeration.
-            if (button.id == guiButton.buttonID())
-            {
-                // Open Link
-                if (guiButton.getClickAction().equals(MadGUIButtonClickActionEnum.OpenLink) && Desktop.isDesktopSupported())
-                {
-                    // Cast userdata object to string since we know it will be URL for wiki link.
-                    String helpLink;
-                    try
-                    {
-                        helpLink = (String) guiButton.getUserData();
-                    }
-                    catch (Exception err)
-                    {
-                        // Set the link to nothing we're aborting doctor!
-                        helpLink = "";
-                        MadScience.logger.info("[MadGUIButtonInterface]Unable to cast userData from action " + guiButton.getClickAction() + " to string!");
-                        
-                        // Stop further execution.
-                        return;
-                    }
-                    
-                    // Check that our userData object was correctly turned into a string.
-                    if (helpLink != null && !helpLink.isEmpty())
-                    {
-                        if (this.isCtrlKeyDown() && this.isShiftKeyDown())
-                        {
-                            try
-                            {
-                                this.passClick(new URI(this.SANDRA_YOUTUBE));
-                            }
-                            catch (Exception err)
-                            {
-                                MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                this.passClick(new URI(helpLink));
-                            }
-                            catch (Exception err)
-                            {
-                                MadScience.logger.info("Unable to open wiki link in default browser.");
-                            }
-                        }
-                    }
-                }
-            }            
+            // Opens default browser on system with URL.
+            Desktop.getDesktop().browse(uri);
+        }
+        catch (IOException e)
+        {
+            // Nothing to see here.
+        }
+    }
+
+    public void passClick(URI webLocation)
+    {
+        // Rude not to ask if user has chat link prompts disabled.
+        if (Minecraft.getMinecraft().gameSettings.chatLinksPrompt)
+        {
+            this.displayedURI = webLocation;
+            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, this.displayedURI.toString(), PROMPT_REPLY_ACTION, false));
+        }
+        else
+        {
+            // Open the URL normally without asking anything.
+            openURI(webLocation);
         }
     }
 

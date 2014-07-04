@@ -16,23 +16,23 @@ import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class DNAExtractorEntity extends MadTileEntity
-{    
+{
     public DNAExtractorEntity()
     {
         super();
     }
 
-    public DNAExtractorEntity(String machineName)
+    DNAExtractorEntity(String machineName)
     {
         super(machineName);
     }
-    
+
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
     @Override
     public boolean canSmelt()
     {
         super.canSmelt();
-        
+
         // Check if there is an input item at all in the furnace.
         if (this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()) == null)
         {
@@ -198,6 +198,12 @@ public class DNAExtractorEntity extends MadTileEntity
         return false;
     }
 
+    @Override
+    public void readFromNBT(NBTTagCompound nbt)
+    {
+        super.readFromNBT(nbt);
+    }
+
     private boolean removeMutantDNAFromInternalTank()
     {
         // Check if the input slot for filled buckets is null.
@@ -318,7 +324,7 @@ public class DNAExtractorEntity extends MadTileEntity
     public void smeltItem()
     {
         super.smeltItem();
-        
+
         // Output 1 - Dirty needle leftover from extracting DNA sample.
         ItemStack itemOutputSlot1 = new ItemStack(MadNeedles.NEEDLE_DIRTY);
 
@@ -374,7 +380,7 @@ public class DNAExtractorEntity extends MadTileEntity
     public void updateAnimation()
     {
         super.updateAnimation();
-        
+
         // Active state has many textures based on item cook progress.
         if (this.canSmelt() && this.isPowered())
         {
@@ -455,8 +461,14 @@ public class DNAExtractorEntity extends MadTileEntity
             }
 
             // Send update to clients that require it.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new DNAExtractorPackets(this.xCoord, this.yCoord, this.zCoord, this.getProgressValue(),
-                    this.getProgressMaximum(), getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getFluidAmount(), this.getFluidCapacity(), this.getEntityTexture()).makePacket());
+            PacketDispatcher.sendPacketToAllAround(
+                    this.xCoord,
+                    this.yCoord,
+                    this.zCoord,
+                    MadConfig.PACKETSEND_RADIUS,
+                    worldObj.provider.dimensionId,
+                    new DNAExtractorPackets(this.xCoord, this.yCoord, this.zCoord, this.getProgressValue(), this.getProgressMaximum(), getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getFluidAmount(), this
+                            .getFluidCapacity(), this.getEntityTexture()).makePacket());
         }
 
         if (inventoriesChanged)
@@ -469,18 +481,12 @@ public class DNAExtractorEntity extends MadTileEntity
     public void updateSound()
     {
         super.updateSound();
-        
+
         // Check to see if we should play idle sounds.
         if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DNAExtractorSounds.DNAEXTRACTOR_IDLE, 1.0F, 1.0F);
         }
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound nbt)
-    {
-        super.readFromNBT(nbt);
     }
 
     @Override

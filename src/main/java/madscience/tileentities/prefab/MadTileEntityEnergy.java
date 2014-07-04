@@ -16,31 +16,31 @@ import universalelectricity.api.energy.IEnergyInterface;
 import universalelectricity.api.vector.Vector3;
 
 @UniversalClass
-public abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergyInterface, IEnergyContainer
+abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergyInterface, IEnergyContainer
 {
     protected EnergyStorageHandler energy;
-    
+
     public MadTileEntityEnergy()
     {
         super();
     }
-    
-    public MadTileEntityEnergy(String machineName)
+
+    MadTileEntityEnergy(String machineName)
     {
         super(machineName);
-        
+
         // Grab our machine from the factory manager.
         MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.getMachineInfo(machineName);
-        
+
         // Grab energy information from factory product.
         MadEnergyInterface[] energySupported = machineInfo.getEnergySupported();
-        
+
         if (energySupported.length >= 1)
         {
-            for(int i = 0; i < energySupported.length; i++)
+            for (int i = 0; i < energySupported.length; i++)
             {
                 MadEnergyInterface energyInterface = energySupported[i];
-                
+
                 // TODO: Only 1 energy storage handler is supported at this time.
                 energy = new EnergyStorageHandler(energyInterface.getEnergyCapacity(), energyInterface.getEnergyMaxRecieve(), energyInterface.getEnergyMaxExtract());
             }
@@ -51,7 +51,7 @@ public abstract class MadTileEntityEnergy extends MadTileEntityFluid implements 
             energy = new EnergyStorageHandler(0, 0, 0);
         }
     }
-    
+
     @Override
     public boolean canConnect(ForgeDirection direction, Object obj)
     {
@@ -170,7 +170,7 @@ public abstract class MadTileEntityEnergy extends MadTileEntityFluid implements 
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        
+
         // Load only the amount of power since everything will be established if this exists.
         if (this.energy != null)
         {
@@ -181,16 +181,16 @@ public abstract class MadTileEntityEnergy extends MadTileEntityFluid implements 
         {
             // Current energy levels.
             long currentEnergy = nbt.getLong("energy");
-            
+
             // Maximum amount of energy.
             long maximumEnergy = nbt.getLong("energyMax");
-            
+
             // Maximum receive energy.
-            long maxRecieve = nbt.getLong("energyMaxReceive");            
-            
+            long maxRecieve = nbt.getLong("energyMaxReceive");
+
             // Maximum extract energy.
             long maxExtract = nbt.getLong("energyMaxExtract");
-            
+
             // Re-create energy state from NBT save data.
             this.energy = new EnergyStorageHandler(maximumEnergy, maxRecieve, maxExtract);
             this.energy.setEnergy(currentEnergy);
@@ -224,16 +224,16 @@ public abstract class MadTileEntityEnergy extends MadTileEntityFluid implements 
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        
+
         // Current amount of energy.
         this.energy.writeToNBT(nbt);
-        
+
         // Maximum amount of energy.
         nbt.setLong("energyMax", this.energy.getEnergyCapacity());
-        
+
         // Maximum receive.
         nbt.setLong("energyMaxReceive", this.energy.getMaxReceive());
-        
+
         // Maximum extract.
         nbt.setLong("energyMaxExtract", this.energy.getMaxExtract());
     }

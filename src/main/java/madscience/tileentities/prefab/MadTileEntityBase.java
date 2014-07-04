@@ -4,28 +4,23 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public abstract class MadTileEntityBase extends TileEntity
+abstract class MadTileEntityBase extends TileEntity
 {
     private long ticks = 0;
-    
+
     /** Stores reference to our machines internal name as it should be references by the rest of MC/Forge. */
     private String machineName;
-    
+
     public MadTileEntityBase()
     {
         // Note: This is used to load tile entities from NBT data only!
         super();
     }
 
-    public MadTileEntityBase(String machineName)
+    MadTileEntityBase(String machineName)
     {
         super();
         this.machineName = machineName;
-    }
-    
-    public String getMachineInternalName()
-    {
-        return this.machineName;
     }
 
     @Override
@@ -50,6 +45,11 @@ public abstract class MadTileEntityBase extends TileEntity
         return this.blockType;
     }
 
+    public String getMachineInternalName()
+    {
+        return this.machineName;
+    }
+
     /** Called on the TileEntity's first tick. */
     public void initiate()
     {
@@ -65,10 +65,10 @@ public abstract class MadTileEntityBase extends TileEntity
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        
+
         // Check if our internal name is empty or null.
         String machineName = this.getMachineInternalName();
-        
+
         // Check if we have NBT data to solve this chicken before the egg problem.
         if (nbt.hasKey("MachineName") && (machineName == null || machineName.isEmpty()))
         {
@@ -79,14 +79,14 @@ public abstract class MadTileEntityBase extends TileEntity
             }
         }
     }
-    
+
     public void setMachineName(String machineName)
     {
         if (this.machineName != null && !this.machineName.isEmpty())
         {
             throw new IllegalAccessError("Unable to set machine name when it already exists!");
         }
-        
+
         // Set machine name from saved NBT data.
         this.machineName = machineName;
     }
@@ -111,7 +111,7 @@ public abstract class MadTileEntityBase extends TileEntity
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        
+
         // Save the machine name since this will be needed when recreating from NBT data.
         String machineName = this.getMachineInternalName();
         if (machineName != null && !machineName.isEmpty())

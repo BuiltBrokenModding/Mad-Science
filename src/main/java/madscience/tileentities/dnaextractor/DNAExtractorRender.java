@@ -64,97 +64,6 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         }
     }
 
-    @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        return;
-    }
-
-    @Override
-    public void renderItem(ItemRenderType type, ItemStack item, Object... data)
-    {
-        GL11.glPushMatrix();
-
-        // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
-
-        // adjust rendering space to match what caller expects
-        TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
-        switch (type)
-        {
-        case EQUIPPED:
-        {
-            float scale = 1.4F;
-            GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
-            break;
-        }
-        case EQUIPPED_FIRST_PERSON:
-        {
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(0.2F, 0.9F, 0.5F);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
-            break;
-        }
-        case INVENTORY:
-        {
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
-            transformationToBeUndone = TransformationTypes.INVENTORY;
-            break;
-        }
-        case ENTITY:
-        {
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            //GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-            transformationToBeUndone = TransformationTypes.DROPPED;
-            break;
-        }
-        default:
-            break; // never here
-        }
-
-        // Renders the model in the gameworld at the correct scale.
-        MODEL.renderAll();
-        GL11.glPopMatrix();
-
-        switch (transformationToBeUndone)
-        {
-        case NONE:
-        {
-            break;
-        }
-        case DROPPED:
-        {
-            GL11.glTranslatef(0.0F, -0.5F, 0.0F);
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            break;
-        }
-        case INVENTORY:
-        {
-            GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-            break;
-        }
-        case THIRDPERSONEQUIPPED:
-        {
-            GL11.glDisable(GL11.GL_CULL_FACE);
-        }
-        default:
-            break;
-        }
-    }
-    
     private void renderAModelAt(MadTileEntityInterface tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
@@ -222,8 +131,99 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         MODEL.renderAll();
         GL11.glPopMatrix();
 
-        //MODEL.renderAll();
+        // MODEL.renderAll();
         GL11.glPopMatrix();
+    }
+
+    @Override
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
+    {
+        return;
+    }
+
+    @Override
+    public void renderItem(ItemRenderType type, ItemStack item, Object... data)
+    {
+        GL11.glPushMatrix();
+
+        // Use the same texture we do on the block normally.
+        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
+
+        // adjust rendering space to match what caller expects
+        TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
+        switch (type)
+        {
+        case EQUIPPED:
+        {
+            float scale = 1.4F;
+            GL11.glScalef(scale, scale, scale);
+            GL11.glTranslatef(0.1F, 0.3F, 0.3F);
+            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glEnable(GL11.GL_CULL_FACE);
+            transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
+            break;
+        }
+        case EQUIPPED_FIRST_PERSON:
+        {
+            float scale = 1.0F;
+            GL11.glScalef(scale, scale, scale);
+            GL11.glTranslatef(0.2F, 0.9F, 0.5F);
+            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+            break;
+        }
+        case INVENTORY:
+        {
+            float scale = 1.0F;
+            GL11.glScalef(scale, scale, scale);
+            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
+            transformationToBeUndone = TransformationTypes.INVENTORY;
+            break;
+        }
+        case ENTITY:
+        {
+            float scale = 1.0F;
+            GL11.glScalef(scale, scale, scale);
+            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+            transformationToBeUndone = TransformationTypes.DROPPED;
+            break;
+        }
+        default:
+            break; // never here
+        }
+
+        // Renders the model in the gameworld at the correct scale.
+        MODEL.renderAll();
+        GL11.glPopMatrix();
+
+        switch (transformationToBeUndone)
+        {
+        case NONE:
+        {
+            break;
+        }
+        case DROPPED:
+        {
+            GL11.glTranslatef(0.0F, -0.5F, 0.0F);
+            float scale = 1.0F;
+            GL11.glScalef(scale, scale, scale);
+            break;
+        }
+        case INVENTORY:
+        {
+            GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+            break;
+        }
+        case THIRDPERSONEQUIPPED:
+        {
+            GL11.glDisable(GL11.GL_CULL_FACE);
+        }
+        default:
+            break;
+        }
     }
 
     @Override

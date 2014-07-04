@@ -2,7 +2,6 @@ package madscience.factory.buttons;
 
 import madscience.MadScience;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
@@ -17,11 +16,6 @@ public class MadGUIButtonInvisibleControl extends GuiButton
 {
     private static final ResourceLocation sandraBullock = new ResourceLocation(MadScience.ID, "textures/gui/sandraBullock.png");
 
-    public MadGUIButtonInvisibleControl(int par1, int par2, int par3, int par4, int par5)
-    {
-        super(par1, par2, par3, par4, par5, "");
-    }
-
     private static void drawTexturedQuadFit(double x, double y, double width, double height, double zLevel)
     {
         Tessellator tessellator = Tessellator.instance;
@@ -31,6 +25,11 @@ public class MadGUIButtonInvisibleControl extends GuiButton
         tessellator.addVertexWithUV(x + width, y + 0, zLevel, 1, 0);
         tessellator.addVertexWithUV(x + 0, y + 0, zLevel, 0, 0);
         tessellator.draw();
+    }
+
+    public MadGUIButtonInvisibleControl(int par1, int par2, int par3, int par4, int par5)
+    {
+        super(par1, par2, par3, par4, par5, "");
     }
 
     /** Draws this button to the screen. */

@@ -4,8 +4,8 @@ import net.minecraftforge.common.ForgeDirection;
 
 public interface MadSlotContainerInterface
 {
-    /* Returns the valid input direction for a given container slot. */
-    public abstract ForgeDirection getInputDirection();
+    /* Returns true if we are allowed to extract items from the given container slot. */
+    public abstract boolean canExtract();
 
     /* Returns true if the given container slot allows items to be inserted into it. */
     public abstract boolean canInsert();
@@ -13,8 +13,11 @@ public interface MadSlotContainerInterface
     /* Returns the valid extraction direction for a given container slot. */
     public abstract ForgeDirection getExtractDirection();
 
-    /* Returns true if we are allowed to extract items from the given container slot. */
-    public abstract boolean canExtract();
+    /* Returns the valid input direction for a given container slot. */
+    public abstract ForgeDirection getInputDirection();
+
+    /* Internal string used to search in localization files. */
+    public abstract String getTooltip();
 
     /* Position on texture where slot can be located. */
     public abstract int offsetX();
@@ -27,10 +30,7 @@ public interface MadSlotContainerInterface
 
     /* Size of slot. */
     public abstract int sizeY();
-    
+
     /* Index that this particular container instance will reference. */
     public abstract int slot();
-    
-    /* Internal string used to search in localization files.  */
-    public abstract String getTooltip();
 }

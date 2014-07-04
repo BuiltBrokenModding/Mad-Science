@@ -15,18 +15,18 @@ public class DNAExtractorRecipes
     private static HashMap<List<Integer>, ItemStack> metaSmeltingList = new HashMap<List<Integer>, ItemStack>();
     private static HashMap<List<Integer>, Float> metaExperience = new HashMap<List<Integer>, Float>();
 
-    /** Adds a smelting recipe. */
-    public static void addSmelting(int par1, ItemStack par2ItemStack, float par3)
-    {
-        DNAExtractorRecipes.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
-        DNAExtractorRecipes.experienceList.put(Integer.valueOf(par2ItemStack.itemID), Float.valueOf(par3));
-    }
-    
     /** A metadata sensitive version of adding a furnace recipe. */
     public static void addSmelting(int itemID, int metadata, ItemStack itemstack, float experience)
     {
         metaSmeltingList.put(Arrays.asList(itemID, metadata), itemstack);
         metaExperience.put(Arrays.asList(itemstack.itemID, itemstack.getItemDamage()), experience);
+    }
+
+    /** Adds a smelting recipe. */
+    public static void addSmelting(int par1, ItemStack par2ItemStack, float par3)
+    {
+        DNAExtractorRecipes.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
+        DNAExtractorRecipes.experienceList.put(Integer.valueOf(par2ItemStack.itemID), Float.valueOf(par3));
     }
 
     /** Used to get the resulting ItemStack form a source ItemStack
@@ -46,8 +46,6 @@ public class DNAExtractorRecipes
         }
         return (ItemStack) smeltingList.get(Integer.valueOf(item.itemID));
     }
-
-    
 
     public Map<List<Integer>, ItemStack> getMetaSmeltingList()
     {

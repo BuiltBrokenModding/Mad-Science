@@ -32,16 +32,12 @@ public class MadTileEntityFactory
         return !registeredMachines.containsKey(id);
     }
 
-    public static boolean registerMachine(String machineName, int blockID,
-            MadSlotContainerInterface[] containerTemplate,
-            MadGUIControlInterface[] guiTemplate,
-            MadGUIButtonInterface[] buttonTemplate,
-            MadFluidInterface[] fluidsTemplate,
+    public static boolean registerMachine(String machineName, int blockID, MadSlotContainerInterface[] containerTemplate, MadGUIControlInterface[] guiTemplate, MadGUIButtonInterface[] buttonTemplate, MadFluidInterface[] fluidsTemplate,
             MadEnergyInterface[] energyTemplate) throws IllegalArgumentException
     {
         // Setup basic tile entity template object, the name and ID are unchangeable and referenced only.
         MadTileEntityFactoryProduct tileEntityProduct = new MadTileEntityFactoryProduct(machineName, blockID);
-        
+
         // Adds required things most tile entities need such as GUI, slots, energy and fluid support, etc.
         tileEntityProduct.setContainerTemplate(containerTemplate);
         tileEntityProduct.setGuiControlsTemplate(guiTemplate);
