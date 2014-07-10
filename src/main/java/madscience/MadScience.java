@@ -6,17 +6,22 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import com.sun.media.sound.InvalidFormatException;
+
 import net.minecraft.entity.EntityList;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.gui.MadGUI;
 import madscience.items.spawnegg.MadSpawnEggTags;
 import madscience.mobs.abomination.AbominationMobEntity;
@@ -103,6 +108,25 @@ public class MadScience
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static void postInit(FMLPostInitializationEvent event) // NO_UCD (unused code)
     {
+        // ---------------
+        // FACTORY RECIPES
+        // ---------------
+        
+        // Loop through all the tile entity factory objects and populate their recipe ItemStacks.
+        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.getMachineInfoList();
+        for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
+        {
+            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
+            if (registeredMachine != null)
+            {
+                registeredMachine.loadRecipes();
+            }
+        }
+        
+        // ----------------
+        // NOT ENOUGH ITEMS
+        // ----------------
+        
         // Interface with NEI and attempt to call functions from it if it exists.
         // Note: This method was given by Alex_hawks, buy him a beer if you see him!
         if (Loader.isModLoaded("NotEnoughItems"))
@@ -166,7 +190,7 @@ public class MadScience
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) // NO_UCD (unused code)
+    public void preInit(FMLPreInitializationEvent event) throws InvalidFormatException // NO_UCD (unused code)
     {
         // --------------
         // PRE-INT CONFIG
@@ -355,7 +379,9 @@ public class MadScience
         // -------------
         logger.info("Creating Tile Entities");
 
-        MadFurnaces.createDNAExtractorTileEntity(MadConfig.DNA_EXTRACTOR);
+        // Add machines to factory loaded from flat files on drive.
+        MadFurnaces.addTileEntity(MadConfig.DNA_EXTRACTOR);
+        
         MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
         MadFurnaces.createGeneSequencerTileEntity(MadConfig.GENE_SEQUENCER);

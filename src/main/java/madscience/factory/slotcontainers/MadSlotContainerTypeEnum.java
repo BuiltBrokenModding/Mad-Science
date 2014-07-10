@@ -1,0 +1,18 @@
+package madscience.factory.slotcontainers;
+
+public enum MadSlotContainerTypeEnum
+{
+    INPUT_INGREDIENT1,
+    INPUT_INGREDIENT2,
+    INPUT_FUEL,
+    INPUT_EXTRA,
+    INPUT_EMPTYBUCKET,
+    INPUT_FILLEDBUCKET,
+    INPUT_BLUEPRINT,
+    OUTPUT_RESULT1,
+    OUTPUT_RESULT2,
+    OUTPUT_WASTE,
+    OUTPUT_EXTRA,
+    OUTPUT_EMPTYBUCKET,
+    OUTPUT_FILLEDBUCKET;
+}

@@ -1,4 +1,4 @@
-package madscience.tileentities.prefab;
+package madscience.factory.tileentity;
 
 import java.util.EnumSet;
 
@@ -25,15 +25,12 @@ abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergy
         super();
     }
 
-    MadTileEntityEnergy(String machineName)
+    MadTileEntityEnergy(MadTileEntityFactoryProduct registeredMachine)
     {
-        super(machineName);
-
-        // Grab our machine from the factory manager.
-        MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.getMachineInfo(machineName);
+        super(registeredMachine);
 
         // Grab energy information from factory product.
-        MadEnergyInterface[] energySupported = machineInfo.getEnergySupported();
+        MadEnergyInterface[] energySupported = registeredMachine.getEnergySupported();
 
         if (energySupported.length >= 1)
         {
@@ -120,6 +117,11 @@ abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergy
 
     public boolean isPowered()
     {
+        if (this.energy == null)
+        {
+            return false;
+        }
+        
         return this.energy.getEnergy() > 0;
     }
 
@@ -214,7 +216,7 @@ abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergy
         super.updateEntity();
 
         // Accept energy if we are allowed to do so.
-        if (this.energy.checkReceive())
+        if (this.energy != null && this.energy.checkReceive())
         {
             this.consume();
         }
@@ -236,5 +238,11 @@ abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergy
 
         // Maximum extract.
         nbt.setLong("energyMaxExtract", this.energy.getMaxExtract());
+    }
+
+    @Override
+    public void initiate()
+    {
+        super.initiate();
     }
 }

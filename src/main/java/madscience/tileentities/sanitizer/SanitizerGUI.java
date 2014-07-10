@@ -7,7 +7,7 @@ import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
-import madscience.factory.templates.MadGUITemplate;
+import madscience.factory.tileentity.MadGUITemplate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

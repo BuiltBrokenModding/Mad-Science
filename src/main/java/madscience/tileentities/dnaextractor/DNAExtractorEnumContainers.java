@@ -1,13 +1,16 @@
 package madscience.tileentities.dnaextractor;
 
 import madscience.factory.slotcontainers.MadSlotContainerInterface;
-import net.minecraft.util.StatCollector;
+import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraftforge.common.ForgeDirection;
 
 public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
 {
-    InputGeneticMaterial(ForgeDirection.UNKNOWN, ForgeDirection.NORTH, false, true, 9, 32, 18, 18), InputEmptyBucket(ForgeDirection.UNKNOWN, ForgeDirection.EAST, false, true, 152, 61, 18, 18), OutputDNASample(ForgeDirection.SOUTH, ForgeDirection.UNKNOWN,
-            true, false, 72, 32, 18, 18), OutputDirtyNeedle(ForgeDirection.UP, ForgeDirection.UNKNOWN, true, false, 105, 32, 18, 18), OutputFilledMutantDNABucket(ForgeDirection.WEST, ForgeDirection.UNKNOWN, true, false, 152, 36, 18, 18);
+    InputGeneticMaterial(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, ForgeDirection.UNKNOWN, ForgeDirection.NORTH, false, true, 9, 32, 18, 18),
+    InputEmptyBucket(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET, ForgeDirection.UNKNOWN, ForgeDirection.EAST, false, true, 152, 61, 18, 18),
+    OutputDNASample(MadSlotContainerTypeEnum.OUTPUT_RESULT1, ForgeDirection.SOUTH, ForgeDirection.UNKNOWN, true, false, 72, 32, 18, 18),
+    OutputDirtyNeedle(MadSlotContainerTypeEnum.OUTPUT_WASTE, ForgeDirection.UP, ForgeDirection.UNKNOWN, true, false, 105, 32, 18, 18),
+    OutputFilledMutantDNABucket(MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET, ForgeDirection.WEST, ForgeDirection.UNKNOWN, true, false, 152, 36, 18, 18);
 
     /* Determines what side this entry can have items extracted from it. */
     private final ForgeDirection extractSide;
@@ -32,12 +35,24 @@ public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
 
     /* Size of container slot on GUI. */
     private final int sizeY;
+    
+    /** Reference to type of slot this will be input, output, other, etc. */
+    private final MadSlotContainerTypeEnum slotType;
 
-    /* String token used to locate tooltip information in localization files */
-    private final String tooltipToken;
-
-    DNAExtractorEnumContainers(ForgeDirection extractSide, ForgeDirection insertSide, boolean canExtract, boolean canInput, int slotX, int slotY, int sizeX, int sizeY)
+    DNAExtractorEnumContainers(
+            MadSlotContainerTypeEnum slotType,
+            ForgeDirection extractSide,
+            ForgeDirection insertSide,
+            boolean canExtract,
+            boolean canInput,
+            int slotX,
+            int slotY,
+            int sizeX,
+            int sizeY)
     {
+        // Determines what type of slot this is: input, output, other, etc.
+        this.slotType = slotType;
+        
         // Determines which side of the device can input or output to automations.
         this.extractSide = extractSide;
         this.insertSide = insertSide;
@@ -55,25 +70,6 @@ public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
         // Determines to the total size of this container slot.
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-
-        // Use the ordinal position in enumeration to get name and base tooltip token from it.
-        // Note: Constructs a string that looks like "DNAExtractorEnumContainers.InputGeneticMaterial.tooltip"
-        String friendlyName = this.getClass().getSimpleName() + "." + this.name() + ".tooltip";
-
-        // Grab the localized tooltip from our localization files based on the token.
-        String slotTooltip = StatCollector.translateToLocal(friendlyName);
-
-        // Only put the tooltip into variable if it is not empty.
-        if (slotTooltip != null && !slotTooltip.isEmpty())
-        {
-            // This text will be displayed above the given container slot.
-            this.tooltipToken = slotTooltip;
-        }
-        else
-        {
-            // Default response is to return an empty string which will render no tooltip.
-            this.tooltipToken = "";
-        }
     }
 
     @Override
@@ -115,12 +111,6 @@ public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
     }
 
     @Override
-    public String getTooltip()
-    {
-        return this.tooltipToken;
-    }
-
-    @Override
     public int offsetX()
     {
         return this.offsetX;
@@ -148,5 +138,11 @@ public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
     public int slot()
     {
         return this.ordinal();
+    }
+
+    @Override
+    public MadSlotContainerTypeEnum getSlotType()
+    {
+        return slotType;
     }
 }

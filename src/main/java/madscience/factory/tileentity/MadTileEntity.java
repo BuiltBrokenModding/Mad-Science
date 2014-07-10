@@ -1,9 +1,13 @@
-package madscience.tileentities.prefab;
+package madscience.factory.tileentity;
 
-import madscience.factory.tileentity.MadTileEntityInterface;
+import madscience.MadConfig;
+import madscience.MadScience;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.sounds.MadSoundTriggerEnum;
 import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.common.ForgeDirection;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTileEntityInterface
 {
@@ -22,20 +26,30 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
     /** Path to current texture that should be displayed on our model. */
     private String entityTexture;
 
+    /** Holds reference to our factory product which is grabbed after the object has been placed into the world. */
+    private MadTileEntityFactoryProduct registeredMachine;
+
     public MadTileEntity()
     {
         super();
     }
 
+    public MadTileEntity(MadTileEntityFactoryProduct registeredMachine)
+    {
+        super(registeredMachine);
+        this.entityTexture = "models/" + registeredMachine.getMachineName() + "/idle.png";
+    }
+
     public MadTileEntity(String machineName)
     {
-        super(machineName);
-        this.entityTexture = "models/" + machineName + "/idle.png";
+        super();
+        MadScience.logger.info("[PlzConvertMe]" + machineName);
     }
 
     @Override
     public boolean canSmelt()
     {
+        // Default response is to return false.
         return false;
     }
 
@@ -49,7 +63,6 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
         return entityTexture;
     }
 
-    @SideOnly(Side.CLIENT)
     /**
      * Returns an integer between 0 and the passed value representing how close the current item is to being completely
      * cooked
@@ -123,29 +136,75 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
     {
         this.progressValue = progressValue;
     }
+    
+    /** Sends base update packet for MadTileEntity containing position, progress, energy, fluids, textures, etc. */
+    public void sendUpdatePacket()
+    {
+        // Send update to clients that require it.
+        PacketDispatcher.sendPacketToAllAround(
+                this.xCoord,
+                this.yCoord,
+                this.zCoord,
+                MadConfig.PACKETSEND_RADIUS,
+                worldObj.provider.dimensionId,
+                new MadTileEntityPacketTemplate(this.xCoord, this.yCoord, this.zCoord, this.getProgressValue(), this.getProgressMaximum(), getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getFluidAmount(), this
+                        .getFluidCapacity(), this.getEntityTexture()).makePacket());
+    }
 
     @Override
     public void smeltItem()
     {
-
+        
     }
 
     @Override
     public void updateAnimation()
     {
-
+        
     }
 
     @Override
     public void updateEntity()
     {
         super.updateEntity();
+
     }
 
     @Override
     public void updateSound()
     {
-
+        // Get overview of machine progress.
+        int progressPercentage = getItemCookTimeScaled(100);
+        
+        // Work Start
+        if (progressPercentage == 1)
+        {
+            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.WORKSTART, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        }
+        
+        // Working
+        if (this.canSmelt() && progressPercentage > 1 && progressPercentage < 100)
+        {
+            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.WORKING, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        }
+        
+        // Work Finished
+        if (progressPercentage >= 99)
+        {
+            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.WORKEND, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        }
+        
+        // Idle Off
+        if (!this.canSmelt() && !this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+        {
+            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.IDLEOFF, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        }
+        
+        // Idle On
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+        {
+            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.IDLEON, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        }
     }
 
     @Override
@@ -165,4 +224,15 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
         // Path to current texture that should be loaded onto the model.
         nbt.setString("TexturePath", this.entityTexture);
     }
+
+    @Override
+    public void initiate()
+    {
+        super.initiate();
+        
+        // Populate our factory product object if we have not done so!
+        this.registeredMachine = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName());
+    }
+
+
 }

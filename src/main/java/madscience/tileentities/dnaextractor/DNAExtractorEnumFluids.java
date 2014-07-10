@@ -8,9 +8,9 @@ public enum DNAExtractorEnumFluids implements MadFluidInterface
 {
     MutantDNA(MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME, 0, FluidContainerRegistry.BUCKET_VOLUME * 10);
 
-    private String internalName;
-    private int startingAmount;
-    private int maximumAmount;
+    private final String internalName;
+    private final int startingAmount;
+    private final int maximumAmount;
 
     DNAExtractorEnumFluids(String fluidDictionaryName, int amount, int capacity)
     {

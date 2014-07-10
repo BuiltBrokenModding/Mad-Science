@@ -2,7 +2,8 @@ package madscience.factory.tileentity;
 
 public interface MadTileEntityInterface
 {
-    /** Determines if this machine is capable of doing work at this given time. */
+    /** Determines if this machine is capable of doing work at this given time. 
+     * @throws Exception */
     public abstract boolean canSmelt();
 
     /** Run after the machine has completed a cycle of work */

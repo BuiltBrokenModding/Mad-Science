@@ -1,4 +1,4 @@
-package madscience.factory.templates;
+package madscience.factory.tileentity;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.HashMap;
 
 import madscience.MadFluids;
-import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
@@ -17,7 +16,6 @@ import madscience.factory.buttons.MadGUIButtonTypeEnum;
 import madscience.factory.controls.MadGUIControlInterface;
 import madscience.factory.controls.MadGUIControlTypeEnum;
 import madscience.factory.slotcontainers.MadSlotContainerInterface;
-import madscience.tileentities.prefab.MadTileEntity;
 import madscience.util.Region2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -31,6 +29,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
 
 import org.lwjgl.input.Keyboard;
@@ -63,10 +62,10 @@ public class MadGUITemplate extends GuiContainer
         super(container);
     }
 
-    public MadGUITemplate(InventoryPlayer entityPlayer, MadTileEntity worldEntity)
+    public MadGUITemplate(InventoryPlayer entityPlayer, MadTileEntity tileEntity)
     {
-        super(new MadContainerTemplate(entityPlayer, worldEntity));
-        this.ENTITY = worldEntity;
+        super(new MadContainerTemplate(entityPlayer, tileEntity));
+        this.ENTITY = tileEntity;
 
         // Query machine registry for GUI control information.
         MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
@@ -81,7 +80,7 @@ public class MadGUITemplate extends GuiContainer
         this.BUTTONS = MACHINE.getGuiButtonTemplate();
 
         // Grab the texture for the GUI control based off our name.
-        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".png");
+        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + ENTITY.getMachineInternalName() + ".png");
     }
 
     @Override
@@ -273,12 +272,25 @@ public class MadGUITemplate extends GuiContainer
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
         // Name displayed above the GUI, typically name of the furnace.
-        String s = MadFurnaces.DNAEXTRACTOR_TILEENTITY.getLocalizedName();
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+        String machineNameLocalized = StatCollector.translateToLocal("tile." + this.ENTITY.getMachineInternalName() + ".name");
+        
+        // Check to make sure the machine name has something, if nothing use internal name.
+        if (machineNameLocalized == null)
+        {
+            machineNameLocalized = this.ENTITY.getMachineInternalName();
+        }
+        
+        // Check to make sure the localized string is not empty, if so then use internal name.
+        if (machineNameLocalized != null && machineNameLocalized.isEmpty())
+        {
+            machineNameLocalized = this.ENTITY.getMachineInternalName();
+        }
+        
+        this.fontRenderer.drawString(machineNameLocalized, this.xSize / 2 - this.fontRenderer.getStringWidth(machineNameLocalized) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".
-        String x = I18n.getString("container.inventory");
-        this.fontRenderer.drawString(x, 8, this.ySize - 96 + 2, 4210752);
+        String inventoryWordLocalized = I18n.getString("container.inventory");
+        this.fontRenderer.drawString(inventoryWordLocalized, 8, this.ySize - 96 + 2, 4210752);
 
         // --------
         // CONTROLS
@@ -335,8 +347,20 @@ public class MadGUITemplate extends GuiContainer
                 // Standard Tooltip.
                 if (this.ENTITY.getStackInSlot(slotContainer.slot()) == null)
                 {
+                    // Determine if we should label the slot as input or output.
+                    String slotTooltip = "";
+                    if (slotContainer.getSlotType().name().toLowerCase().contains("input"))
+                    {
+                        // Input slot.
+                        slotTooltip = StatCollector.translateToLocal("tile.inputslot.tooltip");
+                    }
+                    else if (slotContainer.getSlotType().name().toLowerCase().contains("output"))
+                    {
+                        // Output slot.
+                        slotTooltip = StatCollector.translateToLocal("tile.outputslot.tooltip");
+                    }
+                    
                     // By design if the tooltip is empty we will render nothing for tooltip then.
-                    String slotTooltip = slotContainer.getTooltip();
                     if (slotTooltip != null && !slotTooltip.isEmpty())
                     {
                         this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, slotTooltip);

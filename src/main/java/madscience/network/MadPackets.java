@@ -1,6 +1,7 @@
 package madscience.network;
 
 import madscience.MadScience;
+import madscience.factory.tileentity.MadTileEntityPacketTemplate;
 import madscience.items.warningsign.WarningSignPacketClientRequestSignType;
 import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
 import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
@@ -10,7 +11,6 @@ import madscience.tileentities.cncmachine.CnCMachinePackets;
 import madscience.tileentities.cryofreezer.CryofreezerPackets;
 import madscience.tileentities.cryotube.CryotubePackets;
 import madscience.tileentities.dataduplicator.DataDuplicatorPackets;
-import madscience.tileentities.dnaextractor.DNAExtractorPackets;
 import madscience.tileentities.incubator.IncubatorPackets;
 import madscience.tileentities.magloader.MagLoaderPackets;
 import madscience.tileentities.mainframe.MainframePackets;
@@ -61,8 +61,8 @@ public abstract class MadPackets
         // Data Duplicator
         builder.put(Integer.valueOf(2), DataDuplicatorPackets.class);
 
-        // DNA Extractor
-        builder.put(Integer.valueOf(3), DNAExtractorPackets.class);
+        // Mad Tile Entity Packet
+        builder.put(Integer.valueOf(3), MadTileEntityPacketTemplate.class);
 
         // Genome Incubator
         builder.put(Integer.valueOf(4), IncubatorPackets.class);

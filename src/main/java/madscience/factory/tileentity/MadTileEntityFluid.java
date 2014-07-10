@@ -1,6 +1,7 @@
-package madscience.tileentities.prefab;
+package madscience.factory.tileentity;
 
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.fluids.MadFluidInterface;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
@@ -27,11 +28,11 @@ abstract class MadTileEntityFluid extends MadTileEntityInventory implements IFlu
         super();
     }
 
-    MadTileEntityFluid(String machineName)
+    MadTileEntityFluid(MadTileEntityFactoryProduct registeredMachine)
     {
-        super(machineName);
+        super(registeredMachine);
 
-        MadFluidInterface[] supportedFluids = MadTileEntityFactory.getMachineInfo(machineName).getFluidsSupported();
+        MadFluidInterface[] supportedFluids = registeredMachine.getFluidsSupported();
         int i = supportedFluids.length;
         for (int j = 0; j < i; ++j)
         {
@@ -215,5 +216,11 @@ abstract class MadTileEntityFluid extends MadTileEntityInventory implements IFlu
 
         // Type of fluid which we need to remember.
         nbt.setString("FluidType", supportedFluid.getName());
+    }
+
+    @Override
+    public void initiate()
+    {
+        super.initiate();
     }
 }

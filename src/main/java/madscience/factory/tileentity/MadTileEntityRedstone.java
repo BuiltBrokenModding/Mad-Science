@@ -1,5 +1,6 @@
-package madscience.tileentities.prefab;
+package madscience.factory.tileentity;
 
+import madscience.factory.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 
 abstract class MadTileEntityRedstone extends MadTileEntityBase
@@ -12,9 +13,9 @@ abstract class MadTileEntityRedstone extends MadTileEntityBase
         super();
     }
 
-    MadTileEntityRedstone(String machineName)
+    MadTileEntityRedstone(MadTileEntityFactoryProduct registeredMachine)
     {
-        super(machineName);
+        super(registeredMachine);
     }
 
     public void checkRedstonePower()
@@ -26,6 +27,8 @@ abstract class MadTileEntityRedstone extends MadTileEntityBase
     @Override
     public void initiate()
     {
+        super.initiate();
+        
         // Checks the server world if we are currently powered by redstone.
         checkRedstonePower();
     }

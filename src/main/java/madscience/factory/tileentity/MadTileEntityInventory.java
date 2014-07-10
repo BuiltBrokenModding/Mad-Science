@@ -1,9 +1,12 @@
-package madscience.tileentities.prefab;
+package madscience.factory.tileentity;
 
 import java.util.ArrayList;
 
-import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.recipes.MadRecipeComponentInterface;
+import madscience.factory.recipes.MadRecipeInterface;
 import madscience.factory.slotcontainers.MadSlotContainerInterface;
+import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -21,10 +24,11 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         super();
     }
 
-    MadTileEntityInventory(String machineName)
+    MadTileEntityInventory(MadTileEntityFactoryProduct registeredMachine)
     {
-        super(machineName);
-        INVENTORY = new ItemStack[MadTileEntityFactory.getMachineInfo(machineName).getContainerTemplate().length];
+        super(registeredMachine);
+        
+        INVENTORY = new ItemStack[registeredMachine.getContainerTemplate().length];
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -35,7 +39,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         ForgeDirection dir = ForgeDirection.getOrientation(side);
 
         // Grab a list of all container values from enumeration.
-        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate();
+        MadSlotContainerInterface[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
         int i = containerSlots.length;
 
         // Loop through all the gathered slots.
@@ -105,7 +109,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         ForgeDirection dir = ForgeDirection.getOrientation(side);
 
         // Grab a list of all container values from enumeration.
-        MadSlotContainerInterface[] containerSlots = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate();
+        MadSlotContainerInterface[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
         int i = containerSlots.length;
 
         // List which will store our integers for allowed sides.
@@ -157,21 +161,129 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
     public String getInvName()
     {
         // Default name for inventory if none is specified.
-        return "UnknownMachine";
+        return this.getMachineInternalName();
     }
 
     /** Returns the number of slots in the inventory. */
     @Override
     public int getSizeInventory()
     {
-        return MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate().length;
+        return this.getRegisteredMachine().getContainerTemplate().length;
     }
 
-    /** Returns the stack in slot i */
+    /** Returns the stack in specified slot number. */
     @Override
     public ItemStack getStackInSlot(int slot)
     {
         return this.INVENTORY[slot];
+    }
+    
+    /** Returns the result of given item in input slot type of the machine (should match recipe archive). Returns null if the assigned slot is empty or item inside of it is invalid. 
+     * @throws Exception */
+    public ItemStack getRecipeResultFromFilledSlotType(MadSlotContainerTypeEnum slotType)
+    {
+        // Grab the ItemStack by the type specified in the given machine slot.
+        ItemStack slotedItem = this.getStackInSlotByType(slotType);
+        
+        // Grab the recipe archive object array.
+        MadRecipeInterface[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
+        
+        // Recipe archives are nested so we need to loop through them to get to first one (even if it is the only one).
+        for (MadRecipeInterface machineRecipe : recipeArchiveArray) 
+        {
+            // Loop through the recipe archive result list for matching item in given slot type.
+            MadRecipeComponentInterface[] outputResultsArray = machineRecipe.getOutputResultsArray();
+            for (MadRecipeComponentInterface recipeResult : outputResultsArray) 
+            {
+                // Only work on loaded recipes.
+                if (!recipeResult.isLoaded())
+                {
+                    continue;
+                }
+                
+                // Determine if this recipe result slot type matches what we would expect from inputed slot.
+                if (recipeResult.getSlotType().equals(slotType))
+                {
+                    // Should return a loaded reference to ItemStack created with loadRecipes().
+                    return recipeResult.getItemStack().copy();
+                }
+            }
+        }
+        
+        // Default response is to return nothing.
+        return null;
+    }
+    
+    /** Returns true if given ItemStack is used in any recipes ingredients. */
+    public boolean isItemUsedInInputRecipes(ItemStack possibleInputItem)
+    {
+        // Grab the recipe archive object array.
+        MadRecipeInterface[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
+        for (MadRecipeInterface machineRecipe : recipeArchiveArray) 
+        {
+            MadRecipeComponentInterface[] inputIngredients = machineRecipe.getInputIngredientsArray();
+            for (MadRecipeComponentInterface recipeResult : inputIngredients) 
+            {
+                if (!recipeResult.isLoaded())
+                {
+                    continue;
+                }
+                
+                // Determine if this recipe result matches anything in ingredient list.
+                if (recipeResult.getItemStack().getItem().equals(possibleInputItem.getItem()))
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    /** Returns stack based on shared enumeration of possible slot types. */
+    public ItemStack getStackInSlotByType(MadSlotContainerTypeEnum slotType)
+    {
+        // Check if we have a registered machine present to reference slot types from.
+        MadTileEntityFactoryProduct currentMachine = this.getRegisteredMachine();
+        if (currentMachine == null)
+        {
+            return null;
+        }
+        
+        // Loop through the slots in this machine looking for one that matches the parameter.
+        for (MadSlotContainerInterface currentSlot : currentMachine.getContainerTemplate()) 
+        {
+            if (currentSlot.getSlotType().equals(slotType))
+            {
+                // Return the item from the inventory based on this slot type.
+                return this.INVENTORY[currentSlot.slot()];
+            }
+        }
+        
+        // Default response is to return nothing.
+        return null;
+    }
+    
+    /** Returns integer which represents the slot number in Minecraft/Forge. */
+    public int getSlotIDByType(MadSlotContainerTypeEnum slotType)
+    {
+        MadTileEntityFactoryProduct currentMachine = this.getRegisteredMachine();
+        if (currentMachine == null)
+        {
+            return -1;
+        }
+        
+        for (MadSlotContainerInterface currentSlot : currentMachine.getContainerTemplate()) 
+        {
+            if (currentSlot.getSlotType().equals(slotType))
+            {
+                // Return the number of this container slot.
+                return currentSlot.slot();
+            }
+        }
+        
+        // Default response is to return non-slot based number which will crash the game.
+        return -1;
     }
 
     /** When some containers are closed they call this on each slot, then drop whatever it returns as an EntityItem - like when you close a workbench GUI. */
@@ -234,7 +346,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
             NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
-            if (b0 >= 0 && b0 < MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate().length)
+            if (b0 >= 0 && b0 < this.getRegisteredMachine().getContainerTemplate().length)
             {
                 this.setInventorySlotContents(b0, ItemStack.loadItemStackFromNBT(nbttagcompound1));
             }
@@ -243,13 +355,32 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
 
     /** Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections). */
     @Override
-    public void setInventorySlotContents(int slot, ItemStack par2ItemStack)
+    public void setInventorySlotContents(int slotNumber, ItemStack item)
     {
-        this.INVENTORY[slot] = par2ItemStack;
+        this.INVENTORY[slotNumber] = item;
 
-        if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit())
+        if (item != null && item.stackSize > this.getInventoryStackLimit())
         {
-            par2ItemStack.stackSize = this.getInventoryStackLimit();
+            item.stackSize = this.getInventoryStackLimit();
+        }
+    }
+    
+    /** Sets inventory slot contents based on type of slot. */
+    public void setInventorySlotContentsByType(MadSlotContainerTypeEnum slotType, ItemStack item)
+    {
+        MadTileEntityFactoryProduct currentMachine = this.getRegisteredMachine();
+        if (currentMachine == null)
+        {
+            return;
+        }
+        
+        for (MadSlotContainerInterface currentSlot : currentMachine.getContainerTemplate()) 
+        {
+            if (currentSlot.getSlotType().equals(slotType))
+            {
+                // Set the contents of the slot using the ID of the slot container.
+                this.setInventorySlotContents(currentSlot.slot(), item);
+            }
         }
     }
 
@@ -268,7 +399,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
 
         // Reload from NBT data what items was inside our container slots.
         NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < MadTileEntityFactory.getMachineInfo(this.getMachineInternalName()).getContainerTemplate().length; ++i)
+        for (int i = 0; i < this.getRegisteredMachine().getContainerTemplate().length; ++i)
         {
             if (this.getStackInSlot(i) != null)
             {

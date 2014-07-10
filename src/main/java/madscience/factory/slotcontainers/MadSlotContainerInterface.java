@@ -16,9 +16,6 @@ public interface MadSlotContainerInterface
     /* Returns the valid input direction for a given container slot. */
     public abstract ForgeDirection getInputDirection();
 
-    /* Internal string used to search in localization files. */
-    public abstract String getTooltip();
-
     /* Position on texture where slot can be located. */
     public abstract int offsetX();
 
@@ -33,4 +30,7 @@ public interface MadSlotContainerInterface
 
     /* Index that this particular container instance will reference. */
     public abstract int slot();
+    
+    /* Reference to type of slot either input, output, other, etc. */
+    public abstract MadSlotContainerTypeEnum getSlotType();
 }

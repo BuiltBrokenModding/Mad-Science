@@ -1,5 +1,8 @@
 package madscience.client;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadEntities;
@@ -7,6 +10,9 @@ import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.MadWeapons;
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityRendererTemplate;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
 import madscience.items.components.pulserifle.ComponentPulseRifleBarrelItemRender;
@@ -61,8 +67,6 @@ import madscience.tileentities.cryotube.CryotubeEntity;
 import madscience.tileentities.cryotube.CryotubeRender;
 import madscience.tileentities.dataduplicator.DataDuplicatorEntity;
 import madscience.tileentities.dataduplicator.DataDuplicatorRender;
-import madscience.tileentities.dnaextractor.DNAExtractorEntity;
-import madscience.tileentities.dnaextractor.DNAExtractorRender;
 import madscience.tileentities.incubator.IncubatorEntity;
 import madscience.tileentities.incubator.IncubatorRender;
 import madscience.tileentities.magloader.MagLoaderEntity;
@@ -110,7 +114,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     {
         AdvancedModelLoader.registerModelHandler(new MadTechneModelLoader());
     }
-    
+
     @Override
     public int getArmorIndex(String armor)
     {
@@ -129,7 +133,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     {
         return FMLClientHandler.instance().getClient().theWorld;
     }
-    
+
     @Override
     public void spawnParticle(String fxName, double posX, double posY, double posZ, double velX, double velY, double velZ)
     {
@@ -139,20 +143,16 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             MadScience.logger.info("Mad Particle: Could not spawn particle because client world was null!");
             return;
         }
-        
+
         if (fxName.equals("splash"))
         {
-            EntityFX someParticle = new EntitySplashFX(clientWorld, posX, posY, posZ, velX ,velY, velZ);
+            EntityFX someParticle = new EntitySplashFX(clientWorld, posX, posY, posZ, velX, velY, velZ);
             Minecraft.getMinecraft().effectRenderer.addEffect(someParticle);
         }
         else
         {
             // Normal minecraft particle system ignores velocity completely.
-            clientWorld.spawnParticle(fxName, 
-            posX,
-            posY,
-            posZ
-            ,0.0D ,0.0D, 0.0D);
+            clientWorld.spawnParticle(fxName, posX, posY, posZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -182,7 +182,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         }
 
         float speedOnGround = 0.1F;
-        //int i = player.getItemInUseDuration();
+        // int i = player.getItemInUseDuration();
         int i = pulseRifleFireTime;
         float f1 = (float) i / 420.0F;
 
@@ -236,12 +236,17 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // TILE ENTITIES
         // -------------
 
-        // DNA Extractor
-        if (blockID == MadConfig.DNA_EXTRACTOR)
+        // Grab an iterable array of all registered machines.
+        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.getMachineInfoList();
+        for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.DNAEXTRACTOR_TILEENTITY.blockID, new DNAExtractorRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(DNAExtractorEntity.class, new DNAExtractorRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new DNAExtractorRender());
+            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
+            if (registeredMachine.getBlockID() == blockID)
+            {
+                RenderingRegistry.registerBlockHandler(blockID, new MadTileEntityRendererTemplate(registeredMachine));
+                ClientRegistry.bindTileEntitySpecialRenderer(registeredMachine.getTileEntityLogicClass(), new MadTileEntityRendererTemplate(registeredMachine));
+                MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate(registeredMachine));
+            }
         }
 
         // Syringe Sanitizer
@@ -323,7 +328,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new ClayfurnaceRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new ClayfurnaceRender());
         }
-        
+
         // VOX Box
         if (blockID == MadConfig.VOXBOX)
         {
@@ -331,7 +336,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             ClientRegistry.bindTileEntitySpecialRenderer(VoxBoxEntity.class, new VoxBoxRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new VoxBoxRender());
         }
-        
+
         // Magazine Loader
         if (blockID == MadConfig.MAGLOADER)
         {
@@ -339,7 +344,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             ClientRegistry.bindTileEntitySpecialRenderer(MagLoaderEntity.class, new MagLoaderRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new MagLoaderRender());
         }
-        
+
         // CnC Machine
         if (blockID == MadConfig.CNCMACHINE)
         {
@@ -366,7 +371,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_BULLETITEM.itemID, new PulseRifleBulletItemRender());
             RenderingRegistry.registerEntityRenderingHandler(PulseRifleBulletEntity.class, new PulseRifleBulletEntityRender());
         }
-        
+
         // Pulse Rifle Grenade
         if (blockID == MadConfig.WEAPON_PULSERIFLE_GRENADEITEM)
         {
@@ -379,51 +384,51 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, new PulseRifleMagazineItemRender());
         }
-        
+
         // ----------
         // COMPONENTS
         // ----------
-        
+
         // Component Pulse Rifle Barrel
         if (blockID == MadConfig.COMPONENT_PULSERIFLEBARREL)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBARREL.itemID, new ComponentPulseRifleBarrelItemRender());
         }
-        
+
         // Component Pulse Rifle Bolt
         if (blockID == MadConfig.COMPONENT_PULSERIFLEBOLT)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBOLT.itemID, new ComponentPulseRifleBoltItemRender());
         }
-        
+
         // Component Pulse Rifle Receiver
         if (blockID == MadConfig.COMPONENT_PULSERIFLERECEIVER)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLERECIEVER.itemID, new ComponentPulseRifleReceiverItemRender());
         }
-        
+
         // Component Pulse Rifle Trigger
         if (blockID == MadConfig.COMPONENT_PULSERIFLETRIGGER)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLETRIGGER.itemID, new ComponentPulseRifleTriggerItemRender());
         }
-        
+
         // Component Pulse Rifle Bullet Casing
         if (blockID == MadConfig.COMPONENT_PULSERIFLEBULLETCASING)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBULLETCASING.itemID, new ComponentPulseRifleBulletCasingItemRender());
         }
-        
+
         // Component Pulse Rifle Grenade Casing
         if (blockID == MadConfig.COMPONENT_PULSERIFLEGRENADECASING)
         {
             MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEGRENADECASING.itemID, new ComponentPulseRifleGrenadeCasingItemRender());
         }
-        
+
         // -----
         // ITEMS
         // -----
-        
+
         // Warning Sign
         if (blockID == MadConfig.WARNING_SIGN)
         {
@@ -494,7 +499,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     @Override
     public void registerSoundHandler()
     {
-        // Register the sound event handling class
+        // Register the sound event handling class.
         MinecraftForge.EVENT_BUS.register(new MadSounds());
     }
 }

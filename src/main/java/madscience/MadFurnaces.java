@@ -1,5 +1,7 @@
 package madscience;
 
+import com.sun.media.sound.InvalidFormatException;
+
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.items.ItemBlockTooltip;
@@ -19,13 +21,14 @@ import madscience.tileentities.cryotube.CryotubeBlockGhost;
 import madscience.tileentities.cryotube.CryotubeEntity;
 import madscience.tileentities.dataduplicator.DataDuplicatorBlock;
 import madscience.tileentities.dataduplicator.DataDuplicatorEntity;
-import madscience.tileentities.dnaextractor.DNAExtractorBlock;
 import madscience.tileentities.dnaextractor.DNAExtractorEntity;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumContainers;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumEnergy;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumFluids;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumGUIButtons;
 import madscience.tileentities.dnaextractor.DNAExtractorEnumGUIControls;
+import madscience.tileentities.dnaextractor.DNAExtractorEnumRecipes;
+import madscience.tileentities.dnaextractor.DNAExtractorEnumSounds;
 import madscience.tileentities.incubator.IncubatorBlock;
 import madscience.tileentities.incubator.IncubatorEntity;
 import madscience.tileentities.incubator.IncubatorRecipes;
@@ -62,10 +65,6 @@ public class MadFurnaces
     // -------------
     // TILE ENTITIES
     // -------------
-
-    // DNA Extractor.
-    public static BlockContainer DNAEXTRACTOR_TILEENTITY;
-    public static final String DNAEXTRACTOR_INTERNALNAME = "dnaExtractor";
 
     // Needle Sanitizer
     public static BlockContainer SANTITIZER_TILEENTITY;
@@ -143,6 +142,65 @@ public class MadFurnaces
     // CUSTOM FURNANCES REGISTRY ADD
     // -----------------------------
 
+    @EventHandler
+    static void addTileEntity(int blockID) throws InvalidFormatException
+    {        
+        // TODO: Get machine name from loaded file.
+        String machineNameInternal = "dnaExtractor";
+        
+        // Register machine with the registry so we can generate all needed MC/Forge data.
+        boolean addResult = false;
+        addResult = MadTileEntityFactory.registerMachine(
+                machineNameInternal,
+                blockID,
+                DNAExtractorEntity.class, // TODO: Get logic class from loaded file.
+                DNAExtractorEnumContainers.values(),
+                DNAExtractorEnumGUIControls.values(),
+                DNAExtractorEnumGUIButtons.values(),
+                DNAExtractorEnumFluids.values(),
+                DNAExtractorEnumEnergy.values(),
+                DNAExtractorEnumSounds.values(),
+                DNAExtractorEnumRecipes.values());
+        
+        // Check the result!
+        if (!addResult)
+        {
+            throw new InvalidFormatException("Unable to register tile entity '" + machineNameInternal + "'");
+        }
+        
+        // Grab our factory product from the tile entity factory.
+        MadTileEntityFactoryProduct registeredMachine = MadTileEntityFactory.getMachineInfo(machineNameInternal);
+        
+        // Check the result!
+        if (registeredMachine == null)
+        {
+            throw new InvalidFormatException("Unable to retrieve recently registered tile entity '" + machineNameInternal + "'");
+        }
+        
+        // Register the tile-entity with the game world.
+        GameRegistry.registerTileEntity(registeredMachine.getTileEntityLogicClass(), machineNameInternal);
+
+        // Register block handler for custom GUI.
+        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
+
+        // Register the block with the world.
+        GameRegistry.registerBlock(registeredMachine.getBlockContainer(), ItemBlockTooltip.class, MadScience.ID + machineNameInternal);
+
+        // Register our rendering handles on clients and ignore them on servers.
+        MadScience.proxy.registerRenderingHandler(blockID);
+
+        // Shaped Recipe.
+        GameRegistry.addRecipe(new ItemStack(registeredMachine.getBlockContainer(), 1), new Object[]
+        { "414",
+          "424",
+          "434",
+
+        '1', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
+        '2', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE),
+        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
+        '4', new ItemStack(MadComponents.COMPONENT_CASE), });
+    }
+    
     @EventHandler
     static void createCryoFreezerTileEntity(int blockID)
     {
@@ -235,44 +293,6 @@ public class MadFurnaces
         '4', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE),
         '5', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
         '6', new ItemStack(MadComponents.COMPONENT_FAN) });
-    }
-
-    @EventHandler
-    static void createDNAExtractorTileEntity(int blockID)
-    {        
-        // Register machine with the registry so we can generate all needed MC/Forge data.
-        MadTileEntityFactory.registerMachine(DNAEXTRACTOR_INTERNALNAME, blockID,
-                DNAExtractorEnumContainers.values(),
-                DNAExtractorEnumGUIControls.values(),
-                DNAExtractorEnumGUIButtons.values(),
-                DNAExtractorEnumFluids.values(),
-                DNAExtractorEnumEnergy.values());
-        
-        // Populate our static instance.
-        DNAEXTRACTOR_TILEENTITY = (BlockContainer) new DNAExtractorBlock(blockID).setUnlocalizedName(DNAEXTRACTOR_INTERNALNAME);
-
-        // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(DNAExtractorEntity.class, DNAEXTRACTOR_INTERNALNAME);
-
-        // Register block handler for custom GUI.
-        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
-
-        // Register the block with the world.
-        GameRegistry.registerBlock(DNAEXTRACTOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + DNAEXTRACTOR_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe.
-        GameRegistry.addRecipe(new ItemStack(DNAEXTRACTOR_TILEENTITY, 1), new Object[]
-        { "414",
-          "424",
-          "434",
-
-        '1', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
-        '2', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE),
-        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
-        '4', new ItemStack(MadComponents.COMPONENT_CASE), });
     }
 
     @EventHandler

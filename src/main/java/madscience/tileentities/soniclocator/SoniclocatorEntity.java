@@ -3,11 +3,12 @@ package madscience.tileentities.soniclocator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
+import madscience.factory.tileentity.MadTileEntity;
 import madscience.network.MadParticlePacket;
-import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

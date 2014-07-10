@@ -2,10 +2,11 @@ package madscience.tileentities.voxbox;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.tileentities.prefab.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntity;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;

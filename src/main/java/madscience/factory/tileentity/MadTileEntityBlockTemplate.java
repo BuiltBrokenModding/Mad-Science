@@ -1,15 +1,20 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.tileentity;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Random;
 
+import universalelectricity.api.UniversalElectricity;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntityInterface;
-import madscience.tileentities.prefab.MadTileEntity;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.sounds.MadSoundTriggerEnum;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,28 +31,25 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import universalelectricity.api.UniversalElectricity;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-public class DNAExtractorBlock extends BlockContainer
-{
-    // Is the random generator used by furnace to drop the inventory contents in
-    // random directions.
-    private final Random RAND = new Random();
+public class MadTileEntityBlockTemplate extends BlockContainer
+{    
+    private static MadTileEntityFactoryProduct registeredProduct;
+    
+    /** Determines if this machine should explode it's inventory contents into world when broken. */
+    private boolean keepFurnaceInventory;
 
-    private MadTileEntity ENTITY;
-
-    // This flag is used to prevent the furnace inventory to be dropped upon
-    // block removal, is used internally when the furnace block changes from
-    // idle to active and vice-versa.
-    private static boolean keepFurnaceInventory;
-
-    public DNAExtractorBlock(int id)
+    public MadTileEntityBlockTemplate(MadTileEntityFactoryProduct registeredMachine)
     {
-        // Solid like a rock baby.
-        super(id, UniversalElectricity.machine);
-
+        // Create Minecraft/Forge to create a block with our specifications.
+        super(registeredMachine.getBlockID(), UniversalElectricity.machine);
+        
+        // Hold onto information about this machine.
+        this.registeredProduct = registeredMachine;
+        
+        // Set name that is used internally to reference machine.
+        this.setUnlocalizedName(registeredMachine.getMachineName());
+        
         // Set what tab we show up in creative tab.
         this.setCreativeTab(MadEntities.tabMadScience);
 
@@ -61,6 +63,11 @@ public class DNAExtractorBlock extends BlockContainer
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    public MadTileEntityBlockTemplate(int par1, Material par2Material)
+    {
+        super(par1, par2Material);
+    }
+
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */
     @Override
     public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
@@ -72,61 +79,82 @@ public class DNAExtractorBlock extends BlockContainer
     @Override
     public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
+        // Grab our block from the world upon breaking it.
+        TileEntity vanillaTileInstance = par1World.getBlockTileEntity(par2, par3, par4);
+        MadTileEntity tileEntityInstance = null;
+        
+        // Attempt to cast this block as one of ours.
+        if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntity)
+        {
+            tileEntityInstance = (MadTileEntity) vanillaTileInstance;
+            
+            // Check if we need to play a sound for being destroyed.
+            if (this.registeredProduct != null)
+            {
+                this.registeredProduct.playTriggerSound(MadSoundTriggerEnum.DESTROYED, par2, par3, par4, par1World);
+            }
+        }
+        
+        // Make items stored inside the inventory of slots spawn everywhere if there is anything inside.
         if (!keepFurnaceInventory)
         {
-            DNAExtractorEntity tileentityfurnace = (DNAExtractorEntity) par1World.getBlockTileEntity(par2, par3, par4);
-
-            if (tileentityfurnace != null)
+            if (tileEntityInstance != null)
             {
-                for (int j1 = 0; j1 < tileentityfurnace.getSizeInventory(); ++j1)
+                for (int slotNumber = 0; slotNumber < tileEntityInstance.getSizeInventory(); ++slotNumber)
                 {
-                    ItemStack itemstack = tileentityfurnace.getStackInSlot(j1);
-
+                    ItemStack itemstack = tileEntityInstance.getStackInSlot(slotNumber);
+    
                     if (itemstack != null)
                     {
-                        float f = this.RAND.nextFloat() * 0.8F + 0.1F;
-                        float f1 = this.RAND.nextFloat() * 0.8F + 0.1F;
-                        float f2 = this.RAND.nextFloat() * 0.8F + 0.1F;
-
+                        float f = par1World.rand.nextFloat() * 0.8F + 0.1F;
+                        float f1 = par1World.rand.nextFloat() * 0.8F + 0.1F;
+                        float f2 = par1World.rand.nextFloat() * 0.8F + 0.1F;
+    
                         while (itemstack.stackSize > 0)
                         {
-                            int k1 = this.RAND.nextInt(21) + 10;
-
+                            int k1 = par1World.rand.nextInt(21) + 10;
+    
                             if (k1 > itemstack.stackSize)
                             {
                                 k1 = itemstack.stackSize;
                             }
-
+    
                             itemstack.stackSize -= k1;
                             EntityItem entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
-
+    
                             if (itemstack.hasTagCompound())
                             {
                                 entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
                             }
-
+    
                             float f3 = 0.05F;
-                            entityitem.motionX = (float) this.RAND.nextGaussian() * f3;
-                            entityitem.motionY = (float) this.RAND.nextGaussian() * f3 + 0.2F;
-                            entityitem.motionZ = (float) this.RAND.nextGaussian() * f3;
-
+                            entityitem.motionX = (float) par1World.rand.nextGaussian() * f3;
+                            entityitem.motionY = (float) par1World.rand.nextGaussian() * f3 + 0.2F;
+                            entityitem.motionZ = (float) par1World.rand.nextGaussian() * f3;
+    
                             par1World.spawnEntityInWorld(entityitem);
                         }
                     }
                 }
-
+    
                 par1World.func_96440_m(par2, par3, par4, par5);
             }
         }
-
+    
         super.breakBlock(par1World, par2, par3, par4, par5, par6);
     }
 
     @Override
     public TileEntity createNewTileEntity(World world)
+    {        
+        // Returns the TileEntity used by this block.
+        return registeredProduct.getNewTileEntityLogicClassInstance();
+    }
+    
+    public TileEntity getBlockEntity()
     {
-        // Make sure you set this as your TileEntity class!
-        return new DNAExtractorEntity(MadFurnaces.DNAEXTRACTOR_INTERNALNAME);
+        // Returns the TileEntity used by this block.
+        return registeredProduct.getNewTileEntityLogicClassInstance();
     }
 
     @Override
@@ -134,12 +162,6 @@ public class DNAExtractorBlock extends BlockContainer
     {
         // Makes blocks drop the correct metadata in the world.
         return par1;
-    }
-
-    public TileEntity getBlockEntity()
-    {
-        // Returns the TileEntity used by this block.
-        return new DNAExtractorEntity(MadFurnaces.DNAEXTRACTOR_INTERNALNAME);
     }
 
     /** If hasComparatorInputOverride returns true, the return value from this is used instead of the redstone signal strength when this block inputs to a comparator. */
@@ -175,21 +197,17 @@ public class DNAExtractorBlock extends BlockContainer
         return true;
     }
 
-    // Returns the ID of the items to drop on destruction.
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return MadFurnaces.DNAEXTRACTOR_TILEENTITY.blockID;
+        return blockID;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    /**
-     * only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative)
-     */
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadFurnaces.DNAEXTRACTOR_TILEENTITY.blockID;
+        return blockID;
     }
 
     @Override
@@ -204,7 +222,6 @@ public class DNAExtractorBlock extends BlockContainer
         return true;
     }
 
-    // It's not an opaque cube, so you need this.
     @Override
     public boolean isOpaqueCube()
     {
@@ -222,12 +239,20 @@ public class DNAExtractorBlock extends BlockContainer
         else if (!par5EntityPlayer.isSneaking())
         {
             // Open GUI on the client...
-            MadTileEntityInterface tileentityfurnace = (MadTileEntityInterface) par1World.getBlockTileEntity(par2, par3, par4);
-
-            if (tileentityfurnace != null)
+            TileEntity vanillaTileInstance = par1World.getBlockTileEntity(par2, par3, par4);
+            MadTileEntity tileEntityInstance = null;
+            
+            // Attempt to cast this block as one of ours.
+            if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntity)
+            {
+                tileEntityInstance = (MadTileEntity) vanillaTileInstance;
+            }
+    
+            if (tileEntityInstance != null)
             {
                 par5EntityPlayer.openGui(MadScience.instance, this.blockID, par1World, par2, par3, par4);
             }
+            
             return true;
         }
         else
@@ -247,26 +272,40 @@ public class DNAExtractorBlock extends BlockContainer
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, living, stack);
-        ENTITY = (MadTileEntity) world.getBlockTileEntity(x, y, z);
-        int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
-        world.setBlockMetadataWithNotify(x, y, z, dir, 0);
+        
+        TileEntity vanillaTileInstance = world.getBlockTileEntity(x, y, z);
+        MadTileEntity tileEntityInstance = null;
+        
+        // Attempt to cast this block as one of ours.
+        if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntity)
+        {
+            // Check if we need to play a sound for being destroyed.
+            tileEntityInstance = (MadTileEntity) vanillaTileInstance;
+            if (tileEntityInstance != null)
+            {
+                if (this.registeredProduct != null)
+                {
+                    this.registeredProduct.playTriggerSound(MadSoundTriggerEnum.CREATED, x, y, z, world);
+                }
+                
+                int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
+                world.setBlockMetadataWithNotify(x, y, z, dir, 0);
+            }
+        }
     }
 
-    // This is the icon to use for showing the block in your hand.
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + registeredProduct.getMachineName());
     }
 
-    // It's not a normal block, so you need this too.
     @Override
     public boolean renderAsNormalBlock()
     {
         return false;
     }
 
-    // Set a blocks direction
     private void setDefaultDirection(World par1World, int par2, int par3, int par4)
     {
         if (!par1World.isRemote)
@@ -276,35 +315,35 @@ public class DNAExtractorBlock extends BlockContainer
             int j1 = par1World.getBlockId(par2 - 1, par3, par4);
             int k1 = par1World.getBlockId(par2 + 1, par3, par4);
             byte b0 = 3;
-
+    
             if (Block.opaqueCubeLookup[l] && !Block.opaqueCubeLookup[i1])
             {
                 b0 = 3;
             }
-
+    
             if (Block.opaqueCubeLookup[i1] && !Block.opaqueCubeLookup[l])
             {
                 b0 = 2;
             }
-
+    
             if (Block.opaqueCubeLookup[j1] && !Block.opaqueCubeLookup[k1])
             {
                 b0 = 5;
             }
-
+    
             if (Block.opaqueCubeLookup[k1] && !Block.opaqueCubeLookup[j1])
             {
                 b0 = 4;
             }
-
+    
             par1World.setBlockMetadataWithNotify(par2, par3, par4, b0, 2);
         }
     }
 
-    // This will tell minecraft not to render any side of our cube.
     @Override
     public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
         return false;
     }
+
 }

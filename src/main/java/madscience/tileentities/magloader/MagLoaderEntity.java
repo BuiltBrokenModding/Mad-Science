@@ -8,7 +8,7 @@ import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadWeapons;
-import madscience.tileentities.prefab.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;

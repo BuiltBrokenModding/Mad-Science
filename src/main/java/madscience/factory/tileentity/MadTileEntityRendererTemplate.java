@@ -1,8 +1,8 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.tileentity;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntityInterface;
+import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -23,30 +23,43 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler, IItemRenderer
+public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler, IItemRenderer
 {
     private enum TransformationTypes
     {
         NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
     }
 
-    // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + ".mad");
-
     // Unique ID for our model to render in the world.
-    private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
+    private int rendereingID = RenderingRegistry.getNextAvailableRenderId();
 
-    // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/idle.png");
+    /** Binary model file created with Techne */
+    private static MadTechneModel techneModel = null;
 
-    // Reference to our tile entity.
-    private DNAExtractorEntity ENTITY;
+    /** Default texture that is rendered on the model if no other is specified. */
+    private static ResourceLocation techneModelTexture = null;
+    
+    public MadTileEntityRendererTemplate(MadTileEntityFactoryProduct registeredProduct)
+    {
+        super();
+        
+        // Load the base model for this machine.
+        this.techneModel = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + registeredProduct.getMachineName() + "/" + registeredProduct.getMachineName() + ".mad");
+        
+        // Load the default texture for this machine model.
+        this.techneModelTexture = new ResourceLocation(MadScience.ID, "models/" + registeredProduct.getMachineName() + "/idle.png");
+    }
+
+    public MadTileEntityRendererTemplate()
+    {
+        super();
+    }
 
     @Override
     public int getRenderId()
     {
         // Returns our unique rendering ID for this specific tile entity.
-        return RENDERID;
+        return rendereingID;
     }
 
     @Override
@@ -64,18 +77,24 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         }
     }
 
-    private void renderAModelAt(MadTileEntityInterface tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(MadTileEntity tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        ENTITY = (DNAExtractorEntity) tileEntity;
-        if (ENTITY == null)
+        MadTileEntity madTileEntity = null;
+        if (tileEntity instanceof MadTileEntity)
+        {
+            madTileEntity = (MadTileEntity) tileEntity;
+        }
+        
+        // Check for null on returned object, casting should not fail though!
+        if (madTileEntity == null)
         {
             return;
         }
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
-        switch (ENTITY.getBlockMetadata() % 4)
+        switch (madTileEntity.getBlockMetadata() % 4)
         {
         case 0:
             rotation = 0;
@@ -94,12 +113,10 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         // Begin OpenGL render push.
         GL11.glPushMatrix();
 
-        // Left and right positives center the object and the middle one raises
-        // it up to connect with bottom of connecting block.
+        // Left and right positives center the object and the middle one raises it up to connect with bottom of connecting block.
         GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 
-        // Using this and the above select the tile entity will always face the
-        // player.
+        // Using this and the above select the tile entity will always face the player.
         switch (rotation)
         {
         case 0:
@@ -116,19 +133,23 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
             break;
         }
 
-        // Apply our custom texture from asset directory.
-        if (ENTITY != null && ENTITY.getEntityTexture() != null && !ENTITY.getEntityTexture().isEmpty())
+        // Grab texture and model information from entity.
+        if (madTileEntity != null)
         {
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.getEntityTexture()));
-        }
-        else
-        {
-            // Default texture if custom animation is not there.
-            bindTexture(TEXTURE);
+            // Apply our custom texture from asset directory.
+            if (madTileEntity.getEntityTexture() != null && !madTileEntity.getEntityTexture().isEmpty())
+            {
+                bindTexture(new ResourceLocation(MadScience.ID, madTileEntity.getEntityTexture()));
+            }
+            else
+            {
+                // Default texture if custom animation is not there.
+                bindTexture(this.techneModelTexture);
+            }
         }
 
         GL11.glPushMatrix();
-        MODEL.renderAll();
+        this.techneModel.renderAll();
         GL11.glPopMatrix();
 
         // MODEL.renderAll();
@@ -145,9 +166,9 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
         GL11.glPushMatrix();
-
-        // Use the same texture we do on the block normally.
-        Minecraft.getMinecraft().renderEngine.bindTexture(TEXTURE);
+        
+        // Use default texture provided in factory product.
+        Minecraft.getMinecraft().renderEngine.bindTexture(this.techneModelTexture);
 
         // adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
@@ -196,7 +217,7 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
         }
 
         // Renders the model in the gameworld at the correct scale.
-        MODEL.renderAll();
+        this.techneModel.renderAll();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -229,7 +250,11 @@ public class DNAExtractorRender extends TileEntitySpecialRenderer implements ISi
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
     {
-        this.renderAModelAt((MadTileEntityInterface) tileEntity, x, y, z, scale);
+        // Check if the tile entity wanting to be rendered is one of ours.
+        if (tileEntity instanceof MadTileEntity)
+        {
+            this.renderAModelAt((MadTileEntity) tileEntity, x, y, z, scale);
+        }
     }
 
     @Override

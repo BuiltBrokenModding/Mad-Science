@@ -1,9 +1,9 @@
-package madscience.factory.templates;
+package madscience.factory.tileentity;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.slotcontainers.MadSlotContainerInterface;
-import madscience.tileentities.prefab.MadTileEntity;
+import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -19,10 +19,10 @@ public class MadContainerTemplate extends Container
         super();
     }
 
-    public MadContainerTemplate(InventoryPlayer playerEntity, MadTileEntity worldEntity)
+    public MadContainerTemplate(InventoryPlayer playerEntity, MadTileEntity tileEntity)
     {
         // Hook the server world entity.
-        this.ENTITY = worldEntity;
+        this.ENTITY = tileEntity;
 
         // Query machine registry for slot container information.
         MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
@@ -34,7 +34,7 @@ public class MadContainerTemplate extends Container
         for (int i = 0; i < CONTAINERS.length; i++)
         {
             MadSlotContainerInterface slotContainer = CONTAINERS[i];
-            this.addSlotToContainer(new Slot(worldEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
+            this.addSlotToContainer(new Slot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
         }
 
         // Create slots for main player inventory area.
@@ -64,46 +64,49 @@ public class MadContainerTemplate extends Container
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotNumber)
     {
-        ItemStack itemstack = null;
+        ItemStack copyOfSlotItem = null;
         Slot slotContainer = (Slot) this.inventorySlots.get(slotNumber);
 
         if (slotContainer != null && slotContainer.getHasStack())
         {
-            ItemStack itemstack1 = slotContainer.getStack();
-            itemstack = itemstack1.copy();
+            ItemStack stackInSlot = slotContainer.getStack();
+            copyOfSlotItem = stackInSlot.copy();
+            int inventorySize = this.ENTITY.getSizeInventory();
 
-            if (slotNumber == 2)
-            {
-                if (!this.mergeItemStack(itemstack1, 3, 38, true))
-                {
-                    return null;
-                }
+            // Check if the slot number is within range of our actual inventory for the machine.
+//            if (slotNumber <= inventorySize)
+//            {
+//                if (!this.mergeItemStack(stackInSlot, inventorySize, 38, true))
+//                {
+//                    return null;
+//                }
+//
+//                slotContainer.onSlotChange(stackInSlot, copyOfSlotItem);
+//            }
+//            else if (!this.mergeItemStack(stackInSlot, inventorySize, 38, false))
+//            {
+//                return null;
+//            }
 
-                slotContainer.onSlotChange(itemstack1, itemstack);
-            }
-            else if (!this.mergeItemStack(itemstack1, 3, 38, false))
-            {
-                return null;
-            }
-
-            if (itemstack1.stackSize == 0)
-            {
-                slotContainer.putStack((ItemStack) null);
-            }
-            else
-            {
-                slotContainer.onSlotChanged();
-            }
-
-            if (itemstack1.stackSize == itemstack.stackSize)
-            {
-                return null;
-            }
-
-            slotContainer.onPickupFromSlot(entityPlayer, itemstack1);
+//            if (stackInSlot.stackSize == 0)
+//            {
+//                slotContainer.putStack((ItemStack) null);
+//            }
+//            else
+//            {
+//                
+//            }
+//
+//            if (stackInSlot.stackSize == copyOfSlotItem.stackSize)
+//            {
+//                return null;
+//            }
+//
+//            slotContainer.onSlotChanged();
+//            slotContainer.onPickupFromSlot(entityPlayer, stackInSlot);
         }
 
-        return itemstack;
+        return null;
     }
 
 }

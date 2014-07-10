@@ -12,15 +12,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy
 {
-    // Modified from Source
-    // http://www.minecraftforge.net/wiki/Reference_Mod_File
-    
     public int getArmorIndex(String armor)
     {
         return 0;
     }
 
-    /* INSTANCES */
     public Object getClient()
     {
         return null;

@@ -6,46 +6,56 @@ import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.MadScience;
+import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
+import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPacketTemplate;
 import madscience.items.needles.ItemDecayNeedleBase;
 import madscience.items.needles.NeedleMutant;
-import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class DNAExtractorEntity extends MadTileEntity
 {
     public DNAExtractorEntity()
     {
+        // Required for loading tile entity from NBT (saved game state).
         super();
     }
 
-    DNAExtractorEntity(String machineName)
+    public DNAExtractorEntity(String machineName) // NO_UCD (unused code)
     {
         super(machineName);
     }
 
-    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
+    public DNAExtractorEntity(MadTileEntityFactoryProduct registeredMachine) // NO_UCD (unused code)
+    {
+        // Primary instantiation constructor for registered machines.
+        super(registeredMachine);
+    }
+
+    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. 
+     * @throws Exception */
     @Override
     public boolean canSmelt()
     {
         super.canSmelt();
 
         // Check if there is an input item at all in the furnace.
-        if (this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()) == null)
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null)
         {
             return false;
         }
 
         // Check if the item in the input slot will smelt into anything.
-        ItemStack itemsInputSlot = DNAExtractorRecipes.getSmeltingResult(this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()));
+        ItemStack recipeResult = this.getRecipeResultFromFilledSlotType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1);
 
-        if (itemsInputSlot == null)
+        if (recipeResult == null)
         {
             // Check if we are a mutant DNA needle.
-            if (this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()).getItem() instanceof NeedleMutant)
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof NeedleMutant)
             {
                 // Check if there is fluid inside our internal tank.
                 if (this.getFluidAmount() < this.getFluidCapacity())
@@ -59,23 +69,23 @@ public class DNAExtractorEntity extends MadTileEntity
         else
         {
             // Check if output slot matches what is being smelted.
-            if (itemsInputSlot != null && this.getStackInSlot(DNAExtractorEnumContainers.OutputDirtyNeedle.slot()) != null)
+            if (recipeResult != null && this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE) != null)
             {
                 // Check if output stack matches what is being smelted.
-                if (!(this.getStackInSlot(DNAExtractorEnumContainers.OutputDirtyNeedle.slot()).itemID == itemsInputSlot.itemID))
+                if (!(this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).itemID == recipeResult.itemID))
                 {
                     return false;
                 }
             }
 
             // Check if output slots are empty and ready to be filled with items.
-            if (this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()) == null && this.getStackInSlot(DNAExtractorEnumContainers.OutputDNASample.slot()) == null)
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET) == null && this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
             {
                 return true;
             }
 
             // Check if input item matches one that is already be output slot 2.
-            if (this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()) != null && itemsInputSlot != null && !this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()).isItemEqual(itemsInputSlot))
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET) != null && recipeResult != null && !this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).isItemEqual(recipeResult))
             {
                 return false;
             }
@@ -84,17 +94,17 @@ public class DNAExtractorEntity extends MadTileEntity
             boolean outputSlotsFull = true;
 
             // Check if output slot 1 is above item stack limit.
-            if (this.getStackInSlot(DNAExtractorEnumContainers.OutputDNASample.slot()) != null)
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null)
             {
-                int slot1Result = this.getStackInSlot(DNAExtractorEnumContainers.OutputDNASample.slot()).stackSize + itemsInputSlot.stackSize;
-                outputSlotsFull = (slot1Result <= getInventoryStackLimit() && slot1Result <= itemsInputSlot.getMaxStackSize());
+                int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult.stackSize;
+                outputSlotsFull = (slot1Result <= getInventoryStackLimit() && slot1Result <= recipeResult.getMaxStackSize());
             }
 
             // Check if output slot 2 is above item stack limit.
-            if (this.getStackInSlot(DNAExtractorEnumContainers.OutputDirtyNeedle.slot()) != null)
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE) != null)
             {
-                int slot2Result = this.getStackInSlot(DNAExtractorEnumContainers.OutputDirtyNeedle.slot()).stackSize + itemsInputSlot.stackSize;
-                outputSlotsFull = (slot2Result <= getInventoryStackLimit() && slot2Result <= itemsInputSlot.getMaxStackSize());
+                int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).stackSize + recipeResult.stackSize;
+                outputSlotsFull = (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult.getMaxStackSize());
             }
 
             return outputSlotsFull;
@@ -169,7 +179,7 @@ public class DNAExtractorEntity extends MadTileEntity
     public boolean isItemValidForSlot(int slot, ItemStack items)
     {
         // Input Slot 1 - Genetic material we can get DNA samples from.
-        if (slot == DNAExtractorEnumContainers.InputGeneticMaterial.slot())
+        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
         {
             // Check if we are a mutant DNA needle.
             if (items.getItem() instanceof NeedleMutant)
@@ -178,15 +188,11 @@ public class DNAExtractorEntity extends MadTileEntity
             }
 
             // Check if we are a valid recipe for this device.
-            ItemStack result = DNAExtractorRecipes.getSmeltingResult(items);
-            if (result != null)
-            {
-                return true;
-            }
+            return this.isItemUsedInInputRecipes(items);
         }
 
         // Input Slot 2 - Empty bucket to be filled with liquid mutant DNA.
-        if (slot == DNAExtractorEnumContainers.InputEmptyBucket.slot())
+        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET))
         {
             ItemStack compareOutputSlot = new ItemStack(Item.bucketEmpty);
             if (compareOutputSlot.isItemEqual(items))
@@ -207,7 +213,7 @@ public class DNAExtractorEntity extends MadTileEntity
     private boolean removeMutantDNAFromInternalTank()
     {
         // Check if the input slot for filled buckets is null.
-        if (this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()) == null)
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET) == null)
         {
             return false;
         }
@@ -217,15 +223,15 @@ public class DNAExtractorEntity extends MadTileEntity
         ItemStack liquidDNABucket = new ItemStack(MadFluids.LIQUIDDNA_MUTANT_BUCKET_ITEM);
 
         // Check if input slot 2 is a empty bucket.
-        if (!this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()).isItemEqual(emptyBucket))
+        if (!this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).isItemEqual(emptyBucket))
         {
             return false;
         }
 
         // Check if output slot 2 (for filled buckets) is above item stack limit.
-        if (this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()) != null)
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET) != null)
         {
-            int slot1Result = this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()).stackSize + liquidDNABucket.stackSize;
+            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).stackSize + liquidDNABucket.stackSize;
             boolean underStackLimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= liquidDNABucket.getMaxStackSize());
             if (!underStackLimit)
             {
@@ -240,15 +246,15 @@ public class DNAExtractorEntity extends MadTileEntity
         }
 
         // Add a filled mutant DNA bucket to output slot 3.
-        if (this.getStackInSlot(DNAExtractorEnumContainers.OutputFilledMutantDNABucket.slot()) == null)
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET) == null)
         {
-            this.setInventorySlotContents(DNAExtractorEnumContainers.OutputFilledMutantDNABucket.slot(), liquidDNABucket.copy());
+            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET, liquidDNABucket.copy());
         }
-        else if (this.getStackInSlot(DNAExtractorEnumContainers.OutputFilledMutantDNABucket.slot()).isItemEqual(liquidDNABucket))
+        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET).isItemEqual(liquidDNABucket))
         {
-            if (this.getStackInSlot(DNAExtractorEnumContainers.OutputFilledMutantDNABucket.slot()).stackSize <= this.getInventoryStackLimit())
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET).stackSize <= this.getInventoryStackLimit())
             {
-                this.getStackInSlot(DNAExtractorEnumContainers.OutputFilledMutantDNABucket.slot()).stackSize += liquidDNABucket.stackSize;
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET).stackSize += liquidDNABucket.stackSize;
             }
         }
 
@@ -256,10 +262,10 @@ public class DNAExtractorEntity extends MadTileEntity
         if (this.removeFluidAmountByBucket(1))
         {
             // Remove a empty bucket of water.
-            --this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()).stackSize;
-            if (this.getStackInSlot(DNAExtractorEnumContainers.InputEmptyBucket.slot()).stackSize <= 0)
+            --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).stackSize;
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).stackSize <= 0)
             {
-                this.setInventorySlotContents(DNAExtractorEnumContainers.InputEmptyBucket.slot(), null);
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET, null);
             }
 
             return true;
@@ -329,10 +335,10 @@ public class DNAExtractorEntity extends MadTileEntity
         ItemStack itemOutputSlot1 = new ItemStack(MadNeedles.NEEDLE_DIRTY);
 
         // Output 2 - Extracted DNA sample from needle.
-        ItemStack extractedDNASample = DNAExtractorRecipes.getSmeltingResult(this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()));
+        ItemStack extractedDNASample = this.getRecipeResultFromFilledSlotType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1);
 
         // Check if we are a mutant DNA needle.
-        if (extractedDNASample == null && this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()).getItem() instanceof NeedleMutant)
+        if (extractedDNASample == null && this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof NeedleMutant)
         {
             // Add a bucket's worth of water into the internal tank.
             this.addFluidAmountByBucket(1);
@@ -340,39 +346,36 @@ public class DNAExtractorEntity extends MadTileEntity
         else if (extractedDNASample != null)
         {
             // Add extracted DNA sample output slot 2 on GUI.
-            if (this.getStackInSlot(DNAExtractorEnumContainers.OutputDirtyNeedle.slot()) == null)
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE) == null)
             {
-                this.setInventorySlotContents(DNAExtractorEnumContainers.OutputDirtyNeedle.slot(), extractedDNASample.copy());
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_WASTE, extractedDNASample.copy());
             }
-            else if (this.getStackInSlot(DNAExtractorEnumContainers.OutputDirtyNeedle.slot()).isItemEqual(extractedDNASample))
+            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).isItemEqual(extractedDNASample))
             {
-                this.getStackInSlot(DNAExtractorEnumContainers.OutputDirtyNeedle.slot()).stackSize += extractedDNASample.stackSize;
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).stackSize += extractedDNASample.stackSize;
             }
         }
 
         // Check if we are working with a filled needle or not.
-        if (this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()).getItem() instanceof ItemDecayNeedleBase)
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof ItemDecayNeedleBase)
         {
             // Add dirty needle to output slot 1 on GUI.
-            if (this.getStackInSlot(DNAExtractorEnumContainers.OutputDNASample.slot()) == null)
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
             {
-                this.setInventorySlotContents(DNAExtractorEnumContainers.OutputDNASample.slot(), itemOutputSlot1.copy());
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, itemOutputSlot1.copy());
             }
-            else if (this.getStackInSlot(DNAExtractorEnumContainers.OutputDNASample.slot()).isItemEqual(itemOutputSlot1) && this.getStackInSlot(DNAExtractorEnumContainers.OutputDNASample.slot()).stackSize <= this.getInventoryStackLimit())
+            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(itemOutputSlot1) && this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize <= this.getInventoryStackLimit())
             {
-                this.getStackInSlot(DNAExtractorEnumContainers.OutputDNASample.slot()).stackSize += itemOutputSlot1.stackSize;
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += itemOutputSlot1.stackSize;
             }
         }
 
         // Remove one of the input items from the GUI.
-        --this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()).stackSize;
-        if (this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot()).stackSize <= 0)
+        --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
         {
-            this.setInventorySlotContents(DNAExtractorEnumContainers.InputGeneticMaterial.slot(), null);
+            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, null);
         }
-
-        // Play a sound of needle being extracted.
-        this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DNAExtractorSounds.DNAEXTRACTOR_FINISH, 1.0F, 1.0F);
     }
 
     /** Update current texture that should be displayed based on our status. */
@@ -387,7 +390,7 @@ public class DNAExtractorEntity extends MadTileEntity
             if (this.getAnimationCurrentFrame() <= 11 && worldObj.getWorldTime() % 25L == 0L)
             {
                 // Load this texture onto the entity.
-                this.setEntityTexture("models/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/work_" + this.getAnimationCurrentFrame() + ".png");
+                this.setEntityTexture("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
 
                 // Update animation frame.
                 this.setAnimationCurrentFrame(this.getAnimationCurrentFrame() + 1);
@@ -401,7 +404,7 @@ public class DNAExtractorEntity extends MadTileEntity
         else
         {
             // Idle state single texture.
-            this.setEntityTexture("models/" + MadFurnaces.DNAEXTRACTOR_INTERNALNAME + "/idle.png");
+            this.setEntityTexture("models/" + this.getMachineInternalName() + "/idle.png");
         }
     }
 
@@ -435,7 +438,7 @@ public class DNAExtractorEntity extends MadTileEntity
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
             {
                 // New item pulled from cooking stack to be processed, check how long this item will take to cook.
-                this.setProgressMaximum(getItemBurnTime(this.getStackInSlot(DNAExtractorEnumContainers.InputGeneticMaterial.slot())));
+                this.setProgressMaximum(getItemBurnTime(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)));
 
                 // Increments the timer to kickstart the cooking loop.
                 this.setProgressValue(this.getProgressValue() + 1);
@@ -461,14 +464,7 @@ public class DNAExtractorEntity extends MadTileEntity
             }
 
             // Send update to clients that require it.
-            PacketDispatcher.sendPacketToAllAround(
-                    this.xCoord,
-                    this.yCoord,
-                    this.zCoord,
-                    MadConfig.PACKETSEND_RADIUS,
-                    worldObj.provider.dimensionId,
-                    new DNAExtractorPackets(this.xCoord, this.yCoord, this.zCoord, this.getProgressValue(), this.getProgressMaximum(), getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getFluidAmount(), this
-                            .getFluidCapacity(), this.getEntityTexture()).makePacket());
+            this.sendUpdatePacket();
         }
 
         if (inventoriesChanged)
@@ -481,12 +477,6 @@ public class DNAExtractorEntity extends MadTileEntity
     public void updateSound()
     {
         super.updateSound();
-
-        // Check to see if we should play idle sounds.
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
-        {
-            this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DNAExtractorSounds.DNAEXTRACTOR_IDLE, 1.0F, 1.0F);
-        }
     }
 
     @Override

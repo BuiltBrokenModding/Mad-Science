@@ -1,7 +1,6 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.tileentity;
 
 import madscience.network.MadPackets;
-import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
@@ -11,7 +10,7 @@ import com.google.common.io.ByteArrayDataOutput;
 
 import cpw.mods.fml.relauncher.Side;
 
-public class DNAExtractorPackets extends MadPackets
+public class MadTileEntityPacketTemplate extends MadPackets
 {
     // XYZ coordinates of tile entity source.
     private int tilePosX;
@@ -36,12 +35,12 @@ public class DNAExtractorPackets extends MadPackets
     // Last displayed texture.
     private String lastTexture;
 
-    public DNAExtractorPackets()
+    public MadTileEntityPacketTemplate()
     {
         // Required for reflection.
     }
 
-    DNAExtractorPackets(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int mutantDNALevel, int mutantDNAMaximum, String tileTexture)
+    public MadTileEntityPacketTemplate(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int mutantDNALevel, int mutantDNAMaximum, String tileTexture)
     {
         // World position information.
         tilePosX = posX;

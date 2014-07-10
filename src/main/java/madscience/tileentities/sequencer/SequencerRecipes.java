@@ -22,8 +22,6 @@ public class SequencerRecipes
         SequencerRecipes.experienceList.put(Integer.valueOf(par2ItemStack.itemID), Float.valueOf(par3));
     }
 
-    
-
     /** Used to get the resulting ItemStack form a source ItemStack
      * 
      * @param item The Source ItemStack
@@ -41,8 +39,6 @@ public class SequencerRecipes
         }
         return (ItemStack) smeltingList.get(Integer.valueOf(item.itemID));
     }
-
-    
 
     public Map<List<Integer>, ItemStack> getMetaSmeltingList()
     {

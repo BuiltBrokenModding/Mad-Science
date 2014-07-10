@@ -5,6 +5,10 @@
 itemGroup.tabMadScience=Mad Science
 noshift.tooltip=Hold SHIFT for more information.
 
+# Slot Tooltips
+tile.inputslot.tooltip=Input
+tile.outputslot.tooltip=Output
+
 # Tile Entities
 tile.dnaExtractor.name=DNA Extractor
 tile.dnaExtractor.tooltip=Extracts DNA samples from filled syringes.

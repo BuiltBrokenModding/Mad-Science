@@ -1,15 +1,21 @@
-package madscience.tileentities.prefab;
+package madscience.factory.tileentity;
 
+import madscience.factory.MadTileEntityFactory;
+import madscience.factory.MadTileEntityFactoryProduct;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 abstract class MadTileEntityBase extends TileEntity
 {
+    /** Keeps track of the number of ticks that have passed since the tile entities creation. */
     private long ticks = 0;
 
-    /** Stores reference to our machines internal name as it should be references by the rest of MC/Forge. */
-    private String machineName;
+    /** Stores reference to our registered machine as it should be referenced by the rest of MC/Forge. */
+    private MadTileEntityFactoryProduct registeredMachine;
+    
+    /** Stores reference to just machine name since when loading from NBT data we need to know what we are. */
+    private String registeredMachineName;
 
     public MadTileEntityBase()
     {
@@ -17,10 +23,11 @@ abstract class MadTileEntityBase extends TileEntity
         super();
     }
 
-    MadTileEntityBase(String machineName)
+    MadTileEntityBase(MadTileEntityFactoryProduct registeredMachine)
     {
         super();
-        this.machineName = machineName;
+        this.registeredMachine = registeredMachine;
+        this.registeredMachineName = registeredMachine.getMachineName();
     }
 
     @Override
@@ -47,7 +54,7 @@ abstract class MadTileEntityBase extends TileEntity
 
     public String getMachineInternalName()
     {
-        return this.machineName;
+        return this.registeredMachineName;
     }
 
     /** Called on the TileEntity's first tick. */
@@ -75,20 +82,9 @@ abstract class MadTileEntityBase extends TileEntity
             String savedName = nbt.getString("MachineName");
             if (savedName != null && !savedName.isEmpty())
             {
-                this.setMachineName(savedName);
+                this.registeredMachineName = savedName;
             }
         }
-    }
-
-    public void setMachineName(String machineName)
-    {
-        if (this.machineName != null && !this.machineName.isEmpty())
-        {
-            throw new IllegalAccessError("Unable to set machine name when it already exists!");
-        }
-
-        // Set machine name from saved NBT data.
-        this.machineName = machineName;
     }
 
     @Override
@@ -116,7 +112,20 @@ abstract class MadTileEntityBase extends TileEntity
         String machineName = this.getMachineInternalName();
         if (machineName != null && !machineName.isEmpty())
         {
-            nbt.setString("MachineName", this.getMachineInternalName());
+            nbt.setString("MachineName", this.registeredMachineName);
         }
+    }
+
+    public MadTileEntityFactoryProduct getRegisteredMachine()
+    {
+        // Only query and re-create the registered machine if we actually need it.
+        if (this.registeredMachine == null)
+        {
+            MadTileEntityFactoryProduct reloadedProduct = MadTileEntityFactory.getMachineInfo(this.registeredMachineName);
+            this.registeredMachine = reloadedProduct;
+            this.registeredMachineName = reloadedProduct.getMachineName();
+        }
+        
+        return this.registeredMachine;
     }
 }
