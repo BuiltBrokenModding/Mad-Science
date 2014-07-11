@@ -5,7 +5,11 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInterface;
 import madscience.factory.controls.MadGUIControlInterface;
@@ -35,6 +39,87 @@ public class MadTileEntityFactory
     private static boolean isValidMachineID(String id)
     {
         return !registeredMachines.containsKey(id);
+    }
+    
+    /** Removes extra tags from internal and unlocalized names in preparation for matchmaking in recipe system. */
+    private static String cleanTag(String tag) 
+    {
+        return tag.replace("minecraft.", "").replaceFirst("^tile\\.", "").replaceFirst("^item\\.", "");
+    }
+    
+    /** Return itemstack from GameRegistry or from vanilla Item/Block list. */
+    public static ItemStack findItemStack(String modID, String itemName, int stackSize, int metaData)
+    {
+        // Mod items and blocks query.
+        ItemStack potentialModItem = GameRegistry.findItemStack(modID, itemName, stackSize);
+        if (potentialModItem != null)
+        {
+            return potentialModItem;
+        }
+        
+        // Only continue if modID is for minecraft vanilla items or blocks.
+        if (!modID.equals("minecraft"))
+        {
+            return null;
+        }
+        
+        // Vanilla item query.
+        for(Item potentialMCItem : Item.itemsList) 
+        {
+            if(potentialMCItem == null)
+            {
+                continue;
+            }
+            
+            ItemStack vanillaItemStack = new ItemStack(potentialMCItem, 0, stackSize);
+            
+            if (vanillaItemStack != null)
+            {
+                try
+                {
+                    String vanillaItemUnlocalizedName = cleanTag(vanillaItemStack.getUnlocalizedName());
+                    
+                    if (vanillaItemUnlocalizedName.equals(itemName))
+                    {
+                        return vanillaItemStack;
+                    }
+                }
+                catch (Exception err)
+                {
+                    continue;
+                }
+            }
+        }
+        
+        // Vanilla block query.
+        for(Block potentialMCBlock : Block.blocksList) 
+        {
+            if(potentialMCBlock == null)
+            {
+                continue;
+            }
+            
+            ItemStack vanillaItemStack = new ItemStack(potentialMCBlock, 0, stackSize);
+            
+            if (vanillaItemStack != null)
+            {
+                try
+                {
+                    String vanillaBlockUnlocalizedName = cleanTag(vanillaItemStack.getUnlocalizedName());
+                    if (vanillaBlockUnlocalizedName.equals(itemName))
+                    {
+                        return vanillaItemStack;
+                    }
+                }
+                catch (Exception err)
+                {
+                    continue;
+                }
+            }
+        }
+        
+        // Default response is to return nothing.
+        return null;
     }
 
     public static boolean registerMachine(String machineName, int blockID,

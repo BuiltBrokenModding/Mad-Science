@@ -18,21 +18,21 @@ public enum DNAExtractorEnumRecipes implements MadRecipeInterface
            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaBat:0:1", null, "", null, "", null, "", null, "",
            60, 0.50F),
            
-    CaveSpider(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleCaveSpider:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNACaveSpider:0:1", null, "", null, "", null, "", null, "",
+    CaveSpider(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCaveSpider:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCaveSpider:0:1", null, "", null, "", null, "", null, "",
             60, 0.35F),
     //DNAExtractorRecipes.addSmelting(Item.fermentedSpiderEye.itemID, new ItemStack(DNA_CAVESPIDER), 0.35F);
     
-    Chicken(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleChicken:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAChicken:0:1", null, "", null, "", null, "", null, "",
+    Chicken(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleChicken:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaChicken:0:1", null, "", null, "", null, "", null, "",
             60, 0.35F),
     //DNAExtractorRecipes.addSmelting(Item.feather.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
     //DNAExtractorRecipes.addSmelting(Item.egg.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
     //DNAExtractorRecipes.addSmelting(Item.chickenCooked.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
     //DNAExtractorRecipes.addSmelting(Item.chickenRaw.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
     
-    Cow(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleCow:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNACow:0:1", null, "", null, "", null, "", null, "",
+    Cow(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCow:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
             60, 0.30F),
     //DNAExtractorRecipes.addSmelting(Item.leather.itemID, new ItemStack(DNA_COW), 0.30F);
     //DNAExtractorRecipes.addSmelting(Item.beefCooked.itemID, new ItemStack(DNA_COW), 0.30F);
@@ -43,81 +43,81 @@ public enum DNAExtractorEnumRecipes implements MadRecipeInterface
     //DNAExtractorRecipes.addSmelting(Item.plateLeather.itemID, new ItemStack(DNA_COW), 0.30F);
     //DNAExtractorRecipes.addSmelting(Item.bucketMilk.itemID, new ItemStack(DNA_COW), 0.30F);
     
-    Creeper(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleCreeper:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNACreeper:0:1", null, "", null, "", null, "", null, "",
+    Creeper(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCreeper:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCreeper:0:1", null, "", null, "", null, "", null, "",
             60, 0.20F),
     //DNAExtractorRecipes.addSmelting(Item.gunpowder.itemID, new ItemStack(DNA_CREEPER), 0.22F);
     //DNAExtractorRecipes.addSmelting(Item.skull.itemID, 4, new ItemStack(DNA_CREEPER), 0.22F);
     
-    Enderman(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleEnderman:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAEnderman:0:1", null, "", null, "", null, "", null, "",
+    Enderman(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleEnderman:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaEnderman:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     //DNAExtractorRecipes.addSmelting(Item.enderPearl.itemID, new ItemStack(DNA_ENDERMAN), 0.42F);
     //.addSmelting(Item.eyeOfEnder.itemID, new ItemStack(DNA_ENDERMAN), 0.42F);
     
-    Ghast(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:ghast_tear:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAGhast:0:1", null, "", null, "", null, "", null, "",
+    Ghast(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:ghastTear:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaGhast:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     
-    Horse(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleHorse:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAHorse:0:1", null, "", null, "", null, "", null, "",
+    Horse(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleHorse:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaHorse:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     
-    MushroomCow(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleMushroomCow:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAMushroomCow:0:1", null, "", null, "", null, "", null, "",
+    MushroomCow(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleMushroomCow:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaMushroomCow:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
 
-    Ocelot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleOcelot:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAOcelot:0:1", null, "", null, "", null, "", null, "",
+    Ocelot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleOcelot:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaOcelot:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     
-    Pig(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedlePig:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAPig:0:1", null, "", null, "", null, "", null, "",
+    Pig(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needlePig:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaPig:0:1", null, "", null, "", null, "", null, "",
             60, 0.35F),
     //DNAExtractorRecipes.addSmelting(Item.porkRaw.itemID, new ItemStack(DNA_PIG), 0.35F);
     //DNAExtractorRecipes.addSmelting(Item.porkCooked.itemID, new ItemStack(DNA_PIG), 0.35F);
     
-    Sheep(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleSheep:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNASheep:0:1", null, "", null, "", null, "", null, "",
+    Sheep(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSheep:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSheep:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     //DNAExtractorRecipes.addSmelting(Block.cloth.blockID, new ItemStack(DNA_SHEEP), 0.42F);
     
     Skeleton(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:bone:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNASkeleton:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSkeleton:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     //DNAExtractorRecipes.addSmelting(Item.dyePowder.itemID, 15, new ItemStack(DNA_SKELETON), 0.42F);
     //DNAExtractorRecipes.addSmelting(Item.skull.itemID, 0, new ItemStack(DNA_SKELETON), 0.42F);
     
-    Slimeball(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:slime_ball:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNASlime:0:1", null, "", null, "", null, "", null, "",
+    Slimeball(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:slimeball:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSlime:0:1", null, "", null, "", null, "", null, "",
             60, 0.50F),
     //DNAExtractorRecipes.addSmelting(Block.pistonStickyBase.blockID, new ItemStack(DNA_SLIME), 0.50F);
     
-    Spider(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleSpider:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNASpider:0:1", null, "", null, "", null, "", null, "",
+    Spider(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSpider:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSpider:0:1", null, "", null, "", null, "", null, "",
             60, 0.66F),
     //DNAExtractorRecipes.addSmelting(Item.spiderEye.itemID, new ItemStack(DNA_SPIDER), 0.66F);
     //DNAExtractorRecipes.addSmelting(Item.silk.itemID, new ItemStack(DNA_SPIDER), 0.66F);
     
-    Squid(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleSquid:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNASquid:0:1", null, "", null, "", null, "", null, "",
+    Squid(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSquid:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSquid:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     //DNAExtractorRecipes.addSmelting(Item.dyePowder.itemID, 0, new ItemStack(DNA_SQUID), 0.42F);
     
-    Villager(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleVillager:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAVillager:0:1", null, "", null, "", null, "", null, "",
+    Villager(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleVillager:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaVillager:0:1", null, "", null, "", null, "", null, "",
             60, 0.35F),
     
-    Witch(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleWitch:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAWitch:0:1", null, "", null, "", null, "", null, "",
+    Witch(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleWitch:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaWitch:0:1", null, "", null, "", null, "", null, "",
             60, 0.66F),
     
-    Wolf(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleWolf:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAWolf:0:1", null, "", null, "", null, "", null, "",
+    Wolf(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleWolf:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaWolf:0:1", null, "", null, "", null, "", null, "",
             60, 0.42F),
     
-    Zombie(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleZombie:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNAZombie:0:1", null, "", null, "", null, "", null, "",
+    Zombie(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleZombie:0:1", null, "", null, "", null, "", null, "",
+            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaZombie:0:1", null, "", null, "", null, "", null, "",
             60, 0.35F);
     //DNAExtractorRecipes.addSmelting(Item.skull.itemID, 2, new ItemStack(DNA_ZOMBIE), 0.50F);
     //DNAExtractorRecipes.addSmelting(Item.rottenFlesh.itemID, new ItemStack(DNA_ZOMBIE), 0.50F);

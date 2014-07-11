@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInterface;
 import madscience.factory.controls.MadGUIControlInterface;
@@ -198,18 +197,26 @@ public class MadTileEntityFactoryProduct
             {
                 if (inputIngredient.getSlotType().name().toLowerCase().contains("input"))
                 {
-                    MadScience.logger.info("[" + this.machineName + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName() + ", " + inputIngredient.getAmount());
-                    ItemStack inputItem = GameRegistry.findItemStack(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount());
+                    // Starting building output string now, append to it below.
+                    String resultInputPrint = "[" + this.machineName + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName();
+                    
+                    // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
+                    ItemStack inputItem = MadTileEntityFactory.findItemStack(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
                     
                     if (inputItem != null)
                     {
                         totalLoadedRecipeItems++;
+                        resultInputPrint += "=SUCCESS";
                         inputIngredient.loadRecipe(inputItem.copy());
                     }
                     else
                     {
                         totalFailedRecipeItems++;
+                        resultInputPrint += "=FAILED";
                     }
+                    
+                    // Debugging!
+                    MadScience.logger.info(resultInputPrint);
                 }
                 else
                 {
@@ -222,18 +229,22 @@ public class MadTileEntityFactoryProduct
             {
                 if (outputResult.getSlotType().name().toLowerCase().contains("output"))
                 {
-                    MadScience.logger.info("[" + this.machineName + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName() + ", " + outputResult.getAmount());
-                    ItemStack outputStack = GameRegistry.findItemStack(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount());
+                    String resultOutputPrint = "[" + this.machineName + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName();
+                    ItemStack outputStack = MadTileEntityFactory.findItemStack(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
                     
                     if (outputStack != null)
                     {
                         totalLoadedRecipeItems++;
+                        resultOutputPrint += "=SUCCESS";
                         outputResult.loadRecipe(outputStack.copy());
                     }
                     else
                     {
                         totalFailedRecipeItems++;
+                        resultOutputPrint += "=FAILED";
                     }
+                    
+                    MadScience.logger.info(resultOutputPrint);
                 }
                 else
                 {
