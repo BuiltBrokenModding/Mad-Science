@@ -2,9 +2,7 @@ package madscience.mobs.abomination;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import madscience.MadConfig;
-import madscience.MadScience;
 import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -28,16 +26,15 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class AbominationMobEntity extends EntityMob
 {

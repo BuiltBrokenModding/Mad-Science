@@ -1,11 +1,9 @@
 package madscience.gui;
 
-import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.MadTileEntity;
-import madscience.factory.tileentity.MadTileEntityInterface;
 import madscience.tileentities.clayfurnace.ClayfurnaceContainer;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceGUI;

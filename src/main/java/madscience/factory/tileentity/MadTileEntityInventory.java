@@ -2,7 +2,6 @@ package madscience.factory.tileentity;
 
 import java.util.ArrayList;
 
-import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.recipes.MadRecipeComponentInterface;
 import madscience.factory.recipes.MadRecipeInterface;

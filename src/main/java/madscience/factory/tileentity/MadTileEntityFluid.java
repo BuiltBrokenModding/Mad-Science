@@ -1,6 +1,5 @@
 package madscience.factory.tileentity;
 
-import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.fluids.MadFluidInterface;
 import net.minecraft.nbt.NBTTagCompound;

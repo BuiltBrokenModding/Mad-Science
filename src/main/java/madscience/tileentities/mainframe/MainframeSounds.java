@@ -1,10 +1,10 @@
 package madscience.tileentities.mainframe;
 
+import madscience.MadFurnaces;
+import madscience.MadScience;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadFurnaces;
-import madscience.MadScience;
 
 public class MainframeSounds
 {

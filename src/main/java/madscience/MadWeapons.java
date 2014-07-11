@@ -1,12 +1,5 @@
 package madscience;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 import madscience.items.weapons.pulserifle.PulseRifleItem;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItem;
@@ -14,6 +7,10 @@ import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItem;
 import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineCraftingHandler;
 import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadWeapons
 {

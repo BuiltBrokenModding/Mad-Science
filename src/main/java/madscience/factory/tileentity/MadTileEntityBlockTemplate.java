@@ -1,14 +1,9 @@
 package madscience.factory.tileentity;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Random;
 
-import universalelectricity.api.UniversalElectricity;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadEntities;
-import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.sounds.MadSoundTriggerEnum;
@@ -31,6 +26,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import universalelectricity.api.UniversalElectricity;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MadTileEntityBlockTemplate extends BlockContainer
 {    

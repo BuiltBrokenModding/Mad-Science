@@ -5,7 +5,6 @@ import java.util.Random;
 import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
 
 public class CreeperCowMobModel extends ModelQuadruped

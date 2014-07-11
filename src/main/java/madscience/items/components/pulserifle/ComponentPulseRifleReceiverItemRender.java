@@ -2,7 +2,6 @@ package madscience.items.components.pulserifle;
 
 import madscience.MadComponents;
 import madscience.MadScience;
-import madscience.MadWeapons;
 import madscience.util.MadTechneModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;

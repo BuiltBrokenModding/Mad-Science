@@ -2,9 +2,9 @@ package madscience.tileentities.soniclocator;
 
 import java.util.HashSet;
 
+import madscience.MadScience;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import madscience.MadScience;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 final class SoniclocatorLocationRegistry

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import madscience.MadConfig;
 import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
@@ -23,6 +22,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class MadExplosion extends Explosion
 {

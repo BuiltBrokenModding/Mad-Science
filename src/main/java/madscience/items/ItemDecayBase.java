@@ -1,19 +1,14 @@
 package madscience.items;
 
-import java.util.List;
-
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadNeedles;
 import madscience.MadScience;
-import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemDecayBase extends Item

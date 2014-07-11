@@ -1,6 +1,5 @@
 package madscience.client;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 import madscience.MadComponents;

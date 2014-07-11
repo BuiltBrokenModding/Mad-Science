@@ -2,7 +2,6 @@ package madscience.factory.tileentity;
 
 import java.util.EnumSet;
 
-import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.energy.MadEnergyInterface;
 import net.minecraft.nbt.NBTTagCompound;

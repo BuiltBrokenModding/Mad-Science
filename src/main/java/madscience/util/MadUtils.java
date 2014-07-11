@@ -1,20 +1,11 @@
 package madscience.util;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.MadScience;
-import madscience.world.MadExplosion;
-import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 
 public class MadUtils
 {

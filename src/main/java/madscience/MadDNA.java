@@ -20,9 +20,7 @@ import madscience.items.dna.DNAVillager;
 import madscience.items.dna.DNAWitch;
 import madscience.items.dna.DNAWolf;
 import madscience.items.dna.DNAZombie;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadDNA

@@ -1,7 +1,5 @@
 package madscience.tileentities.dnaextractor;
 
-import org.apache.commons.io.FilenameUtils;
-
 import madscience.factory.sounds.MadSound;
 import madscience.factory.sounds.MadSoundInterface;
 import madscience.factory.sounds.MadSoundPlaybackTypeEnum;

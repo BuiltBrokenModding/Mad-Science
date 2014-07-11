@@ -2,8 +2,6 @@ package madscience;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import madscience.network.CustomConnectionHandler;

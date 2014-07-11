@@ -1,7 +1,5 @@
 package madscience;
 
-import com.sun.media.sound.InvalidFormatException;
-
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.items.ItemBlockTooltip;
@@ -56,6 +54,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import com.sun.media.sound.InvalidFormatException;
+
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;

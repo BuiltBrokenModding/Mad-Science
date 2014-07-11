@@ -1,6 +1,5 @@
 package madscience.items.warningsign;
 
-import madscience.MadScience;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
 

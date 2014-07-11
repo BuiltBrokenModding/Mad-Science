@@ -5,7 +5,6 @@ import java.util.Random;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 
 public class EnderSquidMobModel extends ModelBiped
 {

@@ -1,25 +1,11 @@
 package madscience;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
-import com.sun.media.sound.InvalidFormatException;
-
-import net.minecraft.entity.EntityList;
-import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.gui.MadGUI;
@@ -32,11 +18,17 @@ import madscience.mobs.endersquid.EnderSquidMobEntity;
 import madscience.mobs.shoggoth.ShoggothMobEntity;
 import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobEntity;
-import madscience.network.CustomConnectionHandler;
 import madscience.network.MadPacketHandler;
 import madscience.server.CommonProxy;
 import madscience.util.MadColors;
-import madscience.util.MadXML;
+import net.minecraft.entity.EntityList;
+import net.minecraft.launchwrapper.LogWrapper;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
+
+import com.sun.media.sound.InvalidFormatException;
+
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -49,7 +41,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
 @NetworkMod(channels =

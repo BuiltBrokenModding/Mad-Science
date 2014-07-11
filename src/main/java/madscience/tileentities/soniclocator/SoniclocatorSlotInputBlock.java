@@ -1,6 +1,7 @@
 package madscience.tileentities.soniclocator;
 
 import java.util.ArrayList;
+
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;

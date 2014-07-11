@@ -1,6 +1,5 @@
 package madscience.factory.tileentity;
 
-import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.util.MadTechneModel;

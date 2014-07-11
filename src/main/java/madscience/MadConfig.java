@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 
 import madscience.util.IDManager;
-import net.minecraft.block.Block;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.common.Configuration;
 

@@ -1,8 +1,5 @@
 package madscience.factory.recipes;
 
-import java.util.HashMap;
-import java.util.List;
-
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 
 public interface MadRecipeInterface

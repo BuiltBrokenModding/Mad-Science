@@ -1,8 +1,5 @@
 package madscience;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.registry.GameRegistry;
 import madscience.items.circuits.CircuitComparator;
 import madscience.items.circuits.CircuitDiamond;
 import madscience.items.circuits.CircuitEmerald;
@@ -11,6 +8,7 @@ import madscience.items.circuits.CircuitEnderPearl;
 import madscience.items.circuits.CircuitGlowstone;
 import madscience.items.circuits.CircuitRedstone;
 import madscience.items.circuits.CircuitSpiderEye;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 class MadCircuits
 {

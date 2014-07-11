@@ -5,11 +5,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInterface;
 import madscience.factory.controls.MadGUIControlInterface;
@@ -19,6 +14,10 @@ import madscience.factory.recipes.MadRecipeInterface;
 import madscience.factory.slotcontainers.MadSlotContainerInterface;
 import madscience.factory.sounds.MadSoundInterface;
 import madscience.factory.tileentity.MadTileEntity;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactory
 {

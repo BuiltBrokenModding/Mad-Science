@@ -2,13 +2,13 @@ package madscience.items;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.input.Keyboard;
 
 public class ItemBlockTooltip extends ItemBlock
 {

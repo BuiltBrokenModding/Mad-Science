@@ -3,19 +3,16 @@ package madscience.tileentities.dnaextractor;
 import madscience.MadConfig;
 import madscience.MadDNA;
 import madscience.MadFluids;
-import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntity;
-import madscience.factory.tileentity.MadTileEntityPacketTemplate;
 import madscience.items.needles.ItemDecayNeedleBase;
 import madscience.items.needles.NeedleMutant;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.ForgeDirection;
 
 public class DNAExtractorEntity extends MadTileEntity
 {
@@ -36,7 +33,8 @@ public class DNAExtractorEntity extends MadTileEntity
         super(registeredMachine);
     }
 
-    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. 
+    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc.
+     * 
      * @throws Exception */
     @Override
     public boolean canSmelt()
@@ -483,5 +481,11 @@ public class DNAExtractorEntity extends MadTileEntity
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
+    }
+
+    @Override
+    public void initiate()
+    {
+        super.initiate();
     }
 }

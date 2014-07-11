@@ -1,8 +1,8 @@
 package madscience.factory.recipes;
 
-import net.minecraft.item.ItemStack;
 import madscience.MadScience;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
+import net.minecraft.item.ItemStack;
 
 public class MadRecipeComponent implements MadRecipeComponentInterface
 {

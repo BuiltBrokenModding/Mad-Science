@@ -3,7 +3,6 @@ package madscience.factory.tileentity;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.slotcontainers.MadSlotContainerInterface;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

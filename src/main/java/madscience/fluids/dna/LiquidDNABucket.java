@@ -2,8 +2,6 @@ package madscience.fluids.dna;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
 import madscience.MadEntities;
 import madscience.MadFluids;
 import madscience.MadScience;
@@ -21,6 +19,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.ItemFluidContainer;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

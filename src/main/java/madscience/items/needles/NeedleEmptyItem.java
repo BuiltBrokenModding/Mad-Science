@@ -5,7 +5,6 @@ import java.util.List;
 import madscience.MadEntities;
 import madscience.MadNeedles;
 import madscience.MadScience;
-import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;

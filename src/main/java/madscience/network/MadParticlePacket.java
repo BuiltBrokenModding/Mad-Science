@@ -1,10 +1,7 @@
 package madscience.network;
 
 import madscience.MadScience;
-import madscience.tileentities.soniclocator.SoniclocatorEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.ForgeDirection;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;

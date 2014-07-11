@@ -1,11 +1,9 @@
 package madscience;
 
 import java.util.Iterator;
-import java.util.logging.Level;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.tileentity.MadTileEntityRendererTemplate;
 import madscience.items.needles.NeedleSounds;
 import madscience.items.weapons.pulserifle.PulseRifleSounds;
 import madscience.mobs.abomination.AbominationSounds;
@@ -25,12 +23,8 @@ import madscience.tileentities.sequencer.SequencerSounds;
 import madscience.tileentities.soniclocator.SoniclocatorSounds;
 import madscience.tileentities.thermosonicbonder.ThermosonicBonderSounds;
 import madscience.tileentities.voxbox.VoxBoxSounds;
-import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

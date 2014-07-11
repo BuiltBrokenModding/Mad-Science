@@ -19,10 +19,6 @@ import madscience.items.components.pulserifle.ComponentPulseRifleBulletCasing;
 import madscience.items.components.pulserifle.ComponentPulseRifleGrenadeCasing;
 import madscience.items.components.pulserifle.ComponentPulseRifleReceiver;
 import madscience.items.components.pulserifle.ComponentPulseRifleTrigger;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadComponents
