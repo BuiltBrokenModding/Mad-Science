@@ -2,6 +2,7 @@ package madscience.factory.tileentity;
 
 import java.util.ArrayList;
 
+import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.recipes.MadRecipeComponentInterface;
 import madscience.factory.recipes.MadRecipeInterface;
@@ -178,12 +179,11 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         return this.INVENTORY[slot];
     }
     
-    /** Returns the result of given item in input slot type of the machine (should match recipe archive). Returns null if the assigned slot is empty or item inside of it is invalid. 
-     * @throws Exception */
-    public ItemStack getRecipeResultFromFilledSlotType(MadSlotContainerTypeEnum slotType)
+    /** Returns recipe result for a single furnace input based on enumeration slot types. */
+    public ItemStack getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum inputSlot, MadSlotContainerTypeEnum outputSlot)
     {
         // Grab the ItemStack by the type specified in the given machine slot.
-        ItemStack slotedItem = this.getStackInSlotByType(slotType);
+        ItemStack itemInsideInputSlot = this.getStackInSlotByType(inputSlot);
         
         // Grab the recipe archive object array.
         MadRecipeInterface[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
@@ -191,21 +191,52 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         // Recipe archives are nested so we need to loop through them to get to first one (even if it is the only one).
         for (MadRecipeInterface machineRecipe : recipeArchiveArray) 
         {
-            // Loop through the recipe archive result list for matching item in given slot type.
-            MadRecipeComponentInterface[] outputResultsArray = machineRecipe.getOutputResultsArray();
-            for (MadRecipeComponentInterface recipeResult : outputResultsArray) 
+            // Loop through the input and look for something matching slot type and input item.
+            MadRecipeComponentInterface[] inputIngredientsArray = machineRecipe.getInputIngredientsArray();
+            boolean inputMatches = false;
+            for (MadRecipeComponentInterface recipeIngredient : inputIngredientsArray) 
             {
                 // Only work on loaded recipes.
-                if (!recipeResult.isLoaded())
+                if (!recipeIngredient.isLoaded())
                 {
                     continue;
                 }
                 
-                // Determine if this recipe result slot type matches what we would expect from inputed slot.
-                if (recipeResult.getSlotType().equals(slotType))
+                // Determine if slot type matches
+                if (!recipeIngredient.getSlotType().equals(inputSlot))
                 {
-                    // Should return a loaded reference to ItemStack created with loadRecipes().
-                    return recipeResult.getItemStack().copy();
+                    continue;
+                }
+                
+                // Determine if input items match.
+                String ingredientUnlocalizedName = recipeIngredient.getItemStack().getUnlocalizedName();
+                String slotItemUnlocalizedName = itemInsideInputSlot.getUnlocalizedName();
+                if (ingredientUnlocalizedName.equals(slotItemUnlocalizedName))
+                {
+                    inputMatches = true;
+                    break;
+                }
+            }
+            
+            // Only continue onward if we found a match for the input item.
+            if (inputMatches)
+            {
+                // Since this is a single furnace function we return he result from first output slot.
+                MadRecipeComponentInterface[] outputResultsArray = machineRecipe.getOutputResultsArray();
+                for (MadRecipeComponentInterface recipeResult : outputResultsArray) 
+                {
+                    // Only work on loaded recipes.
+                    if (!recipeResult.isLoaded())
+                    {
+                        continue;
+                    }
+                    
+                    // Determine if this recipe result slot type matches what we would expect from inputed slot.
+                    if (recipeResult.getSlotType().equals(outputSlot))
+                    {
+                        // Should return a loaded reference to ItemStack created with loadRecipes().
+                        return recipeResult.getItemStack().copy();
+                    }
                 }
             }
         }

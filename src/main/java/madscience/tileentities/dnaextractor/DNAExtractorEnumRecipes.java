@@ -14,8 +14,8 @@ import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 
 public enum DNAExtractorEnumRecipes implements MadRecipeInterface
 {
-    BatDNA(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleBat:0:1", null, "", null, "", null, "", null, "",
-           MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:items.dna.DNABat:0:1", null, "", null, "", null, "", null, "",
+    BatDNA(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleBat:0:1", null, "", null, "", null, "", null, "",
+           MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaBat:0:1", null, "", null, "", null, "", null, "",
            60, 0.50F),
            
     CaveSpider(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:items.needles.NeedleCaveSpider:0:1", null, "", null, "", null, "", null, "",

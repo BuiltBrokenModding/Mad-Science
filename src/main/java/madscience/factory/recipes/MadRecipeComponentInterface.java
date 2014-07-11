@@ -24,4 +24,6 @@ public interface MadRecipeComponentInterface
 
     public abstract String getModID();
 
+    public abstract String getExpectedItemName();
+
 }

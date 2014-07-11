@@ -198,11 +198,13 @@ public class MadTileEntityFactoryProduct
             {
                 if (inputIngredient.getSlotType().name().toLowerCase().contains("input"))
                 {
-                    MadScience.logger.info("[" + this.machineName + "]Input Ingredient " + inputIngredient.getInternalName());
-                    ItemStack inputStack = GameRegistry.findItemStack(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount());
-                    if (inputStack != null)
+                    MadScience.logger.info("[" + this.machineName + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName() + ", " + inputIngredient.getAmount());
+                    ItemStack inputItem = GameRegistry.findItemStack(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount());
+                    
+                    if (inputItem != null)
                     {
                         totalLoadedRecipeItems++;
+                        inputIngredient.loadRecipe(inputItem.copy());
                     }
                     else
                     {
@@ -220,11 +222,13 @@ public class MadTileEntityFactoryProduct
             {
                 if (outputResult.getSlotType().name().toLowerCase().contains("output"))
                 {
-                    MadScience.logger.info("[" + this.machineName + "]Output Result " + outputResult.getInternalName());
+                    MadScience.logger.info("[" + this.machineName + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName() + ", " + outputResult.getAmount());
                     ItemStack outputStack = GameRegistry.findItemStack(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount());
+                    
                     if (outputStack != null)
                     {
                         totalLoadedRecipeItems++;
+                        outputResult.loadRecipe(outputStack.copy());
                     }
                     else
                     {

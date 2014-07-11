@@ -71,7 +71,7 @@ public class MadRecipeComponent implements MadRecipeComponentInterface
     @Override
     public boolean isLoaded()
     {
-        return hasLoaded;
+        return this.hasLoaded;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class MadRecipeComponent implements MadRecipeComponentInterface
             return null;
         }
         
-        return associatedItemStack;
+        return this.associatedItemStack;
     }
 
     @Override
@@ -112,6 +112,12 @@ public class MadRecipeComponent implements MadRecipeComponentInterface
     @Override
     public String getModID()
     {
-        return parentModID;
+        return this.parentModID;
+    }
+
+    @Override
+    public String getExpectedItemName()
+    {
+        return this.slotExpectedItem;
     }
 }
