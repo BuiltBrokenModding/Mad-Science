@@ -1,42 +1,41 @@
 package madscience.factory.buttons;
 
-import madscience.MadConfig;
-import net.minecraft.util.StatCollector;
+import com.google.gson.annotations.Expose;
 
 public final class MadGUIButton implements IMadGUIButton
 {
     /** Screen coordinates for where data where render. */
-    private final int screenX;
+    @Expose private final int screenX;
 
     /** Screen coordinates for where data where render. */
-    private final int screenY;
+    @Expose private final int screenY;
 
     /** Filler coordinates where image data to render at screen coords can be found. */
-    private final int fillerX;
+    @Expose private final int fillerX;
 
     /** Filler coordinates where image data to render at screen coords can be found. */
-    private final int fillerY;
+    @Expose private final int fillerY;
 
     /** Total size of area that needs to be rendered. */
-    private final int sizeX;
+    @Expose private final int sizeX;
 
     /** Total size of area that needs to be rendered. */
-    private final int sizeY;
+    @Expose private final int sizeY;
 
     /** String token used to locate tooltip information in localization files */
-    private final String tooltipToken;
+    @Expose private final String tooltipToken;
 
     /** Type of control based on enumeration. */
-    private final MadGUIButtonTypeEnum buttonType;
+    @Expose private final MadGUIButtonTypeEnum buttonType;
 
     /** Determines action taken when button is clicked by player */
-    private final MadGUIButtonClickActionEnum clickAction;
+    @Expose private final MadGUIButtonClickActionEnum clickAction;
 
     /** Custom object that holds anything that we want it to. */
-    private final Object userData;
+    @Expose private final Object userData;
     
     /** Reference to button via ID number which is unique to every button and separate from containers or other controls. */
-    private final int buttonID;
+    @Expose private final int buttonID;
 
     public MadGUIButton(int buttonID, MadGUIButtonTypeEnum buttonType, MadGUIButtonClickActionEnum clickAction, String unlocalizedTooltip, Object userData, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY)
     {

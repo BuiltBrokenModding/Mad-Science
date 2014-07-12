@@ -1,13 +1,12 @@
 package madscience.factory.fluids;
 
-import madscience.MadFluids;
-import net.minecraftforge.fluids.FluidContainerRegistry;
+import com.google.gson.annotations.Expose;
 
 public final class MadFluid implements IMadFluid
 {
-    private final String internalName;
-    private final int startingAmount;
-    private final int maximumAmount;
+    @Expose private final String internalName;
+    @Expose private final int startingAmount;
+    @Expose private final int maximumAmount;
 
     public MadFluid(String fluidDictionaryName, int amount, int capacity)
     {

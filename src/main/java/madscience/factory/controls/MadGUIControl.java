@@ -1,28 +1,30 @@
 package madscience.factory.controls;
 
+import com.google.gson.annotations.Expose;
+
 
 public final class MadGUIControl implements IMadGUIControl
 {
     /* Screen coordinates for where data where render. */
-    private final int screenX;
+    @Expose private final int screenX;
 
     /* Screen coordinates for where data where render. */
-    private final int screenY;
+    @Expose private final int screenY;
 
     /* Filler coordinates where image data to render at screen coords can be found. */
-    private final int fillerX;
+    @Expose private final int fillerX;
 
     /* Filler coordinates where image data to render at screen coords can be found. */
-    private final int fillerY;
+    @Expose private final int fillerY;
 
     /* Total size of area that needs to be rendered. */
-    private final int sizeX;
+    @Expose private final int sizeX;
 
     /* Total size of area that needs to be rendered. */
-    private final int sizeY;
+    @Expose private final int sizeY;
 
     /* Type of control based on enumeration. */
-    private final MadGUIControlTypeEnum controlType;
+    @Expose private final MadGUIControlTypeEnum controlType;
 
     public MadGUIControl(MadGUIControlTypeEnum controlType, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY)
     {

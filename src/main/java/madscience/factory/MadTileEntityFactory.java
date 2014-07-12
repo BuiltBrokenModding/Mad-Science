@@ -2,11 +2,9 @@ package madscience.factory;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import madscience.MadScience;
 import madscience.factory.buttons.IMadGUIButton;
@@ -16,12 +14,10 @@ import madscience.factory.fluids.IMadFluid;
 import madscience.factory.recipes.IMadRecipe;
 import madscience.factory.slotcontainers.IMadSlotContainer;
 import madscience.factory.sounds.IMadSound;
-import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.ItemBlockTooltip;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactory
@@ -166,7 +162,7 @@ public class MadTileEntityFactory
     }
 
     public static boolean registerMachine(String machineName, int blockID,
-            Class<? extends MadTileEntityPrefab> logicClass,
+            String logicClassNamespace,
             IMadSlotContainer[] containerTemplate,
             IMadGUIControl[] guiTemplate,
             IMadGUIButton[] buttonTemplate,
@@ -179,7 +175,7 @@ public class MadTileEntityFactory
         MadTileEntityFactoryProduct tileEntityProduct = new MadTileEntityFactoryProduct(
                 machineName,
                 blockID,
-                logicClass);
+                logicClassNamespace);
 
         // Adds required things most tile entities need such as GUI, slots, energy and fluid support, sounds, etc.
         tileEntityProduct.setContainerTemplate(containerTemplate);
@@ -199,19 +195,27 @@ public class MadTileEntityFactory
         // Debugging!
         MadScience.logger.info("[MadTileEntityFactory]Registering machine: " + machineName);
         
-        // Save to json file!
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(tileEntityProduct);
-        System.out.println(json);
-        
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
         
         // Register the machine with Minecraft/Forge.
-        GameRegistry.registerTileEntity(logicClass, machineName);
+        GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), machineName);
         GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadScience.ID + machineName);
         MadScience.proxy.registerRenderingHandler(blockID);
         
         return true;
+    }
+
+    /** Serializes all registered machines to disk. Meat for developer use only. Use with caution! */
+    public static void dumpAllMachineJSON()
+    {
+        for (Iterator iterator = getMachineInfoList().iterator(); iterator.hasNext();)
+        {
+            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
+            if (registeredMachine != null)
+            {
+                registeredMachine.dumpJSONToDisk();
+            }
+        }
     }
 }

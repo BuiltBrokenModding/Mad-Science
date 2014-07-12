@@ -20,7 +20,7 @@ import madscience.items.needles.NeedleVillager;
 import madscience.items.needles.NeedleWitch;
 import madscience.items.needles.NeedleWolf;
 import madscience.items.needles.NeedleZombie;
-import madscience.tileentities.sanitizer.SanitizerRecipes;
+import madscience.tile.sanitizer.SanitizerRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

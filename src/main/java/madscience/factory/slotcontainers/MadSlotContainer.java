@@ -2,37 +2,39 @@ package madscience.factory.slotcontainers;
 
 import net.minecraftforge.common.ForgeDirection;
 
+import com.google.gson.annotations.Expose;
+
 public final class MadSlotContainer implements IMadSlotContainer
 {
     /* Determines what side this entry can have items extracted from it. */
-    private final ForgeDirection extractSide;
+    @Expose private final ForgeDirection extractSide;
 
     /* Determines what side this entry can accept items from. */
-    private final ForgeDirection insertSide;
+    @Expose private final ForgeDirection insertSide;
 
     /* Determines if entry can extract period. */
-    private final boolean allowExtract;
+    @Expose private final boolean allowExtract;
 
     /* Determines if entry can have items inserted period. */
-    private final boolean allowInput;
+    @Expose private final boolean allowInput;
 
     /* Offset of container slot on GUI. */
-    private final int offsetX;
+    @Expose private final int offsetX;
 
     /* Offset of container slot on GUI. */
-    private final int offsetY;
+    @Expose private final int offsetY;
 
     /* Size of container slot on GUI. */
-    private final int sizeX;
+    @Expose private final int sizeX;
 
     /* Size of container slot on GUI. */
-    private final int sizeY;
+    @Expose private final int sizeY;
     
     /** Reference to type of slot this will be input, output, other, etc. */
-    private final MadSlotContainerTypeEnum slotType;
+    @Expose private final MadSlotContainerTypeEnum slotType;
     
     /** Reference to container number used by Minecraft/Forge and our own logic classes. */
-    private final int slotNumber;
+    @Expose private final int slotNumber;
 
     public MadSlotContainer(
             int slotNumber,

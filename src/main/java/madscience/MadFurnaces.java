@@ -21,44 +21,43 @@ import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
-import madscience.tileentities.DNAExtractorEntity;
-import madscience.tileentities.clayfurnace.ClayfurnaceBlock;
-import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
-import madscience.tileentities.clayfurnace.ClayfurnaceRecipes;
-import madscience.tileentities.cncmachine.CnCMachineBlock;
-import madscience.tileentities.cncmachine.CnCMachineBlockGhost;
-import madscience.tileentities.cncmachine.CnCMachineEntity;
-import madscience.tileentities.cncmachine.CnCMachineRecipes;
-import madscience.tileentities.cryofreezer.CryofreezerBlock;
-import madscience.tileentities.cryofreezer.CryofreezerEntity;
-import madscience.tileentities.cryotube.CryotubeBlock;
-import madscience.tileentities.cryotube.CryotubeBlockGhost;
-import madscience.tileentities.cryotube.CryotubeEntity;
-import madscience.tileentities.dataduplicator.DataDuplicatorBlock;
-import madscience.tileentities.dataduplicator.DataDuplicatorEntity;
-import madscience.tileentities.incubator.IncubatorBlock;
-import madscience.tileentities.incubator.IncubatorEntity;
-import madscience.tileentities.incubator.IncubatorRecipes;
-import madscience.tileentities.magloader.MagLoaderBlock;
-import madscience.tileentities.magloader.MagLoaderBlockGhost;
-import madscience.tileentities.magloader.MagLoaderEntity;
-import madscience.tileentities.mainframe.MainframeBlock;
-import madscience.tileentities.mainframe.MainframeEntity;
-import madscience.tileentities.mainframe.MainframeRecipes;
-import madscience.tileentities.meatcube.MeatcubeBlock;
-import madscience.tileentities.meatcube.MeatcubeEntity;
-import madscience.tileentities.sanitizer.SanitizerBlock;
-import madscience.tileentities.sanitizer.SanitizerEntity;
-import madscience.tileentities.sequencer.SequencerBlock;
-import madscience.tileentities.sequencer.SequencerEntity;
-import madscience.tileentities.soniclocator.SoniclocatorBlock;
-import madscience.tileentities.soniclocator.SoniclocatorBlockGhost;
-import madscience.tileentities.soniclocator.SoniclocatorEntity;
-import madscience.tileentities.thermosonicbonder.ThermosonicBonderBlock;
-import madscience.tileentities.thermosonicbonder.ThermosonicBonderEntity;
-import madscience.tileentities.thermosonicbonder.ThermosonicBonderRecipes;
-import madscience.tileentities.voxbox.VoxBoxBlock;
-import madscience.tileentities.voxbox.VoxBoxEntity;
+import madscience.tile.clayfurnace.ClayfurnaceBlock;
+import madscience.tile.clayfurnace.ClayfurnaceEntity;
+import madscience.tile.clayfurnace.ClayfurnaceRecipes;
+import madscience.tile.cncmachine.CnCMachineBlock;
+import madscience.tile.cncmachine.CnCMachineBlockGhost;
+import madscience.tile.cncmachine.CnCMachineEntity;
+import madscience.tile.cncmachine.CnCMachineRecipes;
+import madscience.tile.cryofreezer.CryofreezerBlock;
+import madscience.tile.cryofreezer.CryofreezerEntity;
+import madscience.tile.cryotube.CryotubeBlock;
+import madscience.tile.cryotube.CryotubeBlockGhost;
+import madscience.tile.cryotube.CryotubeEntity;
+import madscience.tile.dataduplicator.DataDuplicatorBlock;
+import madscience.tile.dataduplicator.DataDuplicatorEntity;
+import madscience.tile.incubator.IncubatorBlock;
+import madscience.tile.incubator.IncubatorEntity;
+import madscience.tile.incubator.IncubatorRecipes;
+import madscience.tile.magloader.MagLoaderBlock;
+import madscience.tile.magloader.MagLoaderBlockGhost;
+import madscience.tile.magloader.MagLoaderEntity;
+import madscience.tile.mainframe.MainframeBlock;
+import madscience.tile.mainframe.MainframeEntity;
+import madscience.tile.mainframe.MainframeRecipes;
+import madscience.tile.meatcube.MeatcubeBlock;
+import madscience.tile.meatcube.MeatcubeEntity;
+import madscience.tile.sanitizer.SanitizerBlock;
+import madscience.tile.sanitizer.SanitizerEntity;
+import madscience.tile.sequencer.SequencerBlock;
+import madscience.tile.sequencer.SequencerEntity;
+import madscience.tile.soniclocator.SoniclocatorBlock;
+import madscience.tile.soniclocator.SoniclocatorBlockGhost;
+import madscience.tile.soniclocator.SoniclocatorEntity;
+import madscience.tile.thermosonicbonder.ThermosonicBonderBlock;
+import madscience.tile.thermosonicbonder.ThermosonicBonderEntity;
+import madscience.tile.thermosonicbonder.ThermosonicBonderRecipes;
+import madscience.tile.voxbox.VoxBoxBlock;
+import madscience.tile.voxbox.VoxBoxEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.Item;
@@ -157,6 +156,7 @@ public class MadFurnaces
     {        
         // TODO: Get machine name from loaded file.
         String machineNameInternal = "dnaExtractor";
+        String logicClassNamespace = "madscience.tile.DNAExtractorEntity";
         
         // CONTAINERS
         List<MadSlotContainer> machineContainers = new ArrayList<MadSlotContainer>();
@@ -388,7 +388,7 @@ public class MadFurnaces
         addResult = MadTileEntityFactory.registerMachine(
                 machineNameInternal,
                 blockID,
-                DNAExtractorEntity.class, // TODO: Get logic class from loaded file.
+                logicClassNamespace, // TODO: Get logic class from loaded file.
                 machineContainers.toArray(new MadSlotContainer[]{}),
                 machineGUIControls.toArray(new MadGUIControl[]{}),
                 machineGUIButtons.toArray(new MadGUIButton[]{}),

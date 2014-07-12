@@ -4,22 +4,24 @@ import madscience.MadScience;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.item.ItemStack;
 
+import com.google.gson.annotations.Expose;
+
 public class MadRecipeComponent implements IMadRecipeComponent
 {
     /** Determines where an individual recipe item will go in slot. */
-    private MadSlotContainerTypeEnum slotDestination;
+    @Expose private MadSlotContainerTypeEnum slotDestination;
     
     /** Holds reference to the item (meta or otherwise) that we expect in given slot. */
-    private String slotExpectedItem;
+    @Expose private String slotExpectedItem;
     
     /** Reference to how many of the given item we should have for this slot. */
-    private int slotExpectedAmount;
+    @Expose private int slotExpectedAmount;
     
     /** Reference to mod ID the given item should come from. */
-    private String parentModID;
+    @Expose private String parentModID;
     
     /** Reference to how much damage this item has or in the case of meta items determines which one it will be. */
-    private int metaDamage;
+    @Expose private int metaDamage;
     
     /** Determines if this recipe has been recognized by Minecraft/Forge GameRegistry as being valid. */
     private boolean hasLoaded = false;

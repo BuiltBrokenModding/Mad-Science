@@ -2,15 +2,17 @@ package madscience.factory.sounds;
 
 import org.apache.commons.io.FilenameUtils;
 
+import com.google.gson.annotations.Expose;
+
 public class MadSoundFile implements IMadSound
 {
-    private String soundNameWithoutExtension = null;
-    private String soundNameWithExtension = null;
-    private String soundExtension = null;
-    private MadSoundTriggerEnum soundTrigger = null;
-    private int soundLengthInSeconds = 0;
-    private MadSoundPlaybackTypeEnum soundPlaybackMode = null;
-    private int randomVariance = 1;
+    @Expose private String soundNameWithoutExtension = null;
+    @Expose private String soundNameWithExtension = null;
+    @Expose private String soundExtension = null;
+    @Expose private MadSoundTriggerEnum soundTrigger = null;
+    @Expose private int soundLengthInSeconds = 0;
+    @Expose private MadSoundPlaybackTypeEnum soundPlaybackMode = null;
+    @Expose private int randomVariance = 1;
     
     public MadSoundFile(
             String fileName,

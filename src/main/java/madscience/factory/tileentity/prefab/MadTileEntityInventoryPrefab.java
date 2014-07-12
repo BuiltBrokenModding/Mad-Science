@@ -3,8 +3,8 @@ package madscience.factory.tileentity.prefab;
 import java.util.ArrayList;
 
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.recipes.IMadRecipeComponent;
 import madscience.factory.recipes.IMadRecipe;
+import madscience.factory.recipes.IMadRecipeComponent;
 import madscience.factory.slotcontainers.IMadSlotContainer;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.entity.player.EntityPlayer;

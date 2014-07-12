@@ -1,12 +1,12 @@
 package madscience.factory.energy;
 
-import madscience.MadConfig;
+import com.google.gson.annotations.Expose;
 
 public final class MadEnergy implements IMadEnergy
 {
-    private long energyMaxExtract;
-    private long energyMaxRecieve;
-    private long energyCapacity;
+    @Expose private long energyMaxExtract;
+    @Expose private long energyMaxRecieve;
+    @Expose private long energyCapacity;
 
     public MadEnergy(long capacity, long maxRecieve, long maxExtract)
     {

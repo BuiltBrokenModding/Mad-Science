@@ -118,6 +118,9 @@ public class MadScience
         // Prints out all internal names.
         //MadTileEntityFactory.printUnlocalizedItemNames();
         
+        // Dumps all registered machines JSON to disk.
+        //MadTileEntityFactory.dumpAllMachineJSON();
+        
         // ----------------
         // NOT ENOUGH ITEMS
         // ----------------

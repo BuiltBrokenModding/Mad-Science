@@ -1,9 +1,11 @@
 package madscience.factory.sounds;
 
+import com.google.gson.annotations.Expose;
+
 
 public final class MadSound implements IMadSound
 {
-    private MadSoundFile sound = null;
+    @Expose private MadSoundFile sound = null;
     
     public MadSound(
             String fileName,

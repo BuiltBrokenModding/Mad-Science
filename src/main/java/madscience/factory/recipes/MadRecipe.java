@@ -8,22 +8,24 @@ import java.util.Map.Entry;
 import madscience.MadScience;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 
+import com.google.gson.annotations.Expose;
+
 public final class MadRecipe implements IMadRecipe
 {
     /** Master list of recipes for this machine. */
     private final HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]> smeltingList = new HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]>();
     
     /** Final input result of recipe. */
-    private final MadRecipeComponent[] inputIngredientsArray;
+    @Expose private final MadRecipeComponent[] inputIngredientsArray;
     
     /** Final output result of recipe. */
-    private final MadRecipeComponent[] outputResultsArray;
+    @Expose private final MadRecipeComponent[] outputResultsArray;
     
     /** Amount of time in seconds it should take to create this recipe. */
-    private final int creationTimeInSeconds;
+    @Expose private final int creationTimeInSeconds;
     
     /** Amount of experience the player will get after crafting this recipe. */
-    private final float experienceFromCreation;
+    @Expose private final float experienceFromCreation;
     
     public MadRecipe(
             MadSlotContainerTypeEnum ingredient1Slot,
