@@ -1,4 +1,4 @@
-package madscience.tileentities.dnaextractor;
+package madscience.tileentities;
 
 import madscience.MadConfig;
 import madscience.MadDNA;
@@ -7,14 +7,14 @@ import madscience.MadNeedles;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.needles.ItemDecayNeedleBase;
 import madscience.items.needles.NeedleMutant;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class DNAExtractorEntity extends MadTileEntity
+public class DNAExtractorEntity extends MadTileEntityPrefab
 {
     public DNAExtractorEntity()
     {

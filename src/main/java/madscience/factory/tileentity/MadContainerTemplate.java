@@ -2,7 +2,7 @@ package madscience.factory.tileentity;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.slotcontainers.MadSlotContainerInterface;
+import madscience.factory.slotcontainers.IMadSlotContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 
 public class MadContainerTemplate extends Container
 {
-    private MadTileEntity ENTITY;
+    private MadTileEntityPrefab ENTITY;
 
     // For this particular case, there are only 2 slots in the custom inventory, plus a slot that is 'active'
     // but not able to interact with (like an active spell slot that doesn't really contain an item)
@@ -27,7 +27,7 @@ public class MadContainerTemplate extends Container
         super();
     }
 
-    public MadContainerTemplate(InventoryPlayer entityPlayer, MadTileEntity tileEntity)
+    public MadContainerTemplate(InventoryPlayer entityPlayer, MadTileEntityPrefab tileEntity)
     {
         // Hook the server world entity.
         this.ENTITY = tileEntity;
@@ -36,7 +36,7 @@ public class MadContainerTemplate extends Container
         MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
 
         // Grab our array of containers from the template object.
-        MadSlotContainerInterface[] CONTAINERS = MACHINE.getContainerTemplate();
+        IMadSlotContainer[] CONTAINERS = MACHINE.getContainerTemplate();
 
         // Ensures that shift-clicking will properly work. This method is from coolAlias.
         // http://www.minecraftforum.net/forums/mapping-and-modding/mapping-and-modding-tutorials/1571051-custom-container-how-to-properly-override-shift
@@ -45,7 +45,7 @@ public class MadContainerTemplate extends Container
         // Loop through the containers and use the data inside them to prepare the server slot containers.
         for (int i = 0; i < CONTAINERS.length; i++)
         {
-            MadSlotContainerInterface slotContainer = CONTAINERS[i];
+            IMadSlotContainer slotContainer = CONTAINERS[i];
             this.addSlotToContainer(new Slot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
         }
 

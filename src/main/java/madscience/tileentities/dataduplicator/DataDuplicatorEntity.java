@@ -4,7 +4,7 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
 import madscience.items.genomes.ItemGenomeBase;
 import madscience.items.memories.CombinedMemoryMonsterPlacer;
@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class DataDuplicatorEntity extends MadTileEntity implements ISidedInventory
+public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedInventory
 {
     private static final int[] slots_top = new int[]
     { 0 };

@@ -1,6 +1,6 @@
 package madscience.factory.energy;
 
-public interface MadEnergyInterface
+public interface IMadEnergy
 {
 
     public abstract long getEnergyCapacity();

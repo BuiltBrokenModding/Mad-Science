@@ -2,7 +2,7 @@ package madscience.factory.slotcontainers;
 
 import net.minecraftforge.common.ForgeDirection;
 
-public interface MadSlotContainerInterface
+public interface IMadSlotContainer
 {
     /* Returns true if we are allowed to extract items from the given container slot. */
     public abstract boolean canExtract();

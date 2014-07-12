@@ -1,4 +1,4 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.recipes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,121 +6,10 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import madscience.MadScience;
-import madscience.factory.recipes.MadRecipeComponent;
-import madscience.factory.recipes.MadRecipeComponentInterface;
-import madscience.factory.recipes.MadRecipeInterface;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 
-public enum DNAExtractorEnumRecipes implements MadRecipeInterface
+public final class MadRecipe implements IMadRecipe
 {
-    BatDNA(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleBat:0:1", null, "", null, "", null, "", null, "",
-           MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaBat:0:1", null, "", null, "", null, "", null, "",
-           60, 0.50F),
-           
-    CaveSpider(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCaveSpider:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCaveSpider:0:1", null, "", null, "", null, "", null, "",
-            60, 0.35F),
-    //DNAExtractorRecipes.addSmelting(Item.fermentedSpiderEye.itemID, new ItemStack(DNA_CAVESPIDER), 0.35F);
-    
-    Chicken(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleChicken:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaChicken:0:1", null, "", null, "", null, "", null, "",
-            60, 0.35F),
-    //DNAExtractorRecipes.addSmelting(Item.feather.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
-    //DNAExtractorRecipes.addSmelting(Item.egg.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
-    //DNAExtractorRecipes.addSmelting(Item.chickenCooked.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
-    //DNAExtractorRecipes.addSmelting(Item.chickenRaw.itemID, new ItemStack(DNA_CHICKEN), 0.15F);
-    
-    Cow(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCow:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-            60, 0.30F),
-    //DNAExtractorRecipes.addSmelting(Item.leather.itemID, new ItemStack(DNA_COW), 0.30F);
-    //DNAExtractorRecipes.addSmelting(Item.beefCooked.itemID, new ItemStack(DNA_COW), 0.30F);
-    //DNAExtractorRecipes.addSmelting(Item.beefRaw.itemID, new ItemStack(DNA_COW), 0.30F);
-    //DNAExtractorRecipes.addSmelting(Item.bootsLeather.itemID, new ItemStack(DNA_COW), 0.30F);
-    //DNAExtractorRecipes.addSmelting(Item.helmetLeather.itemID, new ItemStack(DNA_COW), 0.30F);
-    //DNAExtractorRecipes.addSmelting(Item.legsLeather.itemID, new ItemStack(DNA_COW), 0.30F);
-    //DNAExtractorRecipes.addSmelting(Item.plateLeather.itemID, new ItemStack(DNA_COW), 0.30F);
-    //DNAExtractorRecipes.addSmelting(Item.bucketMilk.itemID, new ItemStack(DNA_COW), 0.30F);
-    
-    Creeper(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCreeper:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCreeper:0:1", null, "", null, "", null, "", null, "",
-            60, 0.20F),
-    //DNAExtractorRecipes.addSmelting(Item.gunpowder.itemID, new ItemStack(DNA_CREEPER), 0.22F);
-    //DNAExtractorRecipes.addSmelting(Item.skull.itemID, 4, new ItemStack(DNA_CREEPER), 0.22F);
-    
-    Enderman(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleEnderman:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaEnderman:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    //DNAExtractorRecipes.addSmelting(Item.enderPearl.itemID, new ItemStack(DNA_ENDERMAN), 0.42F);
-    //.addSmelting(Item.eyeOfEnder.itemID, new ItemStack(DNA_ENDERMAN), 0.42F);
-    
-    Ghast(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:ghastTear:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaGhast:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    
-    Horse(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleHorse:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaHorse:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    
-    MushroomCow(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleMushroomCow:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaMushroomCow:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-
-    Ocelot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleOcelot:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaOcelot:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    
-    Pig(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needlePig:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaPig:0:1", null, "", null, "", null, "", null, "",
-            60, 0.35F),
-    //DNAExtractorRecipes.addSmelting(Item.porkRaw.itemID, new ItemStack(DNA_PIG), 0.35F);
-    //DNAExtractorRecipes.addSmelting(Item.porkCooked.itemID, new ItemStack(DNA_PIG), 0.35F);
-    
-    Sheep(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSheep:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSheep:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    //DNAExtractorRecipes.addSmelting(Block.cloth.blockID, new ItemStack(DNA_SHEEP), 0.42F);
-    
-    Skeleton(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:bone:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSkeleton:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    //DNAExtractorRecipes.addSmelting(Item.dyePowder.itemID, 15, new ItemStack(DNA_SKELETON), 0.42F);
-    //DNAExtractorRecipes.addSmelting(Item.skull.itemID, 0, new ItemStack(DNA_SKELETON), 0.42F);
-    
-    Slimeball(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:slimeball:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSlime:0:1", null, "", null, "", null, "", null, "",
-            60, 0.50F),
-    //DNAExtractorRecipes.addSmelting(Block.pistonStickyBase.blockID, new ItemStack(DNA_SLIME), 0.50F);
-    
-    Spider(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSpider:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSpider:0:1", null, "", null, "", null, "", null, "",
-            60, 0.66F),
-    //DNAExtractorRecipes.addSmelting(Item.spiderEye.itemID, new ItemStack(DNA_SPIDER), 0.66F);
-    //DNAExtractorRecipes.addSmelting(Item.silk.itemID, new ItemStack(DNA_SPIDER), 0.66F);
-    
-    Squid(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSquid:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSquid:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    //DNAExtractorRecipes.addSmelting(Item.dyePowder.itemID, 0, new ItemStack(DNA_SQUID), 0.42F);
-    
-    Villager(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleVillager:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaVillager:0:1", null, "", null, "", null, "", null, "",
-            60, 0.35F),
-    
-    Witch(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleWitch:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaWitch:0:1", null, "", null, "", null, "", null, "",
-            60, 0.66F),
-    
-    Wolf(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleWolf:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaWolf:0:1", null, "", null, "", null, "", null, "",
-            60, 0.42F),
-    
-    Zombie(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleZombie:0:1", null, "", null, "", null, "", null, "",
-            MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaZombie:0:1", null, "", null, "", null, "", null, "",
-            60, 0.35F);
-    //DNAExtractorRecipes.addSmelting(Item.skull.itemID, 2, new ItemStack(DNA_ZOMBIE), 0.50F);
-    //DNAExtractorRecipes.addSmelting(Item.rottenFlesh.itemID, new ItemStack(DNA_ZOMBIE), 0.50F);
-    
     /** Master list of recipes for this machine. */
     private final HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]> smeltingList = new HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]>();
     
@@ -136,7 +25,7 @@ public enum DNAExtractorEnumRecipes implements MadRecipeInterface
     /** Amount of experience the player will get after crafting this recipe. */
     private final float experienceFromCreation;
     
-    DNAExtractorEnumRecipes(
+    public MadRecipe(
             MadSlotContainerTypeEnum ingredient1Slot,
             String ingredient1Info,
             MadSlotContainerTypeEnum ingredient2Slot,
@@ -322,7 +211,7 @@ public enum DNAExtractorEnumRecipes implements MadRecipeInterface
     }
     
     @Override
-    public MadRecipeComponentInterface[] getRecipeResultBySlotType(MadSlotContainerTypeEnum slotType)
+    public IMadRecipeComponent[] getRecipeResultBySlotType(MadSlotContainerTypeEnum slotType)
     {
         // If we have no recipe outputs then stop now!
         if (this.outputResultsArray == null)
@@ -356,7 +245,7 @@ public enum DNAExtractorEnumRecipes implements MadRecipeInterface
 
     /** Returns array of results for the given parameters, returns empty array if nothing. */
     @Override
-    public MadRecipeComponentInterface[] getRecipeResultByIngredients(
+    public IMadRecipeComponent[] getRecipeResultByIngredients(
             MadRecipeComponent ingredient1,
             MadRecipeComponent ingredient2,
             MadRecipeComponent ingredient3,
@@ -393,7 +282,7 @@ public enum DNAExtractorEnumRecipes implements MadRecipeInterface
         }
         
         // Create temporary array of all inputed ingredient components.
-        MadRecipeComponentInterface[] queryIngredients = tempInputList.toArray(new MadRecipeComponent[tempInputList.size()]);
+        IMadRecipeComponent[] queryIngredients = tempInputList.toArray(new MadRecipeComponent[tempInputList.size()]);
         
         // Iterate over all possible recipes in smelting array.
         for(Entry<List<MadRecipeComponent[]>, MadRecipeComponent[]> entry : smeltingList.entrySet())
@@ -410,13 +299,13 @@ public enum DNAExtractorEnumRecipes implements MadRecipeInterface
     }
 
     @Override
-    public MadRecipeComponentInterface[] getInputIngredientsArray()
+    public IMadRecipeComponent[] getInputIngredientsArray()
     {
         return inputIngredientsArray;
     }
 
     @Override
-    public MadRecipeComponentInterface[] getOutputResultsArray()
+    public IMadRecipeComponent[] getOutputResultsArray()
     {
         return outputResultsArray;
     }

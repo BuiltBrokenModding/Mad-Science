@@ -1,9 +1,9 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.prefab;
 
 import java.util.EnumSet;
 
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.energy.MadEnergyInterface;
+import madscience.factory.energy.IMadEnergy;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
@@ -15,27 +15,27 @@ import universalelectricity.api.energy.IEnergyInterface;
 import universalelectricity.api.vector.Vector3;
 
 @UniversalClass
-abstract class MadTileEntityEnergy extends MadTileEntityFluid implements IEnergyInterface, IEnergyContainer
+public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab implements IEnergyInterface, IEnergyContainer
 {
     protected EnergyStorageHandler energy;
 
-    public MadTileEntityEnergy()
+    public MadTileEntityEnergyPrefab()
     {
         super();
     }
 
-    MadTileEntityEnergy(MadTileEntityFactoryProduct registeredMachine)
+    protected MadTileEntityEnergyPrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
 
         // Grab energy information from factory product.
-        MadEnergyInterface[] energySupported = registeredMachine.getEnergySupported();
+        IMadEnergy[] energySupported = registeredMachine.getEnergySupported();
 
         if (energySupported.length >= 1)
         {
             for (int i = 0; i < energySupported.length; i++)
             {
-                MadEnergyInterface energyInterface = energySupported[i];
+                IMadEnergy energyInterface = energySupported[i];
 
                 // TODO: Only 1 energy storage handler is supported at this time.
                 energy = new EnergyStorageHandler(energyInterface.getEnergyCapacity(), energyInterface.getEnergyMaxRecieve(), energyInterface.getEnergyMaxExtract());

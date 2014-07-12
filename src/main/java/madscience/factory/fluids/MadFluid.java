@@ -1,18 +1,15 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.fluids;
 
 import madscience.MadFluids;
-import madscience.factory.fluids.MadFluidInterface;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public enum DNAExtractorEnumFluids implements MadFluidInterface
+public final class MadFluid implements IMadFluid
 {
-    MutantDNA(MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME, 0, FluidContainerRegistry.BUCKET_VOLUME * 10);
-
     private final String internalName;
     private final int startingAmount;
     private final int maximumAmount;
 
-    DNAExtractorEnumFluids(String fluidDictionaryName, int amount, int capacity)
+    public MadFluid(String fluidDictionaryName, int amount, int capacity)
     {
         this.internalName = fluidDictionaryName;
         this.startingAmount = amount;

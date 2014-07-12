@@ -1,11 +1,11 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.prefab;
 
 import java.util.ArrayList;
 
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.recipes.MadRecipeComponentInterface;
-import madscience.factory.recipes.MadRecipeInterface;
-import madscience.factory.slotcontainers.MadSlotContainerInterface;
+import madscience.factory.recipes.IMadRecipeComponent;
+import madscience.factory.recipes.IMadRecipe;
+import madscience.factory.slotcontainers.IMadSlotContainer;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -14,17 +14,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 
-abstract class MadTileEntityInventory extends MadTileEntityRedstone implements ISidedInventory
+abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implements ISidedInventory
 {
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] INVENTORY;
 
-    public MadTileEntityInventory()
+    public MadTileEntityInventoryPrefab()
     {
         super();
     }
 
-    MadTileEntityInventory(MadTileEntityFactoryProduct registeredMachine)
+    MadTileEntityInventoryPrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
         
@@ -39,14 +39,14 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         ForgeDirection dir = ForgeDirection.getOrientation(side);
 
         // Grab a list of all container values from enumeration.
-        MadSlotContainerInterface[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
+        IMadSlotContainer[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
         int i = containerSlots.length;
 
         // Loop through all the gathered slots.
         for (int j = 0; j < i; ++j)
         {
             // Check if they match the side we decoded from parameter.
-            MadSlotContainerInterface currentContainer = containerSlots[j];
+            IMadSlotContainer currentContainer = containerSlots[j];
             if (currentContainer.getExtractDirection().equals(dir) && currentContainer.canExtract())
             {
                 // Allows the item to be extracted from the given slot.
@@ -109,7 +109,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         ForgeDirection dir = ForgeDirection.getOrientation(side);
 
         // Grab a list of all container values from enumeration.
-        MadSlotContainerInterface[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
+        IMadSlotContainer[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
         int i = containerSlots.length;
 
         // List which will store our integers for allowed sides.
@@ -119,7 +119,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         for (int j = 0; j < i; ++j)
         {
             // Check if they match the side we decoded from parameter.
-            MadSlotContainerInterface currentContainer = containerSlots[j];
+            IMadSlotContainer currentContainer = containerSlots[j];
 
             // To prevent duplicate sides being added we only add based on one or the other.
             if (currentContainer.getExtractDirection().equals(dir) && currentContainer.canExtract())
@@ -185,15 +185,15 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         ItemStack itemInsideInputSlot = this.getStackInSlotByType(inputSlot);
         
         // Grab the recipe archive object array.
-        MadRecipeInterface[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
+        IMadRecipe[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
         
         // Recipe archives are nested so we need to loop through them to get to first one (even if it is the only one).
-        for (MadRecipeInterface machineRecipe : recipeArchiveArray) 
+        for (IMadRecipe machineRecipe : recipeArchiveArray) 
         {
             // Loop through the input and look for something matching slot type and input item.
-            MadRecipeComponentInterface[] inputIngredientsArray = machineRecipe.getInputIngredientsArray();
+            IMadRecipeComponent[] inputIngredientsArray = machineRecipe.getInputIngredientsArray();
             boolean inputMatches = false;
-            for (MadRecipeComponentInterface recipeIngredient : inputIngredientsArray) 
+            for (IMadRecipeComponent recipeIngredient : inputIngredientsArray) 
             {
                 // Only work on loaded recipes.
                 if (!recipeIngredient.isLoaded())
@@ -221,8 +221,8 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
             if (inputMatches)
             {
                 // Since this is a single furnace function we return he result from first output slot.
-                MadRecipeComponentInterface[] outputResultsArray = machineRecipe.getOutputResultsArray();
-                for (MadRecipeComponentInterface recipeResult : outputResultsArray) 
+                IMadRecipeComponent[] outputResultsArray = machineRecipe.getOutputResultsArray();
+                for (IMadRecipeComponent recipeResult : outputResultsArray) 
                 {
                     // Only work on loaded recipes.
                     if (!recipeResult.isLoaded())
@@ -248,11 +248,11 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
     public boolean isItemUsedInInputRecipes(ItemStack possibleInputItem)
     {
         // Grab the recipe archive object array.
-        MadRecipeInterface[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
-        for (MadRecipeInterface machineRecipe : recipeArchiveArray) 
+        IMadRecipe[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
+        for (IMadRecipe machineRecipe : recipeArchiveArray) 
         {
-            MadRecipeComponentInterface[] inputIngredients = machineRecipe.getInputIngredientsArray();
-            for (MadRecipeComponentInterface recipeResult : inputIngredients) 
+            IMadRecipeComponent[] inputIngredients = machineRecipe.getInputIngredientsArray();
+            for (IMadRecipeComponent recipeResult : inputIngredients) 
             {
                 if (!recipeResult.isLoaded())
                 {
@@ -281,7 +281,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
         }
         
         // Loop through the slots in this machine looking for one that matches the parameter.
-        for (MadSlotContainerInterface currentSlot : currentMachine.getContainerTemplate()) 
+        for (IMadSlotContainer currentSlot : currentMachine.getContainerTemplate()) 
         {
             if (currentSlot.getSlotType().equals(slotType))
             {
@@ -303,7 +303,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
             return -1;
         }
         
-        for (MadSlotContainerInterface currentSlot : currentMachine.getContainerTemplate()) 
+        for (IMadSlotContainer currentSlot : currentMachine.getContainerTemplate()) 
         {
             if (currentSlot.getSlotType().equals(slotType))
             {
@@ -404,7 +404,7 @@ abstract class MadTileEntityInventory extends MadTileEntityRedstone implements I
             return;
         }
         
-        for (MadSlotContainerInterface currentSlot : currentMachine.getContainerTemplate()) 
+        for (IMadSlotContainer currentSlot : currentMachine.getContainerTemplate()) 
         {
             if (currentSlot.getSlotType().equals(slotType))
             {

@@ -79,12 +79,12 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     {
         // Grab our block from the world upon breaking it.
         TileEntity vanillaTileInstance = par1World.getBlockTileEntity(par2, par3, par4);
-        MadTileEntity tileEntityInstance = null;
+        MadTileEntityPrefab tileEntityInstance = null;
         
         // Attempt to cast this block as one of ours.
-        if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntity)
+        if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntityPrefab)
         {
-            tileEntityInstance = (MadTileEntity) vanillaTileInstance;
+            tileEntityInstance = (MadTileEntityPrefab) vanillaTileInstance;
             
             // Check if we need to play a sound for being destroyed.
             if (this.registeredProduct != null)
@@ -238,12 +238,12 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         {
             // Open GUI on the client...
             TileEntity vanillaTileInstance = par1World.getBlockTileEntity(par2, par3, par4);
-            MadTileEntity tileEntityInstance = null;
+            MadTileEntityPrefab tileEntityInstance = null;
             
             // Attempt to cast this block as one of ours.
-            if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntity)
+            if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntityPrefab)
             {
-                tileEntityInstance = (MadTileEntity) vanillaTileInstance;
+                tileEntityInstance = (MadTileEntityPrefab) vanillaTileInstance;
             }
     
             if (tileEntityInstance != null)
@@ -272,13 +272,13 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         super.onBlockPlacedBy(world, x, y, z, living, stack);
         
         TileEntity vanillaTileInstance = world.getBlockTileEntity(x, y, z);
-        MadTileEntity tileEntityInstance = null;
+        MadTileEntityPrefab tileEntityInstance = null;
         
         // Attempt to cast this block as one of ours.
-        if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntity)
+        if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntityPrefab)
         {
             // Check if we need to play a sound for being destroyed.
-            tileEntityInstance = (MadTileEntity) vanillaTileInstance;
+            tileEntityInstance = (MadTileEntityPrefab) vanillaTileInstance;
             if (tileEntityInstance != null)
             {
                 if (this.registeredProduct != null)

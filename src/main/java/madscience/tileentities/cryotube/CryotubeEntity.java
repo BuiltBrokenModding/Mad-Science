@@ -6,7 +6,7 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.datareel.ItemDataReelEmpty;
 import madscience.items.memories.CombinedMemoryMonsterPlacer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class CryotubeEntity extends MadTileEntity implements ISidedInventory, IInventory
+public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInventory, IInventory
 {
     private static final int[] slots_bottom = new int[]
     { 2, 1 };

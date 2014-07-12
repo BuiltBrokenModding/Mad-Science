@@ -4,7 +4,7 @@ import madscience.MadScience;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.item.ItemStack;
 
-public class MadRecipeComponent implements MadRecipeComponentInterface
+public class MadRecipeComponent implements IMadRecipeComponent
 {
     /** Determines where an individual recipe item will go in slot. */
     private MadSlotContainerTypeEnum slotDestination;

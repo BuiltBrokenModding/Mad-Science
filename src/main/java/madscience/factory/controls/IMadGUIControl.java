@@ -1,6 +1,6 @@
 package madscience.factory.controls;
 
-public interface MadGUIControlInterface
+public interface IMadGUIControl
 {
     /* Filler coordinates where image data to render at screen coords can be found. */
     public abstract int fillerX();

@@ -3,7 +3,7 @@ package madscience.tileentities.cryofreezer;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.ItemDecayBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class CryofreezerEntity extends MadTileEntity implements ISidedInventory
+public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInventory
 {
     private static final int[] slots_top = new int[]
     { 0 };

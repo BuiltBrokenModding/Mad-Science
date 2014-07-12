@@ -5,11 +5,12 @@ import madscience.MadScience;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.sounds.MadSoundTriggerEnum;
+import madscience.factory.tileentity.prefab.MadTileEntityEnergyPrefab;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTileEntityInterface
+public abstract class MadTileEntityPrefab extends MadTileEntityEnergyPrefab
 {
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
     private int progressMaximum;
@@ -29,24 +30,23 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
     /** Holds reference to our factory product which is grabbed after the object has been placed into the world. */
     private MadTileEntityFactoryProduct registeredMachine;
 
-    public MadTileEntity()
+    public MadTileEntityPrefab()
     {
         super();
     }
 
-    public MadTileEntity(MadTileEntityFactoryProduct registeredMachine)
+    public MadTileEntityPrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
         this.entityTexture = "models/" + registeredMachine.getMachineName() + "/idle.png";
     }
 
-    public MadTileEntity(String machineName)
+    public MadTileEntityPrefab(String machineName)
     {
         super();
         MadScience.logger.info("[PlzConvertMe]" + machineName);
     }
 
-    @Override
     public boolean canSmelt()
     {
         // Default response is to return false.
@@ -151,13 +151,11 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
                         .getFluidCapacity(), this.getEntityTexture()).makePacket());
     }
 
-    @Override
     public void smeltItem()
     {
         
     }
 
-    @Override
     public void updateAnimation()
     {
         
@@ -170,7 +168,6 @@ public abstract class MadTileEntity extends MadTileEntityEnergy implements MadTi
 
     }
 
-    @Override
     public void updateSound()
     {
         // Get overview of machine progress.

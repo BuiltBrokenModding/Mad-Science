@@ -1,12 +1,8 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.controls;
 
-import madscience.factory.controls.MadGUIControlInterface;
-import madscience.factory.controls.MadGUIControlTypeEnum;
 
-public enum DNAExtractorEnumGUIControls implements MadGUIControlInterface
+public final class MadGUIControl implements IMadGUIControl
 {
-    MutantDNATank(MadGUIControlTypeEnum.TankGauge, 131, 19, 176, 31, 16, 58), Power(MadGUIControlTypeEnum.PowerLevelX, 10, 49, 176, 0, 14, 14), Work(MadGUIControlTypeEnum.CookingProgressY, 32, 31, 176, 14, 31, 17);
-
     /* Screen coordinates for where data where render. */
     private final int screenX;
 
@@ -28,7 +24,7 @@ public enum DNAExtractorEnumGUIControls implements MadGUIControlInterface
     /* Type of control based on enumeration. */
     private final MadGUIControlTypeEnum controlType;
 
-    private DNAExtractorEnumGUIControls(MadGUIControlTypeEnum controlType, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY)
+    public MadGUIControl(MadGUIControlTypeEnum controlType, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY)
     {
         this.controlType = controlType;
 

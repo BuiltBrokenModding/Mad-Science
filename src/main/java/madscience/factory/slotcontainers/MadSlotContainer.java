@@ -1,17 +1,9 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.slotcontainers;
 
-import madscience.factory.slotcontainers.MadSlotContainerInterface;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraftforge.common.ForgeDirection;
 
-public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
+public final class MadSlotContainer implements IMadSlotContainer
 {
-    InputGeneticMaterial(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, ForgeDirection.UNKNOWN, ForgeDirection.NORTH, false, true, 9, 32, 18, 18),
-    InputEmptyBucket(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET, ForgeDirection.UNKNOWN, ForgeDirection.EAST, false, true, 152, 61, 18, 18),
-    OutputDNASample(MadSlotContainerTypeEnum.OUTPUT_RESULT1, ForgeDirection.SOUTH, ForgeDirection.UNKNOWN, true, false, 72, 32, 18, 18),
-    OutputDirtyNeedle(MadSlotContainerTypeEnum.OUTPUT_WASTE, ForgeDirection.UP, ForgeDirection.UNKNOWN, true, false, 105, 32, 18, 18),
-    OutputFilledMutantDNABucket(MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET, ForgeDirection.WEST, ForgeDirection.UNKNOWN, true, false, 152, 36, 18, 18);
-
     /* Determines what side this entry can have items extracted from it. */
     private final ForgeDirection extractSide;
 
@@ -38,8 +30,12 @@ public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
     
     /** Reference to type of slot this will be input, output, other, etc. */
     private final MadSlotContainerTypeEnum slotType;
+    
+    /** Reference to container number used by Minecraft/Forge and our own logic classes. */
+    private final int slotNumber;
 
-    DNAExtractorEnumContainers(
+    public MadSlotContainer(
+            int slotNumber,
             MadSlotContainerTypeEnum slotType,
             ForgeDirection extractSide,
             ForgeDirection insertSide,
@@ -50,6 +46,9 @@ public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
             int sizeX,
             int sizeY)
     {
+        // Slot number.
+        this.slotNumber = slotNumber;
+        
         // Determines what type of slot this is: input, output, other, etc.
         this.slotType = slotType;
         
@@ -137,7 +136,7 @@ public enum DNAExtractorEnumContainers implements MadSlotContainerInterface
     @Override
     public int slot()
     {
-        return this.ordinal();
+        return this.slotNumber;
     }
 
     @Override

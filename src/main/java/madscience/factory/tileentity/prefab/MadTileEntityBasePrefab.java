@@ -1,4 +1,4 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.prefab;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-abstract class MadTileEntityBase extends TileEntity
+abstract class MadTileEntityBasePrefab extends TileEntity
 {
     /** Keeps track of the number of ticks that have passed since the tile entities creation. */
     private long ticks = 0;
@@ -17,13 +17,13 @@ abstract class MadTileEntityBase extends TileEntity
     /** Stores reference to just machine name since when loading from NBT data we need to know what we are. */
     private String registeredMachineName;
 
-    public MadTileEntityBase()
+    public MadTileEntityBasePrefab()
     {
         // Note: This is used to load tile entities from NBT data only!
         super();
     }
 
-    MadTileEntityBase(MadTileEntityFactoryProduct registeredMachine)
+    MadTileEntityBasePrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super();
         this.registeredMachine = registeredMachine;

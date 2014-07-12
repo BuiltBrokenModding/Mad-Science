@@ -1,17 +1,14 @@
-package madscience.tileentities.dnaextractor;
+package madscience.factory.energy;
 
 import madscience.MadConfig;
-import madscience.factory.energy.MadEnergyInterface;
 
-public enum DNAExtractorEnumEnergy implements MadEnergyInterface
+public final class MadEnergy implements IMadEnergy
 {
-    Energy(MadConfig.DNAEXTRACTOR_CAPACTITY, MadConfig.DNAEXTRACTOR_INPUT, 0);
-
     private long energyMaxExtract;
     private long energyMaxRecieve;
     private long energyCapacity;
 
-    DNAExtractorEnumEnergy(long capacity, long maxRecieve, long maxExtract)
+    public MadEnergy(long capacity, long maxRecieve, long maxExtract)
     {
         this.energyCapacity = capacity;
         this.energyMaxRecieve = maxRecieve;

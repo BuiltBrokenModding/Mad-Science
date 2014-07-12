@@ -4,7 +4,7 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class SequencerEntity extends MadTileEntity implements ISidedInventory
+public class SequencerEntity extends MadTileEntityPrefab implements ISidedInventory
 {
     private static final int[] slots_top = new int[]
     { 0 };

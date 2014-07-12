@@ -41,6 +41,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
 @NetworkMod(channels =
@@ -114,6 +115,9 @@ public class MadScience
             }
         }
         
+        // Prints out all internal names.
+        //MadTileEntityFactory.printUnlocalizedItemNames();
+        
         // ----------------
         // NOT ENOUGH ITEMS
         // ----------------
@@ -160,6 +164,9 @@ public class MadScience
     {
         // Register any custom sounds we want to play (Client only).
         proxy.registerSoundHandler();
+        
+        // Register block handler for custom GUI.
+        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
 
         // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
         MadUpdates.checkJenkinsBuildNumbers();
@@ -371,7 +378,7 @@ public class MadScience
         logger.info("Creating Tile Entities");
 
         // Add machines to factory loaded from flat files on drive.
-        MadFurnaces.addTileEntity(MadConfig.DNA_EXTRACTOR);
+        MadFurnaces.addDNAExtractor(MadConfig.DNA_EXTRACTOR);
         
         MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);

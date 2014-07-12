@@ -3,7 +3,7 @@ package madscience.factory.recipes;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.item.ItemStack;
 
-public interface MadRecipeComponentInterface
+public interface IMadRecipeComponent
 {
 
     public abstract MadSlotContainerTypeEnum getSlotType();

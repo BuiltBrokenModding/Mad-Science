@@ -1,16 +1,9 @@
 package madscience.factory.sounds;
 
-import org.apache.commons.io.FilenameUtils;
 
-public class MadSound implements MadSoundInterface
+public final class MadSound implements IMadSound
 {
-    private String soundNameWithoutExtension = null;
-    private String soundNameWithExtension = null;
-    private String soundExtension = null;
-    private MadSoundTriggerEnum soundTrigger = null;
-    private int soundLengthInSeconds = 0;
-    private MadSoundPlaybackTypeEnum soundPlaybackMode = null;
-    private int randomVariance = 1;
+    private MadSoundFile sound = null;
     
     public MadSound(
             String fileName,
@@ -19,56 +12,48 @@ public class MadSound implements MadSoundInterface
             MadSoundTriggerEnum trigger,
             MadSoundPlaybackTypeEnum playbackMode)
     {
-        super();
-        
-        this.soundNameWithExtension = fileName;
-        this.soundNameWithoutExtension = FilenameUtils.removeExtension(fileName);
-        this.soundExtension = FilenameUtils.getExtension(fileName);
-        this.soundLengthInSeconds = length;
-        this.soundPlaybackMode = playbackMode;
-        this.soundTrigger = trigger;
-        this.randomVariance = randomVariance;
+        this.sound = new MadSoundFile(fileName, length, randomVariance, trigger, playbackMode);
     }
 
     @Override
     public String getSoundNameWithoutExtension()
     {
-        return soundNameWithoutExtension;
+        return this.sound.getSoundNameWithoutExtension();
     }
 
     @Override
     public String getSoundNameWithExtension()
     {
-        return soundNameWithExtension;
+        return this.sound.getSoundNameWithExtension();
     }
 
     @Override
     public MadSoundTriggerEnum getSoundTrigger()
     {
-        return soundTrigger;
+        return this.sound.getSoundTrigger();
     }
 
     @Override
     public int getSoundLengthInSeconds()
     {
-        return soundLengthInSeconds;
+        return this.sound.getSoundLengthInSeconds();
     }
 
     @Override
     public MadSoundPlaybackTypeEnum getSoundPlaybackMode()
     {
-        return soundPlaybackMode;
+        return this.sound.getSoundPlaybackMode();
     }
 
     @Override
     public int getSoundRandomVariance()
     {
-        return randomVariance;
+        return this.sound.getSoundRandomVariance();
     }
 
     @Override
     public String getSoundExtension()
     {
-        return soundExtension;
+        return this.sound.getSoundExtension();
     }
 }

@@ -1,6 +1,6 @@
 package madscience.factory.sounds;
 
-public interface MadSoundInterface
+public interface IMadSound
 {
     public abstract String getSoundNameWithoutExtension();
 

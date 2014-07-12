@@ -1,7 +1,7 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.prefab;
 
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.fluids.MadFluidInterface;
+import madscience.factory.fluids.IMadFluid;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-abstract class MadTileEntityFluid extends MadTileEntityInventory implements IFluidHandler
+abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab implements IFluidHandler
 {
     /** Internal reserve of some fluid. */
     private FluidTank internalTank = null;
@@ -22,20 +22,20 @@ abstract class MadTileEntityFluid extends MadTileEntityInventory implements IFlu
     /* Holds reference we get from machine factory about what type of fluid this tile entity works with. */
     private Fluid supportedFluid = null;
 
-    public MadTileEntityFluid()
+    public MadTileEntityFluidPrefab()
     {
         super();
     }
 
-    MadTileEntityFluid(MadTileEntityFactoryProduct registeredMachine)
+    MadTileEntityFluidPrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
 
-        MadFluidInterface[] supportedFluids = registeredMachine.getFluidsSupported();
+        IMadFluid[] supportedFluids = registeredMachine.getFluidsSupported();
         int i = supportedFluids.length;
         for (int j = 0; j < i; ++j)
         {
-            MadFluidInterface currentFluid = supportedFluids[j];
+            IMadFluid currentFluid = supportedFluids[j];
             if (FluidRegistry.isFluidRegistered(currentFluid.getInternalName()))
             {
                 // Grab instance of this fluid from the registry so we can fill our tank with it.

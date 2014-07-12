@@ -6,7 +6,7 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.tileentities.mainframe.MainframeRecipes.GenomeRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -26,7 +26,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MainframeEntity extends MadTileEntity implements ISidedInventory, IFluidHandler
+public class MainframeEntity extends MadTileEntityPrefab implements ISidedInventory, IFluidHandler
 {
     private static final int[] slots_top = new int[]
     { 0 };

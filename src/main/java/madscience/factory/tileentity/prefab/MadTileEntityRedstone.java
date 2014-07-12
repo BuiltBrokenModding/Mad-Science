@@ -1,9 +1,9 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.prefab;
 
 import madscience.factory.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 
-abstract class MadTileEntityRedstone extends MadTileEntityBase
+abstract class MadTileEntityRedstone extends MadTileEntityBasePrefab
 {
     /** Determines if we have redstone powering us */
     public boolean isRedstonePowered = false;

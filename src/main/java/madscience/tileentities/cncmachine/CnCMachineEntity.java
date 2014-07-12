@@ -3,7 +3,7 @@ package madscience.tileentities.cncmachine;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -25,7 +25,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, IFluidHandler
+public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInventory, IFluidHandler
 {
     // ** Maximum number of buckets of water this machine can hold internally */
     private static int MAX_WATER = FluidContainerRegistry.BUCKET_VOLUME * 10;

@@ -1,6 +1,6 @@
 package madscience.factory.fluids;
 
-public interface MadFluidInterface
+public interface IMadFluid
 {
 
     public abstract String getInternalName();

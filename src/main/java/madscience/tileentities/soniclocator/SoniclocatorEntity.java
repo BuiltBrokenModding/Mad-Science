@@ -7,7 +7,7 @@ import java.util.List;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -27,7 +27,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class SoniclocatorEntity extends MadTileEntity implements ISidedInventory, IInventory
+public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInventory, IInventory
 {
     private static final int[] slots_bottom = new int[]
     { 2, 1 };

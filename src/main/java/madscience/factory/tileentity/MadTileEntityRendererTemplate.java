@@ -76,13 +76,13 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
     }
 
-    private void renderAModelAt(MadTileEntity tileEntity, double x, double y, double z, float f)
+    private void renderAModelAt(MadTileEntityPrefab tileEntity, double x, double y, double z, float f)
     {
         // Grab the individual tile entity in the world.
-        MadTileEntity madTileEntity = null;
-        if (tileEntity instanceof MadTileEntity)
+        MadTileEntityPrefab madTileEntity = null;
+        if (tileEntity instanceof MadTileEntityPrefab)
         {
-            madTileEntity = (MadTileEntity) tileEntity;
+            madTileEntity = (MadTileEntityPrefab) tileEntity;
         }
         
         // Check for null on returned object, casting should not fail though!
@@ -250,9 +250,9 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale)
     {
         // Check if the tile entity wanting to be rendered is one of ours.
-        if (tileEntity instanceof MadTileEntity)
+        if (tileEntity instanceof MadTileEntityPrefab)
         {
-            this.renderAModelAt((MadTileEntity) tileEntity, x, y, z, scale);
+            this.renderAModelAt((MadTileEntityPrefab) tileEntity, x, y, z, scale);
         }
     }
 

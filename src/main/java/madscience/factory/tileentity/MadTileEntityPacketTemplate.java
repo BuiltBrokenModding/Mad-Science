@@ -18,7 +18,7 @@ public class MadTileEntityPacketTemplate extends MadPackets
     private int tilePosZ;
 
     // Tile entity from the world.
-    private MadTileEntity ENTITY;
+    private MadTileEntityPrefab ENTITY;
 
     // Stores intermediate amount of time item has cooked out of total.
     private int lastItemCookTimeValue;
@@ -75,9 +75,9 @@ public class MadTileEntityPacketTemplate extends MadPackets
         {
             // Grab our wanted entity from the game world.
             TileEntity possibleTileEntity = player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
-            if (possibleTileEntity instanceof MadTileEntity)
+            if (possibleTileEntity instanceof MadTileEntityPrefab)
             {
-                ENTITY = (MadTileEntity) possibleTileEntity;
+                ENTITY = (MadTileEntityPrefab) possibleTileEntity;
             }
 
             // Null check.

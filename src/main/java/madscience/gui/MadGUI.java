@@ -3,7 +3,7 @@ package madscience.gui;
 import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.tileentities.clayfurnace.ClayfurnaceContainer;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceGUI;
@@ -60,10 +60,10 @@ public class MadGUI implements IGuiHandler
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
         
         // Check if this block is one of ours.
-        if (tileEntity instanceof MadTileEntity)
+        if (tileEntity instanceof MadTileEntityPrefab)
         {
             // Cast the object as MadTE so we can get internal name from it.
-            MadTileEntity madTile = (MadTileEntity) tileEntity;
+            MadTileEntityPrefab madTile = (MadTileEntityPrefab) tileEntity;
             
             if (madTile != null)
             {
@@ -173,10 +173,10 @@ public class MadGUI implements IGuiHandler
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
         
         // Check if this block is one of ours.
-        if (tileEntity instanceof MadTileEntity)
+        if (tileEntity instanceof MadTileEntityPrefab)
         {
             // Cast the object as MadTE so we can get internal name from it.
-            MadTileEntity madTile = (MadTileEntity) tileEntity;
+            MadTileEntityPrefab madTile = (MadTileEntityPrefab) tileEntity;
             
             if (madTile != null)
             {

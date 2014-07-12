@@ -3,7 +3,7 @@ package madscience.tileentities.incubator;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class IncubatorEntity extends MadTileEntity implements ISidedInventory
+public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInventory
 {
     private static final int[] slots_top = new int[]
     { 0 };

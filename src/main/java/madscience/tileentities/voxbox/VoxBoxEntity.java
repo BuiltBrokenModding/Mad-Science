@@ -6,7 +6,7 @@ import java.util.List;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntity;
+import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -19,7 +19,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class VoxBoxEntity extends MadTileEntity implements ISidedInventory
+public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
 {
     private static final int[] slots_bottom = new int[]
     { 2, 1 };
