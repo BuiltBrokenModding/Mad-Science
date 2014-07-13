@@ -1,6 +1,6 @@
 package madscience.tile.mainframe;
 
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -31,7 +31,7 @@ public class MainframeRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAINFRAME_INTERNALNAME + "/" + MadFurnaces.MAINFRAME_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAINFRAME_INTERNALNAME + "/" + MadMachines.MAINFRAME_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -40,7 +40,7 @@ public class MainframeRender extends TileEntitySpecialRenderer implements ISimpl
     private MainframeEntity lastPlacedTileEntity;
 
     // Default location we can find o
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/off.png");
 
     @Override
     public int getRenderId()

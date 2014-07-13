@@ -1,7 +1,7 @@
 package madscience.tile.thermosonicbonder;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,11 +48,11 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
     private int curFrame;
 
     /** Texture that should be displayed on our model. */
-    String TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
+    String TEXTURE = "models/" + MadMachines.THERMOSONIC_INTERNALNAME + "/Off.png";
 
     public ThermosonicBonderEntity()
     {
-        super(MadFurnaces.THERMOSONIC_INTERNALNAME);
+        super(MadMachines.THERMOSONIC_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -260,7 +260,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.THERMOSONIC_INTERNALNAME;
+        return MadMachines.THERMOSONIC_INTERNALNAME;
     }
 
     public float getMaxHeatAmount()
@@ -556,7 +556,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
         if (!isRedstonePowered())
         {
             // Turned off.
-            TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png";
+            TEXTURE = "models/" + MadMachines.THERMOSONIC_INTERNALNAME + "/Off.png";
             return;
         }
 
@@ -566,7 +566,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
             if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/run_" + curFrame + ".png";
+                TEXTURE = "models/" + MadMachines.THERMOSONIC_INTERNALNAME + "/run_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -582,14 +582,14 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
         if (!canSmelt() && isPowered() && !isHeatedEnough() && isRedstonePowered())
         {
             // Powered up but still very cold, not ready!
-            TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/power_" + this.getHeatLevelTimeScaled(6) + ".png";
+            TEXTURE = "models/" + MadMachines.THERMOSONIC_INTERNALNAME + "/power_" + this.getHeatLevelTimeScaled(6) + ".png";
             return;
         }
 
         if (isPowered() && isHeatedEnough() && !canSmelt() && isRedstonePowered())
         {
             // Powered up, heater on. Just nothing inside of me!
-            TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/laser_off.png";
+            TEXTURE = "models/" + MadMachines.THERMOSONIC_INTERNALNAME + "/laser_off.png";
             return;
         }
     }

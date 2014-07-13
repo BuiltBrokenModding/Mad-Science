@@ -4,7 +4,7 @@ import java.awt.Desktop;
 import java.net.URI;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.tileentity.MadGUITemplate;
@@ -25,7 +25,7 @@ public class ClayfurnaceGUI extends MadGUITemplate
     {
         super(new ClayfurnaceContainer(thePlayer, meatCubeEntity));
         this.ENTITY = meatCubeEntity;
-        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + ".png");
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadMachines.CLAYFURNACE_INTERNALNAME + ".png");
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ClayfurnaceGUI extends MadGUITemplate
 
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
-        String s = MadFurnaces.CLAYFURNACE_TILEENTITY.getLocalizedName();
+        String s = MadMachines.CLAYFURNACE_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

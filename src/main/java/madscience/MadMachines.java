@@ -1,23 +1,12 @@
 package madscience;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.buttons.MadGUIButton;
-import madscience.factory.buttons.MadGUIButtonClickActionEnum;
-import madscience.factory.buttons.MadGUIButtonTypeEnum;
-import madscience.factory.controls.MadGUIControl;
-import madscience.factory.controls.MadGUIControlTypeEnum;
-import madscience.factory.energy.MadEnergy;
-import madscience.factory.fluids.MadFluid;
-import madscience.factory.recipes.MadRecipe;
-import madscience.factory.slotcontainers.MadSlotContainer;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
-import madscience.factory.sounds.MadSound;
-import madscience.factory.sounds.MadSoundPlaybackTypeEnum;
-import madscience.factory.sounds.MadSoundTriggerEnum;
+import madscience.factory.MadTileEntityFactoryProductData;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
@@ -62,14 +51,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeDirection;
 
-import com.sun.media.sound.InvalidFormatException;
+import com.google.gson.Gson;
 
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class MadFurnaces
+public class MadMachines
 {
     // -------------
     // TILE ENTITIES
@@ -152,276 +140,66 @@ public class MadFurnaces
     // -----------------------------
 
     @EventHandler
-    static void addDNAExtractor(int blockID) throws InvalidFormatException
-    {        
-        // TODO: Get machine name from loaded file.
-        String machineNameInternal = "dnaExtractor";
-        String logicClassNamespace = "madscience.tile.DNAExtractorEntity";
+    static void loadMachinesFromAssets(int blockID)
+    {
+        // Name of the JSON file we are looking for along the classpath.
+        String expectedFilename = "tiles.json";
         
-        // CONTAINERS
-        List<MadSlotContainer> machineContainers = new ArrayList<MadSlotContainer>();
-        machineContainers.add(new MadSlotContainer(0, MadSlotContainerTypeEnum.INPUT_INGREDIENT1, ForgeDirection.UNKNOWN, ForgeDirection.NORTH, false, true, 9, 32, 18, 18));
-        machineContainers.add(new MadSlotContainer(1, MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET, ForgeDirection.UNKNOWN, ForgeDirection.EAST, false, true, 152, 61, 18, 18));
-        machineContainers.add(new MadSlotContainer(2, MadSlotContainerTypeEnum.OUTPUT_RESULT1, ForgeDirection.SOUTH, ForgeDirection.UNKNOWN, true, false, 72, 32, 18, 18));
-        machineContainers.add(new MadSlotContainer(3, MadSlotContainerTypeEnum.OUTPUT_WASTE, ForgeDirection.UP, ForgeDirection.UNKNOWN, true, false, 105, 32, 18, 18));
-        machineContainers.add(new MadSlotContainer(4, MadSlotContainerTypeEnum.OUTPUT_FILLEDBUCKET, ForgeDirection.WEST, ForgeDirection.UNKNOWN, true, false, 152, 36, 18, 18));
+        // Input we expect to be filled with JSON for every machine we want to load.
+        String jsonMachineInput = null;
         
-        // GUI CONTROLS
-        List<MadGUIControl> machineGUIControls = new ArrayList<MadGUIControl>();
-        machineGUIControls.add(new MadGUIControl(MadGUIControlTypeEnum.TankGauge, 131, 19, 176, 31, 16, 58));
-        machineGUIControls.add(new MadGUIControl(MadGUIControlTypeEnum.PowerLevelX, 10, 49, 176, 0, 14, 14));
-        machineGUIControls.add(new MadGUIControl(MadGUIControlTypeEnum.CookingProgressY, 32, 31, 176, 14, 31, 17));
-        
-        // GUI BUTTONS
-        List<MadGUIButton> machineGUIButtons = new ArrayList<MadGUIButton>();
-        machineGUIButtons.add(new MadGUIButton(0, MadGUIButtonTypeEnum.InvisibleButton, MadGUIButtonClickActionEnum.OpenLink, "button.help" , "http://madsciencemod.com/minecraft-item/dna-extractor/", 166, 4, 9, 32, 6, 5));
-        
-        // FLUIDS
-        List<MadFluid> machineFluid = new ArrayList<MadFluid>();
-        machineFluid.add(new MadFluid(MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME, 0, 10000));
-        
-        // ENERGY
-        List<MadEnergy> machineEnergy = new ArrayList<MadEnergy>();
-        machineEnergy.add(new MadEnergy(100000, 200, 0));
-        
-        // SOUNDS
-        List<MadSound> machineSound = new ArrayList<MadSound>();
-        machineSound.add(new MadSound("Finish.ogg", 2, 1, MadSoundTriggerEnum.WORKEND, MadSoundPlaybackTypeEnum.PLAY));
-        machineSound.add(new MadSound("Idle.ogg", 2, 1, MadSoundTriggerEnum.IDLEON, MadSoundPlaybackTypeEnum.PLAY));
-        
-        // RECIPES
-        List<MadRecipe> machineRecipes = new ArrayList<MadRecipe>();
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleBat:0:1", null, "", null, "", null, "", null, "",
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaBat:0:1", null, "", null, "", null, "", null, "",
-                60, 0.50F));
+        try
+        {
+            // Locate all the of JSON files stored in the machines asset folder.
+            InputStream machinesJSON = MadScience.class.getClass().getResourceAsStream(MadScience.JSON_PATH + expectedFilename);
+            if (machinesJSON != null)
+            {
+                // Read the entire contents of the input stream.
+                BufferedReader reader = new BufferedReader(new InputStreamReader(machinesJSON));
+                StringBuilder out = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) 
+                {
+                    out.append(line);
+                }
                 
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCaveSpider:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCaveSpider:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:fermentedSpiderEye:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCaveSpider:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleChicken:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaChicken:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:feather:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaChicken:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.15F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:egg:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaChicken:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.15F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:chickenCooked:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaChicken:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.15F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:chickenRaw:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaChicken:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.15F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCow:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:leather:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:beefCooked:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:beefRaw:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:bootsCloth:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:helmetCloth:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:leggingsCloth:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:chestplateCloth:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:milk:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.30F));   
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleCreeper:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCreeper:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.20F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:sulphur:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCreeper:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.22F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:skull:4:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaCreeper:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.22F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleEnderman:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaEnderman:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:enderPearl:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaEnderman:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:eyeOfEnder:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaEnderman:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:ghastTear:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaGhast:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleHorse:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaHorse:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleMushroomCow:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaMushroomCow:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleOcelot:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaOcelot:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needlePig:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaPig:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:porkchopRaw:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaPig:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:porkchopCooked:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaPig:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSheep:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSheep:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:wool:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSheep:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:bone:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSkeleton:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:dyePowder:15:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSkeleton:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:skull:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSkeleton:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:slimeball:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSlime:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.50F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:pistonStickyBase:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSlime:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.50F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSpider:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSpider:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.66F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:spiderEye:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSpider:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.66F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:string:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSpider:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.66F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleSquid:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSquid:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:dyePowder:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaSquid:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleVillager:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaVillager:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleWitch:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaWitch:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.66F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleWolf:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaWolf:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.42F));
-         
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "madscience:needleZombie:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaZombie:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:skull:2:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaZombie:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-        
-        machineRecipes.add(new MadRecipe(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, "minecraft:rottenFlesh:0:1", null, "", null, "", null, "", null, "",
-                 MadSlotContainerTypeEnum.OUTPUT_RESULT1, "madscience:dnaZombie:0:1", null, "", null, "", null, "", null, "",
-                 60, 0.35F));
-        
-        // Register machine with the registry so we can generate all needed MC/Forge data.
-        boolean addResult = false;
-        addResult = MadTileEntityFactory.registerMachine(
-                machineNameInternal,
-                blockID,
-                logicClassNamespace, // TODO: Get logic class from loaded file.
-                machineContainers.toArray(new MadSlotContainer[]{}),
-                machineGUIControls.toArray(new MadGUIControl[]{}),
-                machineGUIButtons.toArray(new MadGUIButton[]{}),
-                machineFluid.toArray(new MadFluid[]{}),
-                machineEnergy.toArray(new MadEnergy[]{}),
-                machineSound.toArray(new MadSound[]{}),
-                machineRecipes.toArray(new MadRecipe[]{}));
-        
-        // Check the result!
-        if (!addResult)
+                // Copy over the data we just read from the resource stream.
+                jsonMachineInput = out.toString();
+                
+                // Cleanup!
+                reader.close();
+            }
+            else
+            {
+                MadScience.logger.info("Unable to locate machine master list '" + expectedFilename + "'");
+            }
+        }
+        catch (Exception err)
         {
-            throw new InvalidFormatException("Unable to register tile entity '" + machineNameInternal + "'");
+            err.printStackTrace();
         }
         
-        // Grab our factory product from the tile entity factory.
-        MadTileEntityFactoryProduct registeredMachine = MadTileEntityFactory.getMachineInfo(machineNameInternal);
+        // Parse the JSON string we got from resources into an array of product data.
+        Gson gson = new Gson();
+        MadTileEntityFactoryProductData[] loadedMachines = null;
+        loadedMachines = gson.fromJson(jsonMachineInput, MadTileEntityFactoryProductData[].class);
         
-        // Check the result!
-        if (registeredMachine == null)
+        if (loadedMachines != null)
         {
-            throw new InvalidFormatException("Unable to retrieve recently registered tile entity '" + machineNameInternal + "'");
+            // Loop through the array of product data and register them as machines.
+            for (MadTileEntityFactoryProductData unregisteredMachine : loadedMachines)
+            {
+                // Register machine with the registry so we can generate all needed MC/Forge data.
+                MadTileEntityFactoryProduct machineToAdd = null;
+                machineToAdd = MadTileEntityFactory.registerMachine(unregisteredMachine);
+                
+                // Check the result!
+                if (machineToAdd == null)
+                {
+                    throw new IllegalArgumentException("Unable to register tile entity from '" + expectedFilename + "'. Invalid syntax or formatting!");
+                }
+            }
         }
-
-        // Shaped Recipe.
-        GameRegistry.addRecipe(new ItemStack(registeredMachine.getBlockContainer(), 1), new Object[]
-        { "414",
-          "424",
-          "434",
-
-        '1', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
-        '2', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE),
-        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
-        '4', new ItemStack(MadComponents.COMPONENT_CASE), });
     }
     
     @EventHandler
@@ -431,8 +209,7 @@ public class MadFurnaces
         MadScience.logger.info("-Cryogenic Freezer Tile Entity");
         CRYOFREEZER_TILEENTITY = (BlockContainer) new CryofreezerBlock(blockID).setUnlocalizedName(CRYOFREEZER_INTERNALNAME);
 
-        // Register the block with the world (so we can then tie it to a tile
-        // entity).
+        // Register the block with the world (so we can then tie it to a tile entity).
         GameRegistry.registerBlock(CRYOFREEZER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOFREEZER_INTERNALNAME);
 
         // Register the tile-entity with the game world.
@@ -496,7 +273,7 @@ public class MadFurnaces
         MadScience.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe for Data Reel Duplicator.
-        GameRegistry.addRecipe(new ItemStack(MadFurnaces.DATADUPLICATOR_TILEENTITY, 1), new Object[]
+        GameRegistry.addRecipe(new ItemStack(MadMachines.DATADUPLICATOR_TILEENTITY, 1), new Object[]
         { "161",
           "232",
           "454",
@@ -716,7 +493,7 @@ public class MadFurnaces
         }
 
         // Shaped Recipe for Thermosonic Bonder Tile Entity
-        GameRegistry.addRecipe(new ItemStack(MadFurnaces.THERMOSONIC_TILEENTITY, 1), new Object[]
+        GameRegistry.addRecipe(new ItemStack(MadMachines.THERMOSONIC_TILEENTITY, 1), new Object[]
         { "343", 
           "353", 
           "121",

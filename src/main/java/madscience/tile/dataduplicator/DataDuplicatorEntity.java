@@ -2,7 +2,7 @@ package madscience.tile.dataduplicator;
 
 import madscience.MadConfig;
 import madscience.MadEntities;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
@@ -43,11 +43,11 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
     private int curFrame;
 
     /** Path to texture that we would like displayed on this block. */
-    String TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
+    String TEXTURE = "models/" + MadMachines.DATADUPLICATOR_INTERNALNAME + "/off.png";
 
     public DataDuplicatorEntity()
     {
-        super(MadFurnaces.DATADUPLICATOR_INTERNALNAME);
+        super(MadMachines.DATADUPLICATOR_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -206,7 +206,7 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.DATADUPLICATOR_INTERNALNAME;
+        return MadMachines.DATADUPLICATOR_INTERNALNAME;
     }
 
     public int getSizeInputInventory()
@@ -517,7 +517,7 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
             if (curFrame <= 9 && worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/work_" + curFrame + ".png";
+                TEXTURE = "models/" + MadMachines.DATADUPLICATOR_INTERNALNAME + "/work_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -531,12 +531,12 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
         else if (isPowered() && !canSmelt())
         {
             // Idle state single texture.
-            TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/idle.png";
+            TEXTURE = "models/" + MadMachines.DATADUPLICATOR_INTERNALNAME + "/idle.png";
         }
         else
         {
             // We are not powered or working.
-            TEXTURE = "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png";
+            TEXTURE = "models/" + MadMachines.DATADUPLICATOR_INTERNALNAME + "/off.png";
         }
     }
 

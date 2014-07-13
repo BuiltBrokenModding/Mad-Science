@@ -1,7 +1,7 @@
 package madscience.factory.tileentity.prefab;
 
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.fluids.IMadFluid;
+import madscience.factory.fluids.MadFluid;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -31,11 +31,11 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
     {
         super(registeredMachine);
 
-        IMadFluid[] supportedFluids = registeredMachine.getFluidsSupported();
+        MadFluid[] supportedFluids = registeredMachine.getFluidsSupported();
         int i = supportedFluids.length;
         for (int j = 0; j < i; ++j)
         {
-            IMadFluid currentFluid = supportedFluids[j];
+            MadFluid currentFluid = supportedFluids[j];
             if (FluidRegistry.isFluidRegistered(currentFluid.getInternalName()))
             {
                 // Grab instance of this fluid from the registry so we can fill our tank with it.

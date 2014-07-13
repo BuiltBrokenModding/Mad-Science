@@ -1,5 +1,6 @@
 package madscience.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,30 @@ public class MadUtils
         return output.toLowerCase().trim();
     }
 
-    public static String AsciiToBinary(String input)
+    /** Removes extra tags from internal and unlocalized names in preparation for matchmaking in recipe system. */
+    public static String cleanTag(String tag)
+    {
+        return tag.replace("minecraft.", "").replaceFirst("^tile\\.", "").replaceFirst("^item\\.", "");
+    }
+
+    public static String getValidFileName(String fileName)
+    {
+        String cleanedFilename = null;
+        try
+        {
+            cleanedFilename = new String(fileName.getBytes(), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+
+        cleanedFilename = cleanedFilename.replaceAll("[\\?\\\\/:|<>\\*]", " "); // filter ? \ / : | < > *
+        cleanedFilename = cleanedFilename.replaceAll("\\s+", "_");
+        return cleanedFilename;
+    }
+
+    public static String asciiToBinary(String input)
     {
         // Converts ASCII string to binary.
         byte[] bytes = input.getBytes();

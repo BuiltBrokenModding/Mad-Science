@@ -1,7 +1,7 @@
 package madscience.tile.cncmachine;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
@@ -59,7 +59,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
     boolean hasIronBlock;
 
     /** Texture that should be displayed on our model. */
-    String TEXTURE = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+    String TEXTURE = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/off.png";
 
     /** Internal reserve of water */
     protected FluidTank WATER_TANK = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);
@@ -73,7 +73,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
 
     public CnCMachineEntity()
     {
-        super(MadFurnaces.CNCMACHINE_INTERNALNAME);
+        super(MadMachines.CNCMACHINE_INTERNALNAME);
     }
 
     private boolean addBucketToInternalTank()
@@ -362,7 +362,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.CNCMACHINE_INTERNALNAME;
+        return MadMachines.CNCMACHINE_INTERNALNAME;
     }
 
     public ItemStack getItemFromBookContents()
@@ -794,7 +794,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
             if (curFrame <= 6 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/work" + curFrame + ".png";
+                TEXTURE = "models/" + MadMachines.CNCMACHINE_INTERNALNAME + "/work" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -807,20 +807,20 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
         }
         else if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && cookTimeScaled < 7)
         {
-            TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/ready.png";
+            TEXTURE = "models/" + MadMachines.CNCMACHINE_INTERNALNAME + "/ready.png";
         }
         else if (!this.canSmelt() && this.isPowered() && !this.isRedstonePowered())
         {
-            TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/powered.png";
+            TEXTURE = "models/" + MadMachines.CNCMACHINE_INTERNALNAME + "/powered.png";
         }
         else if (!this.canSmelt() && this.isPowered() && this.isRedstonePowered())
         {
-            TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/ready.png";
+            TEXTURE = "models/" + MadMachines.CNCMACHINE_INTERNALNAME + "/ready.png";
         }
         else
         {
             // Idle state single texture.
-            TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png";
+            TEXTURE = "models/" + MadMachines.CNCMACHINE_INTERNALNAME + "/off.png";
         }
     }
 

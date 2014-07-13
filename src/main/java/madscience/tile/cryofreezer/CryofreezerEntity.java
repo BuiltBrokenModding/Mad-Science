@@ -1,7 +1,7 @@
 package madscience.tile.cryofreezer;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.ItemDecayBase;
@@ -37,11 +37,11 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
     int currentItemCookingValue;
 
     // Path to texture that should be displayed on our model.
-    String TEXTURE = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png";
+    String TEXTURE = "models/" + MadMachines.CRYOFREEZER_INTERNALNAME + "/idle.png";
 
     public CryofreezerEntity()
     {
-        super(MadFurnaces.CRYOFREEZER_INTERNALNAME);
+        super(MadMachines.CRYOFREEZER_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -189,7 +189,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.CRYOFREEZER_INTERNALNAME;
+        return MadMachines.CRYOFREEZER_INTERNALNAME;
     }
 
     public int getSizeInputInventory()
@@ -401,7 +401,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
         if (this.canSmelt() && isPowered())
         {
             // Load this texture onto the entity.
-            TEXTURE = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/powered.png";
+            TEXTURE = "models/" + MadMachines.CRYOFREEZER_INTERNALNAME + "/powered.png";
 
             // Play a sound of the freezer working and doing cold things.
             if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
@@ -412,7 +412,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
         else
         {
             // Idle state single texture.
-            TEXTURE = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png";
+            TEXTURE = "models/" + MadMachines.CRYOFREEZER_INTERNALNAME + "/idle.png";
         }
     }
 

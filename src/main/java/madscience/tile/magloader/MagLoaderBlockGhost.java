@@ -2,7 +2,7 @@ package madscience.tile.magloader;
 
 import java.util.Random;
 
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -76,7 +76,7 @@ public class MagLoaderBlockGhost extends Block
     public int idDropped(int par1, Random par2Random, int par3)
     {
         // Since we are a ghost we return our parent object.
-        return MadFurnaces.MAGLOADER_TILEENTITY.blockID;
+        return MadMachines.MAGLOADER_TILEENTITY.blockID;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class MagLoaderBlockGhost extends Block
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
         // Ghost objects return expected parent block.
-        return MadFurnaces.MAGLOADER_TILEENTITY.blockID;
+        return MadMachines.MAGLOADER_TILEENTITY.blockID;
     }
 
     @Override
@@ -129,7 +129,7 @@ public class MagLoaderBlockGhost extends Block
                 switch (meta)
                 {
                 case 1:
-                    player.openGui(MadScience.instance, MadFurnaces.MAGLOADER_TILEENTITY.blockID, world, x, y - 1, z);
+                    player.openGui(MadScience.instance, MadMachines.MAGLOADER_TILEENTITY.blockID, world, x, y - 1, z);
                     break;
                 }
             }
@@ -146,7 +146,7 @@ public class MagLoaderBlockGhost extends Block
     public void registerIcons(IconRegister icon)
     {
         // Since we are a ghost we use our parents icon information.
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadMachines.MAGLOADER_INTERNALNAME);
     }
 
     @Override

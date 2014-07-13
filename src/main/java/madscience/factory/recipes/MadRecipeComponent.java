@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;
 
-public class MadRecipeComponent implements IMadRecipeComponent
+public class MadRecipeComponent
 {
     /** Determines where an individual recipe item will go in slot. */
     @Expose private MadSlotContainerTypeEnum slotDestination;
@@ -29,7 +29,7 @@ public class MadRecipeComponent implements IMadRecipeComponent
     /** Stores reference to recipe component ItemStack (with metadata). Populated when loadRecipes() is called.*/
     private ItemStack associatedItemStack = null;
     
-    public MadRecipeComponent(MadSlotContainerTypeEnum slotDestination, String parentModID, String internalName, int metaDamage, int amount)
+    MadRecipeComponent(MadSlotContainerTypeEnum slotDestination, String parentModID, String internalName, int metaDamage, int amount)
     {
         super();
         
@@ -40,43 +40,36 @@ public class MadRecipeComponent implements IMadRecipeComponent
         this.slotExpectedAmount = amount;
     }
 
-    @Override
     public MadSlotContainerTypeEnum getSlotType()
     {
         return this.slotDestination;
     }
 
-    @Override
     public String getInternalName()
     {
         return this.slotExpectedItem;
     }
 
-    @Override
     public int getAmount()
     {
         return this.slotExpectedAmount;
     }
     
-    @Override
     public String getNameWithModID()
     {
         return this.parentModID + ":" + this.slotExpectedItem;
     }
 
-    @Override
     public int getMetaDamage()
     {
         return this.metaDamage;
     }
 
-    @Override
     public boolean isLoaded()
     {
         return this.hasLoaded;
     }
 
-    @Override
     public ItemStack getItemStack()
     {
         if (!this.hasLoaded)
@@ -88,7 +81,6 @@ public class MadRecipeComponent implements IMadRecipeComponent
         return this.associatedItemStack;
     }
 
-    @Override
     public void loadRecipe(ItemStack associatedItemStack)
     {
         // Prevent double-loading!
@@ -111,13 +103,11 @@ public class MadRecipeComponent implements IMadRecipeComponent
         this.associatedItemStack = associatedItemStack.copy();
     }
 
-    @Override
     public String getModID()
     {
         return this.parentModID;
     }
 
-    @Override
     public String getExpectedItemName()
     {
         return this.slotExpectedItem;

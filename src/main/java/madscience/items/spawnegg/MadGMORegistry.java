@@ -9,12 +9,12 @@ public class MadGMORegistry
 {
     private static final Map<Short, MadSpawnEggInfo> eggs = new LinkedHashMap<Short, MadSpawnEggInfo>();
 
-    public static MadSpawnEggInfo getEggInfo(short id)
+    static MadSpawnEggInfo getEggInfo(short id)
     {
         return eggs.get(id);
     }
 
-    public static Collection<MadSpawnEggInfo> getEggInfoList()
+    static Collection<MadSpawnEggInfo> getEggInfoList()
     {
         return Collections.unmodifiableCollection(eggs.values());
     }

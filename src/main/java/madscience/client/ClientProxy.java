@@ -1,16 +1,21 @@
 package madscience.client;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadEntities;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.MadTileEntityFactoryProductData;
 import madscience.factory.tileentity.MadTileEntityRendererTemplate;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
@@ -85,6 +90,8 @@ import madscience.tile.thermosonicbonder.ThermosonicBonderRender;
 import madscience.tile.voxbox.VoxBoxEntity;
 import madscience.tile.voxbox.VoxBoxRender;
 import madscience.util.MadTechneModelLoader;
+import madscience.util.MadUtils;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.particle.EntitySplashFX;
@@ -96,6 +103,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.apache.commons.io.FileUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -211,6 +224,90 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
 
         ObfuscationReflectionHelper.setPrivateValue(EntityRenderer.class, Minecraft.getMinecraft().entityRenderer, fovModifierHand, "fovModifierHand", "field_78507_R");
     }
+    
+    @Override
+    public void dumpUnlocalizedNames()
+    {        
+        // List that holds final result of all entries without duplicates.
+        Set<String> unlocalizedNames = new HashSet<String>();
+        
+        // Loop through all the items in the game looking for the ones we want.
+        for(Item potentialMCItem : Item.itemsList) 
+        {
+            if(potentialMCItem == null)
+            {
+                continue;
+            }
+            
+            String proceseedName = MadUtils.cleanTag(potentialMCItem.getUnlocalizedName());
+            unlocalizedNames.add(proceseedName);
+            //MadScience.logger.info(proceseedName);
+        }
+        
+        // Loop through all the blocks in the game looking for the ones we want.
+        for(Block potentialMCBlock : Block.blocksList) 
+        {
+            if(potentialMCBlock == null)
+            {
+                continue;
+            }
+            
+            String proceseedName = MadUtils.cleanTag(potentialMCBlock.getUnlocalizedName());
+            unlocalizedNames.add(proceseedName);            
+            //MadScience.logger.info(proceseedName);
+        }
+        
+        // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        
+        // Convert the data portion of our tile entity factory product to JSON string.
+        String json = gson.toJson(unlocalizedNames);
+        
+        // Save this list of names to the disk.
+        try
+        {
+            File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
+            FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("unlocalizedNames") + ".json"), json);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    /** Serializes all registered machines to disk. Meat for developer use only. Use with caution! */
+    @Override
+    public void dumpAllMachineJSON()
+    {
+        Set<MadTileEntityFactoryProductData> allMachines = new HashSet<MadTileEntityFactoryProductData>();
+        
+        // Loop through every registered machine in the system.
+        for (Iterator iterator = MadTileEntityFactory.getMachineInfoList().iterator(); iterator.hasNext();)
+        {
+            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
+            if (registeredMachine != null)
+            {
+                // Add the machines configuration data to our list for saving.
+                allMachines.add(registeredMachine.getData());
+            }
+        }
+        
+        // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+        
+        // Convert the data portion of our tile entity factory product to JSON string.
+        String json = gson.toJson(allMachines);
+        try
+        {
+            // Save this information to the disk!
+            File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
+            FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("registeredMachines") + ".json"), json);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void registerRenderingHandler(int blockID)
@@ -251,7 +348,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Syringe Sanitizer
         if (blockID == MadConfig.SANTITIZER)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.SANTITIZER_TILEENTITY.blockID, new SanitizerRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.SANTITIZER_TILEENTITY.blockID, new SanitizerRender());
             ClientRegistry.bindTileEntitySpecialRenderer(SanitizerEntity.class, new SanitizerRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new SanitizerRender());
         }
@@ -259,7 +356,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Computer Mainframe
         if (blockID == MadConfig.MAINFRAME)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.MAINFRAME_TILEENTITY.blockID, new MainframeRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.MAINFRAME_TILEENTITY.blockID, new MainframeRender());
             ClientRegistry.bindTileEntitySpecialRenderer(MainframeEntity.class, new MainframeRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new MainframeRender());
         }
@@ -267,7 +364,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Genetic Sequencer
         if (blockID == MadConfig.GENE_SEQUENCER)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.SEQUENCER_TILEENTITY.blockID, new SequencerRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.SEQUENCER_TILEENTITY.blockID, new SequencerRender());
             ClientRegistry.bindTileEntitySpecialRenderer(SequencerEntity.class, new SequencerRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new SequencerRender());
         }
@@ -275,7 +372,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Cryogenic Freezer
         if (blockID == MadConfig.CRYOFREEZER)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CRYOFREEZER_TILEENTITY.blockID, new CryofreezerRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.CRYOFREEZER_TILEENTITY.blockID, new CryofreezerRender());
             ClientRegistry.bindTileEntitySpecialRenderer(CryofreezerEntity.class, new CryofreezerRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new CryofreezerRender());
         }
@@ -283,7 +380,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Genome Incubator
         if (blockID == MadConfig.INCUBATOR)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.INCUBATOR_TILEENTITY.blockID, new IncubatorRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.INCUBATOR_TILEENTITY.blockID, new IncubatorRender());
             ClientRegistry.bindTileEntitySpecialRenderer(IncubatorEntity.class, new IncubatorRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new IncubatorRender());
         }
@@ -291,7 +388,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Cryogenic Tube
         if (blockID == MadConfig.CRYOTUBE)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CRYOTUBE_TILEENTITY.blockID, new CryotubeRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.CRYOTUBE_TILEENTITY.blockID, new CryotubeRender());
             ClientRegistry.bindTileEntitySpecialRenderer(CryotubeEntity.class, new CryotubeRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new CryotubeRender());
         }
@@ -299,7 +396,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Thermosonic Bonder
         if (blockID == MadConfig.THERMOSONIC)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.THERMOSONIC_TILEENTITY.blockID, new ThermosonicBonderRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.THERMOSONIC_TILEENTITY.blockID, new ThermosonicBonderRender());
             ClientRegistry.bindTileEntitySpecialRenderer(ThermosonicBonderEntity.class, new ThermosonicBonderRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new ThermosonicBonderRender());
         }
@@ -307,7 +404,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Data Reel Duplicator
         if (blockID == MadConfig.DATADUPLICATOR)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID, new DataDuplicatorRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.DATADUPLICATOR_TILEENTITY.blockID, new DataDuplicatorRender());
             ClientRegistry.bindTileEntitySpecialRenderer(DataDuplicatorEntity.class, new DataDuplicatorRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new DataDuplicatorRender());
         }
@@ -315,7 +412,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Soniclocator Device
         if (blockID == MadConfig.SONICLOCATOR)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.SONICLOCATOR_TILEENTITY.blockID, new SoniclocatorRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.SONICLOCATOR_TILEENTITY.blockID, new SoniclocatorRender());
             ClientRegistry.bindTileEntitySpecialRenderer(SoniclocatorEntity.class, new SoniclocatorRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new SoniclocatorRender());
         }
@@ -323,7 +420,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Clay Furnace
         if (blockID == MadConfig.CLAYFURNACE)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CLAYFURNACE_TILEENTITY.blockID, new ClayfurnaceRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.CLAYFURNACE_TILEENTITY.blockID, new ClayfurnaceRender());
             ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new ClayfurnaceRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new ClayfurnaceRender());
         }
@@ -331,7 +428,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // VOX Box
         if (blockID == MadConfig.VOXBOX)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.VOXBOX_TILEENTITY.blockID, new VoxBoxRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.VOXBOX_TILEENTITY.blockID, new VoxBoxRender());
             ClientRegistry.bindTileEntitySpecialRenderer(VoxBoxEntity.class, new VoxBoxRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new VoxBoxRender());
         }
@@ -339,7 +436,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Magazine Loader
         if (blockID == MadConfig.MAGLOADER)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.MAGLOADER_TILEENTITY.blockID, new MagLoaderRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.MAGLOADER_TILEENTITY.blockID, new MagLoaderRender());
             ClientRegistry.bindTileEntitySpecialRenderer(MagLoaderEntity.class, new MagLoaderRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new MagLoaderRender());
         }
@@ -347,7 +444,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // CnC Machine
         if (blockID == MadConfig.CNCMACHINE)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CNCMACHINE_TILEENTITY.blockID, new CnCMachineRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.CNCMACHINE_TILEENTITY.blockID, new CnCMachineRender());
             ClientRegistry.bindTileEntitySpecialRenderer(CnCMachineEntity.class, new CnCMachineRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new CnCMachineRender());
         }
@@ -449,7 +546,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Disgusting Meat Cube
         if (blockID == MadConfig.MEATCUBE)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.MEATCUBE_TILEENTITY.blockID, new MeatcubeRender());
+            RenderingRegistry.registerBlockHandler(MadMachines.MEATCUBE_TILEENTITY.blockID, new MeatcubeRender());
             ClientRegistry.bindTileEntitySpecialRenderer(MeatcubeEntity.class, new MeatcubeRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new MeatcubeRender());
         }

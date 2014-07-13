@@ -18,13 +18,14 @@ public class Region2
                 this.max = max;
         }
 
-        /**
-         * Checks if a point is located inside a region
-         */
-        public boolean isIn(Vector2 point)
-        {
-                return (point.x > this.min.x && point.x < this.max.x) && (point.y > this.min.y && point.y < this.max.y);
-        }
+// TODO Remove unused code found by UCDetector
+//         /**
+//          * Checks if a point is located inside a region
+//          */
+//         public boolean isIn(Vector2 point)
+//         {
+//                 return (point.x > this.min.x && point.x < this.max.x) && (point.y > this.min.y && point.y < this.max.y);
+//         }
 
         
 }

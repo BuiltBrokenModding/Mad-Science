@@ -61,7 +61,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public MadTileEntityBlockTemplate(int par1, Material par2Material)
+    public MadTileEntityBlockTemplate(int par1, Material par2Material) // NO_UCD (unused code)
     {
         super(par1, par2Material);
     }

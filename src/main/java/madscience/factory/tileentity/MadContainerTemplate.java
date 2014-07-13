@@ -2,7 +2,7 @@ package madscience.factory.tileentity;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.slotcontainers.IMadSlotContainer;
+import madscience.factory.slotcontainers.MadSlotContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -36,7 +36,7 @@ public class MadContainerTemplate extends Container
         MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
 
         // Grab our array of containers from the template object.
-        IMadSlotContainer[] CONTAINERS = MACHINE.getContainerTemplate();
+        MadSlotContainer[] CONTAINERS = MACHINE.getContainerTemplate();
 
         // Ensures that shift-clicking will properly work. This method is from coolAlias.
         // http://www.minecraftforum.net/forums/mapping-and-modding/mapping-and-modding-tutorials/1571051-custom-container-how-to-properly-override-shift
@@ -45,7 +45,7 @@ public class MadContainerTemplate extends Container
         // Loop through the containers and use the data inside them to prepare the server slot containers.
         for (int i = 0; i < CONTAINERS.length; i++)
         {
-            IMadSlotContainer slotContainer = CONTAINERS[i];
+            MadSlotContainer slotContainer = CONTAINERS[i];
             this.addSlotToContainer(new Slot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
         }
 

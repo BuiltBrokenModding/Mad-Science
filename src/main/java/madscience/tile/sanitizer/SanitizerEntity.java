@@ -1,7 +1,7 @@
 package madscience.tile.sanitizer;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadNeedles;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
@@ -56,11 +56,11 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
     private int curFrame;
 
     /** Path to texture that we want rendered onto our model. */
-    String sanitizerTexturePath = "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png";
+    String sanitizerTexturePath = "models/" + MadMachines.SANTITIZER_INTERNALNAME + "/idle.png";
 
     public SanitizerEntity()
     {
-        super(MadFurnaces.SANTITIZER_INTERNALNAME);
+        super(MadMachines.SANTITIZER_INTERNALNAME);
     }
 
     private boolean addBucketToInternalTank()
@@ -347,7 +347,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.SANTITIZER_INTERNALNAME;
+        return MadMachines.SANTITIZER_INTERNALNAME;
     }
 
     public int getSizeInputInventory()
@@ -629,7 +629,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
             if (curFrame <= 9 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                sanitizerTexturePath = "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/work_" + curFrame + ".png";
+                sanitizerTexturePath = "models/" + MadMachines.SANTITIZER_INTERNALNAME + "/work_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -643,7 +643,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
         else
         {
             // Idle state single texture.
-            sanitizerTexturePath = "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png";
+            sanitizerTexturePath = "models/" + MadMachines.SANTITIZER_INTERNALNAME + "/idle.png";
         }
     }
 

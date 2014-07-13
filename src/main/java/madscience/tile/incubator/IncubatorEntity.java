@@ -1,7 +1,7 @@
 package madscience.tile.incubator;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,11 +46,11 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
     private int curFrame;
 
     /** Texture that should be displayed on our model. */
-    String TEXTURE = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/idle.png";
+    String TEXTURE = "models/" + MadMachines.INCUBATOR_INTERNALNAME + "/idle.png";
 
     public IncubatorEntity()
     {
-        super(MadFurnaces.INCUBATOR_INTERNALNAME);
+        super(MadMachines.INCUBATOR_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -266,7 +266,7 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.INCUBATOR_INTERNALNAME;
+        return MadMachines.INCUBATOR_INTERNALNAME;
     }
 
     public float getMaxHeatAmount()
@@ -543,7 +543,7 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
             if (curFrame <= 4 && worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/work_" + curFrame + ".png";
+                TEXTURE = "models/" + MadMachines.INCUBATOR_INTERNALNAME + "/work_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -557,17 +557,17 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         else if (!canSmelt() && isPowered() && !isHeatedEnough() && !isRedstonePowered())
         {
             // Powered up but still very cold, not ready!
-            TEXTURE = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/powered.png";
+            TEXTURE = "models/" + MadMachines.INCUBATOR_INTERNALNAME + "/powered.png";
         }
         else if (isPowered() && isHeatedEnough() && !canSmelt() && isRedstonePowered())
         {
             // Powered up, heater on. Just nothing inside of me!
-            TEXTURE = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/ready.png";
+            TEXTURE = "models/" + MadMachines.INCUBATOR_INTERNALNAME + "/ready.png";
         }
         else if (!isRedstonePowered())
         {
             // Turned off.
-            TEXTURE = "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/idle.png";
+            TEXTURE = "models/" + MadMachines.INCUBATOR_INTERNALNAME + "/idle.png";
         }
     }
 

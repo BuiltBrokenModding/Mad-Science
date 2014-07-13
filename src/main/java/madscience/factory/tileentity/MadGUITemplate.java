@@ -9,13 +9,13 @@ import madscience.MadFluids;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.buttons.IMadGUIButton;
+import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.buttons.MadGUIButtonClickActionEnum;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.buttons.MadGUIButtonTypeEnum;
-import madscience.factory.controls.IMadGUIControl;
+import madscience.factory.controls.MadGUIControl;
 import madscience.factory.controls.MadGUIControlTypeEnum;
-import madscience.factory.slotcontainers.IMadSlotContainer;
+import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.util.Region2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -39,9 +39,9 @@ import org.lwjgl.opengl.GL12;
 public class MadGUITemplate extends GuiContainer
 {
     private MadTileEntityPrefab ENTITY;
-    private IMadGUIControl[] GUICONTROLS;
-    private IMadSlotContainer[] CONTAINERS;
-    private IMadGUIButton[] BUTTONS;
+    private MadGUIControl[] GUICONTROLS;
+    private MadSlotContainer[] CONTAINERS;
+    private MadGUIButton[] BUTTONS;
 
     public ResourceLocation TEXTURE;
 
@@ -95,7 +95,7 @@ public class MadGUITemplate extends GuiContainer
         // Loop through the buttons and decide how to proceed with given action.
         for (int i = 0; i < BUTTONS.length; i++)
         {
-            IMadGUIButton guiButton = BUTTONS[i];
+            MadGUIButton guiButton = BUTTONS[i];
 
             // Determine if button clicked matches any from our enumeration.
             if (button.id == guiButton.buttonID())
@@ -163,7 +163,7 @@ public class MadGUITemplate extends GuiContainer
         this.mc.displayGuiScreen(this);
     }
 
-    private void displayGauge(int screenX, int screenY, IMadGUIControl control, int percentLeft)
+    private void displayGauge(int screenX, int screenY, MadGUIControl control, int percentLeft)
     {
         // Variable to keep track of block texture segments.
         int start = 0;
@@ -234,7 +234,7 @@ public class MadGUITemplate extends GuiContainer
         // Loop through the controls and use the data inside them to prepare the server client GUI rendering.
         for (int i = 0; i < this.GUICONTROLS.length; i++)
         {
-            IMadGUIControl guiControl = this.GUICONTROLS[i];
+            MadGUIControl guiControl = this.GUICONTROLS[i];
 
             // -------------
             // POWER LEVEL X
@@ -298,7 +298,7 @@ public class MadGUITemplate extends GuiContainer
         for (int i = 0; i < this.GUICONTROLS.length; i++)
         {
             // Loop through the controls and use the data inside them to prepare the server client GUI rendering.
-            IMadGUIControl guiControl = this.GUICONTROLS[i];
+            MadGUIControl guiControl = this.GUICONTROLS[i];
 
             // Power level X OR Y
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelX) || guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelY))
@@ -339,7 +339,7 @@ public class MadGUITemplate extends GuiContainer
         for (int i = 0; i < CONTAINERS.length; i++)
         {
             // Loop through the slot containers and add tooltip information based on their position relative to screen and GUI.
-            IMadSlotContainer slotContainer = CONTAINERS[i];
+            MadSlotContainer slotContainer = CONTAINERS[i];
 
             // Check if mouse cursor is within the given region of the GUI.
             if (this.isPointInRegion(slotContainer.offsetX(), slotContainer.offsetY(), slotContainer.sizeX(), slotContainer.sizeY(), mouseX, mouseY))
@@ -375,7 +375,7 @@ public class MadGUITemplate extends GuiContainer
         for (int i = 0; i < BUTTONS.length; i++)
         {
             // Loop through the buttons and determines if we need to show any tooltip information.
-            IMadGUIButton guiButton = BUTTONS[i];
+            MadGUIButton guiButton = BUTTONS[i];
 
             // Help link.
             if (guiButton.getButtonType().equals(MadGUIButtonTypeEnum.InvisibleButton))
@@ -517,7 +517,7 @@ public class MadGUITemplate extends GuiContainer
         for (int i = 0; i < BUTTONS.length; i++)
         {
             // Loop through the buttons and create them based on info in enumeration.
-            IMadGUIButton guiButton = BUTTONS[i];
+            MadGUIButton guiButton = BUTTONS[i];
 
             int posX = (this.width - guiButton.sizeX()) / 2;
             int posY = (this.height - guiButton.sizeY()) / 2;

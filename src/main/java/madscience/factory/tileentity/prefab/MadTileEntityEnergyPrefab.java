@@ -3,7 +3,7 @@ package madscience.factory.tileentity.prefab;
 import java.util.EnumSet;
 
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.energy.IMadEnergy;
+import madscience.factory.energy.MadEnergy;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
@@ -29,13 +29,13 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
         super(registeredMachine);
 
         // Grab energy information from factory product.
-        IMadEnergy[] energySupported = registeredMachine.getEnergySupported();
+        MadEnergy[] energySupported = registeredMachine.getEnergySupported();
 
         if (energySupported.length >= 1)
         {
             for (int i = 0; i < energySupported.length; i++)
             {
-                IMadEnergy energyInterface = energySupported[i];
+                MadEnergy energyInterface = energySupported[i];
 
                 // TODO: Only 1 energy storage handler is supported at this time.
                 energy = new EnergyStorageHandler(energyInterface.getEnergyCapacity(), energyInterface.getEnergyMaxRecieve(), energyInterface.getEnergyMaxExtract());

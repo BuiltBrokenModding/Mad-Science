@@ -3,11 +3,11 @@ package madscience.factory.sounds;
 import com.google.gson.annotations.Expose;
 
 
-public final class MadSound implements IMadSound
+public final class MadSound
 {
     @Expose private MadSoundFile sound = null;
     
-    public MadSound(
+    public MadSound( // NO_UCD (unused code)
             String fileName,
             int length,
             int randomVariance,
@@ -17,43 +17,36 @@ public final class MadSound implements IMadSound
         this.sound = new MadSoundFile(fileName, length, randomVariance, trigger, playbackMode);
     }
 
-    @Override
     public String getSoundNameWithoutExtension()
     {
         return this.sound.getSoundNameWithoutExtension();
     }
 
-    @Override
     public String getSoundNameWithExtension()
     {
         return this.sound.getSoundNameWithExtension();
     }
 
-    @Override
     public MadSoundTriggerEnum getSoundTrigger()
     {
         return this.sound.getSoundTrigger();
     }
 
-    @Override
     public int getSoundLengthInSeconds()
     {
         return this.sound.getSoundLengthInSeconds();
     }
 
-    @Override
     public MadSoundPlaybackTypeEnum getSoundPlaybackMode()
     {
         return this.sound.getSoundPlaybackMode();
     }
 
-    @Override
     public int getSoundRandomVariance()
     {
         return this.sound.getSoundRandomVariance();
     }
 
-    @Override
     public String getSoundExtension()
     {
         return this.sound.getSoundExtension();

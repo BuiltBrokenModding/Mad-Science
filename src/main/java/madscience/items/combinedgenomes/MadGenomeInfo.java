@@ -2,7 +2,7 @@ package madscience.items.combinedgenomes;
 
 public class MadGenomeInfo
 {
-    public final short genomeID;
+    final short genomeID;
     private final String mobID;
     private final int primaryColor;
     private final int secondaryColor;

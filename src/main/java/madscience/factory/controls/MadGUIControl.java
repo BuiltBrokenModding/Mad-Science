@@ -3,7 +3,7 @@ package madscience.factory.controls;
 import com.google.gson.annotations.Expose;
 
 
-public final class MadGUIControl implements IMadGUIControl
+public final class MadGUIControl
 {
     /* Screen coordinates for where data where render. */
     @Expose private final int screenX;
@@ -26,7 +26,7 @@ public final class MadGUIControl implements IMadGUIControl
     /* Type of control based on enumeration. */
     @Expose private final MadGUIControlTypeEnum controlType;
 
-    public MadGUIControl(MadGUIControlTypeEnum controlType, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY)
+    public MadGUIControl(MadGUIControlTypeEnum controlType, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY) // NO_UCD (unused code)
     {
         this.controlType = controlType;
 
@@ -40,43 +40,36 @@ public final class MadGUIControl implements IMadGUIControl
         this.sizeY = sizeY;
     }
 
-    @Override
     public int fillerX()
     {
         return this.fillerX;
     }
 
-    @Override
     public int fillerY()
     {
         return this.fillerY;
     }
 
-    @Override
     public MadGUIControlTypeEnum getControlType()
     {
         return this.controlType;
     }
 
-    @Override
     public int screenX()
     {
         return this.screenX;
     }
 
-    @Override
     public int screenY()
     {
         return this.screenY;
     }
 
-    @Override
     public int sizeX()
     {
         return this.sizeX;
     }
 
-    @Override
     public int sizeY()
     {
         return this.sizeY;

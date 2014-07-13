@@ -8,7 +8,6 @@ import net.minecraftforge.client.model.ModelFormatException;
 
 public class MadTechneModelLoader implements IModelCustomLoader
 {
-
     private static final String[] types =
     { "mad" };
 
@@ -21,7 +20,7 @@ public class MadTechneModelLoader implements IModelCustomLoader
     @Override
     public String getType()
     {
-        return "Mad Science Techne Model";
+        return "MadTechneModel";
     }
 
     @Override
@@ -29,5 +28,4 @@ public class MadTechneModelLoader implements IModelCustomLoader
     {
         return new MadTechneModel(resourceName, resource);
     }
-
 }

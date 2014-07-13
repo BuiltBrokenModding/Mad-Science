@@ -4,7 +4,7 @@ import java.awt.Desktop;
 import java.net.URI;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.tileentity.MadGUITemplate;
@@ -27,7 +27,7 @@ public class DataDuplicatorGUI extends MadGUITemplate
     {
         super(new DataDuplicatorContainer(par1InventoryPlayer, par2TileEntityFurnace));
         this.ENTITY = par2TileEntityFurnace;
-        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".png");
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadMachines.DATADUPLICATOR_INTERNALNAME + ".png");
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
@@ -62,7 +62,7 @@ public class DataDuplicatorGUI extends MadGUITemplate
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         
         // Name displayed above the GUI, typically name of the furnace.
-        String s = MadFurnaces.DATADUPLICATOR_TILEENTITY.getLocalizedName();
+        String s = MadMachines.DATADUPLICATOR_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

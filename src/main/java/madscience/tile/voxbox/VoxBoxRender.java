@@ -1,6 +1,6 @@
 package madscience.tile.voxbox;
 
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -30,9 +30,9 @@ public class VoxBoxRender extends TileEntitySpecialRenderer implements ISimpleBl
     }
 
     private VoxBoxEntity ENTITY;
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.VOXBOX_INTERNALNAME + "/" + MadFurnaces.VOXBOX_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.VOXBOX_INTERNALNAME + "/" + MadMachines.VOXBOX_INTERNALNAME + ".mad");
     private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadMachines.VOXBOX_INTERNALNAME + "/voxBox0.png");
 
     @Override
     public int getRenderId()

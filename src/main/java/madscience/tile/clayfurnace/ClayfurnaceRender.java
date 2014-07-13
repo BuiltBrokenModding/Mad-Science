@@ -1,6 +1,6 @@
 package madscience.tile.clayfurnace;
 
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -31,9 +31,9 @@ public class ClayfurnaceRender extends TileEntitySpecialRenderer implements ISim
     }
 
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CLAYFURNACE_INTERNALNAME + "/" + MadMachines.CLAYFURNACE_INTERNALNAME + ".mad");
     private ClayfurnaceEntity ENTITY;
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/idle.png");
 
     @Override
     public int getRenderId()

@@ -4,7 +4,7 @@ import java.awt.Desktop;
 import java.net.URI;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.tileentity.MadGUITemplate;
@@ -26,7 +26,7 @@ public class ThermosonicBonderGUI extends MadGUITemplate
     {
         super(new ThermosonicBonderContainer(par1InventoryPlayer, par2TileEntityFurnace));
         this.ENTITY = par2TileEntityFurnace;
-        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".png");
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadMachines.THERMOSONIC_INTERNALNAME + ".png");
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
@@ -71,7 +71,7 @@ public class ThermosonicBonderGUI extends MadGUITemplate
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         
         // Name displayed above the GUI, typically name of the furnace.
-        String s = MadFurnaces.THERMOSONIC_TILEENTITY.getLocalizedName();
+        String s = MadMachines.THERMOSONIC_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

@@ -2,19 +2,12 @@ package madscience.factory;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import madscience.MadScience;
-import madscience.factory.buttons.IMadGUIButton;
-import madscience.factory.controls.IMadGUIControl;
-import madscience.factory.energy.IMadEnergy;
-import madscience.factory.fluids.IMadFluid;
-import madscience.factory.recipes.IMadRecipe;
-import madscience.factory.slotcontainers.IMadSlotContainer;
-import madscience.factory.sounds.IMadSound;
 import madscience.items.ItemBlockTooltip;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,37 +34,8 @@ public class MadTileEntityFactory
         return !registeredMachines.containsKey(id);
     }
     
-    /** Removes extra tags from internal and unlocalized names in preparation for matchmaking in recipe system. */
-    private static String cleanTag(String tag) 
-    {
-        return tag.replace("minecraft.", "").replaceFirst("^tile\\.", "").replaceFirst("^item\\.", "");
-    }
-    
-    public static void printUnlocalizedItemNames()
-    {
-        for(Item potentialMCItem : Item.itemsList) 
-        {
-            if(potentialMCItem == null)
-            {
-                continue;
-            }
-            
-            MadScience.logger.info(potentialMCItem.getUnlocalizedName());
-        }
-        
-        for(Block potentialMCBlock : Block.blocksList) 
-        {
-            if(potentialMCBlock == null)
-            {
-                continue;
-            }
-            
-            MadScience.logger.info(potentialMCBlock.getUnlocalizedName());
-        }
-    }
-    
     /** Return itemstack from GameRegistry or from vanilla Item/Block list. */
-    public static ItemStack findItemStack(String modID, String itemName, int stackSize, int metaData)
+    static ItemStack getItemStackFromString(String modID, String itemName, int stackSize, int metaData)
     {
         // Mod items and blocks query.
         ItemStack potentialModItem = GameRegistry.findItemStack(modID, itemName, stackSize);
@@ -100,7 +64,7 @@ public class MadTileEntityFactory
             {
                 try
                 {
-                    String vanillaItemUnlocalizedName = cleanTag(vanillaItemStack.getUnlocalizedName());
+                    String vanillaItemUnlocalizedName = MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName());
                     //MadScience.logger.info(vanillaItemStack.getUnlocalizedName());
                     
                     if (vanillaItemUnlocalizedName.equals(itemName))
@@ -129,7 +93,7 @@ public class MadTileEntityFactory
             {
                 try
                 {
-                    String vanillaBlockUnlocalizedName = cleanTag(vanillaItemStack.getUnlocalizedName());
+                    String vanillaBlockUnlocalizedName = MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName());
                     //MadScience.logger.info(vanillaItemStack.getUnlocalizedName());
                     
                     if (vanillaBlockUnlocalizedName.equals(itemName))
@@ -161,61 +125,28 @@ public class MadTileEntityFactory
         return null;
     }
 
-    public static boolean registerMachine(String machineName, int blockID,
-            String logicClassNamespace,
-            IMadSlotContainer[] containerTemplate,
-            IMadGUIControl[] guiTemplate,
-            IMadGUIButton[] buttonTemplate,
-            IMadFluid[] fluidsTemplate,
-            IMadEnergy[] energyTemplate,
-            IMadSound[] soundArchive,
-            IMadRecipe[] recipeArchive) throws IllegalArgumentException
+    public static MadTileEntityFactoryProduct registerMachine(MadTileEntityFactoryProductData machineData) throws IllegalArgumentException
     {
-        // Setup basic tile entity template object, the name and ID are unchangeable and referenced only.
-        MadTileEntityFactoryProduct tileEntityProduct = new MadTileEntityFactoryProduct(
-                machineName,
-                blockID,
-                logicClassNamespace);
-
-        // Adds required things most tile entities need such as GUI, slots, energy and fluid support, sounds, etc.
-        tileEntityProduct.setContainerTemplate(containerTemplate);
-        tileEntityProduct.setGuiControlsTemplate(guiTemplate);
-        tileEntityProduct.setGuiButtonTemplate(buttonTemplate);
-        tileEntityProduct.setFluidsSupported(fluidsTemplate);
-        tileEntityProduct.setEnergySupported(energyTemplate);
-        tileEntityProduct.setSoundArchive(soundArchive);
-        tileEntityProduct.setRecipeArchive(recipeArchive);
+        // Pass the data object into the product to activate it, creates needed data structures inside it based on data supplied.
+        MadTileEntityFactoryProduct tileEntityProduct = new MadTileEntityFactoryProduct(machineData);
         
         // Check to make sure we have not added this machine before.
-        if (!isValidMachineID(machineName))
+        if (!isValidMachineID(tileEntityProduct.getMachineName()))
         {
-            throw new IllegalArgumentException("Duplicate MadTileEntityFactoryProduct '" + machineName + "' was added. Execution halted!");
+            throw new IllegalArgumentException("Duplicate MadTileEntityFactoryProduct '" + tileEntityProduct.getMachineName() + "' was added. Execution halted!");
         }
 
         // Debugging!
-        MadScience.logger.info("[MadTileEntityFactory]Registering machine: " + machineName);
+        MadScience.logger.info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
         
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
         
         // Register the machine with Minecraft/Forge.
-        GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), machineName);
-        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadScience.ID + machineName);
-        MadScience.proxy.registerRenderingHandler(blockID);
+        GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), tileEntityProduct.getMachineName());
+        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadScience.ID + tileEntityProduct.getMachineName());
+        MadScience.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
         
-        return true;
-    }
-
-    /** Serializes all registered machines to disk. Meat for developer use only. Use with caution! */
-    public static void dumpAllMachineJSON()
-    {
-        for (Iterator iterator = getMachineInfoList().iterator(); iterator.hasNext();)
-        {
-            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
-            if (registeredMachine != null)
-            {
-                registeredMachine.dumpJSONToDisk();
-            }
-        }
+        return tileEntityProduct;
     }
 }

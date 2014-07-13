@@ -61,4 +61,12 @@ public class CommonProxy
     public void spawnParticle(String fxName, double posX, double posY, double posZ, double velX, double velY, double velZ)
     {        
     }
+
+    public void dumpAllMachineJSON()
+    {
+    }
+
+    public void dumpUnlocalizedNames()
+    {
+    }
 }

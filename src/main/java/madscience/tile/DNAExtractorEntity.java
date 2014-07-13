@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class DNAExtractorEntity extends MadTileEntityPrefab
+public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused code)
 {
     public DNAExtractorEntity()
     {

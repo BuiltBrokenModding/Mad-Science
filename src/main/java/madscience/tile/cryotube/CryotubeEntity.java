@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import madscience.MadConfig;
 import madscience.MadEntities;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.items.datareel.ItemDataReelEmpty;
@@ -37,7 +37,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
     private ItemStack[] cryotubeOutput = new ItemStack[2];
 
     /** Path to texture that we would like displayed on this block. */
-    String TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
+    String TEXTURE = "models/" + MadMachines.CRYOTUBE_INTERNALNAME + "/off.png";
 
     /** Current frame of animation we should use to display in world. */
     private int curFrame;
@@ -62,7 +62,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
 
     public CryotubeEntity()
     {
-        super(MadFurnaces.CRYOTUBE_INTERNALNAME);
+        super(MadMachines.CRYOTUBE_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -383,7 +383,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.CRYOTUBE_INTERNALNAME;
+        return MadMachines.CRYOTUBE_INTERNALNAME;
     }
 
     public int getMaxHealth()
@@ -711,7 +711,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
         if (!isRedstonePowered())
         {
             // Cryotube is disabled and offline.
-            TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png";
+            TEXTURE = "models/" + MadMachines.CRYOTUBE_INTERNALNAME + "/off.png";
             return;
         }
 
@@ -721,7 +721,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
             if (curFrame <= 1 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/dead_" + curFrame + ".png";
+                TEXTURE = "models/" + MadMachines.CRYOTUBE_INTERNALNAME + "/dead_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -740,7 +740,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
             if (curFrame <= 6 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/alive_" + curFrame + ".png";
+                TEXTURE = "models/" + MadMachines.CRYOTUBE_INTERNALNAME + "/alive_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -756,7 +756,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
         if (!canSmelt() && isRedstonePowered())
         {
             // Cryotube is powered but has no items inside of it.
-            TEXTURE = "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/on.png";
+            TEXTURE = "models/" + MadMachines.CRYOTUBE_INTERNALNAME + "/on.png";
             return;
         }
     }

@@ -21,16 +21,16 @@ public class MadTileEntityPacketTemplate extends MadPackets
     private MadTileEntityPrefab ENTITY;
 
     // Stores intermediate amount of time item has cooked out of total.
-    private int lastItemCookTimeValue;
-    private int lastItemCookTimeMaximum;
+    private int lastCookTimeValue;
+    private int lastCookTimeMaximum;
 
     // Stores last known amount of energy this block was known to have.
-    private long lastItemStoredEnergy;
-    private long lastItemStoredEnergyMaximum;
+    private long lastEnergy;
+    private long lastEnergyMaximum;
 
     // Amount of stored mutant DNA.
-    private int lastLiquidDNAMutantLevel;
-    private int lastLiquidDNAMutantMaximum;
+    private int lastFluidLevel;
+    private int lastFluidMaximum;
 
     // Last displayed texture.
     private String lastTexture;
@@ -40,7 +40,7 @@ public class MadTileEntityPacketTemplate extends MadPackets
         // Required for reflection.
     }
 
-    public MadTileEntityPacketTemplate(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int mutantDNALevel, int mutantDNAMaximum, String tileTexture)
+    public MadTileEntityPacketTemplate(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int mutantDNALevel, int mutantDNAMaximum, String tileTexture) // NO_UCD (use default)
     {
         // World position information.
         tilePosX = posX;
@@ -48,16 +48,16 @@ public class MadTileEntityPacketTemplate extends MadPackets
         tilePosZ = posZ;
 
         // Stores intermediate amount of time item has cooked out of total.
-        lastItemCookTimeValue = cookTime;
-        lastItemCookTimeMaximum = cookTimeMax;
+        lastCookTimeValue = cookTime;
+        lastCookTimeMaximum = cookTimeMax;
 
         // Stores last known amount of energy this block was known to have.
-        lastItemStoredEnergy = energyStored;
-        lastItemStoredEnergyMaximum = energyMax;
+        lastEnergy = energyStored;
+        lastEnergyMaximum = energyMax;
 
         // Amount of stored mutant DNA.
-        lastLiquidDNAMutantLevel = mutantDNALevel;
-        lastLiquidDNAMutantMaximum = mutantDNAMaximum;
+        lastFluidLevel = mutantDNALevel;
+        lastFluidMaximum = mutantDNAMaximum;
 
         // Last displayed texture.
         lastTexture = tileTexture;
@@ -85,16 +85,16 @@ public class MadTileEntityPacketTemplate extends MadPackets
                 return;
 
             // Cook time.
-            this.ENTITY.setProgressValue(lastItemCookTimeValue);
-            this.ENTITY.setProgressMaximum(lastItemCookTimeMaximum);
+            this.ENTITY.setProgressValue(lastCookTimeValue);
+            this.ENTITY.setProgressMaximum(lastCookTimeMaximum);
 
             // Energy.
-            this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastItemStoredEnergy);
-            this.ENTITY.setEnergyCapacity(lastItemStoredEnergyMaximum);
+            this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastEnergy);
+            this.ENTITY.setEnergyCapacity(lastEnergyMaximum);
 
             // Fluid amount.
-            this.ENTITY.setFluidAmount(lastLiquidDNAMutantLevel);
-            this.ENTITY.setFluidCapacity(lastLiquidDNAMutantMaximum);
+            this.ENTITY.setFluidAmount(lastFluidLevel);
+            this.ENTITY.setFluidCapacity(lastFluidMaximum);
 
             // Tile entity texture.
             this.ENTITY.setEntityTexture(lastTexture);
@@ -118,16 +118,16 @@ public class MadTileEntityPacketTemplate extends MadPackets
         this.tilePosZ = in.readInt();
 
         // Stores intermediate amount of time item has cooked out of total.
-        this.lastItemCookTimeValue = in.readInt();
-        this.lastItemCookTimeMaximum = in.readInt();
+        this.lastCookTimeValue = in.readInt();
+        this.lastCookTimeMaximum = in.readInt();
 
         // Stores last known amount of energy this block was known to have.
-        this.lastItemStoredEnergy = in.readLong();
-        this.lastItemStoredEnergyMaximum = in.readLong();
+        this.lastEnergy = in.readLong();
+        this.lastEnergyMaximum = in.readLong();
 
         // Amount of stored mutant DNA.
-        this.lastLiquidDNAMutantLevel = in.readInt();
-        this.lastLiquidDNAMutantMaximum = in.readInt();
+        this.lastFluidLevel = in.readInt();
+        this.lastFluidMaximum = in.readInt();
 
         // Last displayed texture.
         this.lastTexture = in.readUTF();
@@ -146,16 +146,16 @@ public class MadTileEntityPacketTemplate extends MadPackets
         out.writeInt(tilePosZ);
 
         // Stores intermediate amount of time item has cooked out of total.
-        out.writeInt(lastItemCookTimeValue);
-        out.writeInt(lastItemCookTimeMaximum);
+        out.writeInt(lastCookTimeValue);
+        out.writeInt(lastCookTimeMaximum);
 
         // Stores last known amount of energy this block was known to have.
-        out.writeLong(lastItemStoredEnergy);
-        out.writeLong(lastItemStoredEnergyMaximum);
+        out.writeLong(lastEnergy);
+        out.writeLong(lastEnergyMaximum);
 
         // Amount of stored mutant DNA.
-        out.writeInt(lastLiquidDNAMutantLevel);
-        out.writeInt(lastLiquidDNAMutantMaximum);
+        out.writeInt(lastFluidLevel);
+        out.writeInt(lastFluidMaximum);
 
         // Last displayed texture.
         out.writeUTF(lastTexture);

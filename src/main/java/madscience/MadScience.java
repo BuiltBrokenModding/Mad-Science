@@ -66,7 +66,11 @@ public class MadScience
     private static final String ASSET_DIRECTORY = "/assets/" + ID + "/";
     private static final String TEXTURE_DIRECTORY = "textures/";
     public static final String MODEL_DIRECTORY = "models/";
+    private static final String JSON_DIRECTORY = "json/";
+    
+    // Quick links to popular places.
     public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
+    static final String JSON_PATH = ASSET_DIRECTORY + JSON_DIRECTORY;
 
     // Gradle imprints MD5 of source code into this file upon compilation for integrity check.
     private static final String FINGERPRINT = "@FINGERPRINT@";
@@ -90,7 +94,7 @@ public class MadScience
     private static ModMetadata metadata;
 
     // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
-    static MadGUI guiHandler = new MadGUI();
+    private static MadGUI guiHandler = new MadGUI();
 
     // Link to our configuration file which Forge also handles in a standardized way.
     private static Configuration config;
@@ -115,12 +119,6 @@ public class MadScience
             }
         }
         
-        // Prints out all internal names.
-        //MadTileEntityFactory.printUnlocalizedItemNames();
-        
-        // Dumps all registered machines JSON to disk.
-        //MadTileEntityFactory.dumpAllMachineJSON();
-        
         // ----------------
         // NOT ENOUGH ITEMS
         // ----------------
@@ -135,16 +133,16 @@ public class MadScience
                 Method m = clazz.getMethod("hideItem", Integer.TYPE);
 
                 // Cryotube Ghost Block.
-                m.invoke(null, MadFurnaces.CRYOTUBEGHOST.blockID);
+                m.invoke(null, MadMachines.CRYOTUBEGHOST.blockID);
 
                 // Soniclocator Ghost Block.
-                m.invoke(null, MadFurnaces.SONICLOCATORGHOST.blockID);
+                m.invoke(null, MadMachines.SONICLOCATORGHOST.blockID);
 
                 // Magazine Loader Ghost Block.
-                m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
+                m.invoke(null, MadMachines.MAGLOADERGHOST.blockID);
                 
                 // CnC Machine Ghost Block.
-                m.invoke(null, MadFurnaces.CNCMACHINEGHOST_TILEENTITY.blockID);
+                m.invoke(null, MadMachines.CNCMACHINEGHOST_TILEENTITY.blockID);
             }
             catch (Throwable e)
             {
@@ -159,6 +157,16 @@ public class MadScience
             }
 
         }
+        
+        // ---------
+        // DEBUGGING
+        // ---------
+        
+        // Prints out all internal names.
+        //proxy.dumpUnlocalizedNames();
+        
+        // Dumps all registered machines JSON to disk.
+        //proxy.dumpAllMachineJSON();
     }
 
     /** @param event */
@@ -381,25 +389,25 @@ public class MadScience
         logger.info("Creating Tile Entities");
 
         // Add machines to factory loaded from flat files on drive.
-        MadFurnaces.addDNAExtractor(MadConfig.DNA_EXTRACTOR);
+        MadMachines.loadMachinesFromAssets(MadConfig.DNA_EXTRACTOR);
         
-        MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
-        MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
-        MadFurnaces.createGeneSequencerTileEntity(MadConfig.GENE_SEQUENCER);
-        MadFurnaces.createCryoFreezerTileEntity(MadConfig.CRYOFREEZER);
-        MadFurnaces.createGeneIncubatorTileEntity(MadConfig.INCUBATOR);
-        MadFurnaces.createCryotubeTileEntity(MadConfig.CRYOTUBE);
-        MadFurnaces.createCryotubeGhostTileEntity(MadConfig.CRYOTUBEGHOST);
-        MadFurnaces.createThermosonicBonderTileEntity(MadConfig.THERMOSONIC);
-        MadFurnaces.createDataReelDuplicatorTileEntity(MadConfig.DATADUPLICATOR);
-        MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
-        MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
-        MadFurnaces.createClayFurnaceTileEntity(MadConfig.CLAYFURNACE);
-        MadFurnaces.createVOXBoxTileEntity(MadConfig.VOXBOX);
-        MadFurnaces.createMagLoaderTileEntity(MadConfig.MAGLOADER);
-        MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
-        MadFurnaces.createCnCMachineTileEntity(MadConfig.CNCMACHINE);
-        MadFurnaces.createCnCMachineGhostTileEntity(MadConfig.CNCMACHINEGHOST);
+        MadMachines.createSanitizerTileEntity(MadConfig.SANTITIZER);
+        MadMachines.createMainframeTileEntity(MadConfig.MAINFRAME);
+        MadMachines.createGeneSequencerTileEntity(MadConfig.GENE_SEQUENCER);
+        MadMachines.createCryoFreezerTileEntity(MadConfig.CRYOFREEZER);
+        MadMachines.createGeneIncubatorTileEntity(MadConfig.INCUBATOR);
+        MadMachines.createCryotubeTileEntity(MadConfig.CRYOTUBE);
+        MadMachines.createCryotubeGhostTileEntity(MadConfig.CRYOTUBEGHOST);
+        MadMachines.createThermosonicBonderTileEntity(MadConfig.THERMOSONIC);
+        MadMachines.createDataReelDuplicatorTileEntity(MadConfig.DATADUPLICATOR);
+        MadMachines.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
+        MadMachines.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
+        MadMachines.createClayFurnaceTileEntity(MadConfig.CLAYFURNACE);
+        MadMachines.createVOXBoxTileEntity(MadConfig.VOXBOX);
+        MadMachines.createMagLoaderTileEntity(MadConfig.MAGLOADER);
+        MadMachines.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
+        MadMachines.createCnCMachineTileEntity(MadConfig.CNCMACHINE);
+        MadMachines.createCnCMachineGhostTileEntity(MadConfig.CNCMACHINEGHOST);
         
         // -----
         // ARMOR
@@ -445,7 +453,7 @@ public class MadScience
                 MadGenomes.GENOME_WOLF, MadConfig.GMO_WEREWOLF_COOKTIME);
 
         // Disgusting Meatcube [Slime + Cow,Pig,Chicken]
-        MadFurnaces.createMeatcubeTileEntity(MadConfig.MEATCUBE, MadConfig.GMO_MEATCUBE_METAID, MadColors.slimeEgg(), MadColors.pigEgg(), MadConfig.GMO_MEATCUBE_COOKTIME);
+        MadMachines.createMeatcubeTileEntity(MadConfig.MEATCUBE, MadConfig.GMO_MEATCUBE_METAID, MadColors.slimeEgg(), MadColors.pigEgg(), MadConfig.GMO_MEATCUBE_COOKTIME);
 
         // Creeper Cow [Creeper + Cow]
         MadMobs.createGMOMob(MadConfig.GMO_CREEPERCOW_METAID, CreeperCowMobEntity.class, new NBTTagCompound(), MadMobs.GMO_CREEPERCOW_INTERNALNAME, MadMobs.GENOME_CREEPERCOW_INTERNALNAME, MadColors.creeperEgg(), MadColors.cowEgg(),

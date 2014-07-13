@@ -2,17 +2,17 @@ package madscience.factory.slotcontainers;
 
 public enum MadSlotContainerTypeEnum
 {
-    INPUT_INGREDIENT1,
-    INPUT_INGREDIENT2,
-    INPUT_FUEL,
-    INPUT_EXTRA,
-    INPUT_EMPTYBUCKET,
-    INPUT_FILLEDBUCKET,
-    INPUT_BLUEPRINT,
-    OUTPUT_RESULT1,
-    OUTPUT_RESULT2,
-    OUTPUT_WASTE,
-    OUTPUT_EXTRA,
-    OUTPUT_EMPTYBUCKET,
-    OUTPUT_FILLEDBUCKET;
+    INPUT_INGREDIENT1,          // NO_UCD (unused code)
+    INPUT_INGREDIENT2,          // NO_UCD (unused code)
+    INPUT_FUEL,                 // NO_UCD (unused code)
+    INPUT_EXTRA,                // NO_UCD (unused code)
+    INPUT_EMPTYBUCKET,          // NO_UCD (unused code)
+    INPUT_FILLEDBUCKET,         // NO_UCD (unused code)
+    INPUT_BLUEPRINT,            // NO_UCD (unused code)
+    OUTPUT_RESULT1,             // NO_UCD (unused code)
+    OUTPUT_RESULT2,             // NO_UCD (unused code)
+    OUTPUT_WASTE,               // NO_UCD (unused code)
+    OUTPUT_EXTRA,               // NO_UCD (unused code)
+    OUTPUT_EMPTYBUCKET,         // NO_UCD (unused code)
+    OUTPUT_FILLEDBUCKET;        // NO_UCD (unused code)
 }

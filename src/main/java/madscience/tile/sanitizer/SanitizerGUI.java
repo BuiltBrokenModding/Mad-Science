@@ -4,7 +4,7 @@ import java.awt.Desktop;
 import java.net.URI;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.tileentity.MadGUITemplate;
@@ -29,7 +29,7 @@ public class SanitizerGUI extends MadGUITemplate
     {
         super(new SanitizerContainer(par1InventoryPlayer, par2TileEntityFurnace));
         this.ENTITY = par2TileEntityFurnace;
-        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.SANTITIZER_INTERNALNAME + ".png");
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadMachines.SANTITIZER_INTERNALNAME + ".png");
     }
 
     private void displayGauge(int screenX, int screenY, int line, int col, int squaled)
@@ -117,7 +117,7 @@ public class SanitizerGUI extends MadGUITemplate
         
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
-        String s = "     " + MadFurnaces.SANTITIZER_TILEENTITY.getLocalizedName();
+        String s = "     " + MadMachines.SANTITIZER_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

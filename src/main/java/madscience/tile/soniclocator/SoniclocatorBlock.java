@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -137,12 +137,12 @@ public class SoniclocatorBlock extends BlockContainer
         super.breakBlock(world, x, y, z, par5, par6);
 
         // Break all the 'ghost blocks'
-        if (world.getBlockId(x, y + 1, z) == MadFurnaces.SONICLOCATORGHOST.blockID)
+        if (world.getBlockId(x, y + 1, z) == MadMachines.SONICLOCATORGHOST.blockID)
         {
             world.setBlockToAir(x, y + 1, z);
         }
 
-        if (world.getBlockId(x, y + 2, z) == MadFurnaces.SONICLOCATORGHOST.blockID)
+        if (world.getBlockId(x, y + 2, z) == MadMachines.SONICLOCATORGHOST.blockID)
         {
             world.setBlockToAir(x, y + 2, z);
         }
@@ -231,7 +231,7 @@ public class SoniclocatorBlock extends BlockContainer
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return MadFurnaces.SONICLOCATOR_TILEENTITY.blockID;
+        return MadMachines.SONICLOCATOR_TILEENTITY.blockID;
     }
 
     @Override
@@ -241,7 +241,7 @@ public class SoniclocatorBlock extends BlockContainer
      */
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadFurnaces.SONICLOCATOR_TILEENTITY.blockID;
+        return MadMachines.SONICLOCATOR_TILEENTITY.blockID;
     }
 
     @Override
@@ -298,8 +298,8 @@ public class SoniclocatorBlock extends BlockContainer
         if (!world.isRemote)
         {
             // Add 'ghost' blocks that makeup upper section of soniclocator.
-            world.setBlock(x, y + 1, z, MadFurnaces.SONICLOCATORGHOST.blockID, 1, 3);
-            world.setBlock(x, y + 2, z, MadFurnaces.SONICLOCATORGHOST.blockID, 2, 3);
+            world.setBlock(x, y + 1, z, MadMachines.SONICLOCATORGHOST.blockID, 1, 3);
+            world.setBlock(x, y + 2, z, MadMachines.SONICLOCATORGHOST.blockID, 2, 3);
             
             // Store this information in the location registry.
             SoniclocatorLocationRegistry.addLocation(new SoniclocatorLocationItem(x, y, z));
@@ -326,7 +326,7 @@ public class SoniclocatorBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadMachines.SONICLOCATOR_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

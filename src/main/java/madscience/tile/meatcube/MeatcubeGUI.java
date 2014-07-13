@@ -5,7 +5,7 @@ import java.net.URI;
 
 import madscience.MadConfig;
 import madscience.MadFluids;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.tileentity.MadGUITemplate;
@@ -29,7 +29,7 @@ public class MeatcubeGUI extends MadGUITemplate
     {
         super(new MeatcubeContainer(thePlayer, meatCubeEntity));
         this.ENTITY = meatCubeEntity;
-        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".png");
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadMachines.MEATCUBE_INTERNALNAME + ".png");
     }
 
     private void displayGauge(int screenX, int screenY, int line, int col, int squaled)
@@ -109,7 +109,7 @@ public class MeatcubeGUI extends MadGUITemplate
         
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
-        String s = MadFurnaces.MEATCUBE_TILEENTITY.getLocalizedName();
+        String s = MadMachines.MEATCUBE_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

@@ -667,11 +667,9 @@ public class MadConfig
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
     // DNA Extractor
-    public static @CfgId(block = true) int DNA_EXTRACTOR = getNextBlockID();
-    public static @CfgEnergy long DNAEXTRACTOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long DNAEXTRACTOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    static @CfgId(block = true) int DNA_EXTRACTOR = getNextBlockID();
     public static @CfgEnergy long DNAEXTRACTOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String DNAEXTRACTOR_HELP = "http://madsciencemod.com/minecraft-item/dna-extractor/";
+    
 
     // Needle Sanitizer
     public static @CfgId(block = true) int SANTITIZER = getNextBlockID();

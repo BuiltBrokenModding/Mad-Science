@@ -9,12 +9,12 @@ public class MadGenomeRegistry
 {
     private static final Map<Short, MadGenomeInfo> genomes = new LinkedHashMap<Short, MadGenomeInfo>();
 
-    public static MadGenomeInfo getGenomeInfo(short id)
+    static MadGenomeInfo getGenomeInfo(short id)
     {
         return genomes.get(id);
     }
 
-    public static Collection<MadGenomeInfo> getGenomeInfoList()
+    static Collection<MadGenomeInfo> getGenomeInfoList()
     {
         return Collections.unmodifiableCollection(genomes.values());
     }

@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 import com.google.gson.annotations.Expose;
 
-public final class MadSlotContainer implements IMadSlotContainer
+public final class MadSlotContainer
 {
     /* Determines what side this entry can have items extracted from it. */
     @Expose private final ForgeDirection extractSide;
@@ -36,7 +36,7 @@ public final class MadSlotContainer implements IMadSlotContainer
     /** Reference to container number used by Minecraft/Forge and our own logic classes. */
     @Expose private final int slotNumber;
 
-    public MadSlotContainer(
+    public MadSlotContainer( // NO_UCD (unused code)
             int slotNumber,
             MadSlotContainerTypeEnum slotType,
             ForgeDirection extractSide,
@@ -73,19 +73,16 @@ public final class MadSlotContainer implements IMadSlotContainer
         this.sizeY = sizeY;
     }
 
-    @Override
     public boolean canExtract()
     {
         return this.allowExtract;
     }
 
-    @Override
     public boolean canInsert()
     {
         return this.allowInput;
     }
 
-    @Override
     public ForgeDirection getExtractDirection()
     {
         if (this.extractSide != null)
@@ -98,7 +95,6 @@ public final class MadSlotContainer implements IMadSlotContainer
         }
     }
 
-    @Override
     public ForgeDirection getInputDirection()
     {
         if (this.insertSide != null)
@@ -111,37 +107,31 @@ public final class MadSlotContainer implements IMadSlotContainer
         }
     }
 
-    @Override
     public int offsetX()
     {
         return this.offsetX;
     }
 
-    @Override
     public int offsetY()
     {
         return this.offsetY;
     }
 
-    @Override
     public int sizeX()
     {
         return this.sizeX;
     }
 
-    @Override
     public int sizeY()
     {
         return this.sizeY;
     }
 
-    @Override
     public int slot()
     {
         return this.slotNumber;
     }
 
-    @Override
     public MadSlotContainerTypeEnum getSlotType()
     {
         return slotType;

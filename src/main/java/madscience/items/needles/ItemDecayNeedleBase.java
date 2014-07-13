@@ -25,7 +25,7 @@ public class ItemDecayNeedleBase extends ItemDecayBase
     @SideOnly(Side.CLIENT)
     private Icon needleReelLayer2;
 
-    public ItemDecayNeedleBase(int id, int primaryColor, int secondaryColor)
+    ItemDecayNeedleBase(int id, int primaryColor, int secondaryColor)
     {
         // Used to determine that we should return a dirty needle.
         super(id);

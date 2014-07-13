@@ -1,6 +1,6 @@
 package madscience.gui;
 
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.MadTileEntityPrefab;
@@ -79,85 +79,85 @@ public class MadGUI implements IGuiHandler
         }
 
         // Needle sanitizer.
-        if (ID == MadFurnaces.SANTITIZER_TILEENTITY.blockID)
+        if (ID == MadMachines.SANTITIZER_TILEENTITY.blockID)
         {
             return new SanitizerGUI(player.inventory, (SanitizerEntity) tileEntity);
         }
 
         // Computer Mainframe.
-        if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
+        if (ID == MadMachines.MAINFRAME_TILEENTITY.blockID)
         {
             return new MainframeGUI(player.inventory, (MainframeEntity) tileEntity);
         }
 
         // Genome Sequencer
-        if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
+        if (ID == MadMachines.SEQUENCER_TILEENTITY.blockID)
         {
             return new SequencerGUI(player.inventory, (SequencerEntity) tileEntity);
         }
 
         // Cryogenic Freezer
-        if (ID == MadFurnaces.CRYOFREEZER_TILEENTITY.blockID)
+        if (ID == MadMachines.CRYOFREEZER_TILEENTITY.blockID)
         {
             return new CryofreezerGUI(player.inventory, (CryofreezerEntity) tileEntity);
         }
 
         // Genome Incubator
-        if (ID == MadFurnaces.INCUBATOR_TILEENTITY.blockID)
+        if (ID == MadMachines.INCUBATOR_TILEENTITY.blockID)
         {
             return new IncubatorGUI(player.inventory, (IncubatorEntity) tileEntity);
         }
 
         // Meat Cube
-        if (ID == MadFurnaces.MEATCUBE_TILEENTITY.blockID)
+        if (ID == MadMachines.MEATCUBE_TILEENTITY.blockID)
         {
             return new MeatcubeGUI(player.inventory, (MeatcubeEntity) tileEntity);
         }
 
         // Cryogenic Tube
-        if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
+        if (ID == MadMachines.CRYOTUBE_TILEENTITY.blockID)
         {
             return new CryotubeGUI(player.inventory, (CryotubeEntity) tileEntity);
         }
 
         // Thermosonic Bonder
-        if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
+        if (ID == MadMachines.THERMOSONIC_TILEENTITY.blockID)
         {
             return new ThermosonicBonderGUI(player.inventory, (ThermosonicBonderEntity) tileEntity);
         }
 
         // Data Reel Duplicator
-        if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
+        if (ID == MadMachines.DATADUPLICATOR_TILEENTITY.blockID)
         {
             return new DataDuplicatorGUI(player.inventory, (DataDuplicatorEntity) tileEntity);
         }
 
         // Soniclocator Device
-        if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
+        if (ID == MadMachines.SONICLOCATOR_TILEENTITY.blockID)
         {
             return new SoniclocatorGUI(player.inventory, (SoniclocatorEntity) tileEntity);
         }
         
         // Clay Furnace
-        if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
+        if (ID == MadMachines.CLAYFURNACE_TILEENTITY.blockID)
         {
             return new ClayfurnaceGUI(player.inventory, (ClayfurnaceEntity) tileEntity);
         }
         
         // VOX Box
-        if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
+        if (ID == MadMachines.VOXBOX_TILEENTITY.blockID)
         {
             return new VoxBoxGUI(player.inventory, (VoxBoxEntity) tileEntity);
         }
         
         // Magazine Loader
-        if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
+        if (ID == MadMachines.MAGLOADER_TILEENTITY.blockID)
         {
             return new MagLoaderGUI(player.inventory, (MagLoaderEntity) tileEntity);
         }
         
         // CnC Machine
-        if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
+        if (ID == MadMachines.CNCMACHINE_TILEENTITY.blockID)
         {
             return new CnCMachineGUI(player.inventory, (CnCMachineEntity) tileEntity);
         }
@@ -192,85 +192,85 @@ public class MadGUI implements IGuiHandler
         }
 
         // Needle sanitizer.
-        if (ID == MadFurnaces.SANTITIZER_TILEENTITY.blockID)
+        if (ID == MadMachines.SANTITIZER_TILEENTITY.blockID)
         {
             return new SanitizerContainer(player.inventory, (SanitizerEntity) tileEntity);
         }
 
         // Computer Mainframe.
-        if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
+        if (ID == MadMachines.MAINFRAME_TILEENTITY.blockID)
         {
             return new MainframeContainer(player.inventory, (MainframeEntity) tileEntity);
         }
 
         // Genome Sequencer
-        if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
+        if (ID == MadMachines.SEQUENCER_TILEENTITY.blockID)
         {
             return new SequencerContainer(player.inventory, (SequencerEntity) tileEntity);
         }
 
         // Cryogenic Freezer
-        if (ID == MadFurnaces.CRYOFREEZER_TILEENTITY.blockID)
+        if (ID == MadMachines.CRYOFREEZER_TILEENTITY.blockID)
         {
             return new CryofreezerContainer(player.inventory, (CryofreezerEntity) tileEntity);
         }
 
         // Genome Incubator
-        if (ID == MadFurnaces.INCUBATOR_TILEENTITY.blockID)
+        if (ID == MadMachines.INCUBATOR_TILEENTITY.blockID)
         {
             return new IncubatorContainer(player.inventory, (IncubatorEntity) tileEntity);
         }
 
         // Meat Cube
-        if (ID == MadFurnaces.MEATCUBE_TILEENTITY.blockID)
+        if (ID == MadMachines.MEATCUBE_TILEENTITY.blockID)
         {
             return new MeatcubeContainer(player.inventory, (MeatcubeEntity) tileEntity);
         }
 
         // Cryogenic Tube
-        if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
+        if (ID == MadMachines.CRYOTUBE_TILEENTITY.blockID)
         {
             return new CryotubeContainer(player.inventory, (CryotubeEntity) tileEntity);
         }
 
         // Thermosonic Bonder
-        if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
+        if (ID == MadMachines.THERMOSONIC_TILEENTITY.blockID)
         {
             return new ThermosonicBonderContainer(player.inventory, (ThermosonicBonderEntity) tileEntity);
         }
 
         // Data Reel Duplicator
-        if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
+        if (ID == MadMachines.DATADUPLICATOR_TILEENTITY.blockID)
         {
             return new DataDuplicatorContainer(player.inventory, (DataDuplicatorEntity) tileEntity);
         }
 
         // Soniclocator Device
-        if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
+        if (ID == MadMachines.SONICLOCATOR_TILEENTITY.blockID)
         {
             return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tileEntity);
         }
         
         // Clay Furnace
-        if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
+        if (ID == MadMachines.CLAYFURNACE_TILEENTITY.blockID)
         {
             return new ClayfurnaceContainer(player.inventory, (ClayfurnaceEntity) tileEntity);
         }
         
         // VOX Box
-        if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
+        if (ID == MadMachines.VOXBOX_TILEENTITY.blockID)
         {
             return new VoxBoxContainer(player.inventory, (VoxBoxEntity) tileEntity);
         }
         
         // Magazine Loader
-        if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
+        if (ID == MadMachines.MAGLOADER_TILEENTITY.blockID)
         {
             return new MagLoaderContainer(player.inventory, (MagLoaderEntity) tileEntity);
         }
         
         // CnC Machine
-        if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
+        if (ID == MadMachines.CNCMACHINE_TILEENTITY.blockID)
         {
             return new CnCMachineContainer(player.inventory, (CnCMachineEntity) tileEntity);
         }

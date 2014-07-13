@@ -22,7 +22,7 @@ public class ItemDecayDNABase extends ItemDecayBase
     @SideOnly(Side.CLIENT)
     private Icon dnaSampleOverlay;
 
-    public ItemDecayDNABase(int id, int primaryColor, int secondaryColor)
+    ItemDecayDNABase(int id, int primaryColor, int secondaryColor)
     {
         // Used to ensure that DNA samples decay into bad blood samples.
         super(id);

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import madscience.MadConfig;
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
@@ -65,11 +65,11 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
     private ItemStack[] soniclocatorOutput = new ItemStack[1];
 
     /** Texture that should be displayed on our model. */
-    String soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+    String soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/off.png";
 
     public SoniclocatorEntity()
     {
-        super(MadFurnaces.SONICLOCATOR_INTERNALNAME);
+        super(MadMachines.SONICLOCATOR_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -305,7 +305,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
     @Override
     public String getMachineInternalName()
     {
-        return MadFurnaces.SONICLOCATOR_INTERNALNAME;
+        return MadMachines.SONICLOCATOR_INTERNALNAME;
     }
 
     public float getMaxHeatAmount()
@@ -808,7 +808,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
                 }
 
                 // Load this texture onto the entity.
-                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/cooldown" + curFrame + ".png";
+                soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/cooldown" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -823,32 +823,32 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
             if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
-                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
+                soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/idle.png";
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_EMPTY, 1.0F, 1.0F);
             }
             else
             {
-                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/404.png";
+                soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/404.png";
             }
         }
         else if (canSmelt() && isPowered() && isRedstonePowered() && !isEmptyTargetList() && !cooldownMode)
         {
             // Main state is when all four requirements have been met.
-            soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/charge" + this.getHeatLevelTimeScaled(13) + ".png";
+            soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/charge" + this.getHeatLevelTimeScaled(13) + ".png";
         }
         else if (!canSmelt() && isPowered() && !isRedstonePowered())
         {
             // Has power but still no redstone signal.
             currentHeatValue = 0;
             curFrame = 0;
-            soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+            soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/off.png";
         }
         else if (!canSmelt() && !isPowered() && isRedstonePowered())
         {
             // Has redstone signal and can smelt but has no power.
             if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
             {
-                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
+                soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/idle.png";
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
                 
                 // Disable cooldown mode if we encounter it.
@@ -861,7 +861,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
             }
             else
             {
-                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/undervolt.png";
+                soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/undervolt.png";
             }
         }
         else if (!canSmelt() && isPowered() && isRedstonePowered() && !cooldownMode)
@@ -870,7 +870,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
             if (curFrame <= 8 && worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle" + curFrame + ".png";
+                soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/idle" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -886,7 +886,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
             // Turned off.
             currentHeatValue = 0;
             curFrame = 0;
-            soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+            soniclocatorTexture = "models/" + MadMachines.SONICLOCATOR_INTERNALNAME + "/off.png";
         }
     }
 

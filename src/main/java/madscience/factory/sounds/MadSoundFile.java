@@ -4,7 +4,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.annotations.Expose;
 
-public class MadSoundFile implements IMadSound
+class MadSoundFile
 {
     @Expose private String soundNameWithoutExtension = null;
     @Expose private String soundNameWithExtension = null;
@@ -14,7 +14,7 @@ public class MadSoundFile implements IMadSound
     @Expose private MadSoundPlaybackTypeEnum soundPlaybackMode = null;
     @Expose private int randomVariance = 1;
     
-    public MadSoundFile(
+    MadSoundFile(
             String fileName,
             int length,
             int randomVariance,
@@ -32,43 +32,36 @@ public class MadSoundFile implements IMadSound
         this.randomVariance = randomVariance;
     }
 
-    @Override
     public String getSoundNameWithoutExtension()
     {
         return soundNameWithoutExtension;
     }
 
-    @Override
     public String getSoundNameWithExtension()
     {
         return soundNameWithExtension;
     }
 
-    @Override
     public MadSoundTriggerEnum getSoundTrigger()
     {
         return soundTrigger;
     }
 
-    @Override
     public int getSoundLengthInSeconds()
     {
         return soundLengthInSeconds;
     }
 
-    @Override
     public MadSoundPlaybackTypeEnum getSoundPlaybackMode()
     {
         return soundPlaybackMode;
     }
 
-    @Override
     public int getSoundRandomVariance()
     {
         return randomVariance;
     }
 
-    @Override
     public String getSoundExtension()
     {
         return soundExtension;

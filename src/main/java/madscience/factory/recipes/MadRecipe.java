@@ -3,14 +3,13 @@ package madscience.factory.recipes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import madscience.MadScience;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 
 import com.google.gson.annotations.Expose;
 
-public final class MadRecipe implements IMadRecipe
+public final class MadRecipe
 {
     /** Master list of recipes for this machine. */
     private final HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]> smeltingList = new HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]>();
@@ -27,7 +26,7 @@ public final class MadRecipe implements IMadRecipe
     /** Amount of experience the player will get after crafting this recipe. */
     @Expose private final float experienceFromCreation;
     
-    public MadRecipe(
+    public MadRecipe( // NO_UCD (unused code)
             MadSlotContainerTypeEnum ingredient1Slot,
             String ingredient1Info,
             MadSlotContainerTypeEnum ingredient2Slot,
@@ -162,21 +161,18 @@ public final class MadRecipe implements IMadRecipe
         this.experienceFromCreation = experienceGained;
     }
     
-    @Override
     public int getCreationTimeInSeconds()
     {
         return this.creationTimeInSeconds;
     }
-
-    @Override
+    
     public int getCreationTimeInTicks()
     {
         return this.creationTimeInSeconds * MadScience.SECOND_IN_TICKS;
     }
     
     /** Converts input parameters from recipe creation into components for machine recipe system. */
-    @Override
-    public MadRecipeComponent parseParametersToComponents(
+    private MadRecipeComponent parseParametersToComponents(
             MadSlotContainerTypeEnum slotType,
             String fullName)
     {
@@ -212,107 +208,104 @@ public final class MadRecipe implements IMadRecipe
         return null;
     }
     
-    @Override
-    public IMadRecipeComponent[] getRecipeResultBySlotType(MadSlotContainerTypeEnum slotType)
-    {
-        // If we have no recipe outputs then stop now!
-        if (this.outputResultsArray == null)
-        {
-            return null;
-        }
-        
-        // Create a temporary array to hold matching result types based on slot type.
-        ArrayList<MadRecipeComponent> tempInputList = new ArrayList<MadRecipeComponent>();
-        
-        // Loop through output recipe results.
-        for (MadRecipeComponent recipeResult : this.outputResultsArray) 
-        {
-            // Check for matching slot types.
-            if (recipeResult.getSlotType().equals(slotType))
-            {
-                // Add this to the list!
-                tempInputList.add(recipeResult);
-            }
-        }
-        
-        // Create temporary array of all inputed ingredient components.
-        MadRecipeComponent[] matchingRecipeResults = tempInputList.toArray(new MadRecipeComponent[tempInputList.size()]);
-        if (matchingRecipeResults != null)
-        {
-            return matchingRecipeResults;
-        }
-        
-        return null;
-    }
+// TODO Remove unused code found by UCDetector
+//     public MadRecipeComponent[] getRecipeResultBySlotType(MadSlotContainerTypeEnum slotType)
+//     {
+//         // If we have no recipe outputs then stop now!
+//         if (this.outputResultsArray == null)
+//         {
+//             return null;
+//         }
+//         
+//         // Create a temporary array to hold matching result types based on slot type.
+//         ArrayList<MadRecipeComponent> tempInputList = new ArrayList<MadRecipeComponent>();
+//         
+//         // Loop through output recipe results.
+//         for (MadRecipeComponent recipeResult : this.outputResultsArray) 
+//         {
+//             // Check for matching slot types.
+//             if (recipeResult.getSlotType().equals(slotType))
+//             {
+//                 // Add this to the list!
+//                 tempInputList.add(recipeResult);
+//             }
+//         }
+//         
+//         // Create temporary array of all inputed ingredient components.
+//         MadRecipeComponent[] matchingRecipeResults = tempInputList.toArray(new MadRecipeComponent[tempInputList.size()]);
+//         if (matchingRecipeResults != null)
+//         {
+//             return matchingRecipeResults;
+//         }
+//         
+//         return null;
+//     }
 
-    /** Returns array of results for the given parameters, returns empty array if nothing. */
-    @Override
-    public IMadRecipeComponent[] getRecipeResultByIngredients(
-            MadRecipeComponent ingredient1,
-            MadRecipeComponent ingredient2,
-            MadRecipeComponent ingredient3,
-            MadRecipeComponent ingredient4,
-            MadRecipeComponent ingredient5)
-    {
-        // Create a temporary array of these ingredients to query the mapping with.
-        ArrayList<MadRecipeComponent> tempInputList = new ArrayList<MadRecipeComponent>();
-        
-        // Only add input ingredients that are not null.
-        if (ingredient1 != null)
-        {
-            tempInputList.add(ingredient1);
-        }
-        
-        if (ingredient2 != null)
-        {
-            tempInputList.add(ingredient2);
-        }
-        
-        if (ingredient3 != null)
-        {
-            tempInputList.add(ingredient3);
-        }
-        
-        if (ingredient4 != null)
-        {
-            tempInputList.add(ingredient4);
-        }
-        
-        if (ingredient5 != null)
-        {
-            tempInputList.add(ingredient5);
-        }
-        
-        // Create temporary array of all inputed ingredient components.
-        IMadRecipeComponent[] queryIngredients = tempInputList.toArray(new MadRecipeComponent[tempInputList.size()]);
-        
-        // Iterate over all possible recipes in smelting array.
-        for(Entry<List<MadRecipeComponent[]>, MadRecipeComponent[]> entry : smeltingList.entrySet())
-        {
-            // Look for input that matches our own.
-            if (entry.getKey().equals(tempInputList))
-            {
-                return entry.getValue();
-            }
-        }
-        
-        // Default response is to null if nothing is found.
-        return null;
-    }
+// TODO Remove unused code found by UCDetector
+//     /** Returns array of results for the given parameters, returns empty array if nothing. */
+//     public MadRecipeComponent[] getRecipeResultByIngredients(
+//             MadRecipeComponent ingredient1,
+//             MadRecipeComponent ingredient2,
+//             MadRecipeComponent ingredient3,
+//             MadRecipeComponent ingredient4,
+//             MadRecipeComponent ingredient5)
+//     {
+//         // Create a temporary array of these ingredients to query the mapping with.
+//         ArrayList<MadRecipeComponent> tempInputList = new ArrayList<MadRecipeComponent>();
+//         
+//         // Only add input ingredients that are not null.
+//         if (ingredient1 != null)
+//         {
+//             tempInputList.add(ingredient1);
+//         }
+//         
+//         if (ingredient2 != null)
+//         {
+//             tempInputList.add(ingredient2);
+//         }
+//         
+//         if (ingredient3 != null)
+//         {
+//             tempInputList.add(ingredient3);
+//         }
+//         
+//         if (ingredient4 != null)
+//         {
+//             tempInputList.add(ingredient4);
+//         }
+//         
+//         if (ingredient5 != null)
+//         {
+//             tempInputList.add(ingredient5);
+//         }
+//         
+//         // Create temporary array of all inputed ingredient components.
+//         MadRecipeComponent[] queryIngredients = tempInputList.toArray(new MadRecipeComponent[tempInputList.size()]);
+//         
+//         // Iterate over all possible recipes in smelting array.
+//         for(Entry<List<MadRecipeComponent[]>, MadRecipeComponent[]> entry : smeltingList.entrySet())
+//         {
+//             // Look for input that matches our own.
+//             if (entry.getKey().equals(tempInputList))
+//             {
+//                 return entry.getValue();
+//             }
+//         }
+//         
+//         // Default response is to null if nothing is found.
+//         return null;
+//     }
 
-    @Override
-    public IMadRecipeComponent[] getInputIngredientsArray()
+    public MadRecipeComponent[] getInputIngredientsArray()
     {
         return inputIngredientsArray;
     }
 
-    @Override
-    public IMadRecipeComponent[] getOutputResultsArray()
+    public MadRecipeComponent[] getOutputResultsArray()
     {
         return outputResultsArray;
     }
 
-    @Override
     public float getExperienceFromCreation()
     {
         return experienceFromCreation;

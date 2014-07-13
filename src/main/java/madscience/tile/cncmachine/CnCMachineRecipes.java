@@ -21,7 +21,7 @@ public class CnCMachineRecipes
         String trimmedInput = String.valueOf(plainText.toLowerCase().trim());
 
         // Convert the plain text into a literal binary representation of itself.
-        String binaryASCII = MadUtils.AsciiToBinary(trimmedInput);
+        String binaryASCII = MadUtils.asciiToBinary(trimmedInput);
 
         // Debuggin'
         //MadScience.logger.info("ASCII:" + trimmedInput);

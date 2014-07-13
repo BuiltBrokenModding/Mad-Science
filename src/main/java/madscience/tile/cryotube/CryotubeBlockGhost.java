@@ -2,7 +2,7 @@ package madscience.tile.cryotube;
 
 import java.util.Random;
 
-import madscience.MadFurnaces;
+import madscience.MadMachines;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -79,7 +79,7 @@ public class CryotubeBlockGhost extends Block
     public int idDropped(int par1, Random par2Random, int par3)
     {
         // Since we are a ghost we return our parent object.
-        return MadFurnaces.CRYOTUBE_TILEENTITY.blockID;
+        return MadMachines.CRYOTUBE_TILEENTITY.blockID;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class CryotubeBlockGhost extends Block
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
         // Ghost objects return expected parent block.
-        return MadFurnaces.CRYOTUBE_TILEENTITY.blockID;
+        return MadMachines.CRYOTUBE_TILEENTITY.blockID;
     }
 
     @Override
@@ -138,10 +138,10 @@ public class CryotubeBlockGhost extends Block
                 switch (meta)
                 {
                 case 1:
-                    player.openGui(MadScience.instance, MadFurnaces.CRYOTUBE_TILEENTITY.blockID, world, x, y - 1, z);
+                    player.openGui(MadScience.instance, MadMachines.CRYOTUBE_TILEENTITY.blockID, world, x, y - 1, z);
                     break;
                 case 2:
-                    player.openGui(MadScience.instance, MadFurnaces.CRYOTUBE_TILEENTITY.blockID, world, x, y - 2, z);
+                    player.openGui(MadScience.instance, MadMachines.CRYOTUBE_TILEENTITY.blockID, world, x, y - 2, z);
                     break;
                 }
             }
@@ -158,7 +158,7 @@ public class CryotubeBlockGhost extends Block
     public void registerIcons(IconRegister icon)
     {
         // Since we are a ghost we use our parents icon information.
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadMachines.CRYOTUBE_INTERNALNAME);
     }
 
     @Override

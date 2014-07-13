@@ -1,20 +1,17 @@
 package madscience.factory;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import madscience.MadScience;
-import madscience.factory.buttons.IMadGUIButton;
-import madscience.factory.controls.IMadGUIControl;
-import madscience.factory.energy.IMadEnergy;
-import madscience.factory.fluids.IMadFluid;
-import madscience.factory.recipes.IMadRecipe;
-import madscience.factory.recipes.IMadRecipeComponent;
-import madscience.factory.slotcontainers.IMadSlotContainer;
-import madscience.factory.sounds.IMadSound;
+import madscience.factory.buttons.MadGUIButton;
+import madscience.factory.controls.MadGUIControl;
+import madscience.factory.energy.MadEnergy;
+import madscience.factory.fluids.MadFluid;
+import madscience.factory.recipes.MadRecipe;
+import madscience.factory.recipes.MadRecipeComponent;
+import madscience.factory.slotcontainers.MadSlotContainer;
+import madscience.factory.sounds.MadSound;
 import madscience.factory.sounds.MadSoundPlaybackTypeEnum;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadContainerTemplate;
@@ -26,49 +23,71 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import org.apache.commons.io.FileUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import cpw.mods.fml.client.FMLClientHandler;
-
 public class MadTileEntityFactoryProduct
 {
-    private MadTileEntityFactoryProductData data = new MadTileEntityFactoryProductData(
-            new IMadSlotContainer[0],
-            new IMadGUIControl[0],
-            new IMadGUIButton[0],
-            new IMadFluid[0],
-            new IMadEnergy[0],
-            new IMadSound[0],
-            new IMadRecipe[0]);
+    /** Serializable class that holds references to all needed data to create a factory machine. */
+    private MadTileEntityFactoryProductData data = null;
+    
+    /** Stores if we have loaded the sounds or not, allowing us to throw an error if called again */
+    private boolean soundArchiveLoaded;
+    
+    /** Stores block container class which provides Forge/MC with server side slot info. */
+    private BlockContainer blockContainer;
+    
+    /** Stores reference to tile entity class itself which makes up logic or brains of this machine. */
+    private Class<? extends MadTileEntityPrefab> tileEntityLogicClass;
 
-    MadTileEntityFactoryProduct(String machineName, int blockID, String logicClassNamespace)
+    MadTileEntityFactoryProduct(MadTileEntityFactoryProductData machineData)
     {
-        // Important information that makes up the basics of any machine.
-        this.data.machineName = machineName;
-        this.data.blockID = blockID;
+        super();
+        
+        // Transfer the configuration data into the product which we will use to create everything we need.
+        this.data = machineData;
         
         // Load the class file from the provided namespace.
-        this.data.logicClassFullyQualifiedName = logicClassNamespace;
+        this.tileEntityLogicClass = getLogicClassByNamespace(machineData.getLogicClassFullyQualifiedName());
+
+        // Setup the block which will create the tile entity once placed in the game world.
+        this.blockContainer = (BlockContainer) new MadTileEntityBlockTemplate(this);
+    }
+
+    /** Converts fully qualified domain name for a given class into that class. It must be based on MineTileEntityPrefab or loading will fail! */
+    private Class<? extends MadTileEntityPrefab> getLogicClassByNamespace(String fullyQualifiedName)
+    {
+        // Check input data for null.
+        if (fullyQualifiedName == null)
+        {
+            return null;
+        }
+        
+        // Check if there is any string data at all.
+        if (fullyQualifiedName.isEmpty())
+        {
+            return null;
+        }
+        
+        Class<? extends MadTileEntityPrefab> tempClass = null;
         try
         {
             // Forcefully cast whatever we attempt to load as MadTileEntity since that is the only thing we will work with.
-            this.data.tileEntityLogicClass = (Class<? extends MadTileEntityPrefab>) Class.forName(logicClassNamespace);
+            tempClass = (Class<? extends MadTileEntityPrefab>) Class.forName(fullyQualifiedName);
+            if (tempClass != null)
+            {
+                return  tempClass;
+            }
         }
         catch (ClassNotFoundException err)
         {
             err.printStackTrace();
         }
-
-        // Setup the block which will create the tile entity once placed in the game world.
-        this.data.blockContainer = (BlockContainer) new MadTileEntityBlockTemplate(this);
+        
+        // Default response is to return nothing!
+        return null;
     }
 
     public int getBlockID()
     {
-        return data.blockID;
+        return data.getBlockID();
     }
 
     /** Returns client GUI which can be pushed to renderer. */
@@ -77,35 +96,35 @@ public class MadTileEntityFactoryProduct
         return new MadGUITemplate(playerEntity, worldEntity);
     }
 
-    public IMadSlotContainer[] getContainerTemplate()
+    public MadSlotContainer[] getContainerTemplate()
     {
-        return data.containerTemplate;
+        return data.getContainerTemplate();
     }
 
-    public IMadEnergy[] getEnergySupported()
+    public MadEnergy[] getEnergySupported()
     {
-        return data.energySupported;
+        return data.getEnergySupported();
     }
 
-    public IMadFluid[] getFluidsSupported()
+    public MadFluid[] getFluidsSupported()
     {
-        return data.fluidsSupported;
+        return data.getFluidsSupported();
     }
 
-    public IMadGUIButton[] getGuiButtonTemplate()
+    public MadGUIButton[] getGuiButtonTemplate()
     {
-        return data.guiButtonTemplate;
+        return data.getGuiButtonTemplate();
     }
 
-    public IMadGUIControl[] getGuiControlsTemplate()
+    public MadGUIControl[] getGuiControlsTemplate()
     {
-        return data.guiControlsTemplate;
+        return data.getGuiControlsTemplate();
     }
 
     /** Returns machines internal name as it should be referenced by rest of code. */
     public String getMachineName()
     {
-        return data.machineName;
+        return data.getMachineName();
     }
 
     /** Returns container slots for storing items in machines on server. */
@@ -114,34 +133,9 @@ public class MadTileEntityFactoryProduct
         return new MadContainerTemplate(playerEntity, worldEntity);
     }
 
-    public void setContainerTemplate(IMadSlotContainer[] containerTemplate)
-    {
-        this.data.containerTemplate = containerTemplate;
-    }
-
-    public void setEnergySupported(IMadEnergy[] energySupported)
-    {
-        this.data.energySupported = energySupported;
-    }
-
-    public void setFluidsSupported(IMadFluid[] fluidSupported)
-    {
-        this.data.fluidsSupported = fluidSupported;
-    }
-
-    public void setGuiButtonTemplate(IMadGUIButton[] guiButtonTemplate)
-    {
-        this.data.guiButtonTemplate = guiButtonTemplate;
-    }
-
-    public void setGuiControlsTemplate(IMadGUIControl[] guiControlsTemplate)
-    {
-        this.data.guiControlsTemplate = guiControlsTemplate;
-    }
-
     public BlockContainer getBlockContainer()
     {
-        return data.blockContainer;
+        return blockContainer;
     }
 
     public MadTileEntityPrefab getNewTileEntityLogicClassInstance()
@@ -149,7 +143,7 @@ public class MadTileEntityFactoryProduct
         // Attempt to create a new instance of the logic class that was passed to us at creation.
         try
         {
-            return data.tileEntityLogicClass.getDeclaredConstructor(MadTileEntityFactoryProduct.class).newInstance(this);
+            return tileEntityLogicClass.getDeclaredConstructor(MadTileEntityFactoryProduct.class).newInstance(this);
         }
         catch (Exception err)
         {
@@ -164,33 +158,33 @@ public class MadTileEntityFactoryProduct
     public Class<? extends MadTileEntityPrefab> getTileEntityLogicClass()
     {
         // Returns the reference to class for logic that makes up our tile entity.
-        return data.tileEntityLogicClass;
+        return tileEntityLogicClass;
     }
 
     public void loadRecipes()
     {
         // Complain if we are somehow already loaded!
-        if (this.data.recipeArchive == null)
+        if (this.data.getRecipeArchive() == null)
         {
-            MadScience.logger.warning("[MadTileEntityFactoryProduct]Unable to load recipes for '" + this.data.machineName + "' because it has none!");
+            MadScience.logger.warning("[MadTileEntityFactoryProduct]Unable to load recipes for '" + this.data.getMachineName() + "' because it has none!");
             return;
         }
 
         // Recipe archives are nested so we need to loop through them to get to first one (even if it is the only one).
         int totalLoadedRecipeItems = 0;
         int totalFailedRecipeItems = 0;
-        for (IMadRecipe machineRecipe : this.data.recipeArchive)
+        for (MadRecipe machineRecipe : this.data.getRecipeArchive())
         {
             // Recipe ingredients.
-            for (IMadRecipeComponent inputIngredient : machineRecipe.getInputIngredientsArray())
+            for (MadRecipeComponent inputIngredient : machineRecipe.getInputIngredientsArray())
             {
                 if (inputIngredient.getSlotType().name().toLowerCase().contains("input"))
                 {
                     // Starting building output string now, append to it below.
-                    String resultInputPrint = "[" + this.data.machineName + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName();
+                    String resultInputPrint = "[" + this.data.getMachineName() + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName();
 
                     // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                    ItemStack inputItem = MadTileEntityFactory.findItemStack(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
+                    ItemStack inputItem = MadTileEntityFactory.getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
 
                     boolean searchResult = false;
                     if (inputItem != null)
@@ -215,17 +209,17 @@ public class MadTileEntityFactoryProduct
                 }
                 else
                 {
-                    MadScience.logger.info("[" + this.data.machineName + "]Bad Input: " + inputIngredient.getSlotType().name());
+                    MadScience.logger.info("[" + this.data.getMachineName() + "]Bad Input: " + inputIngredient.getSlotType().name());
                 }
             }
 
             // Recipe results.
-            for (IMadRecipeComponent outputResult : machineRecipe.getOutputResultsArray())
+            for (MadRecipeComponent outputResult : machineRecipe.getOutputResultsArray())
             {
                 if (outputResult.getSlotType().name().toLowerCase().contains("output"))
                 {
-                    String resultOutputPrint = "[" + this.data.machineName + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName();
-                    ItemStack outputStack = MadTileEntityFactory.findItemStack(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
+                    String resultOutputPrint = "[" + this.data.getMachineName() + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName();
+                    ItemStack outputStack = MadTileEntityFactory.getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
 
                     boolean searchResult = false;
                     if (outputStack != null)
@@ -249,39 +243,34 @@ public class MadTileEntityFactoryProduct
                 }
                 else
                 {
-                    MadScience.logger.info("[" + this.data.machineName + "]Bad Output: " + outputResult.getSlotType().name());
+                    MadScience.logger.info("[" + this.data.getMachineName() + "]Bad Output: " + outputResult.getSlotType().name());
                 }
             }
         }
 
-        MadScience.logger.info("[" + this.data.machineName + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
-        MadScience.logger.info("[" + this.data.machineName + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
-    }
-
-    public void setSoundArchive(IMadSound[] soundArchive)
-    {
-        this.data.soundArchive = soundArchive;
+        MadScience.logger.info("[" + this.data.getMachineName() + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
+        MadScience.logger.info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
     }
 
     public String[] getSoundArchiveFilenameArray()
     {
         // Throw an exception if we have already done this! Bad programmer!
-        if (data.soundArchiveLoaded)
+        if (soundArchiveLoaded)
         {
-            throw new IllegalStateException("Sound archive for '" + this.data.machineName + "' has already been loaded!");
+            throw new IllegalStateException("Sound archive for '" + this.data.getMachineName() + "' has already been loaded!");
         }
 
         // Close the door behind us.
-        this.data.soundArchiveLoaded = true;
+        this.soundArchiveLoaded = true;
 
         // List we will be returning if everything goes well.
         List<String> soundFileList = new ArrayList<String>();
 
         // Begin looping through all the sounds that makeup this particular product.
-        for (int i = 0; i < data.soundArchive.length; i++)
+        for (int i = 0; i < data.getSoundArchive().length; i++)
         {
             // Grab the interface to particular sound.
-            IMadSound machineSound = data.soundArchive[i];
+            MadSound machineSound = data.getSoundArchive()[i];
             if (machineSound == null)
             {
                 continue;
@@ -294,14 +283,14 @@ public class MadTileEntityFactoryProduct
                 // Note: Minecraft will automatically play a random sound if named File1,2,3.
                 for (int x = 1; x < machineSound.getSoundRandomVariance(); x = x++)
                 {
-                    soundFileList.add(MadScience.ID + ":" + this.data.machineName + "/" + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension());
+                    soundFileList.add(MadScience.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension());
                 }
                 continue;
             }
             else
             {
                 // Add just the individual sound file.
-                soundFileList.add(MadScience.ID + ":" + this.data.machineName + "/" + machineSound.getSoundNameWithExtension());
+                soundFileList.add(MadScience.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithExtension());
                 continue;
             }
         }
@@ -322,9 +311,9 @@ public class MadTileEntityFactoryProduct
     public void playTriggerSound(MadSoundTriggerEnum trigger, int x, int y, int z, World worldObj)
     {
         // Locate the sound to play based on trigger enumeration.
-        for (int i = 0; i < data.soundArchive.length; i++)
+        for (int i = 0; i < data.getSoundArchive().length; i++)
         {
-            IMadSound machineSound = data.soundArchive[i];
+            MadSound machineSound = data.getSoundArchive()[i];
             if (machineSound == null)
             {
                 continue;
@@ -334,7 +323,7 @@ public class MadTileEntityFactoryProduct
             // Note: Multiple triggers of same type will break on first instance.
             if (machineSound.getSoundTrigger().equals(trigger))
             {
-                String soundName = MadScience.ID + ":" + this.data.machineName + "." + machineSound.getSoundNameWithoutExtension();
+                String soundName = MadScience.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
                 worldObj.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, soundName, 1.0F, 1.0F);
                 //MadScience.logger.info("[" + this.machineName + "]Playing Sound: " + soundName);
                 break;
@@ -342,64 +331,13 @@ public class MadTileEntityFactoryProduct
         }
     }
     
-    private static String GetValidFileName(String fileName)
+    public MadRecipe[] getRecipeArchive()
     {
-        String cleanedFilename = null;
-        try
-        {
-            cleanedFilename = new String(fileName.getBytes(), "UTF-8");
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-        cleanedFilename = cleanedFilename.replaceAll("[\\?\\\\/:|<>\\*]", " "); //filter ? \ / : | < > *
-        cleanedFilename = cleanedFilename.replaceAll("\\s+", "_");
-        return cleanedFilename;
-    }
-
-    public IMadRecipe[] getRecipeArchive()
-    {
-        return data.recipeArchive;
-    }
-
-    public void setRecipeArchive(IMadRecipe[] recipeArchive)
-    {
-        this.data.recipeArchive = recipeArchive;
-    }
-    
-    public void dumpJSONToDisk()
-    {
-        // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-        
-        // Convert the data portion of our tile entity factory product to JSON string.
-        String json = gson.toJson(data);
-        
-        // Save this information to the disk!
-        File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
-        try
-        {
-            FileUtils.writeStringToFile(new File(dataDir, "json/" + GetValidFileName(data.machineName) + ".json"), json);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        
-        // Debugging!
-        System.out.println(json);
+        return data.getRecipeArchive();
     }
 
     public MadTileEntityFactoryProductData getData()
     {
         return data;
-    }
-
-    public void setData(MadTileEntityFactoryProductData data)
-    {
-        this.data = data;
     }
 }
