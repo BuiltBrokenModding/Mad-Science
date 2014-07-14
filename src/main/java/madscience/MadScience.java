@@ -115,7 +115,11 @@ public class MadScience
             MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
             if (registeredMachine != null)
             {
-                registeredMachine.loadRecipes();
+                // Recipes that pertain to machine itself, association slots with items they should have in them.
+                registeredMachine.loadMachineInternalRecipes();
+                
+                // Recipes for crafting the machine itself, registered with Minecraft/Forge GameRegistry.
+                registeredMachine.loadCraftingRecipes();
             }
         }
         
@@ -389,7 +393,7 @@ public class MadScience
         logger.info("Creating Tile Entities");
 
         // Add machines to factory loaded from flat files on drive.
-        MadMachines.loadMachinesFromAssets(MadConfig.DNA_EXTRACTOR);
+        MadMachines.loadMachinesFromAssets();
         
         MadMachines.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadMachines.createMainframeTileEntity(MadConfig.MAINFRAME);

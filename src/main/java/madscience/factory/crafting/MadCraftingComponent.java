@@ -1,16 +1,12 @@
-package madscience.factory.recipes;
+package madscience.factory.crafting;
 
 import madscience.MadScience;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;
 
-public class MadRecipeComponent
+public class MadCraftingComponent
 {
-    /** Determines where an individual recipe item will go in slot. */
-    @Expose private MadSlotContainerTypeEnum slotDestination;
-    
     /** Holds reference to the item (meta or otherwise) that we expect in given slot. */
     @Expose private String slotExpectedItem;
     
@@ -23,26 +19,24 @@ public class MadRecipeComponent
     /** Reference to how much damage this item has or in the case of meta items determines which one it will be. */
     @Expose private int metaDamage;
     
+    /** Reference to position this item needs to be in the crafting grid to maintain list order. */
+    @Expose private int craftingGridPosition;
+    
     /** Determines if this recipe has been recognized by Minecraft/Forge GameRegistry as being valid. */
     private boolean hasLoaded = false;
     
     /** Stores reference to recipe component ItemStack (with metadata). Populated when loadRecipes() is called.*/
     private ItemStack associatedItemStack = null;
     
-    MadRecipeComponent(MadSlotContainerTypeEnum slotDestination, String parentModID, String internalName, int metaDamage, int amount)
+    MadCraftingComponent(int craftingGridPosition, String parentModID, String internalName, int metaDamage, int amount)
     {
         super();
         
-        this.slotDestination = slotDestination;
+        this.craftingGridPosition = craftingGridPosition;
         this.parentModID = parentModID;
         this.slotExpectedItem = internalName;
         this.metaDamage = metaDamage;
         this.slotExpectedAmount = amount;
-    }
-
-    public MadSlotContainerTypeEnum getSlotType()
-    {
-        return this.slotDestination;
     }
 
     public String getInternalName()
@@ -111,5 +105,10 @@ public class MadRecipeComponent
     public String getExpectedItemName()
     {
         return this.slotExpectedItem;
+    }
+
+    public int getCraftingGridPosition()
+    {
+        return this.craftingGridPosition;
     }
 }

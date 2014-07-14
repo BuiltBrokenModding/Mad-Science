@@ -20,7 +20,6 @@ public class MadTileEntityFactory
 
     public static MadTileEntityFactoryProduct getMachineInfo(String id)
     {
-        //MadScience.logger.info("[MadTileEntityFactory]Querying machine: " + id);
         return registeredMachines.get(id);
     }
 
@@ -33,7 +32,7 @@ public class MadTileEntityFactory
     {
         return !registeredMachines.containsKey(id);
     }
-    
+
     /** Return itemstack from GameRegistry or from vanilla Item/Block list. */
     static ItemStack getItemStackFromString(String modID, String itemName, int stackSize, int metaData)
     {
@@ -43,30 +42,28 @@ public class MadTileEntityFactory
         {
             return potentialModItem;
         }
-        
+
         // Only continue if modID is for minecraft vanilla items or blocks.
         if (!modID.equals("minecraft"))
         {
             return null;
         }
-        
+
         // Vanilla item query.
-        for(Item potentialMCItem : Item.itemsList) 
+        for (Item potentialMCItem : Item.itemsList)
         {
-            if(potentialMCItem == null)
+            if (potentialMCItem == null)
             {
                 continue;
             }
-            
+
             ItemStack vanillaItemStack = new ItemStack(potentialMCItem, metaData, stackSize);
-            
+
             if (vanillaItemStack != null)
             {
                 try
                 {
                     String vanillaItemUnlocalizedName = MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName());
-                    //MadScience.logger.info(vanillaItemStack.getUnlocalizedName());
-                    
                     if (vanillaItemUnlocalizedName.equals(itemName))
                     {
                         return vanillaItemStack;
@@ -78,24 +75,22 @@ public class MadTileEntityFactory
                 }
             }
         }
-        
+
         // Vanilla block query.
-        for(Block potentialMCBlock : Block.blocksList) 
+        for (Block potentialMCBlock : Block.blocksList)
         {
-            if(potentialMCBlock == null)
+            if (potentialMCBlock == null)
             {
                 continue;
             }
-            
+
             ItemStack vanillaItemStack = new ItemStack(potentialMCBlock, metaData, stackSize);
-            
+
             if (vanillaItemStack != null)
             {
                 try
                 {
                     String vanillaBlockUnlocalizedName = MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName());
-                    //MadScience.logger.info(vanillaItemStack.getUnlocalizedName());
-                    
                     if (vanillaBlockUnlocalizedName.equals(itemName))
                     {
                         return vanillaItemStack;
@@ -107,20 +102,20 @@ public class MadTileEntityFactory
                 }
             }
         }
-        
+
         // Last ditch effort to save compatibility starts here!
         if (itemName.equals("dyePowder") || itemName.equals("dye"))
         {
             // Return whatever type of dye was requested.
             return new ItemStack(Item.dyePowder, metaData, stackSize);
         }
-        
+
         if (itemName.equals("wool") || itemName.equals("cloth"))
         {
             // Return whatever color wool was requested.
             return new ItemStack(Block.cloth, metaData, stackSize);
         }
-        
+
         // Default response is to return nothing.
         return null;
     }
@@ -129,7 +124,7 @@ public class MadTileEntityFactory
     {
         // Pass the data object into the product to activate it, creates needed data structures inside it based on data supplied.
         MadTileEntityFactoryProduct tileEntityProduct = new MadTileEntityFactoryProduct(machineData);
-        
+
         // Check to make sure we have not added this machine before.
         if (!isValidMachineID(tileEntityProduct.getMachineName()))
         {
@@ -138,15 +133,15 @@ public class MadTileEntityFactory
 
         // Debugging!
         MadScience.logger.info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
-        
+
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
-        
+
         // Register the machine with Minecraft/Forge.
         GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), tileEntityProduct.getMachineName());
         GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadScience.ID + tileEntityProduct.getMachineName());
         MadScience.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
-        
+
         return tileEntityProduct;
     }
 }

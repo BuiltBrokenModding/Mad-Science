@@ -24,51 +24,51 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class MadComponents
 {
     // Case
-    static ComponentCase COMPONENT_CASE;
+    public static ComponentCase COMPONENT_CASE;
     private static final String COMPONENT_CASE_INTERNALNAME = "componentCase";
 
     // CPU
-    static ComponentCPU COMPONENT_CPU;
+    public static ComponentCPU COMPONENT_CPU;
     private static final String COMPONENT_CPU_INTERNALNAME = "componentCPU";
 
     // Fan
-    static ComponentFan COMPONENT_FAN;
+    public static ComponentFan COMPONENT_FAN;
     private static final String COMPONENT_FAN_INTERNALNAME = "componentFan";
 
     // Power Supply
-    static ComponentPowerSupply COMPONENT_POWERSUPPLY;
+    public static ComponentPowerSupply COMPONENT_POWERSUPPLY;
     private static final String COMPONENT_POWERSUPPLY_INTERNALNAME = "componentPowerSupply";
 
     // RAM
-    static ComponentRAM COMPONENT_RAM;
+    public static ComponentRAM COMPONENT_RAM;
     private static final String COMPONENT_RAM_INTERNALNAME = "componentRAM";
 
     // Silicon Wafer
-    static ComponentSiliconWafer COMPONENT_SILICONWAFER;
+    public static ComponentSiliconWafer COMPONENT_SILICONWAFER;
     private static final String COMPONENT_SILICONWAFER_INTERNALNAME = "componentSiliconWafer";
 
     // Computer
-    static ComponentComputer COMPONENT_COMPUTER;
+    public static ComponentComputer COMPONENT_COMPUTER;
     private static final String COMPONENT_COMPUTER_INTERNALNAME = "componentComputer";
 
     // Screen
-    static ComponentScreen COMPONENT_SCREEN;
+    public static ComponentScreen COMPONENT_SCREEN;
     private static final String COMPONENT_SCREEN_INTERNALNAME = "componentScreen";
 
     // Transistor
-    static ComponentTransistor COMPONENT_TRANSISTOR;
+    public static ComponentTransistor COMPONENT_TRANSISTOR;
     private static final String COMPONENT_TRANSISTOR_INTERNALNAME = "componentTransistor";
 
     // Fused Quartz
-    static ComponentFusedQuartz COMPONENT_FUSEDQUARTZ;
+    public static ComponentFusedQuartz COMPONENT_FUSEDQUARTZ;
     private static final String COMPONENT_FUSEDQUARTZ_INTERNALNAME = "componentFusedQuartz";
 
     // Magnetic Tape
-    static ComponentMagneticTape COMPONENT_MAGNETICTAPE;
+    public static ComponentMagneticTape COMPONENT_MAGNETICTAPE;
     private static final String COMPONENT_MAGNETICTAPE_INTERNALNAME = "componentMagneticTape";
     
     // Thumper
-    static ComponentThumper COMPONENT_THUMPER;
+    public static ComponentThumper COMPONENT_THUMPER;
     private static final String COMPONENT_THUMPER_INTERNALNAME = "componentThumper";
     
     // Ender Slime

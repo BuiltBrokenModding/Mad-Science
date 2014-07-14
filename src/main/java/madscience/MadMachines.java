@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.MadTileEntityFactoryProductData;
+import madscience.factory.crafting.MadCraftingRecipe;
+import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
@@ -140,7 +142,7 @@ public class MadMachines
     // -----------------------------
 
     @EventHandler
-    static void loadMachinesFromAssets(int blockID)
+    static void loadMachinesFromAssets()
     {
         // Name of the JSON file we are looking for along the classpath.
         String expectedFilename = "tiles.json";
@@ -189,6 +191,25 @@ public class MadMachines
             // Loop through the array of product data and register them as machines.
             for (MadTileEntityFactoryProductData unregisteredMachine : loadedMachines)
             {
+//                if (unregisteredMachine.getMachineName().equals("dnaExtractor"))
+//                {
+//                    MadCraftingRecipe testRecipe = new MadCraftingRecipe(
+//                            MadCraftingRecipeTypeEnum.SHAPED,
+//                            1,
+//                            "0:madscience:componentCase:0:1",
+//                            "1:madscience:circuitEnderEye:0:1",
+//                            "2:madscience:componentCase:0:1",
+//                            "3:madscience:componentCase:0:1",
+//                            "4:madscience:circuitSpiderEye:0:1",
+//                            "5:madscience:componentCase:0:1",
+//                            "6:madscience:componentCase:0:1",
+//                            "7:madscience:componentComputer:0:1",
+//                            "8:madscience:componentCase:0:1");
+//                    
+//                    MadCraftingRecipe[] testRecipeArray = {testRecipe};
+//                    unregisteredMachine.setCraftingRecipes(testRecipeArray);
+//                }
+                
                 // Register machine with the registry so we can generate all needed MC/Forge data.
                 MadTileEntityFactoryProduct machineToAdd = null;
                 machineToAdd = MadTileEntityFactory.registerMachine(unregisteredMachine);

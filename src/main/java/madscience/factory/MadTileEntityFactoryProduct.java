@@ -3,9 +3,13 @@ package madscience.factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
+import madscience.factory.crafting.MadCraftingComponent;
+import madscience.factory.crafting.MadCraftingRecipe;
+import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.recipes.MadRecipe;
@@ -160,13 +164,117 @@ public class MadTileEntityFactoryProduct
         // Returns the reference to class for logic that makes up our tile entity.
         return tileEntityLogicClass;
     }
+    
+    /** Loads recipes associated with the machine itself so that it may be crafted in the game.
+     * This should only be run once, and in postInit after all other mods have been loaded so items from them may be queried. */
+    public void loadCraftingRecipes()
+    {
+        // Complain if we are somehow already loaded!
+        if (this.data.getCraftingRecipes() == null)
+        {
+            MadScience.logger.warning("[MadTileEntityFactoryProduct]Unable to load crafting recipes for '" + this.data.getMachineName() + "' because it has none!");
+            return;
+        }
+        
+        int totalLoadedRecipeItems = 0;
+        int totalFailedRecipeItems = 0;
+        for (MadCraftingRecipe machineCraftingRecipe : this.data.getCraftingRecipes())
+        {
+            boolean errorsWithAssociation = true;
+            MadCraftingComponent[] recipeArray = new MadCraftingComponent[9];
+            for (MadCraftingComponent recipeComponent : machineCraftingRecipe.getCraftingRecipeComponents())
+            {
+                // Starting building output string now, append to it below.
+                String resultInputPrint = "[" + this.data.getMachineName() + "]Crafting Component " + recipeComponent.getModID() + ":" + recipeComponent.getInternalName();
 
-    public void loadRecipes()
+                // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
+                ItemStack inputItem = MadTileEntityFactory.getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
+
+                boolean searchResult = false;
+                if (inputItem != null)
+                {
+                    searchResult = true;
+                    totalLoadedRecipeItems++;
+                    resultInputPrint += "=SUCCESS";
+                    recipeComponent.associateItemStackToRecipeComponent(inputItem.copy());
+                }
+                else
+                {
+                    searchResult = false;
+                    totalFailedRecipeItems++;
+                    resultInputPrint += "=FAILED";
+                }
+                
+                // Mark this entry as being valid since we made it this far.
+                errorsWithAssociation = false;
+                
+                // Add the recipe element to an array we will use to add recipe to Minecraft/Forge.
+                recipeArray[recipeComponent.getCraftingGridPosition()] = recipeComponent;
+
+                // Debugging!
+                if (!searchResult)
+                {
+                    MadScience.logger.info(resultInputPrint);
+                }
+            }
+            
+            // If the above crafting component registration went well then we will add them to Minecraft/Forge for consumption.
+            if (!errorsWithAssociation && recipeArray != null)
+            {
+                switch (machineCraftingRecipe.getCraftingRecipeType())
+                {
+                case SHAPED:
+                    GameRegistry.addShapedRecipe(new ItemStack(this.getBlockContainer(), machineCraftingRecipe.getCraftingAmount()), new Object[]
+                            { "012",
+                              "345",
+                              "678",
+
+                              '0', recipeArray[0].getItemStack(),
+                              '1', recipeArray[1].getItemStack(),
+                              '2', recipeArray[2].getItemStack(),
+                              '3', recipeArray[3].getItemStack(),
+                              '4', recipeArray[4].getItemStack(),
+                              '5', recipeArray[5].getItemStack(),
+                              '6', recipeArray[6].getItemStack(),
+                              '7', recipeArray[7].getItemStack(),
+                              '8', recipeArray[8].getItemStack()});
+                    break;
+                case SHAPELESS:
+                    GameRegistry.addShapelessRecipe(new ItemStack(this.getBlockContainer(), machineCraftingRecipe.getCraftingAmount()), new Object[]
+                            { 
+                                recipeArray[0].getItemStack(),
+                                recipeArray[1].getItemStack(),
+                                recipeArray[2].getItemStack(),
+                                recipeArray[3].getItemStack(),
+                                recipeArray[4].getItemStack(),
+                                recipeArray[5].getItemStack(),
+                                recipeArray[6].getItemStack(),
+                                recipeArray[7].getItemStack(),
+                                recipeArray[8].getItemStack()});
+                    break;
+                default:
+                    break;
+                }
+            }
+            else
+            {
+                MadScience.logger.info("[" + this.data.getMachineName() + "]Bad Crafting Recipe: " + machineCraftingRecipe.getCraftingRecipeType().name());
+            }
+        }
+        
+        // Information about total loaded and failed.
+        MadScience.logger.info("[" + this.data.getMachineName() + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
+        MadScience.logger.info("[" + this.data.getMachineName() + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
+    }
+
+    /** Loads all recipes associated with slots inside of the machine allowing it to verify it's list against actual game items.
+     * This should only be run once, and in postInit after all other mods have been loaded so items from them may be queried. */
+    public void loadMachineInternalRecipes()
     {
         // Complain if we are somehow already loaded!
         if (this.data.getRecipeArchive() == null)
         {
-            MadScience.logger.warning("[MadTileEntityFactoryProduct]Unable to load recipes for '" + this.data.getMachineName() + "' because it has none!");
+            MadScience.logger.warning("[MadTileEntityFactoryProduct]Unable to load internal machine recipes for '" + this.data.getMachineName() + "' because it has none!");
             return;
         }
 
@@ -192,7 +300,7 @@ public class MadTileEntityFactoryProduct
                         searchResult = true;
                         totalLoadedRecipeItems++;
                         resultInputPrint += "=SUCCESS";
-                        inputIngredient.loadRecipe(inputItem.copy());
+                        inputIngredient.associateItemStackToRecipeComponent(inputItem.copy());
                     }
                     else
                     {
@@ -227,7 +335,7 @@ public class MadTileEntityFactoryProduct
                         searchResult = true;
                         totalLoadedRecipeItems++;
                         resultOutputPrint += "=SUCCESS";
-                        outputResult.loadRecipe(outputStack.copy());
+                        outputResult.associateItemStackToRecipeComponent(outputStack.copy());
                     }
                     else
                     {
@@ -329,6 +437,11 @@ public class MadTileEntityFactoryProduct
                 break;
             }
         }
+    }
+    
+    public MadCraftingRecipe[] getCraftingRecipe()
+    {
+        return data.getCraftingRecipes();
     }
     
     public MadRecipe[] getRecipeArchive()

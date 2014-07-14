@@ -1204,6 +1204,70 @@
         "creationTimeInSeconds": 60,
         "experienceFromCreation": 0.35
       }
+    ],
+    "craftingRecipes": [
+      {
+        "craftingRecipeComponents": [
+          {
+            "slotExpectedItem": "componentCase",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 0
+          },
+          {
+            "slotExpectedItem": "componentCase",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 2
+          },
+          {
+            "slotExpectedItem": "componentCase",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 3
+          },
+          {
+            "slotExpectedItem": "circuitSpiderEye",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 4
+          },
+          {
+            "slotExpectedItem": "componentCase",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 5
+          },
+          {
+            "slotExpectedItem": "componentCase",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 6
+          },
+          {
+            "slotExpectedItem": "componentComputer",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 7
+          },
+          {
+            "slotExpectedItem": "componentCase",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 8
+          }
+        ],
+        "craftingRecipeType": "SHAPED",
+        "craftingAmount": 1
+      }
     ]
   }
 ]

@@ -2,6 +2,7 @@ package madscience.factory;
 
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
+import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.recipes.MadRecipe;
@@ -52,6 +53,10 @@ public class MadTileEntityFactoryProductData
     @Expose
     private MadRecipe[] recipeArchive;
     
+    /** Stores recipes that are used to make this machine itself. */
+    @Expose
+    private MadCraftingRecipe[] craftingRecipes;
+    
     public MadTileEntityFactoryProductData( // NO_UCD (unused code)
             String machineName,
             int blockID,
@@ -62,7 +67,8 @@ public class MadTileEntityFactoryProductData
             MadFluid[] fluidsTemplate,
             MadEnergy[] energyTemplate,
             MadSound[] soundArchive,
-            MadRecipe[] recipeArchive)
+            MadRecipe[] recipeArchive,
+            MadCraftingRecipe[] craftingRecipe)
     {
         super();
         
@@ -75,10 +81,19 @@ public class MadTileEntityFactoryProductData
         this.containerTemplate = containerTemplate;
         this.guiControlsTemplate = guiTemplate;
         this.guiButtonTemplate = buttonTemplate;
+        
+        // Fluids.
         this.fluidsSupported = fluidsTemplate;
+        
+        // Electricity.
         this.energySupported = energyTemplate;
+        
+        // Sounds.
         this.soundArchive = soundArchive;
+        
+        // Crafting recipes to create the machine itself and recipes that go inside it.
         this.recipeArchive = recipeArchive;
+        this.craftingRecipes = craftingRecipe;
     }
 
     public String getMachineName()
@@ -129,5 +144,65 @@ public class MadTileEntityFactoryProductData
     public MadRecipe[] getRecipeArchive()
     {
         return recipeArchive;
+    }
+
+    public MadCraftingRecipe[] getCraftingRecipes()
+    {
+        return craftingRecipes;
+    }
+
+    public void setMachineName(String machineName)
+    {
+        this.machineName = machineName;
+    }
+
+    public void setBlockID(int blockID)
+    {
+        this.blockID = blockID;
+    }
+
+    public void setLogicClassFullyQualifiedName(String logicClassFullyQualifiedName)
+    {
+        this.logicClassFullyQualifiedName = logicClassFullyQualifiedName;
+    }
+
+    public void setContainerTemplate(MadSlotContainer[] containerTemplate)
+    {
+        this.containerTemplate = containerTemplate;
+    }
+
+    public void setGuiControlsTemplate(MadGUIControl[] guiControlsTemplate)
+    {
+        this.guiControlsTemplate = guiControlsTemplate;
+    }
+
+    public void setGuiButtonTemplate(MadGUIButton[] guiButtonTemplate)
+    {
+        this.guiButtonTemplate = guiButtonTemplate;
+    }
+
+    public void setFluidsSupported(MadFluid[] fluidsSupported)
+    {
+        this.fluidsSupported = fluidsSupported;
+    }
+
+    public void setEnergySupported(MadEnergy[] energySupported)
+    {
+        this.energySupported = energySupported;
+    }
+
+    public void setSoundArchive(MadSound[] soundArchive)
+    {
+        this.soundArchive = soundArchive;
+    }
+
+    public void setRecipeArchive(MadRecipe[] recipeArchive)
+    {
+        this.recipeArchive = recipeArchive;
+    }
+
+    public void setCraftingRecipes(MadCraftingRecipe[] craftingRecipe)
+    {
+        this.craftingRecipes = craftingRecipe;
     }
 }

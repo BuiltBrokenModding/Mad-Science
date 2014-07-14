@@ -10,38 +10,38 @@ import madscience.items.circuits.CircuitRedstone;
 import madscience.items.circuits.CircuitSpiderEye;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-class MadCircuits
+public class MadCircuits
 {
     // Circuit Comparator
-    static CircuitComparator CIRCUIT_COMPARATOR;
+    public static CircuitComparator CIRCUIT_COMPARATOR;
     private static final String CIRCUIT_COMPARATOR_INTERNALNAME = "circuitComparator";
 
     // Circuit Diamond
-    static CircuitDiamond CIRCUIT_DIAMOND;
+    public static CircuitDiamond CIRCUIT_DIAMOND;
     private static final String CIRCUIT_DIAMOND_INTERNALNAME = "circuitDiamond";
 
     // Circuit Emerald
-    static CircuitEmerald CIRCUIT_EMERALD;
+    public static CircuitEmerald CIRCUIT_EMERALD;
     private static final String CIRCUIT_EMERALD_INTERNALNAME = "circuitEmerald";
 
     // Circuit Ender Eye
-    static CircuitEnderEye CIRCUIT_ENDEREYE;
+    public static CircuitEnderEye CIRCUIT_ENDEREYE;
     private static final String CIRCUIT_ENDEREYE_INTERNALNAME = "circuitEnderEye";
 
     // Circuit Ender Pearl
-    static CircuitEnderPearl CIRCUIT_ENDERPEARL;
+    public static CircuitEnderPearl CIRCUIT_ENDERPEARL;
     private static final String CIRCUIT_ENDERPEARL_INTERNALNAME = "circuitEnderPearl";
 
     // Circuit Glowstone
-    static CircuitGlowstone CIRCUIT_GLOWSTONE;
+    public static CircuitGlowstone CIRCUIT_GLOWSTONE;
     private static final String CIRCUIT_GLOWSTONE_INTERNALNAME = "circuitGlowstone";
 
     // Circuit Redstone
-    static CircuitRedstone CIRCUIT_REDSTONE;
+    public static CircuitRedstone CIRCUIT_REDSTONE;
     private static final String CIRCUIT_REDSTONE_INTERNALNAME = "circuitRedstone";
 
     // Circuit Spider Eye
-    static CircuitSpiderEye CIRCUIT_SPIDEREYE;
+    public static CircuitSpiderEye CIRCUIT_SPIDEREYE;
     private static final String CIRCUIT_SPIDEREYE_INTERNALNAME = "circuitSpiderEye";
     
     

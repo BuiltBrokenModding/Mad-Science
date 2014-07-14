@@ -296,7 +296,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
         
         // Convert the data portion of our tile entity factory product to JSON string.
-        String json = gson.toJson(allMachines);
+        String json = gson.toJson(allMachines.toArray(new MadTileEntityFactoryProductData[]{}), MadTileEntityFactoryProductData[].class);
         try
         {
             // Save this information to the disk!
