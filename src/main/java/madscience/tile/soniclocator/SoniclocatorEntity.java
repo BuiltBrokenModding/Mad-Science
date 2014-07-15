@@ -7,7 +7,7 @@ import java.util.List;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntityPrefab;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

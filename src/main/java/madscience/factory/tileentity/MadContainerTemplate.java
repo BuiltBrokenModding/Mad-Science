@@ -2,11 +2,15 @@ package madscience.factory.tileentity;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.slotcontainers.MadInputSlot;
 import madscience.factory.slotcontainers.MadSlotContainer;
+import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
@@ -46,7 +50,23 @@ public class MadContainerTemplate extends Container
         for (int i = 0; i < CONTAINERS.length; i++)
         {
             MadSlotContainer slotContainer = CONTAINERS[i];
-            this.addSlotToContainer(new Slot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
+            
+            // Depending on slot type we use different kinds of slot templates to help control what can be placed inside of them.
+            if (slotContainer.getSlotType().name().toLowerCase().contains("input"))
+            {
+                // Use the custom slot template!
+                this.addSlotToContainer(new MadInputSlot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
+            }
+            else if (slotContainer.getSlotType().name().toLowerCase().contains("output"))
+            {
+                // Output slots cannot ever have items inserted into them and only taken out.
+                this.addSlotToContainer(new SlotFurnace(entityPlayer.player, tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
+            }
+            else
+            {
+                // If we have no idea what this slot is just make it a normal one.
+                this.addSlotToContainer(new Slot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
+            }
         }
 
         // Create slots for main player inventory area.

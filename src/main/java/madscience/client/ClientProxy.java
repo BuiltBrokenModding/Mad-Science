@@ -2,9 +2,12 @@ package madscience.client;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.Collator;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 import madscience.MadComponents;
 import madscience.MadConfig;
@@ -229,7 +232,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     public void dumpUnlocalizedNames()
     {        
         // List that holds final result of all entries without duplicates.
-        Set<String> unlocalizedNames = new HashSet<String>();
+        Collection<String> unlocalizedNames = new TreeSet<String>(Collator.getInstance());
         
         // Loop through all the items in the game looking for the ones we want.
         for(Item potentialMCItem : Item.itemsList) 
@@ -263,9 +266,9 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Convert the data portion of our tile entity factory product to JSON string.
         String json = gson.toJson(unlocalizedNames);
         
-        // Save this list of names to the disk.
         try
         {
+            // Save this list of names to the disk.
             File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
             FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("unlocalizedNames") + ".json"), json);
         }
@@ -301,7 +304,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         {
             // Save this information to the disk!
             File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
-            FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("registeredMachines") + ".json"), json);
+            FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("tiles") + ".json"), json);
         }
         catch (IOException e)
         {

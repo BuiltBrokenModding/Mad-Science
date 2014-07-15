@@ -16,6 +16,7 @@ import madscience.factory.buttons.MadGUIButtonTypeEnum;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.controls.MadGUIControlTypeEnum;
 import madscience.factory.slotcontainers.MadSlotContainer;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.Region2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

@@ -6,7 +6,7 @@ import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntityPrefab;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.items.datareel.ItemDataReelEmpty;
 import madscience.items.memories.CombinedMemoryMonsterPlacer;
 import net.minecraft.entity.player.EntityPlayer;

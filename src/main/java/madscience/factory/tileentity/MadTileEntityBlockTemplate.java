@@ -7,6 +7,7 @@ import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.sounds.MadSoundTriggerEnum;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

@@ -3,7 +3,7 @@ package madscience.tile.cncmachine;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.factory.tileentity.MadTileEntityPrefab;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;

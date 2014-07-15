@@ -1,5 +1,6 @@
 package madscience.factory.tileentity;
 
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

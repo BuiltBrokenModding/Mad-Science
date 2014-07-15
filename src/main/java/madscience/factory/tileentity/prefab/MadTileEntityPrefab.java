@@ -1,11 +1,11 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.prefab;
 
 import madscience.MadConfig;
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.sounds.MadSoundTriggerEnum;
-import madscience.factory.tileentity.prefab.MadTileEntityEnergyPrefab;
+import madscience.factory.tileentity.MadTileEntityPacketTemplate;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;

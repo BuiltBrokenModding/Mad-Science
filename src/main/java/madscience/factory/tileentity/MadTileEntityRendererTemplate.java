@@ -2,6 +2,7 @@ package madscience.factory.tileentity;
 
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

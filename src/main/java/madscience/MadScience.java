@@ -241,10 +241,10 @@ public class MadScience
         // ---------
         
         // Prints out all internal names.
-        //proxy.dumpUnlocalizedNames();
+        proxy.dumpUnlocalizedNames();
         
         // Dumps all registered machines JSON to disk.
-        //proxy.dumpAllMachineJSON();
+        proxy.dumpAllMachineJSON();
     }
 
     /** @param event */

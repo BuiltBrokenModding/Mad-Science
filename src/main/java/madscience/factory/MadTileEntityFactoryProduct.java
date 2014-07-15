@@ -21,7 +21,7 @@ import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadContainerTemplate;
 import madscience.factory.tileentity.MadGUITemplate;
 import madscience.factory.tileentity.MadTileEntityBlockTemplate;
-import madscience.factory.tileentity.MadTileEntityPrefab;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
