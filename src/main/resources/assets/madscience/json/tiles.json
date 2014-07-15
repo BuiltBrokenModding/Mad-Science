@@ -1216,6 +1216,13 @@
             "craftingGridPosition": 0
           },
           {
+            "slotExpectedItem": "circuitEnderEye",
+            "slotExpectedAmount": 1,
+            "parentModID": "madscience",
+            "metaDamage": 0,
+            "craftingGridPosition": 1
+          },
+          {
             "slotExpectedItem": "componentCase",
             "slotExpectedAmount": 1,
             "parentModID": "madscience",

@@ -180,8 +180,21 @@ public class MadTileEntityFactoryProduct
         int totalFailedRecipeItems = 0;
         for (MadCraftingRecipe machineCraftingRecipe : this.data.getCraftingRecipes())
         {
+            // Keeps track if anything bad happened during crafting recipe creation.
             boolean errorsWithAssociation = true;
-            MadCraftingComponent[] recipeArray = new MadCraftingComponent[9];
+            
+            // Reference to recipe we want to create, Minecraft/Forge accepts them as object array.
+            List<Object> craftingInputArray = new ArrayList<Object>();
+            
+            // Crafting strings that makeup reference to what numbers goto what slot on the grid.
+            Object[] craftingGridLayout = new Object[9];
+            
+            // Initialize each slot with empty space since in Minecraft/Forge this means null/nothing.
+            for (int i = 0; i < craftingGridLayout.length; i++)
+            {
+                craftingGridLayout[i] = " ";
+            }
+            
             for (MadCraftingComponent recipeComponent : machineCraftingRecipe.getCraftingRecipeComponents())
             {
                 // Starting building output string now, append to it below.
@@ -207,9 +220,19 @@ public class MadTileEntityFactoryProduct
                 
                 // Mark this entry as being valid since we made it this far.
                 errorsWithAssociation = false;
+               
+                // Only add the craft slot number if we are making a shaped recipe.
+                if (machineCraftingRecipe.getCraftingRecipeType() == MadCraftingRecipeTypeEnum.SHAPED)
+                {
+                    // First, place the prepared crafting component into grid as a string.
+                    craftingGridLayout[recipeComponent.getCraftingGridPosition()] = String.valueOf(recipeComponent.getCraftingGridPosition());
+                    
+                    // Second, add to input array the crafting grid number.
+                    craftingInputArray.add(recipeComponent.getCraftingGridPositionAsCharacter());
+                }
                 
-                // Add the recipe element to an array we will use to add recipe to Minecraft/Forge.
-                recipeArray[recipeComponent.getCraftingGridPosition()] = recipeComponent;
+                // Third, add to input array the crafting ingredient (we always will want this).
+                craftingInputArray.add(recipeComponent.getItemStack());
 
                 // Debugging!
                 if (!searchResult)
@@ -218,42 +241,48 @@ public class MadTileEntityFactoryProduct
                 }
             }
             
-            // If the above crafting component registration went well then we will add them to Minecraft/Forge for consumption.
-            if (!errorsWithAssociation && recipeArray != null)
+            // If the above crafting component registration went well then we will add them.
+            if (!errorsWithAssociation)
             {
+                // Depending on type of recipe, very different things need to happen with the data we have collected so far.
                 switch (machineCraftingRecipe.getCraftingRecipeType())
                 {
-                case SHAPED:
-                    GameRegistry.addShapedRecipe(new ItemStack(this.getBlockContainer(), machineCraftingRecipe.getCraftingAmount()), new Object[]
-                            { "012",
-                              "345",
-                              "678",
-
-                              '0', recipeArray[0].getItemStack(),
-                              '1', recipeArray[1].getItemStack(),
-                              '2', recipeArray[2].getItemStack(),
-                              '3', recipeArray[3].getItemStack(),
-                              '4', recipeArray[4].getItemStack(),
-                              '5', recipeArray[5].getItemStack(),
-                              '6', recipeArray[6].getItemStack(),
-                              '7', recipeArray[7].getItemStack(),
-                              '8', recipeArray[8].getItemStack()});
-                    break;
-                case SHAPELESS:
-                    GameRegistry.addShapelessRecipe(new ItemStack(this.getBlockContainer(), machineCraftingRecipe.getCraftingAmount()), new Object[]
-                            { 
-                                recipeArray[0].getItemStack(),
-                                recipeArray[1].getItemStack(),
-                                recipeArray[2].getItemStack(),
-                                recipeArray[3].getItemStack(),
-                                recipeArray[4].getItemStack(),
-                                recipeArray[5].getItemStack(),
-                                recipeArray[6].getItemStack(),
-                                recipeArray[7].getItemStack(),
-                                recipeArray[8].getItemStack()});
-                    break;
-                default:
-                    break;
+                    case SHAPED:
+                    {
+                        // Move the string array into proper alignment for recipe input, any slots without components become blank spaces this is intentional.
+                        String[] craftingGridLayoutFinal = new String[3];
+                        craftingGridLayoutFinal[0] = String.valueOf(craftingGridLayout[0]) + String.valueOf(craftingGridLayout[1]) + String.valueOf(craftingGridLayout[2]);
+                        craftingGridLayoutFinal[1] = String.valueOf(craftingGridLayout[3]) + String.valueOf(craftingGridLayout[4]) + String.valueOf(craftingGridLayout[5]);
+                        craftingGridLayoutFinal[2] = String.valueOf(craftingGridLayout[6]) + String.valueOf(craftingGridLayout[7]) + String.valueOf(craftingGridLayout[8]);
+                        
+                        // Construct the final object array recipe input.
+                        List<Object> recipeFinalInput = new ArrayList<Object>();
+                        recipeFinalInput.add(craftingGridLayoutFinal[0]);
+                        recipeFinalInput.add(craftingGridLayoutFinal[1]);
+                        recipeFinalInput.add(craftingGridLayoutFinal[2]);
+                        recipeFinalInput.addAll(craftingInputArray);
+                        
+                        // Actually add the recipe to Minecraft/Forge.
+                        GameRegistry.addShapedRecipe(new ItemStack(this.getBlockContainer(),
+                                machineCraftingRecipe.getCraftingAmount()),
+                                recipeFinalInput.toArray(new Object[]{}));
+                        
+                        break;
+                    }
+                    case SHAPELESS:
+                    {              
+                        // Shapeless recipes are a little easier since we only need to pass in the item array.
+                        GameRegistry.addShapelessRecipe(new ItemStack(this.getBlockContainer(),
+                                machineCraftingRecipe.getCraftingAmount()),
+                                craftingInputArray.toArray(new Object[]{}));
+                        
+                        break;
+                    }
+                    default:
+                    {
+                        // Nothing to see here.
+                        break;
+                    }
                 }
             }
             else

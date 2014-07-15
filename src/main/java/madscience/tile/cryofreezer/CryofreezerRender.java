@@ -1,6 +1,6 @@
 package madscience.tile.cryofreezer;
 
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -29,8 +29,8 @@ public class CryofreezerRender extends TileEntitySpecialRenderer implements ISim
         NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
     }
 
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CRYOFREEZER_INTERNALNAME + "/" + MadMachines.CRYOFREEZER_INTERNALNAME + ".mad");
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadMachines.CRYOFREEZER_INTERNALNAME + "/idle.png");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + ".mad");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/idle.png");
     
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import madscience.MadConfig;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.util.MadUtils;
@@ -40,7 +40,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
     private boolean shouldPlay;
 
     /** Path to texture that we would like displayed on this block. */
-    String TEXTURE = "models/" + MadMachines.VOXBOX_INTERNALNAME + "/voxBox0.png";
+    String TEXTURE = "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png";
 
     private ItemStack[] voxboxInput = new ItemStack[1];
 
@@ -57,7 +57,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
 
     public VoxBoxEntity()
     {
-        super(MadMachines.VOXBOX_INTERNALNAME);
+        super(MadFurnaces.VOXBOX_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -158,7 +158,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
     @Override
     public String getMachineInternalName()
     {
-        return MadMachines.VOXBOX_INTERNALNAME;
+        return MadFurnaces.VOXBOX_INTERNALNAME;
     }
 
     @Override
@@ -294,17 +294,17 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
             if (worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadMachines.VOXBOX_INTERNALNAME + "/voxBox0.png";
+                TEXTURE = "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png";
             }
             else
             {
-                TEXTURE = "models/" + MadMachines.VOXBOX_INTERNALNAME + "/voxBox1.png";
+                TEXTURE = "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox1.png";
             }
         }
         else
         {
             // We are not powered or working.
-            TEXTURE = "models/" + MadMachines.VOXBOX_INTERNALNAME + "/voxBox0.png";
+            TEXTURE = "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png";
         }
     }
 
@@ -486,7 +486,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 currentTalkWordStep = 0.0F;
                 talkTime++;
                 lastWordLiteral = talkTimeStep.internalName;
-                this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadScience.ID + ":" + MadMachines.VOXBOX_INTERNALNAME + "." + talkTimeStep.internalName, 1.0F, 1.0F);
+                this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadScience.ID + ":" + MadFurnaces.VOXBOX_INTERNALNAME + "." + talkTimeStep.internalName, 1.0F, 1.0F);
                 //MadScience.logger.info("VoxBox: Speaking the word index " + String.valueOf(lastWordIndex) + " '" + talkTimeStep.internalName + "' with length of " + String.valueOf(currentTalkWordMaximum) + "F.");
             }
             else if (this.canSmelt() && this.isPowered() && this.talkTime > 0 && talkTimeline != null && lastWordMaximum > 0 && currentTalkWordMaximum > 0.0F)

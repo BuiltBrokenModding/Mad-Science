@@ -1,6 +1,6 @@
 package madscience.tile.thermosonicbonder;
 
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -30,7 +30,7 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.THERMOSONIC_INTERNALNAME + "/" + MadMachines.THERMOSONIC_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.THERMOSONIC_INTERNALNAME + "/" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -39,7 +39,7 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
     private ThermosonicBonderEntity ENTITY;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadMachines.THERMOSONIC_INTERNALNAME + "/Off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png");
 
     @Override
     public int getRenderId()

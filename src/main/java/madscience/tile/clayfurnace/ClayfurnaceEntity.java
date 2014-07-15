@@ -1,7 +1,7 @@
 package madscience.tile.clayfurnace;
 
 import madscience.MadConfig;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
@@ -26,7 +26,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     int currentItemCookingMaximum;
     int currentItemCookingValue;
     int animationCurrentFrame;
-    String TEXTURE = "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/idle.png";
+    String TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png";
     boolean hasBeenLit = false;
     boolean hasStoppedSmoldering = false;
     boolean hasCompletedBurnCycle = false;
@@ -410,7 +410,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         if (this.hasCooledDown)
         {
             // COOLED DOWN (WAITING FOR PLAYER TO HIT US)
-            TEXTURE = "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/shell.png";
+            TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/shell.png";
         }
         if (!this.canSmelt() && this.hasBeenLit && this.hasCompletedBurnCycle && hasStoppedSmoldering && !this.hasCooledDown)
         {
@@ -422,7 +422,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", 1.0F, 1.0F);
 
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/redhot" + animationCurrentFrame + ".png";
+                TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot" + animationCurrentFrame + ".png";
 
                 // Update animation frame.
                 ++animationCurrentFrame;
@@ -437,7 +437,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         else if (!this.canSmelt() && this.hasBeenLit && this.hasCompletedBurnCycle && !hasStoppedSmoldering && !this.hasCooledDown)
         {
             // SMOLDERING FURNACE MODE
-            TEXTURE = "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/done.png";
+            TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/done.png";
 
             // Method in this class.
             this.createRandomSmoke();
@@ -459,7 +459,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
                         worldObj.rand.nextFloat(), worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
                 // Load this texture onto the entity.
-                TEXTURE = "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/work" + animationCurrentFrame + ".png";
+                TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/work" + animationCurrentFrame + ".png";
 
                 // Update animation frame.
                 ++animationCurrentFrame;
@@ -479,7 +479,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         else if (!hasBeenLit && !this.hasCooledDown)
         {
             // Idle state single texture.
-            TEXTURE = "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/idle.png";
+            TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png";
         }
     }
 
@@ -596,6 +596,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     @Override
     public String getInvName()
     {
-       return MadMachines.CLAYFURNACE_INTERNALNAME;
+       return MadFurnaces.CLAYFURNACE_INTERNALNAME;
     }
 }

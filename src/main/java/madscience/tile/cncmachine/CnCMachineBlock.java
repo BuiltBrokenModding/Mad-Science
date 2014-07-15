@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -119,7 +119,7 @@ public class CnCMachineBlock extends BlockContainer
         super.breakBlock(par1World, par2, par3, par4, par5, par6);
 
         // Break all the 'ghost blocks'
-        if (par1World.getBlockId(par2, par3 + 1, par4) == MadMachines.CNCMACHINEGHOST_TILEENTITY.blockID)
+        if (par1World.getBlockId(par2, par3 + 1, par4) == MadFurnaces.CNCMACHINEGHOST_TILEENTITY.blockID)
         {
             par1World.setBlockToAir(par2, par3 + 1, par4);
         }
@@ -188,14 +188,14 @@ public class CnCMachineBlock extends BlockContainer
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return MadMachines.CNCMACHINE_TILEENTITY.blockID;
+        return MadFurnaces.CNCMACHINE_TILEENTITY.blockID;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadMachines.CNCMACHINE_TILEENTITY.blockID;
+        return MadFurnaces.CNCMACHINE_TILEENTITY.blockID;
     }
 
     @Override
@@ -256,7 +256,7 @@ public class CnCMachineBlock extends BlockContainer
         if (!world.isRemote)
         {
             // Add 'ghost' blocks that makeup upper section of magazine loader.
-            world.setBlock(x, y + 1, z, MadMachines.CNCMACHINEGHOST_TILEENTITY.blockID, 1, 3);
+            world.setBlock(x, y + 1, z, MadFurnaces.CNCMACHINEGHOST_TILEENTITY.blockID, 1, 3);
         }
     }
 
@@ -273,7 +273,7 @@ public class CnCMachineBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadMachines.CNCMACHINE_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

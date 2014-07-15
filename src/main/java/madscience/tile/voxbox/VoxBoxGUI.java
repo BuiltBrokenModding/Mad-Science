@@ -4,7 +4,7 @@ import java.awt.Desktop;
 import java.net.URI;
 
 import madscience.MadConfig;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.tileentity.MadGUITemplate;
@@ -27,7 +27,7 @@ public class VoxBoxGUI extends MadGUITemplate
     {
         super(new VoxBoxContainer(inventory, entity));
         this.ENTITY = entity;
-        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadMachines.VOXBOX_INTERNALNAME + ".png");
+        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.VOXBOX_INTERNALNAME + ".png");
     }
 
     @Override
@@ -85,7 +85,7 @@ public class VoxBoxGUI extends MadGUITemplate
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
         // Name displayed above the GUI, typically name of the furnace.
-        String s = MadMachines.VOXBOX_TILEENTITY.getLocalizedName();
+        String s = MadFurnaces.VOXBOX_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

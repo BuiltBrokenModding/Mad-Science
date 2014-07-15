@@ -4,7 +4,7 @@ import java.awt.Desktop;
 import java.net.URI;
 
 import madscience.MadConfig;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.tileentity.MadGUITemplate;
@@ -26,7 +26,7 @@ public class CryofreezerGUI extends MadGUITemplate
     {
         super(new CryofreezerContainer(par1InventoryPlayer, par2TileEntityFurnace));
         this.ENTITY = par2TileEntityFurnace;
-        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadMachines.CRYOFREEZER_INTERNALNAME + ".png");
+        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + ".png");
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
@@ -62,7 +62,7 @@ public class CryofreezerGUI extends MadGUITemplate
 
         // Name displayed above the GUI, typically name of the furnace.
         // Note: Extra spaces are to make name align proper in GUI.
-        String s = "     " + MadMachines.CRYOFREEZER_TILEENTITY.getLocalizedName();
+        String s = "     " + MadFurnaces.CRYOFREEZER_TILEENTITY.getLocalizedName();
         this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
 
         // Text that labels player inventory area as "Inventory".

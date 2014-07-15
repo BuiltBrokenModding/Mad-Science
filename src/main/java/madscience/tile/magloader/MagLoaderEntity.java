@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import madscience.MadConfig;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadWeapons;
 import madscience.factory.tileentity.MadTileEntityPrefab;
@@ -60,7 +60,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
 
     public MagLoaderEntity()
     {
-        super(MadMachines.MAGLOADER_INTERNALNAME);
+        super(MadFurnaces.MAGLOADER_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -194,7 +194,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
     @Override
     public String getMachineInternalName()
     {
-        return MadMachines.MAGLOADER_INTERNALNAME;
+        return MadFurnaces.MAGLOADER_INTERNALNAME;
     }
 
     public int getNumberOfBulletsInStorageInventory()

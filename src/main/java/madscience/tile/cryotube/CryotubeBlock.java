@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -122,12 +122,12 @@ public class CryotubeBlock extends BlockContainer
         super.breakBlock(world, x, y, z, blockID, metaData);
 
         // Break all the 'ghost blocks'
-        if (world.getBlockId(x, y + 1, z) == MadMachines.CRYOTUBEGHOST.blockID)
+        if (world.getBlockId(x, y + 1, z) == MadFurnaces.CRYOTUBEGHOST.blockID)
         {
             world.setBlockToAir(x, y + 1, z);
         }
 
-        if (world.getBlockId(x, y + 2, z) == MadMachines.CRYOTUBEGHOST.blockID)
+        if (world.getBlockId(x, y + 2, z) == MadFurnaces.CRYOTUBEGHOST.blockID)
         {
             world.setBlockToAir(x, y + 2, z);
         }
@@ -212,7 +212,7 @@ public class CryotubeBlock extends BlockContainer
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return MadMachines.CRYOTUBE_TILEENTITY.blockID;
+        return MadFurnaces.CRYOTUBE_TILEENTITY.blockID;
     }
 
     @Override
@@ -222,7 +222,7 @@ public class CryotubeBlock extends BlockContainer
      */
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadMachines.CRYOTUBE_TILEENTITY.blockID;
+        return MadFurnaces.CRYOTUBE_TILEENTITY.blockID;
     }
 
     @Override
@@ -278,8 +278,8 @@ public class CryotubeBlock extends BlockContainer
         if (!world.isRemote)
         {
             // Add 'ghost' blocks that makeup upper section of cryotube.
-            world.setBlock(x, y + 1, z, MadMachines.CRYOTUBEGHOST.blockID, 1, 3);
-            world.setBlock(x, y + 2, z, MadMachines.CRYOTUBEGHOST.blockID, 2, 3);
+            world.setBlock(x, y + 1, z, MadFurnaces.CRYOTUBEGHOST.blockID, 1, 3);
+            world.setBlock(x, y + 2, z, MadFurnaces.CRYOTUBEGHOST.blockID, 2, 3);
         }
     }
 
@@ -296,7 +296,7 @@ public class CryotubeBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadMachines.CRYOTUBE_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

@@ -1,6 +1,6 @@
 package madscience.tile.cncmachine;
 
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -34,48 +34,48 @@ public class CnCMachineRender extends TileEntitySpecialRenderer implements ISimp
     private CnCMachineEntity ENTITY;
     
     // Base model files, always visible.
-    private MadTechneModel MODEL_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Base.mad");
-    private MadTechneModel MODEL_SCREEN = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Monitor.mad");
+    private MadTechneModel MODEL_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Base.mad");
+    private MadTechneModel MODEL_SCREEN = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Monitor.mad");
 
     // Compressed Block 0 - 3.
-    private MadTechneModel MODEL_COMPESSEDBLOCK0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_CompressedBlock0.mad");
-    private MadTechneModel MODEL_COMPESSEDBLOCK1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_CompressedBlock1.mad");
-    private MadTechneModel MODEL_COMPESSEDBLOCK2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_CompressedBlock2.mad");
-    private MadTechneModel MODEL_COMPESSEDBLOCK3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_CompressedBlock3.mad");
+    private MadTechneModel MODEL_COMPESSEDBLOCK0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock0.mad");
+    private MadTechneModel MODEL_COMPESSEDBLOCK1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock1.mad");
+    private MadTechneModel MODEL_COMPESSEDBLOCK2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock2.mad");
+    private MadTechneModel MODEL_COMPESSEDBLOCK3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_CompressedBlock3.mad");
 
     // Cutblock 0 - 8.
-    private MadTechneModel MODEL_CUTBLOCK0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock0.mad");
-    private MadTechneModel MODEL_CUTBLOCK1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock1.mad");
-    private MadTechneModel MODEL_CUTBLOCK2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock2.mad");
-    private MadTechneModel MODEL_CUTBLOCK3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock3.mad");
-    private MadTechneModel MODEL_CUTBLOCK4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock4.mad");
-    private MadTechneModel MODEL_CUTBLOCK5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock5.mad");
-    private MadTechneModel MODEL_CUTBLOCK6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock6.mad");
-    private MadTechneModel MODEL_CUTBLOCK7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock7.mad");
-    private MadTechneModel MODEL_CUTBLOCK8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Cutblock8.mad");
+    private MadTechneModel MODEL_CUTBLOCK0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock0.mad");
+    private MadTechneModel MODEL_CUTBLOCK1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock1.mad");
+    private MadTechneModel MODEL_CUTBLOCK2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock2.mad");
+    private MadTechneModel MODEL_CUTBLOCK3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock3.mad");
+    private MadTechneModel MODEL_CUTBLOCK4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock4.mad");
+    private MadTechneModel MODEL_CUTBLOCK5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock5.mad");
+    private MadTechneModel MODEL_CUTBLOCK6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock6.mad");
+    private MadTechneModel MODEL_CUTBLOCK7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock7.mad");
+    private MadTechneModel MODEL_CUTBLOCK8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Cutblock8.mad");
 
     // Press 0 - 3.
-    private MadTechneModel MODEL_PRESS0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Press0.mad");
-    private MadTechneModel MODEL_PRESS1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Press1.mad");
-    private MadTechneModel MODEL_PRESS2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Press2.mad");
-    private MadTechneModel MODEL_PRESS3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Press3.mad");
+    private MadTechneModel MODEL_PRESS0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press0.mad");
+    private MadTechneModel MODEL_PRESS1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press1.mad");
+    private MadTechneModel MODEL_PRESS2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press2.mad");
+    private MadTechneModel MODEL_PRESS3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Press3.mad");
     
     // Water 0 - 8.
-    private MadTechneModel MODEL_WATER0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water0.mad");
-    private MadTechneModel MODEL_WATER1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water1.mad");
-    private MadTechneModel MODEL_WATER2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water2.mad");
-    private MadTechneModel MODEL_WATER3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water3.mad");
-    private MadTechneModel MODEL_WATER4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water4.mad");
-    private MadTechneModel MODEL_WATER5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water5.mad");
-    private MadTechneModel MODEL_WATER6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water6.mad");
-    private MadTechneModel MODEL_WATER7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water7.mad");
-    private MadTechneModel MODEL_WATER8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.CNCMACHINE_INTERNALNAME + "/" + MadMachines.CNCMACHINE_INTERNALNAME + "_Water8.mad");
+    private MadTechneModel MODEL_WATER0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water0.mad");
+    private MadTechneModel MODEL_WATER1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water1.mad");
+    private MadTechneModel MODEL_WATER2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water2.mad");
+    private MadTechneModel MODEL_WATER3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water3.mad");
+    private MadTechneModel MODEL_WATER4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water4.mad");
+    private MadTechneModel MODEL_WATER5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water5.mad");
+    private MadTechneModel MODEL_WATER6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water6.mad");
+    private MadTechneModel MODEL_WATER7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water7.mad");
+    private MadTechneModel MODEL_WATER8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CNCMACHINE_INTERNALNAME + "/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "_Water8.mad");
 
     // Default render ID for base machine.
     private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
     // Default texture used for icon rendering and base machine.
-    private ResourceLocation TEXTURE_OFF = new ResourceLocation(MadScience.ID, "models/" + MadMachines.CNCMACHINE_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE_OFF = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png");
 
     @Override
     public int getRenderId()

@@ -4,7 +4,7 @@ import java.util.Random;
 
 import madscience.MadConfig;
 import madscience.MadFluids;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -70,7 +70,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
     private int curFrame;
 
     /** Current texture path that should be displayed on the model */
-    String meatcubeTexturePath = "models/" + MadMachines.MEATCUBE_INTERNALNAME + "/meatcube_0.png";
+    String meatcubeTexturePath = "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png";
 
     private void addBucketToInternalTank()
     {
@@ -565,7 +565,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         if (shouldPlay && curFrame < lastAnimFrameCount && worldObj.getWorldTime() % 5L == 0L)
         {
             // Load this texture onto the entity.
-            meatcubeTexturePath = "models/" + MadMachines.MEATCUBE_INTERNALNAME + "/meatcube_" + curFrame + ".png";
+            meatcubeTexturePath = "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_" + curFrame + ".png";
             curFrame++;
         }
         else if (shouldPlay && curFrame >= lastAnimFrameCount)
@@ -738,6 +738,6 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
     @Override
     public String getInvName()
     {
-        return MadMachines.MEATCUBE_INTERNALNAME;
+        return MadFurnaces.MEATCUBE_INTERNALNAME;
     }
 }

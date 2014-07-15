@@ -4,7 +4,7 @@ import java.util.Random;
 
 import madscience.MadConfig;
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import madscience.tile.mainframe.MainframeRecipes.GenomeRecipe;
@@ -70,14 +70,14 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
     
 
     /** Currently assigned texture path which is saved to NBT. */
-    String mainframeTexturePath = "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/off.png";
+    String mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/off.png";
 
     /** Determines if debugging information is shown for this object. */
     private boolean showDebuggingInfo = false;
 
     public MainframeEntity()
     {
-        super(MadMachines.MAINFRAME_INTERNALNAME);
+        super(MadFurnaces.MAINFRAME_INTERNALNAME);
     }
 
     private void addBucketToInternalTank()
@@ -491,7 +491,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
     @Override
     public String getMachineInternalName()
     {
-        return MadMachines.MAINFRAME_INTERNALNAME;
+        return MadFurnaces.MAINFRAME_INTERNALNAME;
     }
 
     public float getMaxHeatAmount()
@@ -956,7 +956,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
         if (!isPowered() || !isRedstonePowered())
         {
             currentMainframeState = "OFFLINE";
-            mainframeTexturePath = "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/off.png";
+            mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/off.png";
         }
 
         // ACTIVE - Computer is powered and has redstone signal and all required
@@ -967,7 +967,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             if (animFrame <= 8 && worldObj.getWorldTime() % 3L == 0L)
             {
                 // Load this texture onto the entity.
-                mainframeTexturePath = "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/work_" + animFrame + ".png";
+                mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/work_" + animFrame + ".png";
                 //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
@@ -988,13 +988,13 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             if (worldObj.getWorldTime() % 10L == 0L)
             {
                 // Load this texture onto the entity.
-                mainframeTexturePath = "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/idle_0.png";
+                mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/idle_0.png";
                 //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 hasChanged = true;
             }
             else
             {
-                mainframeTexturePath = "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/idle_1.png";
+                mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/idle_1.png";
                 //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 hasChanged = true;
             }
@@ -1014,7 +1014,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             if (animFrame <= 5 && worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                mainframeTexturePath = "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/warning_" + animFrame + ".png";
+                mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/warning_" + animFrame + ".png";
                 //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
@@ -1036,7 +1036,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             if (animFrame <= 4 && worldObj.getWorldTime() % 8L == 0L)
             {
                 // Load this texture onto the entity.
-                mainframeTexturePath = "models/" + MadMachines.MAINFRAME_INTERNALNAME + "/no_water_" + animFrame + ".png";
+                mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/no_water_" + animFrame + ".png";
                 //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;

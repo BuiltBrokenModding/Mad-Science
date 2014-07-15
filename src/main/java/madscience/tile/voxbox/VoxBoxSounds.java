@@ -1,6 +1,6 @@
 package madscience.tile.voxbox;
 
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -15,7 +15,7 @@ public class VoxBoxSounds
         for (VoxBoxSoundItem voxSound : VoxBoxSoundRegistry.voxWords)
         {
             // MadScience.logger.info(s.internalName);
-            event.manager.addSound(MadScience.ID + ":" + MadMachines.VOXBOX_INTERNALNAME + "/" + voxSound.fileName);
+            event.manager.addSound(MadScience.ID + ":" + MadFurnaces.VOXBOX_INTERNALNAME + "/" + voxSound.fileName);
         }
     }
 }

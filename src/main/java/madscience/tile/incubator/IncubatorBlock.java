@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -179,7 +179,7 @@ public class IncubatorBlock extends BlockContainer
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return MadMachines.INCUBATOR_TILEENTITY.blockID;
+        return MadFurnaces.INCUBATOR_TILEENTITY.blockID;
     }
 
     @Override
@@ -189,7 +189,7 @@ public class IncubatorBlock extends BlockContainer
      */
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadMachines.INCUBATOR_TILEENTITY.blockID;
+        return MadFurnaces.INCUBATOR_TILEENTITY.blockID;
     }
 
     @Override
@@ -256,7 +256,7 @@ public class IncubatorBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadMachines.INCUBATOR_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.INCUBATOR_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

@@ -2,7 +2,7 @@ package madscience.tile.sequencer;
 
 import madscience.MadConfig;
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.factory.tileentity.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,11 +40,11 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
     private int curFrame;
 
     /** Path to texture that we would like displayed on this block. */
-    String sequencerTexture = "models/" + MadMachines.SEQUENCER_INTERNALNAME + "/idle.png";
+    String sequencerTexture = "models/" + MadFurnaces.SEQUENCER_INTERNALNAME + "/idle.png";
 
     public SequencerEntity()
     {
-        super(MadMachines.SEQUENCER_INTERNALNAME);
+        super(MadFurnaces.SEQUENCER_INTERNALNAME);
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -236,7 +236,7 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
     @Override
     public String getMachineInternalName()
     {
-        return MadMachines.SEQUENCER_INTERNALNAME;
+        return MadFurnaces.SEQUENCER_INTERNALNAME;
     }
 
     public int getSizeInputInventory()
@@ -529,7 +529,7 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
             if (curFrame <= 9 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                sequencerTexture = "models/" + MadMachines.SEQUENCER_INTERNALNAME + "/work_" + curFrame + ".png";
+                sequencerTexture = "models/" + MadFurnaces.SEQUENCER_INTERNALNAME + "/work_" + curFrame + ".png";
 
                 // Update animation frame.
                 ++curFrame;
@@ -543,7 +543,7 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
         else
         {
             // Idle state single texture.
-            sequencerTexture = "models/" + MadMachines.SEQUENCER_INTERNALNAME + "/idle.png";
+            sequencerTexture = "models/" + MadFurnaces.SEQUENCER_INTERNALNAME + "/idle.png";
         }
     }
 

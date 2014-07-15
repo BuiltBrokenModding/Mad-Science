@@ -1,14 +1,5 @@
 package madscience;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.MadTileEntityFactoryProductData;
-import madscience.factory.crafting.MadCraftingRecipe;
-import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
@@ -53,13 +44,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import com.google.gson.Gson;
-
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class MadMachines
+public class MadFurnaces
 {
     // -------------
     // TILE ENTITIES
@@ -142,88 +130,6 @@ public class MadMachines
     // -----------------------------
 
     @EventHandler
-    static void loadMachinesFromAssets()
-    {
-        // Name of the JSON file we are looking for along the classpath.
-        String expectedFilename = "tiles.json";
-        
-        // Input we expect to be filled with JSON for every machine we want to load.
-        String jsonMachineInput = null;
-        
-        try
-        {
-            // Locate all the of JSON files stored in the machines asset folder.
-            InputStream machinesJSON = MadScience.class.getClass().getResourceAsStream(MadScience.JSON_PATH + expectedFilename);
-            if (machinesJSON != null)
-            {
-                // Read the entire contents of the input stream.
-                BufferedReader reader = new BufferedReader(new InputStreamReader(machinesJSON));
-                StringBuilder out = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) 
-                {
-                    out.append(line);
-                }
-                
-                // Copy over the data we just read from the resource stream.
-                jsonMachineInput = out.toString();
-                
-                // Cleanup!
-                reader.close();
-            }
-            else
-            {
-                MadScience.logger.info("Unable to locate machine master list '" + expectedFilename + "'");
-            }
-        }
-        catch (Exception err)
-        {
-            err.printStackTrace();
-        }
-        
-        // Parse the JSON string we got from resources into an array of product data.
-        Gson gson = new Gson();
-        MadTileEntityFactoryProductData[] loadedMachines = null;
-        loadedMachines = gson.fromJson(jsonMachineInput, MadTileEntityFactoryProductData[].class);
-        
-        if (loadedMachines != null)
-        {
-            // Loop through the array of product data and register them as machines.
-            for (MadTileEntityFactoryProductData unregisteredMachine : loadedMachines)
-            {
-//                if (unregisteredMachine.getMachineName().equals("dnaExtractor"))
-//                {
-//                    MadCraftingRecipe testRecipe = new MadCraftingRecipe(
-//                            MadCraftingRecipeTypeEnum.SHAPED,
-//                            1,
-//                            "0:madscience:componentCase:0:1",
-//                            "1:madscience:circuitEnderEye:0:1",
-//                            "2:madscience:componentCase:0:1",
-//                            "3:madscience:componentCase:0:1",
-//                            "4:madscience:circuitSpiderEye:0:1",
-//                            "5:madscience:componentCase:0:1",
-//                            "6:madscience:componentCase:0:1",
-//                            "7:madscience:componentComputer:0:1",
-//                            "8:madscience:componentCase:0:1");
-//                    
-//                    MadCraftingRecipe[] testRecipeArray = {testRecipe};
-//                    unregisteredMachine.setCraftingRecipes(testRecipeArray);
-//                }
-                
-                // Register machine with the registry so we can generate all needed MC/Forge data.
-                MadTileEntityFactoryProduct machineToAdd = null;
-                machineToAdd = MadTileEntityFactory.registerMachine(unregisteredMachine);
-                
-                // Check the result!
-                if (machineToAdd == null)
-                {
-                    throw new IllegalArgumentException("Unable to register tile entity from '" + expectedFilename + "'. Invalid syntax or formatting!");
-                }
-            }
-        }
-    }
-    
-    @EventHandler
     static void createCryoFreezerTileEntity(int blockID)
     {
         // Cryogenic Freezer
@@ -294,7 +200,7 @@ public class MadMachines
         MadScience.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe for Data Reel Duplicator.
-        GameRegistry.addRecipe(new ItemStack(MadMachines.DATADUPLICATOR_TILEENTITY, 1), new Object[]
+        GameRegistry.addRecipe(new ItemStack(MadFurnaces.DATADUPLICATOR_TILEENTITY, 1), new Object[]
         { "161",
           "232",
           "454",
@@ -514,7 +420,7 @@ public class MadMachines
         }
 
         // Shaped Recipe for Thermosonic Bonder Tile Entity
-        GameRegistry.addRecipe(new ItemStack(MadMachines.THERMOSONIC_TILEENTITY, 1), new Object[]
+        GameRegistry.addRecipe(new ItemStack(MadFurnaces.THERMOSONIC_TILEENTITY, 1), new Object[]
         { "343", 
           "353", 
           "121",

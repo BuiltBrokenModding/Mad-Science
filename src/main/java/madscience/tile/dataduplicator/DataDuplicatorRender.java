@@ -1,6 +1,6 @@
 package madscience.tile.dataduplicator;
 
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -30,7 +30,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.DATADUPLICATOR_INTERNALNAME + "/" + MadMachines.DATADUPLICATOR_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -39,7 +39,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
     private DataDuplicatorEntity lastPlacedTileEntity;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadMachines.DATADUPLICATOR_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png");
 
     @Override
     public int getRenderId()

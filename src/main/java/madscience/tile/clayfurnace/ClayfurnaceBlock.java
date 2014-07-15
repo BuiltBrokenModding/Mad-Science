@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -205,7 +205,7 @@ public class ClayfurnaceBlock extends BlockContainer
     @SideOnly(Side.CLIENT)
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadMachines.CLAYFURNACE_TILEENTITY.blockID;
+        return MadFurnaces.CLAYFURNACE_TILEENTITY.blockID;
     }
 
     @Override
@@ -353,7 +353,7 @@ public class ClayfurnaceBlock extends BlockContainer
                 {
                     world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, "dig.sand", 1.0F, 1.0F);
                     world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, "random.fizz", 1.0F, 1.0F);
-                    clayFurnace.TEXTURE = "models/" + MadMachines.CLAYFURNACE_INTERNALNAME + "/redhot0.png";
+                    clayFurnace.TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot0.png";
                     clayFurnace.hasStoppedSmoldering = true;
                     clayFurnace.animationCurrentFrame = 0;
                     return;
@@ -379,7 +379,7 @@ public class ClayfurnaceBlock extends BlockContainer
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + MadMachines.CLAYFURNACE_INTERNALNAME);
+        this.blockIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + MadFurnaces.CLAYFURNACE_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

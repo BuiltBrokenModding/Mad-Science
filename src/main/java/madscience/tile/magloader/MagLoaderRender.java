@@ -1,6 +1,6 @@
 package madscience.tile.magloader;
 
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
@@ -33,35 +33,35 @@ public class MagLoaderRender extends TileEntitySpecialRenderer implements ISimpl
     private MagLoaderEntity ENTITY;
     
     // Base magazine loader model with no moving pieces.
-    private MadTechneModel MAGLOADER_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + ".mad");
+    private MadTechneModel MAGLOADER_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + ".mad");
 
     // Internal bullet models that look like they are funneled down into magazines.
-    private MadTechneModel MAGLOADER_BULLET0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_Bullet0.mad");
-    private MadTechneModel MAGLOADER_BULLET1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_Bullet1.mad");
-    private MadTechneModel MAGLOADER_BULLET2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_Bullet2.mad");
-    private MadTechneModel MAGLOADER_BULLET3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_Bullet3.mad");
-    private MadTechneModel MAGLOADER_BULLET4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_Bullet4.mad");
+    private MadTechneModel MAGLOADER_BULLET0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet0.mad");
+    private MadTechneModel MAGLOADER_BULLET1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet1.mad");
+    private MadTechneModel MAGLOADER_BULLET2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet2.mad");
+    private MadTechneModel MAGLOADER_BULLET3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet3.mad");
+    private MadTechneModel MAGLOADER_BULLET4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Bullet4.mad");
 
     // Magazine to be displayed.
-    private MadTechneModel MAGLOADER_MAGAZINE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_Magazine.mad");
-    private MadTechneModel MAGLOADER_MAGAZINEBASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_MagazineBase.mad");
+    private MadTechneModel MAGLOADER_MAGAZINE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_Magazine.mad");
+    private MadTechneModel MAGLOADER_MAGAZINEBASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_MagazineBase.mad");
 
     // Pushing mechanism that makes it look like bullets are being pushed down into magazine.
-    private MadTechneModel MAGLOADER_PUSH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_push0.mad");
-    private MadTechneModel MAGLOADER_PUSH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_push1.mad");
-    private MadTechneModel MAGLOADER_PUSH2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_push2.mad");
-    private MadTechneModel MAGLOADER_PUSH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_push3.mad");
-    private MadTechneModel MAGLOADER_PUSH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_push4.mad");
-    private MadTechneModel MAGLOADER_PUSH5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadMachines.MAGLOADER_INTERNALNAME + "/" + MadMachines.MAGLOADER_INTERNALNAME + "_push5.mad");
+    private MadTechneModel MAGLOADER_PUSH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push0.mad");
+    private MadTechneModel MAGLOADER_PUSH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push1.mad");
+    private MadTechneModel MAGLOADER_PUSH2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push2.mad");
+    private MadTechneModel MAGLOADER_PUSH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push3.mad");
+    private MadTechneModel MAGLOADER_PUSH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push4.mad");
+    private MadTechneModel MAGLOADER_PUSH5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAGLOADER_INTERNALNAME + "/" + MadFurnaces.MAGLOADER_INTERNALNAME + "_push5.mad");
     
     // Next available render ID for model instancing.
     private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
 
     // Texture that is used when bullets have been loaded into the machine.
-    private ResourceLocation TEXTURE_HASBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadMachines.MAGLOADER_INTERNALNAME + "/full.png");
+    private ResourceLocation TEXTURE_HASBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/full.png");
 
     // Empty texture that is used when no bullets are inside of the machine.
-    private ResourceLocation TEXTURE_NOBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadMachines.MAGLOADER_INTERNALNAME + "/empty.png");
+    private ResourceLocation TEXTURE_NOBULLETS = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAGLOADER_INTERNALNAME + "/empty.png");
 
     @Override
     public int getRenderId()

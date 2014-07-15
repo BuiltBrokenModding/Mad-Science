@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -180,7 +180,7 @@ public class MeatcubeBlock extends BlockContainer
      */
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
-        return MadMachines.MEATCUBE_TILEENTITY.blockID;
+        return MadFurnaces.MEATCUBE_TILEENTITY.blockID;
     }
 
     @Override
@@ -352,7 +352,7 @@ public class MeatcubeBlock extends BlockContainer
      */
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + MadMachines.MEATCUBE_INTERNALNAME);
+        this.blockIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

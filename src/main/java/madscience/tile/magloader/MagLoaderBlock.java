@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadMachines;
+import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -128,7 +128,7 @@ public class MagLoaderBlock extends BlockContainer
         super.breakBlock(par1World, par2, par3, par4, par5, par6);
 
         // Break all the 'ghost blocks'
-        if (par1World.getBlockId(par2, par3 + 1, par4) == MadMachines.MAGLOADERGHOST.blockID)
+        if (par1World.getBlockId(par2, par3 + 1, par4) == MadFurnaces.MAGLOADERGHOST.blockID)
         {
             par1World.setBlockToAir(par2, par3 + 1, par4);
         }
@@ -191,7 +191,7 @@ public class MagLoaderBlock extends BlockContainer
     @Override
     public int idDropped(int par1, Random par2Random, int par3)
     {
-        return MadMachines.MAGLOADER_TILEENTITY.blockID;
+        return MadFurnaces.MAGLOADER_TILEENTITY.blockID;
     }
 
     @Override
@@ -199,7 +199,7 @@ public class MagLoaderBlock extends BlockContainer
     public int idPicked(World par1World, int par2, int par3, int par4)
     {
         // only called by clickMiddleMouseButton , and passed to inventory.setCurrentItem (along with isCreative)
-        return MadMachines.MAGLOADER_TILEENTITY.blockID;
+        return MadFurnaces.MAGLOADER_TILEENTITY.blockID;
     }
 
     @Override
@@ -260,7 +260,7 @@ public class MagLoaderBlock extends BlockContainer
         if (!world.isRemote)
         {
             // Add 'ghost' blocks that makeup upper section of magazine loader.
-            world.setBlock(x, y + 1, z, MadMachines.MAGLOADERGHOST.blockID, 1, 3);
+            world.setBlock(x, y + 1, z, MadFurnaces.MAGLOADERGHOST.blockID, 1, 3);
         }
     }
 
@@ -277,7 +277,7 @@ public class MagLoaderBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadMachines.MAGLOADER_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.MAGLOADER_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.
