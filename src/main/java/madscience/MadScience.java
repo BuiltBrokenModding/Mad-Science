@@ -157,7 +157,7 @@ public class MadScience
             {
                 if (unregisteredMachine.getMachineName().equals("dnaExtractor"))
                 {
-                    
+
                 }
                 
                 // Register machine with the registry so we can generate all needed MC/Forge data.

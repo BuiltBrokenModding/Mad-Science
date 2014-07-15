@@ -1277,6 +1277,14 @@
         "craftingRecipeType": "SHAPED",
         "craftingAmount": 1
       }
-    ]
+    ],
+    "modelArchive": {
+      "machineModels": [
+        {
+          "modelPath": "/assets/madscience/models/dnaExtractor/dnaExtractor.mad"
+        }
+      ],
+      "texturePath": "/models/dnaExtractor/idle.png"
+    }
   }
 ]

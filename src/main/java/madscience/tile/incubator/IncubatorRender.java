@@ -2,7 +2,7 @@ package madscience.tile.incubator;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.util.MadTechneModel;
+import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;

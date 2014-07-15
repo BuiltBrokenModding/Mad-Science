@@ -2,8 +2,10 @@ package madscience.factory.tileentity;
 
 import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelFile;
+import madscience.factory.model.MadTechneModel;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -34,7 +36,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     private int rendereingID = RenderingRegistry.getNextAvailableRenderId();
 
     /** Binary model file created with Techne */
-    private static MadTechneModel techneModel = null;
+    private static MadTechneModel[] techneModels = null;
 
     /** Default texture that is rendered on the model if no other is specified. */
     private static ResourceLocation techneModelTexture = null;
@@ -43,11 +45,26 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     {
         super();
         
-        // Load the base model for this machine.
-        this.techneModel = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + registeredProduct.getMachineName() + "/" + registeredProduct.getMachineName() + ".mad");
+        // Grab a list of all the models and associated textures for this machine.
+        MadModel modelArchive = registeredProduct.getModelArchive();
+        
+        // Since there can only be one texture binded, and many models we follow this model.
+        MadModelFile[] modeFiles = modelArchive.getMachineModels();
+        
+        // Set the length of model and resource arrays to model archive length.
+        techneModels = new MadTechneModel[modeFiles.length];
         
         // Load the default texture for this machine model.
-        this.techneModelTexture = new ResourceLocation(MadScience.ID, "models/" + registeredProduct.getMachineName() + "/idle.png");
+        techneModelTexture = new ResourceLocation(MadScience.ID, modelArchive.getMachineTexture());
+        
+        // Populate the newly created array with our data.
+        int i = 0;
+        for(MadModelFile model : modeFiles)
+        {
+            // Load the base model for this machine.
+            techneModels[i] = (MadTechneModel) AdvancedModelLoader.loadModel(model.getModelPath());
+            i++;
+        }
     }
 
     public MadTileEntityRendererTemplate()
@@ -149,11 +166,18 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
 
         GL11.glPushMatrix();
-        this.techneModel.renderAll();
+        renderTechneModels();
         GL11.glPopMatrix();
+        GL11.glPopMatrix();
+    }
 
-        // MODEL.renderAll();
-        GL11.glPopMatrix();
+    /** Tells the MadTechneModel rendering system to render all the parts that makeup it's given model. */
+    private void renderTechneModels()
+    {
+        for (MadTechneModel model : techneModels)
+        {
+            model.renderAll();
+        }
     }
 
     @Override
@@ -217,7 +241,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
 
         // Renders the model in the gameworld at the correct scale.
-        this.techneModel.renderAll();
+        renderTechneModels();
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)

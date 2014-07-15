@@ -1,4 +1,4 @@
-package madscience.util;
+package madscience.factory.model;
 
 import java.net.URL;
 

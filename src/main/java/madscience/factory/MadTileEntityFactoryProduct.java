@@ -12,6 +12,7 @@ import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
+import madscience.factory.model.MadModel;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
 import madscience.factory.slotcontainers.MadSlotContainer;
@@ -481,5 +482,10 @@ public class MadTileEntityFactoryProduct
     public MadTileEntityFactoryProductData getData()
     {
         return data;
+    }
+
+    public MadModel getModelArchive()
+    {
+        return data.getModelArchive();
     }
 }

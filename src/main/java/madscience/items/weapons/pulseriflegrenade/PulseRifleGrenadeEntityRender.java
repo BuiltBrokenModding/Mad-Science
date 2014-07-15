@@ -2,7 +2,7 @@ package madscience.items.weapons.pulseriflegrenade;
 
 import madscience.MadScience;
 import madscience.MadWeapons;
-import madscience.util.MadTechneModel;
+import madscience.factory.model.MadTechneModel;
 import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;

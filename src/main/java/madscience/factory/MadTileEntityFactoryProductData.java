@@ -5,6 +5,7 @@ import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
+import madscience.factory.model.MadModel;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.sounds.MadSound;
@@ -57,6 +58,9 @@ public class MadTileEntityFactoryProductData
     @Expose
     private MadCraftingRecipe[] craftingRecipes;
     
+    @Expose
+    private MadModel modelArchive;
+    
     public MadTileEntityFactoryProductData( // NO_UCD (unused code)
             String machineName,
             int blockID,
@@ -68,7 +72,8 @@ public class MadTileEntityFactoryProductData
             MadEnergy[] energyTemplate,
             MadSound[] soundArchive,
             MadRecipe[] recipeArchive,
-            MadCraftingRecipe[] craftingRecipe)
+            MadCraftingRecipe[] craftingRecipe,
+            MadModel modelArchive)
     {
         super();
         
@@ -94,6 +99,9 @@ public class MadTileEntityFactoryProductData
         // Crafting recipes to create the machine itself and recipes that go inside it.
         this.recipeArchive = recipeArchive;
         this.craftingRecipes = craftingRecipe;
+        
+        // Model and texture paths.
+        this.modelArchive = modelArchive;
     }
 
     public String getMachineName()
@@ -204,5 +212,15 @@ public class MadTileEntityFactoryProductData
     public void setCraftingRecipes(MadCraftingRecipe[] craftingRecipe)
     {
         this.craftingRecipes = craftingRecipe;
+    }
+
+    public MadModel getModelArchive()
+    {
+        return modelArchive;
+    }
+
+    public void setModelArchive(MadModel modelRenderArchive)
+    {
+        this.modelArchive = modelRenderArchive;
     }
 }

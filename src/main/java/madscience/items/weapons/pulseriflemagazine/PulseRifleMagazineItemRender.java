@@ -2,7 +2,7 @@ package madscience.items.weapons.pulseriflemagazine;
 
 import madscience.MadScience;
 import madscience.MadWeapons;
-import madscience.util.MadTechneModel;
+import madscience.factory.model.MadTechneModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
