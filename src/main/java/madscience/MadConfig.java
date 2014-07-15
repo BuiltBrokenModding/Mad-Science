@@ -666,9 +666,6 @@ public class MadConfig
     private final static long MACHINE_TRANSFERRATE_DEFAULT = 200;
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
-    // DNA Extractor
-    public static @CfgEnergy long DNAEXTRACTOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-
     // Needle Sanitizer
     public static @CfgId(block = true) int SANTITIZER = getNextBlockID();
     public static @CfgEnergy long SANTITIZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;

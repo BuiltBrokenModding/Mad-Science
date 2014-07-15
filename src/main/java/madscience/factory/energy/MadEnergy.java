@@ -6,13 +6,25 @@ public final class MadEnergy
 {
     @Expose private long energyMaxExtract;
     @Expose private long energyMaxRecieve;
+    
     @Expose private long energyCapacity;
+    
+    @Expose private long consumptionRate;
+    @Expose private long productionRate;
 
-    public MadEnergy(long capacity, long maxRecieve, long maxExtract) // NO_UCD (unused code)
+    public MadEnergy(long capacity,
+                     long maxRecieve,
+                     long maxExtract,
+                     long consumeRate,
+                     long produceRate) // NO_UCD (unused code)
     {
-        this.energyCapacity = capacity;
         this.energyMaxRecieve = maxRecieve;
         this.energyMaxExtract = maxExtract;
+        
+        this.energyCapacity = capacity;
+        
+        this.consumptionRate = consumeRate;
+        this.productionRate = produceRate;
     }
 
     public long getEnergyCapacity()
@@ -43,5 +55,25 @@ public final class MadEnergy
     public void setEnergyMaxRecieve(long energyMaxRecieve)
     {
         this.energyMaxRecieve = energyMaxRecieve;
+    }
+
+    public long getConsumptionRate()
+    {
+        return consumptionRate;
+    }
+
+    public void setConsumptionRate(long consumptionRate)
+    {
+        this.consumptionRate = consumptionRate;
+    }
+
+    public long getProductionRate()
+    {
+        return productionRate;
+    }
+
+    public void setProductionRate(long productionRate)
+    {
+        this.productionRate = productionRate;
     }
 }

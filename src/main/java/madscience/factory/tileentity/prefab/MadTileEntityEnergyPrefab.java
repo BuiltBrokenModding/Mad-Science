@@ -17,7 +17,12 @@ import universalelectricity.api.vector.Vector3;
 @UniversalClass
 public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab implements IEnergyInterface, IEnergyContainer
 {
+    /** Interface from UE team that handles many of the common energy requirements. */
     protected EnergyStorageHandler energy;
+    
+    
+    private long energyConsumeRate = 0;
+    private long energyProduceRate = 0;
 
     public MadTileEntityEnergyPrefab()
     {
@@ -38,13 +43,20 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
                 MadEnergy energyInterface = energySupported[i];
 
                 // TODO: Only 1 energy storage handler is supported at this time.
-                energy = new EnergyStorageHandler(energyInterface.getEnergyCapacity(), energyInterface.getEnergyMaxRecieve(), energyInterface.getEnergyMaxExtract());
+                this.energy = new EnergyStorageHandler(
+                        energyInterface.getEnergyCapacity(),
+                        energyInterface.getEnergyMaxRecieve(),
+                        energyInterface.getEnergyMaxExtract());
+                
+                // Consumption and production information for generators.
+                this.energyConsumeRate = energyInterface.getConsumptionRate();
+                this.energyProduceRate = energyInterface.getProductionRate();
             }
         }
         else
         {
             // No energy is used if we just call to the object without the other overload.
-            energy = new EnergyStorageHandler(0, 0, 0);
+            this.energy = new EnergyStorageHandler(0, 0, 0);
         }
     }
 
@@ -180,6 +192,12 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
         }
         else
         {
+            // Consumption amount.
+            this.energyConsumeRate = nbt.getLong("energyConsumeRate");
+            
+            // Production amount.
+            this.energyProduceRate = nbt.getLong("energyProduceRate");
+            
             // Current energy levels.
             long currentEnergy = nbt.getLong("energy");
 
@@ -237,11 +255,37 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
 
         // Maximum extract.
         nbt.setLong("energyMaxExtract", this.energy.getMaxExtract());
+        
+        // Consumption amount.
+        nbt.setLong("energyConsumeRate", this.energyConsumeRate);
+        
+        // Production amount.
+        nbt.setLong("energyProduceRate", this.energyProduceRate);
     }
 
     @Override
     public void initiate()
     {
         super.initiate();
+    }
+
+    public long getEnergyConsumeRate()
+    {
+        return energyConsumeRate;
+    }
+
+    public long getEnergyProduceRate()
+    {
+        return energyProduceRate;
+    }
+
+    public void setEnergyConsumeRate(long energyConsumeRate)
+    {
+        this.energyConsumeRate = energyConsumeRate;
+    }
+
+    public void setEnergyProduceRate(long energyProduceRate)
+    {
+        this.energyProduceRate = energyProduceRate;
     }
 }

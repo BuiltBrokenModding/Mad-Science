@@ -120,7 +120,9 @@
       {
         "energyMaxExtract": 0,
         "energyMaxRecieve": 200,
-        "energyCapacity": 100000
+        "energyCapacity": 100000,
+        "consumptionRate": 1,
+        "productionRate": 0
       }
     ],
     "soundArchive": [

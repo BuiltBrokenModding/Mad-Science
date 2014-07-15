@@ -417,7 +417,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         if (this.isPowered() && this.canSmelt())
         {
             // Decrease to amount of energy this item has on client and server.
-            this.consumeEnergy(MadConfig.DNAEXTRACTOR_CONSUME);
+            this.consumeEnergy(this.getEnergyConsumeRate());
         }
 
         // Server side processing for furnace.
