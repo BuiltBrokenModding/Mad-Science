@@ -3,11 +3,12 @@ package madscience.tile.dataduplicator;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
 import madscience.items.genomes.ItemGenomeBase;
 import madscience.items.memories.CombinedMemoryMonsterPlacer;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -184,7 +185,7 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -247,7 +248,7 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
             return this.dataduplicatorOutput[0];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -454,7 +455,7 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
 
                 // Debug message about data reel health as it is healed by
                 // the server.
-                //MadScience.logger.info("WORLD(" + dataduplicatorInput[1].getUnlocalizedName() + "): " + dataduplicatorInput[1].getItemDamage());
+                //MadMod.logger.info("WORLD(" + dataduplicatorInput[1].getUnlocalizedName() + "): " + dataduplicatorInput[1].getItemDamage());
             }
 
             // Check if the genome was healed completely in this last pass
@@ -614,13 +615,13 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab implements ISidedI
     public void updateSound()
     {
         // Idle sound of machine if powered but not currently working.
-        if (this.isRedstonePowered() && !this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.4F) == 0L)
+        if (this.isRedstonePowered() && !this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 1.4F) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_IDLE, 1.0F, 1.0F);
         }
 
         // Working sound of machine when powered and can smelt.
-        if (this.isRedstonePowered() && this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.8F) == 0L)
+        if (this.isRedstonePowered() && this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 1.8F) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, DataDuplicatorSounds.DATADUPLICATOR_WORK, 1.0F, 1.0F);
         }

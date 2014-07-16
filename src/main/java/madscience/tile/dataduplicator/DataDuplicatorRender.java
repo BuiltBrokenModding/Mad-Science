@@ -1,7 +1,7 @@
 package madscience.tile.dataduplicator;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,7 +30,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -39,7 +39,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
     private DataDuplicatorEntity lastPlacedTileEntity;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.DATADUPLICATOR_INTERNALNAME + "/off.png");
 
     @Override
     public int getRenderId()
@@ -208,7 +208,7 @@ public class DataDuplicatorRender extends TileEntitySpecialRenderer implements I
         if (lastPlacedTileEntity != null && lastPlacedTileEntity.TEXTURE != null && !lastPlacedTileEntity.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.TEXTURE));
+            bindTexture(new ResourceLocation(MadMod.ID, lastPlacedTileEntity.TEXTURE));
         }
         else
         {

@@ -3,7 +3,7 @@ package madscience.items.warningsign;
 import java.util.ArrayList;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.util.MadUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.player.EntityPlayer;
@@ -253,7 +253,7 @@ public class WarningSignEntity extends EntityHanging
             if (clientShouldRequestSignType && !clientHasRecievedServerReply)
             {
                 // Don't fire packets all the time, do it every second until we get an answer.
-                if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+                if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
                 {
                     // Default sign that is used if no others are specified.
                     if (this.clientCurrentSignType == null)

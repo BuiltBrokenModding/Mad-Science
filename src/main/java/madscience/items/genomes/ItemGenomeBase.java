@@ -1,7 +1,7 @@
 package madscience.items.genomes;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -135,9 +135,9 @@ public class ItemGenomeBase extends Item
     {
         super.registerIcons(par1IconRegister);
 
-        this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":genomeDataReel_overlay");
-        this.genomeReelLayer1 = par1IconRegister.registerIcon(MadScience.ID + ":genomeDataReel1");
-        this.genomeReelLayer2 = par1IconRegister.registerIcon(MadScience.ID + ":genomeDataReel2");
+        this.itemIcon = par1IconRegister.registerIcon(MadMod.ID + ":genomeDataReel_overlay");
+        this.genomeReelLayer1 = par1IconRegister.registerIcon(MadMod.ID + ":genomeDataReel1");
+        this.genomeReelLayer2 = par1IconRegister.registerIcon(MadMod.ID + ":genomeDataReel2");
 
         this.iconString = itemIcon.getIconName();
     }

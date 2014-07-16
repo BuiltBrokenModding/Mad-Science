@@ -3,8 +3,9 @@ package madscience.items.weapons.pulserifle;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.MadScience;
+import madscience.MadForgeMod;
 import madscience.MadWeapons;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import madscience.util.MadUtils;
 import net.minecraft.client.Minecraft;
@@ -29,30 +30,30 @@ public class PulseRifleItemRender implements IItemRenderer
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    private MadTechneModel MODEL_COUNTER_LEFT = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.mad");
-    private MadTechneModel MODEL_COUNTER_RIGHT = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter1.mad");
-    private MadTechneModel MODEL_FLASH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash0.mad");
+    private MadTechneModel MODEL_COUNTER_LEFT = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.mad");
+    private MadTechneModel MODEL_COUNTER_RIGHT = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter1.mad");
+    private MadTechneModel MODEL_FLASH0 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash0.mad");
 
-    private MadTechneModel MODEL_FLASH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash1.mad");
-    private MadTechneModel MODEL_FLASH2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash2.mad");
-    private MadTechneModel MODEL_FLASH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash3.mad");
-    private MadTechneModel MODEL_FLASH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash4.mad");
-    private MadTechneModel MODEL_RIFLE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL_FLASH1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash1.mad");
+    private MadTechneModel MODEL_FLASH2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash2.mad");
+    private MadTechneModel MODEL_FLASH3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash3.mad");
+    private MadTechneModel MODEL_FLASH4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash4.mad");
+    private MadTechneModel MODEL_RIFLE = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".mad");
 
-    private ResourceLocation TEXTURE_COUNTER_EIGHT = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter8.png");
-    private ResourceLocation TEXTURE_COUNTER_FIVE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter5.png");
-    private ResourceLocation TEXTURE_COUNTER_FOUR = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter4.png");
-    private ResourceLocation TEXTURE_COUNTER_NINE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter9.png");
-    private ResourceLocation TEXTURE_COUNTER_ONE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter1.png");
-    private ResourceLocation TEXTURE_COUNTER_SEVEN = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter7.png");
-    private ResourceLocation TEXTURE_COUNTER_SIX = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter6.png");
-    private ResourceLocation TEXTURE_COUNTER_THREE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter3.png");
-    private ResourceLocation TEXTURE_COUNTER_TWO = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter2.png");
-    private ResourceLocation TEXTURE_COUNTER_ZERO = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.png");
+    private ResourceLocation TEXTURE_COUNTER_EIGHT = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter8.png");
+    private ResourceLocation TEXTURE_COUNTER_FIVE = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter5.png");
+    private ResourceLocation TEXTURE_COUNTER_FOUR = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter4.png");
+    private ResourceLocation TEXTURE_COUNTER_NINE = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter9.png");
+    private ResourceLocation TEXTURE_COUNTER_ONE = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter1.png");
+    private ResourceLocation TEXTURE_COUNTER_SEVEN = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter7.png");
+    private ResourceLocation TEXTURE_COUNTER_SIX = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter6.png");
+    private ResourceLocation TEXTURE_COUNTER_THREE = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter3.png");
+    private ResourceLocation TEXTURE_COUNTER_TWO = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter2.png");
+    private ResourceLocation TEXTURE_COUNTER_ZERO = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_counter0.png");
 
-    private ResourceLocation TEXTURE_FLASH12 = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash12.png");
-    private ResourceLocation TEXTURE_FLASH34 = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash34.png");
-    private ResourceLocation TEXTURE_RIFLE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".png");
+    private ResourceLocation TEXTURE_FLASH12 = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash12.png");
+    private ResourceLocation TEXTURE_FLASH34 = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "_flash34.png");
+    private ResourceLocation TEXTURE_RIFLE = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME + ".png");
 
     private ResourceLocation convertIntegerToCounterTexture(Integer ammoCount)
     {
@@ -158,7 +159,7 @@ public class PulseRifleItemRender implements IItemRenderer
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
         // Grab client side instance of the players world.
-        World clientWorld = MadScience.proxy.getClientWorld();
+        World clientWorld = MadForgeMod.proxy.getClientWorld();
 
         // Grab client side instance of the player.
         EntityClientPlayerMP clientEntity = Minecraft.getMinecraft().thePlayer;

@@ -3,6 +3,7 @@ package madscience;
 import madscience.blocks.abominationegg.AbominationEggBlock;
 import madscience.blocks.abominationegg.AbominationEggMobSpawnerTileEntity;
 import madscience.blocks.enderslime.EnderslimeBlock;
+import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import net.minecraft.block.Block;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -19,26 +20,26 @@ public class MadBlocks
 
     static void createAbominationEgg(int blockID)
     {
-        MadScience.logger.info("-Abomination Egg");
+        MadMod.LOGGER.info("-Abomination Egg");
         ABOMINATIONEGGBLOCK = new AbominationEggBlock(blockID).setUnlocalizedName(ABOMINATIONEGG_INTERNALNAME);
 
         // Register the block with the world.
-        GameRegistry.registerBlock(ABOMINATIONEGGBLOCK, ItemBlockTooltip.class, MadScience.ID + ABOMINATIONEGGBLOCK.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(ABOMINATIONEGGBLOCK, ItemBlockTooltip.class, MadMod.ID + ABOMINATIONEGGBLOCK.getUnlocalizedName().substring(5));
         GameRegistry.registerTileEntity(AbominationEggMobSpawnerTileEntity.class, ABOMINATIONEGGBLOCK.getUnlocalizedName());
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
     }
 
     static void createEnderslimeBlock(int blockID)
     {
-        MadScience.logger.info("-Enderslime Block");
+        MadMod.LOGGER.info("-Enderslime Block");
         ENDERSLIMEBLOCK = new EnderslimeBlock(blockID).setUnlocalizedName(ENDERSLIMEBLOCK_INTERNALNAME);
 
         // Register the block with the world.
-        GameRegistry.registerBlock(ENDERSLIMEBLOCK, ItemBlockTooltip.class, MadScience.ID + ENDERSLIMEBLOCK.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(ENDERSLIMEBLOCK, ItemBlockTooltip.class, MadMod.ID + ENDERSLIMEBLOCK.getUnlocalizedName().substring(5));
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
     }
 }

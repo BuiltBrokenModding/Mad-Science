@@ -1,7 +1,7 @@
 package madscience.factory.tileentity;
 
-import madscience.MadScience;
 import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelFile;
 import madscience.factory.model.MadTechneModel;
@@ -55,7 +55,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         techneModels = new MadTechneModel[modeFiles.length];
         
         // Load the default texture for this machine model.
-        techneModelTexture = new ResourceLocation(MadScience.ID, modelArchive.getMachineTexture());
+        techneModelTexture = new ResourceLocation(MadMod.ID, modelArchive.getMachineTexture());
         
         // Populate the newly created array with our data.
         int i = 0;
@@ -156,7 +156,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             // Apply our custom texture from asset directory.
             if (madTileEntity.getEntityTexture() != null && !madTileEntity.getEntityTexture().isEmpty())
             {
-                bindTexture(new ResourceLocation(MadScience.ID, madTileEntity.getEntityTexture()));
+                bindTexture(new ResourceLocation(MadMod.ID, madTileEntity.getEntityTexture()));
             }
             else
             {

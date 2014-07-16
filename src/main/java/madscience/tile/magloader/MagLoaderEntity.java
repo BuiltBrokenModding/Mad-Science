@@ -6,9 +6,10 @@ import java.util.List;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
 import madscience.MadWeapons;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -295,7 +296,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Default response is to return nothing.
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -492,7 +493,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
                         preparedRounds += bulletFromStorageItem.stackSize;
 
                         // Debuggin'
-                        // MadScience.logger.info("Slot " + String.valueOf(i) + " contains bullet itemstack with " + String.valueOf(bulletFromStorageItem.stackSize) + " rounds.");
+                        // MadMod.logger.info("Slot " + String.valueOf(i) + " contains bullet itemstack with " + String.valueOf(bulletFromStorageItem.stackSize) + " rounds.");
                     }
                 }
             }
@@ -552,7 +553,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
                     {
                         ItemStack bulletsReturned = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, bulletsToReturnToStorage);
                         this.bulletStorage[preparedBulletItem.slotNumber] = bulletsReturned.copy();
-                        // MadScience.logger.info("Magazine Loader: Returned " + String.valueOf(bulletsToReturnToStorage) + " bullets to storage area.");
+                        // MadMod.logger.info("Magazine Loader: Returned " + String.valueOf(bulletsToReturnToStorage) + " bullets to storage area.");
                         break;
                     }
                 }
@@ -562,18 +563,18 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
                 if (this.magloaderOutput[0] == null)
                 {
                     this.magloaderOutput[0] = compareFullMagazine.copy();
-                    // MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                    // MadMod.logger.info("Magazine Loader: Added filled magazine to output slot.");
                 }
                 else if (this.magloaderOutput[0].isItemEqual(compareFullMagazine))
                 {
                     magloaderOutput[0].stackSize += compareFullMagazine.stackSize;
-                    // MadScience.logger.info("Magazine Loader: Added filled magazine to output slot.");
+                    // MadMod.logger.info("Magazine Loader: Added filled magazine to output slot.");
                 }
 
                 // Remove an empty magazine from the stack since we filled one.
                 if (this.magloaderInput != null && this.magloaderInput[0] != null)
                 {
-                    // MadScience.logger.info("Magazine Loader: Removing empty magazine from input stack.");
+                    // MadMod.logger.info("Magazine Loader: Removing empty magazine from input stack.");
                     --this.magloaderInput[0].stackSize;
                     if (this.magloaderInput[0].stackSize <= 0)
                     {
@@ -612,14 +613,14 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
             // Check if we should play the sound of a magazine being inserted into the input slot.
             if (!this.hasPlayedMagazineInsertSound && this.getNumberOfMagazinesInInputInventory() > 0)
             {
-                // MadScience.logger.info("Magazine Loader: Playing Insert Sound!");
+                // MadMod.logger.info("Magazine Loader: Playing Insert Sound!");
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_INSERTMAGAZINE, 1.0F, 1.0F);
                 this.hasPlayedMagazineInsertSound = true;
             }
             else if (this.hasPlayedMagazineInsertSound && this.getNumberOfMagazinesInInputInventory() <= 0)
             {
                 // Check if we need to reset the status of the magazine insert sound.
-                // MadScience.logger.info("Magazine Loader: Resetting Insert Sound!");
+                // MadMod.logger.info("Magazine Loader: Resetting Insert Sound!");
                 this.hasPlayedMagazineInsertSound = false;
             }
 
@@ -651,7 +652,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
                 else
                 {
                     // Update progress noises while we wait.
-                    if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+                    if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
                     {
                         this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MagLoaderSounds.MAGLOADER_LOADING, 1.0F, 1.0F);
                     }

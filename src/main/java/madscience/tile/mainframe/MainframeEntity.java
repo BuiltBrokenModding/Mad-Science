@@ -5,9 +5,10 @@ import java.util.Random;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.tile.mainframe.MainframeRecipes.GenomeRecipe;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -129,7 +130,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
 
         // Add a bucket's worth of water into the internal tank.
         internalWaterTank.fill(new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME), true);
-        MadScience.logger.info("internalWaterTank() " + internalWaterTank.getFluidAmount());
+        MadMod.LOGGER.info("internalWaterTank() " + internalWaterTank.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
         this.DecreaseInputSlot(0, 1);
@@ -388,7 +389,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -574,7 +575,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             return this.getOutputSlot_EmptyBucket();
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -968,7 +969,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/work_" + animFrame + ".png";
-                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadMod.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
             }
@@ -989,13 +990,13 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/idle_0.png";
-                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadMod.ID, mainframeTexturePath);
                 hasChanged = true;
             }
             else
             {
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/idle_1.png";
-                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadMod.ID, mainframeTexturePath);
                 hasChanged = true;
             }
         }
@@ -1005,7 +1006,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
         if (isPowered() && isRedstonePowered() && isOverheating())
         {
             // Sound of overheating.
-            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 1.184F == 0L)
+            if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * 1.184F == 0L)
             {
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_OVERHEAT, 0.42F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
             }
@@ -1015,7 +1016,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/warning_" + animFrame + ".png";
-                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadMod.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
             }
@@ -1037,7 +1038,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             {
                 // Load this texture onto the entity.
                 mainframeTexturePath = "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/no_water_" + animFrame + ".png";
-                //mainframeTexture = new ResourceLocation(MadScience.ID, mainframeTexturePath);
+                //mainframeTexture = new ResourceLocation(MadMod.ID, mainframeTexturePath);
                 animFrame++;
                 hasChanged = true;
             }
@@ -1052,14 +1053,14 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
         // Debugging information about animation state.
         if (hasChanged && showDebuggingInfo)
         {
-            MadScience.logger.info("----------------------------[" + String.valueOf(worldObj.getWorldTime()) + "]");
-            MadScience.logger.info("TEXTURE: " + mainframeTexturePath);
-            MadScience.logger.info("STATE: " + currentMainframeState);
-            MadScience.logger.info("POWERED: " + this.isPowered());
-            MadScience.logger.info("REDSTONE: " + this.isRedstonePowered());
-            MadScience.logger.info("WORKING: " + this.canSmelt());
-            MadScience.logger.info("OUTOFWATER: " + this.isOutOfWater());
-            MadScience.logger.info("OVERHEATING: " + this.isOverheating());
+            MadMod.LOGGER.info("----------------------------[" + String.valueOf(worldObj.getWorldTime()) + "]");
+            MadMod.LOGGER.info("TEXTURE: " + mainframeTexturePath);
+            MadMod.LOGGER.info("STATE: " + currentMainframeState);
+            MadMod.LOGGER.info("POWERED: " + this.isPowered());
+            MadMod.LOGGER.info("REDSTONE: " + this.isRedstonePowered());
+            MadMod.LOGGER.info("WORKING: " + this.canSmelt());
+            MadMod.LOGGER.info("OUTOFWATER: " + this.isOutOfWater());
+            MadMod.LOGGER.info("OVERHEATING: " + this.isOverheating());
         }
     }
 
@@ -1150,13 +1151,13 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
     public void updateSound()
     {
         // Check if we should be playing working sounds.
-        if (this.isRedstonePowered() && this.canSmelt() && this.isPowered() && !this.isOutOfWater() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.2F) == 0L)
+        if (this.isRedstonePowered() && this.canSmelt() && this.isPowered() && !this.isOutOfWater() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 1.2F) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_WORK, 1.0F, 1.0F);
         }
 
         // Check to see if we should play idle sounds.
-        if (this.isRedstonePowered() && this.isPowered() && !this.isOutOfWater() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 8.6F) == 0L)
+        if (this.isRedstonePowered() && this.isPowered() && !this.isOutOfWater() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 8.6F) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MainframeSounds.MAINFRAME_IDLE, 0.42F, 1.0F);
         }

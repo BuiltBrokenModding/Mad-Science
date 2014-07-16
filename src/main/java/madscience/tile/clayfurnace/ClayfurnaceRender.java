@@ -1,7 +1,7 @@
 package madscience.tile.clayfurnace;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -31,9 +31,9 @@ public class ClayfurnaceRender extends TileEntitySpecialRenderer implements ISim
     }
 
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + ".mad");
     private ClayfurnaceEntity ENTITY;
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png");
 
     @Override
     public int getRenderId()
@@ -120,7 +120,7 @@ public class ClayfurnaceRender extends TileEntitySpecialRenderer implements ISim
         // Apply our custom texture from asset directory.
         if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.TEXTURE));
         }
         else
         {

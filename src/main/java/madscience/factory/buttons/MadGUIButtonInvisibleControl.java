@@ -1,6 +1,6 @@
 package madscience.factory.buttons;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
@@ -14,7 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class MadGUIButtonInvisibleControl extends GuiButton
 {
-    private static final ResourceLocation sandraBullock = new ResourceLocation(MadScience.ID, "textures/gui/sandraBullock.png");
+    private static final ResourceLocation sandraBullock = new ResourceLocation(MadMod.ID, "textures/gui/sandraBullock.png");
 
     private static void drawTexturedQuadFit(double x, double y, double width, double height, double zLevel)
     {

@@ -1,7 +1,7 @@
 package madscience.tile.voxbox;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,9 +30,9 @@ public class VoxBoxRender extends TileEntitySpecialRenderer implements ISimpleBl
     }
 
     private VoxBoxEntity ENTITY;
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.VOXBOX_INTERNALNAME + "/" + MadFurnaces.VOXBOX_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.VOXBOX_INTERNALNAME + "/" + MadFurnaces.VOXBOX_INTERNALNAME + ".mad");
     private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png");
 
     @Override
     public int getRenderId()
@@ -110,7 +110,7 @@ public class VoxBoxRender extends TileEntitySpecialRenderer implements ISimpleBl
         if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.TEXTURE));
         }
         else
         {

@@ -1,5 +1,6 @@
 package madscience;
 
+import madscience.factory.mod.MadMod;
 import madscience.items.circuits.CircuitComparator;
 import madscience.items.circuits.CircuitDiamond;
 import madscience.items.circuits.CircuitEmerald;
@@ -47,35 +48,35 @@ public class MadCircuits
     
     static void createCircuitComparatorItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Comparator");
+        MadMod.LOGGER.info("-Circuit Comparator");
         CIRCUIT_COMPARATOR = (CircuitComparator) new CircuitComparator(itemID).setUnlocalizedName(CIRCUIT_COMPARATOR_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_COMPARATOR, CIRCUIT_COMPARATOR_INTERNALNAME);
     }
 
     static void createCircuitDiamondItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Diamond");
+        MadMod.LOGGER.info("-Circuit Diamond");
         CIRCUIT_DIAMOND = (CircuitDiamond) new CircuitDiamond(itemID).setUnlocalizedName(CIRCUIT_DIAMOND_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_DIAMOND, CIRCUIT_DIAMOND_INTERNALNAME);
     }
 
     static void createCircuitEmeraldItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Emerald");
+        MadMod.LOGGER.info("-Circuit Emerald");
         CIRCUIT_EMERALD = (CircuitEmerald) new CircuitEmerald(itemID).setUnlocalizedName(CIRCUIT_EMERALD_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_EMERALD, CIRCUIT_EMERALD_INTERNALNAME);
     }
 
     static void createCircuitEnderEyeItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Ender Eye");
+        MadMod.LOGGER.info("-Circuit Ender Eye");
         CIRCUIT_ENDEREYE = (CircuitEnderEye) new CircuitEnderEye(itemID).setUnlocalizedName(CIRCUIT_ENDEREYE_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_ENDEREYE, CIRCUIT_ENDEREYE_INTERNALNAME);
     }
 
     static void createCircuitEnderPerlItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Ender Perl");
+        MadMod.LOGGER.info("-Circuit Ender Perl");
         CIRCUIT_ENDERPEARL = (CircuitEnderPearl) new CircuitEnderPearl(itemID).setUnlocalizedName(CIRCUIT_ENDERPEARL_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_ENDERPEARL, CIRCUIT_ENDERPEARL_INTERNALNAME);
     }
@@ -83,7 +84,7 @@ public class MadCircuits
 
     static void createCircuitGlowstoneItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Glowstone");
+        MadMod.LOGGER.info("-Circuit Glowstone");
         CIRCUIT_GLOWSTONE = (CircuitGlowstone) new CircuitGlowstone(itemID).setUnlocalizedName(CIRCUIT_GLOWSTONE_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_GLOWSTONE, CIRCUIT_GLOWSTONE_INTERNALNAME);
     }
@@ -91,14 +92,14 @@ public class MadCircuits
 
     static void createCircuitRedstoneItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Redstone");
+        MadMod.LOGGER.info("-Circuit Redstone");
         CIRCUIT_REDSTONE = (CircuitRedstone) new CircuitRedstone(itemID).setUnlocalizedName(CIRCUIT_REDSTONE_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_REDSTONE, CIRCUIT_REDSTONE_INTERNALNAME);
     }
 
     static void createCircuitSpiderEyeItem(int itemID)
     {
-        MadScience.logger.info("-Circuit Spider Eye");
+        MadMod.LOGGER.info("-Circuit Spider Eye");
         CIRCUIT_SPIDEREYE = (CircuitSpiderEye) new CircuitSpiderEye(itemID).setUnlocalizedName(CIRCUIT_SPIDEREYE_INTERNALNAME);
         GameRegistry.registerItem(CIRCUIT_SPIDEREYE, CIRCUIT_SPIDEREYE_INTERNALNAME);
     }

@@ -6,9 +6,10 @@ import java.util.List;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -163,7 +164,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
 
         if (l != null && l.isEmpty())
         {
-            // MadScience.logger.info("No nearby players detected!");
+            // MadMod.logger.info("No nearby players detected!");
             return;
         }
 
@@ -195,7 +196,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
             }
             catch (Exception err)
             {
-                MadScience.logger.info("Attempted to poison living creature and failed!");
+                MadMod.LOGGER.info("Attempted to poison living creature and failed!");
             }
         }
     }
@@ -271,7 +272,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -503,13 +504,13 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
                                 {
                                     // Add the processed item to our list for processing outside this loop.
                                     targetList.add(new SoniclocatorTargetBlock(targetX, targetY, targetZ, compareChucnkItem));
-                                    //MadScience.logger.info("[Soniclocator] Located Vanilla Block " + String.valueOf(compareChucnkItem));
+                                    //MadMod.logger.info("[Soniclocator] Located Vanilla Block " + String.valueOf(compareChucnkItem));
                                     continue;
                                 }
                             }
                             catch (Exception err)
                             {
-                                MadScience.logger.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
+                                MadMod.LOGGER.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
                             }
 
                             // Check if the target block is inside the OreDictionary if first query fails.
@@ -529,7 +530,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
                                             {
                                                 oreDictTargetStack = targetItem;
                                                 targetList.add(new SoniclocatorTargetBlock(targetX, targetY, targetZ, targetItem));
-                                                //MadScience.logger.info("[Soniclocator] Located OreDict Block " + someItem.getDisplayName());
+                                                //MadMod.logger.info("[Soniclocator] Located OreDict Block " + someItem.getDisplayName());
                                                 continue;
                                             }
                                         }
@@ -540,7 +541,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
                     }
                     catch (Exception err)
                     {
-                        MadScience.logger.info("Error while trying to locate target block!");
+                        MadMod.LOGGER.info("Error while trying to locate target block!");
                         continue;
                     }
                 }
@@ -554,7 +555,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         if (targetList.size() <= 0)
         {
             // Zero our the target list so we can keep track of an empty state in clean way.
-            //MadScience.logger.info("No targets found in this chunk or we have eaten them all!");
+            //MadMod.logger.info("No targets found in this chunk or we have eaten them all!");
             lastKnownNumberOfTargets = 0;
             return null;
         }
@@ -754,7 +755,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
                 }
 
                 long distanceBetweenMachines = Math.abs(SoniclocatorLocationRegistry.queryDistanceBetweenSonicLocators(new SoniclocatorLocationItem(this.xCoord, this.yCoord, this.zCoord), locationItem));
-                // MadScience.logger.info("DISTANCE BETWEEN MACHINES: " + distanceBetweenMachines);
+                // MadMod.logger.info("DISTANCE BETWEEN MACHINES: " + distanceBetweenMachines);
 
                 // We got the message to abort and everything is fine!
                 if (distanceBetweenMachines == 0)
@@ -776,7 +777,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         }
         catch (Exception err)
         {
-            // MadScience.logger.info("Minecraft has failed me!");
+            // MadMod.logger.info("Minecraft has failed me!");
             return;
         }
     }
@@ -792,7 +793,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
                     worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
-            if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            if (curFrame <= 5 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
 
@@ -820,7 +821,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         else if (canSmelt() && isPowered() && isRedstonePowered() && isEmptyTargetList() && !cooldownMode)
         {
             // Powered, can smelt, but no targets so we enter empty status.
-            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
                 soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
@@ -846,7 +847,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         else if (!canSmelt() && !isPowered() && isRedstonePowered())
         {
             // Has redstone signal and can smelt but has no power.
-            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 soniclocatorTexture = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/idle.png";
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_COOLDOWNBEEP, 1.0F, 1.0F);
@@ -973,19 +974,19 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
     public void updateSound()
     {
         // Check if we should be playing the idle sound.
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2.3f) == 0L)
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 2.3f) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_IDLE, 1.0F, 1.0F);
         }
 
         // Check if we should be changing pitch and volume of idle charging sound.
-        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !this.isEmptyTargetList() && !cooldownMode && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 1.7f) == 0L)
+        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !this.isEmptyTargetList() && !cooldownMode && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 1.7f) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_IDLECHARGED, 0.42F, (this.currentHeatValue * 0.1f));
         }
 
         // Check if we should be playing the thumper charging sound.
-        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !cooldownMode && !this.isEmptyTargetList() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+        if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && !cooldownMode && !this.isEmptyTargetList() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SoniclocatorSounds.SONICLOCATOR_THUMPCHARGE, 0.42F, 1.0F);
         }

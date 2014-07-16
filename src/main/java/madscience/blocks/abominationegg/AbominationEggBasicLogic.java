@@ -1,8 +1,8 @@
 package madscience.blocks.abominationegg;
 
 import madscience.MadMobs;
-import madscience.MadScience;
 import madscience.mobs.abomination.AbominationSounds;
+import madscience.util.MadUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -99,7 +99,7 @@ abstract class AbominationEggBasicLogic
             double d2 = this.getSpawnerY() + this.getSpawnerWorld().rand.nextFloat();
             d0 = this.getSpawnerZ() + this.getSpawnerWorld().rand.nextFloat();
             this.getSpawnerWorld().spawnParticle("portal", d1, d2, d0, 0.0D, 0.0D, 0.0D);
-            this.field_98287_c = (this.field_98287_c + 1000.0F / (MadScience.SECOND_IN_TICKS + 200.0F)) % 360.0D;
+            this.field_98287_c = (this.field_98287_c + 1000.0F / (MadUtils.SECOND_IN_TICKS + 200.0F)) % 360.0D;
         }
 
         // !ONLY SERVER CODE BELOW HERE!

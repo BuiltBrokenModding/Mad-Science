@@ -3,7 +3,7 @@ package madscience.items.labcoat;
 import java.util.List;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -39,14 +39,14 @@ public class ItemLabCoat extends ItemArmor
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer)
     {
-        return MadScience.ID + ":" + MadScience.MODEL_DIRECTORY + "labCoat/labCoat.png";
+        return MadMod.ID + ":" + MadMod.MODEL_DIRECTORY + "labCoat/labCoat.png";
     }
     
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + (this.getUnlocalizedName().substring(5)));
+        this.itemIcon = par1IconRegister.registerIcon(MadMod.ID + ":" + (this.getUnlocalizedName().substring(5)));
     }
     
     @Override

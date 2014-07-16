@@ -1,5 +1,6 @@
 package madscience;
 
+import madscience.factory.mod.MadMod;
 import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
 import madscience.items.datareel.ItemDataReelEmpty;
 import madscience.items.labcoat.ItemLabCoat;
@@ -57,10 +58,10 @@ public class MadEntities
     // Combined Genome Data Reels
     static void createCombinedGenomeMonsterPlacer(int itemID)
     {
-        MadScience.logger.info("-Combined Genome Metaitem");
+        MadMod.LOGGER.info("-Combined Genome Metaitem");
         COMBINEDGENOME_MONSTERPLACER = new CombinedGenomeMonsterPlacer(itemID);
         COMBINEDGENOME_MONSTERPLACER.setUnlocalizedName(COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
-        COMBINEDGENOME_MONSTERPLACER.setTextureName(MadScience.ID + ":" + COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
+        COMBINEDGENOME_MONSTERPLACER.setTextureName(MadMod.ID + ":" + COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
         COMBINEDGENOME_MONSTERPLACER.setCreativeTab(tabMadScience);
         GameRegistry.registerItem(COMBINEDGENOME_MONSTERPLACER, COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
     }
@@ -69,10 +70,10 @@ public class MadEntities
     static void createCombinedMemoryMonsterPlacer(int itemID)
     {
         // For storing memories of various villages based on their professions.
-        MadScience.logger.info("-Combined Memory Metaitem");
+        MadMod.LOGGER.info("-Combined Memory Metaitem");
         COMBINEDMEMORY_MONSTERPLACER = new CombinedMemoryMonsterPlacer(itemID);
         COMBINEDMEMORY_MONSTERPLACER.setUnlocalizedName(COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
-        COMBINEDMEMORY_MONSTERPLACER.setTextureName(MadScience.ID + ":" + COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
+        COMBINEDMEMORY_MONSTERPLACER.setTextureName(MadMod.ID + ":" + COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
         COMBINEDMEMORY_MONSTERPLACER.setCreativeTab(tabMadScience);
         GameRegistry.registerItem(COMBINEDMEMORY_MONSTERPLACER, COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
 
@@ -99,7 +100,7 @@ public class MadEntities
     static void createEmptyDataReel(int itemID)
     {
         // Empty Genome Data Reel
-        MadScience.logger.info("-Empty Data Reel");
+        MadMod.LOGGER.info("-Empty Data Reel");
         DATAREEL_EMPTY = (ItemDataReelEmpty) new ItemDataReelEmpty(itemID, 3515848, 3515848).setUnlocalizedName(DATAREEL_EMPTY_INTERNALNAME);
         GameRegistry.registerItem(DATAREEL_EMPTY, DATAREEL_EMPTY_INTERNALNAME);
 
@@ -116,10 +117,10 @@ public class MadEntities
     // Genetically Modified Mob Eggs
     static void createGeneticallyModifiedMonsterPlacer(int itemID)
     {
-        MadScience.logger.info("-Genetically Modified Organism Placer");
+        MadMod.LOGGER.info("-Genetically Modified Organism Placer");
         GENETICALLYMODIFIED_MONSTERPLACER = new GeneticallyModifiedMonsterPlacer(itemID);
         GENETICALLYMODIFIED_MONSTERPLACER.setUnlocalizedName(GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
-        GENETICALLYMODIFIED_MONSTERPLACER.setTextureName(MadScience.ID + ":" + GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
+        GENETICALLYMODIFIED_MONSTERPLACER.setTextureName(MadMod.ID + ":" + GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setCreativeTab(tabMadScience);
         GameRegistry.registerItem(GENETICALLYMODIFIED_MONSTERPLACER, GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
     }
@@ -127,34 +128,34 @@ public class MadEntities
     // Lab Coat Body
     static void createLabCoatBody(int itemID, int armorID)
     {
-        MadScience.logger.info("-LabCoat Body");
-        LABCOAT_BODY = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_BODY_INTERNALNAME);
+        MadMod.LOGGER.info("-LabCoat Body");
+        LABCOAT_BODY = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadForgeMod.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_BODY_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_BODY, LABCOAT_BODY_INTERNALNAME);
     }
 
     // Lab Coat Leggings
     static void createLabCoatLeggings(int itemID, int armorID)
     {
-        MadScience.logger.info("-LabCoat Leggings");
-        LABCOAT_LEGGINGS = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_LEGGINGS_INTERNALNAME);
+        MadMod.LOGGER.info("-LabCoat Leggings");
+        LABCOAT_LEGGINGS = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadForgeMod.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_LEGGINGS_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_LEGGINGS, LABCOAT_LEGGINGS_INTERNALNAME);
     }
 
     // Lab Coat Goggles
     static void createLabCoatGoggles(int itemID, int armorID)
     {
-        MadScience.logger.info("-LabCoat Goggles");
-        LABCOAT_GOGGLES = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadScience.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_GOGGLES_INTERNALNAME);
+        MadMod.LOGGER.info("-LabCoat Goggles");
+        LABCOAT_GOGGLES = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadForgeMod.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_GOGGLES_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_GOGGLES, LABCOAT_GOGGLES_INTERNALNAME);
     }
 
     // Warning Sign
     static void createWarningSign(int itemID)
     {
-        MadScience.logger.info("-Warning Sign Painting");
+        MadMod.LOGGER.info("-Warning Sign Painting");
         WARNING_SIGN = (WarningSignItem) new WarningSignItem(itemID).setUnlocalizedName(WARNING_SIGN_INTERNALNAME);
-        EntityRegistry.registerModEntity(WarningSignEntity.class, WARNING_SIGN_INTERNALNAME, itemID, MadScience.instance, 120, 3, false);
+        EntityRegistry.registerModEntity(WarningSignEntity.class, WARNING_SIGN_INTERNALNAME, itemID, MadForgeMod.instance, 120, 3, false);
         GameRegistry.registerItem(WARNING_SIGN, WARNING_SIGN_INTERNALNAME);
-        MadScience.proxy.registerRenderingHandler(itemID);
+        MadForgeMod.proxy.registerRenderingHandler(itemID);
     }
 }

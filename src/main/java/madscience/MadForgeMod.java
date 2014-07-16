@@ -1,17 +1,13 @@
 package madscience;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.MadTileEntityFactoryProductData;
+import madscience.factory.mod.MadMod;
 import madscience.gui.MadGUI;
 import madscience.items.spawnegg.MadSpawnEggTags;
 import madscience.mobs.abomination.AbominationMobEntity;
@@ -30,10 +26,6 @@ import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-
-import com.google.gson.Gson;
-import com.sun.media.sound.InvalidFormatException;
-
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -48,54 +40,20 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-@Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
-@NetworkMod(channels =
-{ MadScience.CHANNEL_NAME }, packetHandler = MadPacketHandler.class, clientSideRequired = true, serverSideRequired = false)
-public class MadScience
+@Mod(modid = MadMod.ID, name = MadMod.NAME, version = MadMod.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
+@NetworkMod(channels = { MadMod.CHANNEL_NAME }, packetHandler = MadPacketHandler.class, clientSideRequired = true, serverSideRequired = false)
+public class MadForgeMod
 {
-    // Used in Forge mod identification below.
-    public static final String ID = "madscience";
-    public static final String CHANNEL_NAME = ID;
-    public static final String NAME = "Mad Science";
-
-    // Version identification.
-    private static final String V_MAJOR = "@MAJOR@";
-    private static final String V_MINOR = "@MINOR@";
-    private static final String V_REVIS = "@REVIS@";
-    public static final String V_BUILD = "@BUILD@";
-    protected static final String VERSION_FULL = V_MAJOR + "." + V_MINOR + V_REVIS + "." + V_BUILD; // NO_UCD (use private)
-
-    // Directories definition for assets and localization files.
-    private static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
-    private static final String BASE_DIRECTORY_NO_SLASH = ID + "/";
-    private static final String ASSET_DIRECTORY = "/assets/" + ID + "/";
-    private static final String TEXTURE_DIRECTORY = "textures/";
-    public static final String MODEL_DIRECTORY = "models/";
-    private static final String JSON_DIRECTORY = "json/";
-    
-    // Quick links to popular places.
-    public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
-    static final String JSON_PATH = ASSET_DIRECTORY + JSON_DIRECTORY;
-
-    // Gradle imprints MD5 of source code into this file upon compilation for integrity check.
-    private static final String FINGERPRINT = "@FINGERPRINT@";
-
-    // Excellent reference to how many ticks make up a second.
-    public static final int SECOND_IN_TICKS = 20;
-
-    // Hook Forge's standardized logging class so we can report data on the console without standard out.
-    public static Logger logger;
-
     // Proxy that runs commands based on where they are from so we can separate server and client logic easily.
     @SidedProxy(clientSide = "madscience.client.ClientProxy", serverSide = "madscience.server.CommonProxy")
     public static CommonProxy proxy;
 
     // Public instance of our mod that Forge needs to hook us, based on our internal modid.
-    @Instance(value = CHANNEL_NAME)
-    public static MadScience instance;
+    @Instance(value = MadMod.CHANNEL_NAME)
+    public static MadForgeMod instance;
 
     // Public extra data about our mod that Forge uses in the mods listing page for more information.
-    @Mod.Metadata(MadScience.ID)
+    @Mod.Metadata(MadMod.ID)
     private static ModMetadata metadata;
 
     // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
@@ -104,75 +62,6 @@ public class MadScience
     // Link to our configuration file which Forge also handles in a standardized way.
     private static Configuration config;
     
-    @EventHandler
-    public void loadMachinesFromAssets()
-    {
-        // Name of the JSON file we are looking for along the classpath.
-        String expectedFilename = "tiles.json";
-        
-        // Input we expect to be filled with JSON for every machine we want to load.
-        String jsonMachineInput = null;
-        
-        try
-        {
-            // Locate all the of JSON files stored in the machines asset folder.
-            InputStream machinesJSON = this.getClass().getResourceAsStream(MadScience.JSON_PATH + expectedFilename);
-            
-            if (machinesJSON != null)
-            {
-                // Read the entire contents of the input stream.
-                BufferedReader reader = new BufferedReader(new InputStreamReader(machinesJSON));
-                StringBuilder out = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) 
-                {
-                    out.append(line);
-                }
-                
-                // Copy over the data we just read from the resource stream.
-                jsonMachineInput = out.toString();
-                
-                // Cleanup!
-                reader.close();
-            }
-            else
-            {
-                MadScience.logger.info("Unable to locate machine master list '" + expectedFilename + "'");
-            }
-        }
-        catch (Exception err)
-        {
-            err.printStackTrace();
-        }
-        
-        // Parse the JSON string we got from resources into an array of product data.
-        Gson gson = new Gson();
-        MadTileEntityFactoryProductData[] loadedMachines = null;
-        loadedMachines = gson.fromJson(jsonMachineInput, MadTileEntityFactoryProductData[].class);
-        
-        if (loadedMachines != null)
-        {
-            // Loop through the array of product data and register them as machines.
-            for (MadTileEntityFactoryProductData unregisteredMachine : loadedMachines)
-            {
-                if (unregisteredMachine.getMachineName().equals("dnaExtractor"))
-                {
-
-                }
-                
-                // Register machine with the registry so we can generate all needed MC/Forge data.
-                MadTileEntityFactoryProduct machineToAdd = null;
-                machineToAdd = MadTileEntityFactory.registerMachine(unregisteredMachine);
-                
-                // Check the result!
-                if (machineToAdd == null)
-                {
-                    throw new IllegalArgumentException("Unable to register tile entity from '" + expectedFilename + "'. Invalid syntax or formatting!");
-                }
-            }
-        }
-    }
-
     /** @param event */
     @EventHandler
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -224,13 +113,13 @@ public class MadScience
             }
             catch (Throwable e)
             {
-                logger.log(Level.WARNING, "NEI Integration has failed...");
-                logger.log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
+                MadMod.LOGGER.log(Level.WARNING, "NEI Integration has failed...");
+                MadMod.LOGGER.log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
                 e.printStackTrace();
-                logger.log(Level.WARNING, "Spamming console to make more obvious...");
+                MadMod.LOGGER.log(Level.WARNING, "Spamming console to make more obvious...");
                 for (int i = 0; i < 15; i++)
                 {
-                    logger.log(Level.WARNING, "Something Broke. See above.");
+                    MadMod.LOGGER.log(Level.WARNING, "Something Broke. See above.");
                 }
             }
 
@@ -255,7 +144,7 @@ public class MadScience
         proxy.registerSoundHandler();
         
         // Register block handler for custom GUI.
-        NetworkRegistry.instance().registerGuiHandler(MadScience.instance, MadScience.guiHandler);
+        NetworkRegistry.instance().registerGuiHandler(MadForgeMod.instance, MadForgeMod.guiHandler);
 
         // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
         MadUpdates.checkJenkinsBuildNumbers();
@@ -266,7 +155,7 @@ public class MadScience
     {
         // Report (log) to the user that the version of Mad Science
         // they are using has been changed/tampered with
-        if (FINGERPRINT.equals("@FINGERPRINT@"))
+        if (MadMod.FINGERPRINT.equals("@FINGERPRINT@"))
         {
             LogWrapper.warning("The copy of Mad Science that you are running is a development version of the mod, and as such may be unstable and/or incomplete.");
         }
@@ -277,42 +166,42 @@ public class MadScience
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) throws InvalidFormatException // NO_UCD (unused code)
+    public void preInit(FMLPreInitializationEvent event) // NO_UCD (unused code)
     {
         // --------------
         // PRE-INT CONFIG
         // --------------
-
+        
         // Register instance.
         instance = this;
 
         // Logging.
-        logger = event.getModLog();
-        logger.setParent(FMLLog.getLogger());
+        MadMod.LOGGER = event.getModLog();
+        MadMod.LOGGER.setParent(FMLLog.getLogger());
 
         // Read our mod only config, Forge provides a method for getting standardized filename.
         config = new Configuration(event.getSuggestedConfigurationFile());
         MadConfig.load(config);
 
         // Setup Mod Metadata for players to see in mod list with other mods.
-        metadata.modId = MadScience.ID;
-        metadata.name = MadScience.NAME;
+        metadata.modId = MadMod.ID;
+        metadata.name = MadMod.NAME;
         metadata.description = "Adds machines, items and mobs to create your own laboratory! Remember kids, science has no limits.. no bounds..";
         metadata.url = "http://madsciencemod.com/";
         metadata.logoFile = "assets/madscience/logo.png";
-        metadata.version = V_MAJOR + "." + V_MINOR + V_REVIS;
+        metadata.version = MadMod.VMAJOR + "." + MadMod.VMINOR + MadMod.VREVISION;
         metadata.authorList = Arrays.asList(new String[]
         { "Maxwolf Goodliffe", "Fox Diller" });
         metadata.credits = "Thanks to Prowler for the awesome assets!";
         metadata.autogenerated = false;
 
         // Custom creative mode tab to organize our mod items and blocks.
-        MadEntities.createCustomCreativeTab("tabMadScience", NAME);
+        MadEntities.createCustomCreativeTab("tabMadScience", MadMod.NAME);
 
         // ------
         // FLUIDS
         // ------
-        logger.info("Creating Fluids");
+        MadMod.LOGGER.info("Creating Fluids");
 
         // Creates both flowing and still variants of new fluid.
         // Note: Still's ID must be 1 above Flowing.
@@ -324,7 +213,7 @@ public class MadScience
         // ------
         // BLOCKS
         // ------
-        logger.info("Creating Blocks");
+        MadMod.LOGGER.info("Creating Blocks");
 
         // Abomination Egg
         MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
@@ -335,7 +224,7 @@ public class MadScience
         // ----------
         // COMPONENTS
         // ----------
-        logger.info("Creating Components");
+        MadMod.LOGGER.info("Creating Components");
 
         MadComponents.createComponentCaseItem(MadConfig.COMPONENT_CASE);
         MadComponents.createComponentCPUItem(MadConfig.COMPONENT_CPU);
@@ -360,7 +249,7 @@ public class MadScience
         // --------
         // CIRCUITS
         // --------
-        logger.info("Creating Circuits");
+        MadMod.LOGGER.info("Creating Circuits");
 
         MadCircuits.createCircuitComparatorItem(MadConfig.CIRCUIT_COMPARATOR);
         MadCircuits.createCircuitDiamondItem(MadConfig.CIRCUIT_DIAMOND);
@@ -374,7 +263,7 @@ public class MadScience
         // -------
         // NEEDLES
         // -------
-        logger.info("Creating Needles");
+        MadMod.LOGGER.info("Creating Needles");
 
         MadNeedles.createEmptyNeedle(MadConfig.NEEDLE_EMPTY);
         MadNeedles.createDirtyNeedle(MadConfig.NEEDLE_DIRTY);
@@ -400,7 +289,7 @@ public class MadScience
         // -----------
         // DNA SAMPLES
         // -----------
-        logger.info("Creating DNA Samples");
+        MadMod.LOGGER.info("Creating DNA Samples");
 
         MadDNA.createCaveSpiderDNA(MadConfig.DNA_CAVESPIDER);
         MadDNA.createChickenDNA(MadConfig.DNA_CHICKEN);
@@ -426,7 +315,7 @@ public class MadScience
         // -----------------
         // GENOME DATA REELS
         // -----------------
-        logger.info("Creating Genome Data Reels");
+        MadMod.LOGGER.info("Creating Genome Data Reels");
 
         MadEntities.createEmptyDataReel(MadConfig.DATAREEL_EMPTY);
         MadGenomes.createCaveSpiderGenome(MadConfig.GENOME_CAVESPIDER);
@@ -454,7 +343,7 @@ public class MadScience
         // -------
         // WEAPONS
         // -------
-        logger.info("Creating Weapons");
+        MadMod.LOGGER.info("Creating Weapons");
 
         MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
         MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
@@ -464,11 +353,8 @@ public class MadScience
         // -------------
         // TILE ENTITIES
         // -------------
-        logger.info("Creating Tile Entities");
+        MadMod.LOGGER.info("Creating Tile Entities");
 
-        // Add machines to factory loaded from flat files on drive.
-        this.loadMachinesFromAssets();
-        
         MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
         MadFurnaces.createGeneSequencerTileEntity(MadConfig.GENE_SEQUENCER);
@@ -505,7 +391,7 @@ public class MadScience
         // --------------------
         // MONSTER PLACER ITEMS
         // --------------------
-        logger.info("Creating Monster Placer Items");
+        MadMod.LOGGER.info("Creating Monster Placer Items");
 
         MadEntities.createGeneticallyModifiedMonsterPlacer(MadConfig.GENETICALLYMODIFIED_MONSTERPLACER);
         MadEntities.createCombinedGenomeMonsterPlacer(MadConfig.COMBINEDGENOME_MONSTERPLACER);
@@ -514,7 +400,7 @@ public class MadScience
         // -------
         // RECIPES
         // -------
-        logger.info("Creating Recipes");
+        MadMod.LOGGER.info("Creating Recipes");
 
         MadRecipes.createCircuitRecipes();
         MadRecipes.createComponentsRecipes();
@@ -524,7 +410,7 @@ public class MadScience
         // -------------------------
         // GENETICALLY MODIFIED MOBS
         // -------------------------
-        logger.info("Creating Genetically Modified Creatures");
+        MadMod.LOGGER.info("Creating Genetically Modified Creatures");
 
         // Werewolf [Villager + Wolf]
         MadMobs.createGMOMob(MadConfig.GMO_WEREWOLF_METAID, WerewolfMobEntity.class, new NBTTagCompound(), MadMobs.GMO_WEREWOLF_INTERNALNAME, MadMobs.GENOME_WEREWOLF_INTERNALNAME, MadColors.villagerEgg(), MadColors.wolfEgg(), MadGenomes.GENOME_VILLAGER,
@@ -599,6 +485,6 @@ public class MadScience
         // ---------
         // DONE INIT
         // ---------
-        logger.info("Finished loading all madness!");
+        MadMod.LOGGER.info("Finished loading all madness!");
     }
 }

@@ -1,7 +1,7 @@
 package madscience.mobs.woolycow;
 
 import madscience.MadMobs;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
@@ -17,9 +17,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class WoolyCowMobRender extends RenderLiving
 {
-    private static final ResourceLocation shearedSheepTextures = new ResourceLocation(MadScience.ID, "models/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + "/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".png");
+    private static final ResourceLocation shearedSheepTextures = new ResourceLocation(MadMod.ID, "models/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + "/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + ".png");
     // Location for different stages of being sheered.
-    private static final ResourceLocation sheepTextures = new ResourceLocation(MadScience.ID, "models/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + "/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + "_fur.png");
+    private static final ResourceLocation sheepTextures = new ResourceLocation(MadMod.ID, "models/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + "/" + MadMobs.GMO_WOOLYCOW_INTERNALNAME + "_fur.png");
 
     public WoolyCowMobRender(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3)
     {

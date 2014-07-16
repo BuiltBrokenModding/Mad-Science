@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
+import madscience.MadForgeMod;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -278,7 +279,7 @@ public class SoniclocatorBlock extends BlockContainer
 
             if (tileentityfurnace != null)
             {
-                player.openGui(MadScience.instance, this.blockID, par1World, par2, par3, par4);
+                player.openGui(MadForgeMod.instance, this.blockID, par1World, par2, par3, par4);
             }
             return true;
         }
@@ -326,7 +327,7 @@ public class SoniclocatorBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + MadFurnaces.SONICLOCATOR_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

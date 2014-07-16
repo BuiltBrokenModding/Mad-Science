@@ -2,8 +2,9 @@ package madscience.items.weapons.pulserifle;
 
 import java.util.EnumSet;
 
-import madscience.MadScience;
+import madscience.MadForgeMod;
 import madscience.MadWeapons;
+import madscience.factory.mod.MadMod;
 import madscience.items.weapons.KeyBindingInterceptor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -27,7 +28,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
     public PulseRifleItemTickHandler()
     {
         // Get the current client game instance, but don't call this on the server.
-        if (!MadScience.proxy.getClient().equals(null))
+        if (!MadForgeMod.proxy.getClient().equals(null))
         {
             try
             {
@@ -35,7 +36,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             }
             catch (Exception err)
             {
-                MadScience.logger.info("Skipping pulse rifle keybinding interceptor init on server!");
+                MadMod.LOGGER.info("Skipping pulse rifle keybinding interceptor init on server!");
                 return;
             }
 
@@ -98,7 +99,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
     public void tickStart(EnumSet<TickType> type, Object... tickData)
     {
         // Check if there is a world.
-        World world = MadScience.proxy.getClientWorld();
+        World world = MadForgeMod.proxy.getClientWorld();
         if (world == null)
         {
             this.disableKeyIntercepter();
@@ -234,13 +235,13 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 // Only run the right-click functionality if internal NBT firetime is greater than zero.
                 if (isLeftPressed && pulseRifleFireTime > 0 && primaryFireModeEnabled)
                 {
-                    MadScience.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
+                    MadForgeMod.proxy.onBowUse(playerHeldItem, player, pulseRifleFireTime);
                     // player.setItemInUse(playerHeldItem, pulseRifleFireTime);
                     // playerHeldItem.useItemRightClick(world, player);
                 }
                 else
                 {
-                    MadScience.proxy.resetSavedFOV();
+                    MadForgeMod.proxy.resetSavedFOV();
                 }
             }
 
@@ -273,7 +274,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
                 playerHeldItem.stackTagCompound.setBoolean("isSecondaryEmpty", false);
 
                 // Return the field of view to normal.
-                MadScience.proxy.resetSavedFOV();
+                MadForgeMod.proxy.resetSavedFOV();
             }
 
             // RIGHT CLICK
@@ -307,7 +308,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             {
                 rightClickTime = 0;
                 playerHeldItem.stackTagCompound.setInteger("rightClickTime", rightClickTime);
-                // MadScience.logger.info("Client: Reset Rightclick Time");
+                // MadMod.logger.info("Client: Reset Rightclick Time");
             }
 
             // Reset the primary empty prompts.
@@ -315,7 +316,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             {
                 isPrimaryEmpty = false;
                 playerHeldItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
-                // MadScience.logger.info("Client: Reset Primary Empty");
+                // MadMod.logger.info("Client: Reset Primary Empty");
             }
 
             // Reset the secondary empty prompts.
@@ -323,7 +324,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             {
                 isSecondaryEmpty = false;
                 playerHeldItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
-                // MadScience.logger.info("Client: Reset Secondary Empty");
+                // MadMod.logger.info("Client: Reset Secondary Empty");
             }
 
             // Flatten left-click time when not holding the button down and there is something to decrease.
@@ -339,13 +340,13 @@ public class PulseRifleItemTickHandler implements ITickHandler
 
                 isSecondaryEmpty = false;
                 playerHeldItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
-                // MadScience.logger.info("Client: Reset Firetime");
+                // MadMod.logger.info("Client: Reset Firetime");
             }
 
             // Flatten out the ammo if we are primary.
             if (intLeft != null && intLeft.isKeyDown() && pulseRifleFireTime > 0 && previousFireTime >= 0 && primaryAmmoCount <= 0 && primaryFireModeEnabled)
             {
-                // MadScience.logger.info("PRIMARY CLEAR");
+                // MadMod.logger.info("PRIMARY CLEAR");
                 isPrimaryEmpty = false;
                 playerHeldItem.stackTagCompound.setBoolean("isPrimaryEmpty", isPrimaryEmpty);
                 pulseRifleFireTime = 0;
@@ -357,7 +358,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             // Flatten out the ammo if we are secondary.
             if (intLeft != null && intLeft.isKeyDown() && pulseRifleFireTime > 0 && previousFireTime >= 0 && secondaryAmmoCount <= 0 && !primaryFireModeEnabled)
             {
-                // MadScience.logger.info("SECONDARY CLEAR");
+                // MadMod.logger.info("SECONDARY CLEAR");
                 isSecondaryEmpty = false;
                 playerHeldItem.stackTagCompound.setBoolean("isSecondaryEmpty", isSecondaryEmpty);
                 pulseRifleFireTime = 0;

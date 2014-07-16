@@ -1,6 +1,6 @@
 package madscience.network;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.MadTileEntityPacketTemplate;
 import madscience.items.warningsign.WarningSignPacketClientRequestSignType;
 import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
@@ -147,7 +147,7 @@ public abstract class MadPackets
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeByte(getPacketId());
         write(out);
-        return PacketDispatcher.getPacket(MadScience.CHANNEL_NAME, out.toByteArray());
+        return PacketDispatcher.getPacket(MadMod.CHANNEL_NAME, out.toByteArray());
     }
 
     public abstract void read(ByteArrayDataInput in) throws ProtocolException;

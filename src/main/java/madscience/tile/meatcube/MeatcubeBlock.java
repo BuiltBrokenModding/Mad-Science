@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
+import madscience.MadForgeMod;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -217,7 +218,7 @@ public class MeatcubeBlock extends BlockContainer
 
             if (tileentityfurnace != null)
             {
-                player.openGui(MadScience.instance, this.blockID, par1World, par2, par3, par4);
+                player.openGui(MadForgeMod.instance, this.blockID, par1World, par2, par3, par4);
             }
             return true;
         }
@@ -352,7 +353,7 @@ public class MeatcubeBlock extends BlockContainer
      */
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME);
+        this.blockIcon = par1IconRegister.registerIcon(MadMod.ID + ":" + MadFurnaces.MEATCUBE_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

@@ -1,6 +1,6 @@
 package madscience.tile.clayfurnace;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -33,7 +33,7 @@ class ClayfurnaceSlotInputBlock extends Slot
         }
         catch (Exception err)
         {
-            MadScience.logger.info("CLAYFURNACE: Attempted to query Minecraft blocklist with value out of index.");
+            MadMod.LOGGER.info("CLAYFURNACE: Attempted to query Minecraft blocklist with value out of index.");
         }
 
         return false;

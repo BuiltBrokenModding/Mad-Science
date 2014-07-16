@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -209,9 +209,9 @@ public class CombinedMemoryMonsterPlacer extends Item
     {
         super.registerIcons(par1IconRegister);
 
-        this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":genomeDataReel_overlay");
-        this.genomeReelLayer1 = par1IconRegister.registerIcon(MadScience.ID + ":genomeDataReel1");
-        this.genomeReelLayer2 = par1IconRegister.registerIcon(MadScience.ID + ":genomeDataReel2");
+        this.itemIcon = par1IconRegister.registerIcon(MadMod.ID + ":genomeDataReel_overlay");
+        this.genomeReelLayer1 = par1IconRegister.registerIcon(MadMod.ID + ":genomeDataReel1");
+        this.genomeReelLayer2 = par1IconRegister.registerIcon(MadMod.ID + ":genomeDataReel2");
 
         this.iconString = itemIcon.getIconName();
     }

@@ -5,10 +5,10 @@ import java.util.EnumSet;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
-import madscience.MadScience;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.items.datareel.ItemDataReelEmpty;
 import madscience.items.memories.CombinedMemoryMonsterPlacer;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -802,7 +802,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
             if (this.hatchTimeCurrentValue <= 0 && this.hatchTimeCurrentValue <= hatchTimeMaximum && !this.canSmelt() && this.isRedstonePowered() && !this.subjectIsAlive)
             {
                 // IDLE
-                if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+                if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_IDLE, 1.0F, 1.0F);
                 }
@@ -835,19 +835,19 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
             else if (this.hatchTimeCurrentValue > 0 && this.hatchTimeCurrentValue < hatchTimeMaximum && this.canSmelt() && this.isRedstonePowered() && !this.subjectIsAlive)
             {
                 // HATCHING
-                if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS) == 0L)
+                if (worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS) == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_HATCHING, 1.0F, 0.1F);
                 }
 
                 // HATCH NOISES
-                if (worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L && worldObj.rand.nextBoolean())
+                if (worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 2) == 0L && worldObj.rand.nextBoolean())
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_HATCH, 1.0F, 0.1F);
                 }
 
                 // IDLE
-                if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+                if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryotubeSounds.CRYOTUBE_IDLE, 1.0F, 1.0F);
                 }
@@ -911,7 +911,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
                 // -------------
 
                 // Happens with or without nether star installed into cryotube.
-                if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+                if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
                 {
                     this.updateNeuralActivity();
 
@@ -928,7 +928,7 @@ public class CryotubeEntity extends MadTileEntityPrefab implements ISidedInvento
                 }
 
                 // Remove health because still alive.
-                if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 5 == 0L)
+                if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * 5 == 0L)
                 {
                     this.subjectCurrentHealth--;
                 }

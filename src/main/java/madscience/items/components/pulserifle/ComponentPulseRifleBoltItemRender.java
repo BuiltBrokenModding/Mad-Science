@@ -1,7 +1,7 @@
 package madscience.items.components.pulserifle;
 
 import madscience.MadComponents;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -18,8 +18,8 @@ public class ComponentPulseRifleBoltItemRender implements IItemRenderer
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + "weaponComponents/" + MadComponents.COMPONENT_PULSERIFLEBOLT_INTERNALNAME + ".mad");
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/weaponComponents/ironRifle.png");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + "weaponComponents/" + MadComponents.COMPONENT_PULSERIFLEBOLT_INTERNALNAME + ".mad");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/weaponComponents/ironRifle.png");
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)

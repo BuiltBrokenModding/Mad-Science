@@ -2,8 +2,9 @@ package madscience.tile.cncmachine;
 
 import java.util.Random;
 
+import madscience.MadForgeMod;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -129,7 +130,7 @@ public class CnCMachineBlockGhost extends Block
                 switch (meta)
                 {
                 case 1:
-                    player.openGui(MadScience.instance, MadFurnaces.CNCMACHINE_TILEENTITY.blockID, world, x, y - 1, z);
+                    player.openGui(MadForgeMod.instance, MadFurnaces.CNCMACHINE_TILEENTITY.blockID, world, x, y - 1, z);
                     break;
                 }
             }
@@ -146,7 +147,7 @@ public class CnCMachineBlockGhost extends Block
     public void registerIcons(IconRegister icon)
     {
         // Since we are a ghost we use our parents icon information.
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + MadFurnaces.CNCMACHINE_INTERNALNAME);
     }
 
     @Override

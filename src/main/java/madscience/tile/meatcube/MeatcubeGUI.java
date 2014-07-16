@@ -6,8 +6,8 @@ import java.net.URI;
 import madscience.MadConfig;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
-import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.MadGUITemplate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -29,7 +29,7 @@ public class MeatcubeGUI extends MadGUITemplate
     {
         super(new MeatcubeContainer(thePlayer, meatCubeEntity));
         this.ENTITY = meatCubeEntity;
-        TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".png");
+        TEXTURE = new ResourceLocation(MadMod.ID, "textures/gui/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".png");
     }
 
     private void displayGauge(int screenX, int screenY, int line, int col, int squaled)
@@ -173,7 +173,7 @@ public class MeatcubeGUI extends MadGUITemplate
                 }
                 catch (Exception err)
                 {
-                    MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
+                    MadMod.LOGGER.info("Unable to open sandra youtube easter egg link in default browser.");
                 }
             }
             else
@@ -184,7 +184,7 @@ public class MeatcubeGUI extends MadGUITemplate
                 }
                 catch (Exception err)
                 {
-                    MadScience.logger.info("Unable to open wiki link in default browser.");
+                    MadMod.LOGGER.info("Unable to open wiki link in default browser.");
                 }
             }
         }

@@ -2,7 +2,7 @@ package madscience.blocks.enderslime;
 
 import madscience.MadBlocks;
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.mobs.abomination.AbominationSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -74,7 +74,7 @@ public class EnderslimeBlock extends Block
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadBlocks.ENDERSLIMEBLOCK_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + MadBlocks.ENDERSLIMEBLOCK_INTERNALNAME);
     }
 
     @Override

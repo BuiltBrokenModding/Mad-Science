@@ -1,7 +1,7 @@
 package madscience.items.warningsign;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +16,7 @@ public class WarningSignItemRender implements IItemRenderer
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadEntities.WARNING_SIGN_INTERNALNAME + "/" + MadEntities.WARNING_SIGN_INTERNALNAME + ".png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadEntities.WARNING_SIGN_INTERNALNAME + "/" + MadEntities.WARNING_SIGN_INTERNALNAME + ".png");
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)

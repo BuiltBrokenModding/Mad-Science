@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.util.MadColors;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -253,8 +253,8 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     @Override
     public void registerIcons(IconRegister iconRegister)
     {
-        itemIcon = iconRegister.registerIcon(MadScience.ID + ":gmoMonsterPlacer");
-        icon = iconRegister.registerIcon(MadScience.ID + ":gmoMonsterPlacer_overlay");
+        itemIcon = iconRegister.registerIcon(MadMod.ID + ":gmoMonsterPlacer");
+        icon = iconRegister.registerIcon(MadMod.ID + ":gmoMonsterPlacer_overlay");
     }
 
     @Override

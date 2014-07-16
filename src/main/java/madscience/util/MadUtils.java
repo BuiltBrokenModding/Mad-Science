@@ -10,6 +10,9 @@ import net.minecraft.nbt.NBTTagString;
 
 public class MadUtils
 {
+    // Excellent reference to how many ticks make up a second.
+    public static final int SECOND_IN_TICKS = 20;
+    
     public static String BinaryToAscii(String binary)
     {
         // Convert binary string into ASCII.

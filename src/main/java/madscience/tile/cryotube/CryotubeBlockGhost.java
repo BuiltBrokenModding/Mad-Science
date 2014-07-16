@@ -2,8 +2,9 @@ package madscience.tile.cryotube;
 
 import java.util.Random;
 
+import madscience.MadForgeMod;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -138,10 +139,10 @@ public class CryotubeBlockGhost extends Block
                 switch (meta)
                 {
                 case 1:
-                    player.openGui(MadScience.instance, MadFurnaces.CRYOTUBE_TILEENTITY.blockID, world, x, y - 1, z);
+                    player.openGui(MadForgeMod.instance, MadFurnaces.CRYOTUBE_TILEENTITY.blockID, world, x, y - 1, z);
                     break;
                 case 2:
-                    player.openGui(MadScience.instance, MadFurnaces.CRYOTUBE_TILEENTITY.blockID, world, x, y - 2, z);
+                    player.openGui(MadForgeMod.instance, MadFurnaces.CRYOTUBE_TILEENTITY.blockID, world, x, y - 2, z);
                     break;
                 }
             }
@@ -158,7 +159,7 @@ public class CryotubeBlockGhost extends Block
     public void registerIcons(IconRegister icon)
     {
         // Since we are a ghost we use our parents icon information.
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + MadFurnaces.CRYOTUBE_INTERNALNAME);
     }
 
     @Override

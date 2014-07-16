@@ -2,7 +2,7 @@ package madscience.tile.cncmachine;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
 import madscience.util.MadUtils;
@@ -89,7 +89,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
         ItemStack compareFilledBucket = new ItemStack(Item.bucketWater);
         if (!this.CnCMachineInput[0].isItemEqual(compareFilledBucket))
         {
-            MadScience.logger.info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
+            MadMod.LOGGER.info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
             return false;
         }
 
@@ -120,7 +120,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
 
         // Add a bucket's worth of water into the internal tank.
         WATER_TANK.fill(new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME), true);
-        // MadScience.logger.info("internalWaterTank() " + WATER_TANK.getFluidAmount());
+        // MadMod.logger.info("internalWaterTank() " + WATER_TANK.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
         --this.CnCMachineInput[0].stackSize;
@@ -190,7 +190,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
         // Check if there is anything already in the output slot.
         if (this.CnCMachineOutput[0] != null && this.CnCMachineOutput[0].stackSize >= 1)
         {
-            //MadScience.logger.info(String.valueOf(this.CnCMachineOutput[0].stackSize));
+            //MadMod.logger.info(String.valueOf(this.CnCMachineOutput[0].stackSize));
             return false;
         }
 
@@ -301,7 +301,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -429,7 +429,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
             return this.CnCMachineOutput[1];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -755,7 +755,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
             ItemStack smeltingResult = getItemFromBookContents();
             if (smeltingResult == null)
             {
-                // MadScience.logger.info("CnC Machine: Could not complete smelting process, could not cast binary text to itemstack.");
+                // MadMod.logger.info("CnC Machine: Could not complete smelting process, could not cast binary text to itemstack.");
                 return;
             }
             
@@ -938,7 +938,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
 
     private void updateSound(int cookTimeScaled)
     {
-        //MadScience.logger.info("Cook Time Scaled: " + String.valueOf(cookTimeScaled));
+        //MadMod.logger.info("Cook Time Scaled: " + String.valueOf(cookTimeScaled));
         
         // Play sound of a iron block being inserted into the machine.
         if (this.hasIronBlock() && !this.clientSound_InsertIronBlock)
@@ -982,13 +982,13 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
             if (cookTimeScaled <= 6 && this.currentItemCookingValue > 0 && !this.BOOK_DECODED.contains("INVALID"))
             {
                 // Background sound played while crushing iron block every 3 seconds.
-                if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 3L == 0L)
+                if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * 3L == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_PRESSINGWORK, 0.5F, 1.0F);
                 }
                 
                 // Played while iron block is being pressed every 2 seconds.
-                if (cookTimeScaled < 4 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 2L == 0L)
+                if (cookTimeScaled < 4 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * 2L == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_PRESS, 0.5F, 1.0F);
                 }
@@ -1018,13 +1018,13 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
                 }
                 
                 // Background sound played while cutting block with water every 4 seconds.
-                if (cookTimeScaled <= 15 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 4L == 0L)
+                if (cookTimeScaled <= 15 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * 4L == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_WATERWORK, 0.5F, 1.0F);
                 }
                 
                 // Played while water is being splashed onto the iron block every 3.6 seconds.
-                if (cookTimeScaled > 7 && cookTimeScaled <= 15 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * 3.6F == 0L)
+                if (cookTimeScaled > 7 && cookTimeScaled <= 15 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * 3.6F == 0L)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CnCMachineSounds.CNCMACHINE_WATERFLOW, 0.5F, 1.0F);
                 }

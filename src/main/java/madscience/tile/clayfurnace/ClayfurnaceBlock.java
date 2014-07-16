@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
+import madscience.MadForgeMod;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -267,7 +268,7 @@ public class ClayfurnaceBlock extends BlockContainer
                     }
                     else
                     {
-                        player.openGui(MadScience.instance, this.blockID, par1World, par2, par3, par4);
+                        player.openGui(MadForgeMod.instance, this.blockID, par1World, par2, par3, par4);
                         return true;
                     }
                 }
@@ -326,7 +327,7 @@ public class ClayfurnaceBlock extends BlockContainer
                 // COOLED OFF MODE - WAITING FOR PLAYER TO HIT US
                 if (player.canHarvestBlock(this))
                 {
-                    MadScience.logger.info("Clay Furnace: Harvested player after having been cooled down!");
+                    MadMod.LOGGER.info("Clay Furnace: Harvested player after having been cooled down!");
                     world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, "random.anvil_land", 1.0F, 1.0F);
 
                     // Set ourselves to the end result we should be!
@@ -379,7 +380,7 @@ public class ClayfurnaceBlock extends BlockContainer
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + MadFurnaces.CLAYFURNACE_INTERNALNAME);
+        this.blockIcon = par1IconRegister.registerIcon(MadMod.ID + ":" + MadFurnaces.CLAYFURNACE_INTERNALNAME);
     }
 
     // It's not a normal block, so you need this too.

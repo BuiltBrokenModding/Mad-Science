@@ -1,7 +1,7 @@
 package madscience.tile.soniclocator;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,13 +30,13 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
     }
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png");
 
     // Tile entity that does all the work for this instance of the block.
     private SoniclocatorEntity ENTITY;
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -222,7 +222,7 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
         // Apply our custom texture from asset directory.
         if (ENTITY != null && ENTITY.soniclocatorTexture != null && !ENTITY.soniclocatorTexture.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.soniclocatorTexture));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.soniclocatorTexture));
         }
         else
         {
@@ -245,21 +245,21 @@ public class SoniclocatorRender extends TileEntitySpecialRenderer implements ISi
                 if (Math.abs(MODEL.parts.get("Thumper1").offsetY) < thumperCeiling && ENTITY.currentHeatValue > 0)
                 {
                     MODEL.parts.get("Thumper1").offsetY -= ENTITY.currentHeatValue * 0.00001F;
-                    // MadScience.logger.info("THUMPER1: " + Math.abs(model.Thumper1.offsetY) + " / " + thumperCeiling);
+                    // MadMod.logger.info("THUMPER1: " + Math.abs(model.Thumper1.offsetY) + " / " + thumperCeiling);
                 }
 
                 // Thumper Pile 2
                 if (Math.abs(MODEL.parts.get("Thumper1").offsetY) >= thumperCeiling && Math.abs(MODEL.parts.get("Thumper2").offsetY) < thumperCeiling)
                 {
                     MODEL.parts.get("Thumper2").offsetY -= ENTITY.currentHeatValue * 0.00001F;
-                    // MadScience.logger.info("THUMPER2: " + Math.abs(model.Thumper2.offsetY) + " / " + thumperCeiling);
+                    // MadMod.logger.info("THUMPER2: " + Math.abs(model.Thumper2.offsetY) + " / " + thumperCeiling);
                 }
 
                 // Thumper Pile 3
                 if (Math.abs(MODEL.parts.get("Thumper1").offsetY) >= thumperCeiling && Math.abs(MODEL.parts.get("Thumper2").offsetY) >= thumperCeiling && Math.abs(MODEL.parts.get("Thumper3").offsetY) < thumperCeiling)
                 {
                     MODEL.parts.get("Thumper3").offsetY -= ENTITY.currentHeatValue * 0.00001F;
-                    // MadScience.logger.info("THUMPER3: " + Math.abs(model.Thumper3.offsetY) + " / " + thumperCeiling);
+                    // MadMod.logger.info("THUMPER3: " + Math.abs(model.Thumper3.offsetY) + " / " + thumperCeiling);
                 }
             }
             else if (ENTITY.currentHeatValue == 0)

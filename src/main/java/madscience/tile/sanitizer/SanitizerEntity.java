@@ -3,8 +3,9 @@ package madscience.tile.sanitizer;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadNeedles;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -68,7 +69,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
         // Check if the input slot for filled buckets is null.
         if (this.sanitizerInput[0] == null)
         {
-            // MadScience.logger.info("addBucketToInternalTank() aborted due to null filled water bucket slot.");
+            // MadMod.logger.info("addBucketToInternalTank() aborted due to null filled water bucket slot.");
             return false;
         }
 
@@ -81,7 +82,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
         if (!this.sanitizerInput[0].isItemEqual(itemInputSlot1))
         {
             // Input slot 1 was not a water bucket.
-            MadScience.logger.info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
+            MadMod.LOGGER.info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
             return false;
         }
 
@@ -112,7 +113,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
 
         // Add a bucket's worth of water into the internal tank.
         internalWaterTank.fill(new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME), true);
-        MadScience.logger.info("internalWaterTank() " + internalWaterTank.getFluidAmount());
+        MadMod.LOGGER.info("internalWaterTank() " + internalWaterTank.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
         --this.sanitizerInput[0].stackSize;
@@ -297,7 +298,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -393,7 +394,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
             return this.sanitizerOutput[1];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -729,7 +730,7 @@ public class SanitizerEntity extends MadTileEntityPrefab implements ISidedInvent
     public void updateSound()
     {
         // Check if we should be playing working sounds.
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3.0F) == 0L)
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 3.0F) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SanitizerSounds.SANTITIZER_IDLE, 1.0F, 1.0F);
         }

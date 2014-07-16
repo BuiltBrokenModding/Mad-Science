@@ -1,7 +1,7 @@
 package madscience.tile.meatcube;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -33,27 +33,27 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
     private int RENDERID = RenderingRegistry.getNextAvailableRenderId();
     
     // Difference pieces of our model that all together makeup a complete model.
-    private MadTechneModel MEATCUBE_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".mad");
-    private MadTechneModel MEATCUBE_PIECE1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "1.mad");
-    private MadTechneModel MEATCUBE_PIECE2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "2.mad");
-    private MadTechneModel MEATCUBE_PIECE3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "3.mad");
-    private MadTechneModel MEATCUBE_PIECE4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "4.mad");
-    private MadTechneModel MEATCUBE_PIECE5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "5.mad");
-    private MadTechneModel MEATCUBE_PIECE6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "6.mad");
-    private MadTechneModel MEATCUBE_PIECE7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "7.mad");
-    private MadTechneModel MEATCUBE_PIECE8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "8.mad");
-    private MadTechneModel MEATCUBE_PIECE9 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "9.mad");
-    private MadTechneModel MEATCUBE_PIECE10 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "10.mad");
-    private MadTechneModel MEATCUBE_PIECE11 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "11.mad");
-    private MadTechneModel MEATCUBE_PIECE12 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "12.mad");
-    private MadTechneModel MEATCUBE_PIECE13 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "13.mad");
-    private MadTechneModel MEATCUBE_PIECE14 = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "14.mad");
+    private MadTechneModel MEATCUBE_BASE = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + ".mad");
+    private MadTechneModel MEATCUBE_PIECE1 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "1.mad");
+    private MadTechneModel MEATCUBE_PIECE2 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "2.mad");
+    private MadTechneModel MEATCUBE_PIECE3 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "3.mad");
+    private MadTechneModel MEATCUBE_PIECE4 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "4.mad");
+    private MadTechneModel MEATCUBE_PIECE5 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "5.mad");
+    private MadTechneModel MEATCUBE_PIECE6 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "6.mad");
+    private MadTechneModel MEATCUBE_PIECE7 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "7.mad");
+    private MadTechneModel MEATCUBE_PIECE8 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "8.mad");
+    private MadTechneModel MEATCUBE_PIECE9 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "9.mad");
+    private MadTechneModel MEATCUBE_PIECE10 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "10.mad");
+    private MadTechneModel MEATCUBE_PIECE11 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "11.mad");
+    private MadTechneModel MEATCUBE_PIECE12 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "12.mad");
+    private MadTechneModel MEATCUBE_PIECE13 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "13.mad");
+    private MadTechneModel MEATCUBE_PIECE14 = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MEATCUBE_INTERNALNAME + "/" + MadFurnaces.MEATCUBE_INTERNALNAME + "14.mad");
     
     // Tile Entity in the world.
     private MeatcubeEntity ENTITY;
     
     // Default texture that we should show.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_0.png");
 
     @Override
     public int getRenderId()
@@ -222,7 +222,7 @@ public class MeatcubeRender extends TileEntitySpecialRenderer implements ISimple
         // Apply our custom texture from asset directory.
         if (ENTITY != null && ENTITY.meatcubeTexturePath != null && !ENTITY.meatcubeTexturePath.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.meatcubeTexturePath));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.meatcubeTexturePath));
         }
         else
         {

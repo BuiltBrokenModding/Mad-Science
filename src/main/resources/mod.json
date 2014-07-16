@@ -1,0 +1,1292 @@
+{
+  "tileEntities": [
+    {
+      "machineName": "dnaExtractor",
+      "blockID": 500,
+      "logicClassFullyQualifiedName": "madscience.tile.DNAExtractorEntity",
+      "containerTemplate": [
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "NORTH",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 9,
+          "offsetY": 32,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT1",
+          "slotNumber": 0
+        },
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "EAST",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 152,
+          "offsetY": 61,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_EMPTYBUCKET",
+          "slotNumber": 1
+        },
+        {
+          "extractSide": "SOUTH",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 72,
+          "offsetY": 32,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_RESULT1",
+          "slotNumber": 2
+        },
+        {
+          "extractSide": "UP",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 105,
+          "offsetY": 32,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_WASTE",
+          "slotNumber": 3
+        },
+        {
+          "extractSide": "WEST",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 152,
+          "offsetY": 36,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_FILLEDBUCKET",
+          "slotNumber": 4
+        }
+      ],
+      "guiControlsTemplate": [
+        {
+          "screenX": 131,
+          "screenY": 19,
+          "fillerX": 176,
+          "fillerY": 31,
+          "sizeX": 16,
+          "sizeY": 58,
+          "controlType": "TankGauge"
+        },
+        {
+          "screenX": 10,
+          "screenY": 49,
+          "fillerX": 176,
+          "fillerY": 0,
+          "sizeX": 14,
+          "sizeY": 14,
+          "controlType": "PowerLevelX"
+        },
+        {
+          "screenX": 32,
+          "screenY": 31,
+          "fillerX": 176,
+          "fillerY": 14,
+          "sizeX": 31,
+          "sizeY": 17,
+          "controlType": "CookingProgressY"
+        }
+      ],
+      "guiButtonTemplate": [
+        {
+          "screenX": 166,
+          "screenY": 4,
+          "fillerX": 9,
+          "fillerY": 32,
+          "sizeX": 6,
+          "sizeY": 5,
+          "tooltipToken": "button.help",
+          "buttonType": "InvisibleButton",
+          "clickAction": "OpenLink",
+          "userData": "http://madsciencemod.com/minecraft-item/dna-extractor/",
+          "buttonID": 0
+        }
+      ],
+      "fluidsSupported": [
+        {
+          "internalName": "maddnamutant",
+          "startingAmount": 0,
+          "maximumAmount": 10000
+        }
+      ],
+      "energySupported": [
+        {
+          "energyMaxExtract": 0,
+          "energyMaxRecieve": 200,
+          "energyCapacity": 100000,
+          "consumptionRate": 1,
+          "productionRate": 0
+        }
+      ],
+      "soundArchive": [
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Finish",
+            "soundNameWithExtension": "Finish.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKEND",
+            "soundLengthInSeconds": 2,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Idle",
+            "soundNameWithExtension": "Idle.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "IDLEON",
+            "soundLengthInSeconds": 2,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        }
+      ],
+      "recipeArchive": [
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleBat",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaBat",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.5
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleCaveSpider",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCaveSpider",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "fermentedSpiderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCaveSpider",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleChicken",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaChicken",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "feather",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaChicken",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.15
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "egg",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaChicken",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.15
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "chickenCooked",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaChicken",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.15
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "chickenRaw",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaChicken",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.15
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "leather",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "beefCooked",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "beefRaw",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "bootsCloth",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "helmetCloth",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "leggingsCloth",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "chestplateCloth",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "milk",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.3
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleCreeper",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCreeper",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.2
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "sulphur",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCreeper",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.22
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "skull",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 4
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaCreeper",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.22
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleEnderman",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaEnderman",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "enderPearl",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaEnderman",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "eyeOfEnder",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaEnderman",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "ghastTear",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaGhast",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleHorse",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaHorse",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleMushroomCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaMushroomCow",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleOcelot",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaOcelot",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needlePig",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaPig",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "porkchopRaw",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaPig",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "porkchopCooked",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaPig",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleSheep",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSheep",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "wool",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSheep",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "bone",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSkeleton",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "dyePowder",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 15
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSkeleton",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "skull",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSkeleton",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "slimeball",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSlime",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.5
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "pistonStickyBase",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSlime",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.5
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleSpider",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSpider",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.66
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "spiderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSpider",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.66
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "string",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSpider",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.66
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleSquid",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSquid",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "dyePowder",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaSquid",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleVillager",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaVillager",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleWitch",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaWitch",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.66
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleWolf",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaWolf",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.42
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleZombie",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaZombie",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "skull",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 2
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaZombie",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "rottenFlesh",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dnaZombie",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.35
+        }
+      ],
+      "craftingRecipes": [
+        {
+          "craftingRecipeComponents": [
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 0
+            },
+            {
+              "slotExpectedItem": "circuitEnderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 1
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 2
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 3
+            },
+            {
+              "slotExpectedItem": "circuitSpiderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 4
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 5
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 6
+            },
+            {
+              "slotExpectedItem": "componentComputer",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 7
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 8
+            }
+          ],
+          "craftingRecipeType": "SHAPED",
+          "craftingAmount": 1
+        }
+      ],
+      "modelArchive": {
+        "machineModels": [
+          {
+            "modelPath": "/assets/madscience/models/dnaExtractor/dnaExtractor.mad"
+          }
+        ],
+        "texturePath": "/models/dnaExtractor/idle.png"
+      }
+    }
+  ]
+}

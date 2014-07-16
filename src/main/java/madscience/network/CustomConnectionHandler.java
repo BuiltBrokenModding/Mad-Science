@@ -1,6 +1,6 @@
 package madscience.network;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
@@ -44,7 +44,6 @@ public class CustomConnectionHandler implements IConnectionHandler
     {
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login)
     {
@@ -59,10 +58,10 @@ public class CustomConnectionHandler implements IConnectionHandler
                     maxTries--;
                 }
 
-                if (mc.thePlayer != null && MadScience.V_BUILD != "@BUILD@")
+                if (mc.thePlayer != null && MadMod.VBUILD != "@BUILD@")
                 {
                     // Ensure both numbers are proper for comparing.
-                    long runningBuild = new Long(MadScience.V_BUILD);
+                    long runningBuild = new Long(MadMod.VBUILD);
 
                     // Tell the user how many builds behind they are.
                     if (jenkinsLastBuild > runningBuild)
@@ -71,11 +70,11 @@ public class CustomConnectionHandler implements IConnectionHandler
                         
                         if (buildDiff > 1)
                         {
-                            mc.thePlayer.addChatMessage(MadScience.NAME + ": You're " + String.valueOf(buildDiff) + " versions behind. Visit madsciencemod.com for updates.");
+                            mc.thePlayer.addChatMessage(MadMod.NAME + ": You're " + String.valueOf(buildDiff) + " versions behind. Visit madsciencemod.com for updates.");
                         }
                         else
                         {
-                            mc.thePlayer.addChatMessage(MadScience.NAME + ": You're " + String.valueOf(buildDiff) + " version behind. Visit madsciencemod.com for updates.");
+                            mc.thePlayer.addChatMessage(MadMod.NAME + ": You're " + String.valueOf(buildDiff) + " version behind. Visit madsciencemod.com for updates.");
                         }
                     }
                 }

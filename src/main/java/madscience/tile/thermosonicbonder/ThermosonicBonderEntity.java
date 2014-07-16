@@ -2,8 +2,9 @@ package madscience.tile.thermosonicbonder;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -226,7 +227,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -307,7 +308,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
             return this.thermosonicbonderOutput[0];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -563,7 +564,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
         if (canSmelt() && isPowered() && isHeatedEnough() && isRedstonePowered())
         {
             // Working state.
-            if (curFrame <= 5 && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            if (curFrame <= 5 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
                 TEXTURE = "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/run_" + curFrame + ".png";
@@ -687,13 +688,13 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab implements ISid
     public void updateSound()
     {
         // Check to see if we should play idle sounds.
-        if (this.canSmelt() && this.isPowered() && isRedstonePowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 2) == 0L)
+        if (this.canSmelt() && this.isPowered() && isRedstonePowered() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 2) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, ThermosonicBonderSounds.THERMOSONICBONDER_LASERWORK, 1.0F, 1.0F);
         }
 
         // Heater sound but not warm enough yet.
-        if (isPowered() && !canSmelt() && isRedstonePowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3) == 0L)
+        if (isPowered() && !canSmelt() && isRedstonePowered() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 3) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, ThermosonicBonderSounds.THERMOSONICBONDER_IDLE, 1.0F, 1.0F);
         }

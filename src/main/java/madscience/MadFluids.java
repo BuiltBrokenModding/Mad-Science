@@ -1,5 +1,6 @@
 package madscience;
 
+import madscience.factory.mod.MadMod;
 import madscience.fluids.dna.LiquidDNA;
 import madscience.fluids.dna.LiquidDNABlock;
 import madscience.fluids.dna.LiquidDNABucket;
@@ -58,7 +59,7 @@ public class MadFluids
     @EventHandler
     static void createLiquidDNA(int blockFluidID, int bucketItemID)
     {
-        MadScience.logger.info("-Liquid DNA");
+        MadMod.LOGGER.info("-Liquid DNA");
         
         // Still's ID must be 1 above Flowing.
         LIQUIDDNA = (LiquidDNA) new LiquidDNA().setUnlocalizedName(LIQUIDDNA_INTERNALNAME);
@@ -85,7 +86,7 @@ public class MadFluids
         MinecraftForge.EVENT_BUS.register(new LiquidDNABucketEvent());
 
         // Register custom rendering for GUI's.
-        MadScience.proxy.registerRenderingHandler(blockFluidID);
+        MadForgeMod.proxy.registerRenderingHandler(blockFluidID);
 
         // Allows us to override icon displays and how fluid is rendered in
         // pipes and tanks.
@@ -96,7 +97,7 @@ public class MadFluids
     @EventHandler
     static void createLiquidDNAMutant(int blockFluidID, int bucketItemID)
     {
-        MadScience.logger.info("-Liquid Mutant DNA");
+        MadMod.LOGGER.info("-Liquid Mutant DNA");
         LIQUIDDNA_MUTANT = (LiquidDNAMutant) new LiquidDNAMutant(LIQUIDDNA_MUTANT_INTERNALNAME).setUnlocalizedName(LIQUIDDNA_MUTANT_INTERNALNAME);
         FluidRegistry.registerFluid(LIQUIDDNA_MUTANT);
         LIQUIDDNA_MUTANT_BLOCK = (LiquidDNAMutantBlock) new LiquidDNAMutantBlock(blockFluidID).setUnlocalizedName(LIQUIDDNA_MUTANT_INTERNALNAME);
@@ -107,7 +108,7 @@ public class MadFluids
         // LanguageRegistry.addName(LIQUIDDNA_MUTANT_BUCKET_ITEM, LIQUIDDNA_MUTANT_BUCKET_DISPLAYNAME);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(LIQUIDDNA_MUTANT.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(LIQUIDDNA_MUTANT_BUCKET_ITEM), new ItemStack(Item.bucketEmpty)));
         MinecraftForge.EVENT_BUS.register(new LiquidDNAMutantBucketEvent());
-        MadScience.proxy.registerRenderingHandler(blockFluidID);
+        MadForgeMod.proxy.registerRenderingHandler(blockFluidID);
         MadFluids.liquidDNAMutantRenderID = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(new LiquidDNAMutantRender());
     }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import madscience.MadEntities;
 import madscience.MadFluids;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -157,7 +157,7 @@ public class LiquidDNABucket extends ItemFluidContainer
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir)
     {
-        this.itemIcon = ir.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_BUCKET_INTERNALNAME);
+        this.itemIcon = ir.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_BUCKET_INTERNALNAME);
     }
 
     private boolean tryPlaceContainedLiquid(World w, int x, int y, int z)

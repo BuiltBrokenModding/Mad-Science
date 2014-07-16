@@ -3,7 +3,7 @@ package madscience.items.warningsign;
 import java.util.List;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -77,7 +77,7 @@ public class WarningSignItem extends ItemHangingEntity
                     if (!gameWorld.isRemote)
                     {
                         gameWorld.spawnEntityInWorld(entityhanging);
-                        // MadScience.logger.info("[Warning Sign] Spawning Entity");
+                        // MadMod.logger.info("[Warning Sign] Spawning Entity");
                     }
 
                     --playerItemHolding.stackSize;
@@ -92,6 +92,6 @@ public class WarningSignItem extends ItemHangingEntity
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + (this.getUnlocalizedName().substring(5)));
+        this.itemIcon = par1IconRegister.registerIcon(MadMod.ID + ":" + (this.getUnlocalizedName().substring(5)));
     }
 }

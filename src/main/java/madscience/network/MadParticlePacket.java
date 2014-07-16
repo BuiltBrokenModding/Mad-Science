@@ -1,6 +1,6 @@
 package madscience.network;
 
-import madscience.MadScience;
+import madscience.MadForgeMod;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.google.common.io.ByteArrayDataInput;
@@ -59,7 +59,7 @@ public class MadParticlePacket extends MadPackets
                 double var8 = player.worldObj.rand.nextGaussian() * 0.02D;
                 
                 // Use the Forge network proxy to spawn the particle properly on the client only.
-                MadScience.proxy.spawnParticle(particleName, particlePosX, particlePosY, particlePosZ, velX, velY, velZ);
+                MadForgeMod.proxy.spawnParticle(particleName, particlePosX, particlePosY, particlePosZ, velX, velY, velZ);
             }
 
         }

@@ -1,7 +1,7 @@
 package madscience.tile.cryotube;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,13 +30,13 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
     }
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.CRYOTUBE_INTERNALNAME + "/off.png");
 
     // Tile Entity that our block inits.
     private CryotubeEntity ENTITY;
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.CRYOTUBE_INTERNALNAME + "/" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.CRYOTUBE_INTERNALNAME + "/" + MadFurnaces.CRYOTUBE_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -215,7 +215,7 @@ public class CryotubeRender extends TileEntitySpecialRenderer implements ISimple
         if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.TEXTURE));
         }
         else
         {

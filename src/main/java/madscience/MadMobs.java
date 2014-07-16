@@ -91,10 +91,10 @@ public class MadMobs
         // Get a free and unique entity ID for our mob.
         int freeMobID = EntityRegistry.findGlobalUniqueEntityId();
         EntityRegistry.registerGlobalEntityID(mobEntity, eggInternalName, freeMobID);
-        EntityRegistry.registerModEntity(mobEntity, eggInternalName, freeMobID, MadScience.instance, 42, 3, true);
+        EntityRegistry.registerModEntity(mobEntity, eggInternalName, freeMobID, MadForgeMod.instance, 42, 3, true);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(metaID);
+        MadForgeMod.proxy.registerRenderingHandler(metaID);
 
         // Recipes for creating this custom mob.
         MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);

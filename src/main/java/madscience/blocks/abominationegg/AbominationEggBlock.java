@@ -5,7 +5,7 @@ import java.util.Random;
 import madscience.MadBlocks;
 import madscience.MadEntities;
 import madscience.MadFluids;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.mobs.abomination.AbominationSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDragonEgg;
@@ -197,7 +197,7 @@ public class AbominationEggBlock extends BlockDragonEgg implements ITileEntityPr
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadBlocks.ABOMINATIONEGG_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + MadBlocks.ABOMINATIONEGG_INTERNALNAME);
     }
 
     /** If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc) */

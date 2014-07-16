@@ -1,5 +1,6 @@
 package madscience;
 
+import madscience.factory.mod.MadMod;
 import madscience.items.dna.DNABat;
 import madscience.items.dna.DNACaveSpider;
 import madscience.items.dna.DNAChicken;
@@ -116,14 +117,14 @@ public class MadDNA
     static void createBatDNA(int itemID)
     {
         // Adds pure sample of Bat DNA.
-        MadScience.logger.info("-DNA Bat");
+        MadMod.LOGGER.info("-DNA Bat");
         DNA_BAT = (DNABat) new DNABat(itemID, 4996656, 986895).setUnlocalizedName(DNA_BAT_INTERNALNAME);
         GameRegistry.registerItem(DNA_BAT, DNA_BAT_INTERNALNAME);
     }
 
     static void createCaveSpiderDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Cave Spider");
+        MadMod.LOGGER.info("-DNA Cave Spider");
         DNA_CAVESPIDER = (DNACaveSpider) new DNACaveSpider(itemID, 803406, 11013646).setUnlocalizedName(DNA_CAVESPIDER_INTERNALNAME);
         GameRegistry.registerItem(DNA_CAVESPIDER, DNA_CAVESPIDER_INTERNALNAME);
     }
@@ -131,7 +132,7 @@ public class MadDNA
     static void createChickenDNA(int itemID)
     {
         // Adds pure sample of Chicken DNA.
-        MadScience.logger.info("-DNA Chicken");
+        MadMod.LOGGER.info("-DNA Chicken");
         DNA_CHICKEN = (DNAChicken) new DNAChicken(itemID, 10592673, 16711680).setUnlocalizedName(DNA_CHICKEN_INTERNALNAME);
         GameRegistry.registerItem(DNA_CHICKEN, DNA_CHICKEN_INTERNALNAME);
     }
@@ -139,7 +140,7 @@ public class MadDNA
     static void createCowDNA(int itemID)
     {
         // Adds pure sample of Cow DNA.
-        MadScience.logger.info("-DNA Cow");
+        MadMod.LOGGER.info("-DNA Cow");
         DNA_COW = (DNACow) new DNACow(itemID, 4470310, 10592673).setUnlocalizedName(DNA_COW_INTERNALNAME);
         GameRegistry.registerItem(DNA_COW, DNA_COW_INTERNALNAME);
     }
@@ -147,42 +148,42 @@ public class MadDNA
     static void createCreeperDNA(int itemID)
     {
         // Adds pure sample of Creeper DNA.
-        MadScience.logger.info("-DNA Creeper");
+        MadMod.LOGGER.info("-DNA Creeper");
         DNA_CREEPER = (DNACreeper) new DNACreeper(itemID, 894731, 0).setUnlocalizedName(DNA_CREEPER_INTERNALNAME);
         GameRegistry.registerItem(DNA_CREEPER, DNA_CREEPER_INTERNALNAME);
     }
 
     static void createEndermanDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Enderman");
+        MadMod.LOGGER.info("-DNA Enderman");
         DNA_ENDERMAN = (DNAEnderman) new DNAEnderman(itemID, 1447446, 0).setUnlocalizedName(DNA_ENDERMAN_INTERNALNAME);
         GameRegistry.registerItem(DNA_ENDERMAN, DNA_ENDERMAN_INTERNALNAME);
     }
 
     static void createGhastDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Ghast");
+        MadMod.LOGGER.info("-DNA Ghast");
         DNA_GHAST = (DNAGhast) new DNAGhast(itemID, 16382457, 12369084).setUnlocalizedName(DNA_GHAST_INTERNALNAME);
         GameRegistry.registerItem(DNA_GHAST, DNA_GHAST_INTERNALNAME);
     }
 
     static void createHorseDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Horse");
+        MadMod.LOGGER.info("-DNA Horse");
         DNA_HORSE = (DNAHorse) new DNAHorse(itemID, 12623485, 15656192).setUnlocalizedName(DNA_HORSE_INTERNALNAME);
         GameRegistry.registerItem(DNA_HORSE, DNA_HORSE_INTERNALNAME);
     }
 
     static void createMushroomCowDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Mushroom Cow");
+        MadMod.LOGGER.info("-DNA Mushroom Cow");
         DNA_MUSHROOMCOW = (DNAMushroomCow) new DNAMushroomCow(itemID, 10489616, 12040119).setUnlocalizedName(DNA_MUSHROOMCOW_INTERNALNAME);
         GameRegistry.registerItem(DNA_MUSHROOMCOW, DNA_MUSHROOMCOW_INTERNALNAME);
     }
 
     static void createOcelotDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Ocelot");
+        MadMod.LOGGER.info("-DNA Ocelot");
         DNA_OCELOT = (DNAOcelot) new DNAOcelot(itemID, 15720061, 5653556).setUnlocalizedName(DNA_OCELOT_INTERNALNAME);
         GameRegistry.registerItem(DNA_OCELOT, DNA_OCELOT_INTERNALNAME);
     }
@@ -190,21 +191,21 @@ public class MadDNA
     static void createPigDNA(int itemID)
     {
         // Adds pure sample of Pig DNA.
-        MadScience.logger.info("-DNA Pig");
+        MadMod.LOGGER.info("-DNA Pig");
         DNA_PIG = (DNAPig) new DNAPig(itemID, 15771042, 14377823).setUnlocalizedName(DNA_PIG_INTERNALNAME);
         GameRegistry.registerItem(DNA_PIG, DNA_PIG_INTERNALNAME);
     }
 
     static void createSheepDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Sheep");
+        MadMod.LOGGER.info("-DNA Sheep");
         DNA_SHEEP = (DNASheep) new DNASheep(itemID, 15198183, 16758197).setUnlocalizedName(DNA_SHEEP_INTERNALNAME);
         GameRegistry.registerItem(DNA_SHEEP, DNA_SHEEP_INTERNALNAME);
     }
 
     static void createSkeletonDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Skeleton");
+        MadMod.LOGGER.info("-DNA Skeleton");
         DNA_SKELETON = (DNASkeleton) new DNASkeleton(itemID, 12698049, 4802889).setUnlocalizedName(DNA_SKELETON_INTERNALNAME);
         GameRegistry.registerItem(DNA_SKELETON, DNA_SKELETON_INTERNALNAME);
     }
@@ -212,7 +213,7 @@ public class MadDNA
     static void createSlimeDNA(int itemID)
     {
         // Adds pure sample of Slime DNA.
-        MadScience.logger.info("-DNA Slime");
+        MadMod.LOGGER.info("-DNA Slime");
         DNA_SLIME = new DNASlime(itemID, 5349438, 8306542).setUnlocalizedName(DNA_SLIME_INTERNALNAME);
         GameRegistry.registerItem(DNA_SLIME, DNA_SLIME_INTERNALNAME);
     }
@@ -220,14 +221,14 @@ public class MadDNA
     static void createSpiderDNA(int itemID)
     {
         // Adds pure sample of Spider DNA.
-        MadScience.logger.info("-DNA Spider");
+        MadMod.LOGGER.info("-DNA Spider");
         DNA_SPIDER = (DNASpider) new DNASpider(itemID, 3419431, 11013646).setUnlocalizedName(DNA_SPIDER_INTERNALNAME);
         GameRegistry.registerItem(DNA_SPIDER, DNA_SPIDER_INTERNALNAME);
     }
 
     static void createSquidDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Squid");
+        MadMod.LOGGER.info("-DNA Squid");
         DNA_SQUID = (DNASquid) new DNASquid(itemID, 2243405, 7375001).setUnlocalizedName(DNA_SQUID_INTERNALNAME);
         GameRegistry.registerItem(DNA_SQUID, DNA_SQUID_INTERNALNAME);
     }
@@ -235,21 +236,21 @@ public class MadDNA
     static void createVillagerDNA(int itemID)
     {
         // Adds pure sample of Villager DNA.
-        MadScience.logger.info("-DNA Villager");
+        MadMod.LOGGER.info("-DNA Villager");
         DNA_VILLAGER = (DNAVillager) new DNAVillager(itemID, 5651507, 12422002).setUnlocalizedName(DNA_VILLAGER_INTERNALNAME);
         GameRegistry.registerItem(DNA_VILLAGER, DNA_VILLAGER_INTERNALNAME);
     }
 
     static void createWitchDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Witch");
+        MadMod.LOGGER.info("-DNA Witch");
         DNA_WITCH = (DNAWitch) new DNAWitch(itemID, 3407872, 5349438).setUnlocalizedName(DNA_WITCH_INTERNALNAME);
         GameRegistry.registerItem(DNA_WITCH, DNA_WITCH_INTERNALNAME);
     }
 
     static void createWolfDNA(int itemID)
     {
-        MadScience.logger.info("-DNA Wolf");
+        MadMod.LOGGER.info("-DNA Wolf");
         DNA_WOLF = (DNAWolf) new DNAWolf(itemID, 14144467, 13545366).setUnlocalizedName(DNA_WOLF_INTERNALNAME);
         GameRegistry.registerItem(DNA_WOLF, DNA_WOLF_INTERNALNAME);
     }
@@ -258,7 +259,7 @@ public class MadDNA
     {
         // DNA Extractor
         // Adds pure sample of Zombie DNA.
-        MadScience.logger.info("-DNA Zombie");
+        MadMod.LOGGER.info("-DNA Zombie");
         DNA_ZOMBIE = (DNAZombie) new DNAZombie(itemID, 44975, 7969893).setUnlocalizedName(DNA_ZOMBIE_INTERNALNAME);
         GameRegistry.registerItem(DNA_ZOMBIE, DNA_ZOMBIE_INTERNALNAME);
     }

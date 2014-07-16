@@ -12,13 +12,14 @@ import java.util.TreeSet;
 import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadEntities;
+import madscience.MadForgeMod;
 import madscience.MadFurnaces;
-import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.MadTileEntityFactoryProductData;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModelLoader;
 import madscience.factory.tileentity.MadTileEntityRendererTemplate;
 import madscience.fluids.dna.LiquidDNARender;
@@ -152,10 +153,10 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     @Override
     public void spawnParticle(String fxName, double posX, double posY, double posZ, double velX, double velY, double velZ)
     {
-        World clientWorld = MadScience.proxy.getClientWorld();
+        World clientWorld = MadForgeMod.proxy.getClientWorld();
         if (clientWorld == null)
         {
-            MadScience.logger.info("Mad Particle: Could not spawn particle because client world was null!");
+            MadMod.LOGGER.info("Mad Particle: Could not spawn particle because client world was null!");
             return;
         }
 
@@ -278,7 +279,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         }
     }
     
-    /** Serializes all registered machines to disk. Meat for developer use only. Use with caution! */
+    /** Serializes all registered machines to disk. Meant for developer use only. Use with caution! */
     @Override
     public void dumpAllMachineJSON()
     {
@@ -297,14 +298,14 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         
         // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-        
+
         // Convert the data portion of our tile entity factory product to JSON string.
-        String json = gson.toJson(allMachines.toArray(new MadTileEntityFactoryProductData[]{}), MadTileEntityFactoryProductData[].class);
+        String json = gson.toJson(MadMod.getData(), MadMod.class);
         try
         {
             // Save this information to the disk!
             File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
-            FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("tiles") + ".json"), json);
+            FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("mod") + ".json"), json);
         }
         catch (IOException e)
         {

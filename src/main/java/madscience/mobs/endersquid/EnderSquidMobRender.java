@@ -3,7 +3,7 @@ package madscience.mobs.endersquid;
 import java.util.Random;
 
 import madscience.MadMobs;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -22,8 +22,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class EnderSquidMobRender extends RenderLiving
 {
-    private static final ResourceLocation endermanEyesTexture = new ResourceLocation(MadScience.ID, "models/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "_eyes.png");
-    private static final ResourceLocation endermanTextures = new ResourceLocation(MadScience.ID, "models/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + ".png");
+    private static final ResourceLocation endermanEyesTexture = new ResourceLocation(MadMod.ID, "models/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "_eyes.png");
+    private static final ResourceLocation endermanTextures = new ResourceLocation(MadMod.ID, "models/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + "/" + MadMobs.GMO_ENDERSQUID_INTERNALNAME + ".png");
 
     /** The model of the enderman */
     private EnderSquidMobModel endermanModel;

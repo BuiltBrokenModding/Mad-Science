@@ -1,7 +1,7 @@
 package madscience.tile.incubator;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,7 +30,7 @@ public class IncubatorRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.INCUBATOR_INTERNALNAME + "/" + MadFurnaces.INCUBATOR_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.INCUBATOR_INTERNALNAME + "/" + MadFurnaces.INCUBATOR_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -39,7 +39,7 @@ public class IncubatorRender extends TileEntitySpecialRenderer implements ISimpl
     private IncubatorEntity ENTITY;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/idle.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.INCUBATOR_INTERNALNAME + "/idle.png");
 
     @Override
     public int getRenderId()
@@ -209,7 +209,7 @@ public class IncubatorRender extends TileEntitySpecialRenderer implements ISimpl
         // Apply our custom texture from asset directory.
         if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.TEXTURE));
         }
         else
         {

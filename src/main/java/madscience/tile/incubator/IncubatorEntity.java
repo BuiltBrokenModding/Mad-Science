@@ -2,8 +2,9 @@ package madscience.tile.incubator;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -232,7 +233,7 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -664,7 +665,7 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
     public void updateSound()
     {
         // Check to see if we should play idle sounds.
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, IncubatorSounds.INCUBATOR_WORK, 1.0F, 1.0F);
         }

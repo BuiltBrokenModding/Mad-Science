@@ -1,5 +1,6 @@
 package madscience;
 
+import madscience.factory.mod.MadMod;
 import madscience.items.weapons.pulserifle.PulseRifleItem;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItem;
@@ -33,10 +34,10 @@ public class MadWeapons
     static void createPulseRifle(int itemID)
     {
         // Totally not a rip off from that movie with Sigourney Weaver.
-        MadScience.logger.info("-M41A Pulse Rifle");
+        MadMod.LOGGER.info("-M41A Pulse Rifle");
         WEAPONITEM_PULSERIFLE = (PulseRifleItem) new PulseRifleItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_INTERNALNAME);
         GameRegistry.registerItem(WEAPONITEM_PULSERIFLE, WEAPONITEM_PULSERIFLE_INTERNALNAME);
-        MadScience.proxy.registerRenderingHandler(itemID);
+        MadForgeMod.proxy.registerRenderingHandler(itemID);
         
         // Pulse Rifle recipe.
         GameRegistry.addRecipe(new ItemStack(WEAPONITEM_PULSERIFLE, 1), new Object[]
@@ -59,30 +60,30 @@ public class MadWeapons
     static void createPulseRifleBullet(int itemID)
     {
         // Bullet for the gun that is rendered in the world.
-        MadScience.logger.info("-Pulse Rifle Bullet");
+        MadMod.LOGGER.info("-Pulse Rifle Bullet");
         WEAPONITEM_BULLETITEM = (PulseRifleBulletItem) new PulseRifleBulletItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME);
-        EntityRegistry.registerModEntity(PulseRifleBulletEntity.class, WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME, itemID, MadScience.instance, 120, 3, true);
+        EntityRegistry.registerModEntity(PulseRifleBulletEntity.class, WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME, itemID, MadForgeMod.instance, 120, 3, true);
         GameRegistry.registerItem(WEAPONITEM_BULLETITEM, WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME);
-        MadScience.proxy.registerRenderingHandler(itemID);
+        MadForgeMod.proxy.registerRenderingHandler(itemID);
     }
 
     static void createPulseRifleGrenade(int itemID)
     {
         // Grenade for the gun that is rendered in the world.
-        MadScience.logger.info("-Pulse Rifle Grenade");
+        MadMod.LOGGER.info("-Pulse Rifle Grenade");
         WEAPONITEM_GRENADEITEM = (PulseRifleGrenadeItem) new PulseRifleGrenadeItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME);
-        EntityRegistry.registerModEntity(PulseRifleGrenadeEntity.class, WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME, itemID, MadScience.instance, 120, 3, true);
+        EntityRegistry.registerModEntity(PulseRifleGrenadeEntity.class, WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME, itemID, MadForgeMod.instance, 120, 3, true);
         GameRegistry.registerItem(WEAPONITEM_GRENADEITEM, WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME);
-        MadScience.proxy.registerRenderingHandler(itemID);        
+        MadForgeMod.proxy.registerRenderingHandler(itemID);        
     }
 
     static void createPulseRifleMagazine(int itemID)
     {
         // Magazine that is crafted with bullets to fill them and loaded into rifle.
-        MadScience.logger.info("-Pulse Rifle Magazine");
+        MadMod.LOGGER.info("-Pulse Rifle Magazine");
         WEAPONITEM_MAGAZINEITEM = (PulseRifleMagazineItem) new PulseRifleMagazineItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME);
         GameRegistry.registerItem(WEAPONITEM_MAGAZINEITEM, WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME);
         GameRegistry.registerCraftingHandler(new PulseRifleMagazineCraftingHandler());
-        MadScience.proxy.registerRenderingHandler(itemID);
+        MadForgeMod.proxy.registerRenderingHandler(itemID);
     }
 }

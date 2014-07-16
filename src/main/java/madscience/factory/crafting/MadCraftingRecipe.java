@@ -2,7 +2,7 @@ package madscience.factory.crafting;
 
 import java.util.ArrayList;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 
 import com.google.gson.annotations.Expose;
 
@@ -164,7 +164,7 @@ public final class MadCraftingRecipe
         catch (Exception err)
         {
             // Something went wrong parsing the input data.
-            MadScience.logger.warning("Unable to parse input parameters into MadCraftingComponent for '" + delimitedString + "'!");
+            MadMod.LOGGER.warning("Unable to parse input parameters into MadCraftingComponent for '" + delimitedString + "'!");
         }
 
         return null;

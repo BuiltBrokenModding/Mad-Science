@@ -3,7 +3,7 @@ package madscience.items;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadNeedles;
-import madscience.MadScience;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -101,7 +101,7 @@ public class ItemDecayBase extends Item
         // Get the items that this entityItem represent.
         ItemStack stack = entityItem.getEntityItem();
 
-        if (entityItem.worldObj.getWorldTime() % (MadConfig.DECAY_DELAY_IN_SECONDS * MadScience.SECOND_IN_TICKS) != 0L)
+        if (entityItem.worldObj.getWorldTime() % (MadConfig.DECAY_DELAY_IN_SECONDS * MadUtils.SECOND_IN_TICKS) != 0L)
         {
             return false;
         }
@@ -147,7 +147,7 @@ public class ItemDecayBase extends Item
             return;
         }
 
-        if (world.getWorldTime() % (MadConfig.DECAY_DELAY_IN_SECONDS * MadScience.SECOND_IN_TICKS) != 0L)
+        if (world.getWorldTime() % (MadConfig.DECAY_DELAY_IN_SECONDS * MadUtils.SECOND_IN_TICKS) != 0L)
         {
             return;
         }

@@ -1,7 +1,7 @@
 package madscience.mobs.enderslime;
 
 import madscience.MadMobs;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EnderslimeMobRender extends RenderLiving
 {
     // Refers to location in asset folder with other textures and sounds.
-    private static final ResourceLocation mobTexture = new ResourceLocation(MadScience.ID, "models/" + MadMobs.GMO_ENDERSLIME_INTERNALNAME + "/" + MadMobs.GMO_ENDERSLIME_INTERNALNAME + ".png");
+    private static final ResourceLocation mobTexture = new ResourceLocation(MadMod.ID, "models/" + MadMobs.GMO_ENDERSLIME_INTERNALNAME + "/" + MadMobs.GMO_ENDERSLIME_INTERNALNAME + ".png");
     private ModelBase scaleAmount;
 
     public EnderslimeMobRender(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3)

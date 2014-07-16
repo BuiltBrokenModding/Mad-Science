@@ -1,7 +1,7 @@
 package madscience.tile.thermosonicbonder;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,7 +30,7 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.THERMOSONIC_INTERNALNAME + "/" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.THERMOSONIC_INTERNALNAME + "/" + MadFurnaces.THERMOSONIC_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -39,7 +39,7 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
     private ThermosonicBonderEntity ENTITY;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.THERMOSONIC_INTERNALNAME + "/Off.png");
 
     @Override
     public int getRenderId()
@@ -209,7 +209,7 @@ public class ThermosonicBonderRender extends TileEntitySpecialRenderer implement
         // Apply our custom texture from asset directory.
         if (ENTITY != null && ENTITY.TEXTURE != null && !ENTITY.TEXTURE.isEmpty())
         {
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.TEXTURE));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.TEXTURE));
         }
         else
         {

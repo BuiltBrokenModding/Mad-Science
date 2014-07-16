@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import madscience.factory.mod.MadMod;
 import madscience.network.CustomConnectionHandler;
 import madscience.util.MadXML;
 
@@ -51,7 +52,7 @@ class MadUpdates
             }
             catch (Exception err)
             {
-                MadScience.logger.info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
+                MadMod.LOGGER.info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
                 return;
             }
 
@@ -67,18 +68,18 @@ class MadUpdates
                     long myXMLLong = new Long(xmlBuildNumber);
 
                     // Register a custom connection handler so we can tell the user something when the login to the game world.
-                    MadScience.logger.info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
+                    MadMod.LOGGER.info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
                     NetworkRegistry.instance().registerConnectionHandler(new CustomConnectionHandler(myXMLLong));
                 }
                 else
                 {
-                    MadScience.logger.info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
+                    MadMod.LOGGER.info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
                     return;
                 }
             }
             catch (Exception err)
             {
-                MadScience.logger.info("Unable to parse XML from Jenkins build server... perhaps it is down!");
+                MadMod.LOGGER.info("Unable to parse XML from Jenkins build server... perhaps it is down!");
                 return;
             }
         }

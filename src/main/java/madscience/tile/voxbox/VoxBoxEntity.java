@@ -5,7 +5,7 @@ import java.util.List;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -136,7 +136,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -178,7 +178,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
             return this.voxboxInput[0];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -334,7 +334,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 if (voxboxInput[0] != null && voxboxInput[0].stackTagCompound != null)
                 {
                     // Read the book in the slot and parse it.
-                    //MadScience.logger.info("VoxBox: STARTING PHRASE INTERPRETOR");
+                    //MadMod.logger.info("VoxBox: STARTING PHRASE INTERPRETOR");
                     String bookContents = MadUtils.getWrittenBookContents(voxboxInput[0].stackTagCompound);
                     
                     // Check if the string is null.
@@ -370,21 +370,21 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                             {
                                 talkTimeline.add(registryVOXSound);
                                 estimatedTotalTalkTime += registryVOXSound.duration;
-                                //MadScience.logger.info("VoxBox: Added word '" + registryVOXSound.internalName + "' with length of " + String.valueOf(registryVOXSound.duration) + "F");
+                                //MadMod.logger.info("VoxBox: Added word '" + registryVOXSound.internalName + "' with length of " + String.valueOf(registryVOXSound.duration) + "F");
                             }
                         }
                         else
                         {
                             // If we cannot find the word the player input then use period by default since it plays static.
-                            //MadScience.logger.info("VoxBox: Discarded word '" + voxSound + "' because it was not found in dictionary.");
+                            //MadMod.logger.info("VoxBox: Discarded word '" + voxSound + "' because it was not found in dictionary.");
                             talkTimeline.add(new VoxBoxSoundItem(0.43F, "_period", "_period.ogg"));
                             estimatedTotalTalkTime += 0.43F;
                         }
                     }
                     
                     // Calculate max talk time by rounding the value to nearest second.
-                    talkTimeMaximum = Math.round(estimatedTotalTalkTime) * MadScience.SECOND_IN_TICKS;
-                    //MadScience.logger.info("VoxBox: Prepared talk timeline with " + talkTimeline.size() + " entries and total length of " + String.valueOf(talkTimeMaximum) + " ticks.");
+                    talkTimeMaximum = Math.round(estimatedTotalTalkTime) * MadUtils.SECOND_IN_TICKS;
+                    //MadMod.logger.info("VoxBox: Prepared talk timeline with " + talkTimeline.size() + " entries and total length of " + String.valueOf(talkTimeMaximum) + " ticks.");
                     
                     // Determine if talk time is greater than zero.
                     if (talkTimeMaximum <= 0)
@@ -421,7 +421,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 {
                     talkTime++;
                     lastWordIndex = talkTimeIndex;
-                    //MadScience.logger.info("VoxBox: First word so special circumstances!");
+                    //MadMod.logger.info("VoxBox: First word so special circumstances!");
                     return;
                 }
                 
@@ -430,13 +430,13 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 {
                     talkTime++;
                     lastWordIndex = talkTimeIndex;
-                    //MadScience.logger.info("VoxBox: Skipping index of " + String.valueOf(lastWordIndex - 1) + " because already played it!");
+                    //MadMod.logger.info("VoxBox: Skipping index of " + String.valueOf(lastWordIndex - 1) + " because already played it!");
                 }
                 else if (talkTimeIndex <= lastWordIndex && talkTimeIndex > 0)
                 {
                     // Count up to the next one.
                     talkTime++;
-                    //MadScience.logger.info("VoxBox: Skipping because last talk time is same as current talk time");
+                    //MadMod.logger.info("VoxBox: Skipping because last talk time is same as current talk time");
                     return;
                 }
                 
@@ -469,7 +469,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 // Abort if any problems occur.
                 if (talkTimeStep == null)
                 {
-                    //MadScience.logger.info("VoxBox: [ERROR] Unable to get VoxBox Sound Item from VOX sound registry.");
+                    //MadMod.logger.info("VoxBox: [ERROR] Unable to get VoxBox Sound Item from VOX sound registry.");
                     return;
                 }
                 
@@ -477,7 +477,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 if (lastWordLiteral != null && lastWordLiteral.equals(talkTimeStep.internalName) && lastWordIndex <= lastWordMaximum)
                 {
                     talkTime++;
-                    //MadScience.logger.info("VoxBox: Skipping word of " + String.valueOf(lastWordLiteral) + " because already played it!");
+                    //MadMod.logger.info("VoxBox: Skipping word of " + String.valueOf(lastWordLiteral) + " because already played it!");
                     return;
                 }
                 
@@ -486,8 +486,8 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 currentTalkWordStep = 0.0F;
                 talkTime++;
                 lastWordLiteral = talkTimeStep.internalName;
-                this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadScience.ID + ":" + MadFurnaces.VOXBOX_INTERNALNAME + "." + talkTimeStep.internalName, 1.0F, 1.0F);
-                //MadScience.logger.info("VoxBox: Speaking the word index " + String.valueOf(lastWordIndex) + " '" + talkTimeStep.internalName + "' with length of " + String.valueOf(currentTalkWordMaximum) + "F.");
+                this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadMod.ID + ":" + MadFurnaces.VOXBOX_INTERNALNAME + "." + talkTimeStep.internalName, 1.0F, 1.0F);
+                //MadMod.logger.info("VoxBox: Speaking the word index " + String.valueOf(lastWordIndex) + " '" + talkTimeStep.internalName + "' with length of " + String.valueOf(currentTalkWordMaximum) + "F.");
             }
             else if (this.canSmelt() && this.isPowered() && this.talkTime > 0 && talkTimeline != null && lastWordMaximum > 0 && currentTalkWordMaximum > 0.0F)
             {
@@ -496,7 +496,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                 {
                     currentTalkWordStep += 0.1F;
                     talkTime++;
-                    //MadScience.logger.info("VoxBox: Counting word index " + String.valueOf(currentTalkWordStep) + "/" + String.valueOf(currentTalkWordMaximum));
+                    //MadMod.logger.info("VoxBox: Counting word index " + String.valueOf(currentTalkWordStep) + "/" + String.valueOf(currentTalkWordMaximum));
                 }
                 else if (currentTalkWordStep >= currentTalkWordMaximum && talkTime < talkTimeMaximum && lastWordIndex < lastWordMaximum)
                 {
@@ -504,7 +504,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
                     currentTalkWordStep = 0.0F;
                     currentTalkWordMaximum = 0.0F;
                     talkTime++;
-                    //MadScience.logger.info("VoxBox: Finished with word, asking for another...");
+                    //MadMod.logger.info("VoxBox: Finished with word, asking for another...");
                 }
             }
             else if (talkTimeline != null && this.canSmelt() && this.isPowered() && this.talkTime >= this.talkTimeMaximum && lastWordIndex >= lastWordMaximum)
@@ -532,7 +532,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab implements ISidedInventory
         lastWordMaximum = 0;
         lastWordLiteral = "RESET";
         talkTimeline = null;
-        //MadScience.logger.info("VoxBox: STOPPING VOX, PHRASE COMPLETED!");
+        //MadMod.logger.info("VoxBox: STOPPING VOX, PHRASE COMPLETED!");
     }
 
     /** Writes a tile entity to NBT. */

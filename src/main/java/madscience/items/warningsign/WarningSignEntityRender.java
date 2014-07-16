@@ -1,7 +1,7 @@
 package madscience.items.warningsign;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -18,7 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WarningSignEntityRender extends Render
 {
     // Texture Atlas (Sprite Sheet) that contains all the warning signs that are possible.
-    private static final ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadEntities.WARNING_SIGN_INTERNALNAME + "/" + MadEntities.WARNING_SIGN_INTERNALNAME + ".png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadEntities.WARNING_SIGN_INTERNALNAME + "/" + MadEntities.WARNING_SIGN_INTERNALNAME + ".png");
 
     private void adjustDirection(WarningSignEntity par1EntityPainting, float par2, float par3)
     {

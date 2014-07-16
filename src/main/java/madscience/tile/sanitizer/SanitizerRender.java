@@ -1,7 +1,7 @@
 package madscience.tile.sanitizer;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,7 +30,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.SANTITIZER_INTERNALNAME + "/" + MadFurnaces.SANTITIZER_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.SANTITIZER_INTERNALNAME + "/" + MadFurnaces.SANTITIZER_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -38,7 +38,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
     private SanitizerEntity ENTITY;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.SANTITIZER_INTERNALNAME + "/idle.png");
 
     @Override
     public int getRenderId()
@@ -207,7 +207,7 @@ public class SanitizerRender extends TileEntitySpecialRenderer implements ISimpl
         if (ENTITY != null && ENTITY.sanitizerTexturePath != null && !ENTITY.sanitizerTexturePath.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, ENTITY.sanitizerTexturePath));
+            bindTexture(new ResourceLocation(MadMod.ID, ENTITY.sanitizerTexturePath));
         }
         else
         {

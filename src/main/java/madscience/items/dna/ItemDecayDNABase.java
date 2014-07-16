@@ -1,6 +1,6 @@
 package madscience.items.dna;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.items.ItemDecayBase;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -68,8 +68,8 @@ public class ItemDecayDNABase extends ItemDecayBase
     {
         super.registerIcons(par1IconRegister);
 
-        this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":dnaSample_overlay");
-        this.dnaSampleOverlay = par1IconRegister.registerIcon(MadScience.ID + ":dnaSample");
+        this.itemIcon = par1IconRegister.registerIcon(MadMod.ID + ":dnaSample_overlay");
+        this.dnaSampleOverlay = par1IconRegister.registerIcon(MadMod.ID + ":dnaSample");
 
         this.iconString = itemIcon.getIconName();
     }

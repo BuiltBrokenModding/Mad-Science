@@ -1,7 +1,7 @@
 package madscience.fluids.dnamutant;
 
 import madscience.MadFluids;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -76,7 +76,7 @@ public class LiquidDNAMutantBlock extends BlockFluidClassic
     @Override
     public void registerIcons(IconRegister register)
     {
-        stillIcon = register.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME + "_still");
-        flowingIcon = register.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME + "_flowing");
+        stillIcon = register.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME + "_still");
+        flowingIcon = register.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME + "_flowing");
     }
 }

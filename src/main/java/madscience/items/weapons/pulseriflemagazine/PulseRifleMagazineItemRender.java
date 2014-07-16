@@ -1,7 +1,7 @@
 package madscience.items.weapons.pulseriflemagazine;
 
-import madscience.MadScience;
 import madscience.MadWeapons;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -18,8 +18,8 @@ public class PulseRifleMagazineItemRender implements IItemRenderer
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + ".mad");
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + ".png");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + ".mad");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME + ".png");
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)

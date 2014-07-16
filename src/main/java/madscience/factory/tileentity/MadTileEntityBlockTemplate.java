@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.MadForgeMod;
 import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.mod.MadMod;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.block.Block;
@@ -249,7 +250,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     
             if (tileEntityInstance != null)
             {
-                par5EntityPlayer.openGui(MadScience.instance, this.blockID, par1World, par2, par3, par4);
+                par5EntityPlayer.openGui(MadForgeMod.instance, this.blockID, par1World, par2, par3, par4);
             }
             
             return true;
@@ -296,7 +297,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + registeredProduct.getMachineName());
+        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + registeredProduct.getMachineName());
     }
 
     @Override

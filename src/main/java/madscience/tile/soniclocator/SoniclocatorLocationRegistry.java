@@ -2,7 +2,7 @@ package madscience.tile.soniclocator;
 
 import java.util.HashSet;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -30,7 +30,7 @@ final class SoniclocatorLocationRegistry
         if (!otherSoniclocators.contains(newLocation))
         {
             otherSoniclocators.add(newLocation);
-            MadScience.logger.info("SoniclocatorRegistry: Adding new location " + String.valueOf(newLocation.posX) + "x" + String.valueOf(newLocation.posY) + "x" + String.valueOf(newLocation.posZ));
+            MadMod.LOGGER.info("SoniclocatorRegistry: Adding new location " + String.valueOf(newLocation.posX) + "x" + String.valueOf(newLocation.posY) + "x" + String.valueOf(newLocation.posZ));
         }
     }
     
@@ -40,7 +40,7 @@ final class SoniclocatorLocationRegistry
         if (!otherSoniclocators.contains(rmLocation))
         {
             otherSoniclocators.remove(rmLocation);
-            MadScience.logger.info("SoniclocatorRegistry: Removed location " + String.valueOf(rmLocation.posX) + "x" + String.valueOf(rmLocation.posY) + "x" + String.valueOf(rmLocation.posZ));
+            MadMod.LOGGER.info("SoniclocatorRegistry: Removed location " + String.valueOf(rmLocation.posX) + "x" + String.valueOf(rmLocation.posY) + "x" + String.valueOf(rmLocation.posZ));
         }
     }
     
@@ -54,7 +54,7 @@ final class SoniclocatorLocationRegistry
         }
         catch (Exception err)
         {
-            MadScience.logger.info("queryDistanceBetweenSonicLocators: Attempted to grab server instance and failed!");
+            MadMod.LOGGER.info("queryDistanceBetweenSonicLocators: Attempted to grab server instance and failed!");
             return 0;
         }
         

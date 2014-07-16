@@ -1,6 +1,6 @@
 package madscience.network;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.network.MadPackets.ProtocolException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -33,7 +33,7 @@ public class MadPacketHandler implements IPacketHandler
             if (player instanceof EntityPlayerMP)
             {
                 ((EntityPlayerMP) player).playerNetServerHandler.kickPlayerFromServer("Protocol Exception!");
-                MadScience.logger.warning("Player " + ((EntityPlayer) player).username + " caused a Protocol Exception!");
+                MadMod.LOGGER.warning("Player " + ((EntityPlayer) player).username + " caused a Protocol Exception!");
             }
         }
         catch (ReflectiveOperationException e)

@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.MadScience;
+import madscience.MadForgeMod;
+import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -132,15 +133,15 @@ public class MadTileEntityFactory
         }
 
         // Debugging!
-        MadScience.logger.info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
+        MadMod.LOGGER.info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
 
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
 
         // Register the machine with Minecraft/Forge.
         GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), tileEntityProduct.getMachineName());
-        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadScience.ID + tileEntityProduct.getMachineName());
-        MadScience.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
+        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadMod.ID + tileEntityProduct.getMachineName());
+        MadForgeMod.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
 
         return tileEntityProduct;
     }

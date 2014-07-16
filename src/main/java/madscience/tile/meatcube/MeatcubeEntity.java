@@ -5,7 +5,8 @@ import java.util.Random;
 import madscience.MadConfig;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -125,7 +126,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
 
         // Play a regrowing noise when we manually add a bucket of water into the meatcube.
         this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-        MadScience.logger.info("internalWaterTank() " + internalLiquidDNAMutantTank.getFluidAmount());
+        MadMod.LOGGER.info("internalWaterTank() " + internalLiquidDNAMutantTank.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
         --this.meatcubeInput[0].stackSize;
@@ -279,7 +280,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -359,7 +360,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
             return this.meatcubeOutput[0];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -508,7 +509,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
 
         // Current number of ticks we should wait until playing an animation.
         // Note: We ensure this is not restored to zero by old versions.
-        this.lastAnimTriggerTime = Math.max(nbt.getLong("LastAnimTriggerTime"), MadScience.SECOND_IN_TICKS);
+        this.lastAnimTriggerTime = Math.max(nbt.getLong("LastAnimTriggerTime"), MadUtils.SECOND_IN_TICKS);
 
         // Last number of frames that were played.
         this.lastAnimFrameCount = nbt.getInteger("LastAnimFrameCount");
@@ -582,7 +583,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
 
             // Get how long we should wait until next animation.
             // Note: This cannot be zero!
-            lastAnimTriggerTime = Math.max(animRand.nextInt(666), MadScience.SECOND_IN_TICKS);
+            lastAnimTriggerTime = Math.max(animRand.nextInt(666), MadUtils.SECOND_IN_TICKS);
 
             // Get how many frames of animation we should play this time.
             lastAnimFrameCount = animRand.nextInt(9);
@@ -666,7 +667,7 @@ public class MeatcubeEntity extends TileEntity implements ISidedInventory, IFlui
     private void updateSounds()
     {
         // Play the sound of a heartbeat every few seconds.
-        if (worldObj.getWorldTime() % ((this.currentMeatCubeDamageValue * MadScience.SECOND_IN_TICKS) + MadScience.SECOND_IN_TICKS) == 0L)
+        if (worldObj.getWorldTime() % ((this.currentMeatCubeDamageValue * MadUtils.SECOND_IN_TICKS) + MadUtils.SECOND_IN_TICKS) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_HEARTBEAT, ((1.0F / this.currentMeatCubeDamageValue) + 0.42F), this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }

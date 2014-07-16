@@ -1,7 +1,7 @@
 package madscience.tile.mainframe;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -31,7 +31,7 @@ public class MainframeRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.MAINFRAME_INTERNALNAME + "/" + MadFurnaces.MAINFRAME_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.MAINFRAME_INTERNALNAME + "/" + MadFurnaces.MAINFRAME_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -40,7 +40,7 @@ public class MainframeRender extends TileEntitySpecialRenderer implements ISimpl
     private MainframeEntity lastPlacedTileEntity;
 
     // Default location we can find o
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/off.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.MAINFRAME_INTERNALNAME + "/off.png");
 
     @Override
     public int getRenderId()
@@ -211,8 +211,8 @@ public class MainframeRender extends TileEntitySpecialRenderer implements ISimpl
         if (lastPlacedTileEntity != null && lastPlacedTileEntity.mainframeTexturePath != null && !lastPlacedTileEntity.mainframeTexturePath.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.mainframeTexturePath));
-            // MadScience.logger.info("TEXTURE: " + lastPlacedTileEntity.mainframeTexturePath);
+            bindTexture(new ResourceLocation(MadMod.ID, lastPlacedTileEntity.mainframeTexturePath));
+            // MadMod.logger.info("TEXTURE: " + lastPlacedTileEntity.mainframeTexturePath);
         }
         else
         {

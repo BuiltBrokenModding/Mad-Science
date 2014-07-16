@@ -1,7 +1,7 @@
 package madscience.items.weapons.pulseriflebullet;
 
-import madscience.MadScience;
 import madscience.MadWeapons;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.entity.Entity;
@@ -18,8 +18,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class PulseRifleBulletEntityRender extends RenderArrow
 {
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".mad");
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".png");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".mad");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME + ".png");
 
     @Override
     public void doRender(Entity entity, double d0, double d1, double d2, float f, float f1)

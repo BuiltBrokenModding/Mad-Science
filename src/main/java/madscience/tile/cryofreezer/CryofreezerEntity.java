@@ -2,9 +2,10 @@ package madscience.tile.cryofreezer;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.items.ItemDecayBase;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -78,7 +79,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
         if (this.cryofreezerInput[0].isItemEqual(new ItemStack(Item.snowball)))
         {
             currentItemCookingMaximum = 200;
-            // MadScience.logger.info("canSmelt() SNOWBALL ACCEPTED");
+            // MadMod.logger.info("canSmelt() SNOWBALL ACCEPTED");
             return true;
         }
 
@@ -86,7 +87,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
         if (this.cryofreezerInput[0].isItemEqual(new ItemStack(Block.ice)))
         {
             currentItemCookingMaximum = 2600;
-            // MadScience.logger.info("canSmelt() ICE ACCEPTED");
+            // MadMod.logger.info("canSmelt() ICE ACCEPTED");
             return true;
         }
 
@@ -94,7 +95,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
         if (this.cryofreezerInput[0].isItemEqual(new ItemStack(Block.snow)))
         {
             currentItemCookingMaximum = 400;
-            // MadScience.logger.info("canSmelt() SNOWCOVER ACCEPTED");
+            // MadMod.logger.info("canSmelt() SNOWCOVER ACCEPTED");
             return true;
         }
 
@@ -102,7 +103,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
         if (this.cryofreezerInput[0].isItemEqual(new ItemStack(Block.blockSnow)))
         {
             currentItemCookingMaximum = 1500;
-            // MadScience.logger.info("canSmelt() SNOWBLOCK ACCEPTED");
+            // MadMod.logger.info("canSmelt() SNOWBLOCK ACCEPTED");
             return true;
         }
 
@@ -230,7 +231,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
         }
 
         // Default response is to return nothing.
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -261,7 +262,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
             ItemStack compareSnowBlock = new ItemStack(Block.blockSnow);
             if (compareSnowBalls.isItemEqual(items) || compareIceblock.isItemEqual(items) || compareSnow.isItemEqual(items) || compareSnowBlock.isItemEqual(items))
             {
-                // MadScience.logger.info("isItemValidForSlot() SLOT 1 ACCEPTED");
+                // MadMod.logger.info("isItemValidForSlot() SLOT 1 ACCEPTED");
                 return true;
             }
         }
@@ -373,7 +374,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
                         cryoFreezerStorage[i].setItemDamage(dmg - 1);
 
                         // Debugging message.
-                        MadScience.logger.info("WORLD(" + cryoFreezerStorage[i].getUnlocalizedName() + "): " + cryoFreezerStorage[i].getItemDamage());
+                        MadMod.LOGGER.info("WORLD(" + cryoFreezerStorage[i].getUnlocalizedName() + "): " + cryoFreezerStorage[i].getItemDamage());
                     }
                 }
             }
@@ -404,7 +405,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab implements ISidedInve
             TEXTURE = "models/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + "/powered.png";
 
             // Play a sound of the freezer working and doing cold things.
-            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, CryofreezerSounds.CRYOFREEZER_IDLE, 1.0F, 1.0F);
             }

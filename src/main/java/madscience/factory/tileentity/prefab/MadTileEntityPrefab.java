@@ -1,11 +1,12 @@
 package madscience.factory.tileentity.prefab;
 
 import madscience.MadConfig;
-import madscience.MadScience;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.mod.MadMod;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityPacketTemplate;
+import madscience.util.MadUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -44,7 +45,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityEnergyPrefab
     public MadTileEntityPrefab(String machineName)
     {
         super();
-        MadScience.logger.info("[PlzConvertMe]" + machineName);
+        MadMod.LOGGER.info("[PlzConvertMe]" + machineName);
     }
 
     public boolean canSmelt()
@@ -192,13 +193,13 @@ public abstract class MadTileEntityPrefab extends MadTileEntityEnergyPrefab
         }
         
         // Idle Off
-        if (!this.canSmelt() && !this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+        if (!this.canSmelt() && !this.isPowered() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
         {
             this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.IDLEOFF, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
         }
         
         // Idle On
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
         {
             this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.IDLEON, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
         }

@@ -2,8 +2,9 @@ package madscience.tile.clayfurnace;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.network.MadParticlePacket;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -122,7 +123,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         int smokeRadnomizer = Math.abs(worldObj.rand.nextInt(5));
         if (smokeRadnomizer <= 0)
             smokeRadnomizer = 1;
-        if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS * smokeRadnomizer == 0L)
+        if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * smokeRadnomizer == 0L)
         {
             // Send a packet saying we want a little bit of smoke.
             PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
@@ -172,7 +173,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -231,7 +232,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
             return this.clayfurnaceInput[1];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -389,7 +390,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         }
 
         // Flips a bool that allows this device to start cooking because it has been hit with a flint and steel.
-        MadScience.logger.info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
+        MadMod.LOGGER.info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
         hasBeenLit = true;
     }
 
@@ -415,7 +416,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         if (!this.canSmelt() && this.hasBeenLit && this.hasCompletedBurnCycle && hasStoppedSmoldering && !this.hasCooledDown)
         {
             // COOL DOWN (RED HOT MODE)
-            if (animationCurrentFrame <= 4 && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 5) == 0L)
+            if (animationCurrentFrame <= 4 && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 5) == 0L)
             {
                 // Same one as before.
                 this.createRandomSmoke();
@@ -445,7 +446,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         else if (this.canSmelt() && this.hasBeenLit && !this.hasCompletedBurnCycle && !hasStoppedSmoldering && !this.hasCooledDown)
         {
             // BURN CYCLE (COOKING).
-            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
+            if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 // Send a packet saying we want furnace fire
                 PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
@@ -505,12 +506,12 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
                 // long this item will take to cook.
                 try
                 {
-                    currentItemCookingMaximum = MadScience.SECOND_IN_TICKS * MadConfig.CLAYFURNACE_COOKTIME_IN_SECONDS;
+                    currentItemCookingMaximum = MadUtils.SECOND_IN_TICKS * MadConfig.CLAYFURNACE_COOKTIME_IN_SECONDS;
                 }
                 catch (Exception err)
                 {
-                    MadScience.logger.info("Attempted to set cook time for clay furnace but failed, using default value of 420 (7 minutes).");
-                    currentItemCookingMaximum = MadScience.SECOND_IN_TICKS * 420;
+                    MadMod.LOGGER.info("Attempted to set cook time for clay furnace but failed, using default value of 420 (7 minutes).");
+                    currentItemCookingMaximum = MadUtils.SECOND_IN_TICKS * 420;
                 }
 
                 // Increments the timer to kickstart the cooking loop.

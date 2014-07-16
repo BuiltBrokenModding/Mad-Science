@@ -2,7 +2,7 @@ package madscience.tile.soniclocator;
 
 import java.util.ArrayList;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -37,7 +37,7 @@ class SoniclocatorSlotInputBlock extends Slot
         }
         catch (Exception err)
         {
-            MadScience.logger.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
+            MadMod.LOGGER.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
         }
         
         // Check if the target block is inside the OreDictionary if first query fails.

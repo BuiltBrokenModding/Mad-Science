@@ -3,8 +3,6 @@ package madscience.factory;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingComponent;
@@ -12,6 +10,7 @@ import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
@@ -27,6 +26,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactoryProduct
 {
@@ -173,7 +173,7 @@ public class MadTileEntityFactoryProduct
         // Complain if we are somehow already loaded!
         if (this.data.getCraftingRecipes() == null)
         {
-            MadScience.logger.warning("[MadTileEntityFactoryProduct]Unable to load crafting recipes for '" + this.data.getMachineName() + "' because it has none!");
+            MadMod.LOGGER.warning("[MadTileEntityFactoryProduct]Unable to load crafting recipes for '" + this.data.getMachineName() + "' because it has none!");
             return;
         }
         
@@ -238,7 +238,7 @@ public class MadTileEntityFactoryProduct
                 // Debugging!
                 if (!searchResult)
                 {
-                    MadScience.logger.info(resultInputPrint);
+                    MadMod.LOGGER.info(resultInputPrint);
                 }
             }
             
@@ -288,13 +288,13 @@ public class MadTileEntityFactoryProduct
             }
             else
             {
-                MadScience.logger.info("[" + this.data.getMachineName() + "]Bad Crafting Recipe: " + machineCraftingRecipe.getCraftingRecipeType().name());
+                MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Bad Crafting Recipe: " + machineCraftingRecipe.getCraftingRecipeType().name());
             }
         }
         
         // Information about total loaded and failed.
-        MadScience.logger.info("[" + this.data.getMachineName() + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
-        MadScience.logger.info("[" + this.data.getMachineName() + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
+        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
+        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
     }
 
     /** Loads all recipes associated with slots inside of the machine allowing it to verify it's list against actual game items.
@@ -304,7 +304,7 @@ public class MadTileEntityFactoryProduct
         // Complain if we are somehow already loaded!
         if (this.data.getRecipeArchive() == null)
         {
-            MadScience.logger.warning("[MadTileEntityFactoryProduct]Unable to load internal machine recipes for '" + this.data.getMachineName() + "' because it has none!");
+            MadMod.LOGGER.warning("[MadTileEntityFactoryProduct]Unable to load internal machine recipes for '" + this.data.getMachineName() + "' because it has none!");
             return;
         }
 
@@ -342,12 +342,12 @@ public class MadTileEntityFactoryProduct
                     // Debugging!
                     if (!searchResult)
                     {
-                        MadScience.logger.info(resultInputPrint);
+                        MadMod.LOGGER.info(resultInputPrint);
                     }
                 }
                 else
                 {
-                    MadScience.logger.info("[" + this.data.getMachineName() + "]Bad Input: " + inputIngredient.getSlotType().name());
+                    MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Bad Input: " + inputIngredient.getSlotType().name());
                 }
             }
 
@@ -376,18 +376,18 @@ public class MadTileEntityFactoryProduct
 
                     if (!searchResult)
                     {
-                        MadScience.logger.info(resultOutputPrint);
+                        MadMod.LOGGER.info(resultOutputPrint);
                     }
                 }
                 else
                 {
-                    MadScience.logger.info("[" + this.data.getMachineName() + "]Bad Output: " + outputResult.getSlotType().name());
+                    MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Bad Output: " + outputResult.getSlotType().name());
                 }
             }
         }
 
-        MadScience.logger.info("[" + this.data.getMachineName() + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
-        MadScience.logger.info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
+        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
+        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
     }
 
     public String[] getSoundArchiveFilenameArray()
@@ -421,14 +421,14 @@ public class MadTileEntityFactoryProduct
                 // Note: Minecraft will automatically play a random sound if named File1,2,3.
                 for (int x = 1; x < machineSound.getSoundRandomVariance(); x = x++)
                 {
-                    soundFileList.add(MadScience.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension());
+                    soundFileList.add(MadMod.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension());
                 }
                 continue;
             }
             else
             {
                 // Add just the individual sound file.
-                soundFileList.add(MadScience.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithExtension());
+                soundFileList.add(MadMod.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithExtension());
                 continue;
             }
         }
@@ -461,7 +461,7 @@ public class MadTileEntityFactoryProduct
             // Note: Multiple triggers of same type will break on first instance.
             if (machineSound.getSoundTrigger().equals(trigger))
             {
-                String soundName = MadScience.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
+                String soundName = MadMod.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
                 worldObj.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, soundName, 1.0F, 1.0F);
                 //MadScience.logger.info("[" + this.machineName + "]Playing Sound: " + soundName);
                 break;

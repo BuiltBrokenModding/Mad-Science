@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.HashMap;
 
 import madscience.MadFluids;
-import madscience.MadScience;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.buttons.MadGUIButton;
@@ -15,6 +14,7 @@ import madscience.factory.buttons.MadGUIButtonInvisibleControl;
 import madscience.factory.buttons.MadGUIButtonTypeEnum;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.controls.MadGUIControlTypeEnum;
+import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.Region2;
@@ -81,7 +81,7 @@ public class MadGUITemplate extends GuiContainer
         this.BUTTONS = MACHINE.getGuiButtonTemplate();
 
         // Grab the texture for the GUI control based off our name.
-        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + ENTITY.getMachineInternalName() + ".png");
+        this.TEXTURE = new ResourceLocation(MadMod.ID, "textures/gui/" + ENTITY.getMachineInternalName() + ".png");
     }
 
     @Override
@@ -114,7 +114,7 @@ public class MadGUITemplate extends GuiContainer
                     {
                         // Set the link to nothing we're aborting doctor!
                         helpLink = "";
-                        MadScience.logger.info("[MadGUIButtonInterface]Unable to cast userData from action " + guiButton.getClickAction() + " to string!");
+                        MadMod.LOGGER.info("[MadGUIButtonInterface]Unable to cast userData from action " + guiButton.getClickAction() + " to string!");
 
                         // Stop further execution.
                         return;
@@ -131,7 +131,7 @@ public class MadGUITemplate extends GuiContainer
                             }
                             catch (Exception err)
                             {
-                                MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
+                                MadMod.LOGGER.info("Unable to open sandra youtube easter egg link in default browser.");
                             }
                         }
                         else
@@ -142,7 +142,7 @@ public class MadGUITemplate extends GuiContainer
                             }
                             catch (Exception err)
                             {
-                                MadScience.logger.info("Unable to open wiki link in default browser.");
+                                MadMod.LOGGER.info("Unable to open wiki link in default browser.");
                             }
                         }
                     }

@@ -6,8 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 import madscience.MadEntities;
-import madscience.MadScience;
+import madscience.MadForgeMod;
 import madscience.MadWeapons;
+import madscience.factory.mod.MadMod;
 import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
 import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineComparator;
@@ -333,7 +334,7 @@ public class PulseRifleItem extends ItemBow
                     {
                         if (clientFireTime <= clientpreviousFireTime)
                         {
-                            // MadScience.logger.info("SKIPPING BECAUSE FIRETIME WAS " + previousFireTime + " / " + pulseRifleFireTime);
+                            // MadMod.logger.info("SKIPPING BECAUSE FIRETIME WAS " + previousFireTime + " / " + pulseRifleFireTime);
                             // Nothing to see here...
                         }
                         else
@@ -396,7 +397,7 @@ public class PulseRifleItem extends ItemBow
                     // Out of grenades.
                     if (!clientisSecondaryEmpty)
                     {
-                        // MadScience.logger.info("OUT OF GRENADES");
+                        // MadMod.logger.info("OUT OF GRENADES");
                         player.worldObj.playSoundAtEntity(player, PulseRifleSounds.PULSERIFLE_EMPTY, 0.5F, 1.0F);
                         clientisSecondaryEmpty = true;
                         playerItem.stackTagCompound.setBoolean("isSecondaryEmpty", clientisSecondaryEmpty);
@@ -471,7 +472,7 @@ public class PulseRifleItem extends ItemBow
             clientFireTime = 0;
             clientpreviousFireTime = 0;
             clientrightClickTime = 0;
-            // MadScience.logger.info("INTERMEDIATE PACKET");
+            // MadMod.logger.info("INTERMEDIATE PACKET");
         }
 
         // Save the data we just changed onto the item that will be synced with the client.
@@ -490,10 +491,10 @@ public class PulseRifleItem extends ItemBow
         playerItem.stackTagCompound.setBoolean("hasFiredGrenade", hasFiredGrenade);
 
         // Debug Information For Server
-        // MadScience.logger.info("Server - Magazine Inserted: " + String.valueOf(insertedMagazine).toUpperCase());
-        // MadScience.logger.info("Server: Ammo Count: " + primaryAmmoCount);
-        // MadScience.logger.info("Server: Left Click Time: " + clientFireTime + "/" + clientpreviousFireTime);
-        // MadScience.logger.info("Server: Right Click Time: " + clientrightClickTime);
+        // MadMod.logger.info("Server - Magazine Inserted: " + String.valueOf(insertedMagazine).toUpperCase());
+        // MadMod.logger.info("Server: Ammo Count: " + primaryAmmoCount);
+        // MadMod.logger.info("Server: Left Click Time: " + clientFireTime + "/" + clientpreviousFireTime);
+        // MadMod.logger.info("Server: Right Click Time: " + clientrightClickTime);
 
         // Send the same packet back to the client with updated information from the server about their status.
         PacketDispatcher.sendPacketToPlayer(new PulseRiflePackets(clientFireTime, clientpreviousFireTime, clientrightClickTime, clientButtonPressed, primaryAmmoCount, secondaryAmmoCount, primaryFireModeEnabled, clientisPrimaryEmpty,
@@ -504,7 +505,7 @@ public class PulseRifleItem extends ItemBow
             boolean isPrimaryEmpty, boolean isSecondaryEmpty, boolean leftPressed, boolean rightPressed, boolean insertedMagazine, EntityPlayer player)
     {
         // Check if there is a world.
-        World world = MadScience.proxy.getClientWorld();
+        World world = MadForgeMod.proxy.getClientWorld();
         if (world == null)
         {
             return;
@@ -560,9 +561,9 @@ public class PulseRifleItem extends ItemBow
             player.setItemInUse(playerItem, playerFireTime);
         }
 
-        // MadScience.logger.info("Client - Magazine Inserted: " + String.valueOf(insertedMagazine).toUpperCase());
-        // MadScience.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
-        // MadScience.logger.info("Client - Right Click Time: " + rightClickTime);
+        // MadMod.logger.info("Client - Magazine Inserted: " + String.valueOf(insertedMagazine).toUpperCase());
+        // MadMod.logger.info("Client - Left Click Time: " + playerFireTime + "/" + previousFireTime);
+        // MadMod.logger.info("Client - Right Click Time: " + rightClickTime);
     }
 
     @Override
@@ -678,7 +679,7 @@ public class PulseRifleItem extends ItemBow
         // Check if we need to disable the has fired grenade flag which is server-only.
         if (hasFiredGrenade && !isLeftPressed && !isRightPressed && !primaryFireModeEnabled && pulseRifleFireTime <= 0)
         {
-            // MadScience.logger.info("Server: Reset Fired Grenade Status");
+            // MadMod.logger.info("Server: Reset Fired Grenade Status");
             // BUG: This will activate if a GUI or player inventory is accessed, no apparent workaround.
             hasFiredGrenade = false;
             par1ItemStack.stackTagCompound.setBoolean("hasFiredGrenade", false);
@@ -691,7 +692,7 @@ public class PulseRifleItem extends ItemBow
     public void registerIcons(IconRegister par1IconRegister)
     {
         // Grabs the default icon for the gun which located in item folder.
-        this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + (this.getUnlocalizedName().substring(5)));
+        this.itemIcon = par1IconRegister.registerIcon(MadMod.ID + ":" + (this.getUnlocalizedName().substring(5)));
     }
 
     private int reloadGrenades(EntityPlayer player, ItemStack playerItem, int secondaryAmmoCount)
@@ -794,7 +795,7 @@ public class PulseRifleItem extends ItemBow
                     if (playerInventoryItem.getItem() == MadWeapons.WEAPONITEM_MAGAZINEITEM && playerInventoryItem.isItemDamaged())
                     {
                         list.add(new PulseRifleMagazineComparatorItem(i, playerInventoryItem.getItemDamage()));
-                        // MadScience.logger.info("[" + i + "]" + playerInventoryItem.getDisplayName() + "@" + playerInventoryItem.getItemDamage());
+                        // MadMod.logger.info("[" + i + "]" + playerInventoryItem.getDisplayName() + "@" + playerInventoryItem.getItemDamage());
                     }
                 }
             }

@@ -3,8 +3,9 @@ package madscience.tile.sequencer;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -214,7 +215,7 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Something bad has occurred!
-        MadScience.logger.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -277,7 +278,7 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
             return this.sequencerOutput[0];
         }
 
-        MadScience.logger.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -451,7 +452,7 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
 
                 // Debug message about data reel health as it is healed by
                 // the server.
-                MadScience.logger.info("WORLD(" + sequencerInput[1].getUnlocalizedName() + "): " + sequencerInput[1].getItemDamage());
+                MadMod.LOGGER.info("WORLD(" + sequencerInput[1].getUnlocalizedName() + "): " + sequencerInput[1].getItemDamage());
             }
 
             // Check if the genome was healed completely in this last pass
@@ -619,7 +620,7 @@ public class SequencerEntity extends MadTileEntityPrefab implements ISidedInvent
     public void updateSound()
     {
         // Check to see if we should play idle sounds.
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 3) == 0L)
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 3) == 0L)
         {
             this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, SequencerSounds.SEQUENCER_WORK, 0.42F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }

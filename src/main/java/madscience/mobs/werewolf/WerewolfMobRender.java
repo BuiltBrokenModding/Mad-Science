@@ -1,7 +1,7 @@
 package madscience.mobs.werewolf;
 
 import madscience.MadMobs;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -13,7 +13,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WerewolfMobRender extends RenderLiving
 {
     // Refers to location in asset folder with other textures and sounds.
-    private static final ResourceLocation mobTexture = new ResourceLocation(MadScience.ID, "models/" + MadMobs.GMO_WEREWOLF_INTERNALNAME + "/" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".png");
+    private static final ResourceLocation mobTexture = new ResourceLocation(MadMod.ID, "models/" + MadMobs.GMO_WEREWOLF_INTERNALNAME + "/" + MadMobs.GMO_WEREWOLF_INTERNALNAME + ".png");
 
     public WerewolfMobRender(WerewolfMobModel par1ModelBase, float par2)
     {

@@ -1,5 +1,6 @@
 package madscience;
 
+import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
@@ -133,17 +134,17 @@ public class MadFurnaces
     static void createCryoFreezerTileEntity(int blockID)
     {
         // Cryogenic Freezer
-        MadScience.logger.info("-Cryogenic Freezer Tile Entity");
+        MadMod.LOGGER.info("-Cryogenic Freezer Tile Entity");
         CRYOFREEZER_TILEENTITY = (BlockContainer) new CryofreezerBlock(blockID).setUnlocalizedName(CRYOFREEZER_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile entity).
-        GameRegistry.registerBlock(CRYOFREEZER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOFREEZER_INTERNALNAME);
+        GameRegistry.registerBlock(CRYOFREEZER_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CRYOFREEZER_INTERNALNAME);
 
         // Register the tile-entity with the game world.
         GameRegistry.registerTileEntity(CryofreezerEntity.class, CRYOFREEZER_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(CRYOFREEZER_TILEENTITY, 1), new Object[]
@@ -160,21 +161,21 @@ public class MadFurnaces
     static void createCryotubeGhostTileEntity(int blockID)
     {
         // Acts as a collision box for upper two blocks of cryotube.
-        MadScience.logger.info("-Cryogenic Tube Ghost Block");
+        MadMod.LOGGER.info("-Cryogenic Tube Ghost Block");
         CRYOTUBEGHOST = new CryotubeBlockGhost(blockID).setUnlocalizedName(CRYOTUBEGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(CRYOTUBEGHOST, MadScience.ID + CRYOTUBEGHOST_INTERNALNAME);
+        GameRegistry.registerBlock(CRYOTUBEGHOST, MadMod.ID + CRYOTUBEGHOST_INTERNALNAME);
     }
 
     static void createCryotubeTileEntity(int blockID)
     {
         // Converts both a villagers brain activity and body heat into a renewable energy source.
-        MadScience.logger.info("-Cryogenic Tube Tile Entity");
+        MadMod.LOGGER.info("-Cryogenic Tube Tile Entity");
         CRYOTUBE_TILEENTITY = (BlockContainer) new CryotubeBlock(blockID).setUnlocalizedName(CRYOTUBE_INTERNALNAME);
-        GameRegistry.registerBlock(CRYOTUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CRYOTUBE_INTERNALNAME);
+        GameRegistry.registerBlock(CRYOTUBE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CRYOTUBE_INTERNALNAME);
         GameRegistry.registerTileEntity(CryotubeEntity.class, CRYOTUBE_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(CRYOTUBE_TILEENTITY, 1), new Object[]
@@ -191,13 +192,13 @@ public class MadFurnaces
     static void createDataReelDuplicatorTileEntity(int blockID)
     {
         // Copies data reels for memories and genomes alike.
-        MadScience.logger.info("-Data Reel Duplicator Tile Entity");
+        MadMod.LOGGER.info("-Data Reel Duplicator Tile Entity");
         DATADUPLICATOR_TILEENTITY = (BlockContainer) new DataDuplicatorBlock(blockID).setUnlocalizedName(DATADUPLICATOR_INTERNALNAME);
-        GameRegistry.registerBlock(DATADUPLICATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + DATADUPLICATOR_INTERNALNAME);
+        GameRegistry.registerBlock(DATADUPLICATOR_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + DATADUPLICATOR_INTERNALNAME);
         GameRegistry.registerTileEntity(DataDuplicatorEntity.class, DATADUPLICATOR_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe for Data Reel Duplicator.
         GameRegistry.addRecipe(new ItemStack(MadFurnaces.DATADUPLICATOR_TILEENTITY, 1), new Object[]
@@ -217,17 +218,17 @@ public class MadFurnaces
     static void createGeneIncubatorTileEntity(int blockID)
     {
         // Genome Incubator
-        MadScience.logger.info("-Genome Incubator Tile Entity");
+        MadMod.LOGGER.info("-Genome Incubator Tile Entity");
         INCUBATOR_TILEENTITY = (BlockContainer) new IncubatorBlock(blockID).setUnlocalizedName(INCUBATOR_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile entity).
-        GameRegistry.registerBlock(INCUBATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + INCUBATOR_INTERNALNAME);
+        GameRegistry.registerBlock(INCUBATOR_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + INCUBATOR_INTERNALNAME);
 
         // Register the tile-entity with the game world.
         GameRegistry.registerTileEntity(IncubatorEntity.class, INCUBATOR_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(INCUBATOR_TILEENTITY, 1), new Object[]
@@ -247,18 +248,18 @@ public class MadFurnaces
     static void createGeneSequencerTileEntity(int blockID)
     {
         // Genetic Sequencer
-        MadScience.logger.info("-Genetic Sequencer Tile Entity");
+        MadMod.LOGGER.info("-Genetic Sequencer Tile Entity");
         SEQUENCER_TILEENTITY = (BlockContainer) new SequencerBlock(blockID).setUnlocalizedName(SEQUENCER_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(SEQUENCER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SEQUENCER_INTERNALNAME);
+        GameRegistry.registerBlock(SEQUENCER_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + SEQUENCER_INTERNALNAME);
 
         // Register the tile-entity with the game world.
         GameRegistry.registerTileEntity(SequencerEntity.class, SEQUENCER_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(SEQUENCER_TILEENTITY, 1), new Object[]
@@ -280,18 +281,18 @@ public class MadFurnaces
     static void createMainframeTileEntity(int blockID)
     {
         // Populate our static instance.
-        MadScience.logger.info("-Computer Mainframe Tile Entity");
+        MadMod.LOGGER.info("-Computer Mainframe Tile Entity");
         MAINFRAME_TILEENTITY = (BlockContainer) new MainframeBlock(blockID).setUnlocalizedName(MAINFRAME_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(MAINFRAME_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAINFRAME_INTERNALNAME);
+        GameRegistry.registerBlock(MAINFRAME_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + MAINFRAME_INTERNALNAME);
 
         // Register the tile-entity with the game world.
         GameRegistry.registerTileEntity(MainframeEntity.class, MAINFRAME_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(MAINFRAME_TILEENTITY, 1), new Object[]
@@ -307,13 +308,13 @@ public class MadFurnaces
     static void createMeatcubeTileEntity(int blockID, int metaID, int primaryColor, int secondaryColor, int cookTime)
     {
         // Disgusting meat cube that spawns chicken, cow and pig meat when hit.
-        MadScience.logger.info("-Disgusting Meat Cube Tile Entity");
+        MadMod.LOGGER.info("-Disgusting Meat Cube Tile Entity");
         MEATCUBE_TILEENTITY = (BlockContainer) new MeatcubeBlock(blockID).setUnlocalizedName(MEATCUBE_INTERNALNAME);
-        GameRegistry.registerBlock(MEATCUBE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MEATCUBE_INTERNALNAME);
+        GameRegistry.registerBlock(MEATCUBE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + MEATCUBE_INTERNALNAME);
         GameRegistry.registerTileEntity(MeatcubeEntity.class, MEATCUBE_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Add mob to combined genome entity list so it can be created by other
         MadGenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, MEATCUBE_INTERNALNAME, primaryColor, secondaryColor));
@@ -330,20 +331,20 @@ public class MadFurnaces
     @EventHandler
     static void createSanitizerTileEntity(int blockID)
     {
-        MadScience.logger.info("-Needle Sanitizer Tile Entity");
+        MadMod.LOGGER.info("-Needle Sanitizer Tile Entity");
         
         // Populate our static instance.
         SANTITIZER_TILEENTITY = (BlockContainer) new SanitizerBlock(blockID).setUnlocalizedName(SANTITIZER_INTERNALNAME);
 
         // Register the block with the world (so we can then tie it to a tile
         // entity).
-        GameRegistry.registerBlock(SANTITIZER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SANTITIZER_INTERNALNAME);
+        GameRegistry.registerBlock(SANTITIZER_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + SANTITIZER_INTERNALNAME);
 
         // Register the tile-entity with the game world.
         GameRegistry.registerTileEntity(SanitizerEntity.class, SANTITIZER_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Shaped Recipe
         GameRegistry.addRecipe(new ItemStack(SANTITIZER_TILEENTITY, 1), new Object[]
@@ -361,24 +362,24 @@ public class MadFurnaces
 
     static void createSoniclocatorGhostTileEntity(int blockID)
     {
-        MadScience.logger.info("-Soniclocator Ghost Block");
+        MadMod.LOGGER.info("-Soniclocator Ghost Block");
         
         // Acts as a collision box for upper two blocks of Soniclocator device.
         SONICLOCATORGHOST = new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATORGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(SONICLOCATORGHOST, MadScience.ID + SONICLOCATORGHOST_INTERNALNAME);
+        GameRegistry.registerBlock(SONICLOCATORGHOST, MadMod.ID + SONICLOCATORGHOST_INTERNALNAME);
     }
 
     static void createSoniclocatorTileEntity(int blockID)
     {
-        MadScience.logger.info("-Soniclocator Tile Entity");
+        MadMod.LOGGER.info("-Soniclocator Tile Entity");
         
         // Transposes block types in exchange for others using sonic waves.
         SONICLOCATOR_TILEENTITY = (BlockContainer) new SoniclocatorBlock(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
-        GameRegistry.registerBlock(SONICLOCATOR_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + SONICLOCATOR_INTERNALNAME);
+        GameRegistry.registerBlock(SONICLOCATOR_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + SONICLOCATOR_INTERNALNAME);
         GameRegistry.registerTileEntity(SoniclocatorEntity.class, SONICLOCATOR_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
 
         // Recipe for Soniclocator.
         GameRegistry.addRecipe(new ItemStack(SONICLOCATOR_TILEENTITY, 1), new Object[]
@@ -396,15 +397,15 @@ public class MadFurnaces
 
     static void createThermosonicBonderTileEntity(int blockID)
     {
-        MadScience.logger.info("-Thermosonic Bonder Tile Entity");
+        MadMod.LOGGER.info("-Thermosonic Bonder Tile Entity");
         
         // Creates silicon wafers, transistors, CPU's, and RAM chips.
         THERMOSONIC_TILEENTITY = (BlockContainer) new ThermosonicBonderBlock(blockID).setUnlocalizedName(THERMOSONIC_INTERNALNAME);
-        GameRegistry.registerBlock(THERMOSONIC_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + THERMOSONIC_INTERNALNAME);
+        GameRegistry.registerBlock(THERMOSONIC_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + THERMOSONIC_INTERNALNAME);
         GameRegistry.registerTileEntity(ThermosonicBonderEntity.class, THERMOSONIC_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
         
         // Grab the final sacrifice block from our configuration file.
         ItemStack finalSacrifice = null;
@@ -414,8 +415,8 @@ public class MadFurnaces
         }
         catch (Exception err)
         {
-            MadScience.logger.info("Attempted to load a final sacrifice ID for a block that does not exist, learn to config file better user!");
-            MadScience.logger.info("Setting Thermosonic Bonder final sacrifice item back to a beacon just to spite you!");
+            MadMod.LOGGER.info("Attempted to load a final sacrifice ID for a block that does not exist, learn to config file better user!");
+            MadMod.LOGGER.info("Setting Thermosonic Bonder final sacrifice item back to a beacon just to spite you!");
             finalSacrifice = new ItemStack(Block.beacon);
         }
 
@@ -450,15 +451,15 @@ public class MadFurnaces
 
     static void createClayFurnaceTileEntity(int blockID)
     {
-        MadScience.logger.info("-Clay Furnace Tile Entity");
+        MadMod.LOGGER.info("-Clay Furnace Tile Entity");
         
         // A early-game block that can give huge return on investment for ores for clay and fire and time.
         CLAYFURNACE_TILEENTITY = (BlockContainer) new ClayfurnaceBlock(blockID).setUnlocalizedName(CLAYFURNACE_INTERNALNAME);
-        GameRegistry.registerBlock(CLAYFURNACE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CLAYFURNACE_INTERNALNAME);
+        GameRegistry.registerBlock(CLAYFURNACE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CLAYFURNACE_INTERNALNAME);
         GameRegistry.registerTileEntity(ClayfurnaceEntity.class, CLAYFURNACE_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
         
         // Wrapping hardened clay blocks around a furnace will make a clay furnace.
         GameRegistry.addRecipe(new ItemStack(CLAYFURNACE_TILEENTITY, 1), new Object[]
@@ -477,16 +478,16 @@ public class MadFurnaces
 
     static void createVOXBoxTileEntity(int blockID)
     {
-        MadScience.logger.info("-Announcement Box Tile Entity");
+        MadMod.LOGGER.info("-Announcement Box Tile Entity");
         
         // Automatic Diagnostic and Announcement System
         // AKA: Black Mesa Announcement System
         VOXBOX_TILEENTITY = (BlockContainer) new VoxBoxBlock(blockID).setUnlocalizedName(VOXBOX_INTERNALNAME);
-        GameRegistry.registerBlock(VOXBOX_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + VOXBOX_INTERNALNAME);
+        GameRegistry.registerBlock(VOXBOX_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + VOXBOX_INTERNALNAME);
         GameRegistry.registerTileEntity(VoxBoxEntity.class, VOXBOX_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
         
         // Recipe for VOX box contains a juke block.
         GameRegistry.addRecipe(new ItemStack(VOXBOX_TILEENTITY, 1), new Object[]
@@ -505,15 +506,15 @@ public class MadFurnaces
 
     static void createMagLoaderTileEntity(int blockID)
     {
-        MadScience.logger.info("-Magazine Loader Tile Entity");
+        MadMod.LOGGER.info("-Magazine Loader Tile Entity");
         
         // Loads ammunition into pulse rifle magazine at in-human speeds.
         MAGLOADER_TILEENTITY = (BlockContainer) new MagLoaderBlock(blockID).setUnlocalizedName(MAGLOADER_INTERNALNAME);
-        GameRegistry.registerBlock(MAGLOADER_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + MAGLOADER_INTERNALNAME);
+        GameRegistry.registerBlock(MAGLOADER_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + MAGLOADER_INTERNALNAME);
         GameRegistry.registerTileEntity(MagLoaderEntity.class, MAGLOADER_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
         
         // Recipe for Magazine Loader.
         GameRegistry.addRecipe(new ItemStack(MAGLOADER_TILEENTITY, 1), new Object[]
@@ -531,24 +532,24 @@ public class MadFurnaces
 
     static void createMagLoaderGhostTileEntity(int blockID)
     {
-        MadScience.logger.info("-Magazine Loader Ghost Block");
+        MadMod.LOGGER.info("-Magazine Loader Ghost Block");
         
         // Acts as a collision box for upper blocks of Magazine Loader.
         MAGLOADERGHOST = new MagLoaderBlockGhost(blockID).setUnlocalizedName(MAGLOADERGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(MAGLOADERGHOST, MadScience.ID + MAGLOADERGHOST_INTERNALNAME);
+        GameRegistry.registerBlock(MAGLOADERGHOST, MadMod.ID + MAGLOADERGHOST_INTERNALNAME);
     }
 
     static void createCnCMachineTileEntity(int blockID)
     {
-        MadScience.logger.info("-Cnc Machine Tile Entity");
+        MadMod.LOGGER.info("-Cnc Machine Tile Entity");
         
         // Cuts out blocks of Iron into shapes for gun parts using binary codes in written books.
         CNCMACHINE_TILEENTITY = (BlockContainer) new CnCMachineBlock(blockID).setUnlocalizedName(CNCMACHINE_INTERNALNAME);
-        GameRegistry.registerBlock(CNCMACHINE_TILEENTITY, ItemBlockTooltip.class, MadScience.ID + CNCMACHINE_INTERNALNAME);
+        GameRegistry.registerBlock(CNCMACHINE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CNCMACHINE_INTERNALNAME);
         GameRegistry.registerTileEntity(CnCMachineEntity.class, CNCMACHINE_INTERNALNAME);
 
         // Register our rendering handles on clients and ignore them on servers.
-        MadScience.proxy.registerRenderingHandler(blockID);
+        MadForgeMod.proxy.registerRenderingHandler(blockID);
         
         // Recipe for CnC machine.
         GameRegistry.addRecipe(new ItemStack(CNCMACHINE_TILEENTITY, 1), new Object[]
@@ -576,10 +577,10 @@ public class MadFurnaces
 
     static void createCnCMachineGhostTileEntity(int blockID)
     {
-        MadScience.logger.info("-CnC Machine Ghost Block");
+        MadMod.LOGGER.info("-CnC Machine Ghost Block");
         
         // Acts as a collision box for upper blocks of CnC Machine.
         CNCMACHINEGHOST_TILEENTITY = (Block) new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(CNCMACHINEGHOST_TILEENTITY, MadScience.ID + CNCMACHINEGHOST_INTERNALNAME);
+        GameRegistry.registerBlock(CNCMACHINEGHOST_TILEENTITY, MadMod.ID + CNCMACHINEGHOST_INTERNALNAME);
     }
 }

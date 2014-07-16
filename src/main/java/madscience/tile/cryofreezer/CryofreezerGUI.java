@@ -5,8 +5,8 @@ import java.net.URI;
 
 import madscience.MadConfig;
 import madscience.MadFurnaces;
-import madscience.MadScience;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
+import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.MadGUITemplate;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -26,7 +26,7 @@ public class CryofreezerGUI extends MadGUITemplate
     {
         super(new CryofreezerContainer(par1InventoryPlayer, par2TileEntityFurnace));
         this.ENTITY = par2TileEntityFurnace;
-        this.TEXTURE = new ResourceLocation(MadScience.ID, "textures/gui/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + ".png");
+        this.TEXTURE = new ResourceLocation(MadMod.ID, "textures/gui/" + MadFurnaces.CRYOFREEZER_INTERNALNAME + ".png");
     }
 
     /** Draw the background layer for the GuiContainer (everything behind the items) */
@@ -133,7 +133,7 @@ public class CryofreezerGUI extends MadGUITemplate
                 }
                 catch (Exception err)
                 {
-                    MadScience.logger.info("Unable to open sandra youtube easter egg link in default browser.");
+                    MadMod.LOGGER.info("Unable to open sandra youtube easter egg link in default browser.");
                 }
             }
             else
@@ -144,7 +144,7 @@ public class CryofreezerGUI extends MadGUITemplate
                 }
                 catch (Exception err)
                 {
-                    MadScience.logger.info("Unable to open wiki link in default browser.");
+                    MadMod.LOGGER.info("Unable to open wiki link in default browser.");
                 }
             }
         }

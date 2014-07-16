@@ -1,7 +1,7 @@
 package madscience.items.needles;
 
 import madscience.MadNeedles;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.items.ItemDecayBase;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
@@ -87,9 +87,9 @@ public class ItemDecayNeedleBase extends ItemDecayBase
     {
         super.registerIcons(par1IconRegister);
 
-        this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":needleDNA_overlay");
-        this.needleReelLayer1 = par1IconRegister.registerIcon(MadScience.ID + ":needleDNA1");
-        this.needleReelLayer2 = par1IconRegister.registerIcon(MadScience.ID + ":needleDNA2");
+        this.itemIcon = par1IconRegister.registerIcon(MadMod.ID + ":needleDNA_overlay");
+        this.needleReelLayer1 = par1IconRegister.registerIcon(MadMod.ID + ":needleDNA1");
+        this.needleReelLayer2 = par1IconRegister.registerIcon(MadMod.ID + ":needleDNA2");
 
         this.iconString = itemIcon.getIconName();
     }

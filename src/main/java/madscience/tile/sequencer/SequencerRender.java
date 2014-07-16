@@ -1,7 +1,7 @@
 package madscience.tile.sequencer;
 
 import madscience.MadFurnaces;
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -30,7 +30,7 @@ public class SequencerRender extends TileEntitySpecialRenderer implements ISimpl
     }
 
     // The model of your block
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadFurnaces.SEQUENCER_INTERNALNAME + "/" + MadFurnaces.SEQUENCER_INTERNALNAME + ".mad");
+    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadMod.MODEL_PATH + MadFurnaces.SEQUENCER_INTERNALNAME + "/" + MadFurnaces.SEQUENCER_INTERNALNAME + ".mad");
 
     // Unique ID for our model to render in the world.
     private int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -39,7 +39,7 @@ public class SequencerRender extends TileEntitySpecialRenderer implements ISimpl
     private SequencerEntity lastPlacedTileEntity;
 
     // Refers to location in asset folder with other textures and sounds.
-    private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.SEQUENCER_INTERNALNAME + "/idle.png");
+    private ResourceLocation TEXTURE = new ResourceLocation(MadMod.ID, "models/" + MadFurnaces.SEQUENCER_INTERNALNAME + "/idle.png");
 
     @Override
     public int getRenderId()
@@ -208,7 +208,7 @@ public class SequencerRender extends TileEntitySpecialRenderer implements ISimpl
         if (lastPlacedTileEntity != null && lastPlacedTileEntity.sequencerTexture != null && !lastPlacedTileEntity.sequencerTexture.isEmpty())
         {
             // Apply our custom texture from asset directory.
-            bindTexture(new ResourceLocation(MadScience.ID, lastPlacedTileEntity.sequencerTexture));
+            bindTexture(new ResourceLocation(MadMod.ID, lastPlacedTileEntity.sequencerTexture));
         }
         else
         {

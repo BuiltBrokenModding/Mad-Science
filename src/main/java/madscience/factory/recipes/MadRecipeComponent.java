@@ -1,6 +1,6 @@
 package madscience.factory.recipes;
 
-import madscience.MadScience;
+import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.item.ItemStack;
 
@@ -74,7 +74,7 @@ public class MadRecipeComponent
     {
         if (!this.hasLoaded)
         {
-            MadScience.logger.warning("[MadRecipeComponent]Cannot return associated itemstack for recipe since it was never loaded!");
+            MadMod.LOGGER.warning("[MadRecipeComponent]Cannot return associated itemstack for recipe since it was never loaded!");
             return null;
         }
         
@@ -86,13 +86,13 @@ public class MadRecipeComponent
         // Prevent double-loading!
         if (hasLoaded)
         {
-            MadScience.logger.warning("[MadRecipeComponent]Already loaded and verified this recipe with GameRegistry!");
+            MadMod.LOGGER.warning("[MadRecipeComponent]Already loaded and verified this recipe with GameRegistry!");
             return;
         }
         
         if (this.associatedItemStack != null)
         {
-            MadScience.logger.warning("[MadRecipeComponent]Associated item stack is not null! How can this be?!");
+            MadMod.LOGGER.warning("[MadRecipeComponent]Associated item stack is not null! How can this be?!");
             return;
         }
         
