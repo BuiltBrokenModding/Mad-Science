@@ -89,6 +89,11 @@ public class MadTileEntityFactoryProduct
         // Default response is to return nothing!
         return null;
     }
+    
+    public void setBlockID(int newID)
+    {
+        data.setBlockID(newID);
+    }
 
     public int getBlockID()
     {

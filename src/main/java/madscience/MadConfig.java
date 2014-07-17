@@ -5,140 +5,28 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 
+import madscience.factory.mod.MadMod;
 import madscience.util.IDManager;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.common.Configuration;
 
 public class MadConfig
 {
-    // Modified from Source
-    // http://www.minecraftforge.net/wiki/Reference_Mod_File
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgBool
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgDNA
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgEnergy
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgGenomes
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgId
-    {
-        public boolean block() default false;
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgInt
-    {
-    }
-    
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgUpdates
-    {
-        public boolean isBool() default false;
-    }
-    
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgHelp
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgMemories
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgMobs
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgNeedles
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgProcessing
-    {
-    }
-    
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgCircuits
-    {
-    }
-    
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgComponents
-    {
-    }
-    
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgWeapons
-    {
-    }
-
-    // Header for each configuration section.
-    private static final String CATAGORY_MOBS = "mobs";
-    private static final String CATAGORY_GENOMES = "genomes";
-    private static final String CATAGORY_DNA = "dna";
-    private static final String CATAGORY_NEEDLES = "needles";
-    private static final String CATAGORY_ENERGY = "energy";
-    private static final String CATAGORY_PROCESSING = "processing";
-    private static final String CATAGORY_CIRCUITS = "circuits";
-    private static final String CATAGORY_COMPONENTS = "components";
-    private static final String CATAGORY_UPDATES = "updates";
-    private static final String CATAGORY_HELP = "help";
-    private static final String CATAGORY_WEAPONS = "weapons";
-
     // Mob ID's for genetically modified entity list.
     private static int madGMOMobIDs = 50;
-    
-    /**
-     * Auto-incrementing configuration IDs. Use this to make sure no config ID is the same.
-     */
-    
-    //public static final IDManager idManager = new IDManager(3768, 13768);
-    private static final IDManager idManager = new IDManager(500, 3840);
-
-    private static int getNextBlockID()
-    {
-            return idManager.getNextBlockID();
-    }
-
-    private static int getNextItemID()
-    {
-            return idManager.getNextItemID();
-    }
 
     // ---------------------------
     // CUSTOM MONSTER PLACER ITEMS
     // ---------------------------
 
     // GeneticallyModifiedMonsterPlacer
-    static @CfgMobs
-    int GENETICALLYMODIFIED_MONSTERPLACER = getNextItemID();
+    public static int GENETICALLYMODIFIED_MONSTERPLACER = MadMod.getNextItemID();
 
     // CombinedGenomeMonsterPlacer
-    static @CfgGenomes
-    int COMBINEDGENOME_MONSTERPLACER = getNextItemID();
+    public static int COMBINEDGENOME_MONSTERPLACER = MadMod.getNextItemID();
 
     // CombinedMemoryMonsterPlacer
-    static @CfgMemories
-    int COMBINEDMEMORY_MONSTERPLACER = getNextItemID();
+    public static int COMBINEDMEMORY_MONSTERPLACER = MadMod.getNextItemID();
 
     // ---------------------------------
     // GENETICALLY MODIFIED MOB META IDS
@@ -151,31 +39,23 @@ public class MadConfig
 
     // Werewolf [Wolf + Villager]
     private final static int GMO_WEREWOLF_METAID_DEFAULT = ++madGMOMobIDs;
-    public static @CfgMobs
-    int GMO_WEREWOLF_METAID = GMO_WEREWOLF_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_WEREWOLF_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_WEREWOLF_METAID = GMO_WEREWOLF_METAID_DEFAULT;
+    public static int GMO_WEREWOLF_COOKTIME = COOKTIME_DEFAULT;
 
     // Disgusting Meatcube [Slime + Pig,Cow,Chicken]
     private final static int GMO_MEATCUBE_METAID_DEFAULT = ++madGMOMobIDs;
-    static @CfgMobs
-    int GMO_MEATCUBE_METAID = GMO_MEATCUBE_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_MEATCUBE_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_MEATCUBE_METAID = GMO_MEATCUBE_METAID_DEFAULT;
+    public static int GMO_MEATCUBE_COOKTIME = COOKTIME_DEFAULT;
 
     // Creeper Cow [Creeper + Cow]
     private final static int GMO_CREEPERCOW_METAID_DEFAULT = ++madGMOMobIDs;
-    public static @CfgMobs
-    int GMO_CREEPERCOW_METAID = GMO_CREEPERCOW_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_CREEPERCOW_COOKTIME = COOKTIME_DEFAULT;
-    
+    public static int GMO_CREEPERCOW_METAID = GMO_CREEPERCOW_METAID_DEFAULT;
+    public static int GMO_CREEPERCOW_COOKTIME = COOKTIME_DEFAULT;
+
     // Enderslime [Enderman + Slime]
     private final static int GMO_ENDERSLIME_METAID_DEFAULT = ++madGMOMobIDs;
-    public static @CfgMobs
-    int GMO_ENDERSLIME_METAID = GMO_ENDERSLIME_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_ENDERSLIME_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_ENDERSLIME_METAID = GMO_ENDERSLIME_METAID_DEFAULT;
+    public static int GMO_ENDERSLIME_COOKTIME = COOKTIME_DEFAULT;
 
     // --------------------------
     // Bart74(bart.74@hotmail.fr)
@@ -183,10 +63,8 @@ public class MadConfig
 
     // Wooly Cow [Cow + Sheep]
     private final static int GMO_WOOLYCOW_METAID_DEFAULT = ++madGMOMobIDs;
-    public static @CfgMobs
-    int GMO_WOOLYCOW_METAID = GMO_WOOLYCOW_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_WOOLYCOW_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_WOOLYCOW_METAID = GMO_WOOLYCOW_METAID_DEFAULT;
+    public static int GMO_WOOLYCOW_COOKTIME = COOKTIME_DEFAULT;
 
     // ----------------------------------------
     // Deuce_Loosely(captainlunautic@yahoo.com)
@@ -194,10 +72,8 @@ public class MadConfig
 
     // Shoggoth [Slime + Squid]
     private final static int GMO_SHOGGOTH_METAID_DEFAULT = ++madGMOMobIDs;
-    public static @CfgMobs
-    int GMO_SHOGGOTH_METAID = GMO_SHOGGOTH_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_SHOGGOTH_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_SHOGGOTH_METAID = GMO_SHOGGOTH_METAID_DEFAULT;
+    public static int GMO_SHOGGOTH_COOKTIME = COOKTIME_DEFAULT;
 
     // ------------------------------------
     // monodemono(coolplanet3000@gmail.com)
@@ -205,10 +81,8 @@ public class MadConfig
 
     // The Abomination [Enderman + Spider]
     private final static int GMO_ABOMINATION_METAID_DEFAULT = ++madGMOMobIDs;
-    public static @CfgMobs
-    int GMO_ABOMINATION_METAID = GMO_ABOMINATION_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_ABOMINATION_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_ABOMINATION_METAID = GMO_ABOMINATION_METAID_DEFAULT;
+    public static int GMO_ABOMINATION_COOKTIME = COOKTIME_DEFAULT;
 
     // ---------------------------------
     // Pyrobrine(haskar.spore@gmail.com)
@@ -216,31 +90,23 @@ public class MadConfig
 
     // Wither Skeleton [Enderman + Skeleton]
     private final static int GMO_WITHERSKELETON_METAID_DEFAULT = ++madGMOMobIDs;
-    static @CfgMobs
-    int GMO_WITHERSKELETON_METAID = GMO_WITHERSKELETON_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_WITHERSKELETON_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_WITHERSKELETON_METAID = GMO_WITHERSKELETON_METAID_DEFAULT;
+    public static int GMO_WITHERSKELETON_COOKTIME = COOKTIME_DEFAULT;
 
     // Villager Zombie [Villager + Zombie]
     private final static int GMO_VILLAGERZOMBIE_METAID_DEFAULT = ++madGMOMobIDs;
-    static @CfgMobs
-    int GMO_VILLAGERZOMBIE_METAID = GMO_VILLAGERZOMBIE_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_VILLAGERZOMBIE_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_VILLAGERZOMBIE_METAID = GMO_VILLAGERZOMBIE_METAID_DEFAULT;
+    public static int GMO_VILLAGERZOMBIE_COOKTIME = COOKTIME_DEFAULT;
 
     // Skeleton Horse [Horse + Skeleton]
     private final static int GMO_SKELETONHORSE_METAID_DEFAULT = ++madGMOMobIDs;
-    static @CfgMobs
-    int GMO_SKELETONHORSE_METAID = GMO_SKELETONHORSE_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_SKELETONHORSE_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_SKELETONHORSE_METAID = GMO_SKELETONHORSE_METAID_DEFAULT;
+    public static int GMO_SKELETONHORSE_COOKTIME = COOKTIME_DEFAULT;
 
     // Zombie Horse [Zombie + Horse]
     private final static int GMO_ZOMBIEHORSE_METAID_DEFAULT = ++madGMOMobIDs;
-    static @CfgMobs
-    int GMO_ZOMBIEHORSE_METAID = GMO_ZOMBIEHORSE_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_ZOMBIEHORSE_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_ZOMBIEHORSE_METAID = GMO_ZOMBIEHORSE_METAID_DEFAULT;
+    public static int GMO_ZOMBIEHORSE_COOKTIME = COOKTIME_DEFAULT;
 
     // ---------------------------------
     // TheTechnician(tallahlf@gmail.com)
@@ -248,414 +114,317 @@ public class MadConfig
 
     // Ender Squid [Enderman + Squid]
     private final static int GMO_ENDERSQUID_METAID_DEFAULT = ++madGMOMobIDs;
-    public static @CfgMobs
-    int GMO_ENDERSQUID_METAID = GMO_ENDERSQUID_METAID_DEFAULT;
-    static @CfgProcessing
-    int GMO_ENDERSQUID_COOKTIME = COOKTIME_DEFAULT;
+    public static int GMO_ENDERSQUID_METAID = GMO_ENDERSQUID_METAID_DEFAULT;
+    public static int GMO_ENDERSQUID_COOKTIME = COOKTIME_DEFAULT;
 
     // --------
     // CIRCUITS
     // --------
-    
+
     // Circuit Comparator
-    static @CfgCircuits
-    int CIRCUIT_COMPARATOR = getNextItemID();
-    
+    public static int CIRCUIT_COMPARATOR = MadMod.getNextItemID();
+
     // Circuit Diamond
-    static @CfgCircuits
-    int CIRCUIT_DIAMOND = getNextItemID();
-    
+    public static int CIRCUIT_DIAMOND = MadMod.getNextItemID();
+
     // Circuit Emerald
-    static @CfgCircuits
-    int CIRCUIT_EMERALD = getNextItemID();
-    
+    public static int CIRCUIT_EMERALD = MadMod.getNextItemID();
+
     // Circuit Ender Eye
-    static @CfgCircuits
-    int CIRCUIT_ENDEREYE = getNextItemID();
-    
+    public static int CIRCUIT_ENDEREYE = MadMod.getNextItemID();
+
     // Circuit Ender Pearl
-    static @CfgCircuits
-    int CIRCUIT_ENDERPEARL = getNextItemID();
-    
+    public static int CIRCUIT_ENDERPEARL = MadMod.getNextItemID();
+
     // Circuit Glowstone
-    static @CfgCircuits
-    int CIRCUIT_GLOWSTONE = getNextItemID();
-    
+    public static int CIRCUIT_GLOWSTONE = MadMod.getNextItemID();
+
     // Circuit Redstone
-    static @CfgCircuits
-    int CIRCUIT_REDSTONE = getNextItemID();
-    
+    public static int CIRCUIT_REDSTONE = MadMod.getNextItemID();
+
     // Circuit Spider Eye
-    static @CfgCircuits
-    int CIRCUIT_SPIDEREYE = getNextItemID();
-    
+    public static int CIRCUIT_SPIDEREYE = MadMod.getNextItemID();
+
     // ----------
     // COMPONENTS
     // ----------
-    
+
     // Component Case
-    static @CfgComponents
-    int COMPONENT_CASE = getNextItemID();
-    
+    public static int COMPONENT_CASE = MadMod.getNextItemID();
+
     // Component Computer
-    static @CfgComponents
-    int COMPONENT_COMPUTER = getNextItemID();
+    public static int COMPONENT_COMPUTER = MadMod.getNextItemID();
 
     // Component CPU
-    static @CfgComponents
-    int COMPONENT_CPU = getNextItemID();
-    
-    // Component Fan
-    static @CfgComponents
-    int COMPONENT_FAN = getNextItemID();
+    public static int COMPONENT_CPU = MadMod.getNextItemID();
 
-    // Component Fused Quartz 
-    static @CfgComponents
-    int COMPONENT_FUSEDQUARTZ = getNextItemID();
-    
+    // Component Fan
+    public static int COMPONENT_FAN = MadMod.getNextItemID();
+
+    // Component Fused Quartz
+    public static int COMPONENT_FUSEDQUARTZ = MadMod.getNextItemID();
+
     // Component Magnetic Tape
-    static @CfgComponents
-    int COMPONENT_MAGNETICTAPE = getNextItemID();
-    
+    public static int COMPONENT_MAGNETICTAPE = MadMod.getNextItemID();
+
     // Component Power Supply
-    static @CfgComponents
-    int COMPONENT_POWERSUPPLY = getNextItemID();
-    
+    public static int COMPONENT_POWERSUPPLY = MadMod.getNextItemID();
+
     // Component RAM
-    static @CfgComponents
-    int COMPONENT_RAM = getNextItemID();
-    
+    public static int COMPONENT_RAM = MadMod.getNextItemID();
+
     // Component Screen
-    static @CfgComponents
-    int COMPONENT_SCREEN = getNextItemID();
-    
+    public static int COMPONENT_SCREEN = MadMod.getNextItemID();
+
     // Component Silicon Wafer
-    static @CfgComponents
-    int COMPONENT_SILICONWAFER = getNextItemID();
-    
+    public static int COMPONENT_SILICONWAFER = MadMod.getNextItemID();
+
     // Component Transistor
-    static @CfgComponents
-    int COMPONENT_TRANSISTOR = getNextItemID();
-    
+    public static int COMPONENT_TRANSISTOR = MadMod.getNextItemID();
+
     // Component Thumper
-    static @CfgComponents
-    int COMPONENT_THUMPER = getNextItemID();
-    
+    public static int COMPONENT_THUMPER = MadMod.getNextItemID();
+
     // Component Enderslime
-    static @CfgComponents
-    int COMPONENT_ENDERSLIME = getNextItemID();
-    
+    public static int COMPONENT_ENDERSLIME = MadMod.getNextItemID();
+
     // Component M41A Barrel
-    public static @CfgComponents
-    int COMPONENT_PULSERIFLEBARREL = getNextItemID();
-    
+    public static int COMPONENT_PULSERIFLEBARREL = MadMod.getNextItemID();
+
     // Component M41A Bolt
-    public static @CfgComponents
-    int COMPONENT_PULSERIFLEBOLT = getNextItemID();
-    
+    public static int COMPONENT_PULSERIFLEBOLT = MadMod.getNextItemID();
+
     // Component M41A Receiver
-    public static @CfgComponents
-    int COMPONENT_PULSERIFLERECEIVER = getNextItemID();
-    
+    public static int COMPONENT_PULSERIFLERECEIVER = MadMod.getNextItemID();
+
     // Component M41A Trigger
-    public static @CfgComponents
-    int COMPONENT_PULSERIFLETRIGGER = getNextItemID();
-    
+    public static int COMPONENT_PULSERIFLETRIGGER = MadMod.getNextItemID();
+
     // Component Bullet Casing
-    public static @CfgComponents
-    int COMPONENT_PULSERIFLEBULLETCASING = getNextItemID();
-    
+    public static int COMPONENT_PULSERIFLEBULLETCASING = MadMod.getNextItemID();
+
     // Component Grenade Casing
-    public static @CfgComponents
-    int COMPONENT_PULSERIFLEGRENADECASING = getNextItemID();
-    
+    public static int COMPONENT_PULSERIFLEGRENADECASING = MadMod.getNextItemID();
+
     // -----
     // ITEMS
     // -----
 
     // Liquid Bucket DNA
-    static @CfgId
-    int LIQUIDDNA_BUCKET = getNextItemID();
+    public static int LIQUIDDNA_BUCKET = MadMod.getNextItemID();
 
     // Bucket of Liquid Mutant DNA
-    static @CfgId
-    int LIQUIDDNA_MUTANT_BUCKET = getNextItemID();
+    public static int LIQUIDDNA_MUTANT_BUCKET = MadMod.getNextItemID();
 
     // Empty Data Reel
-    static @CfgId
-    int DATAREEL_EMPTY = getNextItemID();
-    
+    public static int DATAREEL_EMPTY = MadMod.getNextItemID();
+
     // Lab Coat Body
-    static @CfgId
-    int LABCOAT_BODY = getNextItemID();    
-    
+    public static int LABCOAT_BODY = MadMod.getNextItemID();
+
     // Lab Coat Leggings
-    static @CfgId
-    int LABCOAT_LEGGINGS = getNextItemID();  
-    
+    public static int LABCOAT_LEGGINGS = MadMod.getNextItemID();
+
     // Lab Coat Goggles
-    static @CfgId
-    int LABCOAT_GOGGLES = getNextItemID();
-    
+    public static int LABCOAT_GOGGLES = MadMod.getNextItemID();
+
     // Warning Sign
-    public static @CfgId
-    int WARNING_SIGN = getNextItemID();
+    public static int WARNING_SIGN = MadMod.getNextItemID();
 
     // -------
     // NEEDLES
     // -------
 
     // NeedleEmptyItem to take DNA from mobs.
-    static @CfgNeedles
-    int NEEDLE_EMPTY = getNextItemID();
+    public static int NEEDLE_EMPTY = MadMod.getNextItemID();
 
     // Cave Spider needle.
-    static @CfgNeedles
-    int NEEDLE_CAVESPIDER = getNextItemID();
+    public static int NEEDLE_CAVESPIDER = MadMod.getNextItemID();
 
     // Chicken needle.
-    static @CfgNeedles
-    int NEEDLE_CHICKEN = getNextItemID();
+    public static int NEEDLE_CHICKEN = MadMod.getNextItemID();
 
     // Cow needle.
-    static @CfgNeedles
-    int NEEDLE_COW = getNextItemID();
+    public static int NEEDLE_COW = MadMod.getNextItemID();
 
     // Creeper needle.
-    static @CfgNeedles
-    int NEEDLE_CREEPER = getNextItemID();
+    public static int NEEDLE_CREEPER = MadMod.getNextItemID();
 
     // Bat needle.
-    static @CfgNeedles
-    int NEEDLE_BAT = getNextItemID();
+    public static int NEEDLE_BAT = MadMod.getNextItemID();
 
     // Enderman needle.
-    static @CfgNeedles
-    int NEEDLE_ENDERMAN = getNextItemID();
+    public static int NEEDLE_ENDERMAN = MadMod.getNextItemID();
 
     // Horse needle.
-    static @CfgNeedles
-    int NEEDLE_HORSE = getNextItemID();
+    public static int NEEDLE_HORSE = MadMod.getNextItemID();
 
     // Mushroom Cow needle.
-    static @CfgNeedles
-    int NEEDLE_MUSHROOMCOW = getNextItemID();
+    public static int NEEDLE_MUSHROOMCOW = MadMod.getNextItemID();
 
     // Ocelot needle.
-    static @CfgNeedles
-    int NEEDLE_OCELOT = getNextItemID();
+    public static int NEEDLE_OCELOT = MadMod.getNextItemID();
 
     // Pig needle.
-    static @CfgNeedles
-    int NEEDLE_PIG = getNextItemID();
+    public static int NEEDLE_PIG = MadMod.getNextItemID();
 
     // Sheep needle.
-    static @CfgNeedles
-    int NEEDLE_SHEEP = getNextItemID();
+    public static int NEEDLE_SHEEP = MadMod.getNextItemID();
 
     // Spider needle.
-    static @CfgNeedles
-    int NEEDLE_SPIDER = getNextItemID();
+    public static int NEEDLE_SPIDER = MadMod.getNextItemID();
 
     // Squid needle.
-    static @CfgNeedles
-    int NEEDLE_SQUID = getNextItemID();
+    public static int NEEDLE_SQUID = MadMod.getNextItemID();
 
     // Villager needle.
-    static @CfgNeedles
-    int NEEDLE_VILLAGER = getNextItemID();
+    public static int NEEDLE_VILLAGER = MadMod.getNextItemID();
 
     // Witch needle.
-    static @CfgNeedles
-    int NEEDLE_WITCH = getNextItemID();
+    public static int NEEDLE_WITCH = MadMod.getNextItemID();
 
     // Wolf needle.
-    static @CfgNeedles
-    int NEEDLE_WOLF = getNextItemID();
+    public static int NEEDLE_WOLF = MadMod.getNextItemID();
 
     // Zombie needle.
-    static @CfgNeedles
-    int NEEDLE_ZOMBIE = getNextItemID();
+    public static int NEEDLE_ZOMBIE = MadMod.getNextItemID();
 
     // Mutant needle.
-    static @CfgNeedles
-    int NEEDLE_MUTANT = getNextItemID();
+    public static int NEEDLE_MUTANT = MadMod.getNextItemID();
 
     // Dirty needle.
-    static @CfgNeedles
-    int NEEDLE_DIRTY = getNextItemID();
+    public static int NEEDLE_DIRTY = MadMod.getNextItemID();
 
     // -----------
     // DNA SAMPLES
     // -----------
 
     // Cave Spider DNA
-    static @CfgDNA
-    int DNA_CAVESPIDER = getNextItemID();
+    public static int DNA_CAVESPIDER = MadMod.getNextItemID();
 
     // Chicken DNA.
-    static @CfgDNA
-    int DNA_CHICKEN = getNextItemID();
+    public static int DNA_CHICKEN = MadMod.getNextItemID();
 
     // Cow DNA.
-    static @CfgDNA
-    int DNA_COW = getNextItemID();
+    public static int DNA_COW = MadMod.getNextItemID();
 
     // Creeper DNA.
-    static @CfgDNA
-    int DNA_CREEPER = getNextItemID();
+    public static int DNA_CREEPER = MadMod.getNextItemID();
 
     // Bat DNA.
-    static @CfgDNA
-    int DNA_BAT = getNextItemID();
+    public static int DNA_BAT = MadMod.getNextItemID();
 
     // Enderman DNA
-    static @CfgDNA
-    int DNA_ENDERMAN = getNextItemID();
+    public static int DNA_ENDERMAN = MadMod.getNextItemID();
 
     // Ghast DNA
-    static @CfgDNA
-    int DNA_GHAST = getNextItemID();
+    public static int DNA_GHAST = MadMod.getNextItemID();
 
     // Horse DNA
-    static @CfgDNA
-    int DNA_HORSE = getNextItemID();
+    public static int DNA_HORSE = MadMod.getNextItemID();
 
     // Mushroom Cow DNA
-    static @CfgDNA
-    int DNA_MUSHROOMCOW = getNextItemID();
+    public static int DNA_MUSHROOMCOW = MadMod.getNextItemID();
 
     // Ocelot DNA
-    static @CfgDNA
-    int DNA_OCELOT = getNextItemID();
+    public static int DNA_OCELOT = MadMod.getNextItemID();
 
     // Pig DNA.
-    static @CfgDNA
-    int DNA_PIG = getNextItemID();
+    public static int DNA_PIG = MadMod.getNextItemID();
 
     // Sheep DNA
-    static @CfgDNA
-    int DNA_SHEEP = getNextItemID();
+    public static int DNA_SHEEP = MadMod.getNextItemID();
 
     // Skeleton DNA
-    static @CfgDNA
-    int DNA_SKELETON = getNextItemID();
+    public static int DNA_SKELETON = MadMod.getNextItemID();
 
     // Spider DNA.
-    static @CfgDNA
-    int DNA_SPIDER = getNextItemID();
+    public static int DNA_SPIDER = MadMod.getNextItemID();
 
     // Slime DNA.
-    static @CfgDNA
-    int DNA_SLIME = getNextItemID();
+    public static int DNA_SLIME = MadMod.getNextItemID();
 
     // Squid DNA
-    static @CfgDNA
-    int DNA_SQUID = getNextItemID();
+    public static int DNA_SQUID = MadMod.getNextItemID();
 
     // Villager DNA.
-    static @CfgDNA
-    int DNA_VILLAGER = getNextItemID();
+    public static int DNA_VILLAGER = MadMod.getNextItemID();
 
     // Witch DNA
-    static @CfgDNA
-    int DNA_WITCH = getNextItemID();
+    public static int DNA_WITCH = MadMod.getNextItemID();
 
     // Wolf DNA
-    static @CfgDNA
-    int DNA_WOLF = getNextItemID();
+    public static int DNA_WOLF = MadMod.getNextItemID();
 
     // Zombie DNA.
-    static @CfgDNA
-    int DNA_ZOMBIE = getNextItemID();
+    public static int DNA_ZOMBIE = MadMod.getNextItemID();
 
     // -----------------
     // GENOME DATA REELS
     // -----------------
 
     // Cave Spider Genome Data Reel
-    static @CfgGenomes
-    int GENOME_CAVESPIDER = getNextItemID();
+    public static int GENOME_CAVESPIDER = MadMod.getNextItemID();
 
     // Chicken Genome Data Reel
-    static @CfgGenomes
-    int GENOME_CHICKEN = getNextItemID();
+    public static int GENOME_CHICKEN = MadMod.getNextItemID();
 
     // Cow Genome Data Reel
-    static @CfgGenomes
-    int GENOME_COW = getNextItemID();
+    public static int GENOME_COW = MadMod.getNextItemID();
 
     // Creeper Genome Data Reel
-    static @CfgGenomes
-    int GENOME_CREEPER = getNextItemID();
+    public static int GENOME_CREEPER = MadMod.getNextItemID();
 
     // Bat Genome Data Reel
-    static @CfgGenomes
-    int GENOME_BAT = getNextItemID();
+    public static int GENOME_BAT = MadMod.getNextItemID();
 
     // Enderman Genome Data Reel
-    static @CfgGenomes
-    int GENOME_ENDERMAN = getNextItemID();
+    public static int GENOME_ENDERMAN = MadMod.getNextItemID();
 
     // Ghast Genome Data Reel
-    static @CfgGenomes
-    int GENOME_GHAST = getNextItemID();
+    public static int GENOME_GHAST = MadMod.getNextItemID();
 
     // Horse Genome Data Reel
-    static @CfgGenomes
-    int GENOME_HORSE = getNextItemID();
+    public static int GENOME_HORSE = MadMod.getNextItemID();
 
     // Mushroom Cow Genome Data Reel
-    static @CfgGenomes
-    int GENOME_MUSHROOMCOW = getNextItemID();
+    public static int GENOME_MUSHROOMCOW = MadMod.getNextItemID();
 
     // Ocelot Genome Data Reel
-    static @CfgGenomes
-    int GENOME_OCELOT = getNextItemID();
+    public static int GENOME_OCELOT = MadMod.getNextItemID();
 
     // Pig Genome Data Reel
-    static @CfgGenomes
-    int GENOME_PIG = getNextItemID();
+    public static int GENOME_PIG = MadMod.getNextItemID();
 
     // Pig Zombie Data Reel
-    static @CfgGenomes
-    int GENOME_PIGZOMBIE = getNextItemID();
+    public static int GENOME_PIGZOMBIE = MadMod.getNextItemID();
 
     // Sheep Genome Data Reel
-    static @CfgGenomes
-    int GENOME_SHEEP = getNextItemID();
+    public static int GENOME_SHEEP = MadMod.getNextItemID();
 
     // Skeleton Genome Data Reel
-    static @CfgGenomes
-    int GENOME_SKELETON = getNextItemID();
+    public static int GENOME_SKELETON = MadMod.getNextItemID();
 
     // Spider Genome Data Reel
-    static @CfgGenomes
-    int GENOME_SPIDER = getNextItemID();
+    public static int GENOME_SPIDER = MadMod.getNextItemID();
 
     // Slime Genome Data Reel
-    static @CfgGenomes
-    int GENOME_SLIME = getNextItemID();
+    public static int GENOME_SLIME = MadMod.getNextItemID();
 
     // Squid Genome Data Reel
-    static @CfgGenomes
-    int GENOME_SQUID = getNextItemID();
+    public static int GENOME_SQUID = MadMod.getNextItemID();
 
     // Villager Genome Data Reel
-    static @CfgGenomes
-    int GENOME_VILLAGER = getNextItemID();
+    public static int GENOME_VILLAGER = MadMod.getNextItemID();
 
     // Witch Genome Data Reel
-    static @CfgGenomes
-    int GENOME_WITCH = getNextItemID();
+    public static int GENOME_WITCH = MadMod.getNextItemID();
 
     // Wolf Genome Data Reel
-    static @CfgGenomes
-    int GENOME_WOLF = getNextItemID();
+    public static int GENOME_WOLF = MadMod.getNextItemID();
 
     // Zombie Genome Data Reel
-    static @CfgGenomes
-    int GENOME_ZOMBIE = getNextItemID();
+    public static int GENOME_ZOMBIE = MadMod.getNextItemID();
 
     // -----------------------
     // TILE ENTITY DECLARATION
@@ -667,533 +436,167 @@ public class MadConfig
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
     // Needle Sanitizer
-    public static @CfgId(block = true) int SANTITIZER = getNextBlockID();
-    public static @CfgEnergy long SANTITIZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long SANTITIZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long SANTITIZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String SANTITIZER_HELP = "http://madsciencemod.com/minecraft-item/syringe-sanitizer/";
+    public static int SANTITIZER = MadMod.getNextBlockID();
+    public static long SANTITIZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String SANTITIZER_HELP = "http://madsciencemod.com/minecraft-item/syringe-sanitizer/";
 
     // Computer Mainframe
-    public static @CfgId(block = true) int MAINFRAME = getNextBlockID();
-    public static @CfgEnergy long MAINFRAME_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long MAINFRAME_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String MAINFRAME_HELP = "http://madsciencemod.com/minecraft-item/computer-mainframe/";
+    public static int MAINFRAME = MadMod.getNextBlockID();
+    public static long MAINFRAME_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static long MAINFRAME_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String MAINFRAME_HELP = "http://madsciencemod.com/minecraft-item/computer-mainframe/";
 
     // Genetic Sequencer
-    public static @CfgId(block = true) int GENE_SEQUENCER = getNextBlockID();
-    public static @CfgEnergy long SEQUENCER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long SEQUENCER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long SEQUENCER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String SEQUENCER_HELP = "http://madsciencemod.com/minecraft-item/genetic-sequencer/";
+    public static int GENE_SEQUENCER = MadMod.getNextBlockID();
+    public static long SEQUENCER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static long SEQUENCER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long SEQUENCER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String SEQUENCER_HELP = "http://madsciencemod.com/minecraft-item/genetic-sequencer/";
 
     // Cryogenic Freezer
-    public static @CfgId(block = true) int CRYOFREEZER = getNextBlockID();
-    public static @CfgEnergy long CRYOFREEZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long CRYOFREEZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long CRYOFREEZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String CRYOFREEZER_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-freezer/";
+    public static int CRYOFREEZER = MadMod.getNextBlockID();
+    public static long CRYOFREEZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static long CRYOFREEZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long CRYOFREEZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String CRYOFREEZER_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-freezer/";
 
     // Genome Incubator
-    public static @CfgId(block = true) int INCUBATOR = getNextBlockID();
-    public static @CfgEnergy long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long INCUBATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long INCUBATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String INCUBATOR_HELP = "http://madsciencemod.com/minecraft-item/genome-incubator/";
+    public static int INCUBATOR = MadMod.getNextBlockID();
+    public static long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static long INCUBATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long INCUBATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String INCUBATOR_HELP = "http://madsciencemod.com/minecraft-item/genome-incubator/";
 
     // Meat Cube
-    public static @CfgId(block = true) int MEATCUBE = getNextBlockID();
-    public static @CfgHelp String MEATCUBE_HELP = "http://madsciencemod.com/minecraft-item/meat-cube/";
+    public static int MEATCUBE = MadMod.getNextBlockID();
+    public static String MEATCUBE_HELP = "http://madsciencemod.com/minecraft-item/meat-cube/";
 
     // Cryogenic Tube
-    public static @CfgId(block = true) int CRYOTUBE = getNextBlockID();
-    static @CfgId(block = true) int CRYOTUBEGHOST = getNextBlockID();
-    public static @CfgEnergy long CRYOTUBE_CAPACTITY = 225120000000L;
-    public static @CfgEnergy long CRYOTUBE_OUTPUT = 562800000L;
-    public static @CfgEnergy long CRYOTUBE_PRODUCE = 1407000L;
-    public static @CfgHelp String CRYOTUBE_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-tube/";
+    public static int CRYOTUBE = MadMod.getNextBlockID();
+    static int CRYOTUBEGHOST = MadMod.getNextBlockID();
+    public static long CRYOTUBE_CAPACTITY = 225120000000L;
+    public static long CRYOTUBE_OUTPUT = 562800000L;
+    public static long CRYOTUBE_PRODUCE = 1407000L;
+    public static String CRYOTUBE_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-tube/";
 
     // Thermosonic Bonder
-    public static @CfgId(block = true) int THERMOSONIC = getNextBlockID();
-    public static @CfgEnergy long THERMOSONIC_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long THERMOSONIC_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long THERMOSONIC_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String THERMOSONIC_HELP = "http://madsciencemod.com/minecraft-item/thermosonic-bonder/";
+    public static int THERMOSONIC = MadMod.getNextBlockID();
+    public static long THERMOSONIC_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static long THERMOSONIC_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long THERMOSONIC_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String THERMOSONIC_HELP = "http://madsciencemod.com/minecraft-item/thermosonic-bonder/";
 
     // Data Reel Duplicator
-    public static @CfgId(block = true) int DATADUPLICATOR = getNextBlockID();
-    public static @CfgEnergy long DATADUPLICATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long DATADUPLICATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long DATADUPLICATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String DATADUPLICATOR_HELP = "http://madsciencemod.com/minecraft-item/data-reel-duplicator/";
+    public static int DATADUPLICATOR = MadMod.getNextBlockID();
+    public static long DATADUPLICATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static long DATADUPLICATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long DATADUPLICATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String DATADUPLICATOR_HELP = "http://madsciencemod.com/minecraft-item/data-reel-duplicator/";
 
     // Soniclocator
-    public static @CfgId(block = true) int SONICLOCATOR = getNextBlockID();
-    static @CfgId(block = true) int SONICLOCATOREGHOST = getNextBlockID();
-    public static @CfgEnergy long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static @CfgEnergy long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String SONICLOCATOR_HELP = "http://madsciencemod.com/minecraft-item/soniclocator/";
-    
+    public static int SONICLOCATOR = MadMod.getNextBlockID();
+    static int SONICLOCATOREGHOST = MadMod.getNextBlockID();
+    public static long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
+    public static long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String SONICLOCATOR_HELP = "http://madsciencemod.com/minecraft-item/soniclocator/";
+
     // Clay Furnace
-    public static @CfgId(block = true) int CLAYFURNACE = getNextBlockID();
-    public static @CfgHelp String CLAYFURNACE_HELP = "http://madsciencemod.com/minecraft-item/clay-furnace/";
-    
+    public static int CLAYFURNACE = MadMod.getNextBlockID();
+    public static String CLAYFURNACE_HELP = "http://madsciencemod.com/minecraft-item/clay-furnace/";
+
     // VOX Box
-    public static @CfgId(block = true) int VOXBOX = getNextBlockID();
-    public static @CfgEnergy long VOXBOX_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
-    public static @CfgEnergy long VOXBOX_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long VOXBOX_CONSUME = 128;
-    public static @CfgHelp String VOXBOX_HELP = "http://madsciencemod.com/minecraft-item/voxbox/";
-    
+    public static int VOXBOX = MadMod.getNextBlockID();
+    public static long VOXBOX_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
+    public static long VOXBOX_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long VOXBOX_CONSUME = 128;
+    public static String VOXBOX_HELP = "http://madsciencemod.com/minecraft-item/voxbox/";
+
     // Magazine Loader
-    public static @CfgId(block = true) int MAGLOADER = getNextBlockID();
-    static @CfgId(block = true) int MAGLOADERGHOST = getNextBlockID();
-    public static @CfgEnergy long MAGLOADER_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
-    public static @CfgEnergy long MAGLOADER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long MAGLOADER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String MAGLOADER_HELP = "http://madsciencemod.com/minecraft-item/magazine-loader/";
-    
+    public static int MAGLOADER = MadMod.getNextBlockID();
+    static int MAGLOADERGHOST = MadMod.getNextBlockID();
+    public static long MAGLOADER_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
+    public static long MAGLOADER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long MAGLOADER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String MAGLOADER_HELP = "http://madsciencemod.com/minecraft-item/magazine-loader/";
+
     // CnC Machine
-    public static @CfgId(block = true) int CNCMACHINE = getNextBlockID();
-    static @CfgId(block = true) int CNCMACHINEGHOST = getNextBlockID();
-    public static @CfgEnergy long CNCMACHINE_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
-    public static @CfgEnergy long CNCMACHINE_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static @CfgEnergy long CNCMACHINE_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static @CfgHelp String CNCMACHINE_HELP = "http://madsciencemod.com/minecraft-item/cnc-machine/";
+    public static int CNCMACHINE = MadMod.getNextBlockID();
+    static int CNCMACHINEGHOST = MadMod.getNextBlockID();
+    public static long CNCMACHINE_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
+    public static long CNCMACHINE_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
+    public static long CNCMACHINE_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
+    public static String CNCMACHINE_HELP = "http://madsciencemod.com/minecraft-item/cnc-machine/";
 
     // -----------------
     // FLUID DECLARATION
     // -----------------
 
     // Liquid DNA
-    public static @CfgId(block = true) int LIQUIDDNA = getNextBlockID();
+    public static int LIQUIDDNA = MadMod.getNextBlockID();
 
     // Liquid Mutant DNA
-    public static @CfgId(block = true) int LIQUIDDNA_MUTANT = getNextBlockID();
+    public static int LIQUIDDNA_MUTANT = MadMod.getNextBlockID();
 
     // -----------------
     // BLOCK DECLARATION
     // -----------------
 
     // Abomination Egg
-    static @CfgId(block = true) int ABOMINATIONEGG = getNextBlockID();
-    
+    public static int ABOMINATIONEGG = MadMod.getNextBlockID();
+
     // Enderslime Block
-    static @CfgId(block = true) int ENDERSLIMEBLOCK = getNextBlockID();
-    
+    public static int ENDERSLIMEBLOCK = MadMod.getNextBlockID();
+
     // -------
     // WEAPONS
     // -------
-    
+
     // M41A Pulse Rifle
-    public static @CfgWeapons int WEAPON_PULSERIFLE = getNextItemID();
-    
+    public static int WEAPON_PULSERIFLE = MadMod.getNextItemID();
+
     // Pulse Rifle Bullet
-    public static @CfgWeapons int WEAPON_PULSERIFLE_BULLETITEM = getNextItemID();
-    
+    public static int WEAPON_PULSERIFLE_BULLETITEM = MadMod.getNextItemID();
+
     // Pulse Rifle Grenade
-    public static @CfgWeapons int WEAPON_PULSERIFLE_GRENADEITEM = getNextItemID();
-    
+    public static int WEAPON_PULSERIFLE_GRENADEITEM = MadMod.getNextItemID();
+
     // Pulse Rifle Magazine
-    public static @CfgWeapons int WEAPON_PULSERIFLE_MAGAZINEITEM = getNextItemID();
+    public static int WEAPON_PULSERIFLE_MAGAZINEITEM = MadMod.getNextItemID();
 
     // ----------------
     // FEATURE SWITCHES
     // ----------------
 
     // Determines if 'The Abomination' should lay eggs.
-    public static @CfgBool boolean ABOMINATION_LAYSEGGS = true;
+    public static boolean ABOMINATION_LAYSEGGS = true;
 
     // Determines if 'The Abomination' is allowed to teleport.
-    public static @CfgBool boolean ABOMINATION_TELEPORTS = true;
+    public static boolean ABOMINATION_TELEPORTS = true;
 
     // Needles decay into dirty ones.
-    public static @CfgBool boolean DECAY_BLOODWORK = true;
+    public static boolean DECAY_BLOODWORK = true;
 
     // Needles decay at a rate of one health every 6000 ticks.
-    public static @CfgInt int DECAY_DELAY_IN_SECONDS = 30;
-    
+    public static int DECAY_DELAY_IN_SECONDS = 30;
+
     // Determines how many seconds clay furnace will cook before finishing
-    public static @CfgInt int CLAYFURNACE_COOKTIME_IN_SECONDS = 420;
-    
+    public static int CLAYFURNACE_COOKTIME_IN_SECONDS = 420;
+
     // Distance which we will send packet updates about machines to players.
-    public static @CfgInt int PACKETSEND_RADIUS = 25;
-    
+    public static int PACKETSEND_RADIUS = 25;
+
     // ID that will determine block to be used to 'unlock' thermosonic bonder and thus every other item in the mod.
-    static @CfgInt int THERMOSONICBONDER_FINALSACRIFICE = 138;
-    
+    public static int THERMOSONICBONDER_FINALSACRIFICE = 138;
+
     // Determines if M41A Pulse Rifle bullets will damage the world at all with random chance.
-    public static @CfgBool boolean PULSERIFLE_BULLETS_DAMAGEWORLD = true;
-    
+    public static boolean PULSERIFLE_BULLETS_DAMAGEWORLD = true;
+
     // ----------------
     // UPDATES SWITCHES
     // ----------------
-    
+
     // Determines if we should inform the user about updates and nightly builds.
-    static @CfgUpdates(isBool = true) boolean UPDATE_CHECKER = true;
-    
-    static void load(Configuration config)
-    {
-        try
-        {
-            config.load();
-            Field[] fields = MadConfig.class.getFields();
-            for (Field field : fields)
-            {
-                CfgId annoBlock = field.getAnnotation(CfgId.class);
-                CfgBool annoBool = field.getAnnotation(CfgBool.class);
-                CfgInt annoInt = field.getAnnotation(CfgInt.class);
-                CfgMobs annoMobs = field.getAnnotation(CfgMobs.class);
-                CfgGenomes annoGenomes = field.getAnnotation(CfgGenomes.class);
-                CfgDNA annoDNA = field.getAnnotation(CfgDNA.class);
-                CfgNeedles annoNeedles = field.getAnnotation(CfgNeedles.class);
-                CfgEnergy annoEnergy = field.getAnnotation(CfgEnergy.class);
-                CfgProcessing annoCPUTime = field.getAnnotation(CfgProcessing.class);
-                CfgCircuits annoCircuits= field.getAnnotation(CfgCircuits.class);
-                CfgComponents annoComponents = field.getAnnotation(CfgComponents.class);
-                CfgUpdates annoUpdates = field.getAnnotation(CfgUpdates.class);
-                CfgHelp annoHelp = field.getAnnotation(CfgHelp.class);
-                CfgWeapons annoWeapons = field.getAnnotation(CfgWeapons.class);
-
-                // Config property is block or item.
-                if (annoBlock != null &&
-                    annoCPUTime == null &&
-                    annoBool == null &&
-                    annoInt == null &&
-                    annoMobs == null &&
-                    annoGenomes == null &&
-                    annoDNA == null &&
-                    annoNeedles == null &&
-                    annoEnergy == null &&
-                    annoCircuits == null &&
-                    annoComponents == null &&
-                    annoUpdates == null &&
-                    annoHelp == null &&
-                    annoWeapons == null)
-                {
-                    int id = field.getInt(null);
-                    if (annoBlock.block())
-                    {
-                        id = config.getBlock(field.getName(), id).getInt();
-                    }
-                    else
-                    {
-                        id = config.getItem(field.getName(), id).getInt();
-                    }
-                    field.setInt(null, id);
-                }
-                else if (annoHelp != null &&
-                        annoCPUTime == null &&
-                        annoBool == null &&
-                        annoInt == null &&
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null &&
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoBlock == null &&
-                        annoUpdates == null &&
-                        annoWeapons == null)
-                    {
-                        String helpURL = (String) field.get(String.class);
-                        String updateurl = config.get(MadConfig.CATAGORY_HELP, field.getName(), helpURL).getString();
-                        field.set(String.class, updateurl);
-                    }
-                else if (annoUpdates != null &&
-                        annoCPUTime == null &&
-                        annoBool == null &&
-                        annoInt == null &&
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null &&
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoBlock == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                    {
-                        if (field.isAnnotationPresent(CfgUpdates.class) && annoUpdates.isBool())
-                        {
-                            boolean bool = field.getBoolean(null);
-                            bool = config.get(MadConfig.CATAGORY_UPDATES, field.getName(), bool).getBoolean(bool);
-                            field.setBoolean(null, bool);
-                        }
-                        else
-                        {
-                            String possibleURL = (String) field.get(String.class);
-                            String updateurl = config.get(MadConfig.CATAGORY_UPDATES, field.getName(), possibleURL).getString();
-                            field.set(String.class, updateurl);
-                        }
-                    }
-                else if (annoEnergy != null &&
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoBool == null &&
-                        annoInt == null &&
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null &&
-                        annoNeedles == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is energy long integer.
-                    if (field.isAnnotationPresent(CfgEnergy.class))
-                    {
-                        Double someInt = field.getDouble(null);
-                        someInt = config.get(MadConfig.CATAGORY_ENERGY, field.getName(), someInt).getDouble(someInt);
-                        field.setLong(null, someInt.longValue());
-                    }
-                }
-                else if (annoBool != null && 
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoInt == null &&
-                        annoMobs == null && 
-                        annoGenomes == null &&
-                        annoDNA == null &&
-                        annoNeedles == null && 
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is bool.
-                    if (field.isAnnotationPresent(CfgBool.class))
-                    {
-                        boolean bool = field.getBoolean(null);
-                        bool = config.get(Configuration.CATEGORY_GENERAL, field.getName(), bool).getBoolean(bool);
-                        field.setBoolean(null, bool);
-                    }
-                }
-                else if (annoCircuits != null &&
-                        annoInt == null &&
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoBool == null && 
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null && 
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is circuit.
-                    if (field.isAnnotationPresent(CfgCircuits.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_CIRCUITS, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoWeapons != null &&
-                        annoInt == null &&
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoBool == null && 
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null && 
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoCircuits == null)
-                {
-                    // Config property is weapon.
-                    if (field.isAnnotationPresent(CfgWeapons.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_WEAPONS, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoComponents != null && 
-                        annoInt == null &&
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoBool == null && 
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null && 
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is component.
-                    if (field.isAnnotationPresent(CfgComponents.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_COMPONENTS, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoInt != null &&
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoBool == null && 
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null && 
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is int.
-                    if (field.isAnnotationPresent(CfgInt.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(Configuration.CATEGORY_GENERAL, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoCPUTime != null && 
-                        annoBlock == null &&
-                        annoBool == null &&
-                        annoInt == null &&
-                        annoMobs == null && 
-                        annoGenomes == null &&
-                        annoDNA == null &&
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is mainframe processing time.
-                    if (field.isAnnotationPresent(CfgProcessing.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_PROCESSING, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoMobs != null &&
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoBool == null &&
-                        annoInt == null &&
-                        annoGenomes == null &&
-                        annoDNA == null &&
-                        annoNeedles == null && 
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is mobs.
-                    if (field.isAnnotationPresent(CfgMobs.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_MOBS, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoGenomes != null &&
-                        annoCPUTime == null &&
-                        annoBlock == null &&
-                        annoBool == null &&
-                        annoInt == null &&
-                        annoMobs == null &&
-                        annoDNA == null && 
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is genomes.
-                    if (field.isAnnotationPresent(CfgGenomes.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_GENOMES, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoDNA != null &&
-                        annoCPUTime == null &&
-                        annoBlock == null && 
-                        annoBool == null && 
-                        annoInt == null && 
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoNeedles == null &&
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is DNA.
-                    if (field.isAnnotationPresent(CfgDNA.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_DNA, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-                else if (annoNeedles != null &&
-                        annoCPUTime == null &&
-                        annoBlock == null && 
-                        annoBool == null &&
-                        annoInt == null &&
-                        annoMobs == null &&
-                        annoGenomes == null &&
-                        annoDNA == null && 
-                        annoEnergy == null &&
-                        annoCircuits == null &&
-                        annoComponents == null &&
-                        annoUpdates == null &&
-                        annoHelp == null &&
-                        annoWeapons == null)
-                {
-                    // Config property is needle.
-                    if (field.isAnnotationPresent(CfgNeedles.class))
-                    {
-                        int someInt = field.getInt(null);
-                        someInt = config.get(MadConfig.CATAGORY_NEEDLES, field.getName(), someInt).getInt(someInt);
-                        field.setInt(null, someInt);
-                    }
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            // failed to load config log
-            LogWrapper.log(Level.WARNING, "Failed to load configuration file!");
-        }
-        finally
-        {
-            config.save();
-        }
-    }
-
+    public static boolean UPDATE_CHECKER = true;
 }

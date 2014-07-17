@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProductData;
+import madscience.util.IDManager;
 
 import com.google.common.base.Throwables;
 import com.google.gson.Gson;
@@ -59,6 +60,9 @@ public class MadMod
     // Data container which gets serialized with all our mod information.
     private static MadModData unregisteredMachines;
     
+    /** Auto-incrementing configuration IDs. Use this to make sure no config ID is the same. */
+    private static final IDManager idManager = new IDManager(500, 3840);
+
     static
     {
         // Name of the JSON file we are looking for along the classpath.
@@ -106,6 +110,16 @@ public class MadMod
         
         // Populate this class with the data we just got.
         unregisteredMachines = loadedModData;
+    }
+    
+    public static int getNextBlockID()
+    {
+        return idManager.getNextBlockID();
+    }
+
+    public static int getNextItemID()
+    {
+        return idManager.getNextItemID();
     }
     
     public static MadTileEntityFactoryProductData[] getUnregisteredMachines()

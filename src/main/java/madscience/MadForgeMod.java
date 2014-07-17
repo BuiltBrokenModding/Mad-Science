@@ -21,6 +21,7 @@ import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobEntity;
 import madscience.network.MadPacketHandler;
 import madscience.server.CommonProxy;
+import madscience.util.IDManager;
 import madscience.util.MadColors;
 import net.minecraft.entity.EntityList;
 import net.minecraft.launchwrapper.LogWrapper;
@@ -60,9 +61,6 @@ public class MadForgeMod
     // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
     private static MadGUI guiHandler = new MadGUI();
 
-    // Link to our configuration file which Forge also handles in a standardized way.
-    private static Configuration config;
-    
     /** @param event */
     @EventHandler
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -176,13 +174,44 @@ public class MadForgeMod
         // Register instance.
         instance = this;
 
-        // Logging.
+        // Populate generic logger with instance provided by Minecraft/Forge. 
         MadMod.LOGGER = event.getModLog();
         MadMod.LOGGER.setParent(FMLLog.getLogger());
 
-        // Read our mod only config, Forge provides a method for getting standardized filename.
-        config = new Configuration(event.getSuggestedConfigurationFile());
-        MadConfig.load(config);
+        // Generate and read our standardized Forge configuration file.
+        Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        {
+            config.load();
+            
+            // Loop through loaded machines and get ID's for all those blocks.
+            MadTileEntityFactoryProductData[] machineData = MadMod.getUnregisteredMachines();
+            for (int i = 0; i < machineData.length; i++) 
+            {
+                MadTileEntityFactoryProductData unregisteredMachine = machineData[i];
+                
+                // Get a new block ID from our ID manager, and set the block ID for our unregistered machine to whatever ID Manager decides.
+                int defaultID = MadMod.getNextBlockID();
+                unregisteredMachine.setBlockID(defaultID);
+                
+                // Get configuration file information, if there is any...
+                int configBlockID = config.getBlock(Configuration.CATEGORY_BLOCK, unregisteredMachine.getMachineName(), unregisteredMachine.getBlockID()).getInt();
+                
+                // Check if unregistered machine default ID is different from read value.
+                if (unregisteredMachine.getBlockID() == configBlockID)
+                {
+                    MadMod.LOGGER.info("[" + unregisteredMachine.getMachineName() + "]Using default block ID of " + String.valueOf(configBlockID));
+                }
+                else
+                {
+                    MadMod.LOGGER.info("[" + unregisteredMachine.getMachineName() + "]Using user configured block ID of " + String.valueOf(configBlockID));
+                }
+            }
+            
+            // TODO: Loop through loaded items and get ID's for all those items.
+            
+            
+            config.save();
+        }
 
         // Setup Mod Metadata for players to see in mod list with other mods.
         metadata.modId = MadMod.ID;
@@ -361,7 +390,7 @@ public class MadForgeMod
         {
             MadTileEntityFactoryProductData unregisteredMachine = machineData[i];
             MadTileEntityFactory.registerMachine(unregisteredMachine);
-         }
+        }
 
         MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
