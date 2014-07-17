@@ -61,7 +61,9 @@ public class MadMod
     private static MadModData unregisteredMachines;
     
     /** Auto-incrementing configuration IDs. Use this to make sure no config ID is the same. */
-    private static final IDManager idManager = new IDManager(500, 3840);
+    private static IDManager idManager;
+    private static int idManagerBlockIndex;
+    private static int idManagerItemIndex;
 
     static
     {
@@ -110,6 +112,11 @@ public class MadMod
         
         // Populate this class with the data we just got.
         unregisteredMachines = loadedModData;
+        
+        // Create ID manager with ranges it should operate in.
+        idManagerBlockIndex = loadedModData.getIDManagerBlockIndex();
+        idManagerItemIndex = loadedModData.getIDManagerItemIndex();
+        idManager = new IDManager(idManagerBlockIndex, idManagerItemIndex);
     }
     
     public static int getNextBlockID()
@@ -148,6 +155,8 @@ public class MadMod
                 VREVISION,
                 VBUILD,
                 UPDATE_URL,
+                idManagerBlockIndex,
+                idManagerItemIndex,
                 MadTileEntityFactory.getMachineDataList());
     }
 }

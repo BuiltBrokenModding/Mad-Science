@@ -64,6 +64,13 @@ public class MadModData
     // Update checker.
     @Expose
     private String updateURL;
+    
+    // ID Manager.
+    @Expose
+    private int idManagerBlockIndex;
+    
+    @Expose
+    private int idManagerItemIndex;
 
     // Machines
     @Expose
@@ -87,6 +94,8 @@ public class MadModData
             String versionRevision,
             String versionBuild,
             String updateURL,
+            int blockIDStart,
+            int itemIDStart,
             MadTileEntityFactoryProductData[] madMachines)
     {
         super();
@@ -114,6 +123,9 @@ public class MadModData
         this.versionBuild = versionBuild;
 
         this.updateURL = updateURL;
+        
+        this.idManagerBlockIndex = blockIDStart;
+        this.idManagerItemIndex = itemIDStart;
 
         this.unregisteredMachines = madMachines;
     }
@@ -211,5 +223,15 @@ public class MadModData
     public MadTileEntityFactoryProductData[] getUnregisteredMachines()
     {
         return unregisteredMachines;
+    }
+
+    public int getIDManagerBlockIndex()
+    {
+        return idManagerBlockIndex;
+    }
+
+    public int getIDManagerItemIndex()
+    {
+        return idManagerItemIndex;
     }
 }

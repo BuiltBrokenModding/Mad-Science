@@ -19,7 +19,6 @@ public class MadTileEntityFactoryProductData
     private String machineName;
     
     /** Reference number used by Forge/MC to keep track of this tile entity. */
-    @Expose
     private int blockID;
     
     /** Holds string reference to our logic class which will be populated at runtime. */
