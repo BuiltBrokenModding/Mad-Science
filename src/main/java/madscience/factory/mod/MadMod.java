@@ -3,77 +3,47 @@ package madscience.factory.mod;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.logging.Logger;
 
+import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProductData;
 
+import com.google.common.base.Throwables;
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
 
-public final class MadMod
+public class MadMod
 {    
-    @Expose
-    public static MadTileEntityFactoryProductData[] tileEntities = null;
-    
-    @Expose
+    // Identification.
     public static final String ID = "madscience";
-    
-    @Expose
     public static final String NAME = "Example Mod";
-    
-    @Expose
     public static final String CHANNEL_NAME = "exampleChannel";
     
-    @Expose
+    // Metadata.
     public static final String DESCRIPTION = "Example Description";
-    
-    @Expose
     public static final String HOME_URL = "http://examplemod.com/";
     
-    @Expose
-    public static final String UPDATE_URL = "http://ci.examplemod.com/";
-    
-    @Expose
     public static final String LOGO_PATH = "assets/logo.png";
-    
-    @Expose
     public static final String CREDITS = "Thank you Minecraft/Forge and MCP team!";
-    
-    @Expose
     public static final String[] AUTHORS = {"Example Modder1", "Example Modder2"};
-    
-    @Expose
     public static final String FINGERPRINT = "exampleFingerprint";
-    
-    @Expose
     public static final String MINECRAFT_VERSION = "";
-    
-    @Expose
     public static final String DEPENDENCIES = "";
     
-    @Expose
-    public static final String VMAJOR = "1";
-    
-    @Expose 
-    public static final String VMINOR = "0";
-    
-    @Expose
-    public static final String VREVISION = "0";
-    
-    @Expose
-    public static final String VBUILD = "0";
-    
-    @Expose 
+    // Proxy Classes Namespace.
     public static final String CLIENT_PROXY = "";
-    
-    @Expose
     public static final String SERVER_PROXY = "";
     
-    // Instance of this mod configuration.
-    public static final MadMod INSTANCE = new MadMod();
-    
     // Full version string for internal reference by mod.
-    public static final String VERSION_FULL = VMAJOR + "." + VMINOR + VREVISION + "." + VBUILD; // NO_UCD (use private)
+    public static final String VMAJOR = "1";
+    public static final String VMINOR = "0";
+    public static final String VREVISION = "0";
+    public static final String VBUILD = "0";
+    public static final String VERSION_FULL = VMAJOR + "." + VMINOR + "." + VREVISION + "." + VBUILD;
+
+    // Update checker.
+    public static final String UPDATE_URL = "http://ci.examplemod.com/";
     
     // Directories definition for assets and localization files.
     public static final String RESOURCE_DIRECTORY = "/assets/" + MadMod.ID + "/";
@@ -85,8 +55,11 @@ public final class MadMod
     // Quick links to popular places.
     public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
     
-    // Hook Forge's standardized logging class so we can report data on the console without standard out.
-    public static Logger LOGGER;
+    // Hook standardized logging class so we can report data on the console without standard out.
+    public static Logger LOGGER = null;
+    
+    // Data container which gets serialized with all our mod information.
+    private static MadModData unregisteredMachines;
     
     static
     {
@@ -125,46 +98,206 @@ public final class MadMod
         }
         catch (Exception err)
         {
-            err.printStackTrace();
+            throw Throwables.propagate(err);
         }
         
         // Parse the JSON string we got from resources into an array of product data.
         Gson gson = new Gson();
-        MadMod loadedModData = null;
-        loadedModData = gson.fromJson(jsonMachineInput, MadMod.class);
+        MadModData loadedModData = null;
+        loadedModData = gson.fromJson(jsonMachineInput, MadModData.class);
         
-        if (loadedModData != null)
-        {            
-            // Set the tile entity data onto the main mod object.
-            setTileEntities(loadedModData.getTileEntities());
+        // Populate this class with the data we just got.
+        unregisteredMachines = loadedModData;
+        
+        // Change our base mod information via reflection.
+        try
+        {
+            setID(unregisteredMachines.getID());
+            setName(unregisteredMachines.getModName());
+            setChannelName(unregisteredMachines.getChannelName());
+            setDescription(unregisteredMachines.getDescription());
+            setHomeURL(unregisteredMachines.getUpdateURL());
+            setUpdateURL(unregisteredMachines.getUpdateURL());
+            setLogoPath(unregisteredMachines.getLogoPath());
+            setCredits(unregisteredMachines.getCredits());
+            setAuthors(unregisteredMachines.getAuthors());
+            setFingerprint(unregisteredMachines.getFingerprint());
+            setVersionFull(unregisteredMachines.getVersionMajor() + "." + unregisteredMachines.getVersionMinor() + "." + unregisteredMachines.getVersionRevision() + "." + unregisteredMachines.getVersionBuild());
+            setMinecraftVersion(unregisteredMachines.getMCAcceptedVersions());
+            setDependencies(unregisteredMachines.getForgeDependencies());
+            setClientProxy(unregisteredMachines.getProxyClientNamespace());
+            setServerProxy(unregisteredMachines.getProxySeverNamespace());
+        }
+        catch (Exception err)
+        {
+            err.printStackTrace();
         }
     }
     
-    public MadMod(MadTileEntityFactoryProductData[] tileEntities)
+    public static MadTileEntityFactoryProductData[] getUnregisteredMachines()
     {
-        super();
-        
-        this.tileEntities = tileEntities;
+        return unregisteredMachines.getUnregisteredMachines();
     }
     
-    public MadMod()
+    public static MadModData getMadModData()
     {
-        super();
+        return new MadModData(
+                ID,
+                NAME,
+                CHANNEL_NAME,
+                DESCRIPTION,
+                HOME_URL,
+                LOGO_PATH,
+                CREDITS,
+                AUTHORS,
+                FINGERPRINT,
+                MINECRAFT_VERSION,
+                DEPENDENCIES,
+                CLIENT_PROXY,
+                SERVER_PROXY,
+                VMAJOR,
+                VMINOR,
+                VREVISION,
+                VBUILD,
+                UPDATE_URL,
+                MadTileEntityFactory.getMachineDataList());
+    }
+    
+    public static void setID(String id) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("ID");
+        setValue(null, staticField, id);
     }
 
-    public static MadTileEntityFactoryProductData[] getTileEntities()
+    public static void setName(String name) throws Exception
     {
-        return tileEntities;
+        Field staticField = MadMod.class.getDeclaredField("NAME");
+        setValue(null, staticField, name);
     }
 
-    public static void setTileEntities(MadTileEntityFactoryProductData[] tiles)
+    public static void setChannelName(String channelName) throws Exception
     {
-        tileEntities = tiles;
+        Field staticField = MadMod.class.getDeclaredField("CHANNEL_NAME");
+        setValue(null, staticField, channelName);
     }
 
-    public static MadMod getData()
+    public static void setDescription(String description) throws Exception
     {
-        // Create a new instance of a MadMod to return for JSON serialization.
-        return new MadMod();
+        Field staticField = MadMod.class.getDeclaredField("DESCRIPTION");
+        setValue(null, staticField, description);
+    }
+
+    public static void setHomeURL(String homeUrl) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("HOME_URL");
+        setValue(null, staticField, homeUrl);
+    }
+
+    public static void setLogoPath(String logoPath) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("LOGO_PATH");
+        setValue(null, staticField, logoPath);
+    }
+
+    public static void setCredits(String credits) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("CREDITS");
+        setValue(null, staticField, credits);
+    }
+
+    public static void setAuthors(String[] authors) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("AUTHORS");
+        setValue(null, staticField, authors);
+    }
+
+    public static void setFingerprint(String fingerprint) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("FINGERPRINT");
+        setValue(null, staticField, fingerprint);
+    }
+
+    public static void setMinecraftVersion(String minecraftVersion) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("MINECRAFT_VERSION");
+        setValue(null, staticField, minecraftVersion);
+    }
+
+    public static void setDependencies(String dependencies) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("DEPENDENCIES");
+        setValue(null, staticField, dependencies);
+    }
+
+    public static void setClientProxy(String clientProxy) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("CLIENT_PROXY");
+        setValue(null, staticField, clientProxy);
+    }
+
+    public static void setServerProxy(String serverProxy) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("SERVER_PROXY");
+        setValue(null, staticField, serverProxy);
+    }
+
+    public static void setVmajor(String vmajor) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("VMAJOR");
+        setValue(null, staticField, vmajor);
+    }
+
+    public static void setVminor(String vminor) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("VMINOR");
+        setValue(null, staticField, vminor);
+    }
+
+    public static void setVrevision(String vrevision) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("VREVISION");
+        setValue(null, staticField, vrevision);
+    }
+
+    public static void setVbuild(String vbuild) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("VBUILD");
+        setValue(null, staticField, vbuild);
+    }
+
+    public static void setVersionFull(String versionFull) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("VERSION_FULL");
+        setValue(null, staticField, versionFull);
+    }
+
+    public static void setUpdateURL(String updateUrl) throws Exception
+    {
+        Field staticField = MadMod.class.getDeclaredField("UPDATE_URL");
+        setValue(null, staticField, updateUrl);
+    }
+    
+    /**
+     * 
+     * Set the value of a field reflectively.
+     */
+    protected static void setValue(Object owner, Field field, Object value) throws Exception 
+    {
+      makeModifiable(field);
+      field.set(owner, value);
+    }
+    
+    /**
+     * 
+     * Force the field to be modifiable and accessible.
+     */
+    protected static void makeModifiable(Field nameField) throws Exception 
+    {
+      nameField.setAccessible(true);
+      int modifiers = nameField.getModifiers();
+      Field modifierField = nameField.getClass().getDeclaredField("modifiers");
+      modifiers = modifiers & ~Modifier.FINAL;
+      modifierField.setAccessible(true);
+      modifierField.setInt(nameField, modifiers);
     }
 }

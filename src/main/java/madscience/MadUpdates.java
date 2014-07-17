@@ -48,7 +48,7 @@ class MadUpdates
             boolean reachable = false;
             try
             {
-                reachable = ping(MadConfig.UPDATE_URL, 500);
+                reachable = ping(MadMod.UPDATE_URL, 500);
             }
             catch (Exception err)
             {
@@ -62,7 +62,7 @@ class MadUpdates
                 if (reachable)
                 {
                     // Look for XML response from server for update information.
-                    Document docXML = MadXML.loadXMLFromString(MadConfig.UPDATE_URL);
+                    Document docXML = MadXML.loadXMLFromString(MadMod.UPDATE_URL);
                     Node child = docXML.getFirstChild();
                     String xmlBuildNumber = child.getTextContent();
                     long myXMLLong = new Long(xmlBuildNumber);

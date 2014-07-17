@@ -1,5 +1,26 @@
 {
-  "tileEntities": [
+  "id": "madscience",
+  "name": "Mad Science",
+  "channelName": "madscience",
+  "description": "Adds machines, items and mobs to create your own laboratory! Remember kids, science has no limits.. no bounds..",
+  "homeURL": "http://madsciencemod.com/",
+  "logoPath": "assets/madscience/logo.png",
+  "credits": "Thanks to Prowler for the awesome assets!",
+  "authors": [
+    "Maxwolf Goodliffe",
+    "Fox Diller"
+  ],
+  "fingerprint": "@FINGERPRINT@",
+  "minecraftVersion": "[1.6.4,)",
+  "dependencies": "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion",
+  "proxyClient": "madscience.client.ClientProxy",
+  "proxyServer": "madscience.server.CommonProxy",
+  "versionMajor": "@MAJOR@",
+  "versionMinor": "@MINOR@",
+  "versionRevision": "@REVIS@",
+  "versionBuild": "@BUILD@",
+  "updateURL": "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath=/freeStyleBuild/number",
+  "unregisteredMachines": [
     {
       "machineName": "dnaExtractor",
       "blockID": 500,

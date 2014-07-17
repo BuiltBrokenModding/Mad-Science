@@ -2,8 +2,11 @@ package madscience.factory;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import madscience.MadForgeMod;
 import madscience.factory.mod.MadMod;
@@ -27,6 +30,23 @@ public class MadTileEntityFactory
     public static Collection<MadTileEntityFactoryProduct> getMachineInfoList()
     {
         return Collections.unmodifiableCollection(registeredMachines.values());
+    }
+    
+    public static MadTileEntityFactoryProductData[] getMachineDataList()
+    {
+        // Loop through every registered machine in the system.
+        Set<MadTileEntityFactoryProductData> allMachines = new HashSet<MadTileEntityFactoryProductData>();
+        for (Iterator iterator = MadTileEntityFactory.getMachineInfoList().iterator(); iterator.hasNext();)
+        {
+            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
+            if (registeredMachine != null)
+            {
+                // Add the machines configuration data to our list for saving.
+                allMachines.add(registeredMachine.getData());
+            }
+        }
+        
+        return allMachines.toArray(new MadTileEntityFactoryProductData[]{});
     }
 
     private static boolean isValidMachineID(String id)

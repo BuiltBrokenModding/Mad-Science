@@ -833,9 +833,6 @@ public class MadConfig
     // Determines if we should inform the user about updates and nightly builds.
     static @CfgUpdates(isBool = true) boolean UPDATE_CHECKER = true;
     
-    // Determines what the update URL should be for the mod.
-    static @CfgUpdates String UPDATE_URL = "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath=/freeStyleBuild/number";
-
     static void load(Configuration config)
     {
         try

@@ -20,6 +20,7 @@ import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.MadTileEntityFactoryProductData;
 import madscience.factory.mod.MadMod;
+import madscience.factory.mod.MadModData;
 import madscience.factory.model.MadTechneModelLoader;
 import madscience.factory.tileentity.MadTileEntityRendererTemplate;
 import madscience.fluids.dna.LiquidDNARender;
@@ -282,25 +283,13 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     /** Serializes all registered machines to disk. Meant for developer use only. Use with caution! */
     @Override
     public void dumpAllMachineJSON()
-    {
-        Set<MadTileEntityFactoryProductData> allMachines = new HashSet<MadTileEntityFactoryProductData>();
-        
-        // Loop through every registered machine in the system.
-        for (Iterator iterator = MadTileEntityFactory.getMachineInfoList().iterator(); iterator.hasNext();)
-        {
-            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
-            if (registeredMachine != null)
-            {
-                // Add the machines configuration data to our list for saving.
-                allMachines.add(registeredMachine.getData());
-            }
-        }
-        
+    {        
         // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
-        // Convert the data portion of our tile entity factory product to JSON string.
-        String json = gson.toJson(MadMod.getData(), MadMod.class);
+        // Convert the data loaded for this mod into JSON string.
+        MadModData data = MadMod.getMadModData();
+        String json = gson.toJson(data, MadModData.class);
         try
         {
             // Save this information to the disk!
