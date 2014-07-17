@@ -1306,7 +1306,7 @@
             "modelPath": "/assets/madscience/models/dnaExtractor/dnaExtractor.mad"
           }
         ],
-        "texturePath": "/models/dnaExtractor/idle.png"
+        "texturePath": "models/dnaExtractor/idle.png"
       }
     }
   ]

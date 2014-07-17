@@ -1,11 +1,13 @@
 package madscience.factory.tileentity;
 
+import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelFile;
 import madscience.factory.model.MadTechneModel;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -40,6 +42,9 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
 
     /** Default texture that is rendered on the model if no other is specified. */
     private static ResourceLocation techneModelTexture = null;
+    
+    private static MadModel renderingInfo;
+    MadTileEntityFactoryProduct registeredMachine = null;
     
     public MadTileEntityRendererTemplate(MadTileEntityFactoryProduct registeredProduct)
     {
@@ -191,8 +196,27 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     {
         GL11.glPushMatrix();
         
+        // Populate our factory object based on object name that is attempting to be rendered.
+        if (techneModelTexture == null)
+        {
+            String getMachineName = MadUtils.cleanTag(item.getUnlocalizedName());
+            registeredMachine = MadTileEntityFactory.getMachineInfo(getMachineName);
+            
+            // If we find a machine that matches the one wanting to be rendered we will grab model information.
+            if (registeredMachine != null)
+            {
+                renderingInfo = registeredMachine.getModelArchive();
+                if (renderingInfo != null)
+                {
+                    // Create texture location based on the model info stored in the registered machine.
+                    techneModelTexture = new ResourceLocation(MadMod.ID, renderingInfo.getMachineTexture());
+                }
+            }
+        }
+        
         // Use default texture provided in factory product.
         Minecraft.getMinecraft().renderEngine.bindTexture(this.techneModelTexture);
+        //bindTexture(this.techneModelTexture);
 
         // adjust rendering space to match what caller expects
         TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
