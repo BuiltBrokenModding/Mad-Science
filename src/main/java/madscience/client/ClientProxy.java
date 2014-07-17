@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.Collator;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.TreeSet;
 
 import madscience.MadComponents;
@@ -18,7 +16,6 @@ import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.MadTileEntityFactoryProductData;
 import madscience.factory.mod.MadMod;
 import madscience.factory.mod.MadModData;
 import madscience.factory.model.MadTechneModelLoader;

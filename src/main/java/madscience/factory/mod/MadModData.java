@@ -1,86 +1,67 @@
 package madscience.factory.mod;
 
-import com.google.gson.annotations.Expose;
-
 import madscience.factory.MadTileEntityFactoryProductData;
+
+import com.google.gson.annotations.Expose;
 
 public class MadModData
 {
     // Identification.
-    private String idDefault = new String("exampleMod");
     @Expose
     private String id;
 
-    private String nameDefault = new String("Example Mod");
     @Expose
     private String name;
 
-    private String channelNameDefault = new String("exampleChannel");
     @Expose
     private String channelName;
 
     // Metadata.
-    private String descriptionDefault = new String("Example Description");
     @Expose
     private String description;
 
-    private String homeURLDefault = new String("http://examplemod.com/");
     @Expose
     private String homeURL;
 
-    private String logoPathDefault = new String("assets/logo.png");
     @Expose
     private String logoPath;
 
-    private String creditsDefault = new String("Thank you Minecraft/Forge and MCP team!");
     @Expose
     private String credits;
 
-    private String[] authorsDefault =
-    { "Example Modder1", "Example Modder2" };
     @Expose
     private String[] authors;
 
-    private String fingerprintDefault = new String("exampleFingerprint");
     @Expose
     private String fingerprint;
 
-    private String minecraftVersionDefault = new String("");
     @Expose
     private String minecraftVersion;
 
-    private String dependenciesDefault = new String("");
     @Expose
     private String dependencies;
 
     // Proxy Classes Namespace.
-    private String proxyClientDefault = new String("");
     @Expose
     private String proxyClient;
 
-    private String proxyServerDefault = new String("");
     @Expose
     private String proxyServer;
 
     // Full version string for internal reference by mod.
-    private String versionMajorDefault = new String("1");
     @Expose
     private String versionMajor;
 
-    private String versionMinorDefault = new String("0");
     @Expose
     private String versionMinor;
 
-    private String versionRevisionDefault = new String("0");
     @Expose
     private String versionRevision;
 
-    private String versionBuildDefault = new String("0");
     @Expose
     private String versionBuild;
 
     // Update checker.
-    private String updateURLDefault = new String("http://ci.examplemod.com/");
     @Expose
     private String updateURL;
 
@@ -110,29 +91,29 @@ public class MadModData
     {
         super();
 
-        this.id = id == null ? idDefault : id;
-        this.name = name == null ? nameDefault : name;
-        this.channelName = channelName == null ? channelNameDefault : channelName;
+        this.id = id;
+        this.name = name;
+        this.channelName = channelName;
 
-        this.description = description == null ? descriptionDefault : description;
-        this.homeURL = homeURL == null ? homeURLDefault : homeURL;
-        this.logoPath = logoPath == null ? logoPathDefault : logoPath;
-        this.credits = credits == null ? creditsDefault : credits;
-        this.authors = authors == null ? authorsDefault : authors;
-        this.fingerprint = fingerprint == null ? fingerprintDefault : fingerprint;
+        this.description = description;
+        this.homeURL = homeURL;
+        this.logoPath = logoPath;
+        this.credits = credits;
+        this.authors = authors;
+        this.fingerprint = fingerprint;
 
-        this.minecraftVersion = mcVersionSupported == null ? minecraftVersionDefault : mcVersionSupported;
-        this.dependencies = forgeDependencies == null ? dependenciesDefault : forgeDependencies;
+        this.minecraftVersion = mcVersionSupported;
+        this.dependencies = forgeDependencies;
 
-        this.proxyClient = proxyClient == null ? proxyClientDefault : proxyClient;
-        this.proxyServer = proxyServer == null ? proxyServerDefault : proxyServer;
+        this.proxyClient = proxyClient;
+        this.proxyServer = proxyServer;
 
-        this.versionMajor = versionMajor == null ? versionMajorDefault : versionMajor;
-        this.versionMinor = versionMinor == null ? versionMinorDefault : versionMinor;
-        this.versionRevision = versionRevision == null ? versionRevisionDefault : versionRevision;
-        this.versionBuild = versionBuild == null ? versionBuildDefault : versionBuild;
+        this.versionMajor = versionMajor;
+        this.versionMinor = versionMinor;
+        this.versionRevision = versionRevision;
+        this.versionBuild = versionBuild;
 
-        this.updateURL = updateURL == null ? updateURLDefault : updateURL;
+        this.updateURL = updateURL;
 
         this.unregisteredMachines = madMachines;
     }

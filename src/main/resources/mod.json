@@ -19,7 +19,7 @@
   "versionMinor": "@MINOR@",
   "versionRevision": "@REVIS@",
   "versionBuild": "@BUILD@",
-  "updateURL": "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath=/freeStyleBuild/number",
+  "updateURL": "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath\u003d/freeStyleBuild/number",
   "unregisteredMachines": [
     {
       "machineName": "dnaExtractor",
