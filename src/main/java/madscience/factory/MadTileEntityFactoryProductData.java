@@ -62,7 +62,6 @@ public class MadTileEntityFactoryProductData
     
     public MadTileEntityFactoryProductData( // NO_UCD (unused code)
             String machineName,
-            int blockID,
             String logicClassNamespace,
             MadSlotContainer[] containerTemplate,
             MadGUIControl[] guiTemplate,
@@ -76,9 +75,10 @@ public class MadTileEntityFactoryProductData
     {
         super();
         
+        // Note: BlockID is set by configuration phase in MadForgeMod.java
+        
         // Basic machine info.
         this.machineName = machineName;
-        this.blockID = blockID;
         this.logicClassFullyQualifiedName = logicClassNamespace;
         
         // Optional container info for machine functionality and GUI.

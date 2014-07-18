@@ -64,6 +64,7 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
+import madscience.tile.SanitizerEntity;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRender;
 import madscience.tile.cncmachine.CnCMachineEntity;
@@ -82,8 +83,6 @@ import madscience.tile.mainframe.MainframeEntity;
 import madscience.tile.mainframe.MainframeRender;
 import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.meatcube.MeatcubeRender;
-import madscience.tile.sanitizer.SanitizerEntity;
-import madscience.tile.sanitizer.SanitizerRender;
 import madscience.tile.sequencer.SequencerEntity;
 import madscience.tile.sequencer.SequencerRender;
 import madscience.tile.soniclocator.SoniclocatorEntity;
@@ -333,14 +332,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                 ClientRegistry.bindTileEntitySpecialRenderer(registeredMachine.getTileEntityLogicClass(), new MadTileEntityRendererTemplate(registeredMachine));
                 MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate(registeredMachine));
             }
-        }
-
-        // Syringe Sanitizer
-        if (blockID == MadConfig.SANTITIZER)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.SANTITIZER_TILEENTITY.blockID, new SanitizerRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(SanitizerEntity.class, new SanitizerRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new SanitizerRender());
         }
 
         // Computer Mainframe

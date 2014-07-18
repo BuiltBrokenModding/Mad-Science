@@ -3,6 +3,8 @@ package madscience.factory.mod;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import madscience.factory.MadTileEntityFactory;
@@ -58,11 +60,15 @@ public class MadMod
     public static Logger LOGGER = null;
     
     // Data container which gets serialized with all our mod information.
-    private static MadModData unregisteredMachines;
+    private static List<MadTileEntityFactoryProductData> unregisteredMachines;
     
     /** Auto-incrementing configuration IDs. Use this to make sure no config ID is the same. */
     private static IDManager idManager;
+    
+    /** Defines where ID manager starts counting block ID's. */
     private static int idManagerBlockIndex;
+    
+    /** Defines where ID manager starts counting item ID's. */
     private static int idManagerItemIndex;
 
     static
@@ -110,8 +116,13 @@ public class MadMod
         MadModData loadedModData = null;
         loadedModData = gson.fromJson(jsonMachineInput, MadModData.class);
         
-        // Populate this class with the data we just got.
-        unregisteredMachines = loadedModData;
+        // Populate the list of unregistered machines from the data we just loaded.
+        unregisteredMachines = new ArrayList<MadTileEntityFactoryProductData>();
+        MadTileEntityFactoryProductData[] jsonMachines = loadedModData.getUnregisteredMachines();
+        for (MadTileEntityFactoryProductData jsonMachine : jsonMachines)
+        {
+            unregisteredMachines.add(jsonMachine);
+        }
         
         // Create ID manager with ranges it should operate in.
         idManagerBlockIndex = loadedModData.getIDManagerBlockIndex();
@@ -119,21 +130,31 @@ public class MadMod
         idManager = new IDManager(idManagerBlockIndex, idManagerItemIndex);
     }
     
+    /** Returns the next block ID based on initial index on creation. */
     public static int getNextBlockID()
     {
         return idManager.getNextBlockID();
     }
 
+    /** Returns next item ID based on initial index. */
     public static int getNextItemID()
     {
         return idManager.getNextItemID();
     }
     
-    public static MadTileEntityFactoryProductData[] getUnregisteredMachines()
+    /** Intended for developers to use to manually create machines when converting existing code to JSON. */
+    public static void addUnregisteredMachine(MadTileEntityFactoryProductData newMachine)
     {
-        return unregisteredMachines.getUnregisteredMachines();
+        unregisteredMachines.add(newMachine);
     }
     
+    /** Returns a list of machines that have yet to be run through MadTileEntityFactory.registerMachine(). */
+    public static MadTileEntityFactoryProductData[] getUnregisteredMachines()
+    {
+        return unregisteredMachines.toArray(new MadTileEntityFactoryProductData[]{});
+    }
+    
+    /** Used to serialize mod data to JSON file on disk during data dump. */
     public static MadModData getMadModData()
     {
         return new MadModData(

@@ -185,6 +185,17 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
 
         return false;
     }
+    
+    public boolean removeFluidAmountExact(int milliBuckets)
+    {
+        FluidStack amountRemoved = internalTank.drain(milliBuckets, true);
+        if (amountRemoved != null && amountRemoved.amount > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     public void setFluidAmount(int amount)
     {

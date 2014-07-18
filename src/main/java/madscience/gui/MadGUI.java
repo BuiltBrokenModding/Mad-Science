@@ -4,6 +4,7 @@ import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.tile.SanitizerEntity;
 import madscience.tile.clayfurnace.ClayfurnaceContainer;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceGUI;
@@ -31,9 +32,6 @@ import madscience.tile.mainframe.MainframeGUI;
 import madscience.tile.meatcube.MeatcubeContainer;
 import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.meatcube.MeatcubeGUI;
-import madscience.tile.sanitizer.SanitizerContainer;
-import madscience.tile.sanitizer.SanitizerEntity;
-import madscience.tile.sanitizer.SanitizerGUI;
 import madscience.tile.sequencer.SequencerContainer;
 import madscience.tile.sequencer.SequencerEntity;
 import madscience.tile.sequencer.SequencerGUI;
@@ -76,12 +74,6 @@ public class MadGUI implements IGuiHandler
                     return machineInfo.getClientGUIElement(player.inventory, madTile);
                 }
             }
-        }
-
-        // Needle sanitizer.
-        if (ID == MadFurnaces.SANTITIZER_TILEENTITY.blockID)
-        {
-            return new SanitizerGUI(player.inventory, (SanitizerEntity) tileEntity);
         }
 
         // Computer Mainframe.
@@ -189,12 +181,6 @@ public class MadGUI implements IGuiHandler
                     return machineInfo.getServerGUIElement(player.inventory, madTile);
                 }
             }
-        }
-
-        // Needle sanitizer.
-        if (ID == MadFurnaces.SANTITIZER_TILEENTITY.blockID)
-        {
-            return new SanitizerContainer(player.inventory, (SanitizerEntity) tileEntity);
         }
 
         // Computer Mainframe.

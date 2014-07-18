@@ -18,7 +18,6 @@ import madscience.tile.incubator.IncubatorSounds;
 import madscience.tile.magloader.MagLoaderSounds;
 import madscience.tile.mainframe.MainframeSounds;
 import madscience.tile.meatcube.MeatcubeSounds;
-import madscience.tile.sanitizer.SanitizerSounds;
 import madscience.tile.sequencer.SequencerSounds;
 import madscience.tile.soniclocator.SoniclocatorSounds;
 import madscience.tile.thermosonicbonder.ThermosonicBonderSounds;
@@ -94,9 +93,6 @@ public class MadSounds
 
         // Genetic Sequencer
         SequencerSounds.init(event);
-
-        // Needle Sanitizer
-        SanitizerSounds.init(event);
 
         // Cryogenic Tube
         CryotubeSounds.init(event);

@@ -435,11 +435,6 @@ public class MadConfig
     private final static long MACHINE_TRANSFERRATE_DEFAULT = 200;
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
-    // Needle Sanitizer
-    public static int SANTITIZER = MadMod.getNextBlockID();
-    public static long SANTITIZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String SANTITIZER_HELP = "http://madsciencemod.com/minecraft-item/syringe-sanitizer/";
-
     // Computer Mainframe
     public static int MAINFRAME = MadMod.getNextBlockID();
     public static long MAINFRAME_CAPACTITY = MACHINE_CAPACITY_DEFAULT;

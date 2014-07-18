@@ -19,11 +19,11 @@ public class MadContainerTemplate extends Container
 
     // For this particular case, there are only 2 slots in the custom inventory, plus a slot that is 'active'
     // but not able to interact with (like an active spell slot that doesn't really contain an item)
-    private static int ACTIVE_SLOT = 0;
+    private int ACTIVE_SLOT = 0;
 
     // Note how these all back-reference themselves, so all you need to do is change the initial value and the
     // rest are automatically adjusted! Just swap ACTIVE_SLOT with your inventory index like the above tut
-    private static final int ARMOR_START = ACTIVE_SLOT + 1, ARMOR_END = ARMOR_START + 3, INV_START = ARMOR_END + 1, INV_END = INV_START + 26, HOTBAR_START = INV_END + 1, HOTBAR_END = HOTBAR_START + 8;
+    private int ARMOR_START = ACTIVE_SLOT + 1, ARMOR_END = ARMOR_START + 3, INV_START = ARMOR_END + 1, INV_END = INV_START + 26, HOTBAR_START = INV_END + 1, HOTBAR_END = HOTBAR_START + 8;
 
     public MadContainerTemplate()
     {

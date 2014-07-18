@@ -4,6 +4,7 @@ import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
+import madscience.tile.SanitizerEntity;
 import madscience.tile.clayfurnace.ClayfurnaceBlock;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRecipes;
@@ -29,8 +30,6 @@ import madscience.tile.mainframe.MainframeEntity;
 import madscience.tile.mainframe.MainframeRecipes;
 import madscience.tile.meatcube.MeatcubeBlock;
 import madscience.tile.meatcube.MeatcubeEntity;
-import madscience.tile.sanitizer.SanitizerBlock;
-import madscience.tile.sanitizer.SanitizerEntity;
 import madscience.tile.sequencer.SequencerBlock;
 import madscience.tile.sequencer.SequencerEntity;
 import madscience.tile.soniclocator.SoniclocatorBlock;
@@ -53,10 +52,6 @@ public class MadFurnaces
     // -------------
     // TILE ENTITIES
     // -------------
-
-    // Needle Sanitizer
-    public static BlockContainer SANTITIZER_TILEENTITY;
-    public static final String SANTITIZER_INTERNALNAME = "needleSanitizer";
 
     // Mainframe
     public static BlockContainer MAINFRAME_TILEENTITY;
@@ -326,38 +321,6 @@ public class MadFurnaces
 
         // Now we need to bake our meatcube in the oven until golden brown.
         IncubatorRecipes.addSmelting(MadEntities.COMBINEDGENOME_MONSTERPLACER.itemID, metaID, new ItemStack(MEATCUBE_TILEENTITY, 1));
-    }
-
-    @EventHandler
-    static void createSanitizerTileEntity(int blockID)
-    {
-        MadMod.LOGGER.info("-Needle Sanitizer Tile Entity");
-        
-        // Populate our static instance.
-        SANTITIZER_TILEENTITY = (BlockContainer) new SanitizerBlock(blockID).setUnlocalizedName(SANTITIZER_INTERNALNAME);
-
-        // Register the block with the world (so we can then tie it to a tile
-        // entity).
-        GameRegistry.registerBlock(SANTITIZER_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + SANTITIZER_INTERNALNAME);
-
-        // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(SanitizerEntity.class, SANTITIZER_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe
-        GameRegistry.addRecipe(new ItemStack(SANTITIZER_TILEENTITY, 1), new Object[]
-        { "545", 
-          "535", 
-          "126",
-
-        '1', new ItemStack(MadCircuits.CIRCUIT_GLOWSTONE),
-        '2', new ItemStack(MadCircuits.CIRCUIT_REDSTONE),
-        '3', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), 
-        '4', new ItemStack(MadComponents.COMPONENT_FAN), 
-        '5', new ItemStack(MadComponents.COMPONENT_CASE), 
-        '6', new ItemStack(MadCircuits.CIRCUIT_ENDERPEARL), });
     }
 
     static void createSoniclocatorGhostTileEntity(int blockID)

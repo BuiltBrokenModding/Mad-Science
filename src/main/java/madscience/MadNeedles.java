@@ -21,7 +21,6 @@ import madscience.items.needles.NeedleVillager;
 import madscience.items.needles.NeedleWitch;
 import madscience.items.needles.NeedleWolf;
 import madscience.items.needles.NeedleZombie;
-import madscience.tile.sanitizer.SanitizerRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -163,9 +162,6 @@ public class MadNeedles
         MadMod.LOGGER.info("-Dirty Needle");
         NEEDLE_DIRTY = (NeedleDirtyItem) new NeedleDirtyItem(itemID).setUnlocalizedName(NEEDLEDIRTY_ITEM_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_DIRTY, NEEDLEDIRTY_ITEM_INTERNALNAME);
-
-        // Needle Sanitizer (cleans dirty needles).
-        SanitizerRecipes.addSmelting(NEEDLE_DIRTY.itemID, new ItemStack(NEEDLE_ITEM), 0.15F);
     }
 
     static void createEmptyNeedle(int itemID)

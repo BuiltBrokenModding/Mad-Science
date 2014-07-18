@@ -177,6 +177,14 @@ public class MadForgeMod
         // Populate generic logger with instance provided by Minecraft/Forge. 
         MadMod.LOGGER = event.getModLog();
         MadMod.LOGGER.setParent(FMLLog.getLogger());
+        
+        // Attempt to add any manually created machines.
+        MadTileEntityFactoryProductData convertedMachine = MadManualMachine.getMachine();
+        if (convertedMachine != null)
+        {
+            MadMod.LOGGER.info("Adding manual machine " + convertedMachine.getMachineName());
+            MadMod.addUnregisteredMachine(convertedMachine);
+        }
 
         // Generate and read our standardized Forge configuration file.
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -392,7 +400,6 @@ public class MadForgeMod
             MadTileEntityFactory.registerMachine(unregisteredMachine);
         }
 
-        MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);
         MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
         MadFurnaces.createGeneSequencerTileEntity(MadConfig.GENE_SEQUENCER);
         MadFurnaces.createCryoFreezerTileEntity(MadConfig.CRYOFREEZER);

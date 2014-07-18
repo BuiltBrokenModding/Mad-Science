@@ -24,6 +24,236 @@
   "idManagerItemIndex": 3840,
   "unregisteredMachines": [
     {
+      "machineName": "needleSanitizer",
+      "logicClassFullyQualifiedName": "madscience.tile.SanitizerEntity",
+      "containerTemplate": [
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "NORTH",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 31,
+          "offsetY": 34,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_FILLEDBUCKET",
+          "slotNumber": 0
+        },
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "EAST",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 73,
+          "offsetY": 34,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT1",
+          "slotNumber": 1
+        },
+        {
+          "extractSide": "SOUTH",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 134,
+          "offsetY": 34,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_RESULT1",
+          "slotNumber": 2
+        },
+        {
+          "extractSide": "UP",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 31,
+          "offsetY": 9,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_EMPTYBUCKET",
+          "slotNumber": 3
+        }
+      ],
+      "guiControlsTemplate": [
+        {
+          "screenX": 8,
+          "screenY": 9,
+          "fillerX": 176,
+          "fillerY": 31,
+          "sizeX": 16,
+          "sizeY": 58,
+          "controlType": "TankGauge"
+        },
+        {
+          "screenX": 74,
+          "screenY": 52,
+          "fillerX": 176,
+          "fillerY": 0,
+          "sizeX": 14,
+          "sizeY": 14,
+          "controlType": "PowerLevelX"
+        },
+        {
+          "screenX": 96,
+          "screenY": 34,
+          "fillerX": 176,
+          "fillerY": 14,
+          "sizeX": 24,
+          "sizeY": 17,
+          "controlType": "CookingProgressY"
+        }
+      ],
+      "guiButtonTemplate": [
+        {
+          "screenX": 166,
+          "screenY": 4,
+          "fillerX": 9,
+          "fillerY": 32,
+          "sizeX": 6,
+          "sizeY": 5,
+          "tooltipToken": "button.help",
+          "buttonType": "InvisibleButton",
+          "clickAction": "OpenLink",
+          "userData": "http://madsciencemod.com/minecraft-item/syringe-sanitizer/",
+          "buttonID": 0
+        }
+      ],
+      "fluidsSupported": [
+        {
+          "internalName": "water",
+          "startingAmount": 0,
+          "maximumAmount": 10000
+        }
+      ],
+      "energySupported": [
+        {
+          "energyMaxExtract": 0,
+          "energyMaxRecieve": 200,
+          "energyCapacity": 100000,
+          "consumptionRate": 1,
+          "productionRate": 0
+        }
+      ],
+      "soundArchive": [
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Idle",
+            "soundNameWithExtension": "Idle.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKING",
+            "soundLengthInSeconds": 3,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        }
+      ],
+      "recipeArchive": [
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleDirty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "needleEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.15
+        }
+      ],
+      "craftingRecipes": [
+        {
+          "craftingRecipeComponents": [
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 0
+            },
+            {
+              "slotExpectedItem": "componentFan",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 1
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 2
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 3
+            },
+            {
+              "slotExpectedItem": "componentPowerSupply",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 4
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 5
+            },
+            {
+              "slotExpectedItem": "circuitGlowstone",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 6
+            },
+            {
+              "slotExpectedItem": "circuitRedstone",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 7
+            },
+            {
+              "slotExpectedItem": "circuitEnderPearl",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": 0,
+              "craftingGridPosition": 8
+            }
+          ],
+          "craftingRecipeType": "SHAPED",
+          "craftingAmount": 1
+        }
+      ],
+      "modelArchive": {
+        "machineModels": [
+          {
+            "modelPath": "/assets/madscience/models/needleSanitizer/needleSanitizer.mad"
+          }
+        ],
+        "texturePath": "models/needleSanitizer/idle.png"
+      }
+    },
+    {
       "machineName": "dnaExtractor",
       "logicClassFullyQualifiedName": "madscience.tile.DNAExtractorEntity",
       "containerTemplate": [

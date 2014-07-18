@@ -34,7 +34,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class MadTileEntityBlockTemplate extends BlockContainer
 {    
-    private static MadTileEntityFactoryProduct registeredProduct;
+    private MadTileEntityFactoryProduct registeredProduct;
     
     /** Determines if this machine should explode it's inventory contents into world when broken. */
     private boolean keepFurnaceInventory;

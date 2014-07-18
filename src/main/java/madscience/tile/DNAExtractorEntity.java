@@ -438,12 +438,12 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
                 this.setProgressMaximum(getItemBurnTime(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)));
 
                 // Increments the timer to kickstart the cooking loop.
-                this.setProgressValue(this.getProgressValue() + 1);
+                this.incrementProgressValue();
             }
             else if (this.getProgressValue() > 0 && this.canSmelt() && this.isPowered())
             {
                 // Increments the timer to kickstart the cooking loop.
-                this.setProgressValue(this.getProgressValue() + 1);
+                this.incrementProgressValue();
 
                 // Check if furnace has exceeded total amount of time to cook.
                 if (this.getProgressValue() >= this.getProgressMaximum())

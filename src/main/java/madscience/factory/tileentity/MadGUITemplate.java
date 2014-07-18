@@ -55,7 +55,7 @@ public class MadGUITemplate extends GuiContainer
     protected int screenY = (this.height - this.ySize) / 2;
     private float lastChangeFrameTime;
 
-    private final int PROMPT_REPLY_ACTION = 0;
+    private int PROMPT_REPLY_ACTION = 0;
     private URI displayedURI = null;
 
     public MadGUITemplate(Container container)

@@ -113,29 +113,52 @@ public abstract class MadTileEntityPrefab extends MadTileEntityEnergyPrefab
         this.entityTexture = nbt.getString("TexturePath");
     }
 
+    /** Sets internal number representing what frame of animation we should currently be playing. */
     public void setAnimationCurrentFrame(int animationCurrentFrame)
     {
         this.animationCurrentFrame = animationCurrentFrame;
     }
+    
+    /** Automatically increments the animation current frame. Performs no check for bounds! */
+    public int incrementAnimationCurrentFrame()
+    {
+        return this.animationCurrentFrame++;
+    }
 
+    /** Sets the texture resource path to whatever is specified. */
     public void setEntityTexture(String entityTexture)
     {
         this.entityTexture = entityTexture;
     }
 
+    /** Sets a flag that tells prefab that an animation should currently be looping on the machine. */
     public void setPlayingAnimation(boolean playingAnimation)
     {
         this.playingAnimation = playingAnimation;
     }
 
+    /** Sets the maximum number that progress will reach for completing smelting. */
     public void setProgressMaximum(int progressMaximum)
     {
         this.progressMaximum = progressMaximum;
     }
 
+    /** Sets progress value manually, does not check if value is above maximum! */
     public void setProgressValue(int progressValue)
     {
         this.progressValue = progressValue;
+    }
+    
+    /** Increases the percentage of completion for smelting a given item by one. */
+    public int incrementProgressValue()
+    {
+        // Only increment if we can actually do so.
+        if (this.progressValue <= this.progressMaximum)
+        {
+            this.progressValue++;
+        }
+        
+        return this.progressValue;
     }
     
     /** Sends base update packet for MadTileEntity containing position, progress, energy, fluids, textures, etc. */

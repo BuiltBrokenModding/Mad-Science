@@ -38,13 +38,13 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     private int rendereingID = RenderingRegistry.getNextAvailableRenderId();
 
     /** Binary model file created with Techne */
-    private static MadTechneModel[] techneModels = null;
+    private MadTechneModel[] techneModels = null;
 
     /** Default texture that is rendered on the model if no other is specified. */
-    private static ResourceLocation techneModelTexture = null;
+    private ResourceLocation techneModelTexture = null;
     
-    private static MadModel renderingInfo;
-    MadTileEntityFactoryProduct registeredMachine = null;
+    private MadModel renderingInfo;
+    private MadTileEntityFactoryProduct registeredMachine = null;
     
     public MadTileEntityRendererTemplate(MadTileEntityFactoryProduct registeredProduct)
     {

@@ -15,7 +15,6 @@ import madscience.tile.incubator.IncubatorPackets;
 import madscience.tile.magloader.MagLoaderPackets;
 import madscience.tile.mainframe.MainframePackets;
 import madscience.tile.meatcube.MeatcubePackets;
-import madscience.tile.sanitizer.SanitizerPackets;
 import madscience.tile.sequencer.SequencerPackets;
 import madscience.tile.soniclocator.SoniclocatorPackets;
 import madscience.tile.thermosonicbonder.ThermosonicBonderPackets;
@@ -72,9 +71,6 @@ public abstract class MadPackets
 
         // Disgusting Meat Cube
         builder.put(Integer.valueOf(6), MeatcubePackets.class);
-
-        // Syringe Sanitizer
-        builder.put(Integer.valueOf(7), SanitizerPackets.class);
 
         // Genetic Sequencer
         builder.put(Integer.valueOf(8), SequencerPackets.class);
