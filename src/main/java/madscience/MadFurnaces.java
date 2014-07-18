@@ -4,7 +4,6 @@ import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
-import madscience.tile.SanitizerEntity;
 import madscience.tile.clayfurnace.ClayfurnaceBlock;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRecipes;

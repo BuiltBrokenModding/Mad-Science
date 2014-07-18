@@ -21,7 +21,6 @@ import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobEntity;
 import madscience.network.MadPacketHandler;
 import madscience.server.CommonProxy;
-import madscience.util.IDManager;
 import madscience.util.MadColors;
 import net.minecraft.entity.EntityList;
 import net.minecraft.launchwrapper.LogWrapper;

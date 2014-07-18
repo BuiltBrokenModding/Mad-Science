@@ -1,14 +1,6 @@
 package madscience;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Field;
-import java.util.logging.Level;
-
 import madscience.factory.mod.MadMod;
-import madscience.util.IDManager;
-import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraftforge.common.Configuration;
 
 public class MadConfig
 {

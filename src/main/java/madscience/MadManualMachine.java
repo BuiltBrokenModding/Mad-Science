@@ -1,27 +1,6 @@
 package madscience;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraftforge.common.ForgeDirection;
 import madscience.factory.MadTileEntityFactoryProductData;
-import madscience.factory.buttons.MadGUIButton;
-import madscience.factory.buttons.MadGUIButtonClickActionEnum;
-import madscience.factory.buttons.MadGUIButtonTypeEnum;
-import madscience.factory.controls.MadGUIControl;
-import madscience.factory.controls.MadGUIControlTypeEnum;
-import madscience.factory.crafting.MadCraftingRecipe;
-import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
-import madscience.factory.energy.MadEnergy;
-import madscience.factory.fluids.MadFluid;
-import madscience.factory.model.MadModel;
-import madscience.factory.model.MadModelFile;
-import madscience.factory.recipes.MadRecipe;
-import madscience.factory.slotcontainers.MadSlotContainer;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
-import madscience.factory.sounds.MadSound;
-import madscience.factory.sounds.MadSoundPlaybackTypeEnum;
-import madscience.factory.sounds.MadSoundTriggerEnum;
 
 public class MadManualMachine
 {
