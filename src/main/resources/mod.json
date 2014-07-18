@@ -24,236 +24,6 @@
   "idManagerItemIndex": 3840,
   "unregisteredMachines": [
     {
-      "machineName": "needleSanitizer",
-      "logicClassFullyQualifiedName": "madscience.tile.SanitizerEntity",
-      "containerTemplate": [
-        {
-          "extractSide": "UNKNOWN",
-          "insertSide": "NORTH",
-          "allowExtract": false,
-          "allowInput": true,
-          "offsetX": 31,
-          "offsetY": 34,
-          "sizeX": 18,
-          "sizeY": 18,
-          "slotType": "INPUT_FILLEDBUCKET",
-          "slotNumber": 0
-        },
-        {
-          "extractSide": "UNKNOWN",
-          "insertSide": "EAST",
-          "allowExtract": false,
-          "allowInput": true,
-          "offsetX": 73,
-          "offsetY": 34,
-          "sizeX": 18,
-          "sizeY": 18,
-          "slotType": "INPUT_INGREDIENT1",
-          "slotNumber": 1
-        },
-        {
-          "extractSide": "SOUTH",
-          "insertSide": "UNKNOWN",
-          "allowExtract": true,
-          "allowInput": false,
-          "offsetX": 134,
-          "offsetY": 34,
-          "sizeX": 18,
-          "sizeY": 18,
-          "slotType": "OUTPUT_RESULT1",
-          "slotNumber": 2
-        },
-        {
-          "extractSide": "UP",
-          "insertSide": "UNKNOWN",
-          "allowExtract": true,
-          "allowInput": false,
-          "offsetX": 31,
-          "offsetY": 9,
-          "sizeX": 18,
-          "sizeY": 18,
-          "slotType": "OUTPUT_EMPTYBUCKET",
-          "slotNumber": 3
-        }
-      ],
-      "guiControlsTemplate": [
-        {
-          "screenX": 8,
-          "screenY": 9,
-          "fillerX": 176,
-          "fillerY": 31,
-          "sizeX": 16,
-          "sizeY": 58,
-          "controlType": "TankGauge"
-        },
-        {
-          "screenX": 74,
-          "screenY": 52,
-          "fillerX": 176,
-          "fillerY": 0,
-          "sizeX": 14,
-          "sizeY": 14,
-          "controlType": "PowerLevelX"
-        },
-        {
-          "screenX": 96,
-          "screenY": 34,
-          "fillerX": 176,
-          "fillerY": 14,
-          "sizeX": 24,
-          "sizeY": 17,
-          "controlType": "CookingProgressY"
-        }
-      ],
-      "guiButtonTemplate": [
-        {
-          "screenX": 166,
-          "screenY": 4,
-          "fillerX": 9,
-          "fillerY": 32,
-          "sizeX": 6,
-          "sizeY": 5,
-          "tooltipToken": "button.help",
-          "buttonType": "InvisibleButton",
-          "clickAction": "OpenLink",
-          "userData": "http://madsciencemod.com/minecraft-item/syringe-sanitizer/",
-          "buttonID": 0
-        }
-      ],
-      "fluidsSupported": [
-        {
-          "internalName": "water",
-          "startingAmount": 0,
-          "maximumAmount": 10000
-        }
-      ],
-      "energySupported": [
-        {
-          "energyMaxExtract": 0,
-          "energyMaxRecieve": 200,
-          "energyCapacity": 100000,
-          "consumptionRate": 1,
-          "productionRate": 0
-        }
-      ],
-      "soundArchive": [
-        {
-          "sound": {
-            "soundNameWithoutExtension": "Idle",
-            "soundNameWithExtension": "Idle.ogg",
-            "soundExtension": "ogg",
-            "soundTrigger": "WORKING",
-            "soundLengthInSeconds": 3,
-            "soundPlaybackMode": "PLAY",
-            "randomVariance": 1
-          }
-        }
-      ],
-      "recipeArchive": [
-        {
-          "inputIngredientsArray": [
-            {
-              "slotDestination": "INPUT_INGREDIENT1",
-              "slotExpectedItem": "needleDirty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0
-            }
-          ],
-          "outputResultsArray": [
-            {
-              "slotDestination": "OUTPUT_RESULT1",
-              "slotExpectedItem": "needleEmpty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0
-            }
-          ],
-          "creationTimeInSeconds": 60,
-          "experienceFromCreation": 0.15
-        }
-      ],
-      "craftingRecipes": [
-        {
-          "craftingRecipeComponents": [
-            {
-              "slotExpectedItem": "componentCase",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 0
-            },
-            {
-              "slotExpectedItem": "componentFan",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 1
-            },
-            {
-              "slotExpectedItem": "componentCase",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 2
-            },
-            {
-              "slotExpectedItem": "componentCase",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 3
-            },
-            {
-              "slotExpectedItem": "componentPowerSupply",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 4
-            },
-            {
-              "slotExpectedItem": "componentCase",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 5
-            },
-            {
-              "slotExpectedItem": "circuitGlowstone",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 6
-            },
-            {
-              "slotExpectedItem": "circuitRedstone",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 7
-            },
-            {
-              "slotExpectedItem": "circuitEnderPearl",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": 0,
-              "craftingGridPosition": 8
-            }
-          ],
-          "craftingRecipeType": "SHAPED",
-          "craftingAmount": 1
-        }
-      ],
-      "modelArchive": {
-        "machineModels": [
-          {
-            "modelPath": "/assets/madscience/models/needleSanitizer/needleSanitizer.mad"
-          }
-        ],
-        "texturePath": "models/needleSanitizer/idle.png"
-      }
-    },
-    {
       "machineName": "dnaExtractor",
       "logicClassFullyQualifiedName": "madscience.tile.DNAExtractorEntity",
       "containerTemplate": [
@@ -410,7 +180,7 @@
               "slotExpectedItem": "needleBat",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -419,7 +189,7 @@
               "slotExpectedItem": "dnaBat",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -432,7 +202,7 @@
               "slotExpectedItem": "needleCaveSpider",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -441,7 +211,7 @@
               "slotExpectedItem": "dnaCaveSpider",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -454,7 +224,7 @@
               "slotExpectedItem": "fermentedSpiderEye",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -463,7 +233,7 @@
               "slotExpectedItem": "dnaCaveSpider",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -476,7 +246,7 @@
               "slotExpectedItem": "needleChicken",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -485,7 +255,7 @@
               "slotExpectedItem": "dnaChicken",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -498,7 +268,7 @@
               "slotExpectedItem": "feather",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -507,7 +277,7 @@
               "slotExpectedItem": "dnaChicken",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -520,7 +290,7 @@
               "slotExpectedItem": "egg",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -529,7 +299,7 @@
               "slotExpectedItem": "dnaChicken",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -542,7 +312,7 @@
               "slotExpectedItem": "chickenCooked",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -551,7 +321,7 @@
               "slotExpectedItem": "dnaChicken",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -564,7 +334,7 @@
               "slotExpectedItem": "chickenRaw",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -573,7 +343,7 @@
               "slotExpectedItem": "dnaChicken",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -586,7 +356,7 @@
               "slotExpectedItem": "needleCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -595,7 +365,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -608,7 +378,7 @@
               "slotExpectedItem": "leather",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -617,7 +387,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -630,7 +400,7 @@
               "slotExpectedItem": "beefCooked",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -639,7 +409,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -652,7 +422,7 @@
               "slotExpectedItem": "beefRaw",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -661,7 +431,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -674,7 +444,7 @@
               "slotExpectedItem": "bootsCloth",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -683,7 +453,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -696,7 +466,7 @@
               "slotExpectedItem": "helmetCloth",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -705,7 +475,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -718,7 +488,7 @@
               "slotExpectedItem": "leggingsCloth",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -727,7 +497,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -740,7 +510,7 @@
               "slotExpectedItem": "chestplateCloth",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -749,7 +519,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -762,7 +532,7 @@
               "slotExpectedItem": "milk",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -771,7 +541,7 @@
               "slotExpectedItem": "dnaCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -784,7 +554,7 @@
               "slotExpectedItem": "needleCreeper",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -793,7 +563,7 @@
               "slotExpectedItem": "dnaCreeper",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -806,7 +576,7 @@
               "slotExpectedItem": "sulphur",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -815,7 +585,7 @@
               "slotExpectedItem": "dnaCreeper",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -828,7 +598,7 @@
               "slotExpectedItem": "skull",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 4
+              "metaDamage": "4"
             }
           ],
           "outputResultsArray": [
@@ -837,7 +607,7 @@
               "slotExpectedItem": "dnaCreeper",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -850,7 +620,7 @@
               "slotExpectedItem": "needleEnderman",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -859,7 +629,7 @@
               "slotExpectedItem": "dnaEnderman",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -872,7 +642,7 @@
               "slotExpectedItem": "enderPearl",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -881,7 +651,7 @@
               "slotExpectedItem": "dnaEnderman",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -894,7 +664,7 @@
               "slotExpectedItem": "eyeOfEnder",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -903,7 +673,7 @@
               "slotExpectedItem": "dnaEnderman",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -916,7 +686,7 @@
               "slotExpectedItem": "ghastTear",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -925,7 +695,7 @@
               "slotExpectedItem": "dnaGhast",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -938,7 +708,7 @@
               "slotExpectedItem": "needleHorse",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -947,7 +717,7 @@
               "slotExpectedItem": "dnaHorse",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -960,7 +730,7 @@
               "slotExpectedItem": "needleMushroomCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -969,7 +739,7 @@
               "slotExpectedItem": "dnaMushroomCow",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -982,7 +752,7 @@
               "slotExpectedItem": "needleOcelot",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -991,7 +761,7 @@
               "slotExpectedItem": "dnaOcelot",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1004,7 +774,7 @@
               "slotExpectedItem": "needlePig",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1013,7 +783,7 @@
               "slotExpectedItem": "dnaPig",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1026,7 +796,7 @@
               "slotExpectedItem": "porkchopRaw",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1035,7 +805,7 @@
               "slotExpectedItem": "dnaPig",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1048,7 +818,7 @@
               "slotExpectedItem": "porkchopCooked",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1057,7 +827,7 @@
               "slotExpectedItem": "dnaPig",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1070,7 +840,7 @@
               "slotExpectedItem": "needleSheep",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1079,7 +849,7 @@
               "slotExpectedItem": "dnaSheep",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1092,7 +862,7 @@
               "slotExpectedItem": "wool",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1101,7 +871,7 @@
               "slotExpectedItem": "dnaSheep",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1114,7 +884,7 @@
               "slotExpectedItem": "bone",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1123,7 +893,7 @@
               "slotExpectedItem": "dnaSkeleton",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1136,7 +906,7 @@
               "slotExpectedItem": "dyePowder",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 15
+              "metaDamage": "15"
             }
           ],
           "outputResultsArray": [
@@ -1145,7 +915,7 @@
               "slotExpectedItem": "dnaSkeleton",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1158,7 +928,7 @@
               "slotExpectedItem": "skull",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1167,7 +937,7 @@
               "slotExpectedItem": "dnaSkeleton",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1180,7 +950,7 @@
               "slotExpectedItem": "slimeball",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1189,7 +959,7 @@
               "slotExpectedItem": "dnaSlime",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1202,7 +972,7 @@
               "slotExpectedItem": "pistonStickyBase",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1211,7 +981,7 @@
               "slotExpectedItem": "dnaSlime",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1224,7 +994,7 @@
               "slotExpectedItem": "needleSpider",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1233,7 +1003,7 @@
               "slotExpectedItem": "dnaSpider",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1246,7 +1016,7 @@
               "slotExpectedItem": "spiderEye",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1255,7 +1025,7 @@
               "slotExpectedItem": "dnaSpider",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1268,7 +1038,7 @@
               "slotExpectedItem": "string",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1277,7 +1047,7 @@
               "slotExpectedItem": "dnaSpider",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1290,7 +1060,7 @@
               "slotExpectedItem": "needleSquid",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1299,7 +1069,7 @@
               "slotExpectedItem": "dnaSquid",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1312,7 +1082,7 @@
               "slotExpectedItem": "dyePowder",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1321,7 +1091,7 @@
               "slotExpectedItem": "dnaSquid",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1334,7 +1104,7 @@
               "slotExpectedItem": "needleVillager",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1343,7 +1113,7 @@
               "slotExpectedItem": "dnaVillager",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1356,7 +1126,7 @@
               "slotExpectedItem": "needleWitch",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1365,7 +1135,7 @@
               "slotExpectedItem": "dnaWitch",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1378,7 +1148,7 @@
               "slotExpectedItem": "needleWolf",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1387,7 +1157,7 @@
               "slotExpectedItem": "dnaWolf",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1400,7 +1170,7 @@
               "slotExpectedItem": "needleZombie",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1409,7 +1179,7 @@
               "slotExpectedItem": "dnaZombie",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1422,7 +1192,7 @@
               "slotExpectedItem": "skull",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 2
+              "metaDamage": "2"
             }
           ],
           "outputResultsArray": [
@@ -1431,7 +1201,7 @@
               "slotExpectedItem": "dnaZombie",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1444,7 +1214,7 @@
               "slotExpectedItem": "rottenFlesh",
               "slotExpectedAmount": 1,
               "parentModID": "minecraft",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "outputResultsArray": [
@@ -1453,7 +1223,7 @@
               "slotExpectedItem": "dnaZombie",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0
+              "metaDamage": "0"
             }
           ],
           "creationTimeInSeconds": 60,
@@ -1467,63 +1237,63 @@
               "slotExpectedItem": "componentCase",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 0
             },
             {
               "slotExpectedItem": "circuitEnderEye",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 1
             },
             {
               "slotExpectedItem": "componentCase",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 2
             },
             {
               "slotExpectedItem": "componentCase",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 3
             },
             {
               "slotExpectedItem": "circuitSpiderEye",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 4
             },
             {
               "slotExpectedItem": "componentCase",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 5
             },
             {
               "slotExpectedItem": "componentCase",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 6
             },
             {
               "slotExpectedItem": "componentComputer",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 7
             },
             {
               "slotExpectedItem": "componentCase",
               "slotExpectedAmount": 1,
               "parentModID": "madscience",
-              "metaDamage": 0,
+              "metaDamage": "0",
               "craftingGridPosition": 8
             }
           ],
@@ -1538,6 +1308,508 @@
           }
         ],
         "texturePath": "models/dnaExtractor/idle.png"
+      }
+    },
+    {
+      "machineName": "dataDuplicator",
+      "logicClassFullyQualifiedName": "madscience.tile.DataDuplicatorEntity",
+      "containerTemplate": [
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "NORTH",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 22,
+          "offsetY": 36,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT1",
+          "slotNumber": 0
+        },
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "EAST",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 54,
+          "offsetY": 36,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT2",
+          "slotNumber": 1
+        },
+        {
+          "extractSide": "SOUTH",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 133,
+          "offsetY": 36,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_RESULT1",
+          "slotNumber": 2
+        }
+      ],
+      "guiControlsTemplate": [
+        {
+          "screenX": 55,
+          "screenY": 54,
+          "fillerX": 176,
+          "fillerY": 0,
+          "sizeX": 14,
+          "sizeY": 14,
+          "controlType": "PowerLevelX"
+        },
+        {
+          "screenX": 78,
+          "screenY": 35,
+          "fillerX": 176,
+          "fillerY": 14,
+          "sizeX": 43,
+          "sizeY": 17,
+          "controlType": "CookingProgressY"
+        }
+      ],
+      "guiButtonTemplate": [
+        {
+          "screenX": 166,
+          "screenY": 4,
+          "fillerX": 9,
+          "fillerY": 32,
+          "sizeX": 6,
+          "sizeY": 5,
+          "tooltipToken": "button.help",
+          "buttonType": "InvisibleButton",
+          "clickAction": "OpenLink",
+          "userData": "http://madsciencemod.com/minecraft-item/data-reel-duplicator/",
+          "buttonID": 0
+        }
+      ],
+      "fluidsSupported": [],
+      "energySupported": [
+        {
+          "energyMaxExtract": 0,
+          "energyMaxRecieve": 200,
+          "energyCapacity": 100000,
+          "consumptionRate": 1,
+          "productionRate": 0
+        }
+      ],
+      "soundArchive": [
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Idle",
+            "soundNameWithExtension": "Idle.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "IDLEON",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "LOOP",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Work",
+            "soundNameWithExtension": "Work.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKING",
+            "soundLengthInSeconds": 2,
+            "soundPlaybackMode": "LOOP",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Start",
+            "soundNameWithExtension": "Start.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKSTART",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Finish",
+            "soundNameWithExtension": "Finish.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKEND",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        }
+      ],
+      "recipeArchive": [
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "item.genome*",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "*"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "item.memoryMonsterPlacer*",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "*"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        }
+      ],
+      "craftingRecipes": [
+        {
+          "craftingRecipeComponents": [
+            {
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 0
+            },
+            {
+              "slotExpectedItem": "componentFan",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 1
+            },
+            {
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 2
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 3
+            },
+            {
+              "slotExpectedItem": "comparator",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 4
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 5
+            },
+            {
+              "slotExpectedItem": "circuitSpiderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 6
+            },
+            {
+              "slotExpectedItem": "componentPowerSupply",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 7
+            },
+            {
+              "slotExpectedItem": "circuitSpiderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 8
+            }
+          ],
+          "craftingRecipeType": "SHAPED",
+          "craftingAmount": 1
+        }
+      ],
+      "modelArchive": {
+        "machineModels": [
+          {
+            "modelPath": "/assets/madscience/models/dataDuplicator/dataDuplicator.mad"
+          }
+        ],
+        "texturePath": "models/dataDuplicator/idle.png"
+      }
+    },
+    {
+      "machineName": "needleSanitizer",
+      "logicClassFullyQualifiedName": "madscience.tile.SanitizerEntity",
+      "containerTemplate": [
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "NORTH",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 31,
+          "offsetY": 34,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_FILLEDBUCKET",
+          "slotNumber": 0
+        },
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "EAST",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 73,
+          "offsetY": 34,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT1",
+          "slotNumber": 1
+        },
+        {
+          "extractSide": "SOUTH",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 134,
+          "offsetY": 34,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_RESULT1",
+          "slotNumber": 2
+        },
+        {
+          "extractSide": "UP",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 31,
+          "offsetY": 9,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_EMPTYBUCKET",
+          "slotNumber": 3
+        }
+      ],
+      "guiControlsTemplate": [
+        {
+          "screenX": 8,
+          "screenY": 9,
+          "fillerX": 176,
+          "fillerY": 31,
+          "sizeX": 16,
+          "sizeY": 58,
+          "controlType": "TankGauge"
+        },
+        {
+          "screenX": 74,
+          "screenY": 52,
+          "fillerX": 176,
+          "fillerY": 0,
+          "sizeX": 14,
+          "sizeY": 14,
+          "controlType": "PowerLevelX"
+        },
+        {
+          "screenX": 96,
+          "screenY": 34,
+          "fillerX": 176,
+          "fillerY": 14,
+          "sizeX": 24,
+          "sizeY": 17,
+          "controlType": "CookingProgressY"
+        }
+      ],
+      "guiButtonTemplate": [
+        {
+          "screenX": 166,
+          "screenY": 4,
+          "fillerX": 9,
+          "fillerY": 32,
+          "sizeX": 6,
+          "sizeY": 5,
+          "tooltipToken": "button.help",
+          "buttonType": "InvisibleButton",
+          "clickAction": "OpenLink",
+          "userData": "http://madsciencemod.com/minecraft-item/syringe-sanitizer/",
+          "buttonID": 0
+        }
+      ],
+      "fluidsSupported": [
+        {
+          "internalName": "water",
+          "startingAmount": 0,
+          "maximumAmount": 10000
+        }
+      ],
+      "energySupported": [
+        {
+          "energyMaxExtract": 0,
+          "energyMaxRecieve": 200,
+          "energyCapacity": 100000,
+          "consumptionRate": 1,
+          "productionRate": 0
+        }
+      ],
+      "soundArchive": [
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Idle",
+            "soundNameWithExtension": "Idle.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKING",
+            "soundLengthInSeconds": 3,
+            "soundPlaybackMode": "LOOP",
+            "randomVariance": 1
+          }
+        }
+      ],
+      "recipeArchive": [
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "needleDirty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "needleEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 60,
+          "experienceFromCreation": 0.15
+        }
+      ],
+      "craftingRecipes": [
+        {
+          "craftingRecipeComponents": [
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 0
+            },
+            {
+              "slotExpectedItem": "componentFan",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 1
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 2
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 3
+            },
+            {
+              "slotExpectedItem": "componentPowerSupply",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 4
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 5
+            },
+            {
+              "slotExpectedItem": "circuitGlowstone",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 6
+            },
+            {
+              "slotExpectedItem": "circuitRedstone",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 7
+            },
+            {
+              "slotExpectedItem": "circuitEnderPearl",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 8
+            }
+          ],
+          "craftingRecipeType": "SHAPED",
+          "craftingAmount": 1
+        }
+      ],
+      "modelArchive": {
+        "machineModels": [
+          {
+            "modelPath": "/assets/madscience/models/needleSanitizer/needleSanitizer.mad"
+          }
+        ],
+        "texturePath": "models/needleSanitizer/idle.png"
       }
     }
   ]
