@@ -16,8 +16,6 @@ import madscience.tile.cryofreezer.CryofreezerEntity;
 import madscience.tile.cryotube.CryotubeBlock;
 import madscience.tile.cryotube.CryotubeBlockGhost;
 import madscience.tile.cryotube.CryotubeEntity;
-import madscience.tile.dataduplicator.DataDuplicatorBlock;
-import madscience.tile.dataduplicator.DataDuplicatorEntity;
 import madscience.tile.incubator.IncubatorBlock;
 import madscience.tile.incubator.IncubatorEntity;
 import madscience.tile.incubator.IncubatorRecipes;
@@ -41,7 +39,6 @@ import madscience.tile.voxbox.VoxBoxBlock;
 import madscience.tile.voxbox.VoxBoxEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -79,10 +76,6 @@ public class MadFurnaces
     // Thermosonic Bonder
     public static BlockContainer THERMOSONIC_TILEENTITY;
     public static final String THERMOSONIC_INTERNALNAME = "thermosonicBonder";
-
-    // Data Reel Duplicator
-    public static BlockContainer DATADUPLICATOR_TILEENTITY;
-    public static final String DATADUPLICATOR_INTERNALNAME = "dataDuplicator";
 
     // Soniclocator Device
     public static BlockContainer SONICLOCATOR_TILEENTITY;
@@ -181,31 +174,6 @@ public class MadFurnaces
         '2', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
         '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
         '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), });
-    }
-
-    static void createDataReelDuplicatorTileEntity(int blockID)
-    {
-        // Copies data reels for memories and genomes alike.
-        MadMod.LOGGER.info("-Data Reel Duplicator Tile Entity");
-        DATADUPLICATOR_TILEENTITY = (BlockContainer) new DataDuplicatorBlock(blockID).setUnlocalizedName(DATADUPLICATOR_INTERNALNAME);
-        GameRegistry.registerBlock(DATADUPLICATOR_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + DATADUPLICATOR_INTERNALNAME);
-        GameRegistry.registerTileEntity(DataDuplicatorEntity.class, DATADUPLICATOR_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe for Data Reel Duplicator.
-        GameRegistry.addRecipe(new ItemStack(MadFurnaces.DATADUPLICATOR_TILEENTITY, 1), new Object[]
-        { "161",
-          "232",
-          "454",
-
-        '1', new ItemStack(MadEntities.DATAREEL_EMPTY, 1),
-        '2', new ItemStack(MadComponents.COMPONENT_CASE),
-        '3', new ItemStack(Item.redstoneRepeater, 1),
-        '4', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE),
-        '5', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
-        '6', new ItemStack(MadComponents.COMPONENT_FAN) });
     }
 
     @EventHandler

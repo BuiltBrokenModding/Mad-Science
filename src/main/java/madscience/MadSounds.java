@@ -13,7 +13,6 @@ import madscience.mobs.woolycow.WoolyCowSounds;
 import madscience.tile.cncmachine.CnCMachineSounds;
 import madscience.tile.cryofreezer.CryofreezerSounds;
 import madscience.tile.cryotube.CryotubeSounds;
-import madscience.tile.dataduplicator.DataDuplicatorSounds;
 import madscience.tile.incubator.IncubatorSounds;
 import madscience.tile.magloader.MagLoaderSounds;
 import madscience.tile.mainframe.MainframeSounds;
@@ -96,9 +95,6 @@ public class MadSounds
 
         // Cryogenic Tube
         CryotubeSounds.init(event);
-
-        // Data Duplicator
-        DataDuplicatorSounds.init(event);
 
         // Thermosonic Bonder
         ThermosonicBonderSounds.init(event);

@@ -1,12 +1,16 @@
 package madscience.factory;
 
+import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import madscience.MadForgeMod;
 import madscience.factory.mod.MadMod;
@@ -31,7 +35,7 @@ public class MadTileEntityFactory
     {
         return Collections.unmodifiableCollection(registeredMachines.values());
     }
-    
+
     public static MadTileEntityFactoryProductData[] getMachineDataList()
     {
         // Loop through every registered machine in the system.
@@ -45,7 +49,7 @@ public class MadTileEntityFactory
                 allMachines.add(registeredMachine.getData());
             }
         }
-        
+
         return allMachines.toArray(new MadTileEntityFactoryProductData[]{});
     }
 
@@ -55,19 +59,37 @@ public class MadTileEntityFactory
     }
 
     /** Return itemstack from GameRegistry or from vanilla Item/Block list. */
-    static ItemStack getItemStackFromString(String modID, String itemName, int stackSize, int metaData)
+    static ItemStack[] getItemStackFromString(String modID, String itemName, int stackSize, String metaDataText)
     {
-        // Mod items and blocks query.
-        ItemStack potentialModItem = GameRegistry.findItemStack(modID, itemName, stackSize);
-        if (potentialModItem != null)
+        // Reference list we will return at the end of work.
+        ArrayList<ItemStack> itemsToAssociate = new ArrayList<ItemStack>();
+        Collection<String> unlocalizedNames = new TreeSet<String>(Collator.getInstance());
+
+        // Reference to if this recipe deals with wildcard (*) values in meta/damage or name.
+        boolean wildcardName = itemName.contains("*");
+        boolean wildcardMeta = metaDataText.contains("*");
+
+        // Reference to actual metadata since we have to parse it.
+        int metaData = 0;
+        if (!wildcardMeta)
         {
-            return potentialModItem;
+            // If not using wildcard for damage then parse it as integer.
+            metaData = Integer.parseInt(metaDataText);
         }
 
-        // Only continue if modID is for minecraft vanilla items or blocks.
-        if (!modID.equals("minecraft"))
+        // Only lookup individual itemstacks if we are not hunting wildcards.
+        if (!wildcardName)
         {
-            return null;
+            // Mod items and blocks query.
+            ItemStack potentialModItem = GameRegistry.findItemStack(modID, itemName, stackSize);
+            if (potentialModItem != null)
+            {
+                if (!unlocalizedNames.contains(MadUtils.cleanTag(potentialModItem.getUnlocalizedName())))
+                {
+                    itemsToAssociate.add(potentialModItem);
+                    unlocalizedNames.add(MadUtils.cleanTag(potentialModItem.getUnlocalizedName()));
+                }
+            }
         }
 
         // Vanilla item query.
@@ -78,16 +100,40 @@ public class MadTileEntityFactory
                 continue;
             }
 
-            ItemStack vanillaItemStack = new ItemStack(potentialMCItem, metaData, stackSize);
+            // Check if we need to accommodate metadata.
+            int tmpMeta = 0;
+            if (wildcardMeta)
+            {
+                tmpMeta = 0;
+            }
+            else
+            {
+                // Use given value if not wild.
+                tmpMeta = metaData;
+            }
+
+            ItemStack vanillaItemStack = new ItemStack(potentialMCItem, tmpMeta, stackSize);
 
             if (vanillaItemStack != null)
             {
                 try
                 {
-                    String vanillaItemUnlocalizedName = MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName());
-                    if (vanillaItemUnlocalizedName.equals(itemName))
+                    // Check if name contains wildcard value.
+                    if (wildcardName && potentialMCItem.getUnlocalizedName().contains(itemName.replace("*", "")))
                     {
-                        return vanillaItemStack;
+                        if (!unlocalizedNames.contains(vanillaItemStack.getUnlocalizedName()))
+                        {
+                            itemsToAssociate.add(vanillaItemStack);
+                            unlocalizedNames.add(vanillaItemStack.getUnlocalizedName());
+                        }
+                    }
+                    else if (!wildcardName && MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName()).equals(itemName))
+                    {
+                        if (!unlocalizedNames.contains(MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName())))
+                        {
+                            itemsToAssociate.add(vanillaItemStack);
+                            unlocalizedNames.add(MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName()));
+                        }
                     }
                 }
                 catch (Exception err)
@@ -105,16 +151,40 @@ public class MadTileEntityFactory
                 continue;
             }
 
-            ItemStack vanillaItemStack = new ItemStack(potentialMCBlock, metaData, stackSize);
+            // Check if we need to accommodate metadata.
+            int tmpMeta = 0;
+            if (wildcardMeta)
+            {
+                tmpMeta = 0;
+            }
+            else
+            {
+                // Use given value if not wild.
+                tmpMeta = metaData;
+            }
+
+            ItemStack vanillaItemStack = new ItemStack(potentialMCBlock, tmpMeta, stackSize);
 
             if (vanillaItemStack != null)
             {
                 try
                 {
-                    String vanillaBlockUnlocalizedName = MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName());
-                    if (vanillaBlockUnlocalizedName.equals(itemName))
+                    // Check if name contains wildcard value.
+                    if (wildcardName && vanillaItemStack.getUnlocalizedName().contains(itemName.replace("*", "")))
                     {
-                        return vanillaItemStack;
+                        if (!unlocalizedNames.contains(vanillaItemStack.getUnlocalizedName()))
+                        {
+                            itemsToAssociate.add(vanillaItemStack);
+                            unlocalizedNames.add(vanillaItemStack.getUnlocalizedName());
+                        }
+                    }
+                    else if (!wildcardName && MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName()).equals(itemName))
+                    {
+                        if (!unlocalizedNames.contains(MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName())))
+                        {
+                            itemsToAssociate.add(vanillaItemStack);
+                            unlocalizedNames.add(MadUtils.cleanTag(vanillaItemStack.getUnlocalizedName()));
+                        }
                     }
                 }
                 catch (Exception err)
@@ -128,13 +198,19 @@ public class MadTileEntityFactory
         if (itemName.equals("dyePowder") || itemName.equals("dye"))
         {
             // Return whatever type of dye was requested.
-            return new ItemStack(Item.dyePowder, metaData, stackSize);
+            itemsToAssociate.add(new ItemStack(Item.dyePowder, metaData, stackSize));
         }
 
         if (itemName.equals("wool") || itemName.equals("cloth"))
         {
             // Return whatever color wool was requested.
-            return new ItemStack(Block.cloth, metaData, stackSize);
+            itemsToAssociate.add(new ItemStack(Block.cloth, metaData, stackSize));
+        }
+
+        // Check if we have items to return back after all that work.
+        if (itemsToAssociate.size() > 0)
+        {
+            return itemsToAssociate.toArray(new ItemStack[]{});
         }
 
         // Default response is to return nothing.

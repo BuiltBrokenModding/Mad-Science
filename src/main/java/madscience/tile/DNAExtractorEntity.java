@@ -47,7 +47,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         }
 
         // Check if the item in the input slot will smelt into anything.
-        ItemStack recipeResult = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack[] recipeResult = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
 
         if (recipeResult == null)
         {
@@ -69,7 +69,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
             if (recipeResult != null && this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE) != null)
             {
                 // Check if output stack matches what is being smelted.
-                if (!(this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).itemID == recipeResult.itemID))
+                if (!(this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).itemID == recipeResult[0].itemID))
                 {
                     return false;
                 }
@@ -82,7 +82,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
             }
 
             // Check if input item matches one that is already be output slot 2.
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET) != null && recipeResult != null && !this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).isItemEqual(recipeResult))
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET) != null && recipeResult != null && !this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).isItemEqual(recipeResult[0]))
             {
                 return false;
             }
@@ -93,15 +93,15 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
             // Check if output slot 1 is above item stack limit.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null)
             {
-                int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult.stackSize;
-                outputSlotsFull = (slot1Result <= getInventoryStackLimit() && slot1Result <= recipeResult.getMaxStackSize());
+                int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult[0].stackSize;
+                outputSlotsFull = (slot1Result <= getInventoryStackLimit() && slot1Result <= recipeResult[0].getMaxStackSize());
             }
 
             // Check if output slot 2 is above item stack limit.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE) != null)
             {
-                int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).stackSize + recipeResult.stackSize;
-                outputSlotsFull = (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult.getMaxStackSize());
+                int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).stackSize + recipeResult[0].stackSize;
+                outputSlotsFull = (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult[0].getMaxStackSize());
             }
 
             return outputSlotsFull;
@@ -332,7 +332,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         ItemStack itemOutputSlot1 = new ItemStack(MadNeedles.NEEDLE_DIRTY);
 
         // Output 2 - Extracted DNA sample from needle.
-        ItemStack extractedDNASample = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack[] extractedDNASample = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
 
         // Check if we are a mutant DNA needle.
         if (extractedDNASample == null && this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof NeedleMutant)
@@ -345,11 +345,11 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
             // Add extracted DNA sample output slot 2 on GUI.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE) == null)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_WASTE, extractedDNASample.copy());
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_WASTE, extractedDNASample[0].copy());
             }
-            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).isItemEqual(extractedDNASample))
+            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).isItemEqual(extractedDNASample[0]))
             {
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).stackSize += extractedDNASample.stackSize;
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).stackSize += extractedDNASample[0].stackSize;
             }
         }
 
@@ -390,7 +390,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
                 this.setEntityTexture("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
 
                 // Update animation frame.
-                this.setAnimationCurrentFrame(this.getAnimationCurrentFrame() + 1);
+                this.incrementAnimationCurrentFrame();
             }
             else if (this.getAnimationCurrentFrame() >= 12)
             {

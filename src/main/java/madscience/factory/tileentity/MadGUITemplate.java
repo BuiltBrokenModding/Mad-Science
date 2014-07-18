@@ -257,7 +257,7 @@ public class MadGUITemplate extends GuiContainer
             {
                 int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(guiControl.sizeX());
                 this.drawTexturedModalRect(screenX + guiControl.screenX(), screenY + guiControl.screenY() + guiControl.sizeY() - powerRemianingPercentage, guiControl.fillerX(), guiControl.sizeX() - powerRemianingPercentage, guiControl.sizeY(),
-                        powerRemianingPercentage + 2);
+                        powerRemianingPercentage);
             }
 
             // ------------------

@@ -207,7 +207,7 @@ public class MadTileEntityFactoryProduct
                 String resultInputPrint = "[" + this.data.getMachineName() + "]Crafting Component " + recipeComponent.getModID() + ":" + recipeComponent.getInternalName();
 
                 // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                ItemStack inputItem = MadTileEntityFactory.getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
+                ItemStack[] inputItem = MadTileEntityFactory.getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
 
                 boolean searchResult = false;
                 if (inputItem != null)
@@ -215,7 +215,7 @@ public class MadTileEntityFactoryProduct
                     searchResult = true;
                     totalLoadedRecipeItems++;
                     resultInputPrint += "=SUCCESS";
-                    recipeComponent.associateItemStackToRecipeComponent(inputItem.copy());
+                    recipeComponent.associateItemStackToRecipeComponent(inputItem);
                 }
                 else
                 {
@@ -238,7 +238,10 @@ public class MadTileEntityFactoryProduct
                 }
                 
                 // Third, add to input array the crafting ingredient (we always will want this).
-                craftingInputArray.add(recipeComponent.getItemStack());
+                for (ItemStack craftComponent : recipeComponent.getItemStackArray())
+                {
+                    craftingInputArray.add(craftComponent);
+                }
 
                 // Debugging!
                 if (!searchResult)
@@ -269,18 +272,32 @@ public class MadTileEntityFactoryProduct
                         recipeFinalInput.addAll(craftingInputArray);
                         
                         // Actually add the recipe to Minecraft/Forge.
-                        GameRegistry.addShapedRecipe(new ItemStack(this.getBlockContainer(),
-                                machineCraftingRecipe.getCraftingAmount()),
-                                recipeFinalInput.toArray(new Object[]{}));
+                        try
+                        {
+                            GameRegistry.addShapedRecipe(new ItemStack(this.getBlockContainer(),
+                                    machineCraftingRecipe.getCraftingAmount()),
+                                    recipeFinalInput.toArray(new Object[]{}));
+                        }
+                        catch (Exception err)
+                        {
+                            MadMod.LOGGER.info("[" + this.getMachineName() + "]Unable to load shaped crafting recipe!");
+                        }
                         
                         break;
                     }
                     case SHAPELESS:
                     {              
-                        // Shapeless recipes are a little easier since we only need to pass in the item array.
-                        GameRegistry.addShapelessRecipe(new ItemStack(this.getBlockContainer(),
-                                machineCraftingRecipe.getCraftingAmount()),
-                                craftingInputArray.toArray(new Object[]{}));
+                        try
+                        {
+                            // Shapeless recipes are a little easier since we only need to pass in the item array.
+                            GameRegistry.addShapelessRecipe(new ItemStack(this.getBlockContainer(),
+                                    machineCraftingRecipe.getCraftingAmount()),
+                                    craftingInputArray.toArray(new Object[]{}));
+                        }
+                        catch (Exception err)
+                        {
+                            MadMod.LOGGER.info("[" + this.getMachineName() + "]Unable to load shapeless crafting recipe!");
+                        }
                         
                         break;
                     }
@@ -318,7 +335,7 @@ public class MadTileEntityFactoryProduct
         int totalFailedRecipeItems = 0;
         for (MadRecipe machineRecipe : this.data.getRecipeArchive())
         {
-            // Recipe ingredients.
+            // INPUT: Recipe ingredients.
             for (MadRecipeComponent inputIngredient : machineRecipe.getInputIngredientsArray())
             {
                 if (inputIngredient.getSlotType().name().toLowerCase().contains("input"))
@@ -327,15 +344,15 @@ public class MadTileEntityFactoryProduct
                     String resultInputPrint = "[" + this.data.getMachineName() + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName();
 
                     // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                    ItemStack inputItem = MadTileEntityFactory.getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
+                    ItemStack[] inputItem = MadTileEntityFactory.getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
 
                     boolean searchResult = false;
                     if (inputItem != null)
                     {
                         searchResult = true;
-                        totalLoadedRecipeItems++;
+                        totalLoadedRecipeItems += inputItem.length;
                         resultInputPrint += "=SUCCESS";
-                        inputIngredient.associateItemStackToRecipeComponent(inputItem.copy());
+                        inputIngredient.associateItemStackToRecipeComponent(inputItem);
                     }
                     else
                     {
@@ -356,21 +373,21 @@ public class MadTileEntityFactoryProduct
                 }
             }
 
-            // Recipe results.
+            // OUTPUT: Recipe results.
             for (MadRecipeComponent outputResult : machineRecipe.getOutputResultsArray())
             {
                 if (outputResult.getSlotType().name().toLowerCase().contains("output"))
                 {
                     String resultOutputPrint = "[" + this.data.getMachineName() + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName();
-                    ItemStack outputStack = MadTileEntityFactory.getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
+                    ItemStack[] outputStack = MadTileEntityFactory.getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
 
                     boolean searchResult = false;
                     if (outputStack != null)
                     {
                         searchResult = true;
-                        totalLoadedRecipeItems++;
+                        totalLoadedRecipeItems += outputStack.length;
                         resultOutputPrint += "=SUCCESS";
-                        outputResult.associateItemStackToRecipeComponent(outputStack.copy());
+                        outputResult.associateItemStackToRecipeComponent(outputStack);
                     }
                     else
                     {

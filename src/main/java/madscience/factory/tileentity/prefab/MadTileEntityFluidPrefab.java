@@ -32,29 +32,34 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
         super(registeredMachine);
 
         MadFluid[] supportedFluids = registeredMachine.getFluidsSupported();
-        int i = supportedFluids.length;
-        for (int j = 0; j < i; ++j)
+        
+        // Only create the fluid tank or do work if we have any fluids to support.
+        if (supportedFluids != null)
         {
-            MadFluid currentFluid = supportedFluids[j];
-            if (FluidRegistry.isFluidRegistered(currentFluid.getInternalName()))
+            int i = supportedFluids.length;
+            for (int j = 0; j < i; ++j)
             {
-                // Grab instance of this fluid from the registry so we can fill our tank with it.
-                if (currentFluid.getInternalName().equals(FluidRegistry.WATER.getName()))
+                MadFluid currentFluid = supportedFluids[j];
+                if (FluidRegistry.isFluidRegistered(currentFluid.getInternalName()))
                 {
-                    supportedFluid = FluidRegistry.WATER;
+                    // Grab instance of this fluid from the registry so we can fill our tank with it.
+                    if (currentFluid.getInternalName().equals(FluidRegistry.WATER.getName()))
+                    {
+                        supportedFluid = FluidRegistry.WATER;
+                    }
+                    else if (currentFluid.getInternalName().equals(FluidRegistry.LAVA.getName()))
+                    {
+                        supportedFluid = FluidRegistry.LAVA;
+                    }
+                    else
+                    {
+                        supportedFluid = FluidRegistry.getFluid(currentFluid.getInternalName());                    
+                    }
+    
+                    // Create the tank based on any information we have from machine factory.
+                    // TODO: Only 1 internal tank is allowed to be automatically created at this time.
+                    internalTank = new FluidTank(supportedFluid, currentFluid.getStartingAmount(), currentFluid.getMaximumAmount());
                 }
-                else if (currentFluid.getInternalName().equals(FluidRegistry.LAVA.getName()))
-                {
-                    supportedFluid = FluidRegistry.LAVA;
-                }
-                else
-                {
-                    supportedFluid = FluidRegistry.getFluid(currentFluid.getInternalName());                    
-                }
-
-                // Create the tank based on any information we have from machine factory.
-                // TODO: Only 1 internal tank is allowed to be automatically created at this time.
-                internalTank = new FluidTank(supportedFluid, currentFluid.getStartingAmount(), currentFluid.getMaximumAmount());
             }
         }
     }
@@ -186,11 +191,14 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
 
     public boolean removeFluidAmountByBucket(int numberOfBuckets)
     {
-        int totalBuckets = numberOfBuckets * FluidContainerRegistry.BUCKET_VOLUME;
-        FluidStack amountRemoved = internalTank.drain(totalBuckets, true);
-        if (amountRemoved != null && amountRemoved.amount > 0)
+        if (this.internalTank != null)
         {
-            return true;
+            int totalBuckets = numberOfBuckets * FluidContainerRegistry.BUCKET_VOLUME;
+            FluidStack amountRemoved = internalTank.drain(totalBuckets, true);
+            if (amountRemoved != null && amountRemoved.amount > 0)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -198,10 +206,13 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
     
     public boolean removeFluidAmountExact(int milliBuckets)
     {
-        FluidStack amountRemoved = internalTank.drain(milliBuckets, true);
-        if (amountRemoved != null && amountRemoved.amount > 0)
+        if (this.internalTank != null)
         {
-            return true;
+            FluidStack amountRemoved = internalTank.drain(milliBuckets, true);
+            if (amountRemoved != null && amountRemoved.amount > 0)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -209,12 +220,18 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
 
     public void setFluidAmount(int amount)
     {
-        this.internalTank.setFluid(new FluidStack(supportedFluid, amount));
+        if (this.internalTank != null)
+        {
+            this.internalTank.setFluid(new FluidStack(supportedFluid, amount));
+        }
     }
 
     public void setFluidCapacity(int capacity)
     {
-        this.internalTank.setCapacity(capacity);
+        if (this.internalTank != null)
+        {
+            this.internalTank.setCapacity(capacity);
+        }
     }
 
     @Override
@@ -228,14 +245,20 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
     {
         super.writeToNBT(nbt);
 
-        // Amount of water that is currently stored.
-        nbt.setShort("FluidAmount", (short) this.internalTank.getFluidAmount());
+        if (this.internalTank != null)
+        {
+            // Amount of water that is currently stored.
+            nbt.setShort("FluidAmount", (short) this.internalTank.getFluidAmount());
+    
+            // Total amount of fluid we can store total.
+            nbt.setShort("FluidTotal", (short) this.internalTank.getCapacity());
+        }
 
-        // Total amount of fluid we can store total.
-        nbt.setShort("FluidTotal", (short) this.internalTank.getCapacity());
-
-        // Type of fluid which we need to remember.
-        nbt.setString("FluidType", supportedFluid.getName());
+        if (this.supportedFluid != null)
+        {
+            // Type of fluid which we need to remember.
+            nbt.setString("FluidType", this.supportedFluid.getName());
+        }
     }
 
     @Override

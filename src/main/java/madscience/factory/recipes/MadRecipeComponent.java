@@ -21,15 +21,15 @@ public class MadRecipeComponent
     @Expose private String parentModID;
     
     /** Reference to how much damage this item has or in the case of meta items determines which one it will be. */
-    @Expose private int metaDamage;
+    @Expose private String metaDamage;
     
     /** Determines if this recipe has been recognized by Minecraft/Forge GameRegistry as being valid. */
     private boolean hasLoaded = false;
     
     /** Stores reference to recipe component ItemStack (with metadata). Populated when loadRecipes() is called.*/
-    private ItemStack associatedItemStack = null;
+    private ItemStack[] associatedItemStack = null;
     
-    MadRecipeComponent(MadSlotContainerTypeEnum slotDestination, String parentModID, String internalName, int metaDamage, int amount)
+    MadRecipeComponent(MadSlotContainerTypeEnum slotDestination, String parentModID, String internalName, String metaDamage, int amount)
     {
         super();
         
@@ -60,7 +60,7 @@ public class MadRecipeComponent
         return this.parentModID + ":" + this.slotExpectedItem;
     }
 
-    public int getMetaDamage()
+    public String getMetaDamage()
     {
         return this.metaDamage;
     }
@@ -70,7 +70,7 @@ public class MadRecipeComponent
         return this.hasLoaded;
     }
 
-    public ItemStack getItemStack()
+    public ItemStack[] getItemStackArray()
     {
         if (!this.hasLoaded)
         {
@@ -81,7 +81,7 @@ public class MadRecipeComponent
         return this.associatedItemStack;
     }
 
-    public void associateItemStackToRecipeComponent(ItemStack associatedItemStack)
+    public void associateItemStackToRecipeComponent(ItemStack[] associatedItemStack)
     {
         // Prevent double-loading!
         if (hasLoaded)
@@ -100,7 +100,7 @@ public class MadRecipeComponent
         hasLoaded = true;
         
         // Take a copy of the inputed parameter item for future reference.
-        this.associatedItemStack = associatedItemStack.copy();
+        this.associatedItemStack = associatedItemStack;
     }
 
     public String getModID()

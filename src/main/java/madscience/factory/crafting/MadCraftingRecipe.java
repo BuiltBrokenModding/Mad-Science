@@ -158,7 +158,7 @@ public final class MadCraftingRecipe
             }
 
             // SLOT:MODID:REGENT:DAMAGE(METADATA):AMOUNT
-            MadCraftingComponent regent1 = new MadCraftingComponent(slotNumber, parts[1], parts[2], metaDamage, amount);
+            MadCraftingComponent regent1 = new MadCraftingComponent(slotNumber, parts[1], parts[2], String.valueOf(metaDamage), amount);
             return regent1;
         }
         catch (Exception err)

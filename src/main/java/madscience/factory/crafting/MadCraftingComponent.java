@@ -17,7 +17,7 @@ public class MadCraftingComponent
     @Expose private String parentModID;
     
     /** Reference to how much damage this item has or in the case of meta items determines which one it will be. */
-    @Expose private int metaDamage;
+    @Expose private String metaDamage;
     
     /** Reference to position this item needs to be in the crafting grid to maintain list order. */
     @Expose private int craftingGridPosition;
@@ -26,9 +26,9 @@ public class MadCraftingComponent
     private boolean hasLoaded = false;
     
     /** Stores reference to recipe component ItemStack (with metadata). Populated when loadRecipes() is called.*/
-    private ItemStack associatedItemStack = null;
+    private ItemStack[] associatedItemStack = null;
     
-    MadCraftingComponent(int craftingGridPosition, String parentModID, String internalName, int metaDamage, int amount)
+    MadCraftingComponent(int craftingGridPosition, String parentModID, String internalName, String metaDamage, int amount)
     {
         super();
         
@@ -54,7 +54,7 @@ public class MadCraftingComponent
         return this.parentModID + ":" + this.slotExpectedItem;
     }
 
-    public int getMetaDamage()
+    public String getMetaDamage()
     {
         return this.metaDamage;
     }
@@ -64,7 +64,7 @@ public class MadCraftingComponent
         return this.hasLoaded;
     }
 
-    public ItemStack getItemStack()
+    public ItemStack[] getItemStackArray()
     {
         if (!this.hasLoaded)
         {
@@ -75,7 +75,7 @@ public class MadCraftingComponent
         return this.associatedItemStack;
     }
 
-    public void associateItemStackToRecipeComponent(ItemStack associatedItemStack)
+    public void associateItemStackToRecipeComponent(ItemStack[] associatedItemStack)
     {
         // Prevent double-loading!
         if (hasLoaded)
@@ -94,7 +94,7 @@ public class MadCraftingComponent
         hasLoaded = true;
         
         // Take a copy of the inputed parameter item for future reference.
-        this.associatedItemStack = associatedItemStack.copy();
+        this.associatedItemStack = associatedItemStack;
     }
 
     public String getModID()

@@ -58,9 +58,12 @@ public class MadInputSlot extends Slot
                     }
 
                     // Determine if this recipe result matches anything in ingredient list.
-                    if (recipeResult.getItemStack().getItem().equals(stack.getItem()))
+                    for (ItemStack singleRecipe : recipeResult.getItemStackArray())
                     {
-                        return true;
+                        if (singleRecipe.getItem().equals(stack.getItem()))
+                        {
+                            return true;
+                        }
                     }
                 }
             }

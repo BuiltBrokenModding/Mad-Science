@@ -16,9 +16,6 @@ import madscience.tile.cryofreezer.CryofreezerGUI;
 import madscience.tile.cryotube.CryotubeContainer;
 import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.cryotube.CryotubeGUI;
-import madscience.tile.dataduplicator.DataDuplicatorContainer;
-import madscience.tile.dataduplicator.DataDuplicatorEntity;
-import madscience.tile.dataduplicator.DataDuplicatorGUI;
 import madscience.tile.incubator.IncubatorContainer;
 import madscience.tile.incubator.IncubatorEntity;
 import madscience.tile.incubator.IncubatorGUI;
@@ -115,12 +112,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
         {
             return new ThermosonicBonderGUI(player.inventory, (ThermosonicBonderEntity) tileEntity);
-        }
-
-        // Data Reel Duplicator
-        if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
-        {
-            return new DataDuplicatorGUI(player.inventory, (DataDuplicatorEntity) tileEntity);
         }
 
         // Soniclocator Device
@@ -222,12 +213,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
         {
             return new ThermosonicBonderContainer(player.inventory, (ThermosonicBonderEntity) tileEntity);
-        }
-
-        // Data Reel Duplicator
-        if (ID == MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID)
-        {
-            return new DataDuplicatorContainer(player.inventory, (DataDuplicatorEntity) tileEntity);
         }
 
         // Soniclocator Device

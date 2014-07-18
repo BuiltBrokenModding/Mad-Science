@@ -474,13 +474,6 @@ public class MadConfig
     public static long THERMOSONIC_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
     public static String THERMOSONIC_HELP = "http://madsciencemod.com/minecraft-item/thermosonic-bonder/";
 
-    // Data Reel Duplicator
-    public static int DATADUPLICATOR = MadMod.getNextBlockID();
-    public static long DATADUPLICATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static long DATADUPLICATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long DATADUPLICATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String DATADUPLICATOR_HELP = "http://madsciencemod.com/minecraft-item/data-reel-duplicator/";
-
     // Soniclocator
     public static int SONICLOCATOR = MadMod.getNextBlockID();
     static int SONICLOCATOREGHOST = MadMod.getNextBlockID();

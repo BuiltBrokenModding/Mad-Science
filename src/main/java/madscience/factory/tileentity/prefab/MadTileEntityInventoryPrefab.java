@@ -199,7 +199,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
     }
     
     /** Returns recipe result for a single furnace input based on enumeration slot types. */
-    public ItemStack getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum inputSlot, MadSlotContainerTypeEnum outputSlot)
+    public ItemStack[] getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum inputSlot, MadSlotContainerTypeEnum outputSlot)
     {
         // Grab the ItemStack by the type specified in the given machine slot.
         ItemStack itemInsideInputSlot = this.getStackInSlotByType(inputSlot);
@@ -228,12 +228,15 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
                 }
                 
                 // Determine if input items match.
-                String ingredientUnlocalizedName = recipeIngredient.getItemStack().getUnlocalizedName();
-                String slotItemUnlocalizedName = itemInsideInputSlot.getUnlocalizedName();
-                if (ingredientUnlocalizedName.equals(slotItemUnlocalizedName))
+                for (ItemStack singleRecipe : recipeIngredient.getItemStackArray())
                 {
-                    inputMatches = true;
-                    break;
+                    String ingredientUnlocalizedName = singleRecipe.getUnlocalizedName();
+                    String slotItemUnlocalizedName = itemInsideInputSlot.getUnlocalizedName();
+                    if (ingredientUnlocalizedName.equals(slotItemUnlocalizedName))
+                    {
+                        inputMatches = true;
+                        break;
+                    }
                 }
             }
             
@@ -254,7 +257,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
                     if (recipeResult.getSlotType().equals(outputSlot))
                     {
                         // Should return a loaded reference to ItemStack created with loadRecipes().
-                        return recipeResult.getItemStack().copy();
+                        return recipeResult.getItemStackArray();
                     }
                 }
             }
@@ -280,9 +283,12 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
                 }
                 
                 // Determine if this recipe result matches anything in ingredient list.
-                if (recipeResult.getItemStack().getItem().equals(possibleInputItem.getItem()))
+                for (ItemStack singleItem : recipeResult.getItemStackArray())
                 {
-                    return true;
+                    if (singleItem.getItem().equals(possibleInputItem.getItem()))
+                    {
+                        return true;
+                    }
                 }
             }
         }

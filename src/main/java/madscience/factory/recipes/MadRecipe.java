@@ -59,7 +59,7 @@ public final class MadRecipe
         
         // Only add input ingredients that are not null.
         if (ingredient1Info != null && !ingredient1Info.isEmpty())
-        {
+        {            
             MadRecipeComponent recipeComponent1 = this.parseParametersToComponents(ingredient1Slot, ingredient1Info);
             if (recipeComponent1 != null)
             {
@@ -190,14 +190,16 @@ public final class MadRecipe
             }
             
             // Convert second to last bit to damage or metadata of this item.
-            int metaDamage = 0;
+            String metaDamage = "0";
             if (parts[2] != null && !parts[2].isEmpty())
             {
-                metaDamage = Integer.parseInt(parts[2]);
+                metaDamage = parts[2];
             }
             
             // MODID:REGENT:DAMAGE(METADATA):AMOUNT
-            MadRecipeComponent regent1 = new MadRecipeComponent(slotType, parts[0], parts[1], metaDamage, amount);
+            // Note: '*'(STAR) represents wildcard for names and meta/damage. Ex. "madscience:genome*:*:1" would allow any genome with any damage.
+            String partName = parts[1];
+            MadRecipeComponent regent1 = new MadRecipeComponent(slotType, parts[0], partName, String.valueOf(metaDamage), amount);
             return regent1;
         }
         catch (Exception err)

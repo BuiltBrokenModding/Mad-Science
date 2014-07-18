@@ -10,7 +10,6 @@ import madscience.tile.clayfurnace.ClayfurnacePackets;
 import madscience.tile.cncmachine.CnCMachinePackets;
 import madscience.tile.cryofreezer.CryofreezerPackets;
 import madscience.tile.cryotube.CryotubePackets;
-import madscience.tile.dataduplicator.DataDuplicatorPackets;
 import madscience.tile.incubator.IncubatorPackets;
 import madscience.tile.magloader.MagLoaderPackets;
 import madscience.tile.mainframe.MainframePackets;
@@ -56,9 +55,6 @@ public abstract class MadPackets
 
         // Cryogenic Tube
         builder.put(Integer.valueOf(1), CryotubePackets.class);
-
-        // Data Duplicator
-        builder.put(Integer.valueOf(2), DataDuplicatorPackets.class);
 
         // Mad Tile Entity Packet
         builder.put(Integer.valueOf(3), MadTileEntityPacketTemplate.class);

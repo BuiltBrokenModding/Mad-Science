@@ -72,8 +72,6 @@ import madscience.tile.cryofreezer.CryofreezerEntity;
 import madscience.tile.cryofreezer.CryofreezerRender;
 import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.cryotube.CryotubeRender;
-import madscience.tile.dataduplicator.DataDuplicatorEntity;
-import madscience.tile.dataduplicator.DataDuplicatorRender;
 import madscience.tile.incubator.IncubatorEntity;
 import madscience.tile.incubator.IncubatorRender;
 import madscience.tile.magloader.MagLoaderEntity;
@@ -379,14 +377,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.THERMOSONIC_TILEENTITY.blockID, new ThermosonicBonderRender());
             ClientRegistry.bindTileEntitySpecialRenderer(ThermosonicBonderEntity.class, new ThermosonicBonderRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new ThermosonicBonderRender());
-        }
-
-        // Data Reel Duplicator
-        if (blockID == MadConfig.DATADUPLICATOR)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.DATADUPLICATOR_TILEENTITY.blockID, new DataDuplicatorRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(DataDuplicatorEntity.class, new DataDuplicatorRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new DataDuplicatorRender());
         }
 
         // Soniclocator Device
