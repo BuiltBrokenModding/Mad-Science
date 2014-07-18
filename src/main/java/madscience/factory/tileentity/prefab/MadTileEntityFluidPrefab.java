@@ -39,12 +39,22 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
             if (FluidRegistry.isFluidRegistered(currentFluid.getInternalName()))
             {
                 // Grab instance of this fluid from the registry so we can fill our tank with it.
-                Fluid fluidSupported = FluidRegistry.getFluid(currentFluid.getInternalName());
-                supportedFluid = fluidSupported;
+                if (currentFluid.getInternalName().equals(FluidRegistry.WATER.getName()))
+                {
+                    supportedFluid = FluidRegistry.WATER;
+                }
+                else if (currentFluid.getInternalName().equals(FluidRegistry.LAVA.getName()))
+                {
+                    supportedFluid = FluidRegistry.LAVA;
+                }
+                else
+                {
+                    supportedFluid = FluidRegistry.getFluid(currentFluid.getInternalName());                    
+                }
 
                 // Create the tank based on any information we have from machine factory.
                 // TODO: Only 1 internal tank is allowed to be automatically created at this time.
-                internalTank = new FluidTank(fluidSupported, currentFluid.getStartingAmount(), currentFluid.getMaximumAmount());
+                internalTank = new FluidTank(supportedFluid, currentFluid.getStartingAmount(), currentFluid.getMaximumAmount());
             }
         }
     }

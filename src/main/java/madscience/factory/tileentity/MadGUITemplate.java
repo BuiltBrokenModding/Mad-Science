@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 
-import madscience.MadFluids;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.buttons.MadGUIButton;
@@ -32,6 +31,8 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -57,6 +58,7 @@ public class MadGUITemplate extends GuiContainer
 
     private int PROMPT_REPLY_ACTION = 0;
     private URI displayedURI = null;
+    private Fluid gaugeFluid;
 
     public MadGUITemplate(Container container)
     {
@@ -168,9 +170,20 @@ public class MadGUITemplate extends GuiContainer
     {
         // Variable to keep track of block texture segments.
         int start = 0;
+        
+        // Check if we need to discover the location of tank gauge fluid texture.
+        if (this.ENTITY != null && this.gaugeFluid == null)
+        {
+            FluidTankInfo[] tankInfoArray = this.ENTITY.getTankInfo(ForgeDirection.UNKNOWN);
+            for (FluidTankInfo tankInfo : tankInfoArray)
+            {
+                // TODO: Only one fluid and tank gauge is supported in the factory system!
+                this.gaugeFluid = tankInfo.fluid.getFluid();
+            }
+        }
 
         // Grab the icon of the liquid by looking at fluid properties in internal tank.
-        Icon liquidIcon = MadFluids.LIQUIDDNA_MUTANT.getStillIcon();
+        Icon liquidIcon = this.gaugeFluid.getStillIcon();
 
         // Bind the texture we grabbed so we can use it in rendering.
         Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);

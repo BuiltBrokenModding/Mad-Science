@@ -1,13 +1,9 @@
 package madscience.tile;
 
-import madscience.MadConfig;
-import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.util.MadUtils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -76,7 +72,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
     public boolean isItemValidForSlot(int slot, ItemStack items)
     {
         // Check if machine trying to insert item into given slot is allowed.
-        if (slot == 0)
+        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET))
         {
             // Input slot 1 - water bucket.
             ItemStack compareWaterBucket = new ItemStack(Item.bucketWater);
@@ -85,7 +81,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
                 return true;
             }
         }
-        else if (slot == 1)
+        else if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
         {
             // Input slot 2 - dirty needle.
             ItemStack compareDirtyNeedle = new ItemStack(MadNeedles.NEEDLE_DIRTY);
@@ -183,14 +179,14 @@ public class SanitizerEntity extends MadTileEntityPrefab
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
+            // Checks to see if we can add a bucket from input slot into internal tank.
+            this.addBucketToInternalTank();
+            
             // Update block animation and model.
             this.updateAnimation();
 
             // Play sound while we are cleaning them needles!
             this.updateSound();
-
-            // Checks to see if we can add a bucket from input slot into internal tank.
-            this.addBucketToInternalTank();
 
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
@@ -223,6 +219,9 @@ public class SanitizerEntity extends MadTileEntityPrefab
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
+            
+            // Send update to clients that require it.
+            this.sendUpdatePacket();
         }
 
         if (inventoriesChanged)
@@ -275,13 +274,16 @@ public class SanitizerEntity extends MadTileEntityPrefab
         }
 
         // Add a bucket's worth of water into the internal tank.
-        this.addFluidAmountByBucket(1);
-
-        // Remove a filled bucket of water from input stack 1.
-        --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize;
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize <= 0)
+        if (this.addFluidAmountByBucket(1))
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET, null);
+            // Remove a filled bucket of water from input stack 1.
+            --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize;
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize <= 0)
+            {
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET, null);
+            }
+            
+            return true;
         }
 
         return false;
@@ -297,5 +299,11 @@ public class SanitizerEntity extends MadTileEntityPrefab
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
+    }
+
+    @Override
+    public void initiate()
+    {
+        super.initiate();
     }
 }

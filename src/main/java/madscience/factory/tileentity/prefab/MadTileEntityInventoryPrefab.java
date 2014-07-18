@@ -100,6 +100,26 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
         }
         return null;
     }
+    
+    /** Returns the total number of slots marked as input. */
+    public int getInputSlotCount()
+    {
+        // Grab a list of all container values from enumeration.
+        MadSlotContainer[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
+        int i = containerSlots.length;
+        
+        // Count the number of times we see input in the enumeration for slot type.
+        int inputSlots = 0;
+        for (MadSlotContainer slotContainer : containerSlots)
+        {
+            if (slotContainer.getSlotType().name().toLowerCase().contains("input"))
+            {
+                inputSlots++;
+            }
+        }
+        
+        return inputSlots;
+    }
 
     /** Returns an array containing the indices of the slots that can be accessed by automation on the given side of this block. */
     @Override
@@ -287,6 +307,29 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
             {
                 // Return the item from the inventory based on this slot type.
                 return this.INVENTORY[currentSlot.slot()];
+            }
+        }
+        
+        // Default response is to return nothing.
+        return null;
+    }
+    
+    /** Returns enumeration type for a given container slot ID. 
+     *  Returns null of no type is associated with the given slot, meaning it would be player inventory or hotbar. */
+    public MadSlotContainerTypeEnum getSlotTypeBySlotID(int slotID)
+    {
+        MadTileEntityFactoryProduct currentMachine = this.getRegisteredMachine();
+        if (currentMachine == null)
+        {
+            return null;
+        }
+        
+        for (MadSlotContainer currentSlot : currentMachine.getContainerTemplate()) 
+        {
+            if (currentSlot.slot() == slotID)
+            {
+                // Return the type of this container slot.
+                return currentSlot.getSlotType();
             }
         }
         
