@@ -283,16 +283,10 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
     }
 
-    public float getHeatAmount()
+    public float getHeatLevel()
     {
         // Returns current level of heat stored inside of the machine.
         return currentHeatValue;
-    }
-
-    int getHeatLevelTimeScaled(int pxl)
-    {
-        // Returns scaled percentage of heat level used in GUI to show temperature.
-        return (int) (this.getHeatAmount() * (pxl / this.getMaxHeatAmount()));
     }
 
     /** Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't this more of a set than a get?* */

@@ -405,7 +405,6 @@ public class MadForgeMod
         MadFurnaces.createGeneIncubatorTileEntity(MadConfig.INCUBATOR);
         MadFurnaces.createCryotubeTileEntity(MadConfig.CRYOTUBE);
         MadFurnaces.createCryotubeGhostTileEntity(MadConfig.CRYOTUBEGHOST);
-        MadFurnaces.createThermosonicBonderTileEntity(MadConfig.THERMOSONIC);
         MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
         MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
         MadFurnaces.createClayFurnaceTileEntity(MadConfig.CLAYFURNACE);

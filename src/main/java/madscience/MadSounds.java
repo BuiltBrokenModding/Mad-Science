@@ -19,7 +19,6 @@ import madscience.tile.mainframe.MainframeSounds;
 import madscience.tile.meatcube.MeatcubeSounds;
 import madscience.tile.sequencer.SequencerSounds;
 import madscience.tile.soniclocator.SoniclocatorSounds;
-import madscience.tile.thermosonicbonder.ThermosonicBonderSounds;
 import madscience.tile.voxbox.VoxBoxSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -95,9 +94,6 @@ public class MadSounds
 
         // Cryogenic Tube
         CryotubeSounds.init(event);
-
-        // Thermosonic Bonder
-        ThermosonicBonderSounds.init(event);
 
         // Soniclocator Device
         SoniclocatorSounds.init(event);

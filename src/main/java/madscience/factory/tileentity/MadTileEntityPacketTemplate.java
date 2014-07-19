@@ -29,9 +29,14 @@ public class MadTileEntityPacketTemplate extends MadPackets
     private long lastEnergy;
     private long lastEnergyMaximum;
 
-    // Amount of stored mutant DNA.
+    // Amount of stored fluid.
     private int lastFluidLevel;
     private int lastFluidMaximum;
+    
+    // Heat.
+    private int lastHeatValue;
+    private int lastHeatTriggerValue;
+    private int lastHeatMaximum;
 
     // Last displayed texture.
     private String lastTexture;
@@ -41,7 +46,20 @@ public class MadTileEntityPacketTemplate extends MadPackets
         // Required for reflection.
     }
 
-    public MadTileEntityPacketTemplate(int posX, int posY, int posZ, int cookTime, int cookTimeMax, long energyStored, long energyMax, int mutantDNALevel, int mutantDNAMaximum, String tileTexture) // NO_UCD (use default)
+    public MadTileEntityPacketTemplate(
+            int posX,
+            int posY,
+            int posZ,
+            int cookTime,
+            int cookTimeMax,
+            long energyStored,
+            long energyMax,
+            int fluidValue,
+            int fluidMaximum,
+            int heatValue,
+            int heatTriggerValue,
+            int heatMaximum,
+            String tileTexture) // NO_UCD (use default)
     {
         // World position information.
         tilePosX = posX;
@@ -56,9 +74,14 @@ public class MadTileEntityPacketTemplate extends MadPackets
         lastEnergy = energyStored;
         lastEnergyMaximum = energyMax;
 
-        // Amount of stored mutant DNA.
-        lastFluidLevel = mutantDNALevel;
-        lastFluidMaximum = mutantDNAMaximum;
+        // Amount of stored fluid.
+        lastFluidLevel = fluidValue;
+        lastFluidMaximum = fluidMaximum;
+        
+        // Heat.
+        lastHeatValue = heatValue;
+        lastHeatTriggerValue = heatTriggerValue;
+        lastHeatMaximum = heatMaximum;
 
         // Last displayed texture.
         lastTexture = tileTexture;
@@ -92,6 +115,11 @@ public class MadTileEntityPacketTemplate extends MadPackets
             // Energy.
             this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastEnergy);
             this.ENTITY.setEnergyCapacity(lastEnergyMaximum);
+            
+            // Heat.
+            this.ENTITY.setHeatLevelValue(lastHeatValue);
+            this.ENTITY.setHeatLevelTriggerValue(lastHeatTriggerValue);
+            this.ENTITY.setHeatLevelMaximum(lastHeatMaximum);
 
             // Fluid amount.
             this.ENTITY.setFluidAmount(lastFluidLevel);
@@ -125,8 +153,13 @@ public class MadTileEntityPacketTemplate extends MadPackets
         // Stores last known amount of energy this block was known to have.
         this.lastEnergy = in.readLong();
         this.lastEnergyMaximum = in.readLong();
+        
+        // Heat.
+        this.lastHeatValue = in.readInt();
+        this.lastHeatTriggerValue = in.readInt();
+        this.lastHeatMaximum = in.readInt();
 
-        // Amount of stored mutant DNA.
+        // Amount of stored fluid.
         this.lastFluidLevel = in.readInt();
         this.lastFluidMaximum = in.readInt();
 
@@ -153,8 +186,13 @@ public class MadTileEntityPacketTemplate extends MadPackets
         // Stores last known amount of energy this block was known to have.
         out.writeLong(lastEnergy);
         out.writeLong(lastEnergyMaximum);
+        
+        // Heat.
+        out.writeInt(lastHeatValue);
+        out.writeInt(lastHeatTriggerValue);
+        out.writeInt(lastHeatMaximum);
 
-        // Amount of stored mutant DNA.
+        // Amount of stored fluid.
         out.writeInt(lastFluidLevel);
         out.writeInt(lastFluidMaximum);
 

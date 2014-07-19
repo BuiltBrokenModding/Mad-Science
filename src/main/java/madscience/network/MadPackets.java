@@ -16,7 +16,6 @@ import madscience.tile.mainframe.MainframePackets;
 import madscience.tile.meatcube.MeatcubePackets;
 import madscience.tile.sequencer.SequencerPackets;
 import madscience.tile.soniclocator.SoniclocatorPackets;
-import madscience.tile.thermosonicbonder.ThermosonicBonderPackets;
 import madscience.tile.voxbox.VoxBoxPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
@@ -70,9 +69,6 @@ public abstract class MadPackets
 
         // Genetic Sequencer
         builder.put(Integer.valueOf(8), SequencerPackets.class);
-
-        // Thermosonic Bonder
-        builder.put(Integer.valueOf(9), ThermosonicBonderPackets.class);
 
         // Soniclocator Device
         builder.put(Integer.valueOf(10), SoniclocatorPackets.class);

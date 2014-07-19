@@ -66,6 +66,11 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
 
     public boolean addFluidAmountByBucket(int numberOfBuckets)
     {
+        if (this.internalTank == null)
+        {
+            return false;
+        }
+        
         int total = numberOfBuckets * FluidContainerRegistry.BUCKET_VOLUME;
         int acceptedAmount = this.internalTank.fill(new FluidStack(supportedFluid, total), true);
 
@@ -80,18 +85,33 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid)
     {
+        if (this.internalTank == null)
+        {
+            return false;
+        }
+        
         return false;
     }
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid)
     {
+        if (this.internalTank == null)
+        {
+            return false;
+        }
+        
         return false;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain)
     {
+        if (this.internalTank == null)
+        {
+            return null;
+        }
+        
         if (resource == null || !resource.isFluidEqual(internalTank.getFluid()))
         {
             return null;
@@ -103,13 +123,23 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
     @Override
     public FluidStack drain(ForgeDirection from, int maxEmpty, boolean doDrain)
     {
+        if (this.internalTank == null)
+        {
+            return null;
+        }
+        
         return internalTank.drain(maxEmpty, doDrain);
     }
 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
     {
-        return 0;
+        if (this.internalTank == null)
+        {
+            return 0;
+        }
+        
+        return internalTank.fill(resource, doFill);
     }
 
     public int getFluidAmount()
@@ -134,23 +164,43 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
 
     public String getFluidLocalizedName()
     {
+        if (this.internalTank == null)
+        {
+            return null;
+        }
+        
         return this.internalTank.getFluid().getFluid().getLocalizedName();
     }
 
     @SideOnly(Side.CLIENT)
     public int getFluidRemainingScaled(int pixels)
     {
+        if (this.internalTank == null)
+        {
+            return 0;
+        }
+        
         return internalTank.getFluid() != null ? (int) (((float) internalTank.getFluid().amount / (float) (internalTank.getCapacity())) * pixels) : 0;
     }
 
     public FluidStack getFluidStack()
     {
+        if (this.internalTank == null)
+        {
+            return null;
+        }
+        
         return this.internalTank.getFluid();
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from)
     {
+        if (this.internalTank == null)
+        {
+            return null;
+        }
+        
         return new FluidTankInfo[]
         { internalTank.getInfo() };
     }

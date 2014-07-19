@@ -208,7 +208,7 @@ public class MadGUITemplate extends GuiContainer
                 percentLeft = 0;
             }
 
-            // Draw mutant DNA tank with proper offset.
+            // Draw fluid tank with proper offset.
             drawTexturedModelRectFromIcon(screenX + control.screenX(), screenY + control.screenY() + control.sizeY() - x - start, liquidIcon, control.sizeX(), control.sizeX() - (control.sizeX() - x));
 
             start = start + control.sizeX();
@@ -269,12 +269,21 @@ public class MadGUITemplate extends GuiContainer
                 this.drawTexturedModalRect(screenX + guiControl.screenX(), screenY + guiControl.screenY(), guiControl.fillerX(), guiControl.fillerY(), powerCookPercentage + 1, guiControl.sizeY());
             }
 
-            // ------------
-            // PROGRESS BAR
-            // ------------
+            // ----------
+            // TANK GAUGE
+            // ----------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
             {
                 displayGauge(screenX, screenY, guiControl, this.ENTITY.getFluidRemainingScaled(guiControl.sizeY()));
+            }
+            
+            // ----------
+            // HEAT LEVEL
+            // ----------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGauge))
+            {
+                int heatLevelPercentage = this.ENTITY.getHeatLevelTimeScaled(guiControl.sizeY());
+                drawTexturedModalRect(screenX + guiControl.screenX(), screenY + guiControl.screenY(), guiControl.fillerX(), guiControl.fillerY(), guiControl.sizeX(), guiControl.sizeY() - heatLevelPercentage);
             }
         }
     }
@@ -320,7 +329,8 @@ public class MadGUITemplate extends GuiContainer
                 if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
                 {
                     String powerLevelLiteral = String.valueOf(this.ENTITY.getEnergy(ForgeDirection.UNKNOWN)) + "/" + String.valueOf(this.ENTITY.getEnergyCapacity(ForgeDirection.UNKNOWN));
-                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Energy " + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
+                    String powerLevelLocalized = StatCollector.translateToLocal("tooltip.energy") + " "; 
+                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, powerLevelLocalized + String.valueOf(this.ENTITY.getPowerRemainingScaled(100)) + " %", powerLevelLiteral);
                 }
             }
 
@@ -329,20 +339,32 @@ public class MadGUITemplate extends GuiContainer
             {
                 if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
                 {
-                    String powerLevelLiteral = String.valueOf(this.ENTITY.getProgressValue()) + "/" + String.valueOf(this.ENTITY.getProgressMaximum());
-                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, "Progress " + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %", powerLevelLiteral);
+                    String cookingProgressLiteral = String.valueOf(this.ENTITY.getProgressValue()) + "/" + String.valueOf(this.ENTITY.getProgressMaximum());
+                    String cookingLevelLocalized = StatCollector.translateToLocal("tooltip.progress") + " ";
+                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, cookingLevelLocalized + String.valueOf(this.ENTITY.getItemCookTimeScaled(100)) + " %", cookingProgressLiteral);
                 }
             }
 
             // Tank fluid level information.
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.TankGauge))
             {
-                if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY) && this.ENTITY.getFluidStack() != null)
+                if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
                 {
                     if (this.ENTITY.getFluidStack() != null)
                     {
                         this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, this.ENTITY.getFluidLocalizedName(), this.ENTITY.getFluidAmount() + " L");
                     }
+                }
+            }
+            
+            // Heat level information.
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGauge))
+            {
+                if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
+                {
+                    String heatLevelLiteral = String.valueOf(this.ENTITY.getHeatLevelValue()) + "/" + String.valueOf(this.ENTITY.getHeatLevelMaximum());
+                    String heatLevelLocalized = StatCollector.translateToLocal("tooltip.heat") + " ";
+                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, heatLevelLocalized + String.valueOf(this.ENTITY.getHeatLevelTimeScaled(100)) + " %", heatLevelLiteral);
                 }
             }
         }

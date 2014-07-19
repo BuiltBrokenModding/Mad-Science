@@ -19,9 +19,11 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
 {
     /** Interface from UE team that handles many of the common energy requirements. */
     protected EnergyStorageHandler energy;
-    
-    
+
+    /** Amount of energy this machine requires per tick to operate. */
     private long energyConsumeRate = 0;
+    
+    /** Amount of energy this machine is capable of producing per tick. */
     private long energyProduceRate = 0;
 
     public MadTileEntityEnergyPrefab()

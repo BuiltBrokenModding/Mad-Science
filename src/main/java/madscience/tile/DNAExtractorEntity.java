@@ -47,7 +47,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         }
 
         // Check if the item in the input slot will smelt into anything.
-        ItemStack[] recipeResult = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1});
 
         if (recipeResult == null)
         {
@@ -332,7 +332,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         ItemStack itemOutputSlot1 = new ItemStack(MadNeedles.NEEDLE_DIRTY);
 
         // Output 2 - Extracted DNA sample from needle.
-        ItemStack[] extractedDNASample = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack[] extractedDNASample = this.getRecipeResult(new MadSlotContainerTypeEnum[]{MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1});
 
         // Check if we are a mutant DNA needle.
         if (extractedDNASample == null && this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof NeedleMutant)

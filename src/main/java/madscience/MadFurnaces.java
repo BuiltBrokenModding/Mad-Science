@@ -32,9 +32,6 @@ import madscience.tile.sequencer.SequencerEntity;
 import madscience.tile.soniclocator.SoniclocatorBlock;
 import madscience.tile.soniclocator.SoniclocatorBlockGhost;
 import madscience.tile.soniclocator.SoniclocatorEntity;
-import madscience.tile.thermosonicbonder.ThermosonicBonderBlock;
-import madscience.tile.thermosonicbonder.ThermosonicBonderEntity;
-import madscience.tile.thermosonicbonder.ThermosonicBonderRecipes;
 import madscience.tile.voxbox.VoxBoxBlock;
 import madscience.tile.voxbox.VoxBoxEntity;
 import net.minecraft.block.Block;
@@ -72,10 +69,6 @@ public class MadFurnaces
     // Cryogenic Tube 'Ghost Block'
     public static Block CRYOTUBEGHOST;
     private static final String CRYOTUBEGHOST_INTERNALNAME = "ghostCryoTube";
-
-    // Thermosonic Bonder
-    public static BlockContainer THERMOSONIC_TILEENTITY;
-    public static final String THERMOSONIC_INTERNALNAME = "thermosonicBonder";
 
     // Soniclocator Device
     public static BlockContainer SONICLOCATOR_TILEENTITY;
@@ -323,60 +316,6 @@ public class MadFurnaces
         '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
         '5', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
         });
-    }
-
-    static void createThermosonicBonderTileEntity(int blockID)
-    {
-        MadMod.LOGGER.info("-Thermosonic Bonder Tile Entity");
-        
-        // Creates silicon wafers, transistors, CPU's, and RAM chips.
-        THERMOSONIC_TILEENTITY = (BlockContainer) new ThermosonicBonderBlock(blockID).setUnlocalizedName(THERMOSONIC_INTERNALNAME);
-        GameRegistry.registerBlock(THERMOSONIC_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + THERMOSONIC_INTERNALNAME);
-        GameRegistry.registerTileEntity(ThermosonicBonderEntity.class, THERMOSONIC_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-        
-        // Grab the final sacrifice block from our configuration file.
-        ItemStack finalSacrifice = null;
-        try
-        {
-            finalSacrifice = new ItemStack(MadConfig.THERMOSONICBONDER_FINALSACRIFICE, 1, 0);
-        }
-        catch (Exception err)
-        {
-            MadMod.LOGGER.info("Attempted to load a final sacrifice ID for a block that does not exist, learn to config file better user!");
-            MadMod.LOGGER.info("Setting Thermosonic Bonder final sacrifice item back to a beacon just to spite you!");
-            finalSacrifice = new ItemStack(Block.beacon);
-        }
-
-        // Shaped Recipe for Thermosonic Bonder Tile Entity
-        GameRegistry.addRecipe(new ItemStack(MadFurnaces.THERMOSONIC_TILEENTITY, 1), new Object[]
-        { "343", 
-          "353", 
-          "121",
-
-        '1', Block.glowStone,
-        '2', finalSacrifice,
-        '3', Block.blockIron,
-        '4', Block.blockRedstone,
-        '5', Block.blockDiamond });
-
-        // 1x Fused Quartz = 1x Silicon Wafer.
-        ThermosonicBonderRecipes.addSmelting(MadComponents.COMPONENT_FUSEDQUARTZ.itemID,
-                                             new ItemStack(MadComponents.COMPONENT_SILICONWAFER));
-
-        // 1x Silicon Wafer = 16x Transistors.
-        ThermosonicBonderRecipes.addSmelting(MadComponents.COMPONENT_SILICONWAFER.itemID,
-                                             new ItemStack(MadComponents.COMPONENT_TRANSISTOR, 16));
-
-        // 1x Redstone Circuit = 1x CPU.
-        ThermosonicBonderRecipes.addSmelting(MadCircuits.CIRCUIT_REDSTONE.itemID,
-                                             new ItemStack(MadComponents.COMPONENT_CPU));
-
-        // 1x Glowstone Circuit 1x RAM.
-        ThermosonicBonderRecipes.addSmelting(MadCircuits.CIRCUIT_GLOWSTONE.itemID,
-                                             new ItemStack(MadComponents.COMPONENT_RAM));
     }
 
     static void createClayFurnaceTileEntity(int blockID)

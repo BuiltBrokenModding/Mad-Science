@@ -10,6 +10,7 @@ import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
+import madscience.factory.heat.MadHeat;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.recipes.MadRecipe;
@@ -441,17 +442,17 @@ public class MadTileEntityFactoryProduct
             {
                 // Add all the files that makeup this array of random files.
                 // Note: Minecraft will automatically play a random sound if named File1,2,3.
-                for (int x = 1; x < machineSound.getSoundRandomVariance(); x = x++)
+                for (int x = 1; x <= machineSound.getSoundRandomVariance(); x++)
                 {
+                    MadMod.LOGGER.info("[" + this.getMachineName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + "." + machineSound.getSoundExtension() + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
                     soundFileList.add(MadMod.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension());
                 }
-                continue;
             }
             else
             {
                 // Add just the individual sound file.
+                MadMod.LOGGER.info("[" + this.getMachineName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
                 soundFileList.add(MadMod.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithExtension());
-                continue;
             }
         }
 
@@ -509,5 +510,10 @@ public class MadTileEntityFactoryProduct
     public MadModel getModelArchive()
     {
         return data.getModelArchive();
+    }
+
+    public MadHeat[] getHeatLevelsSupported()
+    {
+        return data.getHeatLevelsSupported();
     }
 }

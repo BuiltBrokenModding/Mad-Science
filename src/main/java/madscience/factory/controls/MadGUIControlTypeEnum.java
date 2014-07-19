@@ -2,5 +2,10 @@ package madscience.factory.controls;
 
 public enum MadGUIControlTypeEnum
 {
-    TankGauge, PowerLevelX, PowerLevelY, CookingProgressX, CookingProgressY,
+    TankGauge,
+    PowerLevelX,
+    PowerLevelY,
+    CookingProgressX,
+    CookingProgressY,
+    HeatGauge,
 }

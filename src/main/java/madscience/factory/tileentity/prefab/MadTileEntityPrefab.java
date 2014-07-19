@@ -3,7 +3,6 @@ package madscience.factory.tileentity.prefab;
 import madscience.MadConfig;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.mod.MadMod;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityPacketTemplate;
 import madscience.util.MadUtils;
@@ -11,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public abstract class MadTileEntityPrefab extends MadTileEntityEnergyPrefab
+public abstract class MadTileEntityPrefab extends MadTileEntityHeatPrefab
 {
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
     private int progressMaximum;
@@ -45,7 +44,6 @@ public abstract class MadTileEntityPrefab extends MadTileEntityEnergyPrefab
     public MadTileEntityPrefab(String machineName)
     {
         super();
-        MadMod.LOGGER.info("[PlzConvertMe]" + machineName);
     }
 
     public boolean canSmelt()
@@ -171,8 +169,20 @@ public abstract class MadTileEntityPrefab extends MadTileEntityEnergyPrefab
                 this.zCoord,
                 MadConfig.PACKETSEND_RADIUS,
                 worldObj.provider.dimensionId,
-                new MadTileEntityPacketTemplate(this.xCoord, this.yCoord, this.zCoord, this.getProgressValue(), this.getProgressMaximum(), getEnergy(ForgeDirection.UNKNOWN), getEnergyCapacity(ForgeDirection.UNKNOWN), this.getFluidAmount(), this
-                        .getFluidCapacity(), this.getEntityTexture()).makePacket());
+                new MadTileEntityPacketTemplate(
+                        this.xCoord,
+                        this.yCoord,
+                        this.zCoord,
+                        this.getProgressValue(),
+                        this.getProgressMaximum(),
+                        getEnergy(ForgeDirection.UNKNOWN),
+                        getEnergyCapacity(ForgeDirection.UNKNOWN),
+                        this.getFluidAmount(),
+                        this.getFluidCapacity(),
+                        this.getHeatLevelValue(),
+                        this.getHeatLevelTriggerValue(),
+                        this.getHeatLevelMaximum(),
+                        this.getEntityTexture()).makePacket());
     }
 
     public void smeltItem()

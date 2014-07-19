@@ -34,9 +34,6 @@ import madscience.tile.sequencer.SequencerGUI;
 import madscience.tile.soniclocator.SoniclocatorContainer;
 import madscience.tile.soniclocator.SoniclocatorEntity;
 import madscience.tile.soniclocator.SoniclocatorGUI;
-import madscience.tile.thermosonicbonder.ThermosonicBonderContainer;
-import madscience.tile.thermosonicbonder.ThermosonicBonderEntity;
-import madscience.tile.thermosonicbonder.ThermosonicBonderGUI;
 import madscience.tile.voxbox.VoxBoxContainer;
 import madscience.tile.voxbox.VoxBoxEntity;
 import madscience.tile.voxbox.VoxBoxGUI;
@@ -106,12 +103,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
         {
             return new CryotubeGUI(player.inventory, (CryotubeEntity) tileEntity);
-        }
-
-        // Thermosonic Bonder
-        if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
-        {
-            return new ThermosonicBonderGUI(player.inventory, (ThermosonicBonderEntity) tileEntity);
         }
 
         // Soniclocator Device
@@ -207,12 +198,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
         {
             return new CryotubeContainer(player.inventory, (CryotubeEntity) tileEntity);
-        }
-
-        // Thermosonic Bonder
-        if (ID == MadFurnaces.THERMOSONIC_TILEENTITY.blockID)
-        {
-            return new ThermosonicBonderContainer(player.inventory, (ThermosonicBonderEntity) tileEntity);
         }
 
         // Soniclocator Device

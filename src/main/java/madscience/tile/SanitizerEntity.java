@@ -36,7 +36,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
         }
         
         // Check if input slot 2 is a dirty needle stack.
-        ItemStack[] recipeResult = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1});
         if (recipeResult == null)
         {
             // Input slot 2 was not a dirty needle.
@@ -107,7 +107,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
         if (this.canSmelt())
         {
             // Output 2 - Cleaned needle that used to be dirty input slot 2.
-            ItemStack[] recipeResult = this.getSingleFurnaceResultBySlot(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+            ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1});
 
             // Add cleaned needle to output slot 1 GUI.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)

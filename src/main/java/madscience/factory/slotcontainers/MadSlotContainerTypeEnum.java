@@ -1,5 +1,6 @@
 package madscience.factory.slotcontainers;
 
+//NOTE: Many parts of the code depend on this enumeration containing the phrase 'input' or 'output' in order to differentiate between slot types.
 public enum MadSlotContainerTypeEnum
 {
     INPUT_INGREDIENT1,          // NO_UCD (unused code)

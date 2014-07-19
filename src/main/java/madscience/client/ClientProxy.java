@@ -84,8 +84,6 @@ import madscience.tile.sequencer.SequencerEntity;
 import madscience.tile.sequencer.SequencerRender;
 import madscience.tile.soniclocator.SoniclocatorEntity;
 import madscience.tile.soniclocator.SoniclocatorRender;
-import madscience.tile.thermosonicbonder.ThermosonicBonderEntity;
-import madscience.tile.thermosonicbonder.ThermosonicBonderRender;
 import madscience.tile.voxbox.VoxBoxEntity;
 import madscience.tile.voxbox.VoxBoxRender;
 import madscience.util.MadUtils;
@@ -369,14 +367,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.CRYOTUBE_TILEENTITY.blockID, new CryotubeRender());
             ClientRegistry.bindTileEntitySpecialRenderer(CryotubeEntity.class, new CryotubeRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new CryotubeRender());
-        }
-
-        // Thermosonic Bonder
-        if (blockID == MadConfig.THERMOSONIC)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.THERMOSONIC_TILEENTITY.blockID, new ThermosonicBonderRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(ThermosonicBonderEntity.class, new ThermosonicBonderRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new ThermosonicBonderRender());
         }
 
         // Soniclocator Device

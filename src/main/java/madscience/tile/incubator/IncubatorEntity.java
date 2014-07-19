@@ -244,16 +244,10 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
     }
 
-    public float getHeatAmount()
+    public float getHeatLevel()
     {
         // Returns current level of heat stored inside of the machine.
         return currentHeatValue;
-    }
-
-    int getHeatLevelTimeScaled(int pxl)
-    {
-        // Returns scaled percentage of heat level used in GUI to show temperature.
-        return (int) (this.getHeatAmount() * (pxl / this.getMaxHeatAmount()));
     }
 
     /** Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't this more of a set than a get?* */
@@ -362,14 +356,14 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
     public boolean isHeated()
     {
         // Returns true if the heater has reached it's optimal temperature.
-        return this.getHeatAmount() >= this.getMaxHeatAmount();
+        return this.getHeatLevel() >= this.getMaxHeatAmount();
     }
 
     private boolean isHeatedEnough()
     {
         // Check if heat levels are at proper values for cooking.
         // Note: 780 is approximate number when heater fills line on GUI with flame.
-        if (this.getHeatAmount() > 780)
+        if (this.getHeatLevel() > 780)
         {
             return true;
         }
@@ -594,7 +588,7 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Remove heat from this object all the time if it has any.
-        if (this.getHeatAmount() > 0)
+        if (this.getHeatLevel() > 0)
         {
             // Does not remove heat constantly but instead every five ticks.
             if (worldObj.getWorldTime() % 5L == 0L)

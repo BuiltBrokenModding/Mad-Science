@@ -467,13 +467,6 @@ public class MadConfig
     public static long CRYOTUBE_PRODUCE = 1407000L;
     public static String CRYOTUBE_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-tube/";
 
-    // Thermosonic Bonder
-    public static int THERMOSONIC = MadMod.getNextBlockID();
-    public static long THERMOSONIC_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static long THERMOSONIC_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long THERMOSONIC_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String THERMOSONIC_HELP = "http://madsciencemod.com/minecraft-item/thermosonic-bonder/";
-
     // Soniclocator
     public static int SONICLOCATOR = MadMod.getNextBlockID();
     static int SONICLOCATOREGHOST = MadMod.getNextBlockID();

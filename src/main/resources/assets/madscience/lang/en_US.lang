@@ -9,6 +9,9 @@ noshift.tooltip=Hold SHIFT for more information.
 tile.inputslot.tooltip=Input
 tile.outputslot.tooltip=Output
 button.help=Help
+tooltip.energy=Energy
+tooltip.heat=Heat
+tooltip.progress=Progress
 
 # Tile Entities
 tile.dnaExtractor.name=DNA Extractor

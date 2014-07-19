@@ -250,19 +250,19 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
             // Running computer generates heat with excess energy it wastes.
             if (!this.isHeated() && worldObj.getWorldTime() % 5L == 0L)
             {
-                if (this.getHeatAmount() <= this.getMaxHeatAmount() && !this.isOptimalHeatAmount())
+                if (this.getHeatLevel() <= this.getMaxHeatAmount() && !this.isOptimalHeatAmount())
                 {
                     // Raise heat randomly from zero to five if we are not at
                     // optimal temperature.
                     this.setHeatLevel(currentHeatValue += randomNumberGenny.nextInt(10));
                 }
-                else if (this.getHeatAmount() <= this.getMaxHeatAmount() && this.isOptimalHeatAmount() && internalWaterTank != null && internalWaterTank.getFluidAmount() > FluidContainerRegistry.BUCKET_VOLUME)
+                else if (this.getHeatLevel() <= this.getMaxHeatAmount() && this.isOptimalHeatAmount() && internalWaterTank != null && internalWaterTank.getFluidAmount() > FluidContainerRegistry.BUCKET_VOLUME)
                 {
                     // Computer has reached operating temperature and has water
                     // to keep it cool.
                     this.setHeatLevel(currentHeatValue += randomNumberGenny.nextInt(2));
                 }
-                else if (this.getHeatAmount() <= this.getMaxHeatAmount() && internalWaterTank != null && internalWaterTank.getFluidAmount() <= FluidContainerRegistry.BUCKET_VOLUME)
+                else if (this.getHeatLevel() <= this.getMaxHeatAmount() && internalWaterTank != null && internalWaterTank.getFluidAmount() <= FluidContainerRegistry.BUCKET_VOLUME)
                 {
                     // Computer is running but has no water to keep it cool.
                     this.setHeatLevel(currentHeatValue += randomNumberGenny.nextInt(5));
@@ -273,7 +273,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
         // Water acts as coolant to keep running computer components cooled.
         if (!this.isHeated() && internalWaterTank != null && internalWaterTank.getFluidAmount() > 0 && worldObj.getWorldTime() % 16L == 0L && this.isPowered() && this.isRedstonePowered())
         {
-            if (this.getHeatAmount() <= this.getMaxHeatAmount() && this.getHeatAmount() > 0)
+            if (this.getHeatLevel() <= this.getMaxHeatAmount() && this.getHeatLevel() > 0)
             {
                 // Some of the water evaporates in the process of cooling off
                 // the computer.
@@ -281,16 +281,16 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
                 // hotter it gets
                 // the faster it will consume water up to rate of one bucket
                 // every few ticks.
-                if (internalWaterTank.getFluidAmount() >= this.getHeatAmount())
+                if (internalWaterTank.getFluidAmount() >= this.getHeatLevel())
                 {
                     // The overall heat levels of the computer drop so long as
                     // there is water though.
-                    internalWaterTank.drain((int) (this.getHeatAmount() / 4), true);
+                    internalWaterTank.drain((int) (this.getHeatLevel() / 4), true);
                     this.setHeatLevel(--this.currentHeatValue);
                 }
             }
         }
-        else if (worldObj.getWorldTime() % 8L == 0L && this.getHeatAmount() > 0)
+        else if (worldObj.getWorldTime() % 8L == 0L && this.getHeatLevel() > 0)
         {
             // Computer will slowly dissipate heat while powered off but nowhere
             // near as fast with coolant.
@@ -428,17 +428,10 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
         return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
     }
 
-    public float getHeatAmount()
+    public float getHeatLevel()
     {
         // Returns current level of heat stored inside of the machine.
         return currentHeatValue;
-    }
-
-    int getHeatLevelTimeScaled(int pxl)
-    {
-        // Returns scaled percentage of heat level used in GUI to show
-        // temperature.
-        return (int) (this.getHeatAmount() * (pxl / this.getMaxHeatAmount()));
     }
 
     public ItemStack getInputSlot_GenomeReel1()
@@ -669,7 +662,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
     private boolean isHeated()
     {
         // Returns true if the heater has reached it's optimal temperature.
-        return this.getHeatAmount() >= this.getMaxHeatAmount();
+        return this.getHeatLevel() >= this.getMaxHeatAmount();
     }
 
     @Override
@@ -708,7 +701,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
     private boolean isOptimalHeatAmount()
     {
         // Check if heat levels are at optimal range for operations.
-        if (this.getHeatAmount() >= 420)
+        if (this.getHeatLevel() >= 420)
         {
             return true;
         }
@@ -737,7 +730,7 @@ public class MainframeEntity extends MadTileEntityPrefab implements ISidedInvent
         // Check if heat levels are at proper values for cooking.
         // Note: 780 is approximate number when heater fills line on GUI with
         // flame.
-        if (this.getHeatAmount() > 780)
+        if (this.getHeatLevel() > 780)
         {
             return true;
         }

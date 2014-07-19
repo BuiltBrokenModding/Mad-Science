@@ -5,6 +5,7 @@ import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
+import madscience.factory.heat.MadHeat;
 import madscience.factory.model.MadModel;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainer;
@@ -60,6 +61,9 @@ public class MadTileEntityFactoryProductData
     @Expose
     private MadModel modelArchive;
     
+    @Expose
+    private MadHeat[] heatLevelsSupported;
+    
     public MadTileEntityFactoryProductData( // NO_UCD (unused code)
             String machineName,
             String logicClassNamespace,
@@ -68,6 +72,7 @@ public class MadTileEntityFactoryProductData
             MadGUIButton[] buttonTemplate,
             MadFluid[] fluidsTemplate,
             MadEnergy[] energyTemplate,
+            MadHeat[] heatTemplate,
             MadSound[] soundArchive,
             MadRecipe[] recipeArchive,
             MadCraftingRecipe[] craftingRecipe,
@@ -101,6 +106,9 @@ public class MadTileEntityFactoryProductData
         
         // Model and texture paths.
         this.modelArchive = modelArchive;
+        
+        // Heat level information.
+        this.heatLevelsSupported = heatTemplate;
     }
 
     public String getMachineName()
@@ -221,5 +229,15 @@ public class MadTileEntityFactoryProductData
     public void setModelArchive(MadModel modelRenderArchive)
     {
         this.modelArchive = modelRenderArchive;
+    }
+
+    public MadHeat[] getHeatLevelsSupported()
+    {
+        return heatLevelsSupported;
+    }
+
+    public void setHeatLevelsSupported(MadHeat[] heatLevelsSupported)
+    {
+        this.heatLevelsSupported = heatLevelsSupported;
     }
 }
