@@ -24,6 +24,278 @@
   "idManagerItemIndex": 3840,
   "unregisteredMachines": [
     {
+      "machineName": "dataDuplicator",
+      "logicClassFullyQualifiedName": "madscience.tile.DataDuplicatorEntity",
+      "containerTemplate": [
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "NORTH",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 22,
+          "offsetY": 36,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT1",
+          "slotNumber": 0
+        },
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "EAST",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 54,
+          "offsetY": 36,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT2",
+          "slotNumber": 1
+        },
+        {
+          "extractSide": "SOUTH",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 133,
+          "offsetY": 36,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_RESULT1",
+          "slotNumber": 2
+        }
+      ],
+      "guiControlsTemplate": [
+        {
+          "screenX": 55,
+          "screenY": 54,
+          "fillerX": 176,
+          "fillerY": 0,
+          "sizeX": 14,
+          "sizeY": 14,
+          "controlType": "PowerLevelX"
+        },
+        {
+          "screenX": 78,
+          "screenY": 35,
+          "fillerX": 176,
+          "fillerY": 14,
+          "sizeX": 43,
+          "sizeY": 17,
+          "controlType": "CookingProgressY"
+        }
+      ],
+      "guiButtonTemplate": [
+        {
+          "screenX": 166,
+          "screenY": 4,
+          "fillerX": 9,
+          "fillerY": 32,
+          "sizeX": 6,
+          "sizeY": 5,
+          "tooltipToken": "button.help",
+          "buttonType": "InvisibleButton",
+          "clickAction": "OpenLink",
+          "userData": "http://madsciencemod.com/minecraft-item/data-reel-duplicator/",
+          "buttonID": 0
+        }
+      ],
+      "fluidsSupported": [],
+      "energySupported": [
+        {
+          "energyMaxExtract": 0,
+          "energyMaxRecieve": 200,
+          "energyCapacity": 100000,
+          "consumptionRate": 1,
+          "productionRate": 0
+        }
+      ],
+      "soundArchive": [
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Idle",
+            "soundNameWithExtension": "Idle.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "IDLEON",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "LOOP",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Work",
+            "soundNameWithExtension": "Work.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKING",
+            "soundLengthInSeconds": 2,
+            "soundPlaybackMode": "LOOP",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Start",
+            "soundNameWithExtension": "Start.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKSTART",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Finish",
+            "soundNameWithExtension": "Finish.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKEND",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        }
+      ],
+      "recipeArchive": [
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "item.genome*",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "*"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "item.memoryMonsterPlacer*",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "*"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        }
+      ],
+      "craftingRecipes": [
+        {
+          "craftingRecipeComponents": [
+            {
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 0
+            },
+            {
+              "slotExpectedItem": "componentFan",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 1
+            },
+            {
+              "slotExpectedItem": "dataReelEmpty",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 2
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 3
+            },
+            {
+              "slotExpectedItem": "comparator",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 4
+            },
+            {
+              "slotExpectedItem": "componentCase",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 5
+            },
+            {
+              "slotExpectedItem": "circuitSpiderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 6
+            },
+            {
+              "slotExpectedItem": "componentPowerSupply",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 7
+            },
+            {
+              "slotExpectedItem": "circuitSpiderEye",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0",
+              "craftingGridPosition": 8
+            }
+          ],
+          "craftingRecipeType": "SHAPED",
+          "craftingAmount": 1
+        }
+      ],
+      "modelArchive": {
+        "machineModels": [
+          {
+            "modelPath": "/assets/madscience/models/dataDuplicator/dataDuplicator.mad"
+          }
+        ],
+        "texturePath": "models/dataDuplicator/idle.png"
+      }
+    },
+    {
       "machineName": "dnaExtractor",
       "logicClassFullyQualifiedName": "madscience.tile.DNAExtractorEntity",
       "containerTemplate": [
@@ -1311,278 +1583,6 @@
       }
     },
     {
-      "machineName": "dataDuplicator",
-      "logicClassFullyQualifiedName": "madscience.tile.DataDuplicatorEntity",
-      "containerTemplate": [
-        {
-          "extractSide": "UNKNOWN",
-          "insertSide": "NORTH",
-          "allowExtract": false,
-          "allowInput": true,
-          "offsetX": 22,
-          "offsetY": 36,
-          "sizeX": 18,
-          "sizeY": 18,
-          "slotType": "INPUT_INGREDIENT1",
-          "slotNumber": 0
-        },
-        {
-          "extractSide": "UNKNOWN",
-          "insertSide": "EAST",
-          "allowExtract": false,
-          "allowInput": true,
-          "offsetX": 54,
-          "offsetY": 36,
-          "sizeX": 18,
-          "sizeY": 18,
-          "slotType": "INPUT_INGREDIENT2",
-          "slotNumber": 1
-        },
-        {
-          "extractSide": "SOUTH",
-          "insertSide": "UNKNOWN",
-          "allowExtract": true,
-          "allowInput": false,
-          "offsetX": 133,
-          "offsetY": 36,
-          "sizeX": 18,
-          "sizeY": 18,
-          "slotType": "OUTPUT_RESULT1",
-          "slotNumber": 2
-        }
-      ],
-      "guiControlsTemplate": [
-        {
-          "screenX": 55,
-          "screenY": 54,
-          "fillerX": 176,
-          "fillerY": 0,
-          "sizeX": 14,
-          "sizeY": 14,
-          "controlType": "PowerLevelX"
-        },
-        {
-          "screenX": 78,
-          "screenY": 35,
-          "fillerX": 176,
-          "fillerY": 14,
-          "sizeX": 43,
-          "sizeY": 17,
-          "controlType": "CookingProgressY"
-        }
-      ],
-      "guiButtonTemplate": [
-        {
-          "screenX": 166,
-          "screenY": 4,
-          "fillerX": 9,
-          "fillerY": 32,
-          "sizeX": 6,
-          "sizeY": 5,
-          "tooltipToken": "button.help",
-          "buttonType": "InvisibleButton",
-          "clickAction": "OpenLink",
-          "userData": "http://madsciencemod.com/minecraft-item/data-reel-duplicator/",
-          "buttonID": 0
-        }
-      ],
-      "fluidsSupported": [],
-      "energySupported": [
-        {
-          "energyMaxExtract": 0,
-          "energyMaxRecieve": 200,
-          "energyCapacity": 100000,
-          "consumptionRate": 1,
-          "productionRate": 0
-        }
-      ],
-      "soundArchive": [
-        {
-          "sound": {
-            "soundNameWithoutExtension": "Idle",
-            "soundNameWithExtension": "Idle.ogg",
-            "soundExtension": "ogg",
-            "soundTrigger": "IDLEON",
-            "soundLengthInSeconds": 1,
-            "soundPlaybackMode": "LOOP",
-            "randomVariance": 1
-          }
-        },
-        {
-          "sound": {
-            "soundNameWithoutExtension": "Work",
-            "soundNameWithExtension": "Work.ogg",
-            "soundExtension": "ogg",
-            "soundTrigger": "WORKING",
-            "soundLengthInSeconds": 2,
-            "soundPlaybackMode": "LOOP",
-            "randomVariance": 1
-          }
-        },
-        {
-          "sound": {
-            "soundNameWithoutExtension": "Start",
-            "soundNameWithExtension": "Start.ogg",
-            "soundExtension": "ogg",
-            "soundTrigger": "WORKSTART",
-            "soundLengthInSeconds": 1,
-            "soundPlaybackMode": "PLAY",
-            "randomVariance": 1
-          }
-        },
-        {
-          "sound": {
-            "soundNameWithoutExtension": "Finish",
-            "soundNameWithExtension": "Finish.ogg",
-            "soundExtension": "ogg",
-            "soundTrigger": "WORKEND",
-            "soundLengthInSeconds": 1,
-            "soundPlaybackMode": "PLAY",
-            "randomVariance": 1
-          }
-        }
-      ],
-      "recipeArchive": [
-        {
-          "inputIngredientsArray": [
-            {
-              "slotDestination": "INPUT_INGREDIENT1",
-              "slotExpectedItem": "item.genome*",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "*"
-            },
-            {
-              "slotDestination": "INPUT_INGREDIENT1",
-              "slotExpectedItem": "dataReelEmpty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0"
-            }
-          ],
-          "outputResultsArray": [
-            {
-              "slotDestination": "OUTPUT_RESULT1",
-              "slotExpectedItem": "dataReelEmpty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0"
-            }
-          ],
-          "creationTimeInSeconds": 90,
-          "experienceFromCreation": 0.1
-        },
-        {
-          "inputIngredientsArray": [
-            {
-              "slotDestination": "INPUT_INGREDIENT1",
-              "slotExpectedItem": "item.memoryMonsterPlacer*",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "*"
-            },
-            {
-              "slotDestination": "INPUT_INGREDIENT1",
-              "slotExpectedItem": "dataReelEmpty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0"
-            }
-          ],
-          "outputResultsArray": [
-            {
-              "slotDestination": "OUTPUT_RESULT1",
-              "slotExpectedItem": "dataReelEmpty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0"
-            }
-          ],
-          "creationTimeInSeconds": 90,
-          "experienceFromCreation": 0.1
-        }
-      ],
-      "craftingRecipes": [
-        {
-          "craftingRecipeComponents": [
-            {
-              "slotExpectedItem": "dataReelEmpty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 0
-            },
-            {
-              "slotExpectedItem": "componentFan",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 1
-            },
-            {
-              "slotExpectedItem": "dataReelEmpty",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 2
-            },
-            {
-              "slotExpectedItem": "componentCase",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 3
-            },
-            {
-              "slotExpectedItem": "comparator",
-              "slotExpectedAmount": 1,
-              "parentModID": "minecraft",
-              "metaDamage": "0",
-              "craftingGridPosition": 4
-            },
-            {
-              "slotExpectedItem": "componentCase",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 5
-            },
-            {
-              "slotExpectedItem": "circuitSpiderEye",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 6
-            },
-            {
-              "slotExpectedItem": "componentPowerSupply",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 7
-            },
-            {
-              "slotExpectedItem": "circuitSpiderEye",
-              "slotExpectedAmount": 1,
-              "parentModID": "madscience",
-              "metaDamage": "0",
-              "craftingGridPosition": 8
-            }
-          ],
-          "craftingRecipeType": "SHAPED",
-          "craftingAmount": 1
-        }
-      ],
-      "modelArchive": {
-        "machineModels": [
-          {
-            "modelPath": "/assets/madscience/models/dataDuplicator/dataDuplicator.mad"
-          }
-        ],
-        "texturePath": "models/dataDuplicator/idle.png"
-      }
-    },
-    {
       "machineName": "needleSanitizer",
       "logicClassFullyQualifiedName": "madscience.tile.SanitizerEntity",
       "containerTemplate": [
@@ -1811,6 +1811,363 @@
         ],
         "texturePath": "models/needleSanitizer/idle.png"
       }
+    },
+    {
+      "machineName": "thermosonicBonder",
+      "logicClassFullyQualifiedName": "madscience.tile.ThermosonicBonderEntity",
+      "containerTemplate": [
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "NORTH",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 37,
+          "offsetY": 39,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT1",
+          "slotNumber": 0
+        },
+        {
+          "extractSide": "UNKNOWN",
+          "insertSide": "EAST",
+          "allowExtract": false,
+          "allowInput": true,
+          "offsetX": 69,
+          "offsetY": 39,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "INPUT_INGREDIENT2",
+          "slotNumber": 1
+        },
+        {
+          "extractSide": "SOUTH",
+          "insertSide": "UNKNOWN",
+          "allowExtract": true,
+          "allowInput": false,
+          "offsetX": 140,
+          "offsetY": 39,
+          "sizeX": 18,
+          "sizeY": 18,
+          "slotType": "OUTPUT_RESULT1",
+          "slotNumber": 2
+        }
+      ],
+      "guiControlsTemplate": [
+        {
+          "screenX": 13,
+          "screenY": 15,
+          "fillerX": 176,
+          "fillerY": 31,
+          "sizeX": 18,
+          "sizeY": 40,
+          "controlType": "HeatGauge"
+        },
+        {
+          "screenX": 15,
+          "screenY": 57,
+          "fillerX": 176,
+          "fillerY": 0,
+          "sizeX": 14,
+          "sizeY": 14,
+          "controlType": "PowerLevelX"
+        },
+        {
+          "screenX": 93,
+          "screenY": 38,
+          "fillerX": 176,
+          "fillerY": 14,
+          "sizeX": 36,
+          "sizeY": 17,
+          "controlType": "CookingProgressY"
+        }
+      ],
+      "guiButtonTemplate": [
+        {
+          "screenX": 166,
+          "screenY": 4,
+          "fillerX": 9,
+          "fillerY": 32,
+          "sizeX": 6,
+          "sizeY": 5,
+          "tooltipToken": "button.help",
+          "buttonType": "InvisibleButton",
+          "clickAction": "OpenLink",
+          "userData": "http://madsciencemod.com/minecraft-item/thermosonic-bonder/",
+          "buttonID": 0
+        }
+      ],
+      "fluidsSupported": [],
+      "energySupported": [
+        {
+          "energyMaxExtract": 0,
+          "energyMaxRecieve": 200,
+          "energyCapacity": 100000,
+          "consumptionRate": 1,
+          "productionRate": 0
+        }
+      ],
+      "soundArchive": [
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Idle",
+            "soundNameWithExtension": "Idle.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "IDLEON",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "LOOP",
+            "randomVariance": 3
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "LaserStart",
+            "soundNameWithExtension": "LaserStart.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKSTART",
+            "soundLengthInSeconds": 2,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "LaserStop",
+            "soundNameWithExtension": "LaserStop.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKEND",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "PLAY",
+            "randomVariance": 1
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "LaserWorking",
+            "soundNameWithExtension": "LaserWorking.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKING",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "LOOP",
+            "randomVariance": 2
+          }
+        },
+        {
+          "sound": {
+            "soundNameWithoutExtension": "Stamp",
+            "soundNameWithExtension": "Stamp.ogg",
+            "soundExtension": "ogg",
+            "soundTrigger": "WORKING",
+            "soundLengthInSeconds": 1,
+            "soundPlaybackMode": "RANDOM",
+            "randomVariance": 10
+          }
+        }
+      ],
+      "recipeArchive": [
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "goldNugget",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT2",
+              "slotExpectedItem": "componentFusedQuartz",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "componentSiliconWafer",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "goldNugget",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT2",
+              "slotExpectedItem": "componentSiliconWafer",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "componentTransistor",
+              "slotExpectedAmount": 16,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "goldNugget",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT2",
+              "slotExpectedItem": "circuitRedstone",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "componentCPU",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        },
+        {
+          "inputIngredientsArray": [
+            {
+              "slotDestination": "INPUT_INGREDIENT1",
+              "slotExpectedItem": "goldNugget",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0"
+            },
+            {
+              "slotDestination": "INPUT_INGREDIENT2",
+              "slotExpectedItem": "circuitGlowstone",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "outputResultsArray": [
+            {
+              "slotDestination": "OUTPUT_RESULT1",
+              "slotExpectedItem": "componentRAM",
+              "slotExpectedAmount": 1,
+              "parentModID": "madscience",
+              "metaDamage": "0"
+            }
+          ],
+          "creationTimeInSeconds": 90,
+          "experienceFromCreation": 0.1
+        }
+      ],
+      "craftingRecipes": [
+        {
+          "craftingRecipeComponents": [
+            {
+              "slotExpectedItem": "blockIron",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 0
+            },
+            {
+              "slotExpectedItem": "blockRedstone",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 1
+            },
+            {
+              "slotExpectedItem": "blockIron",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 2
+            },
+            {
+              "slotExpectedItem": "blockIron",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 3
+            },
+            {
+              "slotExpectedItem": "blockDiamond",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 4
+            },
+            {
+              "slotExpectedItem": "blockIron",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 5
+            },
+            {
+              "slotExpectedItem": "lightgem",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 6
+            },
+            {
+              "slotExpectedItem": "beacon",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 7
+            },
+            {
+              "slotExpectedItem": "lightgem",
+              "slotExpectedAmount": 1,
+              "parentModID": "minecraft",
+              "metaDamage": "0",
+              "craftingGridPosition": 8
+            }
+          ],
+          "craftingRecipeType": "SHAPED",
+          "craftingAmount": 1
+        }
+      ],
+      "modelArchive": {
+        "machineModels": [
+          {
+            "modelPath": "/assets/madscience/models/thermosonicBonder/thermosonicBonder.mad"
+          }
+        ],
+        "texturePath": "models/thermosonicBonder/Off.png"
+      },
+      "heatLevelsSupported": [
+        {
+          "heatLevelValue": 0,
+          "heatLevelTriggerValue": 780,
+          "heatLevelMaximumValue": 1000
+        }
+      ]
     }
   ]
 }
