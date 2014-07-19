@@ -2159,7 +2159,7 @@
             "modelPath": "/assets/madscience/models/thermosonicBonder/thermosonicBonder.mad"
           }
         ],
-        "texturePath": "models/thermosonicBonder/Off.png"
+        "texturePath": "models/thermosonicBonder/idle.png"
       },
       "heatLevelsSupported": [
         {

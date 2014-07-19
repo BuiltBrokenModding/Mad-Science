@@ -166,7 +166,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         if (!isRedstonePowered())
         {
             // Turned off.
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/Off.png");
+            this.setEntityTexture("models/" + this.getMachineInternalName() + "/idle.png");
             return;
         }
 
@@ -248,8 +248,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
             {
                 // New item pulled from cooking stack to be processed, check how long this item will take to cook.
-                //this.setProgressMaximum(2600);
-                this.setProgressMaximum(42);
+                this.setProgressMaximum(2600);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.incrementProgressValue();
