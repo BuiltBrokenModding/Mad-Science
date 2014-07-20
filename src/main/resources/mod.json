@@ -491,8 +491,8 @@
         },
         {
           "sound": {
-            "soundNameWithoutExtension": "Work1",
-            "soundNameWithExtension": "Work1.ogg",
+            "soundNameWithoutExtension": "Work",
+            "soundNameWithExtension": "Work.ogg",
             "soundExtension": "ogg",
             "soundTrigger": "WORKING",
             "soundLengthInSeconds": 2,

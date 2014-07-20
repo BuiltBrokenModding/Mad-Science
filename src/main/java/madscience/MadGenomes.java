@@ -21,7 +21,6 @@ import madscience.items.genomes.GenomeVillager;
 import madscience.items.genomes.GenomeWitch;
 import madscience.items.genomes.GenomeWolf;
 import madscience.items.genomes.GenomeZombie;
-import madscience.tile.incubator.IncubatorRecipes;
 import madscience.tile.mainframe.MainframeRecipes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -126,18 +125,12 @@ class MadGenomes
         // Bat Genome Data Reel
         GENOME_BAT = (GenomeBat) new GenomeBat(itemID, 4996656, 986895).setUnlocalizedName(GENOME_BAT_INTERNALNAME);
         GameRegistry.registerItem(GENOME_BAT, GENOME_BAT_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_BAT.itemID, new ItemStack(Item.monsterPlacer, 1, 65));
     }
 
     static void createCaveSpiderGenome(int itemID)
     {
         GENOME_CAVESPIDER = (GenomeCaveSpider) new GenomeCaveSpider(itemID, 803406, 11013646).setUnlocalizedName(GENOME_CAVESPIDER_INTERNALNAME);
         GameRegistry.registerItem(GENOME_CAVESPIDER, GENOME_CAVESPIDER_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_CAVESPIDER.itemID, new ItemStack(Item.monsterPlacer, 1, 59));
     }
 
     static void createChickenGenome(int itemID)
@@ -145,9 +138,6 @@ class MadGenomes
         // Chicken Genome Data Reel
         GENOME_CHICKEN = (GenomeChicken) new GenomeChicken(itemID, 10592673, 16711680).setUnlocalizedName(GENOME_CHICKEN_INTERNALNAME);
         GameRegistry.registerItem(GENOME_CHICKEN, GENOME_CHICKEN_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_CHICKEN.itemID, new ItemStack(Item.monsterPlacer, 1, 93));
     }
 
     static void createCowGenome(int itemID)
@@ -155,9 +145,6 @@ class MadGenomes
         // Cow Genome Data Reel
         GENOME_COW = (GenomeCow) new GenomeCow(itemID, 4470310, 10592673).setUnlocalizedName(GENOME_COW_INTERNALNAME);
         GameRegistry.registerItem(GENOME_COW, GENOME_COW_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_COW.itemID, new ItemStack(Item.monsterPlacer, 1, 92));
     }
 
     static void createCreeperGenome(int itemID)
@@ -165,55 +152,36 @@ class MadGenomes
         // Creeper Genome Data Reel
         GENOME_CREEPER = (GenomeCreeper) new GenomeCreeper(itemID, 894731, 0).setUnlocalizedName(GENOME_CREEPER_INTERNALNAME);
         GameRegistry.registerItem(GENOME_CREEPER, GENOME_CREEPER_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_CREEPER.itemID, new ItemStack(Item.monsterPlacer, 1, 50));
     }
 
     static void createEndermanGenome(int itemID)
     {
         GENOME_ENDERMAN = (GenomeEnderman) new GenomeEnderman(itemID, 1447446, 0).setUnlocalizedName(GENOME_ENDERMAN_INTERNALNAME);
         GameRegistry.registerItem(GENOME_ENDERMAN, GENOME_ENDERMAN_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_ENDERMAN.itemID, new ItemStack(Item.monsterPlacer, 1, 58));
     }
 
     static void createGhastGenome(int itemID)
     {
         GENOME_GHAST = (GenomeGhast) new GenomeGhast(itemID, 16382457, 12369084).setUnlocalizedName(GENOME_GHAST_INTERNALNAME);
         GameRegistry.registerItem(GENOME_GHAST, GENOME_GHAST_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_GHAST.itemID, new ItemStack(Item.monsterPlacer, 1, 56));
     }
 
     static void createHorseGenome(int itemID)
     {
         GENOME_HORSE = (GenomeHorse) new GenomeHorse(itemID, 12623485, 15656192).setUnlocalizedName(GENOME_HORSE_INTERNALNAME);
         GameRegistry.registerItem(GENOME_HORSE, GENOME_HORSE_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_HORSE.itemID, new ItemStack(Item.monsterPlacer, 1, 100));
     }
 
     static void createMushroomCowGenome(int itemID)
     {
         GENOME_MUSHROOMCOW = (GenomeMushroomCow) new GenomeMushroomCow(itemID, 10489616, 12040119).setUnlocalizedName(GENOME_MUSHROOMCOW_INTERNALNAME);
         GameRegistry.registerItem(GENOME_MUSHROOMCOW, GENOME_MUSHROOMCOW_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_MUSHROOMCOW.itemID, new ItemStack(Item.monsterPlacer, 1, 96));
     }
 
     static void createOcelotGenome(int itemID)
     {
         GENOME_OCELOT = (GenomeOcelot) new GenomeOcelot(itemID, 15720061, 5653556).setUnlocalizedName(GENOME_OCELOT_INTERNALNAME);
         GameRegistry.registerItem(GENOME_OCELOT, GENOME_OCELOT_INTERNALNAME);
-        // LanguageRegistry.addName(GENOME_OCELOT, GENOME_OCELOT_DISPLAYNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_OCELOT.itemID, new ItemStack(Item.monsterPlacer, 1, 98));
     }
 
     static void createPigGenome(int itemID)
@@ -221,9 +189,6 @@ class MadGenomes
         // Pig Genome Data Reel
         GENOME_PIG = (GenomePig) new GenomePig(itemID, 15771042, 14377823).setUnlocalizedName(GENOME_PIG_INTERNALNAME);
         GameRegistry.registerItem(GENOME_PIG, GENOME_PIG_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_PIG.itemID, new ItemStack(Item.monsterPlacer, 1, 90));
     }
 
     static void createPigZombieGenome(int itemID)
@@ -234,25 +199,18 @@ class MadGenomes
 
         // Recipes for creating this vanilla mob.
         MainframeRecipes.addRecipe(new ItemStack(GENOME_ZOMBIE), new ItemStack(GENOME_PIG), new ItemStack(GENOME_PIGZOMBIE), 1337);
-        IncubatorRecipes.addSmelting(GENOME_PIGZOMBIE.itemID, new ItemStack(Item.monsterPlacer, 1, 57));
     }
 
     static void createSheepGenome(int itemID)
     {
         GENOME_SHEEP = (GenomeSheep) new GenomeSheep(itemID, 15198183, 16758197).setUnlocalizedName(GENOME_SHEEP_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SHEEP, GENOME_SHEEP_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_SHEEP.itemID, new ItemStack(Item.monsterPlacer, 1, 91));
     }
 
     static void createSkeletonGenome(int itemID)
     {
         GENOME_SKELETON = (GenomeSkeleton) new GenomeSkeleton(itemID, 12698049, 4802889).setUnlocalizedName(GENOME_SKELETON_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SKELETON, GENOME_SKELETON_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_SKELETON.itemID, new ItemStack(Item.monsterPlacer, 1, 51));
     }
 
     static void createSlimeGenome(int itemID)
@@ -260,9 +218,6 @@ class MadGenomes
         // Slime Genome Data Reel
         GENOME_SLIME = (GenomeSlime) new GenomeSlime(itemID, 5349438, 8306542).setUnlocalizedName(GENOME_SLIME_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SLIME, GENOME_SLIME_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_SLIME.itemID, new ItemStack(Item.monsterPlacer, 1, 55));
     }
 
     static void createSpiderGenome(int itemID)
@@ -270,18 +225,12 @@ class MadGenomes
         // Spider Genome Data Reel
         GENOME_SPIDER = (GenomeSpider) new GenomeSpider(itemID, 3419431, 11013646).setUnlocalizedName(GENOME_SPIDER_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SPIDER, GENOME_SPIDER_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_SPIDER.itemID, new ItemStack(Item.monsterPlacer, 1, 52));
     }
 
     static void createSquidGenome(int itemID)
     {
         GENOME_SQUID = (GenomeSquid) new GenomeSquid(itemID, 2243405, 7375001).setUnlocalizedName(GENOME_SQUID_INTERNALNAME);
         GameRegistry.registerItem(GENOME_SQUID, GENOME_SQUID_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_SQUID.itemID, new ItemStack(Item.monsterPlacer, 1, 94));
     }
 
     static void createVillagerGenome(int itemID)
@@ -289,27 +238,18 @@ class MadGenomes
         // Villager Genome Data Reel
         GENOME_VILLAGER = (GenomeVillager) new GenomeVillager(itemID, 5651507, 12422002).setUnlocalizedName(GENOME_VILLAGER_INTERNALNAME);
         GameRegistry.registerItem(GENOME_VILLAGER, GENOME_VILLAGER_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_VILLAGER.itemID, new ItemStack(Item.monsterPlacer, 1, 120));
     }
 
     static void createWitchGenome(int itemID)
     {
         GENOME_WITCH = (GenomeWitch) new GenomeWitch(itemID, 3407872, 5349438).setUnlocalizedName(GENOME_WITCH_INTERNALNAME);
         GameRegistry.registerItem(GENOME_WITCH, GENOME_WITCH_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_WITCH.itemID, new ItemStack(Item.monsterPlacer, 1, 66));
     }
 
     static void createWolfGenome(int itemID)
     {
         GENOME_WOLF = (GenomeWolf) new GenomeWolf(itemID, 14144467, 13545366).setUnlocalizedName(GENOME_WOLF_INTERNALNAME);
         GameRegistry.registerItem(GENOME_WOLF, GENOME_WOLF_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_WOLF.itemID, new ItemStack(Item.monsterPlacer, 1, 95));
     }
 
     static void createZombieGenome(int itemID)
@@ -317,8 +257,5 @@ class MadGenomes
         // Zombie Genome Data Reel
         GENOME_ZOMBIE = (GenomeZombie) new GenomeZombie(itemID, 44975, 7969893).setUnlocalizedName(GENOME_ZOMBIE_INTERNALNAME);
         GameRegistry.registerItem(GENOME_ZOMBIE, GENOME_ZOMBIE_INTERNALNAME);
-
-        // Incubator
-        IncubatorRecipes.addSmelting(GENOME_ZOMBIE.itemID, new ItemStack(Item.monsterPlacer, 1, 54));
     }
 }

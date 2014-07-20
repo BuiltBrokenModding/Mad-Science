@@ -434,13 +434,6 @@ public class MadConfig
     public static long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
     public static String MAINFRAME_HELP = "http://madsciencemod.com/minecraft-item/computer-mainframe/";
 
-    // Genome Incubator
-    public static int INCUBATOR = MadMod.getNextBlockID();
-    public static long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static long INCUBATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long INCUBATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String INCUBATOR_HELP = "http://madsciencemod.com/minecraft-item/genome-incubator/";
-
     // Meat Cube
     public static int MEATCUBE = MadMod.getNextBlockID();
     public static String MEATCUBE_HELP = "http://madsciencemod.com/minecraft-item/meat-cube/";

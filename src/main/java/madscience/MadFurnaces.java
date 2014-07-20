@@ -4,6 +4,7 @@ import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
+import madscience.tile.IncubatorEntity;
 import madscience.tile.clayfurnace.ClayfurnaceBlock;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRecipes;
@@ -14,9 +15,6 @@ import madscience.tile.cncmachine.CnCMachineRecipes;
 import madscience.tile.cryotube.CryotubeBlock;
 import madscience.tile.cryotube.CryotubeBlockGhost;
 import madscience.tile.cryotube.CryotubeEntity;
-import madscience.tile.incubator.IncubatorBlock;
-import madscience.tile.incubator.IncubatorEntity;
-import madscience.tile.incubator.IncubatorRecipes;
 import madscience.tile.magloader.MagLoaderBlock;
 import madscience.tile.magloader.MagLoaderBlockGhost;
 import madscience.tile.magloader.MagLoaderEntity;
@@ -45,10 +43,6 @@ public class MadFurnaces
     // Mainframe
     public static BlockContainer MAINFRAME_TILEENTITY;
     public static final String MAINFRAME_INTERNALNAME = "computerMainframe";
-
-    // Genome Incubator
-    public static BlockContainer INCUBATOR_TILEENTITY;
-    public static final String INCUBATOR_INTERNALNAME = "genomeIncubator";
 
     // Cryogenic Tube
     public static BlockContainer CRYOTUBE_TILEENTITY;
@@ -130,36 +124,6 @@ public class MadFurnaces
     }
 
     @EventHandler
-    static void createGeneIncubatorTileEntity(int blockID)
-    {
-        // Genome Incubator
-        MadMod.LOGGER.info("-Genome Incubator Tile Entity");
-        INCUBATOR_TILEENTITY = (BlockContainer) new IncubatorBlock(blockID).setUnlocalizedName(INCUBATOR_INTERNALNAME);
-
-        // Register the block with the world (so we can then tie it to a tile entity).
-        GameRegistry.registerBlock(INCUBATOR_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + INCUBATOR_INTERNALNAME);
-
-        // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(IncubatorEntity.class, INCUBATOR_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe
-        GameRegistry.addRecipe(new ItemStack(INCUBATOR_TILEENTITY, 1), new Object[]
-        { "656",
-          "142",
-          "636",
-
-        '1', new ItemStack(MadCircuits.CIRCUIT_GLOWSTONE),
-        '2', new ItemStack(MadCircuits.CIRCUIT_COMPARATOR),
-        '3', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), 
-        '4', new ItemStack(MadComponents.COMPONENT_COMPUTER), 
-        '5', new ItemStack(MadComponents.COMPONENT_FAN), 
-        '6', new ItemStack(MadComponents.COMPONENT_CASE), });
-    }
-
-    @EventHandler
     static void createMainframeTileEntity(int blockID)
     {
         // Populate our static instance.
@@ -205,9 +169,6 @@ public class MadFurnaces
         MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_COW), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
         MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_PIG), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
         MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_CHICKEN), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
-
-        // Now we need to bake our meatcube in the oven until golden brown.
-        IncubatorRecipes.addSmelting(MadEntities.COMBINEDGENOME_MONSTERPLACER.itemID, metaID, new ItemStack(MEATCUBE_TILEENTITY, 1));
     }
 
     static void createSoniclocatorGhostTileEntity(int blockID)

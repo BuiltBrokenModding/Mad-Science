@@ -64,14 +64,13 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
+import madscience.tile.IncubatorEntity;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRender;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineRender;
 import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.cryotube.CryotubeRender;
-import madscience.tile.incubator.IncubatorEntity;
-import madscience.tile.incubator.IncubatorRender;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderRender;
 import madscience.tile.mainframe.MainframeEntity;
@@ -331,14 +330,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.MAINFRAME_TILEENTITY.blockID, new MainframeRender());
             ClientRegistry.bindTileEntitySpecialRenderer(MainframeEntity.class, new MainframeRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new MainframeRender());
-        }
-
-        // Genome Incubator
-        if (blockID == MadConfig.INCUBATOR)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.INCUBATOR_TILEENTITY.blockID, new IncubatorRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(IncubatorEntity.class, new IncubatorRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new IncubatorRender());
         }
 
         // Cryogenic Tube

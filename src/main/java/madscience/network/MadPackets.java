@@ -9,7 +9,6 @@ import madscience.items.weapons.pulserifle.PulseRiflePackets;
 import madscience.tile.clayfurnace.ClayfurnacePackets;
 import madscience.tile.cncmachine.CnCMachinePackets;
 import madscience.tile.cryotube.CryotubePackets;
-import madscience.tile.incubator.IncubatorPackets;
 import madscience.tile.magloader.MagLoaderPackets;
 import madscience.tile.mainframe.MainframePackets;
 import madscience.tile.meatcube.MeatcubePackets;
@@ -52,9 +51,6 @@ public abstract class MadPackets
 
         // Mad Tile Entity Packet
         builder.put(Integer.valueOf(3), MadTileEntityPacketTemplate.class);
-
-        // Genome Incubator
-        builder.put(Integer.valueOf(4), IncubatorPackets.class);
 
         // Computer Mainframe
         builder.put(Integer.valueOf(5), MainframePackets.class);
