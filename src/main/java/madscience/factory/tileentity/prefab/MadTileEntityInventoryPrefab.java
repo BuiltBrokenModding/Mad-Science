@@ -3,6 +3,8 @@ package madscience.factory.tileentity.prefab;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bouncycastle.util.Arrays;
+
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
@@ -261,7 +263,11 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
             }
             
             // Check if this given recipe input matches what we have in slots.
-            boolean inputArrayMatch = finalMachineInputSlotArray.containsAll(finalRecipeArchiveInputArray);
+            //boolean inputArrayMatch = finalMachineInputSlotArray.containsAll(finalRecipeArchiveInputArray);
+            String[] compareInput = finalMachineInputSlotArray.toArray(new String[]{});
+            String[] compareMachine = finalRecipeArchiveInputArray.toArray(new String[]{});
+            
+            boolean inputArrayMatch = doArraysMatch(compareInput, compareMachine);
             
             // If input array matches then we will return the output.
             if (inputArrayMatch)
@@ -279,6 +285,24 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
         
         // Default response is to return nothing.
         return null;
+    }
+
+    private boolean doArraysMatch(String[] compareInput, String[] compareMachine)
+    {
+        if(compareInput.length == compareMachine.length)
+        {
+            for(int i = 0; i < compareInput.length; i++)
+            {
+                 if(!compareInput[i].equals(compareMachine[i]))
+                 {
+                     return false;
+                 }
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
     
     /** Returns true if given ItemStack is used in any recipes ingredients. */
