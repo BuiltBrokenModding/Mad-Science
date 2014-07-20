@@ -13,7 +13,6 @@ import madscience.tile.incubator.IncubatorPackets;
 import madscience.tile.magloader.MagLoaderPackets;
 import madscience.tile.mainframe.MainframePackets;
 import madscience.tile.meatcube.MeatcubePackets;
-import madscience.tile.sequencer.SequencerPackets;
 import madscience.tile.soniclocator.SoniclocatorPackets;
 import madscience.tile.voxbox.VoxBoxPackets;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,9 +61,6 @@ public abstract class MadPackets
 
         // Disgusting Meat Cube
         builder.put(Integer.valueOf(6), MeatcubePackets.class);
-
-        // Genetic Sequencer
-        builder.put(Integer.valueOf(8), SequencerPackets.class);
 
         // Soniclocator Device
         builder.put(Integer.valueOf(10), SoniclocatorPackets.class);

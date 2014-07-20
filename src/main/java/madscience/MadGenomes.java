@@ -23,7 +23,6 @@ import madscience.items.genomes.GenomeWolf;
 import madscience.items.genomes.GenomeZombie;
 import madscience.tile.incubator.IncubatorRecipes;
 import madscience.tile.mainframe.MainframeRecipes;
-import madscience.tile.sequencer.SequencerRecipes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -130,10 +129,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_BAT.itemID, new ItemStack(Item.monsterPlacer, 1, 65));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_BAT.itemID, new ItemStack(GENOME_BAT), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_BAT.itemID, new ItemStack(GENOME_BAT), 0.05F);
     }
 
     static void createCaveSpiderGenome(int itemID)
@@ -143,10 +138,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_CAVESPIDER.itemID, new ItemStack(Item.monsterPlacer, 1, 59));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_CAVESPIDER.itemID, new ItemStack(GENOME_CAVESPIDER), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_CAVESPIDER.itemID, new ItemStack(GENOME_CAVESPIDER), 0.05F);
     }
 
     static void createChickenGenome(int itemID)
@@ -157,10 +148,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_CHICKEN.itemID, new ItemStack(Item.monsterPlacer, 1, 93));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_CHICKEN.itemID, new ItemStack(GENOME_CHICKEN), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_CHICKEN.itemID, new ItemStack(GENOME_CHICKEN), 0.05F);
     }
 
     static void createCowGenome(int itemID)
@@ -171,10 +158,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_COW.itemID, new ItemStack(Item.monsterPlacer, 1, 92));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_COW.itemID, new ItemStack(GENOME_COW), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_COW.itemID, new ItemStack(GENOME_COW), 0.05F);
     }
 
     static void createCreeperGenome(int itemID)
@@ -185,10 +168,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_CREEPER.itemID, new ItemStack(Item.monsterPlacer, 1, 50));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_CREEPER.itemID, new ItemStack(GENOME_CREEPER), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_CREEPER.itemID, new ItemStack(GENOME_CREEPER), 0.05F);
     }
 
     static void createEndermanGenome(int itemID)
@@ -198,10 +177,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_ENDERMAN.itemID, new ItemStack(Item.monsterPlacer, 1, 58));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_ENDERMAN.itemID, new ItemStack(GENOME_ENDERMAN), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_ENDERMAN.itemID, new ItemStack(GENOME_ENDERMAN), 0.05F);
     }
 
     static void createGhastGenome(int itemID)
@@ -211,10 +186,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_GHAST.itemID, new ItemStack(Item.monsterPlacer, 1, 56));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_GHAST.itemID, new ItemStack(GENOME_GHAST), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_GHAST.itemID, new ItemStack(GENOME_GHAST), 0.05F);
     }
 
     static void createHorseGenome(int itemID)
@@ -224,10 +195,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_HORSE.itemID, new ItemStack(Item.monsterPlacer, 1, 100));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_HORSE.itemID, new ItemStack(GENOME_HORSE), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_HORSE.itemID, new ItemStack(GENOME_HORSE), 0.05F);
     }
 
     static void createMushroomCowGenome(int itemID)
@@ -237,10 +204,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_MUSHROOMCOW.itemID, new ItemStack(Item.monsterPlacer, 1, 96));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_MUSHROOMCOW.itemID, new ItemStack(GENOME_MUSHROOMCOW), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_MUSHROOMCOW.itemID, new ItemStack(GENOME_MUSHROOMCOW), 0.05F);
     }
 
     static void createOcelotGenome(int itemID)
@@ -251,10 +214,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_OCELOT.itemID, new ItemStack(Item.monsterPlacer, 1, 98));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_OCELOT.itemID, new ItemStack(GENOME_OCELOT), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_OCELOT.itemID, new ItemStack(GENOME_OCELOT), 0.05F);
     }
 
     static void createPigGenome(int itemID)
@@ -265,10 +224,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_PIG.itemID, new ItemStack(Item.monsterPlacer, 1, 90));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_PIG.itemID, new ItemStack(GENOME_PIG), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_PIG.itemID, new ItemStack(GENOME_PIG), 0.05F);
     }
 
     static void createPigZombieGenome(int itemID)
@@ -278,7 +233,6 @@ class MadGenomes
         GameRegistry.registerItem(GENOME_PIGZOMBIE, GENOME_PIGZOMBIE_INTERNALNAME);
 
         // Recipes for creating this vanilla mob.
-        SequencerRecipes.addSmelting(GENOME_PIGZOMBIE.itemID, new ItemStack(GENOME_PIGZOMBIE), 0.01F);
         MainframeRecipes.addRecipe(new ItemStack(GENOME_ZOMBIE), new ItemStack(GENOME_PIG), new ItemStack(GENOME_PIGZOMBIE), 1337);
         IncubatorRecipes.addSmelting(GENOME_PIGZOMBIE.itemID, new ItemStack(Item.monsterPlacer, 1, 57));
     }
@@ -290,10 +244,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_SHEEP.itemID, new ItemStack(Item.monsterPlacer, 1, 91));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_SHEEP.itemID, new ItemStack(GENOME_SHEEP), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_SHEEP.itemID, new ItemStack(GENOME_SHEEP), 0.05F);
     }
 
     static void createSkeletonGenome(int itemID)
@@ -303,10 +253,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_SKELETON.itemID, new ItemStack(Item.monsterPlacer, 1, 51));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_SKELETON.itemID, new ItemStack(GENOME_SKELETON), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_SKELETON.itemID, new ItemStack(GENOME_SKELETON), 0.05F);
     }
 
     static void createSlimeGenome(int itemID)
@@ -317,10 +263,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_SLIME.itemID, new ItemStack(Item.monsterPlacer, 1, 55));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_SLIME.itemID, new ItemStack(GENOME_SLIME), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_SLIME.itemID, new ItemStack(GENOME_SLIME), 0.05F);
     }
 
     static void createSpiderGenome(int itemID)
@@ -331,10 +273,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_SPIDER.itemID, new ItemStack(Item.monsterPlacer, 1, 52));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_SPIDER.itemID, new ItemStack(GENOME_SPIDER), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_SPIDER.itemID, new ItemStack(GENOME_SPIDER), 0.05F);
     }
 
     static void createSquidGenome(int itemID)
@@ -344,10 +282,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_SQUID.itemID, new ItemStack(Item.monsterPlacer, 1, 94));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_SQUID.itemID, new ItemStack(GENOME_SQUID), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_SQUID.itemID, new ItemStack(GENOME_SQUID), 0.05F);
     }
 
     static void createVillagerGenome(int itemID)
@@ -358,10 +292,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_VILLAGER.itemID, new ItemStack(Item.monsterPlacer, 1, 120));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_VILLAGER.itemID, new ItemStack(GENOME_VILLAGER), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_VILLAGER.itemID, new ItemStack(GENOME_VILLAGER), 0.05F);
     }
 
     static void createWitchGenome(int itemID)
@@ -371,10 +301,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_WITCH.itemID, new ItemStack(Item.monsterPlacer, 1, 66));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_WITCH.itemID, new ItemStack(GENOME_WITCH), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_WITCH.itemID, new ItemStack(GENOME_WITCH), 0.05F);
     }
 
     static void createWolfGenome(int itemID)
@@ -384,10 +310,6 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_WOLF.itemID, new ItemStack(Item.monsterPlacer, 1, 95));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_WOLF.itemID, new ItemStack(GENOME_WOLF), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_WOLF.itemID, new ItemStack(GENOME_WOLF), 0.05F);
     }
 
     static void createZombieGenome(int itemID)
@@ -398,9 +320,5 @@ class MadGenomes
 
         // Incubator
         IncubatorRecipes.addSmelting(GENOME_ZOMBIE.itemID, new ItemStack(Item.monsterPlacer, 1, 54));
-
-        // Sequencer
-        SequencerRecipes.addSmelting(GENOME_ZOMBIE.itemID, new ItemStack(GENOME_ZOMBIE), 0.01F);
-        SequencerRecipes.addSmelting(MadDNA.DNA_ZOMBIE.itemID, new ItemStack(GENOME_ZOMBIE), 0.05F);
     }
 }

@@ -284,7 +284,7 @@ public class MadGUITemplate extends GuiContainer
             // ------------------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressX))
             {
-                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.screenX());
+                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.sizeX());
                 this.drawTexturedModalRect(
                         screenX + guiControl.screenX(),
                         screenY + guiControl.screenY(),
@@ -299,7 +299,7 @@ public class MadGUITemplate extends GuiContainer
             // ------------------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressY))
             {
-                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.screenY());
+                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.sizeY());
                 this.drawTexturedModalRect(
                         screenX + guiControl.screenX(),
                         screenY + guiControl.screenY(),

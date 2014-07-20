@@ -434,13 +434,6 @@ public class MadConfig
     public static long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
     public static String MAINFRAME_HELP = "http://madsciencemod.com/minecraft-item/computer-mainframe/";
 
-    // Genetic Sequencer
-    public static int GENE_SEQUENCER = MadMod.getNextBlockID();
-    public static long SEQUENCER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static long SEQUENCER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long SEQUENCER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String SEQUENCER_HELP = "http://madsciencemod.com/minecraft-item/genetic-sequencer/";
-
     // Genome Incubator
     public static int INCUBATOR = MadMod.getNextBlockID();
     public static long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;

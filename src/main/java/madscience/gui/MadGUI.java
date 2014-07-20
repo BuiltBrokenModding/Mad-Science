@@ -25,9 +25,6 @@ import madscience.tile.mainframe.MainframeGUI;
 import madscience.tile.meatcube.MeatcubeContainer;
 import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.meatcube.MeatcubeGUI;
-import madscience.tile.sequencer.SequencerContainer;
-import madscience.tile.sequencer.SequencerEntity;
-import madscience.tile.sequencer.SequencerGUI;
 import madscience.tile.soniclocator.SoniclocatorContainer;
 import madscience.tile.soniclocator.SoniclocatorEntity;
 import madscience.tile.soniclocator.SoniclocatorGUI;
@@ -70,12 +67,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
         {
             return new MainframeGUI(player.inventory, (MainframeEntity) tileEntity);
-        }
-
-        // Genome Sequencer
-        if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
-        {
-            return new SequencerGUI(player.inventory, (SequencerEntity) tileEntity);
         }
 
         // Genome Incubator
@@ -159,12 +150,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
         {
             return new MainframeContainer(player.inventory, (MainframeEntity) tileEntity);
-        }
-
-        // Genome Sequencer
-        if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
-        {
-            return new SequencerContainer(player.inventory, (SequencerEntity) tileEntity);
         }
 
         // Genome Incubator

@@ -78,8 +78,6 @@ import madscience.tile.mainframe.MainframeEntity;
 import madscience.tile.mainframe.MainframeRender;
 import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.meatcube.MeatcubeRender;
-import madscience.tile.sequencer.SequencerEntity;
-import madscience.tile.sequencer.SequencerRender;
 import madscience.tile.soniclocator.SoniclocatorEntity;
 import madscience.tile.soniclocator.SoniclocatorRender;
 import madscience.tile.voxbox.VoxBoxEntity;
@@ -333,14 +331,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.MAINFRAME_TILEENTITY.blockID, new MainframeRender());
             ClientRegistry.bindTileEntitySpecialRenderer(MainframeEntity.class, new MainframeRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new MainframeRender());
-        }
-
-        // Genetic Sequencer
-        if (blockID == MadConfig.GENE_SEQUENCER)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.SEQUENCER_TILEENTITY.blockID, new SequencerRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(SequencerEntity.class, new SequencerRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new SequencerRender());
         }
 
         // Genome Incubator

@@ -16,7 +16,6 @@ import madscience.tile.incubator.IncubatorSounds;
 import madscience.tile.magloader.MagLoaderSounds;
 import madscience.tile.mainframe.MainframeSounds;
 import madscience.tile.meatcube.MeatcubeSounds;
-import madscience.tile.sequencer.SequencerSounds;
 import madscience.tile.soniclocator.SoniclocatorSounds;
 import madscience.tile.voxbox.VoxBoxSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
@@ -84,9 +83,6 @@ public class MadSounds
 
         // Genome Incubator
         IncubatorSounds.init(event);
-
-        // Genetic Sequencer
-        SequencerSounds.init(event);
 
         // Cryogenic Tube
         CryotubeSounds.init(event);

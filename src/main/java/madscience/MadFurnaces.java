@@ -25,8 +25,6 @@ import madscience.tile.mainframe.MainframeEntity;
 import madscience.tile.mainframe.MainframeRecipes;
 import madscience.tile.meatcube.MeatcubeBlock;
 import madscience.tile.meatcube.MeatcubeEntity;
-import madscience.tile.sequencer.SequencerBlock;
-import madscience.tile.sequencer.SequencerEntity;
 import madscience.tile.soniclocator.SoniclocatorBlock;
 import madscience.tile.soniclocator.SoniclocatorBlockGhost;
 import madscience.tile.soniclocator.SoniclocatorEntity;
@@ -47,10 +45,6 @@ public class MadFurnaces
     // Mainframe
     public static BlockContainer MAINFRAME_TILEENTITY;
     public static final String MAINFRAME_INTERNALNAME = "computerMainframe";
-
-    // Genome Sequencer
-    public static BlockContainer SEQUENCER_TILEENTITY;
-    public static final String SEQUENCER_INTERNALNAME = "genomeSequencer";
 
     // Genome Incubator
     public static BlockContainer INCUBATOR_TILEENTITY;
@@ -163,39 +157,6 @@ public class MadFurnaces
         '4', new ItemStack(MadComponents.COMPONENT_COMPUTER), 
         '5', new ItemStack(MadComponents.COMPONENT_FAN), 
         '6', new ItemStack(MadComponents.COMPONENT_CASE), });
-    }
-
-    @EventHandler
-    static void createGeneSequencerTileEntity(int blockID)
-    {
-        // Genetic Sequencer
-        MadMod.LOGGER.info("-Genetic Sequencer Tile Entity");
-        SEQUENCER_TILEENTITY = (BlockContainer) new SequencerBlock(blockID).setUnlocalizedName(SEQUENCER_INTERNALNAME);
-
-        // Register the block with the world (so we can then tie it to a tile
-        // entity).
-        GameRegistry.registerBlock(SEQUENCER_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + SEQUENCER_INTERNALNAME);
-
-        // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(SequencerEntity.class, SEQUENCER_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe
-        GameRegistry.addRecipe(new ItemStack(SEQUENCER_TILEENTITY, 1), new Object[]
-        { "172",
-          "858",
-          "364",
-
-        '1', new ItemStack(MadCircuits.CIRCUIT_EMERALD),
-        '2', new ItemStack(MadCircuits.CIRCUIT_COMPARATOR),
-        '3', new ItemStack(MadCircuits.CIRCUIT_DIAMOND),
-        '4', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
-        '5', new ItemStack(MadComponents.COMPONENT_COMPUTER), 
-        '6', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), 
-        '7', new ItemStack(MadComponents.COMPONENT_FAN), 
-        '8', new ItemStack(MadComponents.COMPONENT_CASE), });
     }
 
     @EventHandler
