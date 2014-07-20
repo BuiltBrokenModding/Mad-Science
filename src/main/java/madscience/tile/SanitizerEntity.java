@@ -137,7 +137,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
             if (this.getAnimationCurrentFrame() <= 9 && worldObj.getWorldTime() % 15L == 0L)
             {
                 // Load this texture onto the entity.
-                this.setEntityTexture("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
+                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
 
                 // Update animation frame.
                 this.incrementAnimationCurrentFrame();
@@ -152,7 +152,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
         else
         {
             // Idle state single texture.
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/idle.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/idle.png");
         }
     }
 

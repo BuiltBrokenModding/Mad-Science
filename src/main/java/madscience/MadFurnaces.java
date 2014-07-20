@@ -11,8 +11,6 @@ import madscience.tile.cncmachine.CnCMachineBlock;
 import madscience.tile.cncmachine.CnCMachineBlockGhost;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineRecipes;
-import madscience.tile.cryofreezer.CryofreezerBlock;
-import madscience.tile.cryofreezer.CryofreezerEntity;
 import madscience.tile.cryotube.CryotubeBlock;
 import madscience.tile.cryotube.CryotubeBlockGhost;
 import madscience.tile.cryotube.CryotubeEntity;
@@ -53,10 +51,6 @@ public class MadFurnaces
     // Genome Sequencer
     public static BlockContainer SEQUENCER_TILEENTITY;
     public static final String SEQUENCER_INTERNALNAME = "genomeSequencer";
-
-    // Cryogenic Freezer
-    public static BlockContainer CRYOFREEZER_TILEENTITY;
-    public static final String CRYOFREEZER_INTERNALNAME = "cryoFreezer";
 
     // Genome Incubator
     public static BlockContainer INCUBATOR_TILEENTITY;
@@ -109,34 +103,6 @@ public class MadFurnaces
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD
     // -----------------------------
-
-    @EventHandler
-    static void createCryoFreezerTileEntity(int blockID)
-    {
-        // Cryogenic Freezer
-        MadMod.LOGGER.info("-Cryogenic Freezer Tile Entity");
-        CRYOFREEZER_TILEENTITY = (BlockContainer) new CryofreezerBlock(blockID).setUnlocalizedName(CRYOFREEZER_INTERNALNAME);
-
-        // Register the block with the world (so we can then tie it to a tile entity).
-        GameRegistry.registerBlock(CRYOFREEZER_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CRYOFREEZER_INTERNALNAME);
-
-        // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(CryofreezerEntity.class, CRYOFREEZER_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe
-        GameRegistry.addRecipe(new ItemStack(CRYOFREEZER_TILEENTITY, 1), new Object[]
-        { "131",
-          "121",
-          "141",
-
-        '1', new ItemStack(MadComponents.COMPONENT_CASE),
-        '2', new ItemStack(MadComponents.COMPONENT_COMPUTER),
-        '3', new ItemStack(MadCircuits.CIRCUIT_COMPARATOR),
-        '4', new ItemStack(MadComponents.COMPONENT_FAN), });
-    }
 
     static void createCryotubeGhostTileEntity(int blockID)
     {

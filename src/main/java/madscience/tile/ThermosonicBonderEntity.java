@@ -166,7 +166,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         if (!isRedstonePowered())
         {
             // Turned off.
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/idle.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/idle.png");
             return;
         }
 
@@ -176,7 +176,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
             if (this.getAnimationCurrentFrame() <= 5 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
-                this.setEntityTexture("models/" + this.getMachineInternalName() + "/run_" + this.getAnimationCurrentFrame() + ".png");
+                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/run_" + this.getAnimationCurrentFrame() + ".png");
 
                 // Update animation frame.
                 this.incrementAnimationCurrentFrame();
@@ -192,14 +192,14 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         if (!canSmelt() && isPowered() && !this.isHeatedPastTriggerValue() && isRedstonePowered())
         {
             // Powered up but still very cold, not ready!
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/power_" + this.getHeatLevelTimeScaled(6) + ".png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/power_" + this.getHeatLevelTimeScaled(6) + ".png");
             return;
         }
 
         if (isPowered() && this.isHeatedPastTriggerValue() && !canSmelt() && isRedstonePowered())
         {
             // Powered up, heater on. Just nothing inside of me!
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/laser_off.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/laser_off.png");
             return;
         }
     }

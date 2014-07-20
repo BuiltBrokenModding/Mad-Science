@@ -11,7 +11,6 @@ import madscience.mobs.creepercow.CreeperCowSounds;
 import madscience.mobs.werewolf.WerewolfMobSounds;
 import madscience.mobs.woolycow.WoolyCowSounds;
 import madscience.tile.cncmachine.CnCMachineSounds;
-import madscience.tile.cryofreezer.CryofreezerSounds;
 import madscience.tile.cryotube.CryotubeSounds;
 import madscience.tile.incubator.IncubatorSounds;
 import madscience.tile.magloader.MagLoaderSounds;
@@ -82,9 +81,6 @@ public class MadSounds
 
         // Computer Mainframe
         MainframeSounds.init(event);
-
-        // Cryogenic Freezer
-        CryofreezerSounds.init(event);
 
         // Genome Incubator
         IncubatorSounds.init(event);

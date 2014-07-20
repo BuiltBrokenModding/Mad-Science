@@ -126,7 +126,7 @@ public class MadTileEntityPacketTemplate extends MadPackets
             this.ENTITY.setFluidCapacity(lastFluidMaximum);
 
             // Tile entity texture.
-            this.ENTITY.setEntityTexture(lastTexture);
+            this.ENTITY.setTextureRenderedOnModel(lastTexture);
         }
         else
         {

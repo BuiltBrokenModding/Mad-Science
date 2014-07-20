@@ -189,7 +189,7 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab
             if (this.getAnimationCurrentFrame() <= 9 && worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                this.setEntityTexture("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
+                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
 
                 // Update animation frame.
                 this.incrementAnimationCurrentFrame();
@@ -203,12 +203,12 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab
         else if (isPowered() && !canSmelt())
         {
             // Idle state single texture.
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/idle.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/idle.png");
         }
         else
         {
             // We are not powered or working.
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/off.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/off.png");
         }
     }
 

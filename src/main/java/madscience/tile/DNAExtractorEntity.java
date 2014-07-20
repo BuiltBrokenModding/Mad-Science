@@ -387,7 +387,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
             if (this.getAnimationCurrentFrame() <= 11 && worldObj.getWorldTime() % 25L == 0L)
             {
                 // Load this texture onto the entity.
-                this.setEntityTexture("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
+                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
 
                 // Update animation frame.
                 this.incrementAnimationCurrentFrame();
@@ -401,7 +401,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         else
         {
             // Idle state single texture.
-            this.setEntityTexture("models/" + this.getMachineInternalName() + "/idle.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/idle.png");
         }
     }
 

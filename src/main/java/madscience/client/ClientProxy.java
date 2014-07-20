@@ -68,8 +68,6 @@ import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRender;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineRender;
-import madscience.tile.cryofreezer.CryofreezerEntity;
-import madscience.tile.cryofreezer.CryofreezerRender;
 import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.cryotube.CryotubeRender;
 import madscience.tile.incubator.IncubatorEntity;
@@ -343,14 +341,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.SEQUENCER_TILEENTITY.blockID, new SequencerRender());
             ClientRegistry.bindTileEntitySpecialRenderer(SequencerEntity.class, new SequencerRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new SequencerRender());
-        }
-
-        // Cryogenic Freezer
-        if (blockID == MadConfig.CRYOFREEZER)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CRYOFREEZER_TILEENTITY.blockID, new CryofreezerRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(CryofreezerEntity.class, new CryofreezerRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new CryofreezerRender());
         }
 
         // Genome Incubator

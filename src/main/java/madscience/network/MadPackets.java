@@ -8,7 +8,6 @@ import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
 import madscience.items.weapons.pulserifle.PulseRiflePackets;
 import madscience.tile.clayfurnace.ClayfurnacePackets;
 import madscience.tile.cncmachine.CnCMachinePackets;
-import madscience.tile.cryofreezer.CryofreezerPackets;
 import madscience.tile.cryotube.CryotubePackets;
 import madscience.tile.incubator.IncubatorPackets;
 import madscience.tile.magloader.MagLoaderPackets;
@@ -48,9 +47,6 @@ public abstract class MadPackets
     static
     {
         ImmutableBiMap.Builder<Integer, Class<? extends MadPackets>> builder = ImmutableBiMap.builder();
-
-        // Cryogenic Freezer
-        builder.put(Integer.valueOf(0), CryofreezerPackets.class);
 
         // Cryogenic Tube
         builder.put(Integer.valueOf(1), CryotubePackets.class);

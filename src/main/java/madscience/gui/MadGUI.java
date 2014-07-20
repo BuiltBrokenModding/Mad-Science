@@ -10,9 +10,6 @@ import madscience.tile.clayfurnace.ClayfurnaceGUI;
 import madscience.tile.cncmachine.CnCMachineContainer;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineGUI;
-import madscience.tile.cryofreezer.CryofreezerContainer;
-import madscience.tile.cryofreezer.CryofreezerEntity;
-import madscience.tile.cryofreezer.CryofreezerGUI;
 import madscience.tile.cryotube.CryotubeContainer;
 import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.cryotube.CryotubeGUI;
@@ -79,12 +76,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
         {
             return new SequencerGUI(player.inventory, (SequencerEntity) tileEntity);
-        }
-
-        // Cryogenic Freezer
-        if (ID == MadFurnaces.CRYOFREEZER_TILEENTITY.blockID)
-        {
-            return new CryofreezerGUI(player.inventory, (CryofreezerEntity) tileEntity);
         }
 
         // Genome Incubator
@@ -174,12 +165,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.SEQUENCER_TILEENTITY.blockID)
         {
             return new SequencerContainer(player.inventory, (SequencerEntity) tileEntity);
-        }
-
-        // Cryogenic Freezer
-        if (ID == MadFurnaces.CRYOFREEZER_TILEENTITY.blockID)
-        {
-            return new CryofreezerContainer(player.inventory, (CryofreezerEntity) tileEntity);
         }
 
         // Genome Incubator

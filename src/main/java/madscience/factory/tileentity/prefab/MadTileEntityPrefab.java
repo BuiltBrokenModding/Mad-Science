@@ -124,7 +124,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityHeatPrefab
     }
 
     /** Sets the texture resource path to whatever is specified. */
-    public void setEntityTexture(String entityTexture)
+    public void setTextureRenderedOnModel(String entityTexture)
     {
         this.entityTexture = entityTexture;
     }
@@ -264,8 +264,4 @@ public abstract class MadTileEntityPrefab extends MadTileEntityHeatPrefab
         // Populate our factory product object if we have not done so!
         this.registeredMachine = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName());
     }
-
-
-
-
 }

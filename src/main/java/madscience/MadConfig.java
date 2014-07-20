@@ -441,13 +441,6 @@ public class MadConfig
     public static long SEQUENCER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
     public static String SEQUENCER_HELP = "http://madsciencemod.com/minecraft-item/genetic-sequencer/";
 
-    // Cryogenic Freezer
-    public static int CRYOFREEZER = MadMod.getNextBlockID();
-    public static long CRYOFREEZER_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static long CRYOFREEZER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long CRYOFREEZER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String CRYOFREEZER_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-freezer/";
-
     // Genome Incubator
     public static int INCUBATOR = MadMod.getNextBlockID();
     public static long INCUBATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
