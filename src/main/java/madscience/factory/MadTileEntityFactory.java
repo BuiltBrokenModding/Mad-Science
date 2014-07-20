@@ -111,7 +111,7 @@ public class MadTileEntityFactory
                 tmpMeta = metaData;
             }
 
-            ItemStack vanillaItemStack = new ItemStack(potentialMCItem, tmpMeta, stackSize);
+            ItemStack vanillaItemStack = new ItemStack(potentialMCItem, stackSize, tmpMeta);
 
             if (vanillaItemStack != null)
             {
@@ -197,13 +197,13 @@ public class MadTileEntityFactory
         if (itemName.equals("dyePowder") || itemName.equals("dye"))
         {
             // Return whatever type of dye was requested.
-            itemsToAssociate.add(new ItemStack(Item.dyePowder, metaData, stackSize));
+            itemsToAssociate.add(new ItemStack(Item.dyePowder, stackSize, metaData));
         }
 
         if (itemName.equals("wool") || itemName.equals("cloth"))
         {
             // Return whatever color wool was requested.
-            itemsToAssociate.add(new ItemStack(Block.cloth, metaData, stackSize));
+            itemsToAssociate.add(new ItemStack(Block.cloth, stackSize, metaData));
         }
 
         // Check if we have items to return back after all that work.

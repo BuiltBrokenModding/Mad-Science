@@ -69,6 +69,10 @@ public class MadForgeMod
         // FACTORY RECIPES
         // ---------------
         
+        // TODO: Register item factory crafting recipes.
+        
+        // TODO: Register crafting recipes that are not tied to any particular machine or item.
+        
         // Loop through all the tile entity factory objects and populate their recipe ItemStacks.
         Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.getMachineInfoList();
         for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
