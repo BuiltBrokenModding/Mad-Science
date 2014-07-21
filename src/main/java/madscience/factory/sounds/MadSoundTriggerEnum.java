@@ -9,5 +9,6 @@ public enum MadSoundTriggerEnum
     WORKSTART,
     WORKING,
     WORKEND,
-    OVERHEAT
+    OVERHEAT,
+    CUSTOM
 }

@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProductData;
+import madscience.factory.sounds.MadSound;
 import madscience.util.IDManager;
 
 import com.google.common.base.Throwables;
@@ -59,8 +62,11 @@ public class MadMod
     // Hook standardized logging class so we can report data on the console without standard out.
     public static Logger LOGGER = null;
     
-    // Data container which gets serialized with all our mod information.
+    /** Data container which gets serialized with all our mod information. */
     private static List<MadTileEntityFactoryProductData> unregisteredMachines;
+    
+    /** Holds an internal reference to every registered sound for easy reference. */
+    private static Map<String, MadSound> soundArchive = new HashMap<String, MadSound>();
     
     /** Auto-incrementing configuration IDs. Use this to make sure no config ID is the same. */
     private static IDManager idManager;
@@ -140,6 +146,18 @@ public class MadMod
     public static int getNextItemID()
     {
         return idManager.getNextItemID();
+    }
+    
+    /** Adds a sound to static hashmap which allows for easy querying of sound objects by short name. */
+    public static void addSoundToArchive(String shortName, MadSound soundObject)
+    {
+        soundArchive.put(shortName, soundObject);
+    }
+    
+    /** Returns reference to sound object if one exists. Returns null if sound is not found in archive. */
+    public static MadSound getSoundByName(String soundNameWithoutExtension)
+    {
+        return soundArchive.get(soundNameWithoutExtension);
     }
     
     /** Intended for developers to use to manually create machines when converting existing code to JSON. */
