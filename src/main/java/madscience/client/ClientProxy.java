@@ -76,8 +76,6 @@ import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.meatcube.MeatcubeRender;
 import madscience.tile.soniclocator.SoniclocatorEntity;
 import madscience.tile.soniclocator.SoniclocatorRender;
-import madscience.tile.voxbox.VoxBoxEntity;
-import madscience.tile.voxbox.VoxBoxRender;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -343,14 +341,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.CLAYFURNACE_TILEENTITY.blockID, new ClayfurnaceRender());
             ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new ClayfurnaceRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new ClayfurnaceRender());
-        }
-
-        // VOX Box
-        if (blockID == MadConfig.VOXBOX)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.VOXBOX_TILEENTITY.blockID, new VoxBoxRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(VoxBoxEntity.class, new VoxBoxRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new VoxBoxRender());
         }
 
         // Magazine Loader

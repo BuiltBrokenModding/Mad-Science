@@ -15,7 +15,6 @@ import madscience.tile.cryotube.CryotubeSounds;
 import madscience.tile.magloader.MagLoaderSounds;
 import madscience.tile.meatcube.MeatcubeSounds;
 import madscience.tile.soniclocator.SoniclocatorSounds;
-import madscience.tile.voxbox.VoxBoxSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.relauncher.Side;
@@ -35,7 +34,7 @@ public class MadSounds
             if (registeredMachine != null)
             {
                 // Grab processed list of filenames of sounds that need to be registered with Forge/MC.
-                String[] unregisteredSounds = registeredMachine.getSoundArchiveFilenameArray();
+                String[] unregisteredSounds = registeredMachine.loadSoundArchive();
                 if (unregisteredSounds == null)
                 {
                     continue;
@@ -84,9 +83,6 @@ public class MadSounds
 
         // M41A Pulse Rifle
         PulseRifleSounds.init(event);
-
-        // Announcement System
-        VoxBoxSounds.init(event);
 
         // Magazine Loader
         MagLoaderSounds.init(event);

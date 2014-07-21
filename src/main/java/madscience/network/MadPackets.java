@@ -12,7 +12,6 @@ import madscience.tile.cryotube.CryotubePackets;
 import madscience.tile.magloader.MagLoaderPackets;
 import madscience.tile.meatcube.MeatcubePackets;
 import madscience.tile.soniclocator.SoniclocatorPackets;
-import madscience.tile.voxbox.VoxBoxPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 
@@ -65,9 +64,6 @@ public abstract class MadPackets
         
         // Pulse Rifle
         builder.put(Integer.valueOf(13), PulseRiflePackets.class);
-        
-        // VOX Box
-        builder.put(Integer.valueOf(14), VoxBoxPackets.class);
         
         // Magazine Loader
         builder.put(Integer.valueOf(15), MagLoaderPackets.class);

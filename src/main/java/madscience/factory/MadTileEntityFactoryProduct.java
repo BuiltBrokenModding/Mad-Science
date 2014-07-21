@@ -413,7 +413,8 @@ public class MadTileEntityFactoryProduct
         MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
     }
 
-    public String[] getSoundArchiveFilenameArray()
+    /** Populates an internal list of sounds associated with this machine and returns them as a string array to be ready by Minecraft/Forge. */
+    public String[] loadSoundArchive()
     {
         // Throw an exception if we have already done this! Bad programmer!
         if (soundArchiveLoaded)
@@ -437,6 +438,16 @@ public class MadTileEntityFactoryProduct
                 continue;
             }
 
+            // Store pathing information to where this sound lives.
+            String machineSoundPath = MadMod.ID + ":" + this.data.getMachineName() + "/";
+            machineSound.setResourcePath(machineSoundPath);
+            
+            // For future reference we have been here.
+            machineSound.setLoaded();
+            
+            // Reference to this sound globally which anything can address.
+            MadMod.addSoundToArchive(machineSound.getSoundNameWithoutExtension(), machineSound);
+            
             // Check if this sound is random one and needs multiple files checked.
             if (machineSound.getSoundPlaybackMode().equals(MadSoundPlaybackTypeEnum.RANDOM) && machineSound.getSoundRandomVariance() > 0)
             {
@@ -444,18 +455,22 @@ public class MadTileEntityFactoryProduct
                 // Note: Minecraft will automatically play a random sound if named File1,2,3.
                 for (int x = 1; x <= machineSound.getSoundRandomVariance(); x++)
                 {
-                    MadMod.LOGGER.info("[" + this.getMachineName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + "." + machineSound.getSoundExtension() + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
-                    soundFileList.add(MadMod.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension());
+                    MadMod.LOGGER.info("[" + this.getMachineName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
+                    String fullRandomSoundPath = machineSoundPath + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension();  
+                    
+                    // Add to list which gets returned to Minecraft/Forge for actual loading.
+                    soundFileList.add(fullRandomSoundPath);
                 }
             }
             else
             {
                 // Add just the individual sound file.
                 MadMod.LOGGER.info("[" + this.getMachineName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
-                soundFileList.add(MadMod.ID + ":" + this.data.getMachineName() + "/" + machineSound.getSoundNameWithExtension());
+                String fullSingleSoundPath = machineSoundPath + machineSound.getSoundNameWithExtension(); 
+                soundFileList.add(fullSingleSoundPath);
             }
         }
-
+        
         // Convert list of strings into string array.
         String[] finalList = soundFileList.toArray(new String[soundFileList.size()]);
 

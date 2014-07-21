@@ -451,13 +451,6 @@ public class MadConfig
     public static int CLAYFURNACE = MadMod.getNextBlockID();
     public static String CLAYFURNACE_HELP = "http://madsciencemod.com/minecraft-item/clay-furnace/";
 
-    // VOX Box
-    public static int VOXBOX = MadMod.getNextBlockID();
-    public static long VOXBOX_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
-    public static long VOXBOX_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long VOXBOX_CONSUME = 128;
-    public static String VOXBOX_HELP = "http://madsciencemod.com/minecraft-item/voxbox/";
-
     // Magazine Loader
     public static int MAGLOADER = MadMod.getNextBlockID();
     static int MAGLOADERGHOST = MadMod.getNextBlockID();

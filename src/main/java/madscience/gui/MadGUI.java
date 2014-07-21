@@ -22,9 +22,6 @@ import madscience.tile.meatcube.MeatcubeGUI;
 import madscience.tile.soniclocator.SoniclocatorContainer;
 import madscience.tile.soniclocator.SoniclocatorEntity;
 import madscience.tile.soniclocator.SoniclocatorGUI;
-import madscience.tile.voxbox.VoxBoxContainer;
-import madscience.tile.voxbox.VoxBoxEntity;
-import madscience.tile.voxbox.VoxBoxGUI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -79,12 +76,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
         {
             return new ClayfurnaceGUI(player.inventory, (ClayfurnaceEntity) tileEntity);
-        }
-        
-        // VOX Box
-        if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
-        {
-            return new VoxBoxGUI(player.inventory, (VoxBoxEntity) tileEntity);
         }
         
         // Magazine Loader
@@ -150,12 +141,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
         {
             return new ClayfurnaceContainer(player.inventory, (ClayfurnaceEntity) tileEntity);
-        }
-        
-        // VOX Box
-        if (ID == MadFurnaces.VOXBOX_TILEENTITY.blockID)
-        {
-            return new VoxBoxContainer(player.inventory, (VoxBoxEntity) tileEntity);
         }
         
         // Magazine Loader

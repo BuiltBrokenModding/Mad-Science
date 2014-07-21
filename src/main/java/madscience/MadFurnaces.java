@@ -22,8 +22,6 @@ import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.soniclocator.SoniclocatorBlock;
 import madscience.tile.soniclocator.SoniclocatorBlockGhost;
 import madscience.tile.soniclocator.SoniclocatorEntity;
-import madscience.tile.voxbox.VoxBoxBlock;
-import madscience.tile.voxbox.VoxBoxEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.ItemStack;
@@ -196,34 +194,6 @@ public class MadFurnaces
         // Clay Furnace will only convert gold and iron ore into full blocks.
         ClayfurnaceRecipes.addSmelting(Block.oreIron.blockID, new ItemStack(Block.blockIron), 0.15F);
         ClayfurnaceRecipes.addSmelting(Block.oreGold.blockID, new ItemStack(Block.blockGold), 0.15F);
-    }
-
-    static void createVOXBoxTileEntity(int blockID)
-    {
-        MadMod.LOGGER.info("-Announcement Box Tile Entity");
-        
-        // Automatic Diagnostic and Announcement System
-        // AKA: Black Mesa Announcement System
-        VOXBOX_TILEENTITY = (BlockContainer) new VoxBoxBlock(blockID).setUnlocalizedName(VOXBOX_INTERNALNAME);
-        GameRegistry.registerBlock(VOXBOX_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + VOXBOX_INTERNALNAME);
-        GameRegistry.registerTileEntity(VoxBoxEntity.class, VOXBOX_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-        
-        // Recipe for VOX box contains a juke block.
-        GameRegistry.addRecipe(new ItemStack(VOXBOX_TILEENTITY, 1), new Object[]
-        { "121", 
-          "465", 
-          "131",
-
-          '1', new ItemStack(MadComponents.COMPONENT_CASE, 1, 0),
-          '2', new ItemStack(MadComponents.COMPONENT_COMPUTER, 1, 0),
-          '3', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY, 1, 0),
-          '4', new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE, 1, 0),
-          '5', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE, 1, 0),
-          '6', new ItemStack(Block.jukebox, 1, 0),
-        });
     }
 
     static void createMagLoaderTileEntity(int blockID)

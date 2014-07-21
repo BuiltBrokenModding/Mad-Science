@@ -7,9 +7,13 @@ public final class MadSound
 {
     @Expose private MadSoundFile sound = null;
     
+    private boolean hasLoaded = false;
+    
+    private String resourcePath;
+    
     public MadSound( // NO_UCD (unused code)
             String fileName,
-            int length,
+            float length,
             int randomVariance,
             MadSoundTriggerEnum trigger,
             MadSoundPlaybackTypeEnum playbackMode)
@@ -32,7 +36,7 @@ public final class MadSound
         return this.sound.getSoundTrigger();
     }
 
-    public int getSoundLengthInSeconds()
+    public float getSoundLengthInSeconds()
     {
         return this.sound.getSoundLengthInSeconds();
     }
@@ -50,5 +54,25 @@ public final class MadSound
     public String getSoundExtension()
     {
         return this.sound.getSoundExtension();
+    }
+
+    public boolean isLoaded()
+    {
+        return hasLoaded;
+    }
+
+    public void setLoaded()
+    {
+        this.hasLoaded = true;
+    }
+
+    public String getResourcePath()
+    {
+        return resourcePath;
+    }
+
+    public void setResourcePath(String resourcePath)
+    {
+        this.resourcePath = resourcePath;
     }
 }

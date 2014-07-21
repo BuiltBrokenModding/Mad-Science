@@ -10,13 +10,13 @@ class MadSoundFile
     @Expose private String soundNameWithExtension = null;
     @Expose private String soundExtension = null;
     @Expose private MadSoundTriggerEnum soundTrigger = null;
-    @Expose private int soundLengthInSeconds = 0;
+    @Expose private float soundLengthInSeconds = 0;
     @Expose private MadSoundPlaybackTypeEnum soundPlaybackMode = null;
     @Expose private int randomVariance = 1;
     
     MadSoundFile(
             String fileName,
-            int length,
+            float length,
             int randomVariance,
             MadSoundTriggerEnum trigger,
             MadSoundPlaybackTypeEnum playbackMode)
@@ -47,7 +47,7 @@ class MadSoundFile
         return soundTrigger;
     }
 
-    public int getSoundLengthInSeconds()
+    public float getSoundLengthInSeconds()
     {
         return soundLengthInSeconds;
     }
