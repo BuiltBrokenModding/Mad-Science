@@ -4,7 +4,6 @@ import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
-import madscience.tile.IncubatorEntity;
 import madscience.tile.clayfurnace.ClayfurnaceBlock;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRecipes;
@@ -18,9 +17,6 @@ import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.magloader.MagLoaderBlock;
 import madscience.tile.magloader.MagLoaderBlockGhost;
 import madscience.tile.magloader.MagLoaderEntity;
-import madscience.tile.mainframe.MainframeBlock;
-import madscience.tile.mainframe.MainframeEntity;
-import madscience.tile.mainframe.MainframeRecipes;
 import madscience.tile.meatcube.MeatcubeBlock;
 import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.soniclocator.SoniclocatorBlock;
@@ -39,10 +35,6 @@ public class MadFurnaces
     // -------------
     // TILE ENTITIES
     // -------------
-
-    // Mainframe
-    public static BlockContainer MAINFRAME_TILEENTITY;
-    public static final String MAINFRAME_INTERNALNAME = "computerMainframe";
 
     // Cryogenic Tube
     public static BlockContainer CRYOTUBE_TILEENTITY;
@@ -124,33 +116,6 @@ public class MadFurnaces
     }
 
     @EventHandler
-    static void createMainframeTileEntity(int blockID)
-    {
-        // Populate our static instance.
-        MadMod.LOGGER.info("-Computer Mainframe Tile Entity");
-        MAINFRAME_TILEENTITY = (BlockContainer) new MainframeBlock(blockID).setUnlocalizedName(MAINFRAME_INTERNALNAME);
-
-        // Register the block with the world (so we can then tie it to a tile
-        // entity).
-        GameRegistry.registerBlock(MAINFRAME_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + MAINFRAME_INTERNALNAME);
-
-        // Register the tile-entity with the game world.
-        GameRegistry.registerTileEntity(MainframeEntity.class, MAINFRAME_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe
-        GameRegistry.addRecipe(new ItemStack(MAINFRAME_TILEENTITY, 1), new Object[]
-        { "111",
-          "121", 
-          "111",
-
-        '1', new ItemStack(MadComponents.COMPONENT_COMPUTER),
-        '2', new ItemStack(MadComponents.COMPONENT_CASE), });
-    }
-
-    @EventHandler
     static void createMeatcubeTileEntity(int blockID, int metaID, int primaryColor, int secondaryColor, int cookTime)
     {
         // Disgusting meat cube that spawns chicken, cow and pig meat when hit.
@@ -166,9 +131,9 @@ public class MadFurnaces
         MadGenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, MEATCUBE_INTERNALNAME, primaryColor, secondaryColor));
 
         // Create meatcube with slime and pig, cow or chicken genomes!
-        MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_COW), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
-        MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_PIG), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
-        MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_CHICKEN), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
+        //MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_COW), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
+        //MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_PIG), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
+        //MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_CHICKEN), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
     }
 
     static void createSoniclocatorGhostTileEntity(int blockID)

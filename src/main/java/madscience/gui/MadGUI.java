@@ -4,7 +4,6 @@ import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.tile.IncubatorEntity;
 import madscience.tile.clayfurnace.ClayfurnaceContainer;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceGUI;
@@ -17,9 +16,6 @@ import madscience.tile.cryotube.CryotubeGUI;
 import madscience.tile.magloader.MagLoaderContainer;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderGUI;
-import madscience.tile.mainframe.MainframeContainer;
-import madscience.tile.mainframe.MainframeEntity;
-import madscience.tile.mainframe.MainframeGUI;
 import madscience.tile.meatcube.MeatcubeContainer;
 import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.meatcube.MeatcubeGUI;
@@ -59,12 +55,6 @@ public class MadGUI implements IGuiHandler
                     return machineInfo.getClientGUIElement(player.inventory, madTile);
                 }
             }
-        }
-
-        // Computer Mainframe.
-        if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
-        {
-            return new MainframeGUI(player.inventory, (MainframeEntity) tileEntity);
         }
 
         // Meat Cube
@@ -136,12 +126,6 @@ public class MadGUI implements IGuiHandler
                     return machineInfo.getServerGUIElement(player.inventory, madTile);
                 }
             }
-        }
-
-        // Computer Mainframe.
-        if (ID == MadFurnaces.MAINFRAME_TILEENTITY.blockID)
-        {
-            return new MainframeContainer(player.inventory, (MainframeEntity) tileEntity);
         }
 
         // Meat Cube

@@ -13,7 +13,6 @@ import madscience.mobs.woolycow.WoolyCowSounds;
 import madscience.tile.cncmachine.CnCMachineSounds;
 import madscience.tile.cryotube.CryotubeSounds;
 import madscience.tile.magloader.MagLoaderSounds;
-import madscience.tile.mainframe.MainframeSounds;
 import madscience.tile.meatcube.MeatcubeSounds;
 import madscience.tile.soniclocator.SoniclocatorSounds;
 import madscience.tile.voxbox.VoxBoxSounds;
@@ -76,9 +75,6 @@ public class MadSounds
         // -------------
         // TILE ENTITIES
         // -------------
-
-        // Computer Mainframe
-        MainframeSounds.init(event);
 
         // Cryogenic Tube
         CryotubeSounds.init(event);

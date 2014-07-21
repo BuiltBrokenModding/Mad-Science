@@ -161,6 +161,16 @@ abstract class MadTileEntityFluidPrefab extends MadTileEntityInventoryPrefab imp
 
         return internalTank.getCapacity();
     }
+    
+    public boolean isFluidTankEmpty()
+    {
+        if (this.internalTank == null)
+        {
+            return true;
+        }
+        
+        return this.internalTank.getFluidAmount() <= 0;
+    }
 
     public String getFluidLocalizedName()
     {

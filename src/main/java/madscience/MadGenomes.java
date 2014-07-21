@@ -21,9 +21,6 @@ import madscience.items.genomes.GenomeVillager;
 import madscience.items.genomes.GenomeWitch;
 import madscience.items.genomes.GenomeWolf;
 import madscience.items.genomes.GenomeZombie;
-import madscience.tile.mainframe.MainframeRecipes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 class MadGenomes
@@ -196,9 +193,6 @@ class MadGenomes
         // PigZombie is a mutant, so he can only be created by merging pig and zombie genomes in mainframe.
         GENOME_PIGZOMBIE = (GenomePigZombie) new GenomePigZombie(itemID, 15373203, 5009705).setUnlocalizedName(GENOME_PIGZOMBIE_INTERNALNAME);
         GameRegistry.registerItem(GENOME_PIGZOMBIE, GENOME_PIGZOMBIE_INTERNALNAME);
-
-        // Recipes for creating this vanilla mob.
-        MainframeRecipes.addRecipe(new ItemStack(GENOME_ZOMBIE), new ItemStack(GENOME_PIG), new ItemStack(GENOME_PIGZOMBIE), 1337);
     }
 
     static void createSheepGenome(int itemID)

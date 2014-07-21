@@ -3,8 +3,6 @@ package madscience.factory.tileentity.prefab;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bouncycastle.util.Arrays;
-
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;

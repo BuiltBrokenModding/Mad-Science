@@ -8,5 +8,6 @@ public enum MadSoundTriggerEnum
     IDLEON,
     WORKSTART,
     WORKING,
-    WORKEND;
+    WORKEND,
+    OVERHEAT
 }

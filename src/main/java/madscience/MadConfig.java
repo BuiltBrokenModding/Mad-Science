@@ -427,13 +427,6 @@ public class MadConfig
     private final static long MACHINE_TRANSFERRATE_DEFAULT = 200;
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
-    // Computer Mainframe
-    public static int MAINFRAME = MadMod.getNextBlockID();
-    public static long MAINFRAME_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static long MAINFRAME_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long MAINFRAME_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String MAINFRAME_HELP = "http://madsciencemod.com/minecraft-item/computer-mainframe/";
-
     // Meat Cube
     public static int MEATCUBE = MadMod.getNextBlockID();
     public static String MEATCUBE_HELP = "http://madsciencemod.com/minecraft-item/meat-cube/";

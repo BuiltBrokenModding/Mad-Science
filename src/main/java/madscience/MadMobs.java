@@ -5,8 +5,6 @@ import madscience.items.combinedgenomes.MadGenomeRegistry;
 import madscience.items.genomes.ItemGenomeBase;
 import madscience.items.spawnegg.MadGMORegistry;
 import madscience.items.spawnegg.MadSpawnEggInfo;
-import madscience.tile.mainframe.MainframeRecipes;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -96,7 +94,7 @@ public class MadMobs
         MadForgeMod.proxy.registerRenderingHandler(metaID);
 
         // Recipes for creating this custom mob.
-        MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);
+        //MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);
         //IncubatorRecipes.addSmelting(MadEntities.COMBINEDGENOME_MONSTERPLACER.itemID, metaID, new ItemStack(MadEntities.GENETICALLYMODIFIED_MONSTERPLACER, 1, metaID));
     }
 
@@ -109,7 +107,7 @@ public class MadMobs
         MadGenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, genomeInternalName, primaryColor, secondaryColor));
 
         // Recipes for creating this vanilla mob.
-        MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);
+        //MainframeRecipes.addRecipe(new ItemStack(primaryGenome), new ItemStack(secondaryGenome), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), mainframeComputeTime);
         //IncubatorRecipes.addSmelting(MadEntities.COMBINEDGENOME_MONSTERPLACER.itemID, metaID, new ItemStack(MadEntities.GENETICALLYMODIFIED_MONSTERPLACER, 1, metaID));
     }
 }

@@ -403,7 +403,6 @@ public class MadForgeMod
             MadTileEntityFactory.registerMachine(unregisteredMachine);
         }
 
-        MadFurnaces.createMainframeTileEntity(MadConfig.MAINFRAME);
         MadFurnaces.createCryotubeTileEntity(MadConfig.CRYOTUBE);
         MadFurnaces.createCryotubeGhostTileEntity(MadConfig.CRYOTUBEGHOST);
         MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
