@@ -45,7 +45,7 @@ public class CombinedMemoryMonsterPlacer extends Item
         super(par1);
         this.setHasSubtypes(true);
         this.setNoRepair();
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Define that we can have normal stack of items.
         this.maxStackSize = 1;

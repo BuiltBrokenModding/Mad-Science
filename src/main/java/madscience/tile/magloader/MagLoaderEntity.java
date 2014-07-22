@@ -296,7 +296,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Default response is to return nothing.
-        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.log().info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 

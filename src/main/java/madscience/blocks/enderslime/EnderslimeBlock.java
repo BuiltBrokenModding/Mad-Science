@@ -1,7 +1,6 @@
 package madscience.blocks.enderslime;
 
 import madscience.MadBlocks;
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import madscience.mobs.abomination.AbominationSounds;
 import net.minecraft.block.Block;
@@ -23,7 +22,7 @@ public class EnderslimeBlock extends Block
         super(par1, Material.rock);
         this.setHardness(5.0F);
         this.setResistance(10.0F);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
         this.hasTileEntity(0);
     }
 

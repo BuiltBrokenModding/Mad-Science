@@ -10093,7 +10093,7 @@
             "soundNameWithoutExtension": "Moo",
             "soundNameWithExtension": "Moo.ogg",
             "soundExtension": "ogg",
-            "soundTrigger": "DAMAGED",
+            "soundTrigger": "CUSTOM",
             "soundLengthInSeconds": 1.0,
             "soundPlaybackMode": "RANDOM",
             "randomVariance": 5
@@ -10171,7 +10171,7 @@
       "damageTrackingSupported": [
         {
           "damageMinimum": 0,
-          "damageMaximum": 15
+          "damageMaximum": 14
         }
       ]
     },

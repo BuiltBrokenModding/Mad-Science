@@ -102,91 +102,91 @@ public class MadComponents
     
     static void createComponentCaseItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Case");
+        MadMod.log().info("-Component Case");
         COMPONENT_CASE = (ComponentCase) new ComponentCase(itemID).setUnlocalizedName(COMPONENT_CASE_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_CASE, COMPONENT_CASE_INTERNALNAME);
     }
 
     static void createComponentComputerItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Computer");
+        MadMod.log().info("-Component Computer");
         COMPONENT_COMPUTER = (ComponentComputer) new ComponentComputer(itemID).setUnlocalizedName(COMPONENT_COMPUTER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_COMPUTER, COMPONENT_COMPUTER_INTERNALNAME);
     }
 
     static void createComponentCPUItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component CPU");
+        MadMod.log().info("-Component CPU");
         COMPONENT_CPU = (ComponentCPU) new ComponentCPU(itemID).setUnlocalizedName(COMPONENT_CPU_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_CPU, COMPONENT_CPU_INTERNALNAME);
     }
 
     static void createComponentFanItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Fan");
+        MadMod.log().info("-Component Fan");
         COMPONENT_FAN = (ComponentFan) new ComponentFan(itemID).setUnlocalizedName(COMPONENT_FAN_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_FAN, COMPONENT_FAN_INTERNALNAME);
     }
 
     static void createComponentFusedQuartzItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Fused Quartz");
+        MadMod.log().info("-Component Fused Quartz");
         COMPONENT_FUSEDQUARTZ = (ComponentFusedQuartz) new ComponentFusedQuartz(itemID).setUnlocalizedName(COMPONENT_FUSEDQUARTZ_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_FUSEDQUARTZ, COMPONENT_FUSEDQUARTZ_INTERNALNAME);
     }
 
     static void createComponentMagneticTapeItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Magnetic Tape");
+        MadMod.log().info("-Component Magnetic Tape");
         COMPONENT_MAGNETICTAPE = (ComponentMagneticTape) new ComponentMagneticTape(itemID).setUnlocalizedName(COMPONENT_MAGNETICTAPE_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_MAGNETICTAPE, COMPONENT_MAGNETICTAPE_INTERNALNAME);
     }
 
     static void createComponentPowerSupplyItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Power Supply");
+        MadMod.log().info("-Component Power Supply");
         COMPONENT_POWERSUPPLY = (ComponentPowerSupply) new ComponentPowerSupply(itemID).setUnlocalizedName(COMPONENT_POWERSUPPLY_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_POWERSUPPLY, COMPONENT_POWERSUPPLY_INTERNALNAME);
     }
 
     static void createComponentRAMItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component RAM");
+        MadMod.log().info("-Component RAM");
         COMPONENT_RAM = (ComponentRAM) new ComponentRAM(itemID).setUnlocalizedName(COMPONENT_RAM_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_RAM, COMPONENT_RAM_INTERNALNAME);
     }
 
     static void createComponentScreenItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Screen");
+        MadMod.log().info("-Component Screen");
         COMPONENT_SCREEN = (ComponentScreen) new ComponentScreen(itemID).setUnlocalizedName(COMPONENT_SCREEN_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_SCREEN, COMPONENT_SCREEN_INTERNALNAME);
     }
 
     static void createComponentSiliconWaferItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Silicon Wafer");
+        MadMod.log().info("-Component Silicon Wafer");
         COMPONENT_SILICONWAFER = (ComponentSiliconWafer) new ComponentSiliconWafer(itemID).setUnlocalizedName(COMPONENT_SILICONWAFER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_SILICONWAFER, COMPONENT_SILICONWAFER_INTERNALNAME);
     }
 
     static void createComponentTransistorItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Transistor");
+        MadMod.log().info("-Component Transistor");
         COMPONENT_TRANSISTOR = (ComponentTransistor) new ComponentTransistor(itemID).setUnlocalizedName(COMPONENT_TRANSISTOR_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_TRANSISTOR, COMPONENT_TRANSISTOR_INTERNALNAME);
     }
 
     static void createComponentThumperItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Thumper");
+        MadMod.log().info("-Component Thumper");
         COMPONENT_THUMPER = (ComponentThumper) new ComponentThumper(itemID).setUnlocalizedName(COMPONENT_THUMPER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_THUMPER, COMPONENT_THUMPER_INTERNALNAME);
     }
 
     static void createComponentEnderslimeItem(int itemID)
     {
-        MadMod.LOGGER.info("-Component Enderslime");
+        MadMod.log().info("-Component Enderslime");
         COMPONENT_ENDERSLIME = (ComponentEnderslime) new ComponentEnderslime(itemID).setUnlocalizedName(COMPONENT_ENDERSLIME_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_ENDERSLIME, COMPONENT_ENDERSLIME_INTERNALNAME);      
     }
@@ -194,7 +194,7 @@ public class MadComponents
     static void createComponentPulseRifleBarrelItem(int itemID)
     {
         // M41A Barrel
-        MadMod.LOGGER.info("-Component Pulse Rifle Barrel");
+        MadMod.log().info("-Component Pulse Rifle Barrel");
         COMPONENT_PULSERIFLEBARREL = (ComponentPulseRifleBarrel) new ComponentPulseRifleBarrel(itemID).setUnlocalizedName(COMPONENT_PULSERIFLEBARREL_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLEBARREL, COMPONENT_PULSERIFLEBARREL_INTERNALNAME);
         MadForgeMod.proxy.registerRenderingHandler(itemID);
@@ -203,7 +203,7 @@ public class MadComponents
     static void createComponentPulseRifleBoltItem(int itemID)
     {
         // M41A Bolt
-        MadMod.LOGGER.info("-Component Pulse Rifle Bolt");
+        MadMod.log().info("-Component Pulse Rifle Bolt");
         COMPONENT_PULSERIFLEBOLT = (ComponentPulseRifleBolt) new ComponentPulseRifleBolt(itemID).setUnlocalizedName(COMPONENT_PULSERIFLEBOLT_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLEBOLT, COMPONENT_PULSERIFLEBOLT_INTERNALNAME);
         MadForgeMod.proxy.registerRenderingHandler(itemID);
@@ -212,7 +212,7 @@ public class MadComponents
     static void createComponentPulseRifleReceiverItem(int itemID)
     {
         // M41A Receiver
-        MadMod.LOGGER.info("-Component Pulse Rifle Receiver");
+        MadMod.log().info("-Component Pulse Rifle Receiver");
         COMPONENT_PULSERIFLERECIEVER = (ComponentPulseRifleReceiver) new ComponentPulseRifleReceiver(itemID).setUnlocalizedName(COMPONENT_PULSERIFLERECIEVER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLERECIEVER, COMPONENT_PULSERIFLERECIEVER_INTERNALNAME);
         MadForgeMod.proxy.registerRenderingHandler(itemID);
@@ -221,7 +221,7 @@ public class MadComponents
     static void createComponentPulseRifleTriggerItem(int itemID)
     {
         // M41A Trigger
-        MadMod.LOGGER.info("-Component Pulse Rifle Trigger");
+        MadMod.log().info("-Component Pulse Rifle Trigger");
         COMPONENT_PULSERIFLETRIGGER = (ComponentPulseRifleTrigger) new ComponentPulseRifleTrigger(itemID).setUnlocalizedName(COMPONENT_PULSERIFLETRIGGER_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLETRIGGER, COMPONENT_PULSERIFLETRIGGER_INTERNALNAME);
         MadForgeMod.proxy.registerRenderingHandler(itemID);
@@ -230,7 +230,7 @@ public class MadComponents
     static void createComponentPulseRifleBulletCasingItem(int itemID)
     {
         // M41A Bullet Casing
-        MadMod.LOGGER.info("-Component Pulse Rifle Bullet Casing");
+        MadMod.log().info("-Component Pulse Rifle Bullet Casing");
         COMPONENT_PULSERIFLEBULLETCASING = (ComponentPulseRifleBulletCasing) new ComponentPulseRifleBulletCasing(itemID).setUnlocalizedName(COMPONENT_PULSERIFLEBULLETCASING_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLEBULLETCASING, COMPONENT_PULSERIFLEBULLETCASING_INTERNALNAME);
         MadForgeMod.proxy.registerRenderingHandler(itemID);
@@ -239,7 +239,7 @@ public class MadComponents
     static void createComponentPulseRifleGrenadeCasingItem(int itemID)
     {
         // M41A Grenade Casing
-        MadMod.LOGGER.info("-Component Pulse Rifle Grenade Casing");
+        MadMod.log().info("-Component Pulse Rifle Grenade Casing");
         COMPONENT_PULSERIFLEGRENADECASING = (ComponentPulseRifleGrenadeCasing) new ComponentPulseRifleGrenadeCasing(itemID).setUnlocalizedName(COMPONENT_PULSERIFLEGRENADECASING_INTERNALNAME);
         GameRegistry.registerItem(COMPONENT_PULSERIFLEGRENADECASING, COMPONENT_PULSERIFLEGRENADECASING_INTERNALNAME);
         MadForgeMod.proxy.registerRenderingHandler(itemID);

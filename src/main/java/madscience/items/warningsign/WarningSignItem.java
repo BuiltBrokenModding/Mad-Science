@@ -2,7 +2,6 @@ package madscience.items.warningsign;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -23,7 +22,7 @@ public class WarningSignItem extends ItemHangingEntity
     public WarningSignItem(int par1)
     {
         super(par1, WarningSignEntity.class);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
         this.setMaxStackSize(64);
     }
 

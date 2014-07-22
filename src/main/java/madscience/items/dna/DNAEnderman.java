@@ -1,6 +1,6 @@
 package madscience.items.dna;
 
-import madscience.MadEntities;
+import madscience.factory.mod.MadMod;
 
 public class DNAEnderman extends ItemDecayDNABase
 {
@@ -8,7 +8,7 @@ public class DNAEnderman extends ItemDecayDNABase
     public DNAEnderman(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
     }
 
 }

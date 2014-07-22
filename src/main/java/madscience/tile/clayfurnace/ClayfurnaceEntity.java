@@ -173,7 +173,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         }
 
         // Something bad has occurred!
-        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.log().info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -232,7 +232,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
             return this.clayfurnaceInput[1];
         }
 
-        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.log().info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 
@@ -390,7 +390,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         }
 
         // Flips a bool that allows this device to start cooking because it has been hit with a flint and steel.
-        MadMod.LOGGER.info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
+        MadMod.log().info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
         hasBeenLit = true;
     }
 
@@ -510,7 +510,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
                 }
                 catch (Exception err)
                 {
-                    MadMod.LOGGER.info("Attempted to set cook time for clay furnace but failed, using default value of 420 (7 minutes).");
+                    MadMod.log().info("Attempted to set cook time for clay furnace but failed, using default value of 420 (7 minutes).");
                     currentItemCookingMaximum = MadUtils.SECOND_IN_TICKS * 420;
                 }
 

@@ -1,39 +1,23 @@
 package madscience.tile;
 
-import java.util.Random;
-
-import madscience.MadConfig;
 import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
+import madscience.factory.sounds.MadSound;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class MeatcubeEntity extends MadTileEntityPrefab
 {
-    /** Stores maximum health level of this meat cube */
-    int currentMaximumMeatCubeDamage = 14;
-
-    /** Stores current health level of this meat cube so we can display levels of damage based on it */
-    int currentMeatCubeDamageValue = currentMaximumMeatCubeDamage;
-
     /** Last amount of ticks waited before playing an animation. */
     private long lastAnimTriggerTime = 42L;
 
@@ -108,7 +92,6 @@ public class MeatcubeEntity extends MadTileEntityPrefab
 
         // Play a regrowing noise when we manually add a bucket of water into the meatcube.
         //this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-        MadMod.LOGGER.info("internalWaterTank() " + this.getFluidAmount());
 
         // Remove a filled bucket of water from input stack 1.
         this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET), 1);
@@ -150,9 +133,6 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     {
         super.readFromNBT(nbt);
 
-        // Current health of our meatcube which will be used to indicate model level.
-        this.currentMeatCubeDamageValue = nbt.getInteger("MeatLevel");
-
         // Current number of ticks we should wait until playing an animation.
         // Note: We ensure this is not restored to zero by old versions.
         this.lastAnimTriggerTime = Math.max(nbt.getLong("LastAnimTriggerTime"), MadUtils.SECOND_IN_TICKS);
@@ -180,7 +160,6 @@ public class MeatcubeEntity extends MadTileEntityPrefab
 
             // Plays sounds idly and at random times.
             updateSound();
-
 
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt())
@@ -225,9 +204,6 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     {
         super.writeToNBT(nbt);
 
-        // Current level of damage that meat cube has stored on it.
-        nbt.setInteger("MeatLevel", this.currentMeatCubeDamageValue);
-
         // Current number of ticks we should wait until playing an animation.
         nbt.setLong("LastAnimTriggerTime", this.lastAnimTriggerTime);
 
@@ -241,7 +217,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
         super.canSmelt();
         
         // Check if meat cube needs healing or not.
-        if (this.currentMeatCubeDamageValue < this.currentMaximumMeatCubeDamage)
+        if (this.getDamageValue() < this.getDamageMaximum())
         {
             return true;
         }
@@ -266,9 +242,9 @@ public class MeatcubeEntity extends MadTileEntityPrefab
             if (this.removeFluidAmountExact((FluidContainerRegistry.BUCKET_VOLUME / 4)))
             {
                 // Re-grow some of the meat cube (heal it).
-                if (this.currentMeatCubeDamageValue < this.currentMaximumMeatCubeDamage)
+                if (this.getDamageValue() < this.getDamageMaximum())
                 {
-                    this.currentMeatCubeDamageValue++;
+                    this.increaseDamageValue();
 
                     // Play a disgusting sound of the meatcube regrowing.
                     //this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
@@ -310,8 +286,6 @@ public class MeatcubeEntity extends MadTileEntityPrefab
                 lastAnimFrameCount = 9;
             }
 
-            //this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_IDLE, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-
             // Set the flag that triggers animation to play.
             this.setPlayingAnimation(true);
         }
@@ -323,7 +297,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
         super.updateSound();
         
         // Play the sound of a heartbeat every few seconds.
-        if (worldObj.getWorldTime() % ((this.currentMeatCubeDamageValue * MadUtils.SECOND_IN_TICKS) + MadUtils.SECOND_IN_TICKS) == 0L)
+        if (worldObj.getWorldTime() % ((this.getDamageValue() * MadUtils.SECOND_IN_TICKS) + MadUtils.SECOND_IN_TICKS) == 0L)
         {
             //this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_HEARTBEAT, ((1.0F / this.currentMeatCubeDamageValue) + 0.42F), this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
@@ -333,5 +307,94 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     public void initiate()
     {
         super.initiate();
+    }
+
+    @Override
+    public void onBlockLeftClick(World world, int x, int y, int z, EntityPlayer player)
+    {
+        super.onBlockLeftClick(world, x, y, z, player);
+        
+        // Remove some health from the block if we can.
+        if (this.getDamageValue() <= this.getDamageMaximum() && this.getDamageValue() > 0)
+        {
+            this.decreaseDamageValue();
+
+            // Spawn raw chicken, steak, and pork when meatcube is hit.
+            ItemStack itemstack = new ItemStack(Item.beefRaw, 1);
+            float foodTypeRoll = this.worldObj.rand.nextFloat();
+            int foodAmountRoll = this.worldObj.rand.nextInt(5);
+
+            // Prevent zero food spawn.
+            if (foodAmountRoll <= 0)
+            {
+                foodAmountRoll = 1;
+            }
+
+            // Determine what kind of food will spawn from random roll.
+            if (foodTypeRoll <= 0.2F)
+            {
+                // Beef
+                itemstack = new ItemStack(Item.beefRaw, foodAmountRoll);
+            }
+            else if (foodTypeRoll <= 0.5F)
+            {
+                // Chicken
+                itemstack = new ItemStack(Item.chickenRaw, foodAmountRoll);
+            }
+            else if (foodTypeRoll <= 0.8F)
+            {
+                // Pork
+                itemstack = new ItemStack(Item.porkRaw, foodAmountRoll);
+            }
+
+            if (itemstack != null)
+            {
+                float f = this.worldObj.rand.nextFloat() * 0.8F + 0.1F;
+                float f1 = this.worldObj.rand.nextFloat() * 0.8F + 0.1F;
+                float f2 = this.worldObj.rand.nextFloat() * 0.8F + 0.1F;
+
+                while (itemstack.stackSize > 0)
+                {
+                    int k1 = this.worldObj.rand.nextInt(21) + 10;
+
+                    if (k1 > itemstack.stackSize)
+                    {
+                        k1 = itemstack.stackSize;
+                    }
+
+                    itemstack.stackSize -= k1;
+                    EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, new ItemStack(itemstack.itemID, k1, itemstack.getItemDamage()));
+
+                    if (itemstack.hasTagCompound())
+                    {
+                        entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
+                    }
+
+                    float f3 = 0.05F;
+                    entityitem.motionX = (float) this.worldObj.rand.nextGaussian() * f3;
+                    entityitem.motionY = (float) this.worldObj.rand.nextGaussian() * f3 + 0.2F;
+                    entityitem.motionZ = (float) this.worldObj.rand.nextGaussian() * f3;
+
+                    // Spawn the randomly chosen food item in a randomly chosen direction.
+                    world.spawnEntityInWorld(entityitem);
+
+                    // Play a cow mooaning sound, but not every single time because that is annoying.
+                    if (world.rand.nextBoolean() && world.rand.nextInt(10) < 5)
+                    {
+                        MadSound mooaning = MadMod.getSoundByName("Moo");
+                        if (mooaning != null)
+                        {
+                            world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, mooaning.getSoundNameWithoutExtension(), 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
+                        }
+                    }
+                }
+
+                // Prevent counter from going below zero.
+                if (this.getDamageValue() < 0)
+                {
+                    this.setDamageValue(0);
+                }
+            }
+        }
     }
 }

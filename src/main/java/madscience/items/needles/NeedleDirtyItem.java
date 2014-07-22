@@ -2,7 +2,6 @@ package madscience.items.needles;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -22,7 +21,7 @@ public class NeedleDirtyItem extends Item
         super(itemID);
 
         // Set proper tab for the base (empty) needle.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Needles won't repair other needles.
         this.setNoRepair();

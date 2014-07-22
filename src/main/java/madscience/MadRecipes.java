@@ -16,7 +16,7 @@ class MadRecipes
         // Creates recipes that fit in no other category, such as one to aid in creation of wither skeletons in early-game.
 
         // Filled mutant DNA syringe ontop of skeleton skull surrounded by soul sand will make a wither skeleton egg.
-        MadMod.LOGGER.info("-Wither skeleton early-game spawn egg recipe");
+        MadMod.log().info("-Wither skeleton early-game spawn egg recipe");
         GameRegistry.addRecipe(new ItemStack(MadEntities.GENETICALLYMODIFIED_MONSTERPLACER, 1, MadConfig.GMO_WITHERSKELETON_METAID), new Object[]
         { "212",
           "232",
@@ -28,7 +28,7 @@ class MadRecipes
         '4', new ItemStack(Item.egg, 1, 0)});
         
         // Laboratory Coat Body.
-        MadMod.LOGGER.info("-Laboratory Coat Body recipe");
+        MadMod.log().info("-Laboratory Coat Body recipe");
         GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_BODY, new Object[]
         { "W W",
           "WSW",
@@ -42,7 +42,7 @@ class MadRecipes
         }));
         
         // Laboratory Coat Leggings.
-        MadMod.LOGGER.info("-Laboratory Coat Leggings recipe");
+        MadMod.log().info("-Laboratory Coat Leggings recipe");
         GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_LEGGINGS, new Object[]
         { "PBP",
           "P P",
@@ -56,7 +56,7 @@ class MadRecipes
           }));
         
         // Safety Goggles.
-        MadMod.LOGGER.info("-Safety Goggles recipe");
+        MadMod.log().info("-Safety Goggles recipe");
         GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.LABCOAT_GOGGLES, new Object[]
         { "SSS",
           "S S",
@@ -67,7 +67,7 @@ class MadRecipes
           }));
         
         // Warning Sign
-        MadMod.LOGGER.info("-Warning Sign recipe");
+        MadMod.log().info("-Warning Sign recipe");
         GameRegistry.addRecipe(new ShapedOreRecipe(MadEntities.WARNING_SIGN, new Object[]
         { "WWW",
           "IPI",
@@ -85,7 +85,7 @@ class MadRecipes
         // Creates all the needed recipes to craft and interact with weapons.
         
         // Add 99 types of recipes for magazines that always return proper amount of bullets.
-        MadMod.LOGGER.info("-99 magazine unloading recipes");
+        MadMod.log().info("-99 magazine unloading recipes");
         for (int i = 1; i <= 99; i++)
         {
             // A magazine with 3 bullets actually has damage value of 96 and still returns 3 bullets.
@@ -97,7 +97,7 @@ class MadRecipes
         }
         
         // Adding an empty (no damage) magazine and a bullet will create a magazine with 99 damage.
-        MadMod.LOGGER.info("-Index 0 magazine (first bullet) recipe");
+        MadMod.log().info("-Index 0 magazine (first bullet) recipe");
         GameRegistry.addShapelessRecipe(new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 99), new Object[]
                 { 
                     new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM, 1, 0),
@@ -105,7 +105,7 @@ class MadRecipes
                 });
         
         // Add 99 types of recipes for magazines that always return properly filled magazine.
-        MadMod.LOGGER.info("-99 bullet loading recipes");
+        MadMod.log().info("-99 bullet loading recipes");
         for (int i = 1; i <= 98; i++)
         {   
             // A magazine and 1 bullet would create a magazine with damage of 99.
@@ -118,7 +118,7 @@ class MadRecipes
         }
         
         // M41A Pulse Rifle Grenades
-        MadMod.LOGGER.info("-Pulse Rifle Grenades recipe");
+        MadMod.log().info("-Pulse Rifle Grenades recipe");
         GameRegistry.addRecipe(new ItemStack(MadWeapons.WEAPONITEM_GRENADEITEM, 16), new Object[]
         { "424",
           "424",
@@ -130,7 +130,7 @@ class MadRecipes
         '4', Item.ingotIron,});
         
         // M41A Pulse Rifle Bullets
-        MadMod.LOGGER.info("-Pulse Rifle Bullets recipe");
+        MadMod.log().info("-Pulse Rifle Bullets recipe");
         GameRegistry.addRecipe(new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM, 64), new Object[]
         { "454",
           "424",
@@ -148,7 +148,7 @@ class MadRecipes
         // Create circuits which are used in the creation of other machines in the mod.
         
         // Circuit Comparator
-        MadMod.LOGGER.info("-Comparator Circuit recipe");
+        MadMod.log().info("-Comparator Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_COMPARATOR), new Object[]
         { "TTT", 
           "TCT", 
@@ -158,7 +158,7 @@ class MadRecipes
         'C', Item.comparator, });
         
         // Circuit Diamond
-        MadMod.LOGGER.info("-Diamond Circuit recipe");
+        MadMod.log().info("-Diamond Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_DIAMOND), new Object[]
         { "TTT",
           "TDT",
@@ -168,7 +168,7 @@ class MadRecipes
         'D', Item.diamond, });
         
         // Circuit Emerald
-        MadMod.LOGGER.info("-Emerald Circuit recipe");
+        MadMod.log().info("-Emerald Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_EMERALD), new Object[]
         { "TTT",
           "TET", 
@@ -178,7 +178,7 @@ class MadRecipes
         'E', Item.emerald, });
         
         // Circuit Ender Eye
-        MadMod.LOGGER.info("-Ender Eye Circuit recipe");
+        MadMod.log().info("-Ender Eye Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_ENDEREYE), new Object[]
         { "TTT",
           "TET",
@@ -188,7 +188,7 @@ class MadRecipes
         'E', Item.eyeOfEnder, });
         
         // Circuit Ender Pearl
-        MadMod.LOGGER.info("-Ender Pearl Circuit recipe");
+        MadMod.log().info("-Ender Pearl Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_ENDERPEARL), new Object[]
         { "TTT", 
           "TPT", 
@@ -198,7 +198,7 @@ class MadRecipes
         'P', Item.enderPearl, });
         
         // Circuit Glowstone
-        MadMod.LOGGER.info("-Glowstone Circuit recipe");
+        MadMod.log().info("-Glowstone Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_GLOWSTONE), new Object[]
         { "TTT",
           "TGT",
@@ -208,7 +208,7 @@ class MadRecipes
         'G', Item.glowstone, });
         
         // Circuit Redstone
-        MadMod.LOGGER.info("-Redstone Circuit recipe");
+        MadMod.log().info("-Redstone Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_REDSTONE), new Object[]
         { "TTT", 
           "TRT", 
@@ -218,7 +218,7 @@ class MadRecipes
         'R', Item.redstone, });
         
         // Circuit Spider Eye
-        MadMod.LOGGER.info("-Spider Eye Circuit recipe");
+        MadMod.log().info("-Spider Eye Circuit recipe");
         GameRegistry.addRecipe(new ItemStack(MadCircuits.CIRCUIT_SPIDEREYE), new Object[]
         { "TTT",
           "TST", 
@@ -233,7 +233,7 @@ class MadRecipes
         // Create components that are needed to craft everything else in the mod.
         
         // Case
-        MadMod.LOGGER.info("-Case Component recipe");
+        MadMod.log().info("-Case Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_CASE), new Object[]
         { "121",
           "2 2",
@@ -243,7 +243,7 @@ class MadRecipes
         '2', Item.stick });
         
         // Computer
-        MadMod.LOGGER.info("-Computer Component recipe");
+        MadMod.log().info("-Computer Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_COMPUTER), new Object[]
         { "ECE", 
           "FBD",
@@ -257,7 +257,7 @@ class MadRecipes
         'F', new ItemStack(MadComponents.COMPONENT_RAM), });
         
         // Fan
-        MadMod.LOGGER.info("-Fan Component recipe");
+        MadMod.log().info("-Fan Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_FAN), new Object[]
         { "121",
           "222",
@@ -268,20 +268,20 @@ class MadRecipes
         
         
         // Bake 1 Quartz = 1 Fused Quartz.
-        MadMod.LOGGER.info("-1 Quartz = 1 Fused Quartz recipe");
+        MadMod.log().info("-1 Quartz = 1 Fused Quartz recipe");
         FurnaceRecipes.smelting().addSmelting(Item.netherQuartz.itemID, new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ), 0.1F);
 
         // Bake 1 Quartz Block = 4 Fused Quartz.
-        MadMod.LOGGER.info("-1 Quartz Block = 4 Fused Quartz recipe");
+        MadMod.log().info("-1 Quartz Block = 4 Fused Quartz recipe");
         FurnaceRecipes.smelting().addSmelting(Block.blockNetherQuartz.blockID, new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ, 4), 0.1F);
 
         // Craft 1 Fire Charge + 1 Sand = 8 Fused Quartz.
-        MadMod.LOGGER.info("-1 Fire Charge + 1 Sand = 8 Fused Quartz recipe");
+        MadMod.log().info("-1 Fire Charge + 1 Sand = 8 Fused Quartz recipe");
         GameRegistry.addShapelessRecipe(new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ, 8), new Object[]
         { new ItemStack(Item.fireballCharge), new ItemStack(Block.sand) });
         
         // Magnetic Tape
-        MadMod.LOGGER.info("-Magnetic Tape Component recipe");
+        MadMod.log().info("-Magnetic Tape Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_MAGNETICTAPE), new Object[]
         { "111",
           "222",
@@ -290,7 +290,7 @@ class MadRecipes
         '2', Item.slimeBall, });
         
         // Power Supply
-        MadMod.LOGGER.info("-Power Supply Component recipe");
+        MadMod.log().info("-Power Supply Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), new Object[]
         { "141",
           "323",
@@ -302,7 +302,7 @@ class MadRecipes
         '4', Block.blockRedstone, });
         
         // Screen
-        MadMod.LOGGER.info("-Screen Component recipe");
+        MadMod.log().info("-Screen Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_SCREEN), new Object[]
         { "444",
           "333",
@@ -314,7 +314,7 @@ class MadRecipes
         '4', Block.glass, });
         
         // Thumper
-        MadMod.LOGGER.info("-Thumper Component recipe");
+        MadMod.log().info("-Thumper Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_THUMPER), new Object[]
         { "535",
           "212",
@@ -326,7 +326,7 @@ class MadRecipes
         '5', Block.pistonBase,});
         
         // Enderslime Block
-        MadMod.LOGGER.info("-Enderslime Component recipe");
+        MadMod.log().info("-Enderslime Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadBlocks.ENDERSLIMEBLOCK), new Object[]
         { "111",
           "111",

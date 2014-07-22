@@ -2,7 +2,6 @@ package madscience.items.weapons.pulseriflegrenade;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.MadWeapons;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
@@ -21,7 +20,7 @@ public class PulseRifleGrenadeItem extends Item
     {
         super(itemID);
         this.setUnlocalizedName(MadWeapons.WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Cannot repair grenades as they take no damage.
         this.setNoRepair();

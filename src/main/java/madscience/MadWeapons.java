@@ -34,7 +34,7 @@ public class MadWeapons
     static void createPulseRifle(int itemID)
     {
         // Totally not a rip off from that movie with Sigourney Weaver.
-        MadMod.LOGGER.info("-M41A Pulse Rifle");
+        MadMod.log().info("-M41A Pulse Rifle");
         WEAPONITEM_PULSERIFLE = (PulseRifleItem) new PulseRifleItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_INTERNALNAME);
         GameRegistry.registerItem(WEAPONITEM_PULSERIFLE, WEAPONITEM_PULSERIFLE_INTERNALNAME);
         MadForgeMod.proxy.registerRenderingHandler(itemID);
@@ -60,7 +60,7 @@ public class MadWeapons
     static void createPulseRifleBullet(int itemID)
     {
         // Bullet for the gun that is rendered in the world.
-        MadMod.LOGGER.info("-Pulse Rifle Bullet");
+        MadMod.log().info("-Pulse Rifle Bullet");
         WEAPONITEM_BULLETITEM = (PulseRifleBulletItem) new PulseRifleBulletItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME);
         EntityRegistry.registerModEntity(PulseRifleBulletEntity.class, WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME, itemID, MadForgeMod.instance, 120, 3, true);
         GameRegistry.registerItem(WEAPONITEM_BULLETITEM, WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME);
@@ -70,7 +70,7 @@ public class MadWeapons
     static void createPulseRifleGrenade(int itemID)
     {
         // Grenade for the gun that is rendered in the world.
-        MadMod.LOGGER.info("-Pulse Rifle Grenade");
+        MadMod.log().info("-Pulse Rifle Grenade");
         WEAPONITEM_GRENADEITEM = (PulseRifleGrenadeItem) new PulseRifleGrenadeItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME);
         EntityRegistry.registerModEntity(PulseRifleGrenadeEntity.class, WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME, itemID, MadForgeMod.instance, 120, 3, true);
         GameRegistry.registerItem(WEAPONITEM_GRENADEITEM, WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME);
@@ -80,7 +80,7 @@ public class MadWeapons
     static void createPulseRifleMagazine(int itemID)
     {
         // Magazine that is crafted with bullets to fill them and loaded into rifle.
-        MadMod.LOGGER.info("-Pulse Rifle Magazine");
+        MadMod.log().info("-Pulse Rifle Magazine");
         WEAPONITEM_MAGAZINEITEM = (PulseRifleMagazineItem) new PulseRifleMagazineItem(itemID).setUnlocalizedName(WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME);
         GameRegistry.registerItem(WEAPONITEM_MAGAZINEITEM, WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME);
         GameRegistry.registerCraftingHandler(new PulseRifleMagazineCraftingHandler());

@@ -59,7 +59,7 @@ public class MadFluids
     @EventHandler
     static void createLiquidDNA(int blockFluidID, int bucketItemID)
     {
-        MadMod.LOGGER.info("-Liquid DNA");
+        MadMod.log().info("-Liquid DNA");
         
         // Still's ID must be 1 above Flowing.
         LIQUIDDNA = (LiquidDNA) new LiquidDNA().setUnlocalizedName(LIQUIDDNA_INTERNALNAME);
@@ -97,7 +97,7 @@ public class MadFluids
     @EventHandler
     static void createLiquidDNAMutant(int blockFluidID, int bucketItemID)
     {
-        MadMod.LOGGER.info("-Liquid Mutant DNA");
+        MadMod.log().info("-Liquid Mutant DNA");
         LIQUIDDNA_MUTANT = (LiquidDNAMutant) new LiquidDNAMutant(LIQUIDDNA_MUTANT_INTERNALNAME).setUnlocalizedName(LIQUIDDNA_MUTANT_INTERNALNAME);
         FluidRegistry.registerFluid(LIQUIDDNA_MUTANT);
         LIQUIDDNA_MUTANT_BLOCK = (LiquidDNAMutantBlock) new LiquidDNAMutantBlock(blockFluidID).setUnlocalizedName(LIQUIDDNA_MUTANT_INTERNALNAME);

@@ -181,7 +181,7 @@ public class CryotubeGUI extends MadGUITemplate
                 }
                 catch (Exception err)
                 {
-                    MadMod.LOGGER.info("Unable to open sandra youtube easter egg link in default browser.");
+                    MadMod.log().info("Unable to open sandra youtube easter egg link in default browser.");
                 }
             }
             else
@@ -192,7 +192,7 @@ public class CryotubeGUI extends MadGUITemplate
                 }
                 catch (Exception err)
                 {
-                    MadMod.LOGGER.info("Unable to open wiki link in default browser.");
+                    MadMod.log().info("Unable to open wiki link in default browser.");
                 }
             }
         }

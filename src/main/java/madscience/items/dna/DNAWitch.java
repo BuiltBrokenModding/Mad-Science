@@ -1,6 +1,6 @@
 package madscience.items.dna;
 
-import madscience.MadEntities;
+import madscience.factory.mod.MadMod;
 
 public class DNAWitch extends ItemDecayDNABase
 {
@@ -8,7 +8,7 @@ public class DNAWitch extends ItemDecayDNABase
     public DNAWitch(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
     }
 
 }

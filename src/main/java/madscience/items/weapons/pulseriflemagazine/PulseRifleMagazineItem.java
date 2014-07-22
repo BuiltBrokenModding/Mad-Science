@@ -2,7 +2,6 @@ package madscience.items.weapons.pulseriflemagazine;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.MadWeapons;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
@@ -21,7 +20,7 @@ public class PulseRifleMagazineItem extends Item
     {
         super(itemID);
         this.setUnlocalizedName(MadWeapons.WEAPONITEM_PULSERIFLE_MAGAZINE_INTERNALNAME);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // You cannot repair magazines since we use them to measure how many bullets are inside of them.
         this.setNoRepair();

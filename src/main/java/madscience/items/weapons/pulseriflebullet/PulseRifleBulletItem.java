@@ -2,7 +2,6 @@ package madscience.items.weapons.pulseriflebullet;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.MadWeapons;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
@@ -21,7 +20,7 @@ public class PulseRifleBulletItem extends Item
     {
         super(itemID);
         this.setUnlocalizedName(MadWeapons.WEAPONITEM_PULSERIFLE_BULLET_INTERNALNAME);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Bullets have no individual damage.
         this.setNoRepair();

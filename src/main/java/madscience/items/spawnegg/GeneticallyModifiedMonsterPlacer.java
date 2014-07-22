@@ -3,7 +3,6 @@ package madscience.items.spawnegg;
 import java.util.Collection;
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadColors;
 import madscience.util.MadUtils;
@@ -120,7 +119,7 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     {
         super(id);
         setHasSubtypes(true);
-        setCreativeTab(MadEntities.tabMadScience);
+        setCreativeTab(MadMod.getCreativeTab());
         this.setUnlocalizedName("gmoMonsterPlacer");
 
         // We may stack the same amount as normal spawn eggs.

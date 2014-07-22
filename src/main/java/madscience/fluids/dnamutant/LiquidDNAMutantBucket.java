@@ -2,7 +2,6 @@ package madscience.fluids.dnamutant;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.MadFluids;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
@@ -33,7 +32,7 @@ public class LiquidDNAMutantBucket extends ItemFluidContainer
         super(id);
 
         // Add the block to the specific tab in creative mode.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
     }
     
     @Override

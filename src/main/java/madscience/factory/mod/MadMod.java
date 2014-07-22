@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProductData;
+import madscience.factory.creativetab.MadCreativeTab;
 import madscience.factory.sounds.MadSound;
 import madscience.util.IDManager;
 
@@ -60,7 +61,7 @@ public class MadMod
     public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
     
     // Hook standardized logging class so we can report data on the console without standard out.
-    public static Logger LOGGER = null;
+    private static Logger LOGGER = null;
     
     /** Data container which gets serialized with all our mod information. */
     private static List<MadTileEntityFactoryProductData> unregisteredMachines;
@@ -76,6 +77,9 @@ public class MadMod
     
     /** Defines where ID manager starts counting item ID's. */
     private static int idManagerItemIndex;
+    
+    /** Defines a tab that is created in the Minecraft creative menu where all this mods items and blocks will be registered. */
+    private static MadCreativeTab creativeTab = new MadCreativeTab(ID);
 
     static
     {
@@ -197,5 +201,21 @@ public class MadMod
                 idManagerBlockIndex,
                 idManagerItemIndex,
                 MadTileEntityFactory.getMachineDataList());
+    }
+
+    public static MadCreativeTab getCreativeTab()
+    {
+        return creativeTab;
+    }
+
+    public static Logger log()
+    {
+        return LOGGER;
+    }
+
+    public static void setLog(Logger lOGGER, Logger fmlLogger)
+    {
+        LOGGER = lOGGER;
+        LOGGER.setParent(fmlLogger);
     }
 }

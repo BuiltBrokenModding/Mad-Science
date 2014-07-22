@@ -33,7 +33,7 @@ public class MadPacketHandler implements IPacketHandler
             if (player instanceof EntityPlayerMP)
             {
                 ((EntityPlayerMP) player).playerNetServerHandler.kickPlayerFromServer("Protocol Exception!");
-                MadMod.LOGGER.warning("Player " + ((EntityPlayer) player).username + " caused a Protocol Exception!");
+                MadMod.log().warning("Player " + ((EntityPlayer) player).username + " caused a Protocol Exception!");
             }
         }
         catch (ReflectiveOperationException e)

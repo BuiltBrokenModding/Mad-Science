@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.MadForgeMod;
 import madscience.MadWeapons;
 import madscience.factory.mod.MadMod;
@@ -41,7 +40,7 @@ public class PulseRifleItem extends ItemBow
         // Inform Minecraft that there is an amazing weapon.
         super(itemID);
         this.setUnlocalizedName(MadWeapons.WEAPONITEM_PULSERIFLE_INTERNALNAME);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Cannot repair pulse rifle using Anvil.
         this.setNoRepair();

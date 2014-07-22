@@ -228,7 +228,7 @@ public class MadTileEntityFactory
         }
 
         // Debugging!
-        MadMod.LOGGER.info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
+        MadMod.log().info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
 
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);

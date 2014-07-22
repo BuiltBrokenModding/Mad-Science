@@ -152,7 +152,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab
                     currentPhraseTimeInTicks += 1.0F;
                     
                     // Debugging!
-                    MadMod.LOGGER.info("VoxBox: Counting word index " + String.valueOf(currentTalkWordStep));
+                    MadMod.log().info("VoxBox: Counting word index " + String.valueOf(currentTalkWordStep));
                 }
             }
             
@@ -169,18 +169,18 @@ public class VoxBoxEntity extends MadTileEntityPrefab
                     // Actually say the word, the timer will keep counting until we need the next one so sounds are evenly spaced out.
                     this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadMod.ID + ":" + MadFurnaces.VOXBOX_INTERNALNAME + "." + currentWordFromPhrase.getSoundNameWithoutExtension(), 1.0F, 1.0F);
                     currentTalkWordStep += 0.1F;
-                    MadMod.LOGGER.info("VoxBox: Speaking the word '" + currentWordFromPhrase.getSoundNameWithoutExtension() + "' with length of " + String.valueOf(currentWordFromPhrase.getSoundLengthInSeconds()) + "F.");
+                    MadMod.log().info("VoxBox: Speaking the word '" + currentWordFromPhrase.getSoundNameWithoutExtension() + "' with length of " + String.valueOf(currentWordFromPhrase.getSoundLengthInSeconds()) + "F.");
                 }
                 else if (currentPhraseTimeInTicks < totalPhraseTimeInTicks)
                 {
                     // Count upwards toward total time for this phrase.
                     currentPhraseTimeInTicks += 1.0F;
-                    MadMod.LOGGER.info("VoxBox: Counting towards total phrase time " + String.valueOf(currentPhraseTimeInTicks) + "/" + String.valueOf(totalPhraseTimeInTicks));
+                    MadMod.log().info("VoxBox: Counting towards total phrase time " + String.valueOf(currentPhraseTimeInTicks) + "/" + String.valueOf(totalPhraseTimeInTicks));
                 }
                 else if (currentPhraseTimeInTicks >= totalPhraseTimeInTicks)
                 {
                     resetVOX();
-                    MadMod.LOGGER.info("VoxBox: Resetting phrase since end of timer reached.");
+                    MadMod.log().info("VoxBox: Resetting phrase since end of timer reached.");
                 }
             }
             
@@ -192,7 +192,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab
                 // Check if we are still speaking the same phrase.
                 if (currentPhraseTimeInTicks < totalPhraseTimeInTicks)
                 {
-                    MadMod.LOGGER.info("VoxBox: Cannot start another phrase until this one is complete!");
+                    MadMod.log().info("VoxBox: Cannot start another phrase until this one is complete!");
                     return;
                 }
                 
@@ -268,12 +268,12 @@ public class VoxBoxEntity extends MadTileEntityPrefab
                         shouldBeSpeaking = true;
                         
                         // Debugging.
-                        MadMod.LOGGER.info("VoxBox: Playing phrase with " + fifoSpeech.size() + " words, totaling " + (totalPhraseTimeInTicks / MadUtils.SECOND_IN_TICKS) + " seconds.");
+                        MadMod.log().info("VoxBox: Playing phrase with " + fifoSpeech.size() + " words, totaling " + (totalPhraseTimeInTicks / MadUtils.SECOND_IN_TICKS) + " seconds.");
                     }
                     else
                     {
                         this.resetVOX();
-                        MadMod.LOGGER.info("VoxBox: Aborted phrase playback because there are no valid words in written book!");
+                        MadMod.log().info("VoxBox: Aborted phrase playback because there are no valid words in written book!");
                     }
                 }
             }

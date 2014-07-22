@@ -1,8 +1,8 @@
 package madscience.factory.tileentity.prefab;
 
-import net.minecraft.nbt.NBTTagCompound;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.damage.MadDamage;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class MadTileEntityDamagePrefab extends MadTileEntityHeatPrefab
 {
@@ -97,6 +97,32 @@ public class MadTileEntityDamagePrefab extends MadTileEntityHeatPrefab
             
             // Damage maximum.
             nbt.setInteger("DamageMaximum", this.damageMaximum);
+        }
+    }
+    
+    public void increaseDamageValue()
+    {
+        if (!this.damageSupported)
+        {
+            return;
+        }
+        
+        if (this.damageValue < this.damageMaximum)
+        {
+            this.damageValue++;
+        }
+    }
+    
+    public void decreaseDamageValue()
+    {
+        if (!this.damageSupported)
+        {
+            return;
+        }
+        
+        if (this.damageValue > 0)
+        {
+            this.damageValue--;
         }
     }
 

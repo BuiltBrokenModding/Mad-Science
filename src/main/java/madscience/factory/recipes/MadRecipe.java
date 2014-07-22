@@ -205,7 +205,7 @@ public final class MadRecipe
         catch (Exception err)
         {
             // Something went wrong parsing the input data.
-            MadMod.LOGGER.warning("Unable to parse input parameters into MadRecipeComponent for '" + fullName + "'!");
+            MadMod.log().warning("Unable to parse input parameters into MadRecipeComponent for '" + fullName + "'!");
         }
         
         return null;

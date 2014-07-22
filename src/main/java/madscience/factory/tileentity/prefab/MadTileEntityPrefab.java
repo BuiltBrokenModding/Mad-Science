@@ -6,7 +6,9 @@ import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityPacketTemplate;
 import madscience.util.MadUtils;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -265,5 +267,25 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
         
         // Populate our factory product object if we have not done so!
         this.registeredMachine = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName());
+    }
+
+    /** Called from block template when player right-clicks on the machine. */
+    public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    {
+        // Right Click Sound
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
+        {
+            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.RIGHTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        }
+    }
+
+    /** Called from block template when player left-clicks on the machine. */
+    public void onBlockLeftClick(World world, int x, int y, int z, EntityPlayer player)
+    {
+        // Left Click Sound
+        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
+        {
+            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.LEFTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        }
     }
 }

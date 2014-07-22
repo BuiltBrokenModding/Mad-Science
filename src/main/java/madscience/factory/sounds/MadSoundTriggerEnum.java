@@ -13,7 +13,6 @@ public enum MadSoundTriggerEnum
     CUSTOM,
     LEFTCLICK,
     RIGHTCLICK,
-    DAMAGED,
     HIGHDAMAGE,
     MEDIUMDAMAGE,
     LOWDAMAGE,

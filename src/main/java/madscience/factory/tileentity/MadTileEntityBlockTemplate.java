@@ -3,7 +3,6 @@ package madscience.factory.tileentity;
 import java.util.List;
 import java.util.Random;
 
-import madscience.MadEntities;
 import madscience.MadForgeMod;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
@@ -51,7 +50,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         this.setUnlocalizedName(registeredMachine.getMachineName());
         
         // Set what tab we show up in creative tab.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Determines how many hits it takes to break the block.
         this.setHardness(3.5F);
@@ -229,17 +228,17 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated(World world, int X, int Y, int Z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         // Called upon block activation (right click on the block.)
-        if (par1World.isRemote)
+        if (world.isRemote)
         {
             return true;
         }
-        else if (!par5EntityPlayer.isSneaking())
+        else if (!player.isSneaking())
         {
             // Open GUI on the client...
-            TileEntity vanillaTileInstance = par1World.getBlockTileEntity(par2, par3, par4);
+            TileEntity vanillaTileInstance = world.getBlockTileEntity(X, Y, Z);
             MadTileEntityPrefab tileEntityInstance = null;
             
             // Attempt to cast this block as one of ours.
@@ -250,7 +249,11 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     
             if (tileEntityInstance != null)
             {
-                par5EntityPlayer.openGui(MadForgeMod.instance, this.blockID, par1World, par2, par3, par4);
+                // Since we hook the entity we will fire a method off for API use.
+                tileEntityInstance.onBlockRightClick(world, X, Y, Z, player);
+                
+                // Open a GUI through our MadGUI handler if there is one associated with this given machine.
+                player.openGui(MadForgeMod.instance, this.blockID, world, X, Y, Z);
             }
             
             return true;
@@ -258,6 +261,33 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         else
         {
             return false;
+        }
+    }
+    
+    @Override
+    public void onBlockClicked(World world, int X, int Y, int Z, EntityPlayer player)
+    {
+        // Called when the block is left-clicked by a player.
+        if (world.isRemote)
+        {
+            return;
+        }
+        else if (!player.isSneaking())
+        {
+            // Get our tile entity instance.
+            TileEntity vanillaTileInstance = world.getBlockTileEntity(X, Y, Z);
+            MadTileEntityPrefab tileEntityInstance = null;
+            
+            // Attempt to cast this block as one of ours.
+            if (vanillaTileInstance != null && vanillaTileInstance instanceof MadTileEntityPrefab)
+            {
+                tileEntityInstance = (MadTileEntityPrefab) vanillaTileInstance;
+            }
+
+            if (tileEntityInstance != null)
+            {
+                tileEntityInstance.onBlockLeftClick(world, X, Y, Z, player);
+            }
         }
     }
 

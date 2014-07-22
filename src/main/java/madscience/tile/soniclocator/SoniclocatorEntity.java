@@ -196,7 +196,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
             }
             catch (Exception err)
             {
-                MadMod.LOGGER.info("Attempted to poison living creature and failed!");
+                MadMod.log().info("Attempted to poison living creature and failed!");
             }
         }
     }
@@ -272,7 +272,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         }
 
         // Something bad has occurred!
-        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.log().info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -504,7 +504,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
                             }
                             catch (Exception err)
                             {
-                                MadMod.LOGGER.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
+                                MadMod.log().info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
                             }
 
                             // Check if the target block is inside the OreDictionary if first query fails.
@@ -535,7 +535,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
                     }
                     catch (Exception err)
                     {
-                        MadMod.LOGGER.info("Error while trying to locate target block!");
+                        MadMod.log().info("Error while trying to locate target block!");
                         continue;
                     }
                 }

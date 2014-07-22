@@ -3,7 +3,6 @@ package madscience.items.combinedgenomes;
 import java.util.Collection;
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadColors;
 import madscience.util.MadUtils;
@@ -44,7 +43,7 @@ public class CombinedGenomeMonsterPlacer extends Item
         this.setUnlocalizedName("genomeMonsterPlacer");
 
         this.setNoRepair();
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Define that we can have normal stack of items.
         this.maxStackSize = 1;

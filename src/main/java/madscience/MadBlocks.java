@@ -20,7 +20,7 @@ public class MadBlocks
 
     static void createAbominationEgg(int blockID)
     {
-        MadMod.LOGGER.info("-Abomination Egg");
+        MadMod.log().info("-Abomination Egg");
         ABOMINATIONEGGBLOCK = new AbominationEggBlock(blockID).setUnlocalizedName(ABOMINATIONEGG_INTERNALNAME);
 
         // Register the block with the world.
@@ -33,7 +33,7 @@ public class MadBlocks
 
     static void createEnderslimeBlock(int blockID)
     {
-        MadMod.LOGGER.info("-Enderslime Block");
+        MadMod.log().info("-Enderslime Block");
         ENDERSLIMEBLOCK = new EnderslimeBlock(blockID).setUnlocalizedName(ENDERSLIMEBLOCK_INTERNALNAME);
 
         // Register the block with the world.

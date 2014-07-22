@@ -165,7 +165,7 @@ public class SequencerEntity extends MadTileEntityPrefab
                 this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).setItemDamage(--currentGenomeStatus);
 
                 // Debug message about data reel health as it is healed by the server.
-                MadMod.LOGGER.info("WORLD(" + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getUnlocalizedName() + "): " + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItemDamage());
+                MadMod.log().info("WORLD(" + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getUnlocalizedName() + "): " + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItemDamage());
             }
 
             // Check if the genome was healed completely in this last pass and if so complete it.

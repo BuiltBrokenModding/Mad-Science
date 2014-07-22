@@ -1,6 +1,6 @@
 package madscience.items.genomes;
 
-import madscience.MadEntities;
+import madscience.factory.mod.MadMod;
 
 public class GenomeCaveSpider extends ItemGenomeBase
 {
@@ -8,6 +8,6 @@ public class GenomeCaveSpider extends ItemGenomeBase
     public GenomeCaveSpider(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
     }
 }

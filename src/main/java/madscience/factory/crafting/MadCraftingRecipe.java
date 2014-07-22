@@ -164,7 +164,7 @@ public final class MadCraftingRecipe
         catch (Exception err)
         {
             // Something went wrong parsing the input data.
-            MadMod.LOGGER.warning("Unable to parse input parameters into MadCraftingComponent for '" + delimitedString + "'!");
+            MadMod.log().warning("Unable to parse input parameters into MadCraftingComponent for '" + delimitedString + "'!");
         }
 
         return null;

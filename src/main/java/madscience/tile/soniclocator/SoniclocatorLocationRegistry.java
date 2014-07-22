@@ -30,7 +30,7 @@ final class SoniclocatorLocationRegistry
         if (!otherSoniclocators.contains(newLocation))
         {
             otherSoniclocators.add(newLocation);
-            MadMod.LOGGER.info("SoniclocatorRegistry: Adding new location " + String.valueOf(newLocation.posX) + "x" + String.valueOf(newLocation.posY) + "x" + String.valueOf(newLocation.posZ));
+            MadMod.log().info("SoniclocatorRegistry: Adding new location " + String.valueOf(newLocation.posX) + "x" + String.valueOf(newLocation.posY) + "x" + String.valueOf(newLocation.posZ));
         }
     }
     
@@ -40,7 +40,7 @@ final class SoniclocatorLocationRegistry
         if (!otherSoniclocators.contains(rmLocation))
         {
             otherSoniclocators.remove(rmLocation);
-            MadMod.LOGGER.info("SoniclocatorRegistry: Removed location " + String.valueOf(rmLocation.posX) + "x" + String.valueOf(rmLocation.posY) + "x" + String.valueOf(rmLocation.posZ));
+            MadMod.log().info("SoniclocatorRegistry: Removed location " + String.valueOf(rmLocation.posX) + "x" + String.valueOf(rmLocation.posY) + "x" + String.valueOf(rmLocation.posZ));
         }
     }
     
@@ -54,7 +54,7 @@ final class SoniclocatorLocationRegistry
         }
         catch (Exception err)
         {
-            MadMod.LOGGER.info("queryDistanceBetweenSonicLocators: Attempted to grab server instance and failed!");
+            MadMod.log().info("queryDistanceBetweenSonicLocators: Attempted to grab server instance and failed!");
             return 0;
         }
         

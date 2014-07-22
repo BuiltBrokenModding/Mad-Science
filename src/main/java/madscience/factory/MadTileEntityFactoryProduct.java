@@ -180,7 +180,7 @@ public class MadTileEntityFactoryProduct
         // Complain if we are somehow already loaded!
         if (this.data.getCraftingRecipes() == null)
         {
-            MadMod.LOGGER.warning("[MadTileEntityFactoryProduct]Unable to load crafting recipes for '" + this.data.getMachineName() + "' because it has none!");
+            MadMod.log().warning("[MadTileEntityFactoryProduct]Unable to load crafting recipes for '" + this.data.getMachineName() + "' because it has none!");
             return;
         }
         
@@ -248,7 +248,7 @@ public class MadTileEntityFactoryProduct
                 // Debugging!
                 if (!searchResult)
                 {
-                    MadMod.LOGGER.info(resultInputPrint);
+                    MadMod.log().info(resultInputPrint);
                 }
             }
             
@@ -282,7 +282,7 @@ public class MadTileEntityFactoryProduct
                         }
                         catch (Exception err)
                         {
-                            MadMod.LOGGER.info("[" + this.getMachineName() + "]Unable to load shaped crafting recipe!");
+                            MadMod.log().info("[" + this.getMachineName() + "]Unable to load shaped crafting recipe!");
                         }
                         
                         break;
@@ -298,7 +298,7 @@ public class MadTileEntityFactoryProduct
                         }
                         catch (Exception err)
                         {
-                            MadMod.LOGGER.info("[" + this.getMachineName() + "]Unable to load shapeless crafting recipe!");
+                            MadMod.log().info("[" + this.getMachineName() + "]Unable to load shapeless crafting recipe!");
                         }
                         
                         break;
@@ -312,13 +312,13 @@ public class MadTileEntityFactoryProduct
             }
             else
             {
-                MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Bad Crafting Recipe: " + machineCraftingRecipe.getCraftingRecipeType().name());
+                MadMod.log().info("[" + this.data.getMachineName() + "]Bad Crafting Recipe: " + machineCraftingRecipe.getCraftingRecipeType().name());
             }
         }
         
         // Information about total loaded and failed.
-        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
-        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
+        MadMod.log().info("[" + this.data.getMachineName() + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
+        MadMod.log().info("[" + this.data.getMachineName() + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
     }
 
     /** Loads all recipes associated with slots inside of the machine allowing it to verify it's list against actual game items.
@@ -328,7 +328,7 @@ public class MadTileEntityFactoryProduct
         // Complain if we are somehow already loaded!
         if (this.data.getRecipeArchive() == null)
         {
-            MadMod.LOGGER.warning("[MadTileEntityFactoryProduct]Unable to load internal machine recipes for '" + this.data.getMachineName() + "' because it has none!");
+            MadMod.log().warning("[MadTileEntityFactoryProduct]Unable to load internal machine recipes for '" + this.data.getMachineName() + "' because it has none!");
             return;
         }
 
@@ -366,12 +366,12 @@ public class MadTileEntityFactoryProduct
                     // Debugging!
                     if (!searchResult)
                     {
-                        MadMod.LOGGER.info(resultInputPrint);
+                        MadMod.log().info(resultInputPrint);
                     }
                 }
                 else
                 {
-                    MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Bad Input: " + inputIngredient.getSlotType().name());
+                    MadMod.log().info("[" + this.data.getMachineName() + "]Bad Input: " + inputIngredient.getSlotType().name());
                 }
             }
 
@@ -400,18 +400,18 @@ public class MadTileEntityFactoryProduct
 
                     if (!searchResult)
                     {
-                        MadMod.LOGGER.info(resultOutputPrint);
+                        MadMod.log().info(resultOutputPrint);
                     }
                 }
                 else
                 {
-                    MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Bad Output: " + outputResult.getSlotType().name());
+                    MadMod.log().info("[" + this.data.getMachineName() + "]Bad Output: " + outputResult.getSlotType().name());
                 }
             }
         }
 
-        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
-        MadMod.LOGGER.info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
+        MadMod.log().info("[" + this.data.getMachineName() + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
+        MadMod.log().info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
     }
 
     /** Populates an internal list of sounds associated with this machine and returns them as a string array to be ready by Minecraft/Forge. */
@@ -456,7 +456,7 @@ public class MadTileEntityFactoryProduct
                 // Note: Minecraft will automatically play a random sound if named File1,2,3.
                 for (int x = 1; x <= machineSound.getSoundRandomVariance(); x++)
                 {
-                    MadMod.LOGGER.info("[" + this.getMachineName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
+                    MadMod.log().info("[" + this.getMachineName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
                     String fullRandomSoundPath = machineSoundPath + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension();  
                     
                     // Add to list which gets returned to Minecraft/Forge for actual loading.
@@ -466,7 +466,7 @@ public class MadTileEntityFactoryProduct
             else
             {
                 // Add just the individual sound file.
-                MadMod.LOGGER.info("[" + this.getMachineName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
+                MadMod.log().info("[" + this.getMachineName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
                 String fullSingleSoundPath = machineSoundPath + machineSound.getSoundNameWithExtension(); 
                 soundFileList.add(fullSingleSoundPath);
             }

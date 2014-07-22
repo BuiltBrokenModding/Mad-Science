@@ -1,6 +1,6 @@
 package madscience.items.genomes;
 
-import madscience.MadEntities;
+import madscience.factory.mod.MadMod;
 
 public class GenomeSkeleton extends ItemGenomeBase
 {
@@ -8,7 +8,7 @@ public class GenomeSkeleton extends ItemGenomeBase
     public GenomeSkeleton(int id, int primaryColor, int secondaryColor)
     {
         super(id, primaryColor, secondaryColor);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
     }
 
 }

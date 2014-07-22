@@ -64,7 +64,6 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
-import madscience.tile.MeatcubeEntity;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRender;
 import madscience.tile.cncmachine.CnCMachineEntity;
@@ -137,7 +136,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         World clientWorld = MadForgeMod.proxy.getClientWorld();
         if (clientWorld == null)
         {
-            MadMod.LOGGER.info("Mad Particle: Could not spawn particle because client world was null!");
+            MadMod.log().info("Mad Particle: Could not spawn particle because client world was null!");
             return;
         }
 

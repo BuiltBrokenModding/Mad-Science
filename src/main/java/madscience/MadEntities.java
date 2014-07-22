@@ -8,7 +8,6 @@ import madscience.items.memories.CombinedMemoryMonsterPlacer;
 import madscience.items.spawnegg.GeneticallyModifiedMonsterPlacer;
 import madscience.items.warningsign.WarningSignEntity;
 import madscience.items.warningsign.WarningSignItem;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.EnumHelper;
@@ -33,9 +32,6 @@ public class MadEntities
     public static ItemDataReelEmpty DATAREEL_EMPTY;
     private static final String DATAREEL_EMPTY_INTERNALNAME = "dataReelEmpty";
 
-    // Allows mod to store all it's items under its own tab in creative mode.
-    public static CreativeTabs tabMadScience;
-    
     // Gives our armor a custom material so that we can detect when various events interact with it.
     private static final EnumArmorMaterial labCoatArmorMaterial = EnumHelper.addArmorMaterial("LABCOAT", 0, new int[] { 0, 0, 0, 0 }, 0);
     
@@ -58,11 +54,11 @@ public class MadEntities
     // Combined Genome Data Reels
     static void createCombinedGenomeMonsterPlacer(int itemID)
     {
-        MadMod.LOGGER.info("-Combined Genome Metaitem");
+        MadMod.log().info("-Combined Genome Metaitem");
         COMBINEDGENOME_MONSTERPLACER = new CombinedGenomeMonsterPlacer(itemID);
         COMBINEDGENOME_MONSTERPLACER.setUnlocalizedName(COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
         COMBINEDGENOME_MONSTERPLACER.setTextureName(MadMod.ID + ":" + COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
-        COMBINEDGENOME_MONSTERPLACER.setCreativeTab(tabMadScience);
+        COMBINEDGENOME_MONSTERPLACER.setCreativeTab(MadMod.getCreativeTab());
         GameRegistry.registerItem(COMBINEDGENOME_MONSTERPLACER, COMBINEDGENOME_MONSTERPLACER_INTERNALNAME);
     }
 
@@ -70,11 +66,11 @@ public class MadEntities
     static void createCombinedMemoryMonsterPlacer(int itemID)
     {
         // For storing memories of various villages based on their professions.
-        MadMod.LOGGER.info("-Combined Memory Metaitem");
+        MadMod.log().info("-Combined Memory Metaitem");
         COMBINEDMEMORY_MONSTERPLACER = new CombinedMemoryMonsterPlacer(itemID);
         COMBINEDMEMORY_MONSTERPLACER.setUnlocalizedName(COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
         COMBINEDMEMORY_MONSTERPLACER.setTextureName(MadMod.ID + ":" + COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
-        COMBINEDMEMORY_MONSTERPLACER.setCreativeTab(tabMadScience);
+        COMBINEDMEMORY_MONSTERPLACER.setCreativeTab(MadMod.getCreativeTab());
         GameRegistry.registerItem(COMBINEDMEMORY_MONSTERPLACER, COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME);
 
         // Creates the various memory tiers, making their internal ID the amount of power we want them to create.
@@ -83,24 +79,10 @@ public class MadEntities
         /* 0 - Priest [32 EU/t] 1 - Farmer [64 EU/t] 2 - Butcher [128 EU/t] 3 - Blacksmith [128 EU/t] 4 - Librarian [512 EU/t] */
     }
 
-    static void createCustomCreativeTab(String tabInternalName, String tabDisplayName)
-    {
-        // Creates custom tab that shows up in creative mode to organize.
-        tabMadScience = new CreativeTabs(tabInternalName)
-        {
-            @Override
-            public ItemStack getIconItemStack()
-            {
-                // Shows icon of human DNA double-helix.
-                return new ItemStack(MadDNA.DNA_SPIDER, 1, 0);
-            }
-        };
-    }
-
     static void createEmptyDataReel(int itemID)
     {
         // Empty Genome Data Reel
-        MadMod.LOGGER.info("-Empty Data Reel");
+        MadMod.log().info("-Empty Data Reel");
         DATAREEL_EMPTY = (ItemDataReelEmpty) new ItemDataReelEmpty(itemID, 3515848, 3515848).setUnlocalizedName(DATAREEL_EMPTY_INTERNALNAME);
         GameRegistry.registerItem(DATAREEL_EMPTY, DATAREEL_EMPTY_INTERNALNAME);
 
@@ -117,18 +99,18 @@ public class MadEntities
     // Genetically Modified Mob Eggs
     static void createGeneticallyModifiedMonsterPlacer(int itemID)
     {
-        MadMod.LOGGER.info("-Genetically Modified Organism Placer");
+        MadMod.log().info("-Genetically Modified Organism Placer");
         GENETICALLYMODIFIED_MONSTERPLACER = new GeneticallyModifiedMonsterPlacer(itemID);
         GENETICALLYMODIFIED_MONSTERPLACER.setUnlocalizedName(GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setTextureName(MadMod.ID + ":" + GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
-        GENETICALLYMODIFIED_MONSTERPLACER.setCreativeTab(tabMadScience);
+        GENETICALLYMODIFIED_MONSTERPLACER.setCreativeTab(MadMod.getCreativeTab());
         GameRegistry.registerItem(GENETICALLYMODIFIED_MONSTERPLACER, GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
     }
 
     // Lab Coat Body
     static void createLabCoatBody(int itemID, int armorID)
     {
-        MadMod.LOGGER.info("-LabCoat Body");
+        MadMod.log().info("-LabCoat Body");
         LABCOAT_BODY = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadForgeMod.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_BODY_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_BODY, LABCOAT_BODY_INTERNALNAME);
     }
@@ -136,7 +118,7 @@ public class MadEntities
     // Lab Coat Leggings
     static void createLabCoatLeggings(int itemID, int armorID)
     {
-        MadMod.LOGGER.info("-LabCoat Leggings");
+        MadMod.log().info("-LabCoat Leggings");
         LABCOAT_LEGGINGS = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadForgeMod.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_LEGGINGS_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_LEGGINGS, LABCOAT_LEGGINGS_INTERNALNAME);
     }
@@ -144,7 +126,7 @@ public class MadEntities
     // Lab Coat Goggles
     static void createLabCoatGoggles(int itemID, int armorID)
     {
-        MadMod.LOGGER.info("-LabCoat Goggles");
+        MadMod.log().info("-LabCoat Goggles");
         LABCOAT_GOGGLES = (ItemLabCoat) new ItemLabCoat(itemID, labCoatArmorMaterial, MadForgeMod.proxy.getArmorIndex("labcoat"), armorID).setUnlocalizedName(LABCOAT_GOGGLES_INTERNALNAME);
         GameRegistry.registerItem(LABCOAT_GOGGLES, LABCOAT_GOGGLES_INTERNALNAME);
     }
@@ -152,7 +134,7 @@ public class MadEntities
     // Warning Sign
     static void createWarningSign(int itemID)
     {
-        MadMod.LOGGER.info("-Warning Sign Painting");
+        MadMod.log().info("-Warning Sign Painting");
         WARNING_SIGN = (WarningSignItem) new WarningSignItem(itemID).setUnlocalizedName(WARNING_SIGN_INTERNALNAME);
         EntityRegistry.registerModEntity(WarningSignEntity.class, WARNING_SIGN_INTERNALNAME, itemID, MadForgeMod.instance, 120, 3, false);
         GameRegistry.registerItem(WARNING_SIGN, WARNING_SIGN_INTERNALNAME);

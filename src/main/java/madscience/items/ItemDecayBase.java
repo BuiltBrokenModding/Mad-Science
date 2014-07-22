@@ -1,8 +1,8 @@
 package madscience.items;
 
 import madscience.MadConfig;
-import madscience.MadEntities;
 import madscience.MadNeedles;
+import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -19,7 +19,7 @@ public class ItemDecayBase extends Item
 
         // All of our needles inherit this class and all our needles go into
         // creative tab.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // No needles may be repaired.
         this.setNoRepair();

@@ -36,7 +36,7 @@ public class PulseRifleItemTickHandler implements ITickHandler
             }
             catch (Exception err)
             {
-                MadMod.LOGGER.info("Skipping pulse rifle keybinding interceptor init on server!");
+                MadMod.log().info("Skipping pulse rifle keybinding interceptor init on server!");
                 return;
             }
 

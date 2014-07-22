@@ -52,7 +52,7 @@ class MadUpdates
             }
             catch (Exception err)
             {
-                MadMod.LOGGER.info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
+                MadMod.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
                 return;
             }
 
@@ -68,18 +68,18 @@ class MadUpdates
                     long myXMLLong = new Long(xmlBuildNumber);
 
                     // Register a custom connection handler so we can tell the user something when the login to the game world.
-                    MadMod.LOGGER.info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
+                    MadMod.log().info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
                     NetworkRegistry.instance().registerConnectionHandler(new CustomConnectionHandler(myXMLLong));
                 }
                 else
                 {
-                    MadMod.LOGGER.info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
+                    MadMod.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
                     return;
                 }
             }
             catch (Exception err)
             {
-                MadMod.LOGGER.info("Unable to parse XML from Jenkins build server... perhaps it is down!");
+                MadMod.log().info("Unable to parse XML from Jenkins build server... perhaps it is down!");
                 return;
             }
         }

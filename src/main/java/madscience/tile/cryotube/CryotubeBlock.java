@@ -3,7 +3,6 @@ package madscience.tile.cryotube;
 import java.util.List;
 import java.util.Random;
 
-import madscience.MadEntities;
 import madscience.MadForgeMod;
 import madscience.MadFurnaces;
 import madscience.factory.mod.MadMod;
@@ -49,7 +48,7 @@ public class CryotubeBlock extends BlockContainer
         super(id, UniversalElectricity.machine);
 
         // Set what tab we show up in creative tab.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Determines how many hits it takes to break the block.
         this.setHardness(3.5F);

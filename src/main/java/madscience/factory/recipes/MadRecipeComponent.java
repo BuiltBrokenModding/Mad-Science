@@ -74,7 +74,7 @@ public class MadRecipeComponent
     {
         if (!this.hasLoaded)
         {
-            MadMod.LOGGER.warning("[MadRecipeComponent]Cannot return associated itemstack for recipe since it was never loaded!");
+            MadMod.log().warning("[MadRecipeComponent]Cannot return associated itemstack for recipe since it was never loaded!");
             return null;
         }
         
@@ -86,13 +86,13 @@ public class MadRecipeComponent
         // Prevent double-loading!
         if (hasLoaded)
         {
-            MadMod.LOGGER.warning("[MadRecipeComponent]Already loaded and verified this recipe with GameRegistry!");
+            MadMod.log().warning("[MadRecipeComponent]Already loaded and verified this recipe with GameRegistry!");
             return;
         }
         
         if (this.associatedItemStack != null)
         {
-            MadMod.LOGGER.warning("[MadRecipeComponent]Associated item stack is not null! How can this be?!");
+            MadMod.log().warning("[MadRecipeComponent]Associated item stack is not null! How can this be?!");
             return;
         }
         

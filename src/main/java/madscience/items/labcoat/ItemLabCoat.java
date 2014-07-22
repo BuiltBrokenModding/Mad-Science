@@ -2,7 +2,6 @@ package madscience.items.labcoat;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -24,7 +23,7 @@ public class ItemLabCoat extends ItemArmor
     public ItemLabCoat(int id, EnumArmorMaterial material, int index, int slot)
     {
         super(id, material, index, slot);
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
         this.setMaxDamage(200000);
     }
 

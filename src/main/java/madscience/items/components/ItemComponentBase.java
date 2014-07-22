@@ -2,7 +2,6 @@ package madscience.items.components;
 
 import java.util.List;
 
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -25,7 +24,7 @@ public class ItemComponentBase extends Item
         super(itemID);
         
         // All of our components extend this class.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // No components may be repaired.
         this.setNoRepair();

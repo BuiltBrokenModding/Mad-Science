@@ -33,7 +33,7 @@ class ClayfurnaceSlotInputBlock extends Slot
         }
         catch (Exception err)
         {
-            MadMod.LOGGER.info("CLAYFURNACE: Attempted to query Minecraft blocklist with value out of index.");
+            MadMod.log().info("CLAYFURNACE: Attempted to query Minecraft blocklist with value out of index.");
         }
 
         return false;

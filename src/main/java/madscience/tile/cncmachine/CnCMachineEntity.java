@@ -89,7 +89,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
         ItemStack compareFilledBucket = new ItemStack(Item.bucketWater);
         if (!this.CnCMachineInput[0].isItemEqual(compareFilledBucket))
         {
-            MadMod.LOGGER.info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
+            MadMod.log().info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
             return false;
         }
 
@@ -301,7 +301,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
         }
 
         // Something bad has occurred!
-        MadMod.LOGGER.info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
+        MadMod.log().info("decrStackSize() could not return " + numItems + " stack items from slot " + slot);
         return null;
     }
 
@@ -429,7 +429,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
             return this.CnCMachineOutput[1];
         }
 
-        MadMod.LOGGER.info("getStackInSlot() could not return valid stack from slot " + slot);
+        MadMod.log().info("getStackInSlot() could not return valid stack from slot " + slot);
         return null;
     }
 

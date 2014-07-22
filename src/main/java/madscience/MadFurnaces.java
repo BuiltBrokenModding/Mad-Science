@@ -2,9 +2,6 @@ package madscience;
 
 import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
-import madscience.items.combinedgenomes.MadGenomeInfo;
-import madscience.items.combinedgenomes.MadGenomeRegistry;
-import madscience.tile.MeatcubeEntity;
 import madscience.tile.clayfurnace.ClayfurnaceBlock;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRecipes;
@@ -24,7 +21,6 @@ import madscience.tile.soniclocator.SoniclocatorEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadFurnaces
@@ -84,7 +80,7 @@ public class MadFurnaces
     static void createCryotubeGhostTileEntity(int blockID)
     {
         // Acts as a collision box for upper two blocks of cryotube.
-        MadMod.LOGGER.info("-Cryogenic Tube Ghost Block");
+        MadMod.log().info("-Cryogenic Tube Ghost Block");
         CRYOTUBEGHOST = new CryotubeBlockGhost(blockID).setUnlocalizedName(CRYOTUBEGHOST_INTERNALNAME);
         GameRegistry.registerBlock(CRYOTUBEGHOST, MadMod.ID + CRYOTUBEGHOST_INTERNALNAME);
     }
@@ -92,7 +88,7 @@ public class MadFurnaces
     static void createCryotubeTileEntity(int blockID)
     {
         // Converts both a villagers brain activity and body heat into a renewable energy source.
-        MadMod.LOGGER.info("-Cryogenic Tube Tile Entity");
+        MadMod.log().info("-Cryogenic Tube Tile Entity");
         CRYOTUBE_TILEENTITY = (BlockContainer) new CryotubeBlock(blockID).setUnlocalizedName(CRYOTUBE_INTERNALNAME);
         GameRegistry.registerBlock(CRYOTUBE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CRYOTUBE_INTERNALNAME);
         GameRegistry.registerTileEntity(CryotubeEntity.class, CRYOTUBE_INTERNALNAME);
@@ -114,7 +110,7 @@ public class MadFurnaces
 
     static void createSoniclocatorGhostTileEntity(int blockID)
     {
-        MadMod.LOGGER.info("-Soniclocator Ghost Block");
+        MadMod.log().info("-Soniclocator Ghost Block");
         
         // Acts as a collision box for upper two blocks of Soniclocator device.
         SONICLOCATORGHOST = new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATORGHOST_INTERNALNAME);
@@ -123,7 +119,7 @@ public class MadFurnaces
 
     static void createSoniclocatorTileEntity(int blockID)
     {
-        MadMod.LOGGER.info("-Soniclocator Tile Entity");
+        MadMod.log().info("-Soniclocator Tile Entity");
         
         // Transposes block types in exchange for others using sonic waves.
         SONICLOCATOR_TILEENTITY = (BlockContainer) new SoniclocatorBlock(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
@@ -149,7 +145,7 @@ public class MadFurnaces
 
     static void createClayFurnaceTileEntity(int blockID)
     {
-        MadMod.LOGGER.info("-Clay Furnace Tile Entity");
+        MadMod.log().info("-Clay Furnace Tile Entity");
         
         // A early-game block that can give huge return on investment for ores for clay and fire and time.
         CLAYFURNACE_TILEENTITY = (BlockContainer) new ClayfurnaceBlock(blockID).setUnlocalizedName(CLAYFURNACE_INTERNALNAME);
@@ -176,7 +172,7 @@ public class MadFurnaces
 
     static void createMagLoaderTileEntity(int blockID)
     {
-        MadMod.LOGGER.info("-Magazine Loader Tile Entity");
+        MadMod.log().info("-Magazine Loader Tile Entity");
         
         // Loads ammunition into pulse rifle magazine at in-human speeds.
         MAGLOADER_TILEENTITY = (BlockContainer) new MagLoaderBlock(blockID).setUnlocalizedName(MAGLOADER_INTERNALNAME);
@@ -202,7 +198,7 @@ public class MadFurnaces
 
     static void createMagLoaderGhostTileEntity(int blockID)
     {
-        MadMod.LOGGER.info("-Magazine Loader Ghost Block");
+        MadMod.log().info("-Magazine Loader Ghost Block");
         
         // Acts as a collision box for upper blocks of Magazine Loader.
         MAGLOADERGHOST = new MagLoaderBlockGhost(blockID).setUnlocalizedName(MAGLOADERGHOST_INTERNALNAME);
@@ -211,7 +207,7 @@ public class MadFurnaces
 
     static void createCnCMachineTileEntity(int blockID)
     {
-        MadMod.LOGGER.info("-Cnc Machine Tile Entity");
+        MadMod.log().info("-Cnc Machine Tile Entity");
         
         // Cuts out blocks of Iron into shapes for gun parts using binary codes in written books.
         CNCMACHINE_TILEENTITY = (BlockContainer) new CnCMachineBlock(blockID).setUnlocalizedName(CNCMACHINE_INTERNALNAME);
@@ -247,7 +243,7 @@ public class MadFurnaces
 
     static void createCnCMachineGhostTileEntity(int blockID)
     {
-        MadMod.LOGGER.info("-CnC Machine Ghost Block");
+        MadMod.log().info("-CnC Machine Ghost Block");
         
         // Acts as a collision box for upper blocks of CnC Machine.
         CNCMACHINEGHOST_TILEENTITY = (Block) new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);

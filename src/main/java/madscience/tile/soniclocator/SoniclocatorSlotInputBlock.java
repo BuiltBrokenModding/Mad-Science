@@ -37,7 +37,7 @@ class SoniclocatorSlotInputBlock extends Slot
         }
         catch (Exception err)
         {
-            MadMod.LOGGER.info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
+            MadMod.log().info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
         }
         
         // Check if the target block is inside the OreDictionary if first query fails.

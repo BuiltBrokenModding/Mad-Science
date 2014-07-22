@@ -1,6 +1,5 @@
 package madscience.items.genomes;
 
-import madscience.MadEntities;
 import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -36,7 +35,7 @@ public class ItemGenomeBase extends Item
 
         // All of our needles inherit this class and all our needles go into
         // creative tab.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // No needles may be repaired.
         this.setNoRepair();

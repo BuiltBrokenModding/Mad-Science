@@ -3,7 +3,6 @@ package madscience.tile.clayfurnace;
 import java.util.List;
 import java.util.Random;
 
-import madscience.MadEntities;
 import madscience.MadForgeMod;
 import madscience.MadFurnaces;
 import madscience.factory.mod.MadMod;
@@ -49,7 +48,7 @@ public class ClayfurnaceBlock extends BlockContainer
         super(id, Material.clay);
 
         // Set what tab we show up in creative tab.
-        this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
 
         // Gives clayfurnace same resistance as iron block.
         this.setHardness(5.0F);
@@ -327,7 +326,7 @@ public class ClayfurnaceBlock extends BlockContainer
                 // COOLED OFF MODE - WAITING FOR PLAYER TO HIT US
                 if (player.canHarvestBlock(this))
                 {
-                    MadMod.LOGGER.info("Clay Furnace: Harvested player after having been cooled down!");
+                    MadMod.log().info("Clay Furnace: Harvested player after having been cooled down!");
                     world.playSoundEffect(X + 0.5D, Y + 0.5D, Z + 0.5D, "random.anvil_land", 1.0F, 1.0F);
 
                     // Set ourselves to the end result we should be!

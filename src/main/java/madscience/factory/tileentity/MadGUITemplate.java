@@ -116,7 +116,7 @@ public class MadGUITemplate extends GuiContainer
                     {
                         // Set the link to nothing we're aborting doctor!
                         helpLink = "";
-                        MadMod.LOGGER.info("[MadGUIButtonInterface]Unable to cast userData from action " + guiButton.getClickAction() + " to string!");
+                        MadMod.log().info("[MadGUIButtonInterface]Unable to cast userData from action " + guiButton.getClickAction() + " to string!");
 
                         // Stop further execution.
                         return;
@@ -133,7 +133,7 @@ public class MadGUITemplate extends GuiContainer
                             }
                             catch (Exception err)
                             {
-                                MadMod.LOGGER.info("Unable to open sandra youtube easter egg link in default browser.");
+                                MadMod.log().info("Unable to open sandra youtube easter egg link in default browser.");
                             }
                         }
                         else
@@ -144,7 +144,7 @@ public class MadGUITemplate extends GuiContainer
                             }
                             catch (Exception err)
                             {
-                                MadMod.LOGGER.info("Unable to open wiki link in default browser.");
+                                MadMod.log().info("Unable to open wiki link in default browser.");
                             }
                         }
                     }
