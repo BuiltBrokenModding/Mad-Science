@@ -4,6 +4,7 @@ import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
 import madscience.items.combinedgenomes.MadGenomeInfo;
 import madscience.items.combinedgenomes.MadGenomeRegistry;
+import madscience.tile.MeatcubeEntity;
 import madscience.tile.clayfurnace.ClayfurnaceBlock;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRecipes;
@@ -17,8 +18,6 @@ import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.magloader.MagLoaderBlock;
 import madscience.tile.magloader.MagLoaderBlockGhost;
 import madscience.tile.magloader.MagLoaderEntity;
-import madscience.tile.meatcube.MeatcubeBlock;
-import madscience.tile.meatcube.MeatcubeEntity;
 import madscience.tile.soniclocator.SoniclocatorBlock;
 import madscience.tile.soniclocator.SoniclocatorBlockGhost;
 import madscience.tile.soniclocator.SoniclocatorEntity;
@@ -111,27 +110,6 @@ public class MadFurnaces
         '2', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
         '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
         '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), });
-    }
-
-    @EventHandler
-    static void createMeatcubeTileEntity(int blockID, int metaID, int primaryColor, int secondaryColor, int cookTime)
-    {
-        // Disgusting meat cube that spawns chicken, cow and pig meat when hit.
-        MadMod.LOGGER.info("-Disgusting Meat Cube Tile Entity");
-        MEATCUBE_TILEENTITY = (BlockContainer) new MeatcubeBlock(blockID).setUnlocalizedName(MEATCUBE_INTERNALNAME);
-        GameRegistry.registerBlock(MEATCUBE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + MEATCUBE_INTERNALNAME);
-        GameRegistry.registerTileEntity(MeatcubeEntity.class, MEATCUBE_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Add mob to combined genome entity list so it can be created by other
-        MadGenomeRegistry.registerGenome(new MadGenomeInfo((short) metaID, MEATCUBE_INTERNALNAME, primaryColor, secondaryColor));
-
-        // Create meatcube with slime and pig, cow or chicken genomes!
-        //MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_COW), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
-        //MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_PIG), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
-        //MainframeRecipes.addRecipe(new ItemStack(MadGenomes.GENOME_SLIME), new ItemStack(MadGenomes.GENOME_CHICKEN), new ItemStack(MadEntities.COMBINEDGENOME_MONSTERPLACER, 1, metaID), cookTime);
     }
 
     static void createSoniclocatorGhostTileEntity(int blockID)

@@ -54,17 +54,17 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         MadModel modelArchive = registeredProduct.getModelArchive();
         
         // Since there can only be one texture binded, and many models we follow this model.
-        MadModelFile[] modeFiles = modelArchive.getMachineModels();
+        MadModelFile[] modelFiles = modelArchive.getMachineModels();
         
         // Set the length of model and resource arrays to model archive length.
-        techneModels = new MadTechneModel[modeFiles.length];
+        techneModels = new MadTechneModel[modelFiles.length];
         
         // Load the default texture for this machine model.
         techneModelTexture = new ResourceLocation(MadMod.ID, modelArchive.getMachineTexture());
         
         // Populate the newly created array with our data.
         int i = 0;
-        for(MadModelFile model : modeFiles)
+        for(MadModelFile model : modelFiles)
         {
             // Load the base model for this machine.
             techneModels[i] = (MadTechneModel) AdvancedModelLoader.loadModel(model.getModelPath());

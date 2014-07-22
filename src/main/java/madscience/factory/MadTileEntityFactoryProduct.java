@@ -8,6 +8,7 @@ import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingComponent;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
+import madscience.factory.damage.MadDamage;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
@@ -530,5 +531,10 @@ public class MadTileEntityFactoryProduct
     public MadHeat[] getHeatLevelsSupported()
     {
         return data.getHeatLevelsSupported();
+    }
+
+    public MadDamage[] getDamageTrackingSupported()
+    {
+        return data.getDamageTrackingSupported();
     }
 }

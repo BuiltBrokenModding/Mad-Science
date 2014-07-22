@@ -3,6 +3,7 @@ package madscience.factory;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingRecipe;
+import madscience.factory.damage.MadDamage;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
@@ -64,6 +65,9 @@ public class MadTileEntityFactoryProductData
     @Expose
     private MadHeat[] heatLevelsSupported;
     
+    @Expose
+    private MadDamage[] damageTrackingSupported;
+    
     public MadTileEntityFactoryProductData( // NO_UCD (unused code)
             String machineName,
             String logicClassNamespace,
@@ -73,6 +77,7 @@ public class MadTileEntityFactoryProductData
             MadFluid[] fluidsTemplate,
             MadEnergy[] energyTemplate,
             MadHeat[] heatTemplate,
+            MadDamage[] damageTemplate,
             MadSound[] soundArchive,
             MadRecipe[] recipeArchive,
             MadCraftingRecipe[] craftingRecipe,
@@ -109,6 +114,9 @@ public class MadTileEntityFactoryProductData
         
         // Heat level information.
         this.heatLevelsSupported = heatTemplate;
+        
+        // Damage information about machines health.
+        this.damageTrackingSupported = damageTemplate;
     }
 
     public String getMachineName()
@@ -239,5 +247,15 @@ public class MadTileEntityFactoryProductData
     public void setHeatLevelsSupported(MadHeat[] heatLevelsSupported)
     {
         this.heatLevelsSupported = heatLevelsSupported;
+    }
+
+    public MadDamage[] getDamageTrackingSupported()
+    {
+        return damageTrackingSupported;
+    }
+
+    public void setDamageTrackingSupported(MadDamage[] damageTrackingSupported)
+    {
+        this.damageTrackingSupported = damageTrackingSupported;
     }
 }

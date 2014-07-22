@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public abstract class MadTileEntityPrefab extends MadTileEntityHeatPrefab
+public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
 {
     /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
     private int progressMaximum;
@@ -182,6 +182,8 @@ public abstract class MadTileEntityPrefab extends MadTileEntityHeatPrefab
                         this.getHeatLevelValue(),
                         this.getHeatLevelTriggerValue(),
                         this.getHeatLevelMaximum(),
+                        this.getDamageValue(),
+                        this.getDamageMaximum(),
                         this.getEntityTexture()).makePacket());
     }
 

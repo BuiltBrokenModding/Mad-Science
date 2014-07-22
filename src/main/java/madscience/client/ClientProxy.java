@@ -64,6 +64,7 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
+import madscience.tile.MeatcubeEntity;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
 import madscience.tile.clayfurnace.ClayfurnaceRender;
 import madscience.tile.cncmachine.CnCMachineEntity;
@@ -72,8 +73,6 @@ import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.cryotube.CryotubeRender;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderRender;
-import madscience.tile.meatcube.MeatcubeEntity;
-import madscience.tile.meatcube.MeatcubeRender;
 import madscience.tile.soniclocator.SoniclocatorEntity;
 import madscience.tile.soniclocator.SoniclocatorRender;
 import madscience.util.MadUtils;
@@ -451,14 +450,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         {
             // Ties together three separate classes to create new mob.
             RenderingRegistry.registerEntityRenderingHandler(WerewolfMobEntity.class, new WerewolfMobRender(new WerewolfMobModel(), 0.5F));
-        }
-
-        // Disgusting Meat Cube
-        if (blockID == MadConfig.MEATCUBE)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.MEATCUBE_TILEENTITY.blockID, new MeatcubeRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(MeatcubeEntity.class, new MeatcubeRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new MeatcubeRender());
         }
 
         // Creeper Cow [Creeper + Cow]

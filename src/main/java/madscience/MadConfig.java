@@ -427,10 +427,6 @@ public class MadConfig
     private final static long MACHINE_TRANSFERRATE_DEFAULT = 200;
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
-    // Meat Cube
-    public static int MEATCUBE = MadMod.getNextBlockID();
-    public static String MEATCUBE_HELP = "http://madsciencemod.com/minecraft-item/meat-cube/";
-
     // Cryogenic Tube
     public static int CRYOTUBE = MadMod.getNextBlockID();
     static int CRYOTUBEGHOST = MadMod.getNextBlockID();

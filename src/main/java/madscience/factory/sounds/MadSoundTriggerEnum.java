@@ -10,5 +10,11 @@ public enum MadSoundTriggerEnum
     WORKING,
     WORKEND,
     OVERHEAT,
-    CUSTOM
+    CUSTOM,
+    LEFTCLICK,
+    RIGHTCLICK,
+    DAMAGED,
+    HIGHDAMAGE,
+    MEDIUMDAMAGE,
+    LOWDAMAGE,
 }

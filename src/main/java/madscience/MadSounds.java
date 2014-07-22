@@ -13,7 +13,6 @@ import madscience.mobs.woolycow.WoolyCowSounds;
 import madscience.tile.cncmachine.CnCMachineSounds;
 import madscience.tile.cryotube.CryotubeSounds;
 import madscience.tile.magloader.MagLoaderSounds;
-import madscience.tile.meatcube.MeatcubeSounds;
 import madscience.tile.soniclocator.SoniclocatorSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -67,9 +66,6 @@ public class MadSounds
 
         // Needles
         NeedleSounds.init(event);
-
-        // Disgusting Meat Cube
-        MeatcubeSounds.init(event);
 
         // -------------
         // TILE ENTITIES

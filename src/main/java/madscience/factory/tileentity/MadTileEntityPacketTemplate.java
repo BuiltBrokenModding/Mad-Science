@@ -37,6 +37,10 @@ public class MadTileEntityPacketTemplate extends MadPackets
     private int lastHeatValue;
     private int lastHeatTriggerValue;
     private int lastHeatMaximum;
+    
+    // Damage.
+    private int lastDamageValue;
+    private int lastDamageMaximum;
 
     // Last displayed texture.
     private String lastTexture;
@@ -59,6 +63,8 @@ public class MadTileEntityPacketTemplate extends MadPackets
             int heatValue,
             int heatTriggerValue,
             int heatMaximum,
+            int damageValue,
+            int damageMaximum,
             String tileTexture) // NO_UCD (use default)
     {
         // World position information.
@@ -82,6 +88,10 @@ public class MadTileEntityPacketTemplate extends MadPackets
         lastHeatValue = heatValue;
         lastHeatTriggerValue = heatTriggerValue;
         lastHeatMaximum = heatMaximum;
+        
+        // Damage.
+        lastDamageValue = damageValue;
+        lastDamageMaximum = damageMaximum;
 
         // Last displayed texture.
         lastTexture = tileTexture;
@@ -116,14 +126,18 @@ public class MadTileEntityPacketTemplate extends MadPackets
             this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastEnergy);
             this.ENTITY.setEnergyCapacity(lastEnergyMaximum);
             
+            // Fluid amount.
+            this.ENTITY.setFluidAmount(lastFluidLevel);
+            this.ENTITY.setFluidCapacity(lastFluidMaximum);
+            
             // Heat.
             this.ENTITY.setHeatLevelValue(lastHeatValue);
             this.ENTITY.setHeatLevelTriggerValue(lastHeatTriggerValue);
             this.ENTITY.setHeatLevelMaximum(lastHeatMaximum);
 
-            // Fluid amount.
-            this.ENTITY.setFluidAmount(lastFluidLevel);
-            this.ENTITY.setFluidCapacity(lastFluidMaximum);
+            // Damage value.
+            this.ENTITY.setDamageValue(lastDamageValue);
+            this.ENTITY.setDamageMaximum(lastDamageMaximum);
 
             // Tile entity texture.
             this.ENTITY.setTextureRenderedOnModel(lastTexture);
@@ -154,14 +168,18 @@ public class MadTileEntityPacketTemplate extends MadPackets
         this.lastEnergy = in.readLong();
         this.lastEnergyMaximum = in.readLong();
         
+        // Amount of stored fluid.
+        this.lastFluidLevel = in.readInt();
+        this.lastFluidMaximum = in.readInt();
+        
         // Heat.
         this.lastHeatValue = in.readInt();
         this.lastHeatTriggerValue = in.readInt();
         this.lastHeatMaximum = in.readInt();
-
-        // Amount of stored fluid.
-        this.lastFluidLevel = in.readInt();
-        this.lastFluidMaximum = in.readInt();
+        
+        // Damage.
+        this.lastDamageValue = in.readInt();
+        this.lastDamageMaximum = in.readInt();
 
         // Last displayed texture.
         this.lastTexture = in.readUTF();
@@ -187,14 +205,18 @@ public class MadTileEntityPacketTemplate extends MadPackets
         out.writeLong(lastEnergy);
         out.writeLong(lastEnergyMaximum);
         
+        // Amount of stored fluid.
+        out.writeInt(lastFluidLevel);
+        out.writeInt(lastFluidMaximum);
+        
         // Heat.
         out.writeInt(lastHeatValue);
         out.writeInt(lastHeatTriggerValue);
         out.writeInt(lastHeatMaximum);
-
-        // Amount of stored fluid.
-        out.writeInt(lastFluidLevel);
-        out.writeInt(lastFluidMaximum);
+        
+        // Damage.
+        out.writeInt(lastDamageValue);
+        out.writeInt(lastDamageMaximum);
 
         // Last displayed texture.
         out.writeUTF(lastTexture);

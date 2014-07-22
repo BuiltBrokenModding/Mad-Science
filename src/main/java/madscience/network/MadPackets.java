@@ -10,7 +10,6 @@ import madscience.tile.clayfurnace.ClayfurnacePackets;
 import madscience.tile.cncmachine.CnCMachinePackets;
 import madscience.tile.cryotube.CryotubePackets;
 import madscience.tile.magloader.MagLoaderPackets;
-import madscience.tile.meatcube.MeatcubePackets;
 import madscience.tile.soniclocator.SoniclocatorPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
@@ -49,9 +48,6 @@ public abstract class MadPackets
 
         // Mad Tile Entity Packet
         builder.put(Integer.valueOf(3), MadTileEntityPacketTemplate.class);
-
-        // Disgusting Meat Cube
-        builder.put(Integer.valueOf(6), MeatcubePackets.class);
 
         // Soniclocator Device
         builder.put(Integer.valueOf(10), SoniclocatorPackets.class);
