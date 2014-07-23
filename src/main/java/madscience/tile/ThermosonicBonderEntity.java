@@ -211,12 +211,10 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         // Important to call the class below us!
         super.updateEntity();
 
-        boolean inventoriesChanged = false;
-
         // Remove power from this device if we have some and also have heater enabled.
         if (this.isPowered() && this.isRedstonePowered())
         {
-            this.consumeEnergy(this.getEnergyConsumeRate());
+            this.consumeInternalEnergy(this.getEnergyConsumeRate());
         }
 
         // Add heat to this block if it has met the right conditions.
@@ -238,12 +236,6 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
-            // Update texture based on block state.
-            this.updateAnimation();
-
-            // Update current sound that sound be played.
-            this.updateSound();
-
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
             {
@@ -267,7 +259,7 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
                     // Convert one item into another via 'cooking' process.
                     this.setProgressValue(0);
                     this.smeltItem();
-                    inventoriesChanged = true;
+                    this.setInventoriesChanged();
                 }
             }
             else
@@ -275,14 +267,6 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
-
-            // Send update about block to all other players in the world.
-            this.sendUpdatePacket();
-        }
-
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
         }
     }
 

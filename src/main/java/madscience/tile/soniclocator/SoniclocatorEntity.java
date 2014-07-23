@@ -711,7 +711,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         // Remove all internal energy from the device.
         if (this.getEnergy(ForgeDirection.UNKNOWN) > 0)
         {
-            this.consumeEnergy(this.getEnergy(ForgeDirection.UNKNOWN) / 2);
+            this.consumeInternalEnergy(this.getEnergy(ForgeDirection.UNKNOWN) / 2);
         }
 
         // Add target block to output slot 1.
@@ -898,7 +898,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab implements ISidedInv
         if (this.isPowered() && this.isRedstonePowered())
         {
             // Normal consumption rate while powered.
-            this.consumeEnergy(MadConfig.SONICLOCATOR_CONSUME);
+            this.consumeInternalEnergy(MadConfig.SONICLOCATOR_CONSUME);
         }
 
         // Update status of the machine if it has redstone power or not.

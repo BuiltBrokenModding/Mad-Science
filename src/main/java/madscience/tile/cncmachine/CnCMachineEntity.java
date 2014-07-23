@@ -324,7 +324,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
         if (this.isPowered() && this.canSmelt() && this.isRedstonePowered())
         {
             // Decrease to amount of energy this item has on client and server.
-            this.consumeEnergy(MadConfig.CNCMACHINE_CONSUME);
+            this.consumeInternalEnergy(MadConfig.CNCMACHINE_CONSUME);
 
             if (drainWater)
             {

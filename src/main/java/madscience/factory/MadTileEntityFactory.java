@@ -230,9 +230,12 @@ public class MadTileEntityFactory
         // Debugging!
         MadMod.log().info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
 
+        // Prefetch model names and populate some lists for rendering their pieces before passing them to Minecraft/Forge rendering engine.
+        tileEntityProduct.loadModelArchive();
+        
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
-
+        
         // Register the machine with Minecraft/Forge.
         GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), tileEntityProduct.getMachineName());
         GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadMod.ID + tileEntityProduct.getMachineName());

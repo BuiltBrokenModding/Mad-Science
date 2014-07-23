@@ -124,12 +124,8 @@ public class VoxBoxEntity extends MadTileEntityPrefab
             // Check if we should be playing animation and consuming energy.
             if (!fifoSpeech.isEmpty() && shouldBeSpeaking)
             {
-                updateAnimation();
-                this.consumeEnergy(this.getEnergyConsumeRate());
+                this.consumeInternalEnergy(this.getEnergyConsumeRate());
             }
-            
-            // Send information to client about speaker animation.
-            this.sendUpdatePacket();
             
             // -----------------------
             // WAIT FOR WORD TO FINISH

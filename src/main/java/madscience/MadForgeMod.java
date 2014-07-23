@@ -147,7 +147,7 @@ public class MadForgeMod
         
         // Register block handler for custom GUI.
         NetworkRegistry.instance().registerGuiHandler(MadForgeMod.instance, MadForgeMod.guiHandler);
-
+        
         // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
         MadUpdates.checkJenkinsBuildNumbers();
     }

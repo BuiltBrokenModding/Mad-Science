@@ -95,7 +95,7 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Check if we have redstone power.
-        if (!this.isRedstonePowered)
+        if (!this.isRedstonePowered())
         {
             return false;
         }
@@ -598,10 +598,10 @@ public class MagLoaderEntity extends MadTileEntityPrefab implements ISidedInvent
         boolean inventoriesChanged = false;
 
         // Decrease to amount of energy this item has on client and server.
-        if (this.isPowered() && this.isRedstonePowered)
+        if (this.isPowered() && this.isRedstonePowered())
         {
             // Power consumption is not every tick but random.
-            this.consumeEnergy(MadConfig.MAGLOADER_CONSUME);
+            this.consumeInternalEnergy(MadConfig.MAGLOADER_CONSUME);
         }
 
         // Update status of the machine if it has redstone power or not.

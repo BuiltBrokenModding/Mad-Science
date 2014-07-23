@@ -130,23 +130,16 @@ public class CryofreezerEntity extends MadTileEntityPrefab
         // Important to call the class below us!
         super.updateEntity();
 
-        boolean inventoriesChanged = false;
-
         // Decrease to amount of energy this item has on client and server.
         if (this.isPowered() && this.canSmelt() && this.worldObj.rand.nextBoolean())
         {
             // Power consumption is not every tick but random.
-            this.consumeEnergy(this.getEnergyConsumeRate());
+            this.consumeInternalEnergy(this.getEnergyConsumeRate());
         }
 
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
-            // Change texture based on state.
-            updateAnimation();
-            
-            updateSound();
-
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
             {
@@ -170,7 +163,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab
                     // Convert one item into another via 'cooking' process.
                     this.setProgressValue(0);
                     this.smeltItem();
-                    inventoriesChanged = true;
+                    this.setInventoriesChanged();
                 }
             }
             else
@@ -178,13 +171,6 @@ public class CryofreezerEntity extends MadTileEntityPrefab
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
-
-            this.sendUpdatePacket();
-        }
-
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
         }
     }
 

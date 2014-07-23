@@ -4,6 +4,7 @@ import madscience.MadFluids;
 import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
+import madscience.factory.model.MadModelFile;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
@@ -32,6 +33,12 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     public MeatcubeEntity(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
+        
+        // Meatcube wants damage value to be set to max and count down.
+        if (this.isDamageSupported())
+        {
+            this.setDamageValue(this.getDamageMaximum());
+        }
     }
 
     public MeatcubeEntity(String machineName)
@@ -65,8 +72,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
             boolean underStackLimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= bucketEmpty.getMaxStackSize());
             if (!underStackLimit)
             {
-                // If we are not under the minecraft or item stack limit for
-                // output slot 2 then stop here.
+                // If we are not under the minecraft or item stack limit for output slot 2 then stop here.
                 return;
             }
         }
@@ -147,20 +153,12 @@ public class MeatcubeEntity extends MadTileEntityPrefab
         // Important to call the class below us!
         super.updateEntity();
 
-        boolean inventoriesChanged = false;
-
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
             // Checks to see if we can add a bucket from input slot into internal tank.
             addBucketToInternalTank();
             
-            // Changes texture on model that should be displayed based on state.
-            updateAnimation();
-
-            // Plays sounds idly and at random times.
-            updateSound();
-
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt())
             {
@@ -181,7 +179,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
                     // Convert one item into another via 'cooking' process.
                     this.setProgressValue(0);
                     this.smeltItem();
-                    inventoriesChanged = true;
+                    this.setInventoriesChanged();
                 }
             }
             else
@@ -189,13 +187,6 @@ public class MeatcubeEntity extends MadTileEntityPrefab
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
-
-            // Send update about tile entity status to all players around us.            this.sendUpdatePacket();
-        }
-
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
         }
     }
 
@@ -396,5 +387,103 @@ public class MeatcubeEntity extends MadTileEntityPrefab
                 }
             }
         }
+    }
+
+    @Override
+    public void updateWorldModel()
+    {
+        super.updateWorldModel();
+        
+        // Hide all the pieces by default and show them based on damage value.
+        for (MadModelFile modelReference : this.getClientModelsForWorldRender())
+        {
+            this.setModelWorldRenderVisibilityByName(modelReference.getModelName(), false);
+        }
+        
+//        // Base meatcube with piece zero always shows.
+//        this.setModelWorldRenderVisibilityByName("meatCube", true);
+//        
+//        // Display different chunks of the model based on internal health value.
+//        if (this.getDamageValue() >= 1)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube1", true);
+//        }
+//
+//        if (this.getDamageValue() >= 2)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube2", true);
+//        }
+//
+//        if (this.getDamageValue() >= 3)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube3", true);
+//        }
+//
+//        if (this.getDamageValue() >= 4)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube4", true);
+//        }
+//
+//        if (this.getDamageValue() >= 5)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube5", true);
+//        }
+//
+//        if (this.getDamageValue() >= 6)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube6", true);
+//        }
+//
+//        if (this.getDamageValue() >= 7)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube7", true);
+//        }
+//
+//        if (this.getDamageValue() >= 8)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube8", true);
+//        }
+//
+//        if (this.getDamageValue() >= 9)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube9", true);
+//        }
+//
+//        if (this.getDamageValue() >= 10)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube10", true);
+//        }
+//
+//        if (this.getDamageValue() >= 11)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube11", true);
+//        }
+//
+//        if (this.getDamageValue() >= 12)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube12", true);
+//        }
+//
+//        if (this.getDamageValue() >= 13)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube13", true);
+//        }
+//
+//        if (this.getDamageValue() >= 14)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube14", true);
+//        }
+    }
+
+    @Override
+    public void updateItemModel()
+    {
+        super.updateItemModel();
+        
+        // Render all parts of the meatcube when rendering it as an item.
+//        for (MadModelFile modelReference : this.getClientModelsforItemRender())
+//        {
+//            modelReference.setModelVisible(true);
+//        }
     }
 }

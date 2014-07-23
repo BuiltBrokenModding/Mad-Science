@@ -149,7 +149,7 @@ public class MainframeEntity extends MadTileEntityPrefab
             if (this.getEnergy(ForgeDirection.UNKNOWN) <= this.getEnergyCapacity(ForgeDirection.UNKNOWN))
             {
                 // Running computer consumes energy from internal reserve.
-                this.consumeEnergy(this.getEnergyConsumeRate());
+                this.consumeInternalEnergy(this.getEnergyConsumeRate());
             }
 
             // Running computer generates heat with excess energy it wastes.
@@ -380,8 +380,6 @@ public class MainframeEntity extends MadTileEntityPrefab
         // Important to call the class below us!
         super.updateEntity();
 
-        boolean inventoriesChanged = false;
-
         // Updates heat level of the block based on internal tank amount.
         checkHeatLevels();
 
@@ -390,12 +388,6 @@ public class MainframeEntity extends MadTileEntityPrefab
         {
             // Checks to see if we can add a bucket of water to internal tank.
             this.addBucketToInternalTank();
-            
-            // Updates animation texture stored in NBT based on machine state.
-            this.updateAnimation();
-
-            // Play sounds based on current state of operation.
-            this.updateSound();
 
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered() && this.isRedstonePowered())
@@ -436,7 +428,7 @@ public class MainframeEntity extends MadTileEntityPrefab
                     // Convert one item into another via 'cooking' process.
                     this.setProgressValue(0);
                     this.smeltItem();
-                    inventoriesChanged = true;
+                    this.setInventoriesChanged();
                 }
             }
             else
@@ -444,14 +436,6 @@ public class MainframeEntity extends MadTileEntityPrefab
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
-
-            // Sends relevant information from server to respective clients that require it.
-            this.sendUpdatePacket();
-        }
-
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
         }
     }
 

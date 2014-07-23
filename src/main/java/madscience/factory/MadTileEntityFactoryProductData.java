@@ -1,5 +1,7 @@
 package madscience.factory;
 
+import java.util.Hashtable;
+
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingRecipe;
@@ -7,7 +9,9 @@ import madscience.factory.damage.MadDamage;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
+import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelFile;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.sounds.MadSound;
@@ -19,9 +23,6 @@ public class MadTileEntityFactoryProductData
     /** Holds the internal name of this machine as used in config files and referenced in other lists. */
     @Expose
     private String machineName;
-    
-    /** Reference number used by Forge/MC to keep track of this tile entity. */
-    private int blockID;
     
     /** Holds string reference to our logic class which will be populated at runtime. */
     @Expose
@@ -67,6 +68,9 @@ public class MadTileEntityFactoryProductData
     
     @Expose
     private MadDamage[] damageTrackingSupported;
+    
+    /** Reference number used by Forge/MC to keep track of this tile entity. */
+    private int blockID;
     
     public MadTileEntityFactoryProductData( // NO_UCD (unused code)
             String machineName,

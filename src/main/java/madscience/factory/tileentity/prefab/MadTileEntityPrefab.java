@@ -12,12 +12,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
+public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
 {
-    /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning for */
+    /** The number of ticks that a fresh copy of the currently-burning item would keep the furnace burning. */
     private int progressMaximum;
 
-    /** The number of ticks that the current item has been cooking for */
+    /** The number of ticks that the current item has been cooking. */
     private int progressValue;
 
     /** Determines if we currently should be playing animation frames every tick or not. */
@@ -26,12 +26,9 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
     /** Current frame of animation we should use to display in world. */
     private int animationCurrentFrame;
 
-    /** Path to current texture that should be displayed on our model. */
-    private String entityTexture;
-
     /** Holds reference to our factory product which is grabbed after the object has been placed into the world. */
     private MadTileEntityFactoryProduct registeredMachine;
-
+    
     public MadTileEntityPrefab()
     {
         super();
@@ -40,7 +37,6 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
     public MadTileEntityPrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
-        this.entityTexture = "models/" + registeredMachine.getMachineName() + "/idle.png";
     }
 
     public MadTileEntityPrefab(String machineName)
@@ -57,11 +53,6 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
     public int getAnimationCurrentFrame()
     {
         return animationCurrentFrame;
-    }
-
-    public String getEntityTexture()
-    {
-        return entityTexture;
     }
 
     /**
@@ -108,9 +99,6 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
 
         // Current frame of animation we are displaying.
         this.animationCurrentFrame = nbt.getInteger("CurrentFrame");
-
-        // Path to current texture what should be loaded onto the model.
-        this.entityTexture = nbt.getString("TexturePath");
     }
 
     /** Sets internal number representing what frame of animation we should currently be playing. */
@@ -123,12 +111,6 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
     public int incrementAnimationCurrentFrame()
     {
         return this.animationCurrentFrame++;
-    }
-
-    /** Sets the texture resource path to whatever is specified. */
-    public void setTextureRenderedOnModel(String entityTexture)
-    {
-        this.entityTexture = entityTexture;
     }
 
     /** Sets a flag that tells prefab that an animation should currently be looping on the machine. */
@@ -162,7 +144,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
     }
     
     /** Sends base update packet for MadTileEntity containing position, progress, energy, fluids, textures, etc. */
-    public void sendUpdatePacket()
+    private void sendUpdatePacket()
     {
         // Send update to clients that require it.
         PacketDispatcher.sendPacketToAllAround(
@@ -172,13 +154,14 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
                 MadConfig.PACKETSEND_RADIUS,
                 worldObj.provider.dimensionId,
                 new MadTileEntityPacketTemplate(
+                        this.getMachineInternalName(),
                         this.xCoord,
                         this.yCoord,
                         this.zCoord,
                         this.getProgressValue(),
                         this.getProgressMaximum(),
-                        getEnergy(ForgeDirection.UNKNOWN),
-                        getEnergyCapacity(ForgeDirection.UNKNOWN),
+                        this.getEnergy(ForgeDirection.UNKNOWN),
+                        this.getEnergyCapacity(ForgeDirection.UNKNOWN),
                         this.getFluidAmount(),
                         this.getFluidCapacity(),
                         this.getHeatLevelValue(),
@@ -186,6 +169,8 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
                         this.getHeatLevelMaximum(),
                         this.getDamageValue(),
                         this.getDamageMaximum(),
+                        this.getClientModelsForWorldRender(),
+                        this.getClientModelsforItemRender(),
                         this.getEntityTexture()).makePacket());
     }
 
@@ -198,12 +183,23 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
     {
         
     }
-
+    
     @Override
     public void updateEntity()
     {
         super.updateEntity();
-
+        
+        if (!this.worldObj.isRemote)
+        {
+            // Change texture based on state.
+            this.updateAnimation();
+            
+            // Play sound based on state.
+            this.updateSound();
+            
+            // Update status of machine to all clients around us.
+            this.sendUpdatePacket();
+        }
     }
 
     public void updateSound()
@@ -255,9 +251,6 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
 
         // Current frame of animation we are displaying.
         nbt.setInteger("CurrentFrame", this.animationCurrentFrame);
-
-        // Path to current texture that should be loaded onto the model.
-        nbt.setString("TexturePath", this.entityTexture);
     }
 
     @Override
@@ -273,19 +266,25 @@ public abstract class MadTileEntityPrefab extends MadTileEntityDamagePrefab
     public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
     {
         // Right Click Sound
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
-        {
-            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.RIGHTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
-        }
+        this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.RIGHTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
     }
 
     /** Called from block template when player left-clicks on the machine. */
     public void onBlockLeftClick(World world, int x, int y, int z, EntityPlayer player)
     {
         // Left Click Sound
-        if (this.canSmelt() && this.isPowered() && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
-        {
-            this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.LEFTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
-        }
+        this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.LEFTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+    }
+
+    @Override
+    public void updateWorldModel()
+    {
+        super.updateWorldModel();
+    }
+
+    @Override
+    public void updateItemModel()
+    {
+        super.updateItemModel();
     }
 }

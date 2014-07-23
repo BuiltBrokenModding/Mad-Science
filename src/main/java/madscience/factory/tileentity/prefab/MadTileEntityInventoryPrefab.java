@@ -15,10 +15,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 
-abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implements ISidedInventory
+abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab implements ISidedInventory
 {
     /** The ItemStacks that hold the items currently being used in the furnace */
     private ItemStack[] INVENTORY;
+    
+    /** Determines if anything inside of this machine has changed that might be required a packet update! */
+    private boolean inventoriesChanged = false;
 
     public MadTileEntityInventoryPrefab()
     {
@@ -30,6 +33,16 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
         super(registeredMachine);
         
         INVENTORY = new ItemStack[registeredMachine.getContainerTemplate().length];
+    }
+    
+    public boolean isInventoriesChanged()
+    {
+        return inventoriesChanged;
+    }
+
+    public void setInventoriesChanged()
+    {
+        this.inventoriesChanged = true;
     }
 
     /** Returns true if automation can extract the given item in the given slot from the given side. Args: Slot, item, side */
@@ -503,8 +516,16 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstone implem
     @Override
     public void updateEntity()
     {
-        // Important to call the class below us!
         super.updateEntity();
+        
+        if (!this.worldObj.isRemote)
+        {
+            // Inform Minecraft/Forge that our inventories have changed!
+            if (this.inventoriesChanged)
+            {
+                this.onInventoryChanged();
+            }
+        }
     }
 
     @Override

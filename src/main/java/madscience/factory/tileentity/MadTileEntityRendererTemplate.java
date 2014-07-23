@@ -1,5 +1,8 @@
 package madscience.factory.tileentity;
 
+import java.util.Collection;
+import java.util.Hashtable;
+
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
@@ -29,46 +32,88 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler, IItemRenderer
 {
+    /** Reference to different rendering types such as FPS, TPS, etc. */
     private enum TransformationTypes
     {
         NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
     }
 
-    // Unique ID for our model to render in the world.
+    /** Unique ID for our model to render in the world. */
     private int rendereingID = RenderingRegistry.getNextAvailableRenderId();
-
-    /** Binary model file created with Techne */
-    private MadTechneModel[] techneModels = null;
 
     /** Default texture that is rendered on the model if no other is specified. */
     private ResourceLocation techneModelTexture = null;
     
+    /** Reference to models and texture that should be applied to them. */
     private MadModel renderingInfo;
+    
+    /** Reference to registered machine from factory. */
     private MadTileEntityFactoryProduct registeredMachine = null;
     
+    /** Hashtable which links client only models to their model reference classes, allowing them to be manipulated by server. */
+    private Hashtable<String, MadTechneModel> clientTechneModels = null;
+    
+    private Hashtable<String, MadModelFile> masterReferenceModels = null;
+    
+    /** Called on startup of game when renderer is associated with event system with Minecraft/Forge.
+     *  This file  */
     public MadTileEntityRendererTemplate(MadTileEntityFactoryProduct registeredProduct)
     {
         super();
         
         // Grab a list of all the models and associated textures for this machine.
         MadModel modelArchive = registeredProduct.getModelArchive();
+        if (modelArchive != null)
+        {
+            // There can only be one texture binded, and many models associated.
+            MadModelFile[] modelFiles = modelArchive.getMachineModels();
+            
+            // Load the default texture for this machine model.
+            techneModelTexture = new ResourceLocation(MadMod.ID, modelArchive.getMachineTexture());
+            
+            if (modelFiles != null)
+            {
+                // Load all of the associated models for this tile entity.
+                this.loadModelsAssociatedWithMachine(modelFiles);
+            }
+        }
+    }
+
+    /** Consumes an array of model files which need to be loaded on client side model loader.
+     *  This method should only be called from the client and not the server since no rendering
+     *  capabilities exist on the server. */
+    private void loadModelsAssociatedWithMachine(MadModelFile[] modelFiles)
+    {
+        // Abort if we already have models loaded!
+        if (masterReferenceModels != null && clientTechneModels != null)
+        {
+            return;
+        }
         
-        // Since there can only be one texture binded, and many models we follow this model.
-        MadModelFile[] modelFiles = modelArchive.getMachineModels();
-        
-        // Set the length of model and resource arrays to model archive length.
-        techneModels = new MadTechneModel[modelFiles.length];
-        
-        // Load the default texture for this machine model.
-        techneModelTexture = new ResourceLocation(MadMod.ID, modelArchive.getMachineTexture());
+        // Create the hashtables for this machines models.
+        clientTechneModels = new Hashtable<String, MadTechneModel>();
+        masterReferenceModels = new Hashtable<String, MadModelFile>();
         
         // Populate the newly created array with our data.
-        int i = 0;
         for(MadModelFile model : modelFiles)
         {
-            // Load the base model for this machine.
-            techneModels[i] = (MadTechneModel) AdvancedModelLoader.loadModel(model.getModelPath());
-            i++;
+            if (model != null)
+            {
+                // Debuggin'
+                MadMod.log().info("Loading model: " + model.getModelPath());
+                
+                // Load the base model for this machine.
+                MadTechneModel tmpModelActual = (MadTechneModel) AdvancedModelLoader.loadModel(model.getModelPath());
+                String tmpModelName = model.getModelName();
+                
+                if (tmpModelActual != null && tmpModelName != null)
+                {
+                    clientTechneModels.put(tmpModelName, tmpModelActual);
+                    
+                    // Link the name of the model to the entire reference object.
+                    masterReferenceModels.put(tmpModelName, model);
+                }
+            }
         }
     }
 
@@ -99,7 +144,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
     }
 
-    private void renderAModelAt(MadTileEntityPrefab tileEntity, double x, double y, double z, float f)
+    private void renderMadModelAt(MadTileEntityPrefab tileEntity, double x, double y, double z, float scale)
     {
         // Grab the individual tile entity in the world.
         MadTileEntityPrefab madTileEntity = null;
@@ -156,32 +201,45 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
 
         // Grab texture and model information from entity.
-        if (madTileEntity != null)
+        if (madTileEntity.getEntityTexture() != null && !madTileEntity.getEntityTexture().isEmpty())
         {
             // Apply our custom texture from asset directory.
-            if (madTileEntity.getEntityTexture() != null && !madTileEntity.getEntityTexture().isEmpty())
-            {
-                bindTexture(new ResourceLocation(MadMod.ID, madTileEntity.getEntityTexture()));
-            }
-            else
-            {
-                // Default texture if custom animation is not there.
-                bindTexture(this.techneModelTexture);
-            }
+            bindTexture(new ResourceLocation(MadMod.ID, madTileEntity.getEntityTexture()));
+        }
+        else
+        {
+            // Default texture if custom animation is not there.
+            bindTexture(this.techneModelTexture);
         }
 
         GL11.glPushMatrix();
-        renderTechneModels();
+        
+        // Render model from entity information
+        this.renderMadModelParts(madTileEntity.getClientModelsForWorldRender());
+        
         GL11.glPopMatrix();
         GL11.glPopMatrix();
     }
 
-    /** Tells the MadTechneModel rendering system to render all the parts that makeup it's given model. */
-    private void renderTechneModels()
+    /** Tells the MadTechneModel rendering system to render all the parts that makeup a given model. */
+    private void renderMadModelParts(MadModelFile[] madModelFiles)
     {
-        for (MadTechneModel model : techneModels)
+        // Loop through our keys from reference models (which are updated by packet system).
+        for (MadModelFile modelPart : madModelFiles)
         {
-            model.renderAll();
+            if (modelPart != null)
+            {
+                // Reference the key in the set to model hashtable.
+                MadTechneModel loadedModel = clientTechneModels.get(modelPart.getModelName());
+                if (loadedModel != null && modelPart != null)
+                {
+                    // Determine if this part of the model is visible or not.
+                    if (modelPart.isModelVisible())
+                    {
+                        loadedModel.renderAll();
+                    }
+                }
+            }
         }
     }
 
@@ -192,24 +250,34 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     }
 
     @Override
+    /** Renders a image or techne model based on master reference list from factory product data. */
     public void renderItem(ItemRenderType type, ItemStack item, Object... data)
     {
         GL11.glPushMatrix();
         
         // Populate our factory object based on object name that is attempting to be rendered.
-        if (techneModelTexture == null)
+        String getMachineName = MadUtils.cleanTag(item.getUnlocalizedName());
+        registeredMachine = MadTileEntityFactory.getMachineInfo(getMachineName);
+        
+        // If we find a machine that matches the one wanting to be rendered we will grab model information.
+        if (registeredMachine != null)
         {
-            String getMachineName = MadUtils.cleanTag(item.getUnlocalizedName());
-            registeredMachine = MadTileEntityFactory.getMachineInfo(getMachineName);
-            
-            // If we find a machine that matches the one wanting to be rendered we will grab model information.
-            if (registeredMachine != null)
+            renderingInfo = registeredMachine.getModelArchive();
+            if (renderingInfo != null)
             {
-                renderingInfo = registeredMachine.getModelArchive();
-                if (renderingInfo != null)
+                // There can only be one texture binded, and many models associated.
+                MadModelFile[] modelFiles = renderingInfo.getMachineModels();
+
+                // Create texture location based on the model info stored in the registered machine.
+                if (this.techneModelTexture == null)
                 {
-                    // Create texture location based on the model info stored in the registered machine.
-                    techneModelTexture = new ResourceLocation(MadMod.ID, renderingInfo.getMachineTexture());
+                    this.techneModelTexture = new ResourceLocation(MadMod.ID, renderingInfo.getMachineTexture());
+                }
+                
+                if (modelFiles != null)
+                {
+                    // Create the hashtables for this machines models.
+                    this.loadModelsAssociatedWithMachine(modelFiles);
                 }
             }
         }
@@ -264,8 +332,8 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             break; // never here
         }
 
-        // Renders the model in the gameworld at the correct scale.
-        renderTechneModels();
+        // Renders the model from master reference stored in factory product data.
+        this.renderMadModelParts(masterReferenceModels.values().toArray(new MadModelFile[]{}));
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)
@@ -301,7 +369,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         // Check if the tile entity wanting to be rendered is one of ours.
         if (tileEntity instanceof MadTileEntityPrefab)
         {
-            this.renderAModelAt((MadTileEntityPrefab) tileEntity, x, y, z, scale);
+            this.renderMadModelAt((MadTileEntityPrefab) tileEntity, x, y, z, scale);
         }
     }
 

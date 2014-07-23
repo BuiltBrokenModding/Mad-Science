@@ -3,17 +3,17 @@ package madscience.factory.tileentity.prefab;
 import madscience.factory.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 
-abstract class MadTileEntityRedstone extends MadTileEntityBasePrefab
+abstract class MadTileEntityRedstonePrefab extends MadTileEntityBasePrefab
 {
     /** Determines if we have redstone powering us */
-    public boolean isRedstonePowered = false;
+    private boolean isRedstonePowered = false;
 
-    public MadTileEntityRedstone()
+    public MadTileEntityRedstonePrefab()
     {
         super();
     }
 
-    MadTileEntityRedstone(MadTileEntityFactoryProduct registeredMachine)
+    MadTileEntityRedstonePrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
@@ -28,9 +28,6 @@ abstract class MadTileEntityRedstone extends MadTileEntityBasePrefab
     public void initiate()
     {
         super.initiate();
-        
-        // Checks the server world if we are currently powered by redstone.
-        checkRedstonePower();
     }
 
     public boolean isRedstonePowered()
@@ -50,10 +47,13 @@ abstract class MadTileEntityRedstone extends MadTileEntityBasePrefab
     @Override
     public void updateEntity()
     {
-        // Important to call the class below us!
         super.updateEntity();
-
-        checkRedstonePower();
+        
+        if (!this.worldObj.isRemote)
+        {
+            // Determine if this machine currently has redstone signal applied to it.
+            this.checkRedstonePower();
+        }
     }
 
     @Override

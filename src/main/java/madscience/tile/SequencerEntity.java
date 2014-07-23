@@ -243,23 +243,15 @@ public class SequencerEntity extends MadTileEntityPrefab
         // Important to call the class below us!
         super.updateEntity();
 
-        boolean inventoriesChanged = false;
-
         if (this.isPowered() && this.canSmelt())
         {
             // Decrease to amount of energy this item has on client and server.
-            this.consumeEnergy(this.getEnergyConsumeRate());
+            this.consumeInternalEnergy(this.getEnergyConsumeRate());
         }
 
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
-            // Animation for block.
-            updateAnimation();
-
-            // Play sound based on state.
-            updateSound();
-
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
             {
@@ -281,7 +273,7 @@ public class SequencerEntity extends MadTileEntityPrefab
                     // Convert one item into another via 'cooking' process.
                     this.setProgressValue(0);
                     this.smeltItem();
-                    inventoriesChanged = true;
+                    this.setInventoriesChanged();
                 }
             }
             else
@@ -289,14 +281,6 @@ public class SequencerEntity extends MadTileEntityPrefab
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
-
-            // Send update to all players around us about tile entity.
-            this.sendUpdatePacket();
-        }
-
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
         }
     }
 

@@ -1,6 +1,7 @@
 package madscience.factory;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import madscience.factory.buttons.MadGUIButton;
@@ -14,6 +15,7 @@ import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelFile;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
 import madscience.factory.slotcontainers.MadSlotContainer;
@@ -43,7 +45,14 @@ public class MadTileEntityFactoryProduct
     
     /** Stores reference to tile entity class itself which makes up logic or brains of this machine. */
     private Class<? extends MadTileEntityPrefab> tileEntityLogicClass;
-
+    
+    /** Hashtable which links server model references to files, the keys for this are the same as client one.
+     *  The purpose of this table is for rendering of models in the world and determining their individual properties. */
+    private Hashtable<String, MadModelFile> masterWorldModelReference = null;
+    
+    /** Hashtable linking server model references to file, the purpose of this table is for rendering of models as items. */
+    private Hashtable<String, MadModelFile> masterItemModelReference = null;
+    
     MadTileEntityFactoryProduct(MadTileEntityFactoryProductData machineData)
     {
         super();
@@ -56,6 +65,54 @@ public class MadTileEntityFactoryProduct
 
         // Setup the block which will create the tile entity once placed in the game world.
         this.blockContainer = (BlockContainer) new MadTileEntityBlockTemplate(this);
+    }
+    
+    public Hashtable<String, MadModelFile> getMasterWorldModelHashtable()
+    {
+        return masterWorldModelReference;
+    }
+
+    public Hashtable<String, MadModelFile> getMasterItemModelHashtable()
+    {
+        return masterItemModelReference;
+    }
+    
+    public MadModelFile[] getMasterModelsForWorldRender()
+    {
+        return masterWorldModelReference.values().toArray(new MadModelFile[]{});
+    }
+    
+    public MadModelFile[] getMasterModelsforItemRender()
+    {
+        return masterItemModelReference.values().toArray(new MadModelFile[]{});
+    }
+    
+    public void loadModelArchive()
+    {
+        // Grab a list of all the models and associated textures for this machine.
+        MadModel modelArchive = this.getModelArchive();
+        if (modelArchive != null)
+        {
+            // Since there can only be one texture binded, and many models we follow this model.
+            MadModelFile[] modelFiles = modelArchive.getMachineModels();
+            if (modelFiles != null)
+            {
+                // Create hash table of machine models which we will be able to use to manipulate 
+                masterWorldModelReference = new Hashtable<String, MadModelFile>();
+                masterItemModelReference = new Hashtable<String, MadModelFile>();
+                
+                // Populate the newly created array with our data.
+                for(MadModelFile model : modelFiles)
+                {
+                    // Link the name of the model to the entire reference object.
+                    masterWorldModelReference.put(model.getModelName(), model);
+                    masterItemModelReference.put(model.getModelName(), model);
+                    
+                    // Debugging.
+                    MadMod.log().info("[" + this.getMachineName() + "]Prefetching Model: " + model.getModelName());
+                }
+            }
+        }
     }
 
     /** Converts fully qualified domain name for a given class into that class. It must be based on MineTileEntityPrefab or loading will fail! */

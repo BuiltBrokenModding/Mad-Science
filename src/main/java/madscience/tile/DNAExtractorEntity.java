@@ -411,12 +411,10 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         // Important to call the class below us!
         super.updateEntity();
 
-        boolean inventoriesChanged = false;
-
         if (this.isPowered() && this.canSmelt())
         {
             // Decrease to amount of energy this item has on client and server.
-            this.consumeEnergy(this.getEnergyConsumeRate());
+            this.consumeInternalEnergy(this.getEnergyConsumeRate());
         }
 
         // Server side processing for furnace.
@@ -424,12 +422,6 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         {
             // Attempt to remove fluid from internal tank if we can.
             this.removeMutantDNAFromInternalTank();
-
-            // Change texture on block based on state.
-            this.updateAnimation();
-
-            // Update sound based on state.
-            this.updateSound();
 
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
@@ -451,7 +443,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
                     // Convert one item into another via 'cooking' process.
                     this.setProgressValue(0);
                     this.smeltItem();
-                    inventoriesChanged = true;
+                    this.setInventoriesChanged();
                 }
             }
             else
@@ -459,14 +451,6 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
-
-            // Send update to clients that require it.
-            this.sendUpdatePacket();
-        }
-
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
         }
     }
 

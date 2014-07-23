@@ -162,12 +162,10 @@ public class SanitizerEntity extends MadTileEntityPrefab
         // Important to call the class below us!
         super.updateEntity();
 
-        boolean inventoriesChanged = false;
-
         if (this.isPowered() && this.canSmelt())
         {
             // Decrease to amount of energy this item has on client and server.
-            this.consumeEnergy(this.getEnergyConsumeRate());
+            this.consumeInternalEnergy(this.getEnergyConsumeRate());
 
             // Decrease the amount of water in the blocks internal storage.
             this.removeFluidAmountExact(1);
@@ -182,12 +180,6 @@ public class SanitizerEntity extends MadTileEntityPrefab
             // Checks to see if we can add a bucket from input slot into internal tank.
             this.addBucketToInternalTank();
             
-            // Update block animation and model.
-            this.updateAnimation();
-
-            // Play sound while we are cleaning them needles!
-            this.updateSound();
-
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
             {
@@ -211,7 +203,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
                     // Convert one item into another via 'cooking' process.
                     this.setProgressValue(0);
                     this.smeltItem();
-                    inventoriesChanged = true;
+                    this.setInventoriesChanged();
                 }
             }
             else
@@ -219,14 +211,6 @@ public class SanitizerEntity extends MadTileEntityPrefab
                 // Reset loop, prepare for next item or closure.
                 this.setProgressValue(0);
             }
-            
-            // Send update to clients that require it.
-            this.sendUpdatePacket();
-        }
-
-        if (inventoriesChanged)
-        {
-            this.onInventoryChanged();
         }
     }
     

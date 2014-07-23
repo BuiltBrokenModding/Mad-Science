@@ -68,7 +68,8 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
         return true;
     }
 
-    private void consume()
+    /** Determines if energy can be consumed from the Universal Electricity grid to fill machine internal energy reserves. */
+    private void consumeEnergyFromGrid()
     {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS)
         {
@@ -86,7 +87,8 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
         }
     }
 
-    public void consumeEnergy(long amount)
+    /** Determine if the given amount of energy can be drained from machine internal energy supplies. */
+    public void consumeInternalEnergy(long amount)
     {
         if (!this.energy.isEmpty())
         {
@@ -234,10 +236,13 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
     {
         super.updateEntity();
 
-        // Accept energy if we are allowed to do so.
-        if (this.energy != null && this.energy.checkReceive())
+        if (!this.worldObj.isRemote)
         {
-            this.consume();
+            // Accept energy from electrical grid to fill machine internal reserves if possible.
+            if (this.energy != null && this.energy.checkReceive())
+            {
+                this.consumeEnergyFromGrid();
+            }
         }
     }
 
