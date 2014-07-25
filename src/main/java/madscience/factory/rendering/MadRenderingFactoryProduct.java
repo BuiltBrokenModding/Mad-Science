@@ -71,23 +71,37 @@ public class MadRenderingFactoryProduct
         return textureResource;
     }
     
-    public void setRenderVisibilityByName(String modelName, boolean visible)
+    /** Updates rendering product with proper visibility status per instance. Returns false if no change was needed, true if change was made. */
+    public boolean setRenderVisibilityByName(String modelName, boolean visible)
     {
         // Attempt to locate the piece based on it's name.
         if (modelRenderingReference.containsKey(modelName))
         {
             // Grab the model piece from reference.
             MadTechneModel queriedModel = modelRenderingReference.get(modelName);
-            queriedModel.setVisible(visible);
             
-            // Update the reference.
-            MadTechneModel replacedModel = modelRenderingReference.put(modelName, queriedModel);
-            
-            // Check that list was updated to match what was inputed.
-            if (!queriedModel.equals(replacedModel))
+            if (queriedModel.isVisible() != visible)
             {
-                throw new IllegalArgumentException("Could not update model piece '" + modelName + "' visibility. Something is wrong with rendering reference mapping!");
+                queriedModel.setVisible(visible);
+                
+                // Update the reference.
+                MadTechneModel replacedModel = modelRenderingReference.put(modelName, queriedModel);
+                
+                // Check that list was updated to match what was inputed.
+                if (!queriedModel.equals(replacedModel))
+                {
+                    throw new IllegalArgumentException("Could not update model piece '" + modelName + "' visibility. Something is wrong with rendering reference mapping!");
+                }
+                
+                return true;
             }
         }
+        
+        return false;
+    }
+
+    public Map<String, MadTechneModel> getModelRenderingReference()
+    {
+        return modelRenderingReference;
     }
 }

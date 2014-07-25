@@ -20,6 +20,7 @@ import madscience.factory.mod.MadMod;
 import madscience.factory.mod.MadModData;
 import madscience.factory.model.MadModelFile;
 import madscience.factory.model.MadTechneModelLoader;
+import madscience.factory.rendering.MadRenderingFactoryProduct;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.factory.tileentity.templates.MadTileEntityRendererTemplate;
@@ -282,12 +283,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         {
             e.printStackTrace();
         }
-    }
-    
-    @Override
-    public void updateRenderingInstance(String machineName, boolean isItem, int X, int Y, int Z, MadModelFile[] modelInformation)
-    {
-        MadRenderingFactory.instance().updateModelInstance(machineName, isItem, X, Y, Z, modelInformation);
     }
 
     @Override

@@ -1,10 +1,5 @@
 package madscience.factory.tileentity.templates;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import madscience.MadForgeMod;
-import madscience.factory.model.MadModelFile;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;
@@ -66,12 +61,6 @@ public class MadTileEntityPacketTemplate extends MadPackets
     /** Damage maximum amount. */
     private int lastDamageMaximum;
 
-    /** World models rendering list size. */
-    private int lastWorldModelListSize;
-    
-    /** Model visibility for world object. */
-    private boolean[] lastWorldModelList;
-    
     /** Last displayed texture resource path (without modid). */
     private String lastTexture;
     
@@ -110,27 +99,6 @@ public class MadTileEntityPacketTemplate extends MadPackets
         // Damage.
         this.lastDamageValue = madMachine.getDamageValue();
         this.lastDamageMaximum = madMachine.getDamageMaximum();
-        
-        // Server model instances which need to be sent to clients.
-        Collection<MadModelFile> worldModels = madMachine.getModelRenderingInfo().values();
-        
-        // Model visibility array sizes.
-        this.lastWorldModelListSize = worldModels.size();
-        
-        // Model arrays.
-        this.lastWorldModelList = new boolean[lastWorldModelListSize];
-        
-        // Fill model arrays with default data.
-        Arrays.fill(lastWorldModelList, Boolean.FALSE);
-        
-        // Model world visibility.
-        int x = 0;
-        for(MadModelFile worldModel : worldModels)
-        {
-            lastWorldModelList[x] = worldModel.isModelVisible();
-            //MadMod.log().info(worldModel.getModelName() + ":" + String.valueOf(worldModel.isModelVisible()));
-            x++;
-        }
         
         // Last displayed texture.
         this.lastTexture = madMachine.getEntityTexture();
@@ -186,20 +154,6 @@ public class MadTileEntityPacketTemplate extends MadPackets
             this.madTileEntity.setDamageValue(lastDamageValue);
             this.madTileEntity.setDamageMaximum(lastDamageMaximum);
             
-            // Grab current model information from client entity.
-            MadModelFile[] clientModelArray = this.madTileEntity.getModelRenderingInfo().values().toArray(new MadModelFile[]{});
-            
-            // Copy over visibility information over defaults we got from client.
-            int x = 0;
-            for (MadModelFile clientModel : clientModelArray)
-            {
-                clientModel.setVisibility(lastWorldModelList[x]);
-                x++;
-            }
-            
-            // Model visibility for world/item models.
-            MadForgeMod.proxy.updateRenderingInstance(machineName, false, tilePosX, tilePosY, tilePosZ, clientModelArray);
-
             // Tile entity texture.
             this.madTileEntity.setTextureRenderedOnModel(lastTexture);
         }
@@ -245,22 +199,6 @@ public class MadTileEntityPacketTemplate extends MadPackets
         this.lastDamageValue = in.readInt();
         this.lastDamageMaximum = in.readInt();
         
-        // Model array sizes.
-        this.lastWorldModelListSize = in.readInt();
-        
-        // Model arrays.
-        this.lastWorldModelList = new boolean[lastWorldModelListSize];
-        
-        // Fill model arrays with default data.
-        Arrays.fill(lastWorldModelList, Boolean.FALSE);
-        
-        // Model visibility for world models.
-        for(int i = 0; i < lastWorldModelList.length; i++)
-        {
-            lastWorldModelList[i] = in.readBoolean();
-            //MadMod.log().info(this.machineName + ":" + String.valueOf(lastWorldModelList[i]));
-        }
-        
         // Last displayed texture.
         this.lastTexture = in.readUTF();
     }
@@ -300,16 +238,6 @@ public class MadTileEntityPacketTemplate extends MadPackets
         // Damage.
         out.writeInt(this.lastDamageValue);
         out.writeInt(this.lastDamageMaximum);
-        
-        // Model array sizes.
-        out.writeInt(this.lastWorldModelListSize);
-        
-        // Model visibility for world models.
-        for (boolean modelStatus : this.lastWorldModelList)
-        {
-            out.writeBoolean(modelStatus);
-            //MadMod.log().info(this.machineName + ":" + String.valueOf(modelStatus));
-        }
         
         // Last displayed texture.
         out.writeUTF(this.lastTexture);

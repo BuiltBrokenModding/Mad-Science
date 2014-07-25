@@ -393,84 +393,84 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     
     private void updateWorldModel()
     {
-        // Hide all the pieces by default and show them based on damage value.
-        for (MadModelFile modelReference : this.getModelRenderingInfo().values())
-        {
-            this.setModelWorldRenderVisibilityByName(modelReference.getModelName(), false);
-        }
-        
-        // Base meatcube with piece zero always shows.
-        this.setModelWorldRenderVisibilityByName("meatCube", true);
-        
-        // Display different chunks of the model based on internal health value.
-        if (this.getDamageValue() >= 1)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube1", true);
-        }
-
-        if (this.getDamageValue() >= 2)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube2", true);
-        }
-
-        if (this.getDamageValue() >= 3)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube3", true);
-        }
-
-        if (this.getDamageValue() >= 4)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube4", true);
-        }
-
-        if (this.getDamageValue() >= 5)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube5", true);
-        }
-
-        if (this.getDamageValue() >= 6)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube6", true);
-        }
-
-        if (this.getDamageValue() >= 7)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube7", true);
-        }
-
-        if (this.getDamageValue() >= 8)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube8", true);
-        }
-
-        if (this.getDamageValue() >= 9)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube9", true);
-        }
-
-        if (this.getDamageValue() >= 10)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube10", true);
-        }
-
-        if (this.getDamageValue() >= 11)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube11", true);
-        }
-
-        if (this.getDamageValue() >= 12)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube12", true);
-        }
-
-        if (this.getDamageValue() >= 13)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube13", true);
-        }
-
-        if (this.getDamageValue() >= 14)
-        {
-            this.setModelWorldRenderVisibilityByName("meatCube14", true);
-        }
+//        // Hide all the pieces by default and show them based on damage value.
+//        for (MadModelFile modelReference : this.getModelRenderingInfo().values())
+//        {
+//            this.setModelWorldRenderVisibilityByName(modelReference.getModelName(), false);
+//        }
+//        
+//        // Base meatcube with piece zero always shows.
+//        this.setModelWorldRenderVisibilityByName("meatCube", true);
+//        
+//        // Display different chunks of the model based on internal health value.
+//        if (this.getDamageValue() >= 1)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube1", true);
+//        }
+//
+//        if (this.getDamageValue() >= 2)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube2", true);
+//        }
+//
+//        if (this.getDamageValue() >= 3)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube3", true);
+//        }
+//
+//        if (this.getDamageValue() >= 4)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube4", true);
+//        }
+//
+//        if (this.getDamageValue() >= 5)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube5", true);
+//        }
+//
+//        if (this.getDamageValue() >= 6)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube6", true);
+//        }
+//
+//        if (this.getDamageValue() >= 7)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube7", true);
+//        }
+//
+//        if (this.getDamageValue() >= 8)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube8", true);
+//        }
+//
+//        if (this.getDamageValue() >= 9)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube9", true);
+//        }
+//
+//        if (this.getDamageValue() >= 10)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube10", true);
+//        }
+//
+//        if (this.getDamageValue() >= 11)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube11", true);
+//        }
+//
+//        if (this.getDamageValue() >= 12)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube12", true);
+//        }
+//
+//        if (this.getDamageValue() >= 13)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube13", true);
+//        }
+//
+//        if (this.getDamageValue() >= 14)
+//        {
+//            this.setModelWorldRenderVisibilityByName("meatCube14", true);
+//        }
     }
 }

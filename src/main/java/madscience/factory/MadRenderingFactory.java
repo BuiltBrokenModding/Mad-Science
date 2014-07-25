@@ -100,13 +100,25 @@ public class MadRenderingFactory
             MadRenderingFactoryProduct modelRenderInstance = this.worldInstanceRenderingReference.get(renderKey);
             
             // Update the model information by using model names and transmitted status information.
+            boolean wasUpdated = false;
+            int totalUpdates = 0;
             for (MadModelFile modelPiece : modelInformation)
-            {
-                modelRenderInstance.setRenderVisibilityByName(modelPiece.getModelName(), modelPiece.isModelVisible());
+            {               
+                if (modelRenderInstance.setRenderVisibilityByName(modelPiece.getModelName(), modelPiece.isModelVisible()))
+                {
+                    // Model was updated!
+                    wasUpdated = true;
+                    totalUpdates++;
+                }
             }
             
             // Update the rendering instance listing.
             MadRenderingFactoryProduct updatedListing = this.worldInstanceRenderingReference.put(renderKey, modelRenderInstance);
+            
+            if (wasUpdated)
+            {
+                MadMod.log().info("[" + productName + "]Updating instance number " + updatedListing.getRenderingID() + " with key " + renderKey + " total of " + totalUpdates + " updates.");
+            }
             
             // Check that inserted data matches updated one.
             if (!modelRenderInstance.equals(updatedListing))
@@ -140,7 +152,7 @@ public class MadRenderingFactory
             }
             
             // Create a new rendering instance for this device.
-            MadMod.log().info("[" + productName + "]Creating new " + renderType + " render instance.");
+            MadMod.log().info("[" + productName + "]Creating new " + renderType + " render instance with key: " + renderKey);
             this.worldInstanceRenderingReference.put(renderKey, new MadRenderingFactoryProduct(masterMadModelReference));
         }
         else

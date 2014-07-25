@@ -3,7 +3,6 @@ package madscience;
 import java.util.Iterator;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.items.needles.NeedleSounds;
 import madscience.items.weapons.pulserifle.PulseRifleSounds;

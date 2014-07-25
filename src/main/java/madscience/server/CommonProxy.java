@@ -70,8 +70,4 @@ public class CommonProxy
     public void dumpUnlocalizedNames()
     {
     }
-
-    public void updateRenderingInstance(String machineName, boolean isItem, int X, int Y, int Z, MadModelFile[] modelInformation)
-    {
-    }
 }
