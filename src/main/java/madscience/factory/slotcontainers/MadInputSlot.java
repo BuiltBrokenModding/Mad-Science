@@ -1,9 +1,9 @@
 package madscience.factory.slotcontainers;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemBucket;
@@ -24,7 +24,7 @@ public class MadInputSlot extends Slot
     public boolean isItemValid(ItemStack stack)
     {
         // Grab the recipe archive object array.
-        MadTileEntityFactoryProduct possibleMachine = MadTileEntityFactory.getMachineInfo(machineName);
+        MadTileEntityFactoryProduct possibleMachine = MadTileEntityFactory.instance().getMachineInfo(machineName);
 
         // Prevent multiple queries.
         if (registeredMachine == null)

@@ -23,21 +23,19 @@ public class MadModelFile
         this.modelVisible = visibleByDefault;
     }
 
+    /** Path to model in assets folder. */
     public String getModelPath()
     {
         return modelPath;
     }
 
+    /** Default visibility of the model. */
     public boolean isModelVisible()
     {
         return modelVisible;
     }
 
-    public void setModelVisible(boolean modelVisible)
-    {
-        this.modelVisible = modelVisible;
-    }
-
+    /** Name of model without extension. */
     public String getModelName()
     {
         // Cache that result!
@@ -47,5 +45,10 @@ public class MadModelFile
         }
         
         return modelNameWithoutExtension;
+    }
+
+    public void setVisibility(boolean visible)
+    {
+        this.modelVisible = visible;
     }
 }

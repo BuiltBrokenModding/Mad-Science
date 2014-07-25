@@ -1,5 +1,6 @@
 package madscience.server;
 
+import madscience.factory.model.MadModelFile;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -49,7 +50,7 @@ public class CommonProxy
     {
         GameRegistry.registerBlock(block, item, block.getUnlocalizedName().replace("tile.", ""));
     }
-
+    
     public void registerRenderingHandler(int blockID)
     {
     }
@@ -67,6 +68,10 @@ public class CommonProxy
     }
 
     public void dumpUnlocalizedNames()
+    {
+    }
+
+    public void updateRenderingInstance(String machineName, boolean isItem, int X, int Y, int Z, MadModelFile[] modelInformation)
     {
     }
 }

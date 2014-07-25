@@ -1,7 +1,9 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.templates;
 
-import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
+import java.util.Arrays;
+import java.util.Collection;
+
+import madscience.MadForgeMod;
 import madscience.factory.model.MadModelFile;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadPackets;
@@ -16,45 +18,61 @@ import cpw.mods.fml.relauncher.Side;
 
 public class MadTileEntityPacketTemplate extends MadPackets
 {
-    /** Name of this registered machine for reference by receiving client. */
+    /** Registered machine name from factory. */
     private String machineName;
     
-    /** XYZ coordinates of tile entity source. */
+    /** X coordinate of tile entity. */
     private int tilePosX;
+    
+    /** Y coordinate of tile entity. */
     private int tilePosY;
+    
+    /** Z coordinate of tile entity. */
     private int tilePosZ;
 
     /** Tile entity from the world. */
-    private MadTileEntityPrefab ENTITY;
+    private MadTileEntityPrefab madTileEntity;
 
-    /** Stores intermediate amount of time item has cooked out of total. */
+    /** Progress value */
     private int lastCookTimeValue;
+    
+    /** Progress maximum */
     private int lastCookTimeMaximum;
 
-    /** Stores last known amount of energy this block was known to have. */
+    /** Energy value. */
     private long lastEnergy;
+    
+    /** Energy maximum. */
     private long lastEnergyMaximum;
 
-    /** Amount of stored fluid. */
+    /** Fluid amount. */
     private int lastFluidLevel;
+    
+    /** Fluid capacity. */
     private int lastFluidMaximum;
     
-    /** Heat. */
+    /** Heat current value */
     private int lastHeatValue;
+    
+    /** Heat trigger, when isOverheating() will return true. */
     private int lastHeatTriggerValue;
+    
+    /** Heat maximum amount. */
     private int lastHeatMaximum;
     
-    /** Damage. */
+    /** Damage value. */
     private int lastDamageValue;
+    
+    /** Damage maximum amount. */
     private int lastDamageMaximum;
+
+    /** World models rendering list size. */
+    private int lastWorldModelListSize;
     
     /** Model visibility for world object. */
-    MadModelFile[] lastWorldModelList;
+    private boolean[] lastWorldModelList;
     
-    /** Model visibility for item. */
-    MadModelFile[] lastItemModelList;
-
-    /** Last displayed texture. */
+    /** Last displayed texture resource path (without modid). */
     private String lastTexture;
     
     public MadTileEntityPacketTemplate()
@@ -62,61 +80,60 @@ public class MadTileEntityPacketTemplate extends MadPackets
         // Required for reflection.
     }
 
-    public MadTileEntityPacketTemplate(
-            String machineName,
-            int posX,
-            int posY,
-            int posZ,
-            int cookTime,
-            int cookTimeMax,
-            long energyStored,
-            long energyMax,
-            int fluidValue,
-            int fluidMaximum,
-            int heatValue,
-            int heatTriggerValue,
-            int heatMaximum,
-            int damageValue,
-            int damageMaximum,
-            MadModelFile[] modelListWorld,
-            MadModelFile[] modelListItem,
-            String tileTexture) // NO_UCD (use default)
+    public MadTileEntityPacketTemplate(MadTileEntityPrefab madMachine) // NO_UCD (use default)
     {
         // Machine name.
-        this.machineName = machineName;
+        this.machineName = madMachine.getMachineInternalName();
         
         // World position information.
-        this.tilePosX = posX;
-        this.tilePosY = posY;
-        this.tilePosZ = posZ;
+        this.tilePosX = madMachine.xCoord;
+        this.tilePosY = madMachine.yCoord;
+        this.tilePosZ = madMachine.zCoord;
 
         // Stores intermediate amount of time item has cooked out of total.
-        this.lastCookTimeValue = cookTime;
-        this.lastCookTimeMaximum = cookTimeMax;
+        this.lastCookTimeValue = madMachine.getProgressValue();
+        this.lastCookTimeMaximum = madMachine.getProgressMaximum();
 
         // Stores last known amount of energy this block was known to have.
-        this.lastEnergy = energyStored;
-        this.lastEnergyMaximum = energyMax;
+        this.lastEnergy = madMachine.getEnergyValue();
+        this.lastEnergyMaximum = madMachine.getEnergyCapacity();
 
         // Amount of stored fluid.
-        this.lastFluidLevel = fluidValue;
-        this.lastFluidMaximum = fluidMaximum;
+        this.lastFluidLevel = madMachine.getFluidAmount();
+        this.lastFluidMaximum = madMachine.getFluidCapacity();
         
         // Heat.
-        this.lastHeatValue = heatValue;
-        this.lastHeatTriggerValue = heatTriggerValue;
-        this.lastHeatMaximum = heatMaximum;
+        this.lastHeatValue = madMachine.getHeatLevelValue();
+        this.lastHeatTriggerValue = madMachine.getHeatLevelTriggerValue();
+        this.lastHeatMaximum = madMachine.getHeatLevelMaximum();
         
         // Damage.
-        this.lastDamageValue = damageValue;
-        this.lastDamageMaximum = damageMaximum;
+        this.lastDamageValue = madMachine.getDamageValue();
+        this.lastDamageMaximum = madMachine.getDamageMaximum();
         
-        // Model visibility arrays.
-        this.lastWorldModelList = modelListWorld;
-        this.lastItemModelList = modelListItem;
+        // Server model instances which need to be sent to clients.
+        Collection<MadModelFile> worldModels = madMachine.getModelRenderingInfo().values();
+        
+        // Model visibility array sizes.
+        this.lastWorldModelListSize = worldModels.size();
+        
+        // Model arrays.
+        this.lastWorldModelList = new boolean[lastWorldModelListSize];
+        
+        // Fill model arrays with default data.
+        Arrays.fill(lastWorldModelList, Boolean.FALSE);
+        
+        // Model world visibility.
+        int x = 0;
+        for(MadModelFile worldModel : worldModels)
+        {
+            lastWorldModelList[x] = worldModel.isModelVisible();
+            //MadMod.log().info(worldModel.getModelName() + ":" + String.valueOf(worldModel.isModelVisible()));
+            x++;
+        }
         
         // Last displayed texture.
-        this.lastTexture = tileTexture;
+        this.lastTexture = madMachine.getEntityTexture();
     }
 
     @Override
@@ -133,48 +150,58 @@ public class MadTileEntityPacketTemplate extends MadPackets
             TileEntity possibleTileEntity = player.worldObj.getBlockTileEntity(tilePosX, tilePosY, tilePosZ);
             if (possibleTileEntity instanceof MadTileEntityPrefab)
             {
-                ENTITY = (MadTileEntityPrefab) possibleTileEntity;
+                madTileEntity = (MadTileEntityPrefab) possibleTileEntity;
             }
 
             // Null check.
-            if (ENTITY == null)
+            if (madTileEntity == null)
             {
                 return;
             }
             
             // Name check.
-            if (!this.ENTITY.getMachineInternalName().equals(this.machineName))
+            if (!this.madTileEntity.getMachineInternalName().equals(this.machineName))
             {
                 return;
             }   
 
             // Cook time.
-            this.ENTITY.setProgressValue(lastCookTimeValue);
-            this.ENTITY.setProgressMaximum(lastCookTimeMaximum);
+            this.madTileEntity.setProgressValue(lastCookTimeValue);
+            this.madTileEntity.setProgressMaximum(lastCookTimeMaximum);
 
             // Energy.
-            this.ENTITY.setEnergy(ForgeDirection.UNKNOWN, lastEnergy);
-            this.ENTITY.setEnergyCapacity(lastEnergyMaximum);
+            this.madTileEntity.setEnergy(ForgeDirection.UNKNOWN, lastEnergy);
+            this.madTileEntity.setEnergyCapacity(lastEnergyMaximum);
             
             // Fluid amount.
-            this.ENTITY.setFluidAmount(lastFluidLevel);
-            this.ENTITY.setFluidCapacity(lastFluidMaximum);
+            this.madTileEntity.setFluidAmount(lastFluidLevel);
+            this.madTileEntity.setFluidCapacity(lastFluidMaximum);
             
             // Heat.
-            this.ENTITY.setHeatLevelValue(lastHeatValue);
-            this.ENTITY.setHeatLevelTriggerValue(lastHeatTriggerValue);
-            this.ENTITY.setHeatLevelMaximum(lastHeatMaximum);
+            this.madTileEntity.setHeatLevelValue(lastHeatValue);
+            this.madTileEntity.setHeatLevelTriggerValue(lastHeatTriggerValue);
+            this.madTileEntity.setHeatLevelMaximum(lastHeatMaximum);
 
             // Damage value.
-            this.ENTITY.setDamageValue(lastDamageValue);
-            this.ENTITY.setDamageMaximum(lastDamageMaximum);
+            this.madTileEntity.setDamageValue(lastDamageValue);
+            this.madTileEntity.setDamageMaximum(lastDamageMaximum);
+            
+            // Grab current model information from client entity.
+            MadModelFile[] clientModelArray = this.madTileEntity.getModelRenderingInfo().values().toArray(new MadModelFile[]{});
+            
+            // Copy over visibility information over defaults we got from client.
+            int x = 0;
+            for (MadModelFile clientModel : clientModelArray)
+            {
+                clientModel.setVisibility(lastWorldModelList[x]);
+                x++;
+            }
             
             // Model visibility for world/item models.
-            this.ENTITY.setModelsForClientWorldRender(lastWorldModelList);
-            this.ENTITY.setModelsForClientItemRender(lastItemModelList);
+            MadForgeMod.proxy.updateRenderingInstance(machineName, false, tilePosX, tilePosY, tilePosZ, clientModelArray);
 
             // Tile entity texture.
-            this.ENTITY.setTextureRenderedOnModel(lastTexture);
+            this.madTileEntity.setTextureRenderedOnModel(lastTexture);
         }
         else
         {
@@ -218,28 +245,22 @@ public class MadTileEntityPacketTemplate extends MadPackets
         this.lastDamageValue = in.readInt();
         this.lastDamageMaximum = in.readInt();
         
-        // Using machine name we got grab instance of registered machine from client factory.
-        // Note: We are only using the master list as checksum to length of model list for each machine.
-        MadTileEntityFactoryProduct registeredMachine = MadTileEntityFactory.getMachineInfo(this.machineName);
-        if (registeredMachine != null)
-        {
-            // Load reference of world and item models from JSON loader.
-            lastWorldModelList = registeredMachine.getMasterModelsForWorldRender();
-            lastItemModelList = registeredMachine.getMasterModelsforItemRender();
-        }
+        // Model array sizes.
+        this.lastWorldModelListSize = in.readInt();
+        
+        // Model arrays.
+        this.lastWorldModelList = new boolean[lastWorldModelListSize];
+        
+        // Fill model arrays with default data.
+        Arrays.fill(lastWorldModelList, Boolean.FALSE);
         
         // Model visibility for world models.
         for(int i = 0; i < lastWorldModelList.length; i++)
         {
-            lastWorldModelList[i].setModelVisible(in.readBoolean());
+            lastWorldModelList[i] = in.readBoolean();
+            //MadMod.log().info(this.machineName + ":" + String.valueOf(lastWorldModelList[i]));
         }
         
-        // Model visibility for item models.
-        for(int i = 0; i < lastItemModelList.length; i++)
-        {
-            lastItemModelList[i].setModelVisible(in.readBoolean());
-        }
-
         // Last displayed texture.
         this.lastTexture = in.readUTF();
     }
@@ -280,18 +301,16 @@ public class MadTileEntityPacketTemplate extends MadPackets
         out.writeInt(this.lastDamageValue);
         out.writeInt(this.lastDamageMaximum);
         
+        // Model array sizes.
+        out.writeInt(this.lastWorldModelListSize);
+        
         // Model visibility for world models.
-        for (MadModelFile modelStatus : this.lastWorldModelList)
+        for (boolean modelStatus : this.lastWorldModelList)
         {
-            out.writeBoolean(modelStatus.isModelVisible());
+            out.writeBoolean(modelStatus);
+            //MadMod.log().info(this.machineName + ":" + String.valueOf(modelStatus));
         }
         
-        // Model visibility for item models.
-        for (MadModelFile modelStatus : this.lastItemModelList)
-        {
-            out.writeBoolean(modelStatus.isModelVisible());
-        }
-
         // Last displayed texture.
         out.writeUTF(this.lastTexture);
     }

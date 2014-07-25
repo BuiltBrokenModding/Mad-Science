@@ -3,7 +3,6 @@ package madscience;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.factory.MadTileEntityFactoryProductData;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.buttons.MadGUIButtonClickActionEnum;
 import madscience.factory.buttons.MadGUIButtonTypeEnum;
@@ -23,6 +22,7 @@ import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.sounds.MadSoundPlaybackTypeEnum;
 import madscience.factory.sounds.MadSoundTriggerEnum;
+import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 import net.minecraftforge.common.ForgeDirection;
 
 public class MadManualMachine

@@ -2,8 +2,8 @@ package madscience.factory.tileentity.prefab;
 
 import java.util.EnumSet;
 
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.energy.MadEnergy;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
@@ -101,9 +101,19 @@ public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab
     {
         return this.energy.getEnergy();
     }
+    
+    public long getEnergyValue()
+    {
+        return this.energy.getEnergy();
+    }
 
     @Override
     public long getEnergyCapacity(ForgeDirection from)
+    {
+        return this.energy.getEnergyCapacity();
+    }
+    
+    public long getEnergyCapacity()
     {
         return this.energy.getEnergyCapacity();
     }

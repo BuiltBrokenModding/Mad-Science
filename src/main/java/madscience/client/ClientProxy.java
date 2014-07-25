@@ -14,12 +14,15 @@ import madscience.MadForgeMod;
 import madscience.MadFurnaces;
 import madscience.MadSounds;
 import madscience.MadWeapons;
+import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.factory.mod.MadModData;
+import madscience.factory.model.MadModelFile;
 import madscience.factory.model.MadTechneModelLoader;
-import madscience.factory.tileentity.MadTileEntityRendererTemplate;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.factory.tileentity.templates.MadTileEntityRendererTemplate;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
 import madscience.items.components.pulserifle.ComponentPulseRifleBarrelItemRender;
@@ -280,6 +283,12 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             e.printStackTrace();
         }
     }
+    
+    @Override
+    public void updateRenderingInstance(String machineName, boolean isItem, int X, int Y, int Z, MadModelFile[] modelInformation)
+    {
+        MadRenderingFactory.instance().updateModelInstance(machineName, isItem, X, Y, Z, modelInformation);
+    }
 
     @Override
     public void registerRenderingHandler(int blockID)
@@ -305,15 +314,19 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // -------------
 
         // Grab an iterable array of all registered machines.
-        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.getMachineInfoList();
+        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.instance().getMachineInfoList();
         for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
         {
             MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
             if (registeredMachine.getBlockID() == blockID)
             {
-                RenderingRegistry.registerBlockHandler(blockID, new MadTileEntityRendererTemplate(registeredMachine));
-                ClientRegistry.bindTileEntitySpecialRenderer(registeredMachine.getTileEntityLogicClass(), new MadTileEntityRendererTemplate(registeredMachine));
-                MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate(registeredMachine));
+                // Populates rendering factory with master reference to what a given machine should have associated with it model and texture wise.
+                MadRenderingFactory.instance().registerModelsToProduct(registeredMachine.getMachineName(), registeredMachine.getModelArchive());
+
+                // Minecraft/Forge related registry calls, these are subject to change between Forge versions.
+                RenderingRegistry.registerBlockHandler(blockID, new MadTileEntityRendererTemplate());
+                ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadTileEntityRendererTemplate());
+                MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate());
             }
         }
 

@@ -1,7 +1,7 @@
 package madscience.network;
 
 import madscience.factory.mod.MadMod;
-import madscience.factory.tileentity.MadTileEntityPacketTemplate;
+import madscience.factory.tileentity.templates.MadTileEntityPacketTemplate;
 import madscience.items.warningsign.WarningSignPacketClientRequestSignType;
 import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
 import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;

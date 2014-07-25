@@ -1,6 +1,4 @@
-package madscience.factory;
-
-import java.util.Hashtable;
+package madscience.factory.tileentity;
 
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
@@ -9,9 +7,7 @@ import madscience.factory.damage.MadDamage;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
-import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
-import madscience.factory.model.MadModelFile;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.sounds.MadSound;

@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProductData;
 import madscience.factory.creativetab.MadCreativeTab;
 import madscience.factory.sounds.MadSound;
+import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 import madscience.util.IDManager;
 
 import com.google.common.base.Throwables;
@@ -47,7 +47,7 @@ public class MadMod
     public static final String VBUILD = "@BUILD@";
     public static final String VERSION_FULL = VMAJOR + "." + VMINOR + "." + VREVISION + "." + VBUILD;
 
-    // Update checker.
+    /** Update checker. */
     public static final String UPDATE_URL = "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath=/freeStyleBuild/number";
     
     // Directories definition for assets and localization files.
@@ -57,11 +57,14 @@ public class MadMod
     public static final String TEXTURE_DIRECTORY = "textures/";
     public static final String MODEL_DIRECTORY = "models/";
     
-    // Quick links to popular places.
+    /** Quick links to popular places. */
     public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
     
-    // Hook standardized logging class so we can report data on the console without standard out.
-    private static Logger LOGGER = null;
+    /** Allow only one instance to be created. */
+    private static MadMod instance;
+    
+    /** Hook standardized logging class so we can report data on the console without standard out. */
+    private static Logger logger = null;
     
     /** Data container which gets serialized with all our mod information. */
     private static List<MadTileEntityFactoryProductData> unregisteredMachines;
@@ -80,7 +83,22 @@ public class MadMod
     
     /** Defines a tab that is created in the Minecraft creative menu where all this mods items and blocks will be registered. */
     private static MadCreativeTab creativeTab = new MadCreativeTab(ID);
-
+    
+    private MadMod()
+    {
+        super();
+    }
+    
+    public static synchronized MadMod instance() 
+    {
+        if (instance == null)
+        {
+            instance = new MadMod();
+        }
+        
+        return instance;
+     }
+    
     static
     {
         // Name of the JSON file we are looking for along the classpath.
@@ -113,7 +131,7 @@ public class MadMod
             }
             else
             {
-                LOGGER.info("Unable to locate machine master list '" + expectedFilename + "'");
+                logger.info("Unable to locate machine master list '" + expectedFilename + "'");
             }
         }
         catch (Exception err)
@@ -200,7 +218,7 @@ public class MadMod
                 UPDATE_URL,
                 idManagerBlockIndex,
                 idManagerItemIndex,
-                MadTileEntityFactory.getMachineDataList());
+                MadTileEntityFactory.instance().getMachineDataList());
     }
 
     public static MadCreativeTab getCreativeTab()
@@ -210,12 +228,12 @@ public class MadMod
 
     public static Logger log()
     {
-        return LOGGER;
+        return logger;
     }
 
     public static void setLog(Logger lOGGER, Logger fmlLogger)
     {
-        LOGGER = lOGGER;
-        LOGGER.setParent(fmlLogger);
+        logger = lOGGER;
+        logger.setParent(fmlLogger);
     }
 }

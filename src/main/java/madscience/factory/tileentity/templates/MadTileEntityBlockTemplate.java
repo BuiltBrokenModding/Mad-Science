@@ -1,12 +1,12 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.templates;
 
 import java.util.List;
 import java.util.Random;
 
 import madscience.MadForgeMod;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.factory.sounds.MadSoundTriggerEnum;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;

@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.logging.Level;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
-import madscience.factory.MadTileEntityFactoryProductData;
 import madscience.factory.mod.MadMod;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 import madscience.gui.MadGUI;
 import madscience.items.spawnegg.MadSpawnEggTags;
 import madscience.mobs.abomination.AbominationMobEntity;
@@ -74,7 +74,7 @@ public class MadForgeMod
         // TODO: Register crafting recipes that are not tied to any particular machine or item.
         
         // Loop through all the tile entity factory objects and populate their recipe ItemStacks.
-        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.getMachineInfoList();
+        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.instance().getMachineInfoList();
         for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
         {
             MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
@@ -396,7 +396,7 @@ public class MadForgeMod
         for (int i = 0; i < machineData.length; i++) 
         {
             MadTileEntityFactoryProductData unregisteredMachine = machineData[i];
-            MadTileEntityFactory.registerMachine(unregisteredMachine);
+            MadTileEntityFactory.instance().registerMachine(unregisteredMachine);
         }
 
         MadFurnaces.createCryotubeTileEntity(MadConfig.CRYOTUBE);

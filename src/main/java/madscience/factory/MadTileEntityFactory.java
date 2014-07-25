@@ -13,6 +13,8 @@ import java.util.TreeSet;
 
 import madscience.MadForgeMod;
 import madscience.factory.mod.MadMod;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 import madscience.items.ItemBlockTooltip;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -22,24 +24,41 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactory
 {
+    private static MadTileEntityFactory instance;
+    
     /** Mapping of machine names to created products. */
     private static final Map<String, MadTileEntityFactoryProduct> registeredMachines = new LinkedHashMap<String, MadTileEntityFactoryProduct>();
+    
+    public MadTileEntityFactory()
+    {
+        super();
+    }
+    
+    public static synchronized MadTileEntityFactory instance()
+    {
+        if (instance == null)
+        {
+            instance = new MadTileEntityFactory();
+        }
+        
+        return instance;
+    }
 
-    public static MadTileEntityFactoryProduct getMachineInfo(String id)
+    public MadTileEntityFactoryProduct getMachineInfo(String id)
     {
         return registeredMachines.get(id);
     }
 
-    public static Collection<MadTileEntityFactoryProduct> getMachineInfoList()
+    public Collection<MadTileEntityFactoryProduct> getMachineInfoList()
     {
         return Collections.unmodifiableCollection(registeredMachines.values());
     }
 
-    public static MadTileEntityFactoryProductData[] getMachineDataList()
+    public MadTileEntityFactoryProductData[] getMachineDataList()
     {
         // Loop through every registered machine in the system.
         Set<MadTileEntityFactoryProductData> allMachines = new HashSet<MadTileEntityFactoryProductData>();
-        for (Iterator iterator = MadTileEntityFactory.getMachineInfoList().iterator(); iterator.hasNext();)
+        for (Iterator iterator = getMachineInfoList().iterator(); iterator.hasNext();)
         {
             MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
             if (registeredMachine != null)
@@ -52,13 +71,13 @@ public class MadTileEntityFactory
         return allMachines.toArray(new MadTileEntityFactoryProductData[]{});
     }
 
-    private static boolean isValidMachineID(String id)
+    private boolean isValidMachineID(String id)
     {
         return !registeredMachines.containsKey(id);
     }
 
     /** Return itemstack from GameRegistry or from vanilla Item/Block list. */
-    static ItemStack[] getItemStackFromString(String modID, String itemName, int stackSize, String metaDataText)
+    public ItemStack[] getItemStackFromString(String modID, String itemName, int stackSize, String metaDataText)
     {
         // Reference list we will return at the end of work.
         ArrayList<ItemStack> itemsToAssociate = new ArrayList<ItemStack>();
@@ -216,7 +235,7 @@ public class MadTileEntityFactory
         return null;
     }
 
-    public static MadTileEntityFactoryProduct registerMachine(MadTileEntityFactoryProductData machineData) throws IllegalArgumentException
+    public MadTileEntityFactoryProduct registerMachine(MadTileEntityFactoryProductData machineData) throws IllegalArgumentException
     {
         // Pass the data object into the product to activate it, creates needed data structures inside it based on data supplied.
         MadTileEntityFactoryProduct tileEntityProduct = new MadTileEntityFactoryProduct(machineData);
@@ -230,15 +249,14 @@ public class MadTileEntityFactory
         // Debugging!
         MadMod.log().info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
 
-        // Prefetch model names and populate some lists for rendering their pieces before passing them to Minecraft/Forge rendering engine.
-        tileEntityProduct.loadModelArchive();
-        
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
         
         // Register the machine with Minecraft/Forge.
         GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), tileEntityProduct.getMachineName());
         GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), ItemBlockTooltip.class, MadMod.ID + tileEntityProduct.getMachineName());
+        
+        // Register client only information such as rendering and model information to the given machine.
         MadForgeMod.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
 
         return tileEntityProduct;

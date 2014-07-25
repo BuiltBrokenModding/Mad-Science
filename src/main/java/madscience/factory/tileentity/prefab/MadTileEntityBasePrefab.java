@@ -1,7 +1,7 @@
 package madscience.factory.tileentity.prefab;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -121,7 +121,7 @@ abstract class MadTileEntityBasePrefab extends TileEntity
         // Only query and re-create the registered machine if we actually need it.
         if (this.registeredMachine == null)
         {
-            MadTileEntityFactoryProduct reloadedProduct = MadTileEntityFactory.getMachineInfo(this.registeredMachineName);
+            MadTileEntityFactoryProduct reloadedProduct = MadTileEntityFactory.instance().getMachineInfo(this.registeredMachineName);
             this.registeredMachine = reloadedProduct;
             this.registeredMachineName = reloadedProduct.getMachineName();
         }

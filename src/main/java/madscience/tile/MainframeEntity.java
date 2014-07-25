@@ -1,8 +1,8 @@
 package madscience.tile;
 
 import madscience.MadEntities;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
 import madscience.items.datareel.ItemDataReelEmpty;

@@ -1,7 +1,7 @@
 package madscience.factory.tileentity.prefab;
 
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.heat.MadHeat;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class MadTileEntityHeatPrefab extends MadTileEntityEnergyPrefab

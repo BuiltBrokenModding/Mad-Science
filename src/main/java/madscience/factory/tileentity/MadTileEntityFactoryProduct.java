@@ -1,9 +1,9 @@
-package madscience.factory;
+package madscience.factory.tileentity;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
+import madscience.factory.MadTileEntityFactory;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingComponent;
@@ -15,17 +15,16 @@ import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
-import madscience.factory.model.MadModelFile;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.sounds.MadSoundPlaybackTypeEnum;
 import madscience.factory.sounds.MadSoundTriggerEnum;
-import madscience.factory.tileentity.MadContainerTemplate;
-import madscience.factory.tileentity.MadGUITemplate;
-import madscience.factory.tileentity.MadTileEntityBlockTemplate;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.factory.tileentity.templates.MadContainerTemplate;
+import madscience.factory.tileentity.templates.MadGUITemplate;
+import madscience.factory.tileentity.templates.MadTileEntityBlockTemplate;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -46,14 +45,7 @@ public class MadTileEntityFactoryProduct
     /** Stores reference to tile entity class itself which makes up logic or brains of this machine. */
     private Class<? extends MadTileEntityPrefab> tileEntityLogicClass;
     
-    /** Hashtable which links server model references to files, the keys for this are the same as client one.
-     *  The purpose of this table is for rendering of models in the world and determining their individual properties. */
-    private Hashtable<String, MadModelFile> masterWorldModelReference = null;
-    
-    /** Hashtable linking server model references to file, the purpose of this table is for rendering of models as items. */
-    private Hashtable<String, MadModelFile> masterItemModelReference = null;
-    
-    MadTileEntityFactoryProduct(MadTileEntityFactoryProductData machineData)
+    public MadTileEntityFactoryProduct(MadTileEntityFactoryProductData machineData)
     {
         super();
         
@@ -65,54 +57,6 @@ public class MadTileEntityFactoryProduct
 
         // Setup the block which will create the tile entity once placed in the game world.
         this.blockContainer = (BlockContainer) new MadTileEntityBlockTemplate(this);
-    }
-    
-    public Hashtable<String, MadModelFile> getMasterWorldModelHashtable()
-    {
-        return masterWorldModelReference;
-    }
-
-    public Hashtable<String, MadModelFile> getMasterItemModelHashtable()
-    {
-        return masterItemModelReference;
-    }
-    
-    public MadModelFile[] getMasterModelsForWorldRender()
-    {
-        return masterWorldModelReference.values().toArray(new MadModelFile[]{});
-    }
-    
-    public MadModelFile[] getMasterModelsforItemRender()
-    {
-        return masterItemModelReference.values().toArray(new MadModelFile[]{});
-    }
-    
-    public void loadModelArchive()
-    {
-        // Grab a list of all the models and associated textures for this machine.
-        MadModel modelArchive = this.getModelArchive();
-        if (modelArchive != null)
-        {
-            // Since there can only be one texture binded, and many models we follow this model.
-            MadModelFile[] modelFiles = modelArchive.getMachineModels();
-            if (modelFiles != null)
-            {
-                // Create hash table of machine models which we will be able to use to manipulate 
-                masterWorldModelReference = new Hashtable<String, MadModelFile>();
-                masterItemModelReference = new Hashtable<String, MadModelFile>();
-                
-                // Populate the newly created array with our data.
-                for(MadModelFile model : modelFiles)
-                {
-                    // Link the name of the model to the entire reference object.
-                    masterWorldModelReference.put(model.getModelName(), model);
-                    masterItemModelReference.put(model.getModelName(), model);
-                    
-                    // Debugging.
-                    MadMod.log().info("[" + this.getMachineName() + "]Prefetching Model: " + model.getModelName());
-                }
-            }
-        }
     }
 
     /** Converts fully qualified domain name for a given class into that class. It must be based on MineTileEntityPrefab or loading will fail! */
@@ -266,7 +210,7 @@ public class MadTileEntityFactoryProduct
                 String resultInputPrint = "[" + this.data.getMachineName() + "]Crafting Component " + recipeComponent.getModID() + ":" + recipeComponent.getInternalName();
 
                 // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                ItemStack[] inputItem = MadTileEntityFactory.getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
+                ItemStack[] inputItem = MadTileEntityFactory.instance().getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
 
                 boolean searchResult = false;
                 if (inputItem != null)
@@ -403,7 +347,7 @@ public class MadTileEntityFactoryProduct
                     String resultInputPrint = "[" + this.data.getMachineName() + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName();
 
                     // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                    ItemStack[] inputItem = MadTileEntityFactory.getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
+                    ItemStack[] inputItem = MadTileEntityFactory.instance().getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
 
                     boolean searchResult = false;
                     if (inputItem != null)
@@ -438,7 +382,7 @@ public class MadTileEntityFactoryProduct
                 if (outputResult.getSlotType().name().toLowerCase().contains("output"))
                 {
                     String resultOutputPrint = "[" + this.data.getMachineName() + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName();
-                    ItemStack[] outputStack = MadTileEntityFactory.getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
+                    ItemStack[] outputStack = MadTileEntityFactory.instance().getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
 
                     boolean searchResult = false;
                     if (outputStack != null)

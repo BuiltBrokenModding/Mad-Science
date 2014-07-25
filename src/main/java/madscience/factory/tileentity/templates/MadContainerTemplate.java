@@ -1,9 +1,9 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.templates;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.slotcontainers.MadInputSlot;
 import madscience.factory.slotcontainers.MadSlotContainer;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -40,7 +40,7 @@ public class MadContainerTemplate extends Container
         this.ENTITY = tileEntity;
 
         // Query machine registry for slot container information.
-        MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
+        MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.instance().getMachineInfo(this.ENTITY.getMachineInternalName());
 
         // Grab our array of containers from the template object.
         CONTAINERS = MACHINE.getContainerTemplate();

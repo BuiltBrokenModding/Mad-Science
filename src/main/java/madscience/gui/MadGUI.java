@@ -2,7 +2,7 @@ package madscience.gui;
 
 import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.tile.clayfurnace.ClayfurnaceContainer;
 import madscience.tile.clayfurnace.ClayfurnaceEntity;
@@ -41,7 +41,7 @@ public class MadGUI implements IGuiHandler
             if (madTile != null)
             {
                 // Check with machine factory if this is valid machine.
-                MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.getMachineInfo(madTile.getMachineInternalName());
+                MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.instance().getMachineInfo(madTile.getMachineInternalName());
                 
                 // Check if ID matches our factory product ID.
                 if (ID == machineInfo.getBlockID())
@@ -100,7 +100,7 @@ public class MadGUI implements IGuiHandler
             if (madTile != null)
             {
                 // Check with machine factory if this is valid machine.
-                MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.getMachineInfo(madTile.getMachineInternalName());
+                MadTileEntityFactoryProduct machineInfo = MadTileEntityFactory.instance().getMachineInfo(madTile.getMachineInternalName());
                 
                 // Check if ID matches our factory product ID.
                 if (ID == machineInfo.getBlockID())

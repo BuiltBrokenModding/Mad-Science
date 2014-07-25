@@ -2,14 +2,13 @@ package madscience.factory.tileentity.prefab;
 
 import madscience.MadConfig;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.sounds.MadSoundTriggerEnum;
-import madscience.factory.tileentity.MadTileEntityPacketTemplate;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.templates.MadTileEntityPacketTemplate;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
@@ -153,25 +152,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
                 this.zCoord,
                 MadConfig.PACKETSEND_RADIUS,
                 worldObj.provider.dimensionId,
-                new MadTileEntityPacketTemplate(
-                        this.getMachineInternalName(),
-                        this.xCoord,
-                        this.yCoord,
-                        this.zCoord,
-                        this.getProgressValue(),
-                        this.getProgressMaximum(),
-                        this.getEnergy(ForgeDirection.UNKNOWN),
-                        this.getEnergyCapacity(ForgeDirection.UNKNOWN),
-                        this.getFluidAmount(),
-                        this.getFluidCapacity(),
-                        this.getHeatLevelValue(),
-                        this.getHeatLevelTriggerValue(),
-                        this.getHeatLevelMaximum(),
-                        this.getDamageValue(),
-                        this.getDamageMaximum(),
-                        this.getClientModelsForWorldRender(),
-                        this.getClientModelsforItemRender(),
-                        this.getEntityTexture()).makePacket());
+                new MadTileEntityPacketTemplate(this).makePacket());
     }
 
     public void smeltItem()
@@ -259,7 +240,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
         super.initiate();
         
         // Populate our factory product object if we have not done so!
-        this.registeredMachine = MadTileEntityFactory.getMachineInfo(this.getMachineInternalName());
+        this.registeredMachine = MadTileEntityFactory.instance().getMachineInfo(this.getMachineInternalName());
     }
 
     /** Called from block template when player right-clicks on the machine. */
@@ -274,17 +255,5 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
     {
         // Left Click Sound
         this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.LEFTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
-    }
-
-    @Override
-    public void updateWorldModel()
-    {
-        super.updateWorldModel();
-    }
-
-    @Override
-    public void updateItemModel()
-    {
-        super.updateItemModel();
     }
 }

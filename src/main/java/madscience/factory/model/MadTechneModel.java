@@ -38,7 +38,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  * @author Calclavia, iChun */
 @SideOnly(Side.CLIENT)
-public class MadTechneModel extends ModelBase implements IModelCustom
+public class MadTechneModel extends ModelBase implements IModelCustom, Cloneable
 {
     private static final List<String> cubeTypes = Arrays.asList("d9e621f7-957f-4b77-b1ae-20dcd0da7751", "de81aa14-bd60-4228-8d8d-5238bcd3caaa");
 
@@ -49,13 +49,22 @@ public class MadTechneModel extends ModelBase implements IModelCustom
     private String texture = null;
     private int textureName;
     private boolean textureNameSet = false;
+    private URL loadedURL = null;
+    private boolean visible = true;
 
     MadTechneModel(String fileName, URL resource) throws ModelFormatException
     {
         this.fileName = fileName;
+        this.loadedURL = resource;
+        this.visible = true;
         loadTechneModel(resource);
     }
-
+    
+    MadTechneModel(MadTechneModel clone) throws ModelFormatException
+    {
+        this(clone.fileName, clone.loadedURL);
+    }
+    
     private void bindTexture()
     {
     }
@@ -257,67 +266,76 @@ public class MadTechneModel extends ModelBase implements IModelCustom
     @Override
     public void renderAll()
     {
-        GL11.glPushMatrix();
-        bindTexture();
-        setup();
-
-        for (ModelRenderer part : parts.values())
+        if (visible)
         {
-            part.render(0.0625f);
+            GL11.glPushMatrix();
+            bindTexture();
+            setup();
+    
+            for (ModelRenderer part : parts.values())
+            {
+                part.render(0.0625f);
+            }
+    
+            GL11.glPopMatrix();
         }
-
-        GL11.glPopMatrix();
     }
 
     @Override
     public void renderAllExcept(String... excludedGroupNames)
     {
-        GL11.glPushMatrix();
-        setup();
-
-        Iterator<Entry<String, ModelRenderer>> it = parts.entrySet().iterator();
-
-        loop: while (it.hasNext())
+        if (visible)
         {
-            Entry<String, ModelRenderer> entry = it.next();
-
-            for (String groupName : excludedGroupNames)
+            GL11.glPushMatrix();
+            setup();
+    
+            Iterator<Entry<String, ModelRenderer>> it = parts.entrySet().iterator();
+    
+            loop: while (it.hasNext())
             {
-                if (entry.getKey().equalsIgnoreCase(groupName))
+                Entry<String, ModelRenderer> entry = it.next();
+    
+                for (String groupName : excludedGroupNames)
                 {
-                    continue loop;
+                    if (entry.getKey().equalsIgnoreCase(groupName))
+                    {
+                        continue loop;
+                    }
                 }
+    
+                entry.getValue().render(0.0625f);
             }
-
-            entry.getValue().render(0.0625f);
+    
+            GL11.glPopMatrix();
         }
-
-        GL11.glPopMatrix();
     }
 
     @Override
     public void renderOnly(String... groupNames)
     {
-        GL11.glPushMatrix();
-        setup();
-        bindTexture();
-
-        Iterator<Entry<String, ModelRenderer>> it = parts.entrySet().iterator();
-
-        while (it.hasNext())
+        if (visible)
         {
-            Entry<String, ModelRenderer> entry = it.next();
-
-            for (String groupName : groupNames)
+            GL11.glPushMatrix();
+            setup();
+            bindTexture();
+    
+            Iterator<Entry<String, ModelRenderer>> it = parts.entrySet().iterator();
+    
+            while (it.hasNext())
             {
-                if (entry.getKey().equalsIgnoreCase(groupName))
+                Entry<String, ModelRenderer> entry = it.next();
+    
+                for (String groupName : groupNames)
                 {
-                    entry.getValue().render(0.0625f);
+                    if (entry.getKey().equalsIgnoreCase(groupName))
+                    {
+                        entry.getValue().render(0.0625f);
+                    }
                 }
             }
+    
+            GL11.glPopMatrix();
         }
-
-        GL11.glPopMatrix();
     }
 
     // TODO Remove unused code found by UCDetector
@@ -354,20 +372,39 @@ public class MadTechneModel extends ModelBase implements IModelCustom
     @Override
     public void renderPart(String partName)
     {
-        ModelRenderer part = parts.get(partName);
-
-        if (part != null)
+        if (visible)
         {
-            GL11.glPushMatrix();
-            setup();
-            bindTexture();
-            part.render(0.0625f);
-            GL11.glPopMatrix();
+            ModelRenderer part = parts.get(partName);
+    
+            if (part != null)
+            {
+                GL11.glPushMatrix();
+                setup();
+                bindTexture();
+                part.render(0.0625f);
+                GL11.glPopMatrix();
+            }
         }
     }
 
     private void setup()
     {
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
+    }
+
+    @Override
+    public MadTechneModel clone()
+    {
+        return new MadTechneModel(this);
+    }
+
+    public boolean isVisible()
+    {
+        return visible;
+    }
+
+    public void setVisible(boolean visible)
+    {
+        this.visible = visible;
     }
 }

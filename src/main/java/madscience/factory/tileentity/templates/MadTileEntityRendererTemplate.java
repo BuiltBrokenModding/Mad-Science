@@ -1,14 +1,9 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.templates;
 
-import java.util.Collection;
-import java.util.Hashtable;
-
-import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.MadRenderingFactory;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadModel;
-import madscience.factory.model.MadModelFile;
-import madscience.factory.model.MadTechneModel;
+import madscience.factory.rendering.MadRenderTransformationTypes;
+import madscience.factory.rendering.MadRenderingFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -20,7 +15,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
@@ -32,101 +26,36 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler, IItemRenderer
 {
-    /** Reference to different rendering types such as FPS, TPS, etc. */
-    private enum TransformationTypes
-    {
-        NONE, DROPPED, INVENTORY, THIRDPERSONEQUIPPED
-    }
+    private MadRenderingFactoryProduct currentRenderProduct;
+    private int currentRenderID = -1;
 
-    /** Unique ID for our model to render in the world. */
-    private int rendereingID = RenderingRegistry.getNextAvailableRenderId();
-
-    /** Default texture that is rendered on the model if no other is specified. */
-    private ResourceLocation techneModelTexture = null;
-    
-    /** Reference to models and texture that should be applied to them. */
-    private MadModel renderingInfo;
-    
-    /** Reference to registered machine from factory. */
-    private MadTileEntityFactoryProduct registeredMachine = null;
-    
-    /** Hashtable which links client only models to their model reference classes, allowing them to be manipulated by server. */
-    private Hashtable<String, MadTechneModel> clientTechneModels = null;
-    
-    private Hashtable<String, MadModelFile> masterReferenceModels = null;
-    
-    /** Called on startup of game when renderer is associated with event system with Minecraft/Forge.
-     *  This file  */
-    public MadTileEntityRendererTemplate(MadTileEntityFactoryProduct registeredProduct)
-    {
-        super();
-        
-        // Grab a list of all the models and associated textures for this machine.
-        MadModel modelArchive = registeredProduct.getModelArchive();
-        if (modelArchive != null)
-        {
-            // There can only be one texture binded, and many models associated.
-            MadModelFile[] modelFiles = modelArchive.getMachineModels();
-            
-            // Load the default texture for this machine model.
-            techneModelTexture = new ResourceLocation(MadMod.ID, modelArchive.getMachineTexture());
-            
-            if (modelFiles != null)
-            {
-                // Load all of the associated models for this tile entity.
-                this.loadModelsAssociatedWithMachine(modelFiles);
-            }
-        }
-    }
-
-    /** Consumes an array of model files which need to be loaded on client side model loader.
-     *  This method should only be called from the client and not the server since no rendering
-     *  capabilities exist on the server. */
-    private void loadModelsAssociatedWithMachine(MadModelFile[] modelFiles)
-    {
-        // Abort if we already have models loaded!
-        if (masterReferenceModels != null && clientTechneModels != null)
-        {
-            return;
-        }
-        
-        // Create the hashtables for this machines models.
-        clientTechneModels = new Hashtable<String, MadTechneModel>();
-        masterReferenceModels = new Hashtable<String, MadModelFile>();
-        
-        // Populate the newly created array with our data.
-        for(MadModelFile model : modelFiles)
-        {
-            if (model != null)
-            {
-                // Debuggin'
-                MadMod.log().info("Loading model: " + model.getModelPath());
-                
-                // Load the base model for this machine.
-                MadTechneModel tmpModelActual = (MadTechneModel) AdvancedModelLoader.loadModel(model.getModelPath());
-                String tmpModelName = model.getModelName();
-                
-                if (tmpModelActual != null && tmpModelName != null)
-                {
-                    clientTechneModels.put(tmpModelName, tmpModelActual);
-                    
-                    // Link the name of the model to the entire reference object.
-                    masterReferenceModels.put(tmpModelName, model);
-                }
-            }
-        }
-    }
-
+    /** Called on startup of game when renderer is associated with event system with Minecraft/Forge. */
     public MadTileEntityRendererTemplate()
     {
         super();
     }
-
+    
     @Override
     public int getRenderId()
     {
         // Returns our unique rendering ID for this specific tile entity.
-        return rendereingID;
+        if (currentRenderProduct == null)
+        {
+            // Assign temporary render ID until we get this sorted out.
+            if (currentRenderID == -1)
+            {
+                currentRenderID = RenderingRegistry.getNextAvailableRenderId();
+            }
+        }
+        
+        // If render ID is set to anything other than default then return that.
+        if (currentRenderID != -1)
+        {
+            return currentRenderID;
+        }
+        
+        // Default response is to return negative one to stop rendering.
+        return -1;
     }
 
     @Override
@@ -158,6 +87,17 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         {
             return;
         }
+        
+        // Grab model instance from rendering factory.
+        this.currentRenderProduct = MadRenderingFactory.instance().getModelInstance(
+                MadUtils.cleanTag(madTileEntity.getMachineInternalName()),
+                false,
+                String.valueOf(madTileEntity.xCoord),
+                String.valueOf(madTileEntity.yCoord),
+                String.valueOf(madTileEntity.zCoord));
+        
+        // Set rendering ID to whatever instance demands.
+        this.currentRenderID = currentRenderProduct.getRenderingID();
 
         // Changes the objects rotation to match whatever the player was facing.
         int rotation = 180;
@@ -199,48 +139,25 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
             break;
         }
-
+        
         // Grab texture and model information from entity.
-        if (madTileEntity.getEntityTexture() != null && !madTileEntity.getEntityTexture().isEmpty())
+        if (madTileEntity.getEntityTexture() != null)
         {
-            // Apply our custom texture from asset directory.
             bindTexture(new ResourceLocation(MadMod.ID, madTileEntity.getEntityTexture()));
         }
         else
         {
-            // Default texture if custom animation is not there.
-            bindTexture(this.techneModelTexture);
+            // If entity is not providing a texture resource then use the default!
+            bindTexture(this.currentRenderProduct.getTextureResource());
         }
 
         GL11.glPushMatrix();
-        
-        // Render model from entity information
-        this.renderMadModelParts(madTileEntity.getClientModelsForWorldRender());
-        
-        GL11.glPopMatrix();
-        GL11.glPopMatrix();
-    }
 
-    /** Tells the MadTechneModel rendering system to render all the parts that makeup a given model. */
-    private void renderMadModelParts(MadModelFile[] madModelFiles)
-    {
-        // Loop through our keys from reference models (which are updated by packet system).
-        for (MadModelFile modelPart : madModelFiles)
-        {
-            if (modelPart != null)
-            {
-                // Reference the key in the set to model hashtable.
-                MadTechneModel loadedModel = clientTechneModels.get(modelPart.getModelName());
-                if (loadedModel != null && modelPart != null)
-                {
-                    // Determine if this part of the model is visible or not.
-                    if (modelPart.isModelVisible())
-                    {
-                        loadedModel.renderAll();
-                    }
-                }
-            }
-        }
+        // Render model instance.
+        this.currentRenderProduct.renderMadModelParts();
+        
+        GL11.glPopMatrix();
+        GL11.glPopMatrix();
     }
 
     @Override
@@ -255,39 +172,21 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     {
         GL11.glPushMatrix();
         
-        // Populate our factory object based on object name that is attempting to be rendered.
-        String getMachineName = MadUtils.cleanTag(item.getUnlocalizedName());
-        registeredMachine = MadTileEntityFactory.getMachineInfo(getMachineName);
+        // Grab rendering instance for item from rendering factory.
+        this.currentRenderProduct = MadRenderingFactory.instance().getModelInstance(
+                MadUtils.cleanTag(item.getUnlocalizedName()),
+                true,
+                String.valueOf(item.getItemDamage()),
+                String.valueOf(item.getMaxDamage()));
         
-        // If we find a machine that matches the one wanting to be rendered we will grab model information.
-        if (registeredMachine != null)
-        {
-            renderingInfo = registeredMachine.getModelArchive();
-            if (renderingInfo != null)
-            {
-                // There can only be one texture binded, and many models associated.
-                MadModelFile[] modelFiles = renderingInfo.getMachineModels();
-
-                // Create texture location based on the model info stored in the registered machine.
-                if (this.techneModelTexture == null)
-                {
-                    this.techneModelTexture = new ResourceLocation(MadMod.ID, renderingInfo.getMachineTexture());
-                }
-                
-                if (modelFiles != null)
-                {
-                    // Create the hashtables for this machines models.
-                    this.loadModelsAssociatedWithMachine(modelFiles);
-                }
-            }
-        }
+        // Set rendering ID to whatever instance demands.
+        this.currentRenderID = currentRenderProduct.getRenderingID();
         
         // Use default texture provided in factory product.
-        Minecraft.getMinecraft().renderEngine.bindTexture(this.techneModelTexture);
-        //bindTexture(this.techneModelTexture);
+        Minecraft.getMinecraft().renderEngine.bindTexture(this.currentRenderProduct.getTextureResource());
 
         // adjust rendering space to match what caller expects
-        TransformationTypes transformationToBeUndone = TransformationTypes.NONE;
+        MadRenderTransformationTypes transformationToBeUndone = MadRenderTransformationTypes.NONE;
         switch (type)
         {
         case EQUIPPED:
@@ -298,7 +197,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(GL11.GL_CULL_FACE);
-            transformationToBeUndone = TransformationTypes.THIRDPERSONEQUIPPED;
+            transformationToBeUndone = MadRenderTransformationTypes.THIRDPERSONEQUIPPED;
             break;
         }
         case EQUIPPED_FIRST_PERSON:
@@ -316,7 +215,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             GL11.glScalef(scale, scale, scale);
             // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
-            transformationToBeUndone = TransformationTypes.INVENTORY;
+            transformationToBeUndone = MadRenderTransformationTypes.INVENTORY;
             break;
         }
         case ENTITY:
@@ -325,7 +224,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             GL11.glScalef(scale, scale, scale);
             // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-            transformationToBeUndone = TransformationTypes.DROPPED;
+            transformationToBeUndone = MadRenderTransformationTypes.DROPPED;
             break;
         }
         default:
@@ -333,7 +232,8 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
 
         // Renders the model from master reference stored in factory product data.
-        this.renderMadModelParts(masterReferenceModels.values().toArray(new MadModelFile[]{}));
+        this.currentRenderProduct.renderMadModelParts();
+        
         GL11.glPopMatrix();
 
         switch (transformationToBeUndone)

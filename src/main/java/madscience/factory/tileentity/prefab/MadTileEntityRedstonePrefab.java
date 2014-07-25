@@ -1,6 +1,6 @@
 package madscience.factory.tileentity.prefab;
 
-import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 
 abstract class MadTileEntityRedstonePrefab extends MadTileEntityBasePrefab

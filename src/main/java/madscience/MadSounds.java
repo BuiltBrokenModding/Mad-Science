@@ -3,7 +3,8 @@ package madscience;
 import java.util.Iterator;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
+import madscience.factory.mod.MadMod;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.items.needles.NeedleSounds;
 import madscience.items.weapons.pulserifle.PulseRifleSounds;
 import madscience.mobs.abomination.AbominationSounds;
@@ -26,7 +27,7 @@ public class MadSounds
     public void onSoundLoad(SoundLoadEvent event) // NO_UCD (unused code)
     {
         // Grab an iterable array of all registered machines.
-        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.getMachineInfoList();
+        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.instance().getMachineInfoList();
         for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
         {
             MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Queue;
 
 import madscience.MadFurnaces;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.sounds.MadSound;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
 import net.minecraft.item.Item;

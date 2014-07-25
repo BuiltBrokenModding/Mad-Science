@@ -1,4 +1,4 @@
-package madscience.factory.tileentity;
+package madscience.factory.tileentity.templates;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -6,7 +6,6 @@ import java.net.URI;
 import java.util.HashMap;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.MadTileEntityFactoryProduct;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.buttons.MadGUIButtonClickActionEnum;
 import madscience.factory.buttons.MadGUIButtonInvisibleControl;
@@ -15,6 +14,7 @@ import madscience.factory.controls.MadGUIControl;
 import madscience.factory.controls.MadGUIControlTypeEnum;
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainer;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.Region2;
 import net.minecraft.client.Minecraft;
@@ -71,7 +71,7 @@ public class MadGUITemplate extends GuiContainer
         this.ENTITY = tileEntity;
 
         // Query machine registry for GUI control information.
-        MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.getMachineInfo(this.ENTITY.getMachineInternalName());
+        MadTileEntityFactoryProduct MACHINE = MadTileEntityFactory.instance().getMachineInfo(this.ENTITY.getMachineInternalName());
 
         // Grab our array of GUI controls from the template object.
         this.GUICONTROLS = MACHINE.getGuiControlsTemplate();
