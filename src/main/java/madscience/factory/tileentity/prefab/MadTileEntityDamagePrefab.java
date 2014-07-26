@@ -53,6 +53,9 @@ public class MadTileEntityDamagePrefab extends MadTileEntityHeatPrefab
     public void updateEntity()
     {
         super.updateEntity();
+        
+        // Debugging.
+        //MadMod.log().info("[" + this.getMachineInternalName() + "]Damage: " + this.getDamageValue() + "/" + this.getDamageMaximum());
     }
 
     @Override

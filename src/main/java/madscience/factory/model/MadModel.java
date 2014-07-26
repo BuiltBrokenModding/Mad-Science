@@ -18,13 +18,39 @@ public class MadModel
         this.texturePath = machineTexture;
     }
 
-    public MadModelFile[] getMachineModels()
+    public MadModelData[] getMachineModelsDataClone()
     {
-        return machineModels;
+        MadModelData[] modelData = new MadModelData[this.machineModels.length];
+        int x = 0;
+        for (MadModelFile modelReference : this.machineModels)
+        {
+            modelData[x] = new MadModelData(modelReference.isModelVisible(), modelReference.getModelName());
+            x++;
+        }
+        
+        return modelData;
     }
 
     public String getMachineTexture()
     {
         return texturePath;
+    }
+
+    public MadModelFile[] getMachineModelsFilesClone()
+    {
+        MadModelFile[] modelData = new MadModelFile[this.machineModels.length];
+        int x = 0;
+        for (MadModelFile modelReference : this.machineModels)
+        {
+            modelData[x] = new MadModelFile(modelReference.getModelPath(), modelReference.isModelVisible());
+            x++;
+        }
+        
+        return modelData;
+    }
+
+    public int getModelPartCount()
+    {
+        return machineModels.length;
     }
 }

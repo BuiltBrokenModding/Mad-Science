@@ -1,7 +1,12 @@
 package madscience.factory.tileentity.templates;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import madscience.factory.model.MadModelData;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadPackets;
+import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
@@ -60,6 +65,9 @@ public class MadTileEntityPacketTemplate extends MadPackets
     
     /** Damage maximum amount. */
     private int lastDamageMaximum;
+    
+    /** Single string that represents model visibility data. */
+    private String entityModelData;
 
     /** Last displayed texture resource path (without modid). */
     private String lastTexture;
@@ -71,6 +79,10 @@ public class MadTileEntityPacketTemplate extends MadPackets
 
     public MadTileEntityPacketTemplate(MadTileEntityPrefab madMachine) // NO_UCD (use default)
     {
+        // ------
+        // SERVER
+        // ------
+        
         // Machine name.
         this.machineName = madMachine.getMachineInternalName();
         
@@ -102,6 +114,26 @@ public class MadTileEntityPacketTemplate extends MadPackets
         
         // Last displayed texture.
         this.lastTexture = madMachine.getEntityTexture();
+        
+        // Model information.
+        List<String> packetModelData = new ArrayList<String>();
+        for (MadModelData modelData : madMachine.getEntityModelData())
+        {
+            StringBuilder singleCompressesdModelPiece = new StringBuilder();
+            singleCompressesdModelPiece.append(modelData.getModelPieceName());
+            singleCompressesdModelPiece.append("|");
+            singleCompressesdModelPiece.append(String.valueOf(MadUtils.convertBooleanToByte(modelData.isModelVisible())));
+            packetModelData.add(singleCompressesdModelPiece.toString());
+        }
+        
+        StringBuilder compressedPacketModelData = new StringBuilder();
+        for (String singleCompressesModelPiece : packetModelData)
+        {
+            compressedPacketModelData.append(singleCompressesModelPiece);
+            compressedPacketModelData.append(":");
+        }
+        
+        this.entityModelData = MadUtils.removeLastChar(compressedPacketModelData.toString());
     }
 
     @Override
@@ -156,6 +188,23 @@ public class MadTileEntityPacketTemplate extends MadPackets
             
             // Tile entity texture.
             this.madTileEntity.setTextureRenderedOnModel(lastTexture);
+            
+            // Model information.
+            // Note: MODELNAME:BYTEBOOL
+            String[] splitServerModelCompressesdData = this.entityModelData.split("\\:");
+            for (String splitServerModel : splitServerModelCompressesdData)
+            {
+                String[] packetModelComponents = splitServerModel.split("\\|");
+                if (packetModelComponents[0] == null || packetModelComponents[1] == null)
+                {
+                    throw new IllegalArgumentException("[" + this.machineName + "]Invalid model packet information, cannot update model instance!");
+                }
+                
+                String modelName = packetModelComponents[0];
+                byte modelVisible = Byte.parseByte(packetModelComponents[1]);
+                
+                this.madTileEntity.setModelWorldRenderVisibilityByName(modelName, MadUtils.convertByteToBoolean(modelVisible));
+            }
         }
         else
         {
@@ -201,6 +250,9 @@ public class MadTileEntityPacketTemplate extends MadPackets
         
         // Last displayed texture.
         this.lastTexture = in.readUTF();
+        
+        // Model information.
+        this.entityModelData = in.readUTF();
     }
 
     @Override
@@ -241,5 +293,8 @@ public class MadTileEntityPacketTemplate extends MadPackets
         
         // Last displayed texture.
         out.writeUTF(this.lastTexture);
+        
+        // Model information.
+        out.writeUTF(this.entityModelData);
     }
 }

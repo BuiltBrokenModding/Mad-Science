@@ -1,15 +1,20 @@
 package madscience.factory.tileentity.prefab;
 
 import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelData;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 public class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
 {
     /** Path to current texture that should be displayed on our model. */
     private String entityTexture;
     
-    public MadTileEntityModelSyncPrefab()
+    /** Snapshot of current model configuration for this entity. */
+    private MadModelData[] entityModelReference;
+    
+    public MadTileEntityModelSyncPrefab() 
     {
         super();
     }
@@ -23,7 +28,34 @@ public class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
         if (renderingInformation != null)
         {
             // Load default texture.
-            this.entityTexture = renderingInformation.getMachineTexture();
+            if (this.entityTexture == null)
+            {
+                this.entityTexture = renderingInformation.getMachineTexture();
+            }
+            
+            // Load the default model configuration.
+            if (this.entityModelReference == null)
+            {
+                this.entityModelReference = renderingInformation.getMachineModelsDataClone();
+            }
+        }
+    }
+    
+    public void setModelWorldRenderVisibilityByName(String modelName, boolean visible)
+    {
+        int x = 0;
+        for (MadModelData modelData : this.entityModelReference)
+        {
+            if (modelData.getModelPieceName().equals(modelName))
+            {
+                if (modelData.isModelVisible() != visible)
+                {
+                    this.entityModelReference[x] = new MadModelData(visible, modelName);
+                    break;
+                }
+                break;
+            }
+            x++;
         }
     }
     
@@ -55,8 +87,28 @@ public class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
     {
         super.readFromNBT(nbt);
         
+        // Model instance reload.
+        NBTTagList modelTagList = nbt.getTagList("ModelDataList");
+        this.entityModelReference = new MadModelData[modelTagList.tagCount()];
+        
+        for (int i = 0; i < modelTagList.tagCount(); ++i)
+        {
+            NBTTagCompound modelPart = (NBTTagCompound) modelTagList.tagAt(i);
+            byte partNumber = modelPart.getByte("ModelData");
+            
+            if (partNumber >= 0 && partNumber < this.entityModelReference.length)
+            {
+                this.setModelDataPartContents(partNumber, MadModelData.loadModelDataFromNBT(modelPart));
+            }
+        }
+        
         // Path to current texture what should be loaded onto the model.
         this.entityTexture = nbt.getString("TexturePath");
+    }
+    
+    private void setModelDataPartContents(int partNumber, MadModelData modelData)
+    {
+        this.entityModelReference[partNumber] = modelData;
     }
 
     @Override
@@ -64,10 +116,24 @@ public class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
     {
         super.writeToNBT(nbt);
         
-        // TODO: Model instance information that is specific to this machine and this machine only in the game world.
+        // Model instance saving.
+        NBTTagList modelTagList = new NBTTagList();
+        for (int i = 0; i < this.entityModelReference.length; ++i)
+        {
+            NBTTagCompound modelTag = new NBTTagCompound();
+            modelTag.setByte("ModelData", (byte) i);
+            this.entityModelReference[i].writeToNBT(modelTag);
+            modelTagList.appendTag(modelTag);
+        }
         
+        nbt.setTag("ModelDataList", modelTagList);
         
         // Path to current texture that should be loaded onto the model.
         nbt.setString("TexturePath", this.entityTexture);
+    }
+
+    public MadModelData[] getEntityModelData()
+    {
+        return entityModelReference;
     }
 }

@@ -26,7 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler, IItemRenderer
 {
-    private MadRenderingFactoryProduct currentRenderProduct;
+    private MadRenderingFactoryProduct currentRenderProduct = null;
     private int currentRenderID = -1;
 
     /** Called on startup of game when renderer is associated with event system with Minecraft/Forge. */
@@ -55,7 +55,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
         
         // Default response is to return negative one to stop rendering.
-        return -1;
+        return currentRenderID;
     }
 
     @Override
@@ -88,6 +88,15 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             return;
         }
         
+        // Check if model instance needs to updated before render.
+        MadRenderingFactory.instance().updateModelInstance(
+                madTileEntity.getMachineInternalName(),
+                false,
+                madTileEntity.getEntityModelData(),
+                String.valueOf(madTileEntity.xCoord),
+                String.valueOf(madTileEntity.yCoord),
+                String.valueOf(madTileEntity.zCoord));
+        
         // Grab model instance from rendering factory.
         this.currentRenderProduct = MadRenderingFactory.instance().getModelInstance(
                 MadUtils.cleanTag(madTileEntity.getMachineInternalName()),
@@ -95,6 +104,11 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
                 String.valueOf(madTileEntity.xCoord),
                 String.valueOf(madTileEntity.yCoord),
                 String.valueOf(madTileEntity.zCoord));
+        
+        if (currentRenderProduct == null)
+        {
+            return;
+        }
         
         // Set rendering ID to whatever instance demands.
         this.currentRenderID = currentRenderProduct.getRenderingID();
@@ -158,6 +172,10 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         
         GL11.glPopMatrix();
         GL11.glPopMatrix();
+        
+        //Cleanup.
+        this.currentRenderProduct = null;
+        this.currentRenderID = -1;
     }
 
     @Override
@@ -178,6 +196,11 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
                 true,
                 String.valueOf(item.getItemDamage()),
                 String.valueOf(item.getMaxDamage()));
+        
+        if (currentRenderProduct == null)
+        {
+            return;
+        }
         
         // Set rendering ID to whatever instance demands.
         this.currentRenderID = currentRenderProduct.getRenderingID();
@@ -261,6 +284,10 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         default:
             break;
         }
+        
+        //Cleanup.
+        this.currentRenderProduct = null;
+        this.currentRenderID = -1;
     }
 
     @Override

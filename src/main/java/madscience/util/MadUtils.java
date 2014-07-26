@@ -24,6 +24,35 @@ public class MadUtils
         }
         return output.toLowerCase().trim();
     }
+    
+    public static byte convertBooleanToByte(boolean inputBool)
+    {
+        int output = (inputBool) ? 1 : 0;
+        return (byte) output;
+    }
+    
+    public static String removeLastChar(String str) 
+    {
+        return str.substring(0,str.length()-1);
+    }
+    
+    public static boolean convertByteToBoolean(byte inputByte)
+    {
+        switch (inputByte)
+        {
+            case 0:
+            {
+                return false;
+            }
+            case 1:
+            {
+                return true;
+            }
+        }
+        
+        // Default response is to just say no.
+        return false;
+    }
 
     /** Removes extra tags from internal and unlocalized names in preparation for matchmaking in recipe system. */
     public static String cleanTag(String tag)

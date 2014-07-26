@@ -39,7 +39,7 @@ public class MadRenderingFactoryProduct
         this.textureResource = new ResourceLocation(MadMod.ID, renderInformation.getMachineTexture());
         
         // Load default set of models we will clone for each new created instance.
-        for (MadModelFile productModel : renderInformation.getMachineModels())
+        for (MadModelFile productModel : renderInformation.getMachineModelsFilesClone())
         {
             this.modelRenderingReference.put(productModel.getModelName(), (MadTechneModel) AdvancedModelLoader.loadModel(productModel.getModelPath()));            
         }
