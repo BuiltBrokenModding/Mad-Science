@@ -3,7 +3,6 @@ package madscience.factory.tileentity.templates;
 import java.util.List;
 import java.util.Random;
 
-import madscience.MadForgeMod;
 import madscience.factory.mod.MadMod;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
@@ -230,14 +229,14 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     @Override
     public boolean onBlockActivated(World world, int X, int Y, int Z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
-        // Called upon block activation (right click on the block.)
+        // Called upon block activation (right click on the block).
         if (world.isRemote)
         {
             return true;
         }
         else if (!player.isSneaking())
         {
-            // Open GUI on the client...
+            // Cast block as a mad tile entity.
             TileEntity vanillaTileInstance = world.getBlockTileEntity(X, Y, Z);
             MadTileEntityPrefab tileEntityInstance = null;
             
@@ -251,12 +250,10 @@ public class MadTileEntityBlockTemplate extends BlockContainer
             {
                 // Since we hook the entity we will fire a method off for API use.
                 tileEntityInstance.onBlockRightClick(world, X, Y, Z, player);
-                
-                // Open a GUI through our MadGUI handler if there is one associated with this given machine.
-                player.openGui(MadForgeMod.instance, this.blockID, world, X, Y, Z);
+                return true;
             }
             
-            return true;
+            return false;
         }
         else
         {

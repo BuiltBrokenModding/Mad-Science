@@ -1,6 +1,7 @@
 package madscience.factory.tileentity.prefab;
 
 import madscience.MadConfig;
+import madscience.MadForgeMod;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
@@ -248,6 +249,9 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
     {
         // Right Click Sound
         this.registeredMachine.playTriggerSound(MadSoundTriggerEnum.RIGHTCLICK, this.xCoord, this.yCoord, this.zCoord, this.worldObj);
+        
+        // Open a GUI through our MadGUI handler if there is one associated with this given machine.
+        par5EntityPlayer.openGui(MadForgeMod.instance, this.getRegisteredMachine().getBlockID(), world, this.xCoord, this.yCoord, this.zCoord);
     }
 
     /** Called from block template when player left-clicks on the machine. */

@@ -4,9 +4,11 @@ import madscience.MadNeedles;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class SanitizerEntity extends MadTileEntityPrefab
 {
@@ -289,5 +291,17 @@ public class SanitizerEntity extends MadTileEntityPrefab
     public void initiate()
     {
         super.initiate();
+    }
+
+    @Override
+    public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    {
+        super.onBlockRightClick(world, x, y, z, par5EntityPlayer);
+    }
+
+    @Override
+    public void onBlockLeftClick(World world, int x, int y, int z, EntityPlayer player)
+    {
+        super.onBlockLeftClick(world, x, y, z, player);
     }
 }

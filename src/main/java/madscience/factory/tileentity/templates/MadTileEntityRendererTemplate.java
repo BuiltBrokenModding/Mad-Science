@@ -190,6 +190,8 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     {
         GL11.glPushMatrix();
         
+        // TODO: Update item render instance as requested by server.
+        
         // Grab rendering instance for item from rendering factory.
         this.currentRenderProduct = MadRenderingFactory.instance().getModelInstance(
                 MadUtils.cleanTag(item.getUnlocalizedName()),

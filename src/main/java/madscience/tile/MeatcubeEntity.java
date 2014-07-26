@@ -1,9 +1,7 @@
 package madscience.tile;
 
 import madscience.MadFluids;
-import madscience.MadFurnaces;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadModelData;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
@@ -255,7 +253,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
         if (this.isPlayingAnimation() && this.getAnimationCurrentFrame() < lastAnimFrameCount && worldObj.getWorldTime() % 5L == 0L)
         {
             // Load this texture onto the entity.
-            this.setTextureRenderedOnModel("models/" + MadFurnaces.MEATCUBE_INTERNALNAME + "/meatcube_" + this.getAnimationCurrentFrame() + ".png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/meatcube_" + this.getAnimationCurrentFrame() + ".png");
             this.incrementAnimationCurrentFrame();
         }
         else if (this.isPlayingAnimation() && this.getAnimationCurrentFrame() >= lastAnimFrameCount)
@@ -394,10 +392,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     private void updateWorldModel()
     {
         // Hide all the pieces by default and show them based on damage value.
-        for (MadModelData modelReference : this.getEntityModelData())
-        {
-            this.setModelWorldRenderVisibilityByName(modelReference.getModelPieceName(), false);
-        }
+        this.hideAllModelPieces();
         
         // Base meatcube with piece zero always shows.
         this.setModelWorldRenderVisibilityByName("meatCube", true);
@@ -472,5 +467,11 @@ public class MeatcubeEntity extends MadTileEntityPrefab
         {
             this.setModelWorldRenderVisibilityByName("meatCube14", true);
         }
+    }
+
+    @Override
+    public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    {
+        super.onBlockRightClick(world, x, y, z, par5EntityPlayer);
     }
 }

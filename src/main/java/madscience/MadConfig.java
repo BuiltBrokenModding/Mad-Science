@@ -443,10 +443,6 @@ public class MadConfig
     public static long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
     public static String SONICLOCATOR_HELP = "http://madsciencemod.com/minecraft-item/soniclocator/";
 
-    // Clay Furnace
-    public static int CLAYFURNACE = MadMod.getNextBlockID();
-    public static String CLAYFURNACE_HELP = "http://madsciencemod.com/minecraft-item/clay-furnace/";
-
     // Magazine Loader
     public static int MAGLOADER = MadMod.getNextBlockID();
     static int MAGLOADERGHOST = MadMod.getNextBlockID();
@@ -515,14 +511,8 @@ public class MadConfig
     // Needles decay at a rate of one health every 6000 ticks.
     public static int DECAY_DELAY_IN_SECONDS = 30;
 
-    // Determines how many seconds clay furnace will cook before finishing
-    public static int CLAYFURNACE_COOKTIME_IN_SECONDS = 420;
-
     // Distance which we will send packet updates about machines to players.
     public static int PACKETSEND_RADIUS = 25;
-
-    // ID that will determine block to be used to 'unlock' thermosonic bonder and thus every other item in the mod.
-    public static int THERMOSONICBONDER_FINALSACRIFICE = 138;
 
     // Determines if M41A Pulse Rifle bullets will damage the world at all with random chance.
     public static boolean PULSERIFLE_BULLETS_DAMAGEWORLD = true;

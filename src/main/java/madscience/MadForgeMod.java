@@ -403,7 +403,6 @@ public class MadForgeMod
         MadFurnaces.createCryotubeGhostTileEntity(MadConfig.CRYOTUBEGHOST);
         MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
         MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
-        MadFurnaces.createClayFurnaceTileEntity(MadConfig.CLAYFURNACE);
         MadFurnaces.createMagLoaderTileEntity(MadConfig.MAGLOADER);
         MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
         MadFurnaces.createCnCMachineTileEntity(MadConfig.CNCMACHINE);

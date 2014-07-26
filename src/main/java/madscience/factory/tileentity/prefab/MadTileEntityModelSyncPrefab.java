@@ -41,6 +41,15 @@ public class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
         }
     }
     
+    public void hideAllModelPieces()
+    {
+        // Hide all the model pieces that makeup this machine.
+        for (MadModelData modelReference : this.getEntityModelData())
+        {
+            this.setModelWorldRenderVisibilityByName(modelReference.getModelPieceName(), false);
+        }
+    }
+    
     public void setModelWorldRenderVisibilityByName(String modelName, boolean visible)
     {
         int x = 0;

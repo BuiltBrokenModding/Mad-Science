@@ -2,9 +2,7 @@ package madscience;
 
 import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
-import madscience.tile.clayfurnace.ClayfurnaceBlock;
-import madscience.tile.clayfurnace.ClayfurnaceEntity;
-import madscience.tile.clayfurnace.ClayfurnaceRecipes;
+import madscience.tile.ClayfurnaceEntity;
 import madscience.tile.cncmachine.CnCMachineBlock;
 import madscience.tile.cncmachine.CnCMachineBlockGhost;
 import madscience.tile.cncmachine.CnCMachineEntity;
@@ -45,18 +43,6 @@ public class MadFurnaces
     public static Block SONICLOCATORGHOST;
     private static final String SONICLOCATORGHOST_INTERNALNAME = "ghostSoniclocator";
 
-    // Meat Cube [Slime + Cow,Pig,Chicken]
-    public static BlockContainer MEATCUBE_TILEENTITY;
-    public static final String MEATCUBE_INTERNALNAME = "meatCube";
-    
-    // Clay Furnace
-    public static BlockContainer CLAYFURNACE_TILEENTITY;
-    public static final String CLAYFURNACE_INTERNALNAME = "clayFurnace";
-    
-    // VOX Box
-    public static BlockContainer VOXBOX_TILEENTITY;
-    public static final String VOXBOX_INTERNALNAME = "voxBox";
-    
     // Magazine Loader
     public static BlockContainer MAGLOADER_TILEENTITY;
     public static final String MAGLOADER_INTERNALNAME = "magLoader";
@@ -141,33 +127,6 @@ public class MadFurnaces
         '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
         '5', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
         });
-    }
-
-    static void createClayFurnaceTileEntity(int blockID)
-    {
-        MadMod.log().info("-Clay Furnace Tile Entity");
-        
-        // A early-game block that can give huge return on investment for ores for clay and fire and time.
-        CLAYFURNACE_TILEENTITY = (BlockContainer) new ClayfurnaceBlock(blockID).setUnlocalizedName(CLAYFURNACE_INTERNALNAME);
-        GameRegistry.registerBlock(CLAYFURNACE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CLAYFURNACE_INTERNALNAME);
-        GameRegistry.registerTileEntity(ClayfurnaceEntity.class, CLAYFURNACE_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-        
-        // Wrapping hardened clay blocks around a furnace will make a clay furnace.
-        GameRegistry.addRecipe(new ItemStack(CLAYFURNACE_TILEENTITY, 1), new Object[]
-        { "111", 
-          "121", 
-          "111",
-
-        '1', new ItemStack(Block.hardenedClay),
-        '2', new ItemStack(Block.furnaceIdle)
-        });
-        
-        // Clay Furnace will only convert gold and iron ore into full blocks.
-        ClayfurnaceRecipes.addSmelting(Block.oreIron.blockID, new ItemStack(Block.blockIron), 0.15F);
-        ClayfurnaceRecipes.addSmelting(Block.oreGold.blockID, new ItemStack(Block.blockGold), 0.15F);
     }
 
     static void createMagLoaderTileEntity(int blockID)

@@ -4,9 +4,6 @@ import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.tile.clayfurnace.ClayfurnaceContainer;
-import madscience.tile.clayfurnace.ClayfurnaceEntity;
-import madscience.tile.clayfurnace.ClayfurnaceGUI;
 import madscience.tile.cncmachine.CnCMachineContainer;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineGUI;
@@ -63,12 +60,6 @@ public class MadGUI implements IGuiHandler
             return new SoniclocatorGUI(player.inventory, (SoniclocatorEntity) tileEntity);
         }
         
-        // Clay Furnace
-        if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
-        {
-            return new ClayfurnaceGUI(player.inventory, (ClayfurnaceEntity) tileEntity);
-        }
-        
         // Magazine Loader
         if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
         {
@@ -120,12 +111,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
         {
             return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tileEntity);
-        }
-        
-        // Clay Furnace
-        if (ID == MadFurnaces.CLAYFURNACE_TILEENTITY.blockID)
-        {
-            return new ClayfurnaceContainer(player.inventory, (ClayfurnaceEntity) tileEntity);
         }
         
         // Magazine Loader

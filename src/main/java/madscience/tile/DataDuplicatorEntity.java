@@ -7,8 +7,10 @@ import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.items.combinedgenomes.CombinedGenomeMonsterPlacer;
 import madscience.items.genomes.ItemGenomeBase;
 import madscience.items.memories.CombinedMemoryMonsterPlacer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class DataDuplicatorEntity extends MadTileEntityPrefab
 {
@@ -274,5 +276,17 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab
     public void initiate()
     {
         super.initiate();
+    }
+
+    @Override
+    public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    {
+        super.onBlockRightClick(world, x, y, z, par5EntityPlayer);
+    }
+
+    @Override
+    public void onBlockLeftClick(World world, int x, int y, int z, EntityPlayer player)
+    {
+        super.onBlockLeftClick(world, x, y, z, player);
     }
 }

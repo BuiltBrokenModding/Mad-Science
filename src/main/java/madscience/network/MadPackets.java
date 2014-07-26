@@ -6,7 +6,6 @@ import madscience.items.warningsign.WarningSignPacketClientRequestSignType;
 import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
 import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
 import madscience.items.weapons.pulserifle.PulseRiflePackets;
-import madscience.tile.clayfurnace.ClayfurnacePackets;
 import madscience.tile.cncmachine.CnCMachinePackets;
 import madscience.tile.cryotube.CryotubePackets;
 import madscience.tile.magloader.MagLoaderPackets;
@@ -54,9 +53,6 @@ public abstract class MadPackets
         
         // Mad Particle Packet (Can be any particle!)
         builder.put(Integer.valueOf(11), MadParticlePacket.class);
-        
-        // Clay Furnace
-        builder.put(Integer.valueOf(12), ClayfurnacePackets.class);
         
         // Pulse Rifle
         builder.put(Integer.valueOf(13), PulseRiflePackets.class);

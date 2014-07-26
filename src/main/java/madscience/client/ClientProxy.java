@@ -66,8 +66,6 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
-import madscience.tile.clayfurnace.ClayfurnaceEntity;
-import madscience.tile.clayfurnace.ClayfurnaceRender;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineRender;
 import madscience.tile.cryotube.CryotubeEntity;
@@ -337,14 +335,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.SONICLOCATOR_TILEENTITY.blockID, new SoniclocatorRender());
             ClientRegistry.bindTileEntitySpecialRenderer(SoniclocatorEntity.class, new SoniclocatorRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new SoniclocatorRender());
-        }
-
-        // Clay Furnace
-        if (blockID == MadConfig.CLAYFURNACE)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CLAYFURNACE_TILEENTITY.blockID, new ClayfurnaceRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new ClayfurnaceRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new ClayfurnaceRender());
         }
 
         // Magazine Loader

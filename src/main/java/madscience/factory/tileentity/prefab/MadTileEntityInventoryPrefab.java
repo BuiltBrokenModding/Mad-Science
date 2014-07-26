@@ -214,7 +214,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
     }
     
     /** Returns recipe result for a single furnace input based on enumeration slot types. */
-    public ItemStack[] getRecipeResult(MadSlotContainerTypeEnum[] searchPatternArray)
+    public ItemStack[] getRecipeResult(MadSlotContainerTypeEnum... searchPatternArray)
     {
         // Grab the recipe archive object array, exit if we return nothing to compare against.
         MadRecipe[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();

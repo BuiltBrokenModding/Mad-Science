@@ -4,16 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import madscience.MadFurnaces;
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class VoxBoxEntity extends MadTileEntityPrefab
 {    
@@ -50,6 +51,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab
         super(machineName);
     }
 
+    @Override
     public boolean canSmelt()
     {
         super.canSmelt();
@@ -100,17 +102,17 @@ public class VoxBoxEntity extends MadTileEntityPrefab
             if (worldObj.getWorldTime() % 5L == 0L)
             {
                 // Load this texture onto the entity.
-                this.setTextureRenderedOnModel("models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png");
+                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/voxBox0.png");
             }
             else
             {
-                this.setTextureRenderedOnModel("models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox1.png");
+                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/voxBox1.png");
             }
         }
         else
         {
             // We are not powered or working.
-            this.setTextureRenderedOnModel("models/" + MadFurnaces.VOXBOX_INTERNALNAME + "/voxBox0.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/voxBox0.png");
         }
     }
 
@@ -163,7 +165,7 @@ public class VoxBoxEntity extends MadTileEntityPrefab
                 if (currentWordFromPhrase != null)
                 {
                     // Actually say the word, the timer will keep counting until we need the next one so sounds are evenly spaced out.
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadMod.ID + ":" + MadFurnaces.VOXBOX_INTERNALNAME + "." + currentWordFromPhrase.getSoundNameWithoutExtension(), 1.0F, 1.0F);
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5F, this.yCoord + 0.5F, this.zCoord + 0.5F, MadMod.ID + ":" + this.getMachineInternalName() + "." + currentWordFromPhrase.getSoundNameWithoutExtension(), 1.0F, 1.0F);
                     currentTalkWordStep += 0.1F;
                     MadMod.log().info("VoxBox: Speaking the word '" + currentWordFromPhrase.getSoundNameWithoutExtension() + "' with length of " + String.valueOf(currentWordFromPhrase.getSoundLengthInSeconds()) + "F.");
                 }
@@ -317,5 +319,17 @@ public class VoxBoxEntity extends MadTileEntityPrefab
     public void initiate()
     {
         super.initiate();
+    }
+
+    @Override
+    public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    {
+        super.onBlockRightClick(world, x, y, z, par5EntityPlayer);
+    }
+
+    @Override
+    public void onBlockLeftClick(World world, int x, int y, int z, EntityPlayer player)
+    {
+        super.onBlockLeftClick(world, x, y, z, player);
     }
 }

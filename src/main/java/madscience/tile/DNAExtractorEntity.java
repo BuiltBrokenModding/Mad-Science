@@ -9,9 +9,11 @@ import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.items.needles.ItemDecayNeedleBase;
 import madscience.items.needles.NeedleMutant;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused code)
 {
@@ -470,5 +472,17 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
     public void initiate()
     {
         super.initiate();
+    }
+
+    @Override
+    public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer par5EntityPlayer)
+    {
+        super.onBlockRightClick(world, x, y, z, par5EntityPlayer);
+    }
+
+    @Override
+    public void onBlockLeftClick(World world, int x, int y, int z, EntityPlayer player)
+    {
+        super.onBlockLeftClick(world, x, y, z, player);
     }
 }
