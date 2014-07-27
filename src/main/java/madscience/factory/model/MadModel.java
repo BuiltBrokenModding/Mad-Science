@@ -1,5 +1,8 @@
 package madscience.factory.model;
 
+import madscience.factory.rendering.MadModelItemRender;
+import madscience.factory.rendering.MadModelWorldRender;
+
 import com.google.gson.annotations.Expose;
 
 public class MadModel
@@ -74,8 +77,10 @@ public class MadModel
                 new MadModelPosition(0.2F, 0.9F, 0.5F),
                 new MadModelRotation(90.0F, 0.0F, 1.0F, 0.0F),
                 new MadModelScale(1.0F, 1.0F, 1.0F),                // INVENTORY
+                new MadModelPosition(0.5F, 0.42F, 0.5F),
                 new MadModelRotation(270.0F, 0.0F, 0.5F, 0.0F),
                 new MadModelScale(1.0F, 1.0F, 1.0F),                // ENTITY
+                new MadModelPosition(1.0F, 1.0F, 1.0F),
                 new MadModelRotation(180.0F, 0.0F, 1.0F, 0.0F));
         
         return tmpItemInfo;

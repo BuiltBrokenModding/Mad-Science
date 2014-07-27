@@ -61,16 +61,56 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type)
     {
-        switch (type)
+        // Grab rendering instance for item from rendering factory.
+        this.currentRenderProduct = MadRenderingFactory.instance().getModelInstance(
+                MadUtils.cleanTag(item.getUnlocalizedName()),
+                true,
+                String.valueOf(item.getItemDamage()),
+                String.valueOf(item.getMaxDamage()));
+        
+        if (currentRenderProduct == null)
         {
-        case ENTITY:
-        case EQUIPPED:
-        case EQUIPPED_FIRST_PERSON:
-        case INVENTORY:
-            return true;
-        default:
+            // Default response is to render no item types if we have no rendering data.
             return false;
         }
+        
+        // Determine how we should render this tile entity as an item block. Returning false uses 2D icon instead of model.
+        boolean shouldRender = false;
+        switch (type)
+        {
+            case ENTITY:
+            {
+                shouldRender = currentRenderProduct.getModelItemRenderInformation().isRenderItemEntity3D();
+            }
+            break;
+            case EQUIPPED:
+            {
+                shouldRender = currentRenderProduct.getModelItemRenderInformation().isRenderItemEquipped3D();
+            }
+            break;
+            case EQUIPPED_FIRST_PERSON:
+            {
+                shouldRender = currentRenderProduct.getModelItemRenderInformation().isRenderItemFirstPerson3D();
+            }
+            break;
+            case INVENTORY:
+            {
+                shouldRender = currentRenderProduct.getModelItemRenderInformation().isRenderItemInventory3D();
+            }
+            break;
+            default:
+            {
+                shouldRender = false;
+            }
+            break;
+        }
+        
+        // Cleanup.
+        this.currentRenderProduct = null;
+        this.currentRenderID = -1;
+        
+        // Return based on information from render product.
+        return shouldRender;
     }
 
     private void renderMadModelAt(MadTileEntityPrefab tileEntity, double x, double y, double z, float scale)
@@ -135,7 +175,16 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         GL11.glPushMatrix();
 
         // Left and right positives center the object and the middle one raises it up to connect with bottom of connecting block.
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+        GL11.glTranslatef(
+                (float) x + currentRenderProduct.getModelWorldRenderInformation().getModelWorldPosition().getModelTranslateX(),
+                (float) y + currentRenderProduct.getModelWorldRenderInformation().getModelWorldPosition().getModelTranslateY(),
+                (float) z + currentRenderProduct.getModelWorldRenderInformation().getModelWorldPosition().getModelTranslateZ());
+        
+        // Scale the model as according to world rendering information.
+        GL11.glScalef(
+                currentRenderProduct.getModelWorldRenderInformation().getModelWorldScale().getModelScaleX(),
+                currentRenderProduct.getModelWorldRenderInformation().getModelWorldScale().getModelScaleY(),
+                currentRenderProduct.getModelWorldRenderInformation().getModelWorldScale().getModelScaleZ());
 
         // Using this and the above select the tile entity will always face the player.
         switch (rotation)
@@ -216,39 +265,98 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         {
         case EQUIPPED:
         {
-            float scale = 1.4F;
-            GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(0.1F, 0.3F, 0.3F);
-            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+            // Scale
+            GL11.glScalef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedScale().getModelScaleX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedScale().getModelScaleY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedScale().getModelScaleZ());
+            
+            // Position
+            GL11.glTranslatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedPosition().getModelTranslateX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedPosition().getModelTranslateY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedPosition().getModelTranslateZ());
+            
+            // Rotation
+            GL11.glRotatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedRotation().getModelRotationAngle(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedRotation().getModelRotationX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedRotation().getModelRotationY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEquippedRotation().getModelRotationZ());
+            
             GL11.glEnable(GL11.GL_CULL_FACE);
             transformationToBeUndone = MadRenderTransformationTypes.THIRDPERSONEQUIPPED;
             break;
         }
         case EQUIPPED_FIRST_PERSON:
         {
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            GL11.glTranslatef(0.2F, 0.9F, 0.5F);
-            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+            // Scale
+            GL11.glScalef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonScale().getModelScaleX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonScale().getModelScaleY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonScale().getModelScaleZ());
+            
+            // Position
+            GL11.glTranslatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonPosition().getModelTranslateX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonPosition().getModelTranslateY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonPosition().getModelTranslateZ());
+            
+            // Rotation
+            GL11.glRotatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonRotation().getModelRotationAngle(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonRotation().getModelRotationX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonRotation().getModelRotationY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemFirstPersonRotation().getModelRotationZ());
+            
             break;
         }
         case INVENTORY:
         {
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(270.0F, 0.0F, 0.5F, 0.0F);
+            // Scale
+            GL11.glScalef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryScale().getModelScaleX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryScale().getModelScaleY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryScale().getModelScaleZ());
+            
+            // Position
+            GL11.glTranslatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryPosition().getModelTranslateX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryPosition().getModelTranslateY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryPosition().getModelTranslateZ());
+            
+            // Rotation
+            GL11.glRotatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryRotation().getModelRotationAngle(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryRotation().getModelRotationX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryRotation().getModelRotationY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemInventoryRotation().getModelRotationZ());
+            
+            
             transformationToBeUndone = MadRenderTransformationTypes.INVENTORY;
             break;
         }
         case ENTITY:
         {
-            float scale = 1.0F;
-            GL11.glScalef(scale, scale, scale);
-            // GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+            // Scale
+            GL11.glScalef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityScale().getModelScaleX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityScale().getModelScaleY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityScale().getModelScaleZ());
+            
+            // Position
+            GL11.glTranslatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityPosition().getModelTranslateX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityPosition().getModelTranslateY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityPosition().getModelTranslateZ());
+            
+            // Rotation
+            GL11.glRotatef(
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityRotation().getModelRotationAngle(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityRotation().getModelRotationX(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityRotation().getModelRotationY(),
+                    currentRenderProduct.getModelItemRenderInformation().getModelItemEntityRotation().getModelRotationZ());
+            
             transformationToBeUndone = MadRenderTransformationTypes.DROPPED;
             break;
         }

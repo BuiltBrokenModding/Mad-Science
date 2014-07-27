@@ -16,12 +16,12 @@ import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelFile;
-import madscience.factory.model.MadModelItemRender;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelRotation;
 import madscience.factory.model.MadModelScale;
-import madscience.factory.model.MadModelWorldRender;
 import madscience.factory.recipes.MadRecipe;
+import madscience.factory.rendering.MadModelItemRender;
+import madscience.factory.rendering.MadModelWorldRender;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.sounds.MadSound;
@@ -135,8 +135,10 @@ public class MadManualMachine
 //                new MadModelPosition(0.2F, 0.9F, 0.5F),
 //                new MadModelRotation(90.0F, 0.0F, 0.5F, 0.0F),
 //                new MadModelScale(0.65F, 0.65F, 0.65F),         // INVENTORY
+//                new MadModelPosition(0.5F, 0.42F, 0.5F),
 //                new MadModelRotation(270.0F, 0.0F, 0.5F, 0.0F),
 //                new MadModelScale(1.0F, 1.0F, 1.0F),            // ENTITY
+//                new MadModelPosition(0.5F, 0.42F, 0.5F),
 //                new MadModelRotation(180.0F, 0.0F, 1.0F, 0.0F));
 //        
 //        // MODEL WORLD RENDER INFO

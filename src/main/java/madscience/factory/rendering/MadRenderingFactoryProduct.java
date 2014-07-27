@@ -25,6 +25,12 @@ public class MadRenderingFactoryProduct
     /** Primary reference to all loaded models. */
     private Map<String, MadTechneModel> modelRenderingReference = null;
     
+    /** Contains item rendering information such as should render icons in 3D, scaling and positioning for inventory, FPS, Entity render passes. */
+    private MadModelItemRender modelItemRenderInformation = null;
+    
+    /** Contains world rendering information such as position and scale which determine how large the model appears in the game world. */
+    private MadModelWorldRender modelWorldRenderInformation = null;
+    
     public MadRenderingFactoryProduct(MadModel renderInformation)
     {
         super();
@@ -37,6 +43,12 @@ public class MadRenderingFactoryProduct
         
         // Load default texture from this machine as a resource location for renderer to bind to when referenced.
         this.textureResource = new ResourceLocation(MadMod.ID, renderInformation.getMachineTexture());
+        
+        // Load item render information.
+        this.modelItemRenderInformation = renderInformation.getItemRenderInfo();
+        
+        // Load world render information.
+        this.modelWorldRenderInformation = renderInformation.getWorldRenderInfo();
         
         // Load default set of models we will clone for each new created instance.
         for (MadModelFile productModel : renderInformation.getMachineModelsFilesClone())
@@ -103,5 +115,15 @@ public class MadRenderingFactoryProduct
     public Map<String, MadTechneModel> getModelRenderingReference()
     {
         return modelRenderingReference;
+    }
+
+    public MadModelItemRender getModelItemRenderInformation()
+    {
+        return modelItemRenderInformation;
+    }
+
+    public MadModelWorldRender getModelWorldRenderInformation()
+    {
+        return modelWorldRenderInformation;
     }
 }

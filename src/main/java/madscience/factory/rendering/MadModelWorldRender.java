@@ -1,4 +1,7 @@
-package madscience.factory.model;
+package madscience.factory.rendering;
+
+import madscience.factory.model.MadModelPosition;
+import madscience.factory.model.MadModelScale;
 
 import com.google.gson.annotations.Expose;
 

@@ -44,6 +44,7 @@ public class CustomConnectionHandler implements IConnectionHandler
     {
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login)
     {

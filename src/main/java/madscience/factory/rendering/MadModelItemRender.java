@@ -1,4 +1,8 @@
-package madscience.factory.model;
+package madscience.factory.rendering;
+
+import madscience.factory.model.MadModelPosition;
+import madscience.factory.model.MadModelRotation;
+import madscience.factory.model.MadModelScale;
 
 import com.google.gson.annotations.Expose;
 
@@ -38,10 +42,16 @@ public class MadModelItemRender
     private MadModelScale modelItemInventoryScale;
     
     @Expose
+    private MadModelPosition modelItemInventoryPosition;
+    
+    @Expose
     private MadModelRotation modelItemInventoryRotation;
     
     @Expose
     private MadModelScale modelItemEntityScale;
+    
+    @Expose
+    private MadModelPosition modelItemEntityPosition;
     
     @Expose
     private MadModelRotation modelItemEntityRotation;
@@ -51,15 +61,17 @@ public class MadModelItemRender
             boolean shouldRenderItemEquipped3D,
             boolean shouldRenderItemFirstPerson3D,
             boolean shouldRenderItemInventory3D,
-            MadModelScale modelItemEquippedScale,
+            MadModelScale modelItemEquippedScale,               // Equipped.
             MadModelPosition modelItemEquippedPosition,
             MadModelRotation modelItemEquippedRotation,
-            MadModelScale modelItemFirstPersonScale,
+            MadModelScale modelItemFirstPersonScale,            // First Person.
             MadModelPosition modelItemFirstPersonPosition,
             MadModelRotation modelItemFirstPersonRotation,
-            MadModelScale modelItemInventoryScale,
+            MadModelScale modelItemInventoryScale,              // Inventory.
+            MadModelPosition modelItemInventoryPosition,
             MadModelRotation modelItemInventoryRotation,
-            MadModelScale modelItemEntityScale,
+            MadModelScale modelItemEntityScale,                 // Entity.
+            MadModelPosition modelItemEntityPosition,
             MadModelRotation modelItemEntityRotation)
     {
         super();
@@ -78,9 +90,11 @@ public class MadModelItemRender
         this.modelItemFirstPersonRotation = modelItemFirstPersonRotation;
         
         this.modelItemInventoryScale = modelItemInventoryScale;
+        this.modelItemInventoryPosition = modelItemInventoryPosition;
         this.modelItemInventoryRotation = modelItemInventoryRotation;
         
         this.modelItemEntityScale = modelItemEntityScale;
+        this.modelItemEntityPosition = modelItemEntityPosition;
         this.modelItemEntityRotation = modelItemEntityRotation;
     }
 
@@ -152,5 +166,15 @@ public class MadModelItemRender
     public boolean isRenderItemInventory3D()
     {
         return renderItemInventory3D;
+    }
+
+    public MadModelPosition getModelItemInventoryPosition()
+    {
+        return modelItemInventoryPosition;
+    }
+
+    public MadModelPosition getModelItemEntityPosition()
+    {
+        return modelItemEntityPosition;
     }
 }

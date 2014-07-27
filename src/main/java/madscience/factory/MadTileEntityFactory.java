@@ -250,27 +250,8 @@ public class MadTileEntityFactory
         // Debugging!
         MadMod.log().info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
         
-        // Check if model rendering information exists.
-        MadModel renderingInformation = tileEntityProduct.getModelArchive();
-        if (renderingInformation != null)
-        {
-            // Check if model collection has any item or world rendering information (scale, position, rotation).
-            if (renderingInformation.getItemRenderInfo() == null)
-            {
-                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default ITEM rendering information where there is none.");
-                renderingInformation.setItemRenderInfo(MadModel.defaultItemRenderInfo());
-            }
-            
-            if (renderingInformation.getWorldRenderInfo() == null)
-            {
-                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default WORLD rendering information where there is none.");
-                renderingInformation.setWorldRenderInfo(MadModel.defaultWorldRenderInfo());
-            }
-        }
-        else
-        {
-            throw new IllegalArgumentException("Cannot register MadTileEntityFactoryProduct '" + tileEntityProduct.getMachineName() + "'. This tile entity contains no models!");
-        }
+        // Check if rendering information is null and needs to be set to defaults.
+        this.checkRenderingInformation(tileEntityProduct);
 
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
@@ -283,5 +264,32 @@ public class MadTileEntityFactory
         MadForgeMod.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
 
         return tileEntityProduct;
+    }
+
+    /** Ensures that a given tile entity factory product will always have proper rendering information even if none is provided (for whatever reason). */
+    private void checkRenderingInformation(MadTileEntityFactoryProduct tileEntityProduct)
+    {
+        // Check if model rendering information exists.
+        MadModel renderingInformation = tileEntityProduct.getModelArchive();
+        if (renderingInformation != null)
+        {
+            // Rendering information for tile as it would exist as an item block in players inventory.
+            if (renderingInformation.getItemRenderInfo() == null)
+            {
+                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default ITEM rendering information where there is none.");
+                renderingInformation.setItemRenderInfo(MadModel.defaultItemRenderInfo());
+            }
+            
+            // Rendering information for tile as it would exist in the game world as seen by the player and other players.
+            if (renderingInformation.getWorldRenderInfo() == null)
+            {
+                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default WORLD rendering information where there is none.");
+                renderingInformation.setWorldRenderInfo(MadModel.defaultWorldRenderInfo());
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("Cannot register MadTileEntityFactoryProduct '" + tileEntityProduct.getMachineName() + "'. This tile entity contains no models!");
+        }
     }
 }

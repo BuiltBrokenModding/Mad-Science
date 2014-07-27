@@ -38,7 +38,7 @@ public class MadRenderingFactory
         return instance;
     }
     
-    /** Associates given product name with a collection of models and a texture. */
+    /** Associates given product name with a collection of 'default' rendering information. */
     public void registerModelsToProduct(String productName, MadModel renderInformation)
     {
         // Check for input parameters being null.
@@ -162,6 +162,7 @@ public class MadRenderingFactory
         }
     }
 
+    /** Creates a unique string based key which is used by the linked list to keep track of which instance belongs to what block in the game world and or item rendering references for inventory items. */
     private String createRenderKey(String productName, boolean isItem, String... renderKeyData)
     {
         // Build the key which is used to make each thing unique.

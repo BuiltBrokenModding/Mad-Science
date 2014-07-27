@@ -2,7 +2,6 @@ package madscience;
 
 import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
-import madscience.tile.ClayfurnaceEntity;
 import madscience.tile.cncmachine.CnCMachineBlock;
 import madscience.tile.cncmachine.CnCMachineBlockGhost;
 import madscience.tile.cncmachine.CnCMachineEntity;
