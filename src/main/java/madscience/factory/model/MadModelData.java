@@ -10,12 +10,14 @@ public class MadModelData
 
     private MadModelData() { }
     
-    public MadModelData(boolean isModelVisible, String modelPieceName)
+    public MadModelData(
+            boolean isModelVisible,
+            String modelPieceName)
     {
         this.isModelVisible = isModelVisible;
         this.modelPieceName = modelPieceName;
     }
-
+    
     public boolean isModelVisible()
     {
         return isModelVisible;
@@ -40,6 +42,8 @@ public class MadModelData
     {
         modelTag.setString("ModelName", this.modelPieceName);
         modelTag.setBoolean("ModelVisible", this.isModelVisible);
+        
+        
         return modelTag;
     }
     

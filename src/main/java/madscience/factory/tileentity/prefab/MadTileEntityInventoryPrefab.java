@@ -79,7 +79,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
         return this.isItemValidForSlot(slot, item);
     }
 
-    private void clearInventory()
+    public void clearInventory()
     {
         this.INVENTORY = new ItemStack[this.getSizeInventory()];
     }

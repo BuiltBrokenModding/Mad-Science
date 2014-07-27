@@ -99,7 +99,6 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         }
     }
 
-    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack items)
     {
@@ -361,8 +360,6 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
     @Override
     public void onBlockRightClick(World world, int x, int y, int z, EntityPlayer player)
     {
-        super.onBlockRightClick(world, x, y, z, player);
-        
         // Check if the player is using flint and steel on us.
         ItemStack compareFlintNSteel = new ItemStack(Item.flintAndSteel);
         ItemStack playerItem = player.getCurrentEquippedItem();
@@ -371,20 +368,26 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         if (!this.hasBeenLit)
         {
             // IDLE OR WORKING
-            if (player != null && playerItem != null && playerItem.itemID == compareFlintNSteel.itemID)
+            if (player != null && playerItem != null && playerItem.getItem().equals(compareFlintNSteel.getItem()))
             {
-                world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F, 1.0F);
-                this.setLitStatus(true);
-                if (playerItem.getItemDamage() < playerItem.getMaxDamage())
+                if (this.canSmelt())
                 {
-                    player.getCurrentEquippedItem().attemptDamageItem(1, world.rand);
+                    world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "fire.ignite", 1.0F, 1.0F);
+                    this.setLitStatus(true);
+                    if (playerItem.getItemDamage() < playerItem.getMaxDamage())
+                    {
+                        player.getCurrentEquippedItem().attemptDamageItem(1, world.rand);
+                    }
+                    return;
                 }
-                return;
             }
             else
             {
-                player.openGui(MadForgeMod.instance, this.getRegisteredMachine().getBlockID(), world, x, y, z);
-                return;
+                if (!player.isSneaking())
+                {
+                    player.openGui(MadForgeMod.instance, this.getRegisteredMachine().getBlockID(), world, x, y, z);
+                    return;
+                }
             }
         }
         else if (this.hasBeenLit && this.hasCompletedBurnCycle && !this.hasStoppedSmoldering && !this.hasCooledDown)
@@ -411,13 +414,14 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         if (this.hasCooledDown)
         {
             // COOLED OFF MODE - WAITING FOR PLAYER TO HIT US
-            if (player.canHarvestBlock(this.blockType))
+            if (player.canHarvestBlock(this.getBlockType()))
             {
                 MadMod.log().info("Clay Furnace: Harvested player after having been cooled down!");
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.anvil_land", 1.0F, 1.0F);
 
                 // Set ourselves to the end result we should be!
                 ItemStack finalForm = this.createEndResult();
+                this.clearInventory();
                 world.setBlock(x, y, z, finalForm.itemID);
             }
             return;
@@ -427,6 +431,7 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         if (this.hasStoppedSmoldering && !this.hasCooledDown)
         {
             // RED HOT MODE
+            this.clearInventory();
             world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "liquid.lavapop", 1.0F, 1.0F);
             world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.fizz", 1.0F, 1.0F);
             world.setBlock(x, y, z, Block.lavaStill.blockID);
@@ -436,7 +441,7 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         if (this.hasBeenLit && this.hasCompletedBurnCycle && !this.hasStoppedSmoldering && !this.hasCooledDown)
         {
             // SMOLDERING FURNACE MODE
-            if (player.canHarvestBlock(this.blockType))
+            if (player.canHarvestBlock(this.getBlockType()))
             {
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "dig.sand", 1.0F, 1.0F);
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.fizz", 1.0F, 1.0F);

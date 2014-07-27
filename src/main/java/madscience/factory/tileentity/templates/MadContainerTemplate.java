@@ -140,7 +140,7 @@ public class MadContainerTemplate extends Container
                             if (!this.mergeItemStack(itemBeingShiftClicked, x, ACTIVE_SLOT, false))
                             {
                                 return null;
-                            }                            
+                            }                
                         }
                     }
                 }

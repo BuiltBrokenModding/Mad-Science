@@ -50,6 +50,7 @@ public class MadTechneModel extends ModelBase implements IModelCustom, Cloneable
     private int textureName;
     private boolean textureNameSet = false;
     private URL loadedURL = null;
+    
     private boolean visible = true;
 
     MadTechneModel(String fileName, URL resource) throws ModelFormatException

@@ -13,6 +13,7 @@ import java.util.TreeSet;
 
 import madscience.MadForgeMod;
 import madscience.factory.mod.MadMod;
+import madscience.factory.model.MadModel;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 import madscience.items.ItemBlockTooltip;
@@ -248,6 +249,28 @@ public class MadTileEntityFactory
 
         // Debugging!
         MadMod.log().info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
+        
+        // Check if model rendering information exists.
+        MadModel renderingInformation = tileEntityProduct.getModelArchive();
+        if (renderingInformation != null)
+        {
+            // Check if model collection has any item or world rendering information (scale, position, rotation).
+            if (renderingInformation.getItemRenderInfo() == null)
+            {
+                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default ITEM rendering information where there is none.");
+                renderingInformation.setItemRenderInfo(MadModel.defaultItemRenderInfo());
+            }
+            
+            if (renderingInformation.getWorldRenderInfo() == null)
+            {
+                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default WORLD rendering information where there is none.");
+                renderingInformation.setWorldRenderInfo(MadModel.defaultWorldRenderInfo());
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("Cannot register MadTileEntityFactoryProduct '" + tileEntityProduct.getMachineName() + "'. This tile entity contains no models!");
+        }
 
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
