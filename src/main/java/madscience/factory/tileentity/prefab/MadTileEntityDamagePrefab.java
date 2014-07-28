@@ -46,7 +46,7 @@ public class MadTileEntityDamagePrefab extends MadTileEntityHeatPrefab
             return 0;
         }
         
-        return (int) ((float)this.damageValue * (pxl / (float)this.damageMaximum));
+        return (int) (this.damageValue * (pxl / (float)this.damageMaximum));
     }
     
     @Override

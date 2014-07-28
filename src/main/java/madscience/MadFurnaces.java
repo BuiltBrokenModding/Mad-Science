@@ -204,7 +204,7 @@ public class MadFurnaces
         MadMod.log().info("-CnC Machine Ghost Block");
         
         // Acts as a collision box for upper blocks of CnC Machine.
-        CNCMACHINEGHOST_TILEENTITY = (Block) new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
+        CNCMACHINEGHOST_TILEENTITY = new CnCMachineBlockGhost(blockID).setUnlocalizedName(CNCMACHINEGHOST_INTERNALNAME);
         GameRegistry.registerBlock(CNCMACHINEGHOST_TILEENTITY, MadMod.ID + CNCMACHINEGHOST_INTERNALNAME);
     }
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
+import madscience.factory.rendering.MadModelWorldRender;
 import madscience.factory.rendering.MadRenderingFactoryProduct;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -57,7 +58,7 @@ public class MadRenderingFactory
         if (!masterModelInformationReference.containsKey(productName))
         {
             // Add the product and associated models from tile entity factory product.
-            this.masterModelInformationReference.put(productName, renderInformation);
+            MadRenderingFactory.masterModelInformationReference.put(productName, renderInformation);
             MadMod.log().info("[" + productName + "]Loading master reference for machine with " + renderInformation.getModelPartCount() + " model parts.");
         }
         else
@@ -66,14 +67,22 @@ public class MadRenderingFactory
         }
     }
 
-    /** Updates or creates a new rendering instance for a given model. The other parameters help ensure uniqueness amongst the mapping. */
-    public void updateModelInstance(String productName, boolean isItem, MadModelData[] modelInformation, String... renderKeyData)
+    /** Updates or creates a new rendering instance for a given model.
+     *  The other parameters help ensure uniqueness amongst the mapping. */
+    public void updateModelInstance(
+            String productName,
+            boolean isItem,
+            MadModelData[] modelInformation,
+            MadModelWorldRender worldRenderInformation,
+            String... renderKeyData)
     {
         // Check all input data, this is very important for integrity sake.
         boolean badInputData = false;
         
         // Check model information.
-        if (productName == null || modelInformation == null)
+        if (productName == null ||
+            modelInformation == null ||
+            worldRenderInformation == null)
         {
             badInputData = true;
         }
@@ -94,40 +103,54 @@ public class MadRenderingFactory
         String renderKey = this.createRenderKey(productName, isItem, renderKeyData);
         
         // If there was no listing to update then we will create a new one!
-        if (!this.worldInstanceRenderingReference.containsKey(renderKey))
+        if (!MadRenderingFactory.worldInstanceRenderingReference.containsKey(renderKey))
         {
             this.createNewRenderingInstance(productName, isItem, renderKey);
         }
         
         // Check to see if the particular rendering instance exists.
-        if (this.worldInstanceRenderingReference.containsKey(renderKey))
+        if (MadRenderingFactory.worldInstanceRenderingReference.containsKey(renderKey))
         {
             // Grab the existing instance.
-            MadRenderingFactoryProduct modelRenderInstance = this.worldInstanceRenderingReference.get(renderKey);
+            MadRenderingFactoryProduct factoryRenderProduct = MadRenderingFactory.worldInstanceRenderingReference.get(renderKey);
             
             // Update the model information by using model names and transmitted status information.
-            boolean wasUpdated = false;
-            int totalUpdates = 0;
+            boolean modelsUpdated = false;
+            int totalModelsUpdated = 0;
             for (MadModelData modelPiece : modelInformation)
             {               
-                if (modelRenderInstance.setRenderVisibilityByName(modelPiece.getModelPieceName(), modelPiece.isModelVisible()))
+                if (factoryRenderProduct.setRenderVisibilityByName(modelPiece.getModelPieceName(), modelPiece.isModelVisible()))
                 {
                     // Model was updated!
-                    wasUpdated = true;
-                    totalUpdates++;
+                    modelsUpdated = true;
+                    totalModelsUpdated++;
                 }
             }
             
-            // Update the rendering instance listing.
-            MadRenderingFactoryProduct updatedListing = this.worldInstanceRenderingReference.put(renderKey, modelRenderInstance);
-            
-            if (wasUpdated)
+            // Update the world rendering information if required.
+            boolean updatedWorldRenderer = false;
+            if (factoryRenderProduct.setWorldRenderInformation(worldRenderInformation.getModelWorldPosition(), worldRenderInformation.getModelWorldScale()))
             {
-                MadMod.log().info("[" + productName + "]Updating instance number " + updatedListing.getRenderingID() + " with key " + renderKey + " total of " + totalUpdates + " updates.");
+                updatedWorldRenderer = true;
+            }
+            
+            // Update the rendering instance listing.
+            MadRenderingFactoryProduct updatedListing = MadRenderingFactory.worldInstanceRenderingReference.put(renderKey, factoryRenderProduct);
+            
+            // Inform console if updated model visibility.
+            if (modelsUpdated)
+            {
+                MadMod.log().info("[" + productName + "]Updating instance number " + updatedListing.getRenderingID() + " with key " + renderKey + " total of " + totalModelsUpdated + " updates.");
+            }
+            
+            // Inform console if updated renderer position or scale.
+            if (updatedWorldRenderer)
+            {
+                MadMod.log().info("[" + productName + "]Updating world render information for model instance " + updatedListing.getRenderingID() + " with key " + renderKey + ".");
             }
             
             // Check that inserted data matches updated one.
-            if (!modelRenderInstance.equals(updatedListing))
+            if (!factoryRenderProduct.equals(updatedListing))
             {
                 throw new IllegalArgumentException("Cannot update rendering instance for '" + productName + "'. Something went wrong with updating rendering instance!");
             }
@@ -140,7 +163,7 @@ public class MadRenderingFactory
         if (masterModelInformationReference.containsKey(productName))
         {
             // Grab the master reference to this machines models that have already been loaded into memory.
-            MadModel masterMadModelReference = this.masterModelInformationReference.get(productName);
+            MadModel masterMadModelReference = MadRenderingFactory.masterModelInformationReference.get(productName);
             
             String renderType;
             if (isItem)
@@ -154,7 +177,7 @@ public class MadRenderingFactory
             
             // Create a new rendering instance for this device.
             MadMod.log().info("[" + productName + "]Creating new " + renderType + " render instance with key: " + renderKey);
-            this.worldInstanceRenderingReference.put(renderKey, new MadRenderingFactoryProduct(masterMadModelReference));
+            MadRenderingFactory.worldInstanceRenderingReference.put(renderKey, new MadRenderingFactoryProduct(masterMadModelReference));
         }
         else
         {
@@ -198,14 +221,14 @@ public class MadRenderingFactory
         String renderKey = this.createRenderKey(productName, isItem, renderKeyData);
         
         // Check to see if the particular rendering instance exists.
-        if (this.worldInstanceRenderingReference.containsKey(renderKey))
+        if (MadRenderingFactory.worldInstanceRenderingReference.containsKey(renderKey))
         {
-            return this.worldInstanceRenderingReference.get(renderKey);
+            return MadRenderingFactory.worldInstanceRenderingReference.get(renderKey);
         }
         else
         {
             this.createNewRenderingInstance(productName, isItem, renderKey);
-            return this.worldInstanceRenderingReference.get(renderKey);
+            return MadRenderingFactory.worldInstanceRenderingReference.get(renderKey);
         }
     }
 }

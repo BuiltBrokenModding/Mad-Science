@@ -180,7 +180,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         float speedOnGround = 0.1F;
         // int i = player.getItemInUseDuration();
         int i = pulseRifleFireTime;
-        float f1 = (float) i / 420.0F;
+        float f1 = i / 420.0F;
 
         if (f1 > 1.0F)
         {

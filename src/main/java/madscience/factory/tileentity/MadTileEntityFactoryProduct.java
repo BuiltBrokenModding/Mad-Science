@@ -56,7 +56,7 @@ public class MadTileEntityFactoryProduct
         this.tileEntityLogicClass = getLogicClassByNamespace(machineData.getLogicClassFullyQualifiedName());
 
         // Setup the block which will create the tile entity once placed in the game world.
-        this.blockContainer = (BlockContainer) new MadTileEntityBlockTemplate(this);
+        this.blockContainer = new MadTileEntityBlockTemplate(this);
     }
 
     /** Converts fully qualified domain name for a given class into that class. It must be based on MineTileEntityPrefab or loading will fail! */

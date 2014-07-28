@@ -55,7 +55,7 @@ public class MadTileEntityHeatPrefab extends MadTileEntityEnergyPrefab
         }
         
         // Returns scaled percentage of heat level used in GUI to show temperature.
-        return (int) ((float)this.heatLevelValue * (pxl / (float)this.heatLevelMaximum));
+        return (int) (this.heatLevelValue * (pxl / (float)this.heatLevelMaximum));
     }
     
     @Override

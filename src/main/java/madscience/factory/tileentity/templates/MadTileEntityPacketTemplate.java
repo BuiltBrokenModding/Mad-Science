@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import madscience.factory.model.MadModelData;
+import madscience.factory.model.MadModelPosition;
+import madscience.factory.model.MadModelScale;
+import madscience.factory.rendering.MadModelWorldRender;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.network.MadPackets;
 import madscience.util.MadUtils;
@@ -72,6 +75,9 @@ public class MadTileEntityPacketTemplate extends MadPackets
     /** Last displayed texture resource path (without modid). */
     private String lastTexture;
     
+    /** Delimited list of position and scale information for world renderer. */
+    private String worldRenderInformation;
+    
     public MadTileEntityPacketTemplate()
     {
         // Required for reflection.
@@ -132,8 +138,23 @@ public class MadTileEntityPacketTemplate extends MadPackets
             compressedPacketModelData.append(singleCompressesModelPiece);
             compressedPacketModelData.append(":");
         }
-        
         this.entityModelData = MadUtils.removeLastChar(compressedPacketModelData.toString());
+        
+        // World render information.
+        MadModelWorldRender worldRenderInfo = madMachine.getEntityWorldRenderInformation();
+        StringBuilder worldRenderInfoCompressed = new StringBuilder();
+        worldRenderInfoCompressed.append(worldRenderInfo.getModelWorldPosition().getModelTranslateX());         // POSITION
+        worldRenderInfoCompressed.append(":");
+        worldRenderInfoCompressed.append(worldRenderInfo.getModelWorldPosition().getModelTranslateY());
+        worldRenderInfoCompressed.append(":");
+        worldRenderInfoCompressed.append(worldRenderInfo.getModelWorldPosition().getModelTranslateZ());
+        worldRenderInfoCompressed.append("|");
+        worldRenderInfoCompressed.append(worldRenderInfo.getModelWorldScale().getModelScaleX());                // SCALE
+        worldRenderInfoCompressed.append(":");
+        worldRenderInfoCompressed.append(worldRenderInfo.getModelWorldScale().getModelScaleY());
+        worldRenderInfoCompressed.append(":");
+        worldRenderInfoCompressed.append(worldRenderInfo.getModelWorldScale().getModelScaleZ());
+        this.worldRenderInformation = worldRenderInfoCompressed.toString();
     }
 
     @Override
@@ -205,6 +226,62 @@ public class MadTileEntityPacketTemplate extends MadPackets
                 
                 this.madTileEntity.setModelWorldRenderVisibilityByName(modelName, MadUtils.convertByteToBoolean(modelVisible));
             }
+            
+            // World Render Information.
+            // NOTE: POSITION:SCALE (XYZ|XYZ).
+            String[] splitServerWorldRenderInformation = this.worldRenderInformation.split("\\|");
+            if (splitServerWorldRenderInformation[0] == null || splitServerWorldRenderInformation[1] == null)
+            {
+                throw new IllegalArgumentException("[" + this.machineName + "]Invalid world render information packet, cannot update world render information!");
+            }
+            
+            // Get position and scale information from received packet information.
+            String[] splitWorldRenderPosition = splitServerWorldRenderInformation[0].split("\\:");
+            String[] splitWorldRenderScale = splitServerWorldRenderInformation[1].split("\\:");
+            
+            // Check if the position data is valid.
+            if (splitWorldRenderPosition[0] == null || splitWorldRenderPosition[1] == null || splitWorldRenderPosition[2] == null)
+            {
+                throw new IllegalArgumentException("[" + this.machineName + "]Invalid world render position data, cannot update world render information!");
+            }
+            
+            // Check if the scale data is valid.
+            if (splitWorldRenderScale[0] == null || splitWorldRenderScale[1] == null || splitWorldRenderScale[2] == null)
+            {
+                throw new IllegalArgumentException("[" + this.machineName + "]Invalid world render scale data, cannot update world render information!");
+            }
+            
+            // Convert position information into floating points
+            float[] floatRenderPosition = new float[3];
+            floatRenderPosition[0] = Float.parseFloat(splitWorldRenderPosition[0]);
+            floatRenderPosition[1] = Float.parseFloat(splitWorldRenderPosition[1]);
+            floatRenderPosition[2] = Float.parseFloat(splitWorldRenderPosition[2]);
+            
+            // Convert scale information into floating points.
+            float[] floatRenderScale = new float[3];
+            floatRenderScale[0] = Float.parseFloat(splitWorldRenderScale[0]);
+            floatRenderScale[1] = Float.parseFloat(splitWorldRenderScale[1]);
+            floatRenderScale[2] = Float.parseFloat(splitWorldRenderScale[2]);
+            
+            // Create position object from received data.
+            MadModelPosition receivedPosition = new MadModelPosition(
+                    floatRenderPosition[0],
+                    floatRenderPosition[1],
+                    floatRenderPosition[2]);
+            
+            // Create scale object from received data.
+            MadModelScale receivedScale = new MadModelScale(
+                    floatRenderScale[0],
+                    floatRenderScale[1],
+                    floatRenderScale[2]);
+            
+            if (receivedPosition == null || receivedScale == null)
+            {
+                throw new IllegalArgumentException("[" + this.machineName + "]Invalid world render data, cannot create world render objects from received packet data!");
+            }
+            
+            // Apply the data to the client.
+            this.madTileEntity.setWorldRenderInformation(receivedPosition, receivedScale);
         }
         else
         {
@@ -253,6 +330,9 @@ public class MadTileEntityPacketTemplate extends MadPackets
         
         // Model information.
         this.entityModelData = in.readUTF();
+        
+        // World render information.
+        this.worldRenderInformation = in.readUTF();
     }
 
     @Override
@@ -296,5 +376,8 @@ public class MadTileEntityPacketTemplate extends MadPackets
         
         // Model information.
         out.writeUTF(this.entityModelData);
+        
+        // World render information.
+        out.writeUTF(this.worldRenderInformation);
     }
 }

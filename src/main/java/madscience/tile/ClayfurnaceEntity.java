@@ -3,6 +3,8 @@ package madscience.tile;
 import madscience.MadConfig;
 import madscience.MadForgeMod;
 import madscience.factory.mod.MadMod;
+import madscience.factory.model.MadModelPosition;
+import madscience.factory.model.MadModelScale;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
@@ -328,6 +330,9 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
             this.setModelWorldRenderVisibilityByName("MoltenBlock", false);
             this.setModelWorldRenderVisibilityByName("MoltenBlockShell", false);
             this.setModelWorldRenderVisibilityByName("clayFurnace", true);
+            
+            // Shrink the world render.
+            this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.34F, 0.5F), new MadModelScale(0.6F, 0.68F, 0.6F));
         }
         else if (this.hasStoppedSmoldering && !this.hasCooledDown)
         {
@@ -335,6 +340,9 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
             this.setModelWorldRenderVisibilityByName("MoltenBlock", true);
             this.setModelWorldRenderVisibilityByName("MoltenBlockShell", false);
             this.setModelWorldRenderVisibilityByName("clayFurnace", false);
+            
+            // Grow the world render.
+            this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.5F, 0.5F), new MadModelScale(1.0F, 1.0F, 1.0F));
         }
         else if (this.hasStoppedSmoldering && this.hasCooledDown)
         {
@@ -342,6 +350,9 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
             this.setModelWorldRenderVisibilityByName("MoltenBlock", false);
             this.setModelWorldRenderVisibilityByName("MoltenBlockShell", true);
             this.setModelWorldRenderVisibilityByName("clayFurnace", false);
+            
+            // Grow the world render.
+            this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.5F, 0.5F), new MadModelScale(1.0F, 1.0F, 1.0F));
         }
     }
 

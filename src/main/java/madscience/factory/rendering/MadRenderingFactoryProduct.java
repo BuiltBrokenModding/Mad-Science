@@ -6,6 +6,8 @@ import java.util.Map;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelFile;
+import madscience.factory.model.MadModelPosition;
+import madscience.factory.model.MadModelScale;
 import madscience.factory.model.MadTechneModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
@@ -44,13 +46,13 @@ public class MadRenderingFactoryProduct
         // Load default texture from this machine as a resource location for renderer to bind to when referenced.
         this.textureResource = new ResourceLocation(MadMod.ID, renderInformation.getMachineTexture());
         
-        // Load item render information.
-        this.modelItemRenderInformation = renderInformation.getItemRenderInfo();
+        // Load clone of item render information.
+        this.modelItemRenderInformation = renderInformation.getItemRenderInfoClone();
         
-        // Load world render information.
-        this.modelWorldRenderInformation = renderInformation.getWorldRenderInfo();
+        // Load clone of world render information.
+        this.modelWorldRenderInformation = renderInformation.getWorldRenderInfoClone();
         
-        // Load default set of models we will clone for each new created instance.
+        // Load clone of models and textures associated with this product.
         for (MadModelFile productModel : renderInformation.getMachineModelsFilesClone())
         {
             this.modelRenderingReference.put(productModel.getModelName(), (MadTechneModel) AdvancedModelLoader.loadModel(productModel.getModelPath()));            
@@ -125,5 +127,32 @@ public class MadRenderingFactoryProduct
     public MadModelWorldRender getModelWorldRenderInformation()
     {
         return modelWorldRenderInformation;
+    }
+
+    public boolean setWorldRenderInformation(MadModelPosition newWorldPosition, MadModelScale newWorldScale)
+    {
+        boolean worldRendererInfoChanged = false;
+        if (this.modelWorldRenderInformation.getModelWorldPosition().getModelTranslateX() != newWorldPosition.getModelTranslateX() || 
+            this.modelWorldRenderInformation.getModelWorldPosition().getModelTranslateY() != newWorldPosition.getModelTranslateY() ||
+            this.modelWorldRenderInformation.getModelWorldPosition().getModelTranslateZ() != newWorldPosition.getModelTranslateZ())
+            {
+                worldRendererInfoChanged = true;
+            }
+            
+            // Check World Render Scale
+            if (this.modelWorldRenderInformation.getModelWorldScale().getModelScaleX() != newWorldScale.getModelScaleX() ||
+                this.modelWorldRenderInformation.getModelWorldScale().getModelScaleY() != newWorldScale.getModelScaleY() ||
+                this.modelWorldRenderInformation.getModelWorldScale().getModelScaleZ() != newWorldScale.getModelScaleZ())
+            {
+                worldRendererInfoChanged = true;
+            }        
+        
+        // Only update the world render instance unless something actually changed. 
+        if (worldRendererInfoChanged)
+        {
+            this.modelWorldRenderInformation = new MadModelWorldRender(newWorldPosition, newWorldScale);
+        }
+        
+        return worldRendererInfoChanged;
     }
 }

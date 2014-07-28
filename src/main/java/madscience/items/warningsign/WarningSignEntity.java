@@ -89,11 +89,13 @@ public class WarningSignEntity extends EntityHanging
     }
 
     /** Returns true if other Entities should be prevented from moving through this Entity. */
+    @Override
     public boolean canBeCollidedWith()
     {
         return true;
     }
 
+    @Override
     protected boolean shouldSetPosAfterLoading()
     {
         return false;

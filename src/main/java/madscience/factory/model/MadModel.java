@@ -80,7 +80,7 @@ public class MadModel
                 new MadModelPosition(0.5F, 0.42F, 0.5F),
                 new MadModelRotation(270.0F, 0.0F, 0.5F, 0.0F),
                 new MadModelScale(1.0F, 1.0F, 1.0F),                // ENTITY
-                new MadModelPosition(1.0F, 1.0F, 1.0F),
+                new MadModelPosition(0.0F, 0.0F, 0.0F),
                 new MadModelRotation(180.0F, 0.0F, 1.0F, 0.0F));
         
         return tmpItemInfo;
@@ -124,23 +124,91 @@ public class MadModel
         return machineModels.length;
     }
 
-    public MadModelItemRender getItemRenderInfo()
+    public MadModelItemRender getItemRenderInfoClone()
     {
-        return itemRenderInfo;
+        MadModelItemRender renderItem = new MadModelItemRender(
+                itemRenderInfo.isRenderItemEntity3D(),
+                itemRenderInfo.isRenderItemEquipped3D(),
+                itemRenderInfo.isRenderItemFirstPerson3D(),
+                itemRenderInfo.isRenderItemInventory3D(),
+                new MadModelScale(
+                        itemRenderInfo.getModelItemEquippedScale().getModelScaleX(),            // EQUIPPED
+                        itemRenderInfo.getModelItemEquippedScale().getModelScaleY(),
+                        itemRenderInfo.getModelItemEquippedScale().getModelScaleZ()),
+                new MadModelPosition(
+                        itemRenderInfo.getModelItemEquippedPosition().getModelTranslateX(),
+                        itemRenderInfo.getModelItemEquippedPosition().getModelTranslateY(),
+                        itemRenderInfo.getModelItemEquippedPosition().getModelTranslateZ()),
+                new MadModelRotation(
+                        itemRenderInfo.getModelItemEquippedRotation().getModelRotationAngle(),
+                        itemRenderInfo.getModelItemEquippedRotation().getModelRotationX(),
+                        itemRenderInfo.getModelItemEquippedRotation().getModelRotationY(),
+                        itemRenderInfo.getModelItemEquippedRotation().getModelRotationZ()),
+                new MadModelScale(
+                        itemRenderInfo.getModelItemFirstPersonScale().getModelScaleX(),         // FIRST_PERSON
+                        itemRenderInfo.getModelItemFirstPersonScale().getModelScaleY(),
+                        itemRenderInfo.getModelItemFirstPersonScale().getModelScaleZ()),
+                new MadModelPosition(
+                        itemRenderInfo.getModelItemFirstPersonPosition().getModelTranslateX(),
+                        itemRenderInfo.getModelItemFirstPersonPosition().getModelTranslateY(),
+                        itemRenderInfo.getModelItemFirstPersonPosition().getModelTranslateZ()),
+                new MadModelRotation(
+                        itemRenderInfo.getModelItemFirstPersonRotation().getModelRotationAngle(),
+                        itemRenderInfo.getModelItemFirstPersonRotation().getModelRotationX(),
+                        itemRenderInfo.getModelItemFirstPersonRotation().getModelRotationY(),
+                        itemRenderInfo.getModelItemFirstPersonRotation().getModelRotationZ()),
+                new MadModelScale(
+                        itemRenderInfo.getModelItemInventoryScale().getModelScaleX(),           // INVENTORY
+                        itemRenderInfo.getModelItemInventoryScale().getModelScaleY(),
+                        itemRenderInfo.getModelItemInventoryScale().getModelScaleZ()),
+                new MadModelPosition(
+                        itemRenderInfo.getModelItemInventoryPosition().getModelTranslateX(),
+                        itemRenderInfo.getModelItemInventoryPosition().getModelTranslateY(),
+                        itemRenderInfo.getModelItemInventoryPosition().getModelTranslateZ()),
+                new MadModelRotation(
+                        itemRenderInfo.getModelItemInventoryRotation().getModelRotationAngle(),
+                        itemRenderInfo.getModelItemInventoryRotation().getModelRotationX(),
+                        itemRenderInfo.getModelItemInventoryRotation().getModelRotationY(),
+                        itemRenderInfo.getModelItemInventoryRotation().getModelRotationZ()),
+                new MadModelScale(
+                        itemRenderInfo.getModelItemEntityScale().getModelScaleX(),              // ENTITY
+                        itemRenderInfo.getModelItemEntityScale().getModelScaleY(),
+                        itemRenderInfo.getModelItemEntityScale().getModelScaleZ()),
+                new MadModelPosition(
+                        itemRenderInfo.getModelItemEntityPosition().getModelTranslateX(),
+                        itemRenderInfo.getModelItemEntityPosition().getModelTranslateY(),
+                        itemRenderInfo.getModelItemEntityPosition().getModelTranslateZ()),
+                new MadModelRotation(
+                        itemRenderInfo.getModelItemEntityRotation().getModelRotationAngle(),
+                        itemRenderInfo.getModelItemEntityRotation().getModelRotationX(),
+                        itemRenderInfo.getModelItemEntityRotation().getModelRotationY(),
+                        itemRenderInfo.getModelItemEntityRotation().getModelRotationZ()));
+        
+        return renderItem;
     }
 
-    public MadModelWorldRender getWorldRenderInfo()
+    public MadModelWorldRender getWorldRenderInfoClone()
     {
-        return worldRenderInfo;
+        MadModelWorldRender renderWorld = new MadModelWorldRender(
+                new MadModelPosition(
+                        worldRenderInfo.getModelWorldPosition().getModelTranslateX(),
+                        worldRenderInfo.getModelWorldPosition().getModelTranslateY(),
+                        worldRenderInfo.getModelWorldPosition().getModelTranslateZ()),
+                new MadModelScale(
+                        worldRenderInfo.getModelWorldScale().getModelScaleX(),
+                        worldRenderInfo.getModelWorldScale().getModelScaleY(),
+                        worldRenderInfo.getModelWorldScale().getModelScaleZ()));
+        
+        return renderWorld;
     }
 
-    public void setItemRenderInfo(MadModelItemRender itemRenderInfo)
+    public void setItemRenderInfoDefaults()
     {
-        this.itemRenderInfo = itemRenderInfo;
+        this.itemRenderInfo = MadModel.defaultItemRenderInfo();
     }
 
-    public void setWorldRenderInfo(MadModelWorldRender worldRenderInfo)
+    public void setWorldRenderInfoDefaults()
     {
-        this.worldRenderInfo = worldRenderInfo;
+        this.worldRenderInfo = MadModel.defaultWorldRenderInfo();
     }
 }

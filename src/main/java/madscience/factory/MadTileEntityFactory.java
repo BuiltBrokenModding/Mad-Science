@@ -274,17 +274,17 @@ public class MadTileEntityFactory
         if (renderingInformation != null)
         {
             // Rendering information for tile as it would exist as an item block in players inventory.
-            if (renderingInformation.getItemRenderInfo() == null)
+            if (renderingInformation.getItemRenderInfoClone() == null)
             {
                 MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default ITEM rendering information where there is none.");
-                renderingInformation.setItemRenderInfo(MadModel.defaultItemRenderInfo());
+                renderingInformation.setItemRenderInfoDefaults();
             }
             
             // Rendering information for tile as it would exist in the game world as seen by the player and other players.
-            if (renderingInformation.getWorldRenderInfo() == null)
+            if (renderingInformation.getWorldRenderInfoClone() == null)
             {
                 MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default WORLD rendering information where there is none.");
-                renderingInformation.setWorldRenderInfo(MadModel.defaultWorldRenderInfo());
+                renderingInformation.setWorldRenderInfoDefaults();
             }
         }
         else

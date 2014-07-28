@@ -119,7 +119,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         MadTileEntityPrefab madTileEntity = null;
         if (tileEntity instanceof MadTileEntityPrefab)
         {
-            madTileEntity = (MadTileEntityPrefab) tileEntity;
+            madTileEntity = tileEntity;
         }
         
         // Check for null on returned object, casting should not fail though!
@@ -133,6 +133,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
                 madTileEntity.getMachineInternalName(),
                 false,
                 madTileEntity.getEntityModelData(),
+                madTileEntity.getEntityWorldRenderInformation(),
                 String.valueOf(madTileEntity.xCoord),
                 String.valueOf(madTileEntity.yCoord),
                 String.valueOf(madTileEntity.zCoord));

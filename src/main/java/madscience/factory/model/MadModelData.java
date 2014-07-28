@@ -43,7 +43,6 @@ public class MadModelData
         modelTag.setString("ModelName", this.modelPieceName);
         modelTag.setBoolean("ModelVisible", this.isModelVisible);
         
-        
         return modelTag;
     }
     
