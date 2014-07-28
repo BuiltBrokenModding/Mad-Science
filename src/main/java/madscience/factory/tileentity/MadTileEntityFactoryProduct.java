@@ -102,6 +102,16 @@ public class MadTileEntityFactoryProduct
     {
         return data.getBlockID();
     }
+    
+    public float getBlockHardness()
+    {
+        return data.getBlockHardness();
+    }
+    
+    public float getBlockExplosionResistance()
+    {
+        return data.getExplosionResistance();
+    }
 
     /** Returns client GUI which can be pushed to renderer. */
     public MadGUITemplate getClientGUIElement(InventoryPlayer playerEntity, MadTileEntityPrefab worldEntity)

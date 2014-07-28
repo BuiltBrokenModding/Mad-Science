@@ -24,6 +24,14 @@ public class MadTileEntityFactoryProductData
     @Expose
     private String logicClassFullyQualifiedName;
     
+    /** Determines in Minecraft terms how hard it is to break this particular machine with tools. */
+    @Expose
+    private float blockHardness;
+    
+    /** Determines in Minecraft terms how resistant this block will be to being destroyed by explosions (if modflag for world damage is enabled). */
+    @Expose
+    private float explosionResistance;
+    
     /** Stores slot containers where items can be inputed and extracted from. */
     @Expose
     private MadSlotContainer[] containerTemplate;
@@ -71,6 +79,8 @@ public class MadTileEntityFactoryProductData
     public MadTileEntityFactoryProductData( // NO_UCD (unused code)
             String machineName,
             String logicClassNamespace,
+            float blockHardness,
+            float explosionResistance,
             MadSlotContainer[] containerTemplate,
             MadGUIControl[] guiTemplate,
             MadGUIButton[] buttonTemplate,
@@ -90,6 +100,8 @@ public class MadTileEntityFactoryProductData
         // Basic machine info.
         this.machineName = machineName;
         this.logicClassFullyQualifiedName = logicClassNamespace;
+        this.blockHardness = blockHardness;
+        this.explosionResistance = explosionResistance;
         
         // Optional container info for machine functionality and GUI.
         this.containerTemplate = containerTemplate;
@@ -257,5 +269,25 @@ public class MadTileEntityFactoryProductData
     public void setDamageTrackingSupported(MadDamage[] damageTrackingSupported)
     {
         this.damageTrackingSupported = damageTrackingSupported;
+    }
+
+    public float getBlockHardness()
+    {
+        return blockHardness;
+    }
+
+    public void setBlockHardness(float blockHardness)
+    {
+        this.blockHardness = blockHardness;
+    }
+
+    public float getExplosionResistance()
+    {
+        return explosionResistance;
+    }
+
+    public void setExplosionResistance(float explosionResistance)
+    {
+        this.explosionResistance = explosionResistance;
     }
 }

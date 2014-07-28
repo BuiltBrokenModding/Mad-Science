@@ -52,10 +52,10 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         this.setCreativeTab(MadMod.getCreativeTab());
 
         // Determines how many hits it takes to break the block.
-        this.setHardness(3.5F);
+        this.setHardness(registeredMachine.getBlockHardness());
 
         // Determines how resistant this block is to explosions.
-        this.setResistance(2000.0F);
+        this.setResistance(registeredMachine.getBlockExplosionResistance());
 
         // Define how big this item is we make it same size as a default block.
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
