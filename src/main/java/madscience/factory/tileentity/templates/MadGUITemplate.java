@@ -255,13 +255,14 @@ public class MadGUITemplate extends GuiContainer
             // -------------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelX))
             {
-                int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(guiControl.sizeX());
+                int energyLevelX = this.ENTITY.getPowerRemainingScaled(guiControl.sizeX());
                 this.drawTexturedModalRect(
                         screenX + guiControl.screenX(),
-                        screenY + guiControl.screenY() + guiControl.sizeY() - powerRemianingPercentage,
+                        screenY + guiControl.screenY(),
                         guiControl.fillerX(),
-                        guiControl.sizeX() - powerRemianingPercentage, guiControl.sizeY(),
-                        powerRemianingPercentage);
+                        guiControl.fillerY(),
+                        energyLevelX,
+                        guiControl.sizeY());
             }
             
             // -------------
@@ -269,14 +270,14 @@ public class MadGUITemplate extends GuiContainer
             // -------------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.PowerLevelY))
             {
-                int powerRemianingPercentage = this.ENTITY.getPowerRemainingScaled(guiControl.sizeY());
+                int energyLevelY = this.ENTITY.getPowerRemainingScaled(guiControl.sizeY());
                 this.drawTexturedModalRect(
                         screenX + guiControl.screenX(),
-                        screenY + guiControl.screenY() + guiControl.sizeY() - powerRemianingPercentage,
+                        screenY + guiControl.screenY() + guiControl.sizeY() - energyLevelY,
                         guiControl.fillerX(),
-                        guiControl.sizeX() - powerRemianingPercentage,
-                        guiControl.sizeY(),
-                        powerRemianingPercentage);
+                        guiControl.fillerY() + guiControl.sizeY() - energyLevelY,
+                        guiControl.sizeX(),
+                        energyLevelY);
             }
 
             // ------------------
@@ -284,13 +285,13 @@ public class MadGUITemplate extends GuiContainer
             // ------------------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressX))
             {
-                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.sizeX());
+                int cookingProgressX = this.ENTITY.getItemCookTimeScaled(guiControl.sizeX());
                 this.drawTexturedModalRect(
                         screenX + guiControl.screenX(),
                         screenY + guiControl.screenY(),
                         guiControl.fillerX(),
                         guiControl.fillerY(),
-                        powerCookPercentage,
+                        cookingProgressX,
                         guiControl.sizeY());
             }
             
@@ -299,14 +300,74 @@ public class MadGUITemplate extends GuiContainer
             // ------------------
             if (guiControl.getControlType().equals(MadGUIControlTypeEnum.CookingProgressY))
             {
-                int powerCookPercentage = this.ENTITY.getItemCookTimeScaled(guiControl.sizeY());
+                int cookingProgressY = this.ENTITY.getItemCookTimeScaled(guiControl.sizeY());
+                this.drawTexturedModalRect(
+                        screenX + guiControl.screenX(),
+                        screenY + guiControl.screenY() + guiControl.sizeY() - cookingProgressY,
+                        guiControl.fillerX(),
+                        guiControl.fillerY() + guiControl.sizeY() - cookingProgressY,
+                        guiControl.sizeX(),
+                        cookingProgressY);
+            }
+            
+            // --------------
+            // DAMAGE LEVEL X
+            // --------------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.DamageLevelX))
+            {
+                int damageLevelX = this.ENTITY.getDamageValueScaled(guiControl.sizeX());
                 this.drawTexturedModalRect(
                         screenX + guiControl.screenX(),
                         screenY + guiControl.screenY(),
                         guiControl.fillerX(),
                         guiControl.fillerY(),
+                        damageLevelX,
+                        guiControl.sizeY());
+            }
+            
+            // --------------
+            // DAMAGE LEVEL Y
+            // --------------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.DamageLevelY))
+            {
+                int damageLevelY = this.ENTITY.getDamageValueScaled(guiControl.sizeY());
+                this.drawTexturedModalRect(
+                        screenX + guiControl.screenX(),
+                        screenY + guiControl.screenY() + guiControl.sizeY() - damageLevelY,
+                        guiControl.fillerX(),
+                        guiControl.fillerY() + guiControl.sizeY() - damageLevelY,
                         guiControl.sizeX(),
-                        powerCookPercentage);
+                        damageLevelY);
+            }
+            
+            // ------------
+            // HEAT LEVEL X
+            // ------------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGaugeX))
+            {
+                int heatLevelX = this.ENTITY.getHeatLevelTimeScaled(guiControl.sizeX());
+                drawTexturedModalRect(
+                        screenX + guiControl.screenX(),
+                        screenY + guiControl.screenY(),
+                        guiControl.fillerX(),
+                        guiControl.fillerY(),
+                        heatLevelX,
+                        guiControl.sizeY());
+            }
+            
+            // ------------
+            // HEAT LEVEL Y
+            // ------------
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGaugeY))
+            {
+                int heatLevelY = this.ENTITY.getHeatLevelTimeScaled(guiControl.sizeY());
+                drawTexturedModalRect(
+                        screenX + guiControl.screenX(),
+                        screenY + guiControl.screenY() + guiControl.sizeY() - heatLevelY,
+                        guiControl.fillerX(),
+                        guiControl.fillerY() + guiControl.sizeY() - heatLevelY,
+                        guiControl.sizeX(),
+                        heatLevelY);
             }
 
             // ------------
@@ -319,21 +380,6 @@ public class MadGUITemplate extends GuiContainer
                         screenY,
                         guiControl,
                         this.ENTITY.getFluidRemainingScaled(guiControl.sizeY()));
-            }
-            
-            // ------------
-            // HEAT LEVEL Y
-            // ------------
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGaugeY))
-            {
-                int heatLevelPercentage = this.ENTITY.getHeatLevelTimeScaled(guiControl.sizeY());
-                drawTexturedModalRect(
-                        screenX + guiControl.screenX(),
-                        screenY + guiControl.screenY(),
-                        guiControl.fillerX(),
-                        guiControl.fillerY(),
-                        guiControl.sizeX(),
-                        guiControl.sizeY() - heatLevelPercentage);
             }
         }
     }
@@ -407,8 +453,19 @@ public class MadGUITemplate extends GuiContainer
                 }
             }
             
-            // Heat level information.
-            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGaugeY))
+            // Damage level information X OR Y.
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.DamageLevelX) || guiControl.getControlType().equals(MadGUIControlTypeEnum.DamageLevelY))
+            {
+                if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
+                {
+                    String dmgLevelLiteral = String.valueOf(this.ENTITY.getHeatLevelValue()) + "/" + String.valueOf(this.ENTITY.getDamageMaximum());
+                    String dmgLevelLocalized = StatCollector.translateToLocal("tooltip.damage") + " ";
+                    this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, dmgLevelLocalized + String.valueOf(this.ENTITY.getDamageValueScaled(100)) + " %", dmgLevelLiteral);
+                }
+            }
+            
+            // Heat level information X OR Y.
+            if (guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGaugeX) || guiControl.getControlType().equals(MadGUIControlTypeEnum.HeatGaugeY))
             {
                 if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
                 {

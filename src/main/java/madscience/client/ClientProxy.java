@@ -68,8 +68,6 @@ import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineRender;
-import madscience.tile.cryotube.CryotubeEntity;
-import madscience.tile.cryotube.CryotubeRender;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderRender;
 import madscience.tile.soniclocator.SoniclocatorEntity;
@@ -319,14 +317,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                 ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadTileEntityRendererTemplate());
                 MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate());
             }
-        }
-
-        // Cryogenic Tube
-        if (blockID == MadConfig.CRYOTUBE)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CRYOTUBE_TILEENTITY.blockID, new CryotubeRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(CryotubeEntity.class, new CryotubeRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new CryotubeRender());
         }
 
         // Soniclocator Device

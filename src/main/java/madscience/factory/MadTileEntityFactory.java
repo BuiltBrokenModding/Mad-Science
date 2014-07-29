@@ -252,7 +252,6 @@ public class MadTileEntityFactory
         
         // Check if rendering information is null and needs to be set to defaults.
         this.checkRenderingInformation(tileEntityProduct);
-        this.checkBlockInformation(tileEntityProduct);
 
         // Actually register the machine with the product listing.
         registeredMachines.put(tileEntityProduct.getMachineName(), tileEntityProduct);
@@ -265,12 +264,6 @@ public class MadTileEntityFactory
         MadForgeMod.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
 
         return tileEntityProduct;
-    }
-
-    /** Checks that various block information such as explosion resistance and hardness levels are not null as Minecraft/Forge will crash without these values. */
-    private void checkBlockInformation(MadTileEntityFactoryProduct tileEntityProduct)
-    {
-        // TODO: Check bounds is correct and valid.
     }
 
     /** Ensures that a given tile entity factory product will always have proper rendering information even if none is provided (for whatever reason). */

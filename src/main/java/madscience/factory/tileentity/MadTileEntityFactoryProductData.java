@@ -8,6 +8,7 @@ import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelBounds;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.sounds.MadSound;
@@ -31,6 +32,10 @@ public class MadTileEntityFactoryProductData
     /** Determines in Minecraft terms how resistant this block will be to being destroyed by explosions (if modflag for world damage is enabled). */
     @Expose
     private float explosionResistance;
+    
+    /** Stores upper and lower bounds stored as vectors for use in the block to determine how large black outline for bounding box should be. */
+    @Expose
+    private MadModelBounds boundingBox;
     
     /** Stores slot containers where items can be inputed and extracted from. */
     @Expose
@@ -81,6 +86,7 @@ public class MadTileEntityFactoryProductData
             String logicClassNamespace,
             float blockHardness,
             float explosionResistance,
+            MadModelBounds boundingBox,
             MadSlotContainer[] containerTemplate,
             MadGUIControl[] guiTemplate,
             MadGUIButton[] buttonTemplate,
@@ -102,6 +108,7 @@ public class MadTileEntityFactoryProductData
         this.logicClassFullyQualifiedName = logicClassNamespace;
         this.blockHardness = blockHardness;
         this.explosionResistance = explosionResistance;
+        this.boundingBox = boundingBox;
         
         // Optional container info for machine functionality and GUI.
         this.containerTemplate = containerTemplate;
@@ -289,5 +296,15 @@ public class MadTileEntityFactoryProductData
     public void setExplosionResistance(float explosionResistance)
     {
         this.explosionResistance = explosionResistance;
+    }
+
+    public MadModelBounds getBoundingBox()
+    {
+        return boundingBox;
+    }
+
+    public void setBoundingBox(MadModelBounds boundingBox)
+    {
+        this.boundingBox = boundingBox;
     }
 }

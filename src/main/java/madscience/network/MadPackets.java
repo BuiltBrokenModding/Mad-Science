@@ -7,7 +7,6 @@ import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
 import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
 import madscience.items.weapons.pulserifle.PulseRiflePackets;
 import madscience.tile.cncmachine.CnCMachinePackets;
-import madscience.tile.cryotube.CryotubePackets;
 import madscience.tile.magloader.MagLoaderPackets;
 import madscience.tile.soniclocator.SoniclocatorPackets;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,9 +40,6 @@ public abstract class MadPackets
     static
     {
         ImmutableBiMap.Builder<Integer, Class<? extends MadPackets>> builder = ImmutableBiMap.builder();
-
-        // Cryogenic Tube
-        builder.put(Integer.valueOf(1), CryotubePackets.class);
 
         // Mad Tile Entity Packet
         builder.put(Integer.valueOf(3), MadTileEntityPacketTemplate.class);

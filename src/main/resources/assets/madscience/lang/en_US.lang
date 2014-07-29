@@ -11,6 +11,7 @@ tile.outputslot.tooltip=Output
 button.help=Help
 tooltip.energy=Energy
 tooltip.heat=Heat
+tooltip.damage=Damage
 tooltip.progress=Progress
 
 # Tile Entities

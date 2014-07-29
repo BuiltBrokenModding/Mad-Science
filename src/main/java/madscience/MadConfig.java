@@ -427,14 +427,6 @@ public class MadConfig
     private final static long MACHINE_TRANSFERRATE_DEFAULT = 200;
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
-    // Cryogenic Tube
-    public static int CRYOTUBE = MadMod.getNextBlockID();
-    static int CRYOTUBEGHOST = MadMod.getNextBlockID();
-    public static long CRYOTUBE_CAPACTITY = 225120000000L;
-    public static long CRYOTUBE_OUTPUT = 562800000L;
-    public static long CRYOTUBE_PRODUCE = 1407000L;
-    public static String CRYOTUBE_HELP = "http://madsciencemod.com/minecraft-item/cryogenic-tube/";
-
     // Soniclocator
     public static int SONICLOCATOR = MadMod.getNextBlockID();
     static int SONICLOCATOREGHOST = MadMod.getNextBlockID();

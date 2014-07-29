@@ -7,9 +7,6 @@ import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.tile.cncmachine.CnCMachineContainer;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineGUI;
-import madscience.tile.cryotube.CryotubeContainer;
-import madscience.tile.cryotube.CryotubeEntity;
-import madscience.tile.cryotube.CryotubeGUI;
 import madscience.tile.magloader.MagLoaderContainer;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderGUI;
@@ -46,12 +43,6 @@ public class MadGUI implements IGuiHandler
                     return machineInfo.getClientGUIElement(player.inventory, madTile);
                 }
             }
-        }
-
-        // Cryogenic Tube
-        if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
-        {
-            return new CryotubeGUI(player.inventory, (CryotubeEntity) tileEntity);
         }
 
         // Soniclocator Device
@@ -99,12 +90,6 @@ public class MadGUI implements IGuiHandler
                     return machineInfo.getServerGUIElement(player.inventory, madTile);
                 }
             }
-        }
-
-        // Cryogenic Tube
-        if (ID == MadFurnaces.CRYOTUBE_TILEENTITY.blockID)
-        {
-            return new CryotubeContainer(player.inventory, (CryotubeEntity) tileEntity);
         }
 
         // Soniclocator Device

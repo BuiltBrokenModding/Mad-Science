@@ -6,9 +6,6 @@ import madscience.tile.cncmachine.CnCMachineBlock;
 import madscience.tile.cncmachine.CnCMachineBlockGhost;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineRecipes;
-import madscience.tile.cryotube.CryotubeBlock;
-import madscience.tile.cryotube.CryotubeBlockGhost;
-import madscience.tile.cryotube.CryotubeEntity;
 import madscience.tile.magloader.MagLoaderBlock;
 import madscience.tile.magloader.MagLoaderBlockGhost;
 import madscience.tile.magloader.MagLoaderEntity;
@@ -25,14 +22,6 @@ public class MadFurnaces
     // -------------
     // TILE ENTITIES
     // -------------
-
-    // Cryogenic Tube
-    public static BlockContainer CRYOTUBE_TILEENTITY;
-    public static final String CRYOTUBE_INTERNALNAME = "cryoTube";
-
-    // Cryogenic Tube 'Ghost Block'
-    public static Block CRYOTUBEGHOST;
-    private static final String CRYOTUBEGHOST_INTERNALNAME = "ghostCryoTube";
 
     // Soniclocator Device
     public static BlockContainer SONICLOCATOR_TILEENTITY;
@@ -61,37 +50,6 @@ public class MadFurnaces
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD
     // -----------------------------
-
-    static void createCryotubeGhostTileEntity(int blockID)
-    {
-        // Acts as a collision box for upper two blocks of cryotube.
-        MadMod.log().info("-Cryogenic Tube Ghost Block");
-        CRYOTUBEGHOST = new CryotubeBlockGhost(blockID).setUnlocalizedName(CRYOTUBEGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(CRYOTUBEGHOST, MadMod.ID + CRYOTUBEGHOST_INTERNALNAME);
-    }
-
-    static void createCryotubeTileEntity(int blockID)
-    {
-        // Converts both a villagers brain activity and body heat into a renewable energy source.
-        MadMod.log().info("-Cryogenic Tube Tile Entity");
-        CRYOTUBE_TILEENTITY = (BlockContainer) new CryotubeBlock(blockID).setUnlocalizedName(CRYOTUBE_INTERNALNAME);
-        GameRegistry.registerBlock(CRYOTUBE_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + CRYOTUBE_INTERNALNAME);
-        GameRegistry.registerTileEntity(CryotubeEntity.class, CRYOTUBE_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Shaped Recipe
-        GameRegistry.addRecipe(new ItemStack(CRYOTUBE_TILEENTITY, 1), new Object[]
-        { "121",
-          "131",
-          "141",
-
-        '1', Block.blockIron,
-        '2', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
-        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
-        '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), });
-    }
 
     static void createSoniclocatorGhostTileEntity(int blockID)
     {

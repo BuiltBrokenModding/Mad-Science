@@ -11,7 +11,6 @@ import madscience.mobs.creepercow.CreeperCowSounds;
 import madscience.mobs.werewolf.WerewolfMobSounds;
 import madscience.mobs.woolycow.WoolyCowSounds;
 import madscience.tile.cncmachine.CnCMachineSounds;
-import madscience.tile.cryotube.CryotubeSounds;
 import madscience.tile.magloader.MagLoaderSounds;
 import madscience.tile.soniclocator.SoniclocatorSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
@@ -70,9 +69,6 @@ public class MadSounds
         // -------------
         // TILE ENTITIES
         // -------------
-
-        // Cryogenic Tube
-        CryotubeSounds.init(event);
 
         // Soniclocator Device
         SoniclocatorSounds.init(event);

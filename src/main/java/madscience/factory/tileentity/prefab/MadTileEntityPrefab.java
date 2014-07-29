@@ -143,6 +143,12 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
         return this.progressValue;
     }
     
+    /** Plays a registered sound specific to this machine and only once. */
+    public void playSoundByName(String soundNameWithoutExtension)
+    {
+        this.getRegisteredMachine().playSoundByName(soundNameWithoutExtension, this.xCoord, this.yCoord, this.zCoord, worldObj);
+    }
+    
     /** Sends base update packet for MadTileEntity containing position, progress, energy, fluids, textures, etc. */
     private void sendUpdatePacket()
     {

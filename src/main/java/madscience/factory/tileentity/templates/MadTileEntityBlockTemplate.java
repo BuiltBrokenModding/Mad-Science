@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.factory.mod.MadMod;
+import madscience.factory.model.MadModelBounds;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
@@ -58,12 +59,35 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         this.setResistance(registeredMachine.getBlockExplosionResistance());
 
         // Define how big this item is we make it same size as a default block.
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        MadModelBounds loadedBlockBounds = registeredMachine.getBlockBounds();
+        if (loadedBlockBounds != null)
+        {
+            this.setBlockBounds(
+                    loadedBlockBounds.getLowerBounds().getModelTranslateX(),    // LOWER BOUNDS
+                    loadedBlockBounds.getLowerBounds().getModelTranslateY(),
+                    loadedBlockBounds.getLowerBounds().getModelTranslateZ(),
+                    loadedBlockBounds.getUpperBounds().getModelTranslateX(),    // UPPER BOUNDS
+                    loadedBlockBounds.getUpperBounds().getModelTranslateY(),
+                    loadedBlockBounds.getUpperBounds().getModelTranslateZ());
+        }
+        else
+        {
+            // Use the default block bounds if none are defined.
+            registeredMachine.setBlockBoundsDefault();
+            MadModelBounds defaultBlockBounds = registeredMachine.getBlockBounds();
+            this.setBlockBounds(
+                    defaultBlockBounds.getLowerBounds().getModelTranslateX(),   // LOWER BOUNDS
+                    defaultBlockBounds.getLowerBounds().getModelTranslateY(),
+                    defaultBlockBounds.getLowerBounds().getModelTranslateZ(),
+                    defaultBlockBounds.getUpperBounds().getModelTranslateX(),   // UPPER BOUNDS
+                    defaultBlockBounds.getUpperBounds().getModelTranslateY(),
+                    defaultBlockBounds.getUpperBounds().getModelTranslateZ());
+        }
     }
 
-    public MadTileEntityBlockTemplate(int par1, Material par2Material) // NO_UCD (unused code)
+    public MadTileEntityBlockTemplate(int blockID, Material blockMaterial) // NO_UCD (unused code)
     {
-        super(par1, par2Material);
+        super(blockID, blockMaterial);
     }
 
     /** Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the mask.) Parameters: World, X, Y, Z, mask, list, colliding entity */

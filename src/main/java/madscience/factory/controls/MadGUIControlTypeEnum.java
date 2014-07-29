@@ -7,5 +7,8 @@ public enum MadGUIControlTypeEnum
     PowerLevelY,
     CookingProgressX,
     CookingProgressY,
+    HeatGaugeX,
     HeatGaugeY,
+    DamageLevelX,
+    DamageLevelY,
 }

@@ -15,6 +15,8 @@ import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelBounds;
+import madscience.factory.model.MadModelPosition;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
 import madscience.factory.slotcontainers.MadSlotContainer;
@@ -495,7 +497,31 @@ public class MadTileEntityFactoryProduct
         // Default response is to return nothing.
         return null;
     }
+    
+    /** Plays a sound registered to this machine by name without extension. */
+    public void playSoundByName(String soundNameWithoutExtension, int x, int y, int z, World worldObj)
+    {
+        // Check if the sound to play actually exists or not.
+        for (int i = 0; i < data.getSoundArchive().length; i++)
+        {
+            MadSound machineSound = data.getSoundArchive()[i];
+            if (machineSound == null)
+            {
+                continue;
+            }
 
+            // Check if sound name matches the one from internal list.
+            if (machineSound.getSoundNameWithoutExtension().equals(soundNameWithoutExtension))
+            {
+                String soundName = MadMod.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
+                worldObj.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, soundName, 1.0F, 1.0F);
+                //MadMod.log().info("[" + this.getMachineName() + "]Playing Sound By Name: " + soundName);
+                break;
+            }
+        }
+    }
+
+    /** Plays a sound registered to specific machine event such as working, idle, destroyed, etc. */
     public void playTriggerSound(MadSoundTriggerEnum trigger, int x, int y, int z, World worldObj)
     {
         // Locate the sound to play based on trigger enumeration.
@@ -508,13 +534,12 @@ public class MadTileEntityFactoryProduct
             }
 
             // Check if input matches the sound type.
-            // Note: Multiple triggers of same type will break on first instance.
+            // Note: Multiple sounds with same trigger will play one after the other.
             if (machineSound.getSoundTrigger().equals(trigger))
             {
                 String soundName = MadMod.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
                 worldObj.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, soundName, 1.0F, 1.0F);
-                //MadScience.logger.info("[" + this.machineName + "]Playing Sound: " + soundName);
-                break;
+                //MadMod.log().info("[" + this.getMachineName() + "]Playing Trigger Sound: " + soundName);
             }
         }
     }
@@ -547,5 +572,19 @@ public class MadTileEntityFactoryProduct
     public MadDamage[] getDamageTrackingSupported()
     {
         return data.getDamageTrackingSupported();
+    }
+
+    public MadModelBounds getBlockBounds()
+    {
+        return data.getBoundingBox();
+    }
+
+    public void setBlockBoundsDefault()
+    {
+        MadModelBounds defaultBoundingBox = new MadModelBounds(
+                new MadModelPosition(0.0F, 0.0F, 0.0F),
+                new MadModelPosition(1.0F, 1.0F, 1.0F));
+        
+        this.data.setBoundingBox(defaultBoundingBox);
     }
 }
