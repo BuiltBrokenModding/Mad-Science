@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingComponent;
@@ -95,21 +96,26 @@ public class MadTileEntityFactoryProduct
         return null;
     }
     
+    /** Allows configuration manager from Minecraft/Forge to manipulate expected block ID for a given machine based on ID manager defaults
+     *  or from generated configuration file that is apart of Forge and FML to make modding life easier. */
     public void setBlockID(int newID)
     {
         data.setBlockID(newID);
     }
 
+    /** Returns registered ID for this block that was given to us by Minecraft/Forge configuration file. */
     public int getBlockID()
     {
         return data.getBlockID();
     }
     
+    /** Determines how hard this block is to break with conventional Minecraft/Forge tools such as pickaxe. */
     public float getBlockHardness()
     {
         return data.getBlockHardness();
     }
     
+    /** Returns how resistant this block is to explosions, higher values make for more resistance. */
     public float getBlockExplosionResistance()
     {
         return data.getExplosionResistance();
@@ -121,26 +127,31 @@ public class MadTileEntityFactoryProduct
         return new MadGUITemplate(playerEntity, worldEntity);
     }
 
+    /** Determines how many slots for holding Minecraft/Forge ItemStacks need to be created. Holds all reference data to slot type and intended purpose for each. */
     public MadSlotContainer[] getContainerTemplate()
     {
         return data.getContainerTemplate();
     }
 
+    /** Contains all energy related information for this machine such as consumption, production rates and how much can be extracted or inserted in a given tick. */
     public MadEnergy[] getEnergySupported()
     {
         return data.getEnergySupported();
     }
 
+    /** Contains valid reference to FluidRegistry fluids that need to be associated with this machine so it may contain milli-buckets (mB). */
     public MadFluid[] getFluidsSupported()
     {
         return data.getFluidsSupported();
     }
 
+    /** All buttons that need to be created on this GUI with their registered callback and intended functions. */
     public MadGUIButton[] getGuiButtonTemplate()
     {
         return data.getGuiButtonTemplate();
     }
 
+    /** All controls for GUI that are not buttons or slots (such as progress bars, animation, etc). */
     public MadGUIControl[] getGuiControlsTemplate()
     {
         return data.getGuiControlsTemplate();
@@ -158,11 +169,13 @@ public class MadTileEntityFactoryProduct
         return new MadContainerTemplate(playerEntity, worldEntity);
     }
 
+    /** Returns object containing all information about how many input and output slots and their intended functions for this machine. */
     public BlockContainer getBlockContainer()
     {
         return blockContainer;
     }
 
+    /** Consumes namespace string for logic class and attempts to load and create a new instance of it for use in the game world. */
     public MadTileEntityPrefab getNewTileEntityLogicClassInstance()
     {
         // Attempt to create a new instance of the logic class that was passed to us at creation.
@@ -180,6 +193,7 @@ public class MadTileEntityFactoryProduct
         return null;
     }
 
+    /** Returns already created instance of machine logic class loaded from namespace string. */
     public Class<? extends MadTileEntityPrefab> getTileEntityLogicClass()
     {
         // Returns the reference to class for logic that makes up our tile entity.
@@ -544,41 +558,49 @@ public class MadTileEntityFactoryProduct
         }
     }
     
+    /** Returns array of ingredients for Minecraft/Forge to load into default crafting grid to craft this machine in the game. */
     public MadCraftingRecipe[] getCraftingRecipe()
     {
         return data.getCraftingRecipes();
     }
     
+    /** Returns every possible recipe that will be associated with the internal workings of this machine (not for crafting. */
     public MadRecipe[] getRecipeArchive()
     {
         return data.getRecipeArchive();
     }
 
+    /** Returns all of thje data associated with this given machine, this is used for serializing machine JSON to disk. */
     public MadTileEntityFactoryProductData getData()
     {
         return data;
     }
 
+    /** Contains all rendering information for clients to render MadTechneModels and load them from AdvancedModelLoader. */
     public MadModel getModelArchive()
     {
         return data.getModelArchive();
     }
 
+    /** Determines if heat levels inside of the machine need to be tracked for data changes. */
     public MadHeat[] getHeatLevelsSupported()
     {
         return data.getHeatLevelsSupported();
     }
 
+    /** Determines if damage tracking is supported on this tile and if we should be tracking it for data changes. */
     public MadDamage[] getDamageTrackingSupported()
     {
         return data.getDamageTrackingSupported();
     }
 
+    /** Returns object with two vector positions inside of it representing block bounds that will be rendered on client. */
     public MadModelBounds getBlockBounds()
     {
         return data.getBoundingBox();
     }
 
+    /** Sets bounds that will be rendered around the block on clients. This bounds in game looks like a thin black line outlining the entire machine. */
     public void setBlockBoundsDefault()
     {
         MadModelBounds defaultBoundingBox = new MadModelBounds(
@@ -586,5 +608,19 @@ public class MadTileEntityFactoryProduct
                 new MadModelPosition(1.0F, 1.0F, 1.0F));
         
         this.data.setBoundingBox(defaultBoundingBox);
+    }
+    
+    /** Sets default multi-block configuration which entails no extra blocks except for the center one that should be the machine (0x0x0). */
+    public void setMultiBlockDefaults()
+    {
+        // Default is no ghost blocks on any sides with only the machine itself in the center.
+        MadGhostBlockData machineGhostBlocks = new MadGhostBlockData(0, 0, 0);
+        this.data.setMultiBlockConfiguration(machineGhostBlocks);
+    }
+
+    /** Grabs ghost/multi block configuration vector which determines how many invisible blocks need to be places on sides and top. */
+    public MadGhostBlockData getMultiBlockConfiguration()
+    {
+        return data.getMultiBlockConfiguration();
     }
 }

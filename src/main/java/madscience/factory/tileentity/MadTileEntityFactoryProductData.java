@@ -1,5 +1,6 @@
 package madscience.factory.tileentity;
 
+import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingRecipe;
@@ -32,6 +33,10 @@ public class MadTileEntityFactoryProductData
     /** Determines in Minecraft terms how resistant this block will be to being destroyed by explosions (if modflag for world damage is enabled). */
     @Expose
     private float explosionResistance;
+    
+    /** Using a single vector we will determine if we need multi-blocks based on ID registered for tile (since it needs a block to work anyway). */
+    @Expose
+    private MadGhostBlockData multiBlockConfiguration;
     
     /** Stores upper and lower bounds stored as vectors for use in the block to determine how large black outline for bounding box should be. */
     @Expose
@@ -87,6 +92,7 @@ public class MadTileEntityFactoryProductData
             float blockHardness,
             float explosionResistance,
             MadModelBounds boundingBox,
+            MadGhostBlockData ghostBlockVector,
             MadSlotContainer[] containerTemplate,
             MadGUIControl[] guiTemplate,
             MadGUIButton[] buttonTemplate,
@@ -103,12 +109,23 @@ public class MadTileEntityFactoryProductData
         
         // Note: BlockID is set by configuration phase in MadForgeMod.java
         
-        // Basic machine info.
+        // Name of machine which also is how we reference it in code and as key in dictionary lists.
         this.machineName = machineName;
+        
+        // Namespace path to class that should be available at runtime which factory will attempt to load and bind to MadTileEntityPrefab.
         this.logicClassFullyQualifiedName = logicClassNamespace;
+        
+        // Determines how hard a block is to break using Minecraft/Forge floating points.
         this.blockHardness = blockHardness;
+        
+        // Determines how resistant this block will be to explosions, higher values make for more resistance (indestructable like bedrock is -1).
         this.explosionResistance = explosionResistance;
+
+        // Bounding box for this machine which determines how
         this.boundingBox = boundingBox;
+        
+        // Determines how many ghost blocks need to be created on sides, top or bottom of machine center. 
+        this.multiBlockConfiguration = ghostBlockVector;
         
         // Optional container info for machine functionality and GUI.
         this.containerTemplate = containerTemplate;
@@ -306,5 +323,15 @@ public class MadTileEntityFactoryProductData
     public void setBoundingBox(MadModelBounds boundingBox)
     {
         this.boundingBox = boundingBox;
+    }
+
+    public MadGhostBlockData getMultiBlockConfiguration()
+    {
+        return multiBlockConfiguration;
+    }
+
+    public void setMultiBlockConfiguration(MadGhostBlockData multiBlockConfiguration)
+    {
+        this.multiBlockConfiguration = multiBlockConfiguration;
     }
 }
