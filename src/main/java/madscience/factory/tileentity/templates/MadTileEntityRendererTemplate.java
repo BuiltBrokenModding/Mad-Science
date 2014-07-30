@@ -1,9 +1,16 @@
 package madscience.factory.tileentity.templates;
 
 import madscience.factory.MadRenderingFactory;
+import madscience.factory.MadTileEntityFactory;
 import madscience.factory.mod.MadMod;
+import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelPosition;
+import madscience.factory.model.MadModelScale;
+import madscience.factory.rendering.MadModelItemRender;
+import madscience.factory.rendering.MadModelWorldRender;
 import madscience.factory.rendering.MadRenderTransformationTypes;
 import madscience.factory.rendering.MadRenderingFactoryProduct;
+import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -128,12 +135,20 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
             return;
         }
         
+        // Grab world rendering information.
+        MadModelWorldRender worldRenderInfo = madTileEntity.getEntityWorldRenderInformation();
+        if (worldRenderInfo == null)
+        {
+            return;
+        }
+        
         // Check if model instance needs to updated before render.
         MadRenderingFactory.instance().updateModelInstance(
                 madTileEntity.getMachineInternalName(),
                 false,
                 madTileEntity.getEntityModelData(),
-                madTileEntity.getEntityWorldRenderInformation(),
+                worldRenderInfo.getModelWorldPosition(),
+                worldRenderInfo.getModelWorldScale(),
                 String.valueOf(madTileEntity.xCoord),
                 String.valueOf(madTileEntity.yCoord),
                 String.valueOf(madTileEntity.zCoord));
@@ -240,15 +255,78 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
     {
         GL11.glPushMatrix();
         
-        // TODO: Update item render instance as requested by server.
+        // Get registered machine for this item.
+        String cleanedName = MadUtils.cleanTag(item.getUnlocalizedName());
+        MadTileEntityFactoryProduct registeredMachine = MadTileEntityFactory.instance().getMachineInfo(cleanedName);
+        if (registeredMachine == null)
+        {
+            return;
+        }
+        
+        // Grab loaded item rendering information from the factory.
+        MadModel machineModels = registeredMachine.getModelArchive();
+        if (machineModels == null)
+        {
+            return;
+        }
+        
+        // Grab world rendering information from the model archive.
+        MadModelItemRender itemRenderInfo = machineModels.getItemRenderInfoClone();
+        if (itemRenderInfo == null)
+        {
+            return;
+        }
+        
+        // Depending on what type of rendering we are doing populate needed position and scale information.
+        MadModelPosition itemRenderPosition = null;
+        MadModelScale itemRenderScale = null;
+        
+        switch (type)
+        {
+        case ENTITY:
+            itemRenderPosition = itemRenderInfo.getModelItemEntityPosition();
+            itemRenderScale = itemRenderInfo.getModelItemEntityScale();
+            break;
+        case EQUIPPED:
+            itemRenderPosition = itemRenderInfo.getModelItemEquippedPosition();
+            itemRenderScale = itemRenderInfo.getModelItemEquippedScale();
+            break;
+        case EQUIPPED_FIRST_PERSON:
+            itemRenderPosition = itemRenderInfo.getModelItemFirstPersonPosition();
+            itemRenderScale = itemRenderInfo.getModelItemFirstPersonScale();
+            break;
+        case INVENTORY:
+            itemRenderPosition = itemRenderInfo.getModelItemInventoryPosition();
+            itemRenderScale = itemRenderInfo.getModelItemInventoryScale();
+            break;
+        default:
+            break;
+        }
+        
+        // We cannot proceed if the position and scaling information is null.
+        if (itemRenderPosition == null || itemRenderScale == null)
+        {
+            return;
+        }
+        
+        // Update item render instance as requested by server.
+        MadRenderingFactory.instance().updateModelInstance(
+                registeredMachine.getMachineName(),
+                true,
+                machineModels.getMachineModelsDataClone(),
+                itemRenderPosition,
+                itemRenderScale,
+                String.valueOf(item.getItemDamage()),
+                String.valueOf(item.getMaxDamage()));
         
         // Grab rendering instance for item from rendering factory.
         this.currentRenderProduct = MadRenderingFactory.instance().getModelInstance(
-                MadUtils.cleanTag(item.getUnlocalizedName()),
+                registeredMachine.getMachineName(),
                 true,
                 String.valueOf(item.getItemDamage()),
                 String.valueOf(item.getMaxDamage()));
         
+        // Cannot proceed without a final rendering product to read data from about our render state.
         if (currentRenderProduct == null)
         {
             return;

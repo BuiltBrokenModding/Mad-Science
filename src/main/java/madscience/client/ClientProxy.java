@@ -66,9 +66,6 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
-import madscience.tile.SoniclocatorEntity;
-import madscience.tile.cncmachine.CnCMachineEntity;
-import madscience.tile.cncmachine.CnCMachineRender;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderRender;
 import madscience.util.MadUtils;
@@ -324,14 +321,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             RenderingRegistry.registerBlockHandler(MadFurnaces.MAGLOADER_TILEENTITY.blockID, new MagLoaderRender());
             ClientRegistry.bindTileEntitySpecialRenderer(MagLoaderEntity.class, new MagLoaderRender());
             MinecraftForgeClient.registerItemRenderer(blockID, new MagLoaderRender());
-        }
-
-        // CnC Machine
-        if (blockID == MadConfig.CNCMACHINE)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CNCMACHINE_TILEENTITY.blockID, new CnCMachineRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(CnCMachineEntity.class, new CnCMachineRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new CnCMachineRender());
         }
 
         // -------

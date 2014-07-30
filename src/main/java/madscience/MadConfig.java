@@ -435,14 +435,6 @@ public class MadConfig
     public static long MAGLOADER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
     public static String MAGLOADER_HELP = "http://madsciencemod.com/minecraft-item/magazine-loader/";
 
-    // CnC Machine
-    public static int CNCMACHINE = MadMod.getNextBlockID();
-    static int CNCMACHINEGHOST = MadMod.getNextBlockID();
-    public static long CNCMACHINE_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
-    public static long CNCMACHINE_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long CNCMACHINE_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String CNCMACHINE_HELP = "http://madsciencemod.com/minecraft-item/cnc-machine/";
-
     // -----------------
     // FLUID DECLARATION
     // -----------------

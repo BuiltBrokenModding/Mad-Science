@@ -6,7 +6,8 @@ import java.util.Map;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
-import madscience.factory.rendering.MadModelWorldRender;
+import madscience.factory.model.MadModelPosition;
+import madscience.factory.model.MadModelScale;
 import madscience.factory.rendering.MadRenderingFactoryProduct;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -66,14 +67,15 @@ public class MadRenderingFactory
             throw new IllegalArgumentException("Cannot register '" + productName + "' because it already exists in rendering factory!");
         }
     }
-
+    
     /** Updates or creates a new rendering instance for a given model.
      *  The other parameters help ensure uniqueness amongst the mapping. */
     public void updateModelInstance(
             String productName,
             boolean isItem,
             MadModelData[] modelInformation,
-            MadModelWorldRender worldRenderInformation,
+            MadModelPosition modelPosition,
+            MadModelScale modelScale,
             String... renderKeyData)
     {
         // Check all input data, this is very important for integrity sake.
@@ -82,7 +84,8 @@ public class MadRenderingFactory
         // Check model information.
         if (productName == null ||
             modelInformation == null ||
-            worldRenderInformation == null)
+            modelPosition == null ||
+            modelScale == null)
         {
             badInputData = true;
         }
@@ -129,7 +132,7 @@ public class MadRenderingFactory
             
             // Update the world rendering information if required.
             boolean updatedWorldRenderer = false;
-            if (factoryRenderProduct.setWorldRenderInformation(worldRenderInformation.getModelWorldPosition(), worldRenderInformation.getModelWorldScale()))
+            if (factoryRenderProduct.setWorldRenderInformation(modelPosition, modelScale))
             {
                 updatedWorldRenderer = true;
             }

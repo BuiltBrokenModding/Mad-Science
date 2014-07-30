@@ -4,10 +4,6 @@ import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.tile.SoniclocatorEntity;
-import madscience.tile.cncmachine.CnCMachineContainer;
-import madscience.tile.cncmachine.CnCMachineEntity;
-import madscience.tile.cncmachine.CnCMachineGUI;
 import madscience.tile.magloader.MagLoaderContainer;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderGUI;
@@ -49,12 +45,6 @@ public class MadGUI implements IGuiHandler
             return new MagLoaderGUI(player.inventory, (MagLoaderEntity) tileEntity);
         }
         
-        // CnC Machine
-        if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
-        {
-            return new CnCMachineGUI(player.inventory, (CnCMachineEntity) tileEntity);
-        }
-       
         // Default response is to return nothing.
         return null;
     }
@@ -88,12 +78,6 @@ public class MadGUI implements IGuiHandler
         if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
         {
             return new MagLoaderContainer(player.inventory, (MagLoaderEntity) tileEntity);
-        }
-        
-        // CnC Machine
-        if (ID == MadFurnaces.CNCMACHINE_TILEENTITY.blockID)
-        {
-            return new CnCMachineContainer(player.inventory, (CnCMachineEntity) tileEntity);
         }
         
         // Default response is to return nothing.

@@ -6,7 +6,6 @@ import madscience.items.warningsign.WarningSignPacketClientRequestSignType;
 import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
 import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
 import madscience.items.weapons.pulserifle.PulseRiflePackets;
-import madscience.tile.cncmachine.CnCMachinePackets;
 import madscience.tile.magloader.MagLoaderPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
@@ -51,9 +50,6 @@ public abstract class MadPackets
         
         // Magazine Loader
         builder.put(Integer.valueOf(15), MagLoaderPackets.class);
-        
-        // CnC Machine
-        builder.put(Integer.valueOf(16), CnCMachinePackets.class);
         
         // Warning Sign Server (Sent from server to all clients to change Sign Type)
         builder.put(Integer.valueOf(17), WarningSignPacketServerUpdateSignType.class);

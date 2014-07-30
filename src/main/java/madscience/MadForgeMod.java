@@ -103,9 +103,6 @@ public class MadForgeMod
 
                 // Magazine Loader Ghost Block.
                 m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
-                
-                // CnC Machine Ghost Block.
-                m.invoke(null, MadFurnaces.CNCMACHINEGHOST_TILEENTITY.blockID);
             }
             catch (Throwable e)
             {
@@ -395,8 +392,6 @@ public class MadForgeMod
 
         MadFurnaces.createMagLoaderTileEntity(MadConfig.MAGLOADER);
         MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
-        MadFurnaces.createCnCMachineTileEntity(MadConfig.CNCMACHINE);
-        MadFurnaces.createCnCMachineGhostTileEntity(MadConfig.CNCMACHINEGHOST);
         
         // -----
         // ARMOR

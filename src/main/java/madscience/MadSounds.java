@@ -10,7 +10,6 @@ import madscience.mobs.abomination.AbominationSounds;
 import madscience.mobs.creepercow.CreeperCowSounds;
 import madscience.mobs.werewolf.WerewolfMobSounds;
 import madscience.mobs.woolycow.WoolyCowSounds;
-import madscience.tile.cncmachine.CnCMachineSounds;
 import madscience.tile.magloader.MagLoaderSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -74,8 +73,5 @@ public class MadSounds
 
         // Magazine Loader
         MagLoaderSounds.init(event);
-
-        // CnC Machine
-        CnCMachineSounds.init(event);
     }
 }
