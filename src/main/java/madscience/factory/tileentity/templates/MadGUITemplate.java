@@ -458,7 +458,7 @@ public class MadGUITemplate extends GuiContainer
             {
                 if (this.isPointInRegion(guiControl.screenX(), guiControl.screenY(), guiControl.sizeX(), guiControl.sizeY(), mouseX, mouseY))
                 {
-                    String dmgLevelLiteral = String.valueOf(this.ENTITY.getHeatLevelValue()) + "/" + String.valueOf(this.ENTITY.getDamageMaximum());
+                    String dmgLevelLiteral = String.valueOf(this.ENTITY.getDamageValue()) + "/" + String.valueOf(this.ENTITY.getDamageMaximum());
                     String dmgLevelLocalized = StatCollector.translateToLocal("tooltip.damage") + " ";
                     this.drawTooltip(mouseX - this.guiLeft, mouseY - this.guiTop + 10, dmgLevelLocalized + String.valueOf(this.ENTITY.getDamageValueScaled(100)) + " %", dmgLevelLiteral);
                 }

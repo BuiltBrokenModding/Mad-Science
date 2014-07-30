@@ -1,7 +1,6 @@
 package madscience.factory.tileentity.templates;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadInputSlot;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
