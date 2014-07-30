@@ -8,7 +8,6 @@ import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
 import madscience.items.weapons.pulserifle.PulseRiflePackets;
 import madscience.tile.cncmachine.CnCMachinePackets;
 import madscience.tile.magloader.MagLoaderPackets;
-import madscience.tile.soniclocator.SoniclocatorPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 
@@ -44,9 +43,6 @@ public abstract class MadPackets
         // Mad Tile Entity Packet
         builder.put(Integer.valueOf(3), MadTileEntityPacketTemplate.class);
 
-        // Soniclocator Device
-        builder.put(Integer.valueOf(10), SoniclocatorPackets.class);
-        
         // Mad Particle Packet (Can be any particle!)
         builder.put(Integer.valueOf(11), MadParticlePacket.class);
         

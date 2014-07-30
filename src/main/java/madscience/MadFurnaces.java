@@ -2,6 +2,7 @@ package madscience;
 
 import madscience.factory.mod.MadMod;
 import madscience.items.ItemBlockTooltip;
+import madscience.tile.SoniclocatorEntity;
 import madscience.tile.cncmachine.CnCMachineBlock;
 import madscience.tile.cncmachine.CnCMachineBlockGhost;
 import madscience.tile.cncmachine.CnCMachineEntity;
@@ -9,9 +10,6 @@ import madscience.tile.cncmachine.CnCMachineRecipes;
 import madscience.tile.magloader.MagLoaderBlock;
 import madscience.tile.magloader.MagLoaderBlockGhost;
 import madscience.tile.magloader.MagLoaderEntity;
-import madscience.tile.soniclocator.SoniclocatorBlock;
-import madscience.tile.soniclocator.SoniclocatorBlockGhost;
-import madscience.tile.soniclocator.SoniclocatorEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.item.ItemStack;
@@ -22,14 +20,6 @@ public class MadFurnaces
     // -------------
     // TILE ENTITIES
     // -------------
-
-    // Soniclocator Device
-    public static BlockContainer SONICLOCATOR_TILEENTITY;
-    public static final String SONICLOCATOR_INTERNALNAME = "soniclocator";
-
-    // Soniclocator 'Ghost Block'
-    public static Block SONICLOCATORGHOST;
-    private static final String SONICLOCATORGHOST_INTERNALNAME = "ghostSoniclocator";
 
     // Magazine Loader
     public static BlockContainer MAGLOADER_TILEENTITY;
@@ -50,41 +40,6 @@ public class MadFurnaces
     // -----------------------------
     // CUSTOM FURNANCES REGISTRY ADD
     // -----------------------------
-
-    static void createSoniclocatorGhostTileEntity(int blockID)
-    {
-        MadMod.log().info("-Soniclocator Ghost Block");
-        
-        // Acts as a collision box for upper two blocks of Soniclocator device.
-        SONICLOCATORGHOST = new SoniclocatorBlockGhost(blockID).setUnlocalizedName(SONICLOCATORGHOST_INTERNALNAME);
-        GameRegistry.registerBlock(SONICLOCATORGHOST, MadMod.ID + SONICLOCATORGHOST_INTERNALNAME);
-    }
-
-    static void createSoniclocatorTileEntity(int blockID)
-    {
-        MadMod.log().info("-Soniclocator Tile Entity");
-        
-        // Transposes block types in exchange for others using sonic waves.
-        SONICLOCATOR_TILEENTITY = (BlockContainer) new SoniclocatorBlock(blockID).setUnlocalizedName(SONICLOCATOR_INTERNALNAME);
-        GameRegistry.registerBlock(SONICLOCATOR_TILEENTITY, ItemBlockTooltip.class, MadMod.ID + SONICLOCATOR_INTERNALNAME);
-        GameRegistry.registerTileEntity(SoniclocatorEntity.class, SONICLOCATOR_INTERNALNAME);
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-
-        // Recipe for Soniclocator.
-        GameRegistry.addRecipe(new ItemStack(SONICLOCATOR_TILEENTITY, 1), new Object[]
-        { "111", 
-          "323", 
-          "545",
-
-        '1', new ItemStack(MadComponents.COMPONENT_THUMPER),
-        '2', new ItemStack(MadComponents.COMPONENT_SCREEN),
-        '3', new ItemStack(MadComponents.COMPONENT_COMPUTER),
-        '4', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
-        '5', new ItemStack(MadCircuits.CIRCUIT_ENDEREYE),
-        });
-    }
 
     static void createMagLoaderTileEntity(int blockID)
     {

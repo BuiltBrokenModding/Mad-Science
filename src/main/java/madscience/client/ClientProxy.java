@@ -66,12 +66,11 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
+import madscience.tile.SoniclocatorEntity;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineRender;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderRender;
-import madscience.tile.soniclocator.SoniclocatorEntity;
-import madscience.tile.soniclocator.SoniclocatorRender;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -317,14 +316,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                 ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadTileEntityRendererTemplate());
                 MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate());
             }
-        }
-
-        // Soniclocator Device
-        if (blockID == MadConfig.SONICLOCATOR)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.SONICLOCATOR_TILEENTITY.blockID, new SoniclocatorRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(SoniclocatorEntity.class, new SoniclocatorRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new SoniclocatorRender());
         }
 
         // Magazine Loader

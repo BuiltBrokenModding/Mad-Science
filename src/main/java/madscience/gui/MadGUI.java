@@ -4,15 +4,13 @@ import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.tile.SoniclocatorEntity;
 import madscience.tile.cncmachine.CnCMachineContainer;
 import madscience.tile.cncmachine.CnCMachineEntity;
 import madscience.tile.cncmachine.CnCMachineGUI;
 import madscience.tile.magloader.MagLoaderContainer;
 import madscience.tile.magloader.MagLoaderEntity;
 import madscience.tile.magloader.MagLoaderGUI;
-import madscience.tile.soniclocator.SoniclocatorContainer;
-import madscience.tile.soniclocator.SoniclocatorEntity;
-import madscience.tile.soniclocator.SoniclocatorGUI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -45,12 +43,6 @@ public class MadGUI implements IGuiHandler
             }
         }
 
-        // Soniclocator Device
-        if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
-        {
-            return new SoniclocatorGUI(player.inventory, (SoniclocatorEntity) tileEntity);
-        }
-        
         // Magazine Loader
         if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
         {
@@ -92,12 +84,6 @@ public class MadGUI implements IGuiHandler
             }
         }
 
-        // Soniclocator Device
-        if (ID == MadFurnaces.SONICLOCATOR_TILEENTITY.blockID)
-        {
-            return new SoniclocatorContainer(player.inventory, (SoniclocatorEntity) tileEntity);
-        }
-        
         // Magazine Loader
         if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
         {

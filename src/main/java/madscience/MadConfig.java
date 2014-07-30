@@ -427,14 +427,6 @@ public class MadConfig
     private final static long MACHINE_TRANSFERRATE_DEFAULT = 200;
     private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
 
-    // Soniclocator
-    public static int SONICLOCATOR = MadMod.getNextBlockID();
-    static int SONICLOCATOREGHOST = MadMod.getNextBlockID();
-    public static long SONICLOCATOR_CAPACTITY = MACHINE_CAPACITY_DEFAULT;
-    public static long SONICLOCATOR_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long SONICLOCATOR_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String SONICLOCATOR_HELP = "http://madsciencemod.com/minecraft-item/soniclocator/";
-
     // Magazine Loader
     public static int MAGLOADER = MadMod.getNextBlockID();
     static int MAGLOADERGHOST = MadMod.getNextBlockID();

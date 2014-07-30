@@ -101,9 +101,6 @@ public class MadForgeMod
                 Class clazz = Class.forName("codechicken.nei.api.API");
                 Method m = clazz.getMethod("hideItem", Integer.TYPE);
 
-                // Soniclocator Ghost Block.
-                m.invoke(null, MadFurnaces.SONICLOCATORGHOST.blockID);
-
                 // Magazine Loader Ghost Block.
                 m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
                 
@@ -396,8 +393,6 @@ public class MadForgeMod
             MadTileEntityFactory.instance().registerMachine(unregisteredMachine);
         }
 
-        MadFurnaces.createSoniclocatorTileEntity(MadConfig.SONICLOCATOR);
-        MadFurnaces.createSoniclocatorGhostTileEntity(MadConfig.SONICLOCATOREGHOST);
         MadFurnaces.createMagLoaderTileEntity(MadConfig.MAGLOADER);
         MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
         MadFurnaces.createCnCMachineTileEntity(MadConfig.CNCMACHINE);

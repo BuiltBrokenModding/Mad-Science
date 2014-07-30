@@ -57,7 +57,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
 
         // Determines how resistant this block is to explosions.
         this.setResistance(registeredMachine.getBlockExplosionResistance());
-
+        
         // Define how big this item is we make it same size as a default block.
         MadModelBounds loadedBlockBounds = registeredMachine.getBlockBounds();
         if (loadedBlockBounds != null)
@@ -216,6 +216,8 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     @Override
     public boolean hasTileEntity(int meta)
     {
+        //MadMod.log().info("Metadata:" + String.valueOf(meta));
+        
         return true;
     }
 
@@ -313,10 +315,17 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     }
 
     @Override
-    public void onBlockAdded(World par1World, int par2, int par3, int par4)
+    public void onBlockAdded(World world, int x, int y, int z)
     {
-        super.onBlockAdded(par1World, par2, par3, par4);
-        this.setDefaultDirection(par1World, par2, par3, par4);
+        super.onBlockAdded(world, x, y, z);
+        this.setDefaultDirection(world, x, y, z);
+        
+//        if (!world.isRemote)
+//        {
+//            // Add 'ghost' blocks that makeup this machines multi-block structure as defined from JSON loader.
+//            world.setBlock(x, y + 1, z, this.blockID, 1, 3);
+//            world.setBlock(x, y + 2, z, this.blockID, 2, 3);
+//        }
     }
 
     @Override

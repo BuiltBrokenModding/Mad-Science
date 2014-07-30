@@ -12,7 +12,6 @@ import madscience.mobs.werewolf.WerewolfMobSounds;
 import madscience.mobs.woolycow.WoolyCowSounds;
 import madscience.tile.cncmachine.CnCMachineSounds;
 import madscience.tile.magloader.MagLoaderSounds;
-import madscience.tile.soniclocator.SoniclocatorSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.relauncher.Side;
@@ -69,9 +68,6 @@ public class MadSounds
         // -------------
         // TILE ENTITIES
         // -------------
-
-        // Soniclocator Device
-        SoniclocatorSounds.init(event);
 
         // M41A Pulse Rifle
         PulseRifleSounds.init(event);

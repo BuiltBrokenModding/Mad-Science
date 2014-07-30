@@ -2,6 +2,7 @@ package madscience.factory.tileentity.templates;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.slotcontainers.MadInputSlot;
+import madscience.factory.slotcontainers.MadOutputSlot;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
@@ -54,12 +55,12 @@ public class MadContainerTemplate extends Container
             if (slotContainer.getSlotType().name().toLowerCase().contains("input"))
             {
                 // Use the custom slot template!
-                this.addSlotToContainer(new MadInputSlot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
+                this.addSlotToContainer(new MadInputSlot(tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY(), slotContainer.getSlotType()));
             }
             else if (slotContainer.getSlotType().name().toLowerCase().contains("output"))
             {
                 // Output slots cannot ever have items inserted into them and only taken out.
-                this.addSlotToContainer(new SlotFurnace(entityPlayer.player, tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY()));
+                this.addSlotToContainer(new MadOutputSlot(entityPlayer.player, tileEntity, slotContainer.slot(), slotContainer.offsetX(), slotContainer.offsetY(), slotContainer.getSlotType()));
             }
             else
             {

@@ -59,7 +59,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab implements ISidedInven
     boolean hasIronBlock;
 
     /** Texture that should be displayed on our model. */
-    String TEXTURE = "models/" + MadFurnaces.SONICLOCATOR_INTERNALNAME + "/off.png";
+    String TEXTURE = "models/" + MadFurnaces.CNCMACHINE_INTERNALNAME + "/off.png";
 
     /** Internal reserve of water */
     protected FluidTank WATER_TANK = new FluidTank(FluidRegistry.WATER, 0, MAX_WATER);

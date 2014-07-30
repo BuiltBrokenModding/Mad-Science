@@ -14,10 +14,22 @@ public class MadInputSlot extends Slot
     private String machineName = null;
     private MadTileEntityFactoryProduct registeredMachine = null;
 
-    public MadInputSlot(MadTileEntityPrefab tileEntity, int index, int x, int y)
+    public MadInputSlot(
+            MadTileEntityPrefab tileEntity,
+            int index,
+            int x,
+            int y,
+            MadSlotContainerTypeEnum slotType)
     {
         super(tileEntity, index, x, y);
         this.machineName = tileEntity.getMachineInternalName();
+    }
+    
+    @Override
+    public int getSlotStackLimit()
+    {
+        // TODO: Make this change to size based on recipe table.
+        return 64;
     }
 
     @Override
