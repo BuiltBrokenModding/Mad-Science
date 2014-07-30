@@ -94,7 +94,7 @@ public class CryotubeEntity extends MadTileEntityPrefab
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemEqual(new ItemStack(MadEntities.DATAREEL_EMPTY)))
         {
             // Create memory based on ceiling of neural activity.
-            ItemStack createdMemory = new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, this.getDamageMaximum());
+            ItemStack createdMemory = new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, this.getHeatLevelMaximum());
 
             // Add encoded memory data reel to output slot 1.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
