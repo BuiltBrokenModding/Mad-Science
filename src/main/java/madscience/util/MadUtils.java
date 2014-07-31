@@ -77,6 +77,7 @@ public class MadUtils
         return cleanedFilename;
     }
 
+    @SuppressWarnings("ucd")
     public static String asciiToBinary(String input)
     {
         // Converts ASCII string to binary.

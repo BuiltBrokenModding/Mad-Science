@@ -11,7 +11,6 @@ import madscience.MadComponents;
 import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadForgeMod;
-import madscience.MadFurnaces;
 import madscience.MadSounds;
 import madscience.MadWeapons;
 import madscience.factory.MadRenderingFactory;
@@ -66,8 +65,6 @@ import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
-import madscience.tile.magloader.MagLoaderEntity;
-import madscience.tile.magloader.MagLoaderRender;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -313,14 +310,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                 ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadTileEntityRendererTemplate());
                 MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate());
             }
-        }
-
-        // Magazine Loader
-        if (blockID == MadConfig.MAGLOADER)
-        {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.MAGLOADER_TILEENTITY.blockID, new MagLoaderRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(MagLoaderEntity.class, new MagLoaderRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new MagLoaderRender());
         }
 
         // -------

@@ -14,6 +14,7 @@ public class MadModelFile
     
     private String modelNameWithoutExtension;
 
+    @SuppressWarnings("ucd")
     public MadModelFile(String modelPath, boolean visibleByDefault)
     {
         super();

@@ -10,6 +10,7 @@ public class MadDamage
     @Expose
     private int damageMaximum;
     
+    @SuppressWarnings("ucd")
     public MadDamage(int damageMinimum, int damageMaximum, int damageValueStarting)
     {
         super();

@@ -26,7 +26,6 @@ public class CryofreezerEntity extends MadTileEntityPrefab
         super(machineName);
     }
 
-    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
     @Override
     public boolean canSmelt()
     {
@@ -49,7 +48,6 @@ public class CryofreezerEntity extends MadTileEntityPrefab
         return false;
     }
 
-    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack items)
     {

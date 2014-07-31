@@ -10,7 +10,7 @@ import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
+class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
 {
     /** Path to current texture that should be displayed on our model. */
     private String entityTexture;

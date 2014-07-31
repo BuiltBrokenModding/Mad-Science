@@ -45,21 +45,22 @@ public class MadGUITemplate extends GuiContainer
     private MadSlotContainer[] CONTAINERS;
     private MadGUIButton[] BUTTONS;
 
-    public ResourceLocation TEXTURE;
+    private ResourceLocation TEXTURE;
 
-    public String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76";
+    private String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76";
 
     private String tooltip = "";
     private HashMap<Region2, String> tooltips = new HashMap<Region2, String>();
 
-    protected int screenX = (this.width - this.xSize) / 2;
-    protected int screenY = (this.height - this.ySize) / 2;
+    private int screenX = (this.width - this.xSize) / 2;
+    private int screenY = (this.height - this.ySize) / 2;
     private float lastChangeFrameTime;
 
     private int PROMPT_REPLY_ACTION = 0;
     private URI displayedURI = null;
     private Fluid gaugeFluid;
 
+    @SuppressWarnings("ucd")
     public MadGUITemplate(Container container)
     {
         super(container);
@@ -580,6 +581,7 @@ public class MadGUITemplate extends GuiContainer
         }
     }
 
+    @SuppressWarnings("ucd")
     public void drawTooltip(int x, int y, String... toolTips)
     {
         if (!GuiScreen.isShiftKeyDown())
@@ -696,6 +698,7 @@ public class MadGUITemplate extends GuiContainer
         }
     }
 
+    @SuppressWarnings("ucd")
     public void passClick(URI webLocation)
     {
         // Rude not to ask if user has chat link prompts disabled.

@@ -61,7 +61,7 @@ public class MadTechneModel extends ModelBase implements IModelCustom, Cloneable
         loadTechneModel(resource);
     }
     
-    MadTechneModel(MadTechneModel clone) throws ModelFormatException
+    private MadTechneModel(MadTechneModel clone) throws ModelFormatException
     {
         this(clone.fileName, clone.loadedURL);
     }

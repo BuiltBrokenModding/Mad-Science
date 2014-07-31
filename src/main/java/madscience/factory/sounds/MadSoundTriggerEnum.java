@@ -1,5 +1,6 @@
 package madscience.factory.sounds;
 
+@SuppressWarnings("ucd")
 public enum MadSoundTriggerEnum
 {
     DESTROYED,

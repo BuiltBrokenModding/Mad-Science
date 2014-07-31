@@ -12,6 +12,7 @@ public final class MadEnergy
     @Expose private long consumptionRate;
     @Expose private long productionRate;
 
+    @SuppressWarnings("ucd")
     public MadEnergy(long capacity,
                      long maxRecieve,
                      long maxExtract,

@@ -115,7 +115,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
         return null;
     }
     
-    /** Returns the total number of slots marked as input. */
+    /** Returns the total number of slots marked as input for this machine. */
     public int getInputSlotCount()
     {
         // Grab a list of all container values from enumeration.
@@ -133,6 +133,26 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
         }
         
         return inputSlots;
+    }
+    
+    /** Returns total number of slots that are of the given slot type for this machine.. */
+    public int getSlotCountByType(MadSlotContainerTypeEnum slotType)
+    {
+        // Grab a list of all container values from enumeration.
+        MadSlotContainer[] containerSlots = this.getRegisteredMachine().getContainerTemplate();
+        int i = containerSlots.length;
+        
+        // Count the number of times we see input in the enumeration for slot type.
+        int slotCount = 0;
+        for (MadSlotContainer slotContainer : containerSlots)
+        {
+            if (slotContainer.getSlotType().equals(slotType))
+            {
+                slotCount++;
+            }
+        }
+        
+        return slotCount;
     }
 
     /** Returns an array containing the indices of the slots that can be accessed by automation on the given side of this block. */
@@ -371,6 +391,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
     
     /** Returns enumeration type for a given container slot ID. 
      *  Returns null of no type is associated with the given slot, meaning it would be player inventory or hotbar. */
+    @SuppressWarnings("ucd")
     public MadSlotContainerTypeEnum getSlotTypeBySlotID(int slotID)
     {
         MadTileEntityFactoryProduct currentMachine = this.getRegisteredMachine();

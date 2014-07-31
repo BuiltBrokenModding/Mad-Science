@@ -16,6 +16,7 @@ public class MadHeat
     @Expose
     private int heatLevelMaximumValue;
     
+    @SuppressWarnings("ucd")
     public MadHeat(int heatStartValue, int heatTriggerValue, int heatMaximumValue)
     {
         super();

@@ -10,7 +10,6 @@ import madscience.mobs.abomination.AbominationSounds;
 import madscience.mobs.creepercow.CreeperCowSounds;
 import madscience.mobs.werewolf.WerewolfMobSounds;
 import madscience.mobs.woolycow.WoolyCowSounds;
-import madscience.tile.magloader.MagLoaderSounds;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.relauncher.Side;
@@ -70,8 +69,5 @@ public class MadSounds
 
         // M41A Pulse Rifle
         PulseRifleSounds.init(event);
-
-        // Magazine Loader
-        MagLoaderSounds.init(event);
     }
 }

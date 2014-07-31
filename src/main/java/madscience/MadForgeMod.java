@@ -1,9 +1,7 @@
 package madscience;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.logging.Level;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.mod.MadMod;
@@ -28,7 +26,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -88,35 +85,35 @@ public class MadForgeMod
             }
         }
         
-        // ----------------
-        // NOT ENOUGH ITEMS
-        // ----------------
-        
-        // Interface with NEI and attempt to call functions from it if it exists.
-        // Note: This method was given by Alex_hawks, buy him a beer if you see him!
-        if (Loader.isModLoaded("NotEnoughItems"))
-        {
-            try
-            {
-                Class clazz = Class.forName("codechicken.nei.api.API");
-                Method m = clazz.getMethod("hideItem", Integer.TYPE);
-
-                // Magazine Loader Ghost Block.
-                m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
-            }
-            catch (Throwable e)
-            {
-                MadMod.log().log(Level.WARNING, "NEI Integration has failed...");
-                MadMod.log().log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
-                e.printStackTrace();
-                MadMod.log().log(Level.WARNING, "Spamming console to make more obvious...");
-                for (int i = 0; i < 15; i++)
-                {
-                    MadMod.log().log(Level.WARNING, "Something Broke. See above.");
-                }
-            }
-
-        }
+//        // ----------------
+//        // NOT ENOUGH ITEMS
+//        // ----------------
+//        
+//        // Interface with NEI and attempt to call functions from it if it exists.
+//        // Note: This method was given by Alex_hawks, buy him a beer if you see him!
+//        if (Loader.isModLoaded("NotEnoughItems"))
+//        {
+//            try
+//            {
+//                Class clazz = Class.forName("codechicken.nei.api.API");
+//                Method m = clazz.getMethod("hideItem", Integer.TYPE);
+//
+//                // Magazine Loader Ghost Block.
+//                m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
+//            }
+//            catch (Throwable e)
+//            {
+//                MadMod.log().log(Level.WARNING, "NEI Integration has failed...");
+//                MadMod.log().log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
+//                e.printStackTrace();
+//                MadMod.log().log(Level.WARNING, "Spamming console to make more obvious...");
+//                for (int i = 0; i < 15; i++)
+//                {
+//                    MadMod.log().log(Level.WARNING, "Something Broke. See above.");
+//                }
+//            }
+//
+//        }
         
         // ---------
         // DEBUGGING
@@ -171,14 +168,6 @@ public class MadForgeMod
         // Populate generic logger with instance provided by Minecraft/Forge. 
         MadMod.setLog(event.getModLog(), FMLLog.getLogger());
         
-        // Attempt to add any manually created machines.
-        MadTileEntityFactoryProductData convertedMachine = MadManualMachine.getMachine();
-        if (convertedMachine != null)
-        {
-            MadMod.log().info("Adding manual machine " + convertedMachine.getMachineName());
-            MadMod.addUnregisteredMachine(convertedMachine);
-        }
-
         // Generate and read our standardized Forge configuration file.
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         {
@@ -389,9 +378,6 @@ public class MadForgeMod
             MadTileEntityFactoryProductData unregisteredMachine = machineData[i];
             MadTileEntityFactory.instance().registerMachine(unregisteredMachine);
         }
-
-        MadFurnaces.createMagLoaderTileEntity(MadConfig.MAGLOADER);
-        MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
         
         // -----
         // ARMOR

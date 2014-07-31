@@ -16,6 +16,7 @@ public class MadModelRotation
     @Expose
     private float modelRotationAngle;
     
+    @SuppressWarnings("ucd")
     public MadModelRotation(
             float modelRotationAngle,
             float modelRotationX,

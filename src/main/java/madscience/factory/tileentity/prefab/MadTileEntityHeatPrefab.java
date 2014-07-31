@@ -4,7 +4,7 @@ import madscience.factory.heat.MadHeat;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class MadTileEntityHeatPrefab extends MadTileEntityEnergyPrefab
+class MadTileEntityHeatPrefab extends MadTileEntityEnergyPrefab
 {
     /** Current level of heat that the machine has accumulated while powered and active. */
     private int heatLevelValue;
@@ -23,7 +23,7 @@ public class MadTileEntityHeatPrefab extends MadTileEntityEnergyPrefab
         super();
     }
 
-    public MadTileEntityHeatPrefab(MadTileEntityFactoryProduct registeredMachine)
+    MadTileEntityHeatPrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
         

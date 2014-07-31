@@ -4,7 +4,7 @@ import madscience.factory.damage.MadDamage;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class MadTileEntityDamagePrefab extends MadTileEntityHeatPrefab
+class MadTileEntityDamagePrefab extends MadTileEntityHeatPrefab
 {
     /** Current and starting level of damage. */
     private int damageValue;
@@ -20,7 +20,7 @@ public class MadTileEntityDamagePrefab extends MadTileEntityHeatPrefab
         super();
     }
 
-    public MadTileEntityDamagePrefab(MadTileEntityFactoryProduct registeredMachine)
+    MadTileEntityDamagePrefab(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
         

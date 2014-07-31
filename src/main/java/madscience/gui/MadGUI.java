@@ -1,12 +1,8 @@
 package madscience.gui;
 
-import madscience.MadFurnaces;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.tile.magloader.MagLoaderContainer;
-import madscience.tile.magloader.MagLoaderEntity;
-import madscience.tile.magloader.MagLoaderGUI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -39,12 +35,6 @@ public class MadGUI implements IGuiHandler
             }
         }
 
-        // Magazine Loader
-        if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
-        {
-            return new MagLoaderGUI(player.inventory, (MagLoaderEntity) tileEntity);
-        }
-        
         // Default response is to return nothing.
         return null;
     }
@@ -74,12 +64,6 @@ public class MadGUI implements IGuiHandler
             }
         }
 
-        // Magazine Loader
-        if (ID == MadFurnaces.MAGLOADER_TILEENTITY.blockID)
-        {
-            return new MagLoaderContainer(player.inventory, (MagLoaderEntity) tileEntity);
-        }
-        
         // Default response is to return nothing.
         return null;
     }

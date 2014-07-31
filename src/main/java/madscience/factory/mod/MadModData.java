@@ -76,6 +76,7 @@ public class MadModData
     @Expose
     private MadTileEntityFactoryProductData[] unregisteredMachines;
 
+    @SuppressWarnings("ucd")
     public MadModData(String id,
             String name,
             String channelName,

@@ -15,7 +15,7 @@ import universalelectricity.api.energy.IEnergyInterface;
 import universalelectricity.api.vector.Vector3;
 
 @UniversalClass
-public abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab implements IEnergyInterface, IEnergyContainer
+abstract class MadTileEntityEnergyPrefab extends MadTileEntityFluidPrefab implements IEnergyInterface, IEnergyContainer
 {
     /** Interface from UE team that handles many of the common energy requirements. */
     protected EnergyStorageHandler energy;

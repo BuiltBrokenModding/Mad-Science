@@ -418,23 +418,6 @@ public class MadConfig
     // Zombie Genome Data Reel
     public static int GENOME_ZOMBIE = MadMod.getNextItemID();
 
-    // -----------------------
-    // TILE ENTITY DECLARATION
-    // -----------------------
-
-    // Defaults for power storage and input/output rates.
-    private final static long MACHINE_CAPACITY_DEFAULT = 100000;
-    private final static long MACHINE_TRANSFERRATE_DEFAULT = 200;
-    private final static long MACHINE_CONSUMERATE_DEFAULT = 1;
-
-    // Magazine Loader
-    public static int MAGLOADER = MadMod.getNextBlockID();
-    static int MAGLOADERGHOST = MadMod.getNextBlockID();
-    public static long MAGLOADER_CAPACTITY = MACHINE_CAPACITY_DEFAULT / 4;
-    public static long MAGLOADER_INPUT = MACHINE_TRANSFERRATE_DEFAULT;
-    public static long MAGLOADER_CONSUME = MACHINE_CONSUMERATE_DEFAULT;
-    public static String MAGLOADER_HELP = "http://madsciencemod.com/minecraft-item/magazine-loader/";
-
     // -----------------
     // FLUID DECLARATION
     // -----------------

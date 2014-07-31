@@ -89,6 +89,7 @@ public class MadMod
         super();
     }
     
+    @SuppressWarnings("ucd")
     public static synchronized MadMod instance() 
     {
         if (instance == null)
@@ -183,6 +184,7 @@ public class MadMod
     }
     
     /** Intended for developers to use to manually create machines when converting existing code to JSON. */
+    @SuppressWarnings("ucd")
     public static void addUnregisteredMachine(MadTileEntityFactoryProductData newMachine)
     {
         unregisteredMachines.add(newMachine);
