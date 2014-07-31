@@ -129,30 +129,8 @@ public class MadRenderingFactoryProduct
         return modelWorldRenderInformation;
     }
 
-    public boolean setWorldRenderInformation(MadModelPosition newWorldPosition, MadModelScale newWorldScale)
+    public void setWorldRenderInformation(MadModelPosition newWorldPosition, MadModelScale newWorldScale)
     {
-        boolean worldRendererInfoChanged = false;
-        if (this.modelWorldRenderInformation.getModelWorldPosition().getModelTranslateX() != newWorldPosition.getModelTranslateX() || 
-            this.modelWorldRenderInformation.getModelWorldPosition().getModelTranslateY() != newWorldPosition.getModelTranslateY() ||
-            this.modelWorldRenderInformation.getModelWorldPosition().getModelTranslateZ() != newWorldPosition.getModelTranslateZ())
-            {
-                worldRendererInfoChanged = true;
-            }
-            
-            // Check World Render Scale
-            if (this.modelWorldRenderInformation.getModelWorldScale().getModelScaleX() != newWorldScale.getModelScaleX() ||
-                this.modelWorldRenderInformation.getModelWorldScale().getModelScaleY() != newWorldScale.getModelScaleY() ||
-                this.modelWorldRenderInformation.getModelWorldScale().getModelScaleZ() != newWorldScale.getModelScaleZ())
-            {
-                worldRendererInfoChanged = true;
-            }        
-        
-        // Only update the world render instance unless something actually changed. 
-        if (worldRendererInfoChanged)
-        {
-            this.modelWorldRenderInformation = new MadModelWorldRender(newWorldPosition, newWorldScale);
-        }
-        
-        return worldRendererInfoChanged;
+        this.modelWorldRenderInformation = new MadModelWorldRender(newWorldPosition, newWorldScale);
     }
 }

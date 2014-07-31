@@ -131,11 +131,7 @@ public class MadRenderingFactory
             }
             
             // Update the world rendering information if required.
-            boolean updatedWorldRenderer = false;
-            if (factoryRenderProduct.setWorldRenderInformation(modelPosition, modelScale))
-            {
-                updatedWorldRenderer = true;
-            }
+            factoryRenderProduct.setWorldRenderInformation(modelPosition, modelScale);
             
             // Update the rendering instance listing.
             MadRenderingFactoryProduct updatedListing = MadRenderingFactory.worldInstanceRenderingReference.put(renderKey, factoryRenderProduct);
@@ -144,12 +140,6 @@ public class MadRenderingFactory
             if (modelsUpdated)
             {
                 MadMod.log().info("[" + productName + "]Updating instance number " + updatedListing.getRenderingID() + " with key " + renderKey + " total of " + totalModelsUpdated + " updates.");
-            }
-            
-            // Inform console if updated renderer position or scale.
-            if (updatedWorldRenderer)
-            {
-                MadMod.log().info("[" + productName + "]Updating world render information for model instance " + updatedListing.getRenderingID() + " with key " + renderKey + ".");
             }
             
             // Check that inserted data matches updated one.
