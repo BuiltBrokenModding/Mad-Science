@@ -3,7 +3,7 @@ package madscience.factory.tileentity.templates;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadModel;
+import madscience.factory.model.MadTileModel;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
 import madscience.factory.rendering.MadModelItemRender;
@@ -264,7 +264,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
         
         // Grab loaded item rendering information from the factory.
-        MadModel machineModels = registeredMachine.getModelArchive();
+        MadTileModel machineModels = registeredMachine.getModelArchive();
         if (machineModels == null)
         {
             return;

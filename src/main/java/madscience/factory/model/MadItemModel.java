@@ -1,11 +1,9 @@
 package madscience.factory.model;
 
 import madscience.factory.rendering.MadModelItemRender;
-import madscience.factory.rendering.MadModelWorldRender;
-
 import com.google.gson.annotations.Expose;
 
-public class MadModel
+public class MadItemModel
 {
     @Expose
     private MadModelFile[] machineModels;
@@ -16,14 +14,11 @@ public class MadModel
     @Expose
     private MadModelItemRender itemRenderInfo;
     
-    @Expose
-    private MadModelWorldRender worldRenderInfo;
-    
-    public MadModel(
+    @SuppressWarnings("ucd")
+    public MadItemModel(
             MadModelFile[] machineModels,
             String machineTexture,
-            MadModelItemRender itemRenderInfo,
-            MadModelWorldRender worldRenderInfo)
+            MadModelItemRender itemRenderInfo)
     {
         super();
 
@@ -39,29 +34,11 @@ public class MadModel
             itemRenderInfo = defaultItemRenderInfo();
         }
         
-        if (worldRenderInfo == null)
-        {
-            // Default world rendering.
-            worldRenderInfo = defaultWorldRenderInfo();
-        }
-        
         // Apply item render information.
         this.itemRenderInfo = itemRenderInfo;
-        
-        // Apply world render information.
-        this.worldRenderInfo = worldRenderInfo;
     }
 
-    public static MadModelWorldRender defaultWorldRenderInfo()
-    {
-        // Use default world rendering info if null.
-        MadModelWorldRender tmpWorldRenderInfo = new MadModelWorldRender(
-                new MadModelPosition(0.5F, 0.5F, 0.5F),
-                new MadModelScale(1.0F, 1.0F, 1.0F));
-        
-        return tmpWorldRenderInfo;
-    }
-
+    @SuppressWarnings("ucd")
     public static MadModelItemRender defaultItemRenderInfo()
     {
         // Use default item rendering info if null.
@@ -187,28 +164,8 @@ public class MadModel
         return renderItem;
     }
 
-    public MadModelWorldRender getWorldRenderInfoClone()
-    {
-        MadModelWorldRender renderWorld = new MadModelWorldRender(
-                new MadModelPosition(
-                        worldRenderInfo.getModelWorldPosition().getModelTranslateX(),
-                        worldRenderInfo.getModelWorldPosition().getModelTranslateY(),
-                        worldRenderInfo.getModelWorldPosition().getModelTranslateZ()),
-                new MadModelScale(
-                        worldRenderInfo.getModelWorldScale().getModelScaleX(),
-                        worldRenderInfo.getModelWorldScale().getModelScaleY(),
-                        worldRenderInfo.getModelWorldScale().getModelScaleZ()));
-        
-        return renderWorld;
-    }
-
     public void setItemRenderInfoDefaults()
     {
-        this.itemRenderInfo = MadModel.defaultItemRenderInfo();
-    }
-
-    public void setWorldRenderInfoDefaults()
-    {
-        this.worldRenderInfo = MadModel.defaultWorldRenderInfo();
+        this.itemRenderInfo = MadItemModel.defaultItemRenderInfo();
     }
 }

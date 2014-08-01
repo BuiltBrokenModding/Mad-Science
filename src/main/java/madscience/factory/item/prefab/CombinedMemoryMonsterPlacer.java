@@ -1,4 +1,4 @@
-package madscience.items.memories;
+package madscience.factory.item.prefab;
 
 import java.awt.Color;
 import java.util.Iterator;

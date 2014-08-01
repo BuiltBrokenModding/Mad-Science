@@ -1,4 +1,4 @@
-package madscience.items.spawnegg;
+package madscience.factory.item.prefab;
 
 import java.util.Collection;
 import java.util.List;

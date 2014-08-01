@@ -2,6 +2,7 @@ package madscience.items.needles;
 
 import java.util.List;
 
+import madscience.factory.item.prefab.MadItemPrefab;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -14,7 +15,7 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class NeedleDirtyItem extends Item
+public class NeedleDirtyItem extends MadItemPrefab
 {
     public NeedleDirtyItem(int itemID)
     {

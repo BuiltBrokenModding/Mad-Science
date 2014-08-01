@@ -1,5 +1,6 @@
 package madscience.items.genomes;
 
+import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.mod.MadMod;
 
 public class GenomeWitch extends ItemGenomeBase

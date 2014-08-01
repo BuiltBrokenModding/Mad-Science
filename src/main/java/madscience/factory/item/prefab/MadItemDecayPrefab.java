@@ -1,72 +1,19 @@
-package madscience.items;
+package madscience.factory.item.prefab;
 
 import madscience.MadConfig;
 import madscience.MadNeedles;
-import madscience.factory.mod.MadMod;
+import madscience.factory.item.MadItemFactoryProduct;
 import madscience.util.MadUtils;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemDecayBase extends Item
+public class MadItemDecayPrefab extends MadItemBasePrefab
 {
-    protected ItemDecayBase(int id)
+    public MadItemDecayPrefab(MadItemFactoryProduct itemData)
     {
-        super(id);
-
-        // All of our needles inherit this class and all our needles go into
-        // creative tab.
-        this.setCreativeTab(MadMod.getCreativeTab());
-
-        // No needles may be repaired.
-        this.setNoRepair();
-
-        // Needles have maximum health of ten.
-        this.setMaxDamage(10);
-
-        // Define that we can have normal stack of items.
-        this.maxStackSize = 64;
-    }
-    
-/*    @Override
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
-    {
-        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
-
-        if (tooltip != null && tooltip.length() > 0)
-        {
-            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
-        }
-    }*/
-
-    @Override
-    public boolean canHarvestBlock(Block par1Block)
-    {
-        // You cannot harvest blocks with a needle.
-        return false;
-    }
-
-    public int getDamageVsEntity(Entity par1Entity) // NO_UCD (unused code)
-    {
-        // Stabbing another entity other than yourself takes 1 heart.
-        return 2;
-    }
-
-    @Override
-    public int getItemEnchantability()
-    {
-        // This item is not enchantable.
-        return 0;
-    }
-
-    @Override
-    public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block)
-    {
-        // Trying to break a block with a needle won't work.
-        return 0.0F;
+        super(itemData);
     }
 
     @Override
@@ -88,9 +35,6 @@ public class ItemDecayBase extends Item
         {
             return false;
         }
-
-        /* // Check if current biome is cold. try { BiomeGenBase biomegenbase = entityItem.worldObj.getWorldChunkManager().getBiomeGenAt(entityItem.serverPosX, entityItem.serverPosY); float currentTemp = biomegenbase.getFloatTemperature(); if (currentTemp
-         * < 0.2 || biomegenbase.getEnableSnow()) { return false; } } catch (Exception err) { MadScience.logger.info(err.getMessage()); return false; } */
 
         // Ensure that our item is currently loaded.
         if (!entityItem.addedToChunk)
@@ -157,9 +101,6 @@ public class ItemDecayBase extends Item
         {
             return;
         }
-
-        /* // Check if current biome is cold. try { BiomeGenBase biomegenbase = world.getWorldChunkManager().getBiomeGenAt(entity.serverPosX, entity.serverPosY); float currentTemp = biomegenbase.getFloatTemperature(); if (currentTemp < 0.2 ||
-         * biomegenbase.getEnableSnow()) { return; } } catch (Exception err) { MadScience.logger.info(err.getMessage()); return; } */
 
         // Check if we need to turn into a dirty needle.
         int dmg = stack.getItemDamage();

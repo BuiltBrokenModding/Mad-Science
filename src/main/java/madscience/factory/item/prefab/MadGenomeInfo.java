@@ -1,4 +1,4 @@
-package madscience.items.combinedgenomes;
+package madscience.factory.item.prefab;
 
 public class MadGenomeInfo
 {

@@ -15,8 +15,8 @@ import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadModel;
-import madscience.factory.model.MadModelBounds;
+import madscience.factory.model.MadTileModel;
+import madscience.factory.model.MadTileModelBounds;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
@@ -84,7 +84,7 @@ public class MadTileEntityFactoryProduct
             tempClass = (Class<? extends MadTileEntityPrefab>) Class.forName(fullyQualifiedName);
             if (tempClass != null)
             {
-                return  tempClass;
+                return tempClass;
             }
         }
         catch (ClassNotFoundException err)
@@ -236,7 +236,7 @@ public class MadTileEntityFactoryProduct
                 String resultInputPrint = "[" + this.data.getMachineName() + "]Crafting Component " + recipeComponent.getModID() + ":" + recipeComponent.getInternalName();
 
                 // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                ItemStack[] inputItem = MadTileEntityFactory.instance().getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
+                ItemStack[] inputItem = MadRecipe.getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
 
                 boolean searchResult = false;
                 if (inputItem != null)
@@ -373,7 +373,7 @@ public class MadTileEntityFactoryProduct
                     String resultInputPrint = "[" + this.data.getMachineName() + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName();
 
                     // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                    ItemStack[] inputItem = MadTileEntityFactory.instance().getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
+                    ItemStack[] inputItem = MadRecipe.getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
 
                     boolean searchResult = false;
                     if (inputItem != null)
@@ -408,7 +408,7 @@ public class MadTileEntityFactoryProduct
                 if (outputResult.getSlotType().name().toLowerCase().contains("output"))
                 {
                     String resultOutputPrint = "[" + this.data.getMachineName() + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName();
-                    ItemStack[] outputStack = MadTileEntityFactory.instance().getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
+                    ItemStack[] outputStack = MadRecipe.getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
 
                     boolean searchResult = false;
                     if (outputStack != null)
@@ -570,14 +570,14 @@ public class MadTileEntityFactoryProduct
         return data.getRecipeArchive();
     }
 
-    /** Returns all of thje data associated with this given machine, this is used for serializing machine JSON to disk. */
+    /** Returns all of the data associated with this given machine, this is used for serializing machine JSON to disk. */
     public MadTileEntityFactoryProductData getData()
     {
         return data;
     }
 
     /** Contains all rendering information for clients to render MadTechneModels and load them from AdvancedModelLoader. */
-    public MadModel getModelArchive()
+    public MadTileModel getModelArchive()
     {
         return data.getModelArchive();
     }
@@ -595,7 +595,7 @@ public class MadTileEntityFactoryProduct
     }
 
     /** Returns object with two vector positions inside of it representing block bounds that will be rendered on client. */
-    public MadModelBounds getBlockBounds()
+    public MadTileModelBounds getBlockBounds()
     {
         return data.getBoundingBox();
     }
@@ -603,7 +603,7 @@ public class MadTileEntityFactoryProduct
     /** Sets bounds that will be rendered around the block on clients. This bounds in game looks like a thin black line outlining the entire machine. */
     public void setBlockBoundsDefault()
     {
-        MadModelBounds defaultBoundingBox = new MadModelBounds(
+        MadTileModelBounds defaultBoundingBox = new MadTileModelBounds(
                 new MadModelPosition(0.0F, 0.0F, 0.0F),
                 new MadModelPosition(1.0F, 1.0F, 1.0F));
         

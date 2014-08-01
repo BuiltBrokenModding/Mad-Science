@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadModel;
+import madscience.factory.model.MadTileModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
@@ -20,7 +20,7 @@ public class MadRenderingFactory
     
     /** Contains model property classes associated with a given registered machine.
      *  Purpose of this list is to act as primary reference on client for default model configurations. */
-    private static final Map<String, MadModel> masterModelInformationReference = new LinkedHashMap<String, MadModel>();
+    private static final Map<String, MadTileModel> masterModelInformationReference = new LinkedHashMap<String, MadTileModel>();
     
     /** Primary rendering registry which will keep track of every item and entity that exists in the game world. */
     private static final Map<String, MadRenderingFactoryProduct> worldInstanceRenderingReference = new LinkedHashMap<String, MadRenderingFactoryProduct>();
@@ -41,7 +41,7 @@ public class MadRenderingFactory
     }
     
     /** Associates given product name with a collection of 'default' rendering information. */
-    public void registerModelsToProduct(String productName, MadModel renderInformation)
+    public void registerModelsToProduct(String productName, MadTileModel renderInformation)
     {
         // Check for input parameters being null.
         if (productName == null || renderInformation == null)
@@ -156,7 +156,7 @@ public class MadRenderingFactory
         if (masterModelInformationReference.containsKey(productName))
         {
             // Grab the master reference to this machines models that have already been loaded into memory.
-            MadModel masterMadModelReference = MadRenderingFactory.masterModelInformationReference.get(productName);
+            MadTileModel masterMadModelReference = MadRenderingFactory.masterModelInformationReference.get(productName);
             
             String renderType;
             if (isItem)

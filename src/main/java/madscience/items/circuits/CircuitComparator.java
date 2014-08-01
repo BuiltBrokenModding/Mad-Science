@@ -1,6 +1,6 @@
 package madscience.items.circuits;
 
-import madscience.items.components.ItemComponentBase;
+import madscience.factory.item.prefab.ItemComponentBase;
 
 public class CircuitComparator extends ItemComponentBase
 {

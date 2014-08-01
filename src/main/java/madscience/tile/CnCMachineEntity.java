@@ -3,6 +3,7 @@ package madscience.tile;
 import madscience.MadConfig;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.mod.MadMod;
+import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
@@ -159,37 +160,37 @@ public class CnCMachineEntity extends MadTileEntityPrefab
         ItemStack[] possibleReturnedItem = null;
         if (bookContents.equals("m41a barrel"))
         {
-            possibleReturnedItem = MadTileEntityFactory.instance().getItemStackFromString(MadMod.ID, "componentPulseRifleBarrel", 1, String.valueOf(0));
+            possibleReturnedItem = MadRecipe.getItemStackFromString(MadMod.ID, "componentPulseRifleBarrel", 1, String.valueOf(0));
         }
         
         if (bookContents.equals("m41a bolt"))
         {
-            possibleReturnedItem = MadTileEntityFactory.instance().getItemStackFromString(MadMod.ID, "componentPulseRifleBolt", 1, String.valueOf(0));
+            possibleReturnedItem = MadRecipe.getItemStackFromString(MadMod.ID, "componentPulseRifleBolt", 1, String.valueOf(0));
         }
         
         if (bookContents.equals("m41a reciever"))
         {
-            possibleReturnedItem = MadTileEntityFactory.instance().getItemStackFromString(MadMod.ID, "componentPulseRifleReciever", 1, String.valueOf(0));
+            possibleReturnedItem = MadRecipe.getItemStackFromString(MadMod.ID, "componentPulseRifleReciever", 1, String.valueOf(0));
         }
         
         if (bookContents.equals("m41a trigger"))
         {
-            possibleReturnedItem = MadTileEntityFactory.instance().getItemStackFromString(MadMod.ID, "componentPulseRifleTrigger", 1, String.valueOf(0));
+            possibleReturnedItem = MadRecipe.getItemStackFromString(MadMod.ID, "componentPulseRifleTrigger", 1, String.valueOf(0));
         }
         
         if (bookContents.equals("m41a magazine"))
         {
-            possibleReturnedItem = MadTileEntityFactory.instance().getItemStackFromString(MadMod.ID, "pulseRifleMagazine", 16, String.valueOf(0));
+            possibleReturnedItem = MadRecipe.getItemStackFromString(MadMod.ID, "pulseRifleMagazine", 16, String.valueOf(0));
         }
         
         if (bookContents.equals("m41a bullets"))
         {
-            possibleReturnedItem = MadTileEntityFactory.instance().getItemStackFromString(MadMod.ID, "componentPulseRifleBulletCasing", 64, String.valueOf(0));
+            possibleReturnedItem = MadRecipe.getItemStackFromString(MadMod.ID, "componentPulseRifleBulletCasing", 64, String.valueOf(0));
         }
         
         if (bookContents.equals("m41a grenade"))
         {
-            possibleReturnedItem = MadTileEntityFactory.instance().getItemStackFromString(MadMod.ID, "componentPulseRifleGrenadeCasing", 32, String.valueOf(0));
+            possibleReturnedItem = MadRecipe.getItemStackFromString(MadMod.ID, "componentPulseRifleGrenadeCasing", 32, String.valueOf(0));
         }
         
         // Decode the binary string into plain text.

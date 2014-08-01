@@ -1,4 +1,4 @@
-package madscience.items.spawnegg;
+package madscience.factory.item.prefab;
 
 import net.minecraft.nbt.NBTTagCompound;
 

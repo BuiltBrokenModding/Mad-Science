@@ -1,7 +1,9 @@
 package madscience.items.needles;
 
+import madscience.items.ItemNeedleFilledLogic;
 
-public class NeedleCow extends ItemDecayNeedleBase
+
+public class NeedleCow extends ItemNeedleFilledLogic
 {
     public NeedleCow(int id, int primaryColor, int secondaryColor)
     {

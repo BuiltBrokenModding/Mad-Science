@@ -1,13 +1,13 @@
 package madscience.tile;
 
 import madscience.MadEntities;
+import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.items.ItemDNASampleLogic;
 import madscience.items.datareel.ItemDataReelEmpty;
-import madscience.items.dna.ItemDecayDNABase;
-import madscience.items.genomes.ItemGenomeBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -106,7 +106,7 @@ public class SequencerEntity extends MadTileEntityPrefab
         if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
         {
             // Check if we are a DNA sample.
-            if (items != null && items.getItem() instanceof ItemDecayDNABase)
+            if (items != null && items.getItem() instanceof ItemDNASampleLogic)
             {
                 return true;
             }

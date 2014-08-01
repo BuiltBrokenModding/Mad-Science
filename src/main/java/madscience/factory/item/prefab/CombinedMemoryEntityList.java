@@ -1,4 +1,4 @@
-package madscience.items.memories;
+package madscience.factory.item.prefab;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

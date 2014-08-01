@@ -1,5 +1,6 @@
 package madscience;
 
+import madscience.factory.block.MadBlockTooltip;
 import madscience.factory.mod.MadMod;
 import madscience.fluids.dna.LiquidDNA;
 import madscience.fluids.dna.LiquidDNABlock;
@@ -11,7 +12,6 @@ import madscience.fluids.dnamutant.LiquidDNAMutantBlock;
 import madscience.fluids.dnamutant.LiquidDNAMutantBucket;
 import madscience.fluids.dnamutant.LiquidDNAMutantBucketEvent;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
-import madscience.items.ItemBlockTooltip;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -74,7 +74,7 @@ public class MadFluids
         LIQUIDDNA_BUCKET_ITEM = (LiquidDNABucket) new LiquidDNABucket(bucketItemID, 10).setUnlocalizedName(LIQUIDDNA_BUCKET_INTERNALNAME);
 
         // Register the fluid with minecraft.
-        GameRegistry.registerBlock(LIQUIDDNA_BLOCK, ItemBlockTooltip.class, LIQUIDDNA.getUnlocalizedName());
+        GameRegistry.registerBlock(LIQUIDDNA_BLOCK, MadBlockTooltip.class, LIQUIDDNA.getUnlocalizedName());
 
         // Register fluid container item.
         GameRegistry.registerItem(LIQUIDDNA_BUCKET_ITEM, LIQUIDDNA_BUCKET_ITEM.getUnlocalizedName());
@@ -102,7 +102,7 @@ public class MadFluids
         FluidRegistry.registerFluid(LIQUIDDNA_MUTANT);
         LIQUIDDNA_MUTANT_BLOCK = (LiquidDNAMutantBlock) new LiquidDNAMutantBlock(blockFluidID).setUnlocalizedName(LIQUIDDNA_MUTANT_INTERNALNAME);
         LIQUIDDNA_MUTANT_BUCKET_ITEM = (LiquidDNAMutantBucket) new LiquidDNAMutantBucket(bucketItemID, 10).setUnlocalizedName(LIQUIDDNA_MUTANT_BUCKET_INTERNALNAME);
-        GameRegistry.registerBlock(LIQUIDDNA_MUTANT_BLOCK, ItemBlockTooltip.class, LIQUIDDNA_MUTANT.getUnlocalizedName());
+        GameRegistry.registerBlock(LIQUIDDNA_MUTANT_BLOCK, MadBlockTooltip.class, LIQUIDDNA_MUTANT.getUnlocalizedName());
         GameRegistry.registerItem(LIQUIDDNA_MUTANT_BUCKET_ITEM, LIQUIDDNA_MUTANT_BUCKET_ITEM.getUnlocalizedName());
         // LanguageRegistry.addName(LIQUIDDNA_MUTANT_BLOCK, LIQUIDDNA_MUTANT_DISPLAYNAME);
         // LanguageRegistry.addName(LIQUIDDNA_MUTANT_BUCKET_ITEM, LIQUIDDNA_MUTANT_BUCKET_DISPLAYNAME);

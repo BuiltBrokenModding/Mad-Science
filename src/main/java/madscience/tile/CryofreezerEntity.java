@@ -1,9 +1,9 @@
 package madscience.tile;
 
+import madscience.factory.item.prefab.MadItemDecayPrefab;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.ItemDecayBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -91,7 +91,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab
                     int dmg = this.getStackInSlot(i).getItemDamage();
 
                     // Heal ourselves for being inside a powered and equipped freezer.
-                    if (this.getStackInSlot(i) != null && this.getStackInSlot(i).getItem() instanceof ItemDecayBase && dmg <= this.getStackInSlot(i).getMaxDamage())
+                    if (this.getStackInSlot(i) != null && this.getStackInSlot(i).getItem() instanceof MadItemDecayPrefab && dmg <= this.getStackInSlot(i).getMaxDamage())
                     {
                         this.getStackInSlot(i).setItemDamage(dmg - 1);
 

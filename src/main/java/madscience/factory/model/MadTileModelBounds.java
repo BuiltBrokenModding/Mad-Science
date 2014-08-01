@@ -2,7 +2,7 @@ package madscience.factory.model;
 
 import com.google.gson.annotations.Expose;
 
-public class MadModelBounds
+public class MadTileModelBounds
 {
     @Expose
     private MadModelPosition lowerBounds;
@@ -10,7 +10,7 @@ public class MadModelBounds
     @Expose
     private MadModelPosition upperBounds;
     
-    public MadModelBounds(MadModelPosition lowerBounds, MadModelPosition upperBounds)
+    public MadTileModelBounds(MadModelPosition lowerBounds, MadModelPosition upperBounds)
     {
         super();
         

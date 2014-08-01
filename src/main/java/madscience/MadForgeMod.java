@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.item.prefab.MadSpawnEggTags;
 import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 import madscience.gui.MadGUI;
-import madscience.items.spawnegg.MadSpawnEggTags;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobLivingHandler;
 import madscience.mobs.creepercow.CreeperCowMobEntity;

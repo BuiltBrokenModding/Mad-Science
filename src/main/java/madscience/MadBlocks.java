@@ -3,8 +3,8 @@ package madscience;
 import madscience.blocks.abominationegg.AbominationEggBlock;
 import madscience.blocks.abominationegg.AbominationEggMobSpawnerTileEntity;
 import madscience.blocks.enderslime.EnderslimeBlock;
+import madscience.factory.block.MadBlockTooltip;
 import madscience.factory.mod.MadMod;
-import madscience.items.ItemBlockTooltip;
 import net.minecraft.block.Block;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -24,7 +24,7 @@ public class MadBlocks
         ABOMINATIONEGGBLOCK = new AbominationEggBlock(blockID).setUnlocalizedName(ABOMINATIONEGG_INTERNALNAME);
 
         // Register the block with the world.
-        GameRegistry.registerBlock(ABOMINATIONEGGBLOCK, ItemBlockTooltip.class, MadMod.ID + ABOMINATIONEGGBLOCK.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(ABOMINATIONEGGBLOCK, MadBlockTooltip.class, MadMod.ID + ABOMINATIONEGGBLOCK.getUnlocalizedName().substring(5));
         GameRegistry.registerTileEntity(AbominationEggMobSpawnerTileEntity.class, ABOMINATIONEGGBLOCK.getUnlocalizedName());
 
         // Register our rendering handles on clients and ignore them on servers.
@@ -37,7 +37,7 @@ public class MadBlocks
         ENDERSLIMEBLOCK = new EnderslimeBlock(blockID).setUnlocalizedName(ENDERSLIMEBLOCK_INTERNALNAME);
 
         // Register the block with the world.
-        GameRegistry.registerBlock(ENDERSLIMEBLOCK, ItemBlockTooltip.class, MadMod.ID + ENDERSLIMEBLOCK.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(ENDERSLIMEBLOCK, MadBlockTooltip.class, MadMod.ID + ENDERSLIMEBLOCK.getUnlocalizedName().substring(5));
 
         // Register our rendering handles on clients and ignore them on servers.
         MadForgeMod.proxy.registerRenderingHandler(blockID);

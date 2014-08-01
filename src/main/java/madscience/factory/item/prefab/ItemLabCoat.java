@@ -1,4 +1,4 @@
-package madscience.items.labcoat;
+package madscience.factory.item.prefab;
 
 import java.util.List;
 

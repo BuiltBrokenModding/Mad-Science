@@ -1,6 +1,6 @@
 package madscience.items.components.pulserifle;
 
-import madscience.items.components.ItemComponentBase;
+import madscience.factory.item.prefab.ItemComponentBase;
 
 public class ComponentPulseRifleBulletCasing extends ItemComponentBase
 {

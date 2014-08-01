@@ -1,13 +1,13 @@
 package madscience;
 
 import madscience.factory.mod.MadMod;
+import madscience.items.ItemNeedleEmptyLogic;
 import madscience.items.needles.NeedleBat;
 import madscience.items.needles.NeedleCaveSpider;
 import madscience.items.needles.NeedleChicken;
 import madscience.items.needles.NeedleCow;
 import madscience.items.needles.NeedleCreeper;
 import madscience.items.needles.NeedleDirtyItem;
-import madscience.items.needles.NeedleEmptyItem;
 import madscience.items.needles.NeedleEnderman;
 import madscience.items.needles.NeedleHorse;
 import madscience.items.needles.NeedleMushroomCow;
@@ -33,7 +33,7 @@ public class MadNeedles
     // -------
 
     // Empty needle.
-    public static NeedleEmptyItem NEEDLE_ITEM;
+    public static ItemNeedleEmptyLogic NEEDLE_ITEM;
     public static final String NEEDLE_ITEM_INTERNALNAME = "needleEmpty";
 
     // Dirty needle.
@@ -168,7 +168,7 @@ public class MadNeedles
     {
         // Adds empty needle to the game used for taking DNA out of mobs.
         MadMod.log().info("-Empty Needle");
-        NEEDLE_ITEM = (NeedleEmptyItem) new NeedleEmptyItem(itemID).setUnlocalizedName(NEEDLE_ITEM_INTERNALNAME);
+        NEEDLE_ITEM = (ItemNeedleEmptyLogic) new ItemNeedleEmptyLogic(itemID).setUnlocalizedName(NEEDLE_ITEM_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_ITEM, NEEDLE_ITEM_INTERNALNAME);
 
         // Shaped.

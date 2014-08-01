@@ -7,7 +7,7 @@ import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.needles.ItemDecayNeedleBase;
+import madscience.items.ItemNeedleFilledLogic;
 import madscience.items.needles.NeedleMutant;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -356,7 +356,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         }
 
         // Check if we are working with a filled needle or not.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof ItemDecayNeedleBase)
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof ItemNeedleFilledLogic)
         {
             // Add dirty needle to output slot 1 on GUI.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)

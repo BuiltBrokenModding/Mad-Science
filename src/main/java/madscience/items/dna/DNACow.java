@@ -1,8 +1,9 @@
 package madscience.items.dna;
 
 import madscience.factory.mod.MadMod;
+import madscience.items.ItemDNASampleLogic;
 
-public class DNACow extends ItemDecayDNABase
+public class DNACow extends ItemDNASampleLogic
 {
 
     public DNACow(int id, int primaryColor, int secondaryColor)
