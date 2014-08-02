@@ -1,10 +1,10 @@
 package madscience;
 
-import madscience.factory.item.prefab.CombinedGenomeMonsterPlacer;
-import madscience.factory.item.prefab.CombinedMemoryMonsterPlacer;
-import madscience.factory.item.prefab.GeneticallyModifiedMonsterPlacer;
 import madscience.factory.item.prefab.ItemLabCoat;
 import madscience.factory.mod.MadMod;
+import madscience.items.CombinedGenomeMonsterPlacer;
+import madscience.items.CombinedMemoryMonsterPlacer;
+import madscience.items.ItemGMOMobPlacer;
 import madscience.items.datareel.ItemDataReelEmpty;
 import madscience.items.warningsign.WarningSignEntity;
 import madscience.items.warningsign.WarningSignItem;
@@ -17,7 +17,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class MadEntities
 {
     // Genetically Modified Monster Placer
-    static GeneticallyModifiedMonsterPlacer GENETICALLYMODIFIED_MONSTERPLACER;
+    static ItemGMOMobPlacer GENETICALLYMODIFIED_MONSTERPLACER;
     private static final String GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME = "gmoMonsterPlacer";
 
     // Combined Genome Monster Placer
@@ -100,7 +100,7 @@ public class MadEntities
     static void createGeneticallyModifiedMonsterPlacer(int itemID)
     {
         MadMod.log().info("-Genetically Modified Organism Placer");
-        GENETICALLYMODIFIED_MONSTERPLACER = new GeneticallyModifiedMonsterPlacer(itemID);
+        GENETICALLYMODIFIED_MONSTERPLACER = new ItemGMOMobPlacer(itemID);
         GENETICALLYMODIFIED_MONSTERPLACER.setUnlocalizedName(GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setTextureName(MadMod.ID + ":" + GENETICALLYMODIFIED_MONSTERPLACER_INTERNALNAME);
         GENETICALLYMODIFIED_MONSTERPLACER.setCreativeTab(MadMod.getCreativeTab());

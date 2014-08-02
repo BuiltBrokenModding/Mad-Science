@@ -2,16 +2,16 @@ package madscience.factory.item.prefab;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
+import madscience.factory.item.MadItemFactoryProduct;
+import madscience.util.MadUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import madscience.factory.item.MadItemFactoryProduct;
-import madscience.util.MadUtils;
+
+import org.lwjgl.input.Keyboard;
 
 public class MadItemPrefab extends MadItemDecayPrefab
 {
@@ -56,6 +56,4 @@ public class MadItemPrefab extends MadItemDecayPrefab
     {
         super.replaceItemStack(stack, entity);
     }
-    
-    
 }

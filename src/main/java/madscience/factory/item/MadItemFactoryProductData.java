@@ -1,7 +1,5 @@
 package madscience.factory.item;
 
-import madscience.factory.model.MadItemModel;
-
 import com.google.gson.annotations.Expose;
 
 public class MadItemFactoryProductData
@@ -46,14 +44,6 @@ public class MadItemFactoryProductData
     @Expose
     private MadMetaItemData[] subItemsArchive;
     
-    /** Contains all of the models and texture information for rendering factory and Minecraft/Forge. */
-    @Expose
-    private MadItemModel modelArchive;
-    
-    /** Reference to item icon layers and what color they should render as. Path is relative to Minecraft/Forge asset folder for items. */
-    @Expose
-    private MadItemRenderPass[] renderPassArchive;
-    
     /** Not saved by JSON loaded but is configured by Minecraft/Forge configuration file class. */
     private int itemID;
     
@@ -67,9 +57,7 @@ public class MadItemFactoryProductData
             int enchantability,
             boolean canHarvestBlocks,
             String logicClassFullyQualifiedName,
-            MadMetaItemData[] subItemsArchive,
-            MadItemModel modelArchive,
-            MadItemRenderPass[] renderPasses)
+            MadMetaItemData[] subItemsArchive)
     {
         super();
         
@@ -83,8 +71,6 @@ public class MadItemFactoryProductData
         this.canHarvestBlocks = canHarvestBlocks;
         this.logicClassFullyQualifiedName = logicClassFullyQualifiedName;
         this.subItemsArchive = subItemsArchive;
-        this.modelArchive = modelArchive;
-        this.renderPassArchive = renderPasses;
     }
 
     public String getItemBaseName()
@@ -195,15 +181,5 @@ public class MadItemFactoryProductData
     public void setSubItemsArchive(MadMetaItemData[] subItemsArchive)
     {
         this.subItemsArchive = subItemsArchive;
-    }
-
-    public MadItemModel getModelArchive()
-    {
-        return modelArchive;
-    }
-
-    public void setModelArchive(MadItemModel modelArchive)
-    {
-        this.modelArchive = modelArchive;
     }
 }

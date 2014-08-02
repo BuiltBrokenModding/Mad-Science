@@ -9,7 +9,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class MadItemDecayPrefab extends MadItemBasePrefab
+abstract class MadItemDecayPrefab extends MadItemBasePrefab
 {
     public MadItemDecayPrefab(MadItemFactoryProduct itemData)
     {

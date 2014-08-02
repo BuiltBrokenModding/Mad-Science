@@ -1,10 +1,10 @@
 package madscience.tile;
 
 import madscience.MadEntities;
-import madscience.factory.item.prefab.CombinedMemoryMonsterPlacer;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.items.CombinedMemoryMonsterPlacer;
 import madscience.items.datareel.ItemDataReelEmpty;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,10 +1,10 @@
 package madscience.tile;
 
-import madscience.factory.item.prefab.CombinedGenomeMonsterPlacer;
 import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.items.CombinedGenomeMonsterPlacer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;

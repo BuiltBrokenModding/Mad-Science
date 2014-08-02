@@ -1,7 +1,7 @@
 package madscience.factory.item;
 
+import net.minecraft.util.Icon;
 import madscience.factory.item.prefab.MadItemPrefab;
-import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 
 public class MadItemFactoryProduct
 {
@@ -90,11 +90,6 @@ public class MadItemFactoryProduct
         return logicClass;
     }
 
-    public String getItemName()
-    {
-        return data.getItemBaseName();
-    }
-
     public int getItemID()
     {
         return data.getItemID();
@@ -145,8 +140,76 @@ public class MadItemFactoryProduct
         return item;
     }
 
+    public boolean hasSubItems()
+    {
+        // Every item has 1 default sub-item, if greater than that we have multiple sub-types.
+        if (data.getSubItemsArchive() != null &&
+            data.getSubItemsArchive().length > 1)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public MadMetaItemData getSubItemByDamageValue(int itemDamage)
+    {
+        // Loop through all sub-items looking for match.
+        for (MadMetaItemData subItem : data.getSubItemsArchive())
+        {
+            // Check if sub-item meta ID (damage value) matches input parameter.
+            if (subItem.getMetaID() == itemDamage)
+            {
+                return subItem;
+            }
+        }
+        
+        // Default response is null since that damage value is not mapped to any sub-item.
+        return null;
+    }
+
+    public MadMetaItemData[] getSubItems()
+    {
+        return data.getSubItemsArchive();
+    }
+
+    /** Determine if we need more than a single render pass for this item. */
     public boolean requiresMultipleRenderPasses()
     {
-        return .;
+        for (MadMetaItemData subItem : this.getSubItems())
+        {
+            // Return true on the first instance of having more than a single render pass for the entire item.
+            if (subItem.getRenderPassCount() > 1)
+            {
+                return true;
+            }
+        }
+        
+        // Default response is to support only a single render pass.
+        return false;
+    }
+
+    /** Associates a loaded Minecraft/Forge icon with given sub-item render pass. */
+    public void loadRenderPassIcon(
+            String subItemName,
+            int renderPass,
+            Icon icon)
+    {
+        // Loop through all sub-items looking for the one we want to update.
+        for (MadMetaItemData subItem : this.getSubItems())
+        {
+            if (subItem.getItemName().equals(subItemName))
+            {
+                // Locate the matching render pass inside of this sub-item.
+                for (MadItemRenderPass renderPassObject : subItem.getRenderPassArchive())
+                {
+                    if (renderPassObject.getRenderPass() == renderPass)
+                    {
+                        // Update the icon of this matching sub-item render type.
+                        renderPassObject.setIcon(icon);
+                    }
+                }
+            }
+        }
     }
 }
