@@ -8,8 +8,8 @@ import madscience.factory.damage.MadDamage;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
-import madscience.factory.model.MadTileModel;
-import madscience.factory.model.MadTileModelBounds;
+import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelBounds;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.sounds.MadSound;
@@ -40,7 +40,7 @@ public class MadTileEntityFactoryProductData
     
     /** Stores upper and lower bounds stored as vectors for use in the block to determine how large black outline for bounding box should be. */
     @Expose
-    private MadTileModelBounds boundingBox;
+    private MadModelBounds boundingBox;
     
     /** Stores slot containers where items can be inputed and extracted from. */
     @Expose
@@ -75,7 +75,7 @@ public class MadTileEntityFactoryProductData
     private MadCraftingRecipe[] craftingRecipes;
     
     @Expose
-    private MadTileModel modelArchive;
+    private MadModel modelArchive;
     
     @Expose
     private MadHeat[] heatLevelsSupported;
@@ -91,7 +91,7 @@ public class MadTileEntityFactoryProductData
             String logicClassNamespace,
             float blockHardness,
             float explosionResistance,
-            MadTileModelBounds boundingBox,
+            MadModelBounds boundingBox,
             MadGhostBlockData ghostBlockVector,
             MadSlotContainer[] containerTemplate,
             MadGUIControl[] guiTemplate,
@@ -103,7 +103,7 @@ public class MadTileEntityFactoryProductData
             MadSound[] soundArchive,
             MadRecipe[] recipeArchive,
             MadCraftingRecipe[] craftingRecipe,
-            MadTileModel modelArchive)
+            MadModel modelArchive)
     {
         super();
         
@@ -265,12 +265,12 @@ public class MadTileEntityFactoryProductData
         this.craftingRecipes = craftingRecipe;
     }
 
-    public MadTileModel getModelArchive()
+    public MadModel getModelArchive()
     {
         return modelArchive;
     }
 
-    public void setModelArchive(MadTileModel modelRenderArchive)
+    public void setModelArchive(MadModel modelRenderArchive)
     {
         this.modelArchive = modelRenderArchive;
     }
@@ -315,12 +315,12 @@ public class MadTileEntityFactoryProductData
         this.explosionResistance = explosionResistance;
     }
 
-    public MadTileModelBounds getBoundingBox()
+    public MadModelBounds getBoundingBox()
     {
         return boundingBox;
     }
 
-    public void setBoundingBox(MadTileModelBounds boundingBox)
+    public void setBoundingBox(MadModelBounds boundingBox)
     {
         this.boundingBox = boundingBox;
     }

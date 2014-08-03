@@ -1,4 +1,4 @@
-package madscience.server;
+package madscience.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

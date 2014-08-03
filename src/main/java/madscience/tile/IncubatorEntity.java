@@ -1,10 +1,8 @@
 package madscience.tile;
 
-import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.CombinedGenomeMonsterPlacer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -108,39 +106,6 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         // Check if output slot 1 is above item stack limit.
         int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + itemsInputSlot1.stackSize;
         return (slot2Result <= getInventoryStackLimit() && slot2Result <= itemsInputSlot1.getMaxStackSize());
-    }
-
-    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        // Check if input slot 1 is a fresh egg ready to be encoded.
-        if (slot == 0)
-        {
-            // Input slot 1 - fresh egg.
-            ItemStack compareItem = new ItemStack(Item.egg);
-            if (compareItem.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        
-        if (slot == 1)
-        {
-            // Check if we are a genome data reel.
-            if (items != null && items.getItem() instanceof ItemGenomeBase)
-            {
-                return true;
-            }
-
-            // Check if we are a combined genome (monster from mainframe).
-            if (items != null && items.getItem() instanceof CombinedGenomeMonsterPlacer)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override

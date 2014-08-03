@@ -1,11 +1,11 @@
-package madscience.items.weapons.pulserifle;
+package madscience.item.weapon.pulserifle;
 
 import java.util.EnumSet;
 
 import madscience.MadForgeMod;
 import madscience.MadWeapons;
 import madscience.factory.mod.MadMod;
-import madscience.items.weapons.KeyBindingInterceptor;
+import madscience.item.weapon.KeyBindingInterceptor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.GameSettings;

@@ -104,35 +104,6 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     }
 
     @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if machine trying to insert item into given slot is allowed.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET))
-        {
-            // Input slot 1 - Filled bucket.
-            ItemStack compareInputSlot = new ItemStack(MadFluids.LIQUIDDNA_MUTANT_BUCKET_ITEM);
-            if (compareInputSlot.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        // Input slot 2 - Empty bucket.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET))
-        {
-            ItemStack compareOutputSlot = new ItemStack(Item.bucketEmpty);
-            if (compareOutputSlot.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);

@@ -1,4 +1,4 @@
-package madscience.items.components.pulserifle;
+package madscience.item.components.pulserifle;
 
 import madscience.MadComponents;
 import madscience.factory.mod.MadMod;

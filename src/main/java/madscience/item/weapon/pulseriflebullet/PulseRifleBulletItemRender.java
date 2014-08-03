@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulseriflebullet;
+package madscience.item.weapon.pulseriflebullet;
 
 import madscience.MadWeapons;
 import madscience.factory.mod.MadMod;

@@ -1,7 +1,7 @@
-package madscience.items.dna;
+package madscience.item.dna;
 
 import madscience.factory.mod.MadMod;
-import madscience.items.ItemDNASampleLogic;
+import madscience.item.ItemDNASampleLogic;
 
 public class DNAWitch extends ItemDNASampleLogic
 {

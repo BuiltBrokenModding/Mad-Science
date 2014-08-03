@@ -1,6 +1,5 @@
 package madscience.factory.item.prefab;
 
-import madscience.MadConfig;
 import madscience.MadNeedles;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.util.MadUtils;
@@ -25,11 +24,6 @@ abstract class MadItemDecayPrefab extends MadItemBasePrefab
             return false;
         }
 
-        if (!MadConfig.DECAY_BLOODWORK)
-        {
-            return false;
-        }
-
         // Only perform update on server.
         if (entityItem.worldObj.isRemote)
         {
@@ -45,7 +39,8 @@ abstract class MadItemDecayPrefab extends MadItemBasePrefab
         // Get the items that this entityItem represent.
         ItemStack stack = entityItem.getEntityItem();
 
-        if (entityItem.worldObj.getWorldTime() % (MadConfig.DECAY_DELAY_IN_SECONDS * MadUtils.SECOND_IN_TICKS) != 0L)
+        // Decay DNA every 120 seconds while exposed.
+        if (entityItem.worldObj.getWorldTime() % (120 * MadUtils.SECOND_IN_TICKS) != 0L)
         {
             return false;
         }
@@ -81,17 +76,13 @@ abstract class MadItemDecayPrefab extends MadItemBasePrefab
             return;
         }
 
-        if (!MadConfig.DECAY_BLOODWORK)
-        {
-            return;
-        }
-
         if (world == null)
         {
             return;
         }
 
-        if (world.getWorldTime() % (MadConfig.DECAY_DELAY_IN_SECONDS * MadUtils.SECOND_IN_TICKS) != 0L)
+        // Decay DNA every 120 seconds while exposed.
+        if (world.getWorldTime() % (120 * MadUtils.SECOND_IN_TICKS) != 0L)
         {
             return;
         }

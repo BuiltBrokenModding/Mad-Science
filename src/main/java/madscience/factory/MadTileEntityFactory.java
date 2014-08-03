@@ -1,7 +1,5 @@
 package madscience.factory;
 
-import java.text.Collator;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,19 +7,14 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import madscience.MadForgeMod;
 import madscience.factory.block.MadBlockTooltip;
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadTileModel;
+import madscience.factory.model.MadModel;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.MadTileEntityFactoryProductData;
-import madscience.util.MadUtils;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactory
@@ -134,7 +127,7 @@ public class MadTileEntityFactory
     private void checkRenderingInformation(MadTileEntityFactoryProduct tileEntityProduct)
     {
         // Check if model rendering information exists.
-        MadTileModel renderingInformation = tileEntityProduct.getModelArchive();
+        MadModel renderingInformation = tileEntityProduct.getModelArchive();
         if (renderingInformation != null)
         {
             // Rendering information for tile as it would exist as an item block in players inventory.

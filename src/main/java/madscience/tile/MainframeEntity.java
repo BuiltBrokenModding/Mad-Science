@@ -1,12 +1,9 @@
 package madscience.tile;
 
 import madscience.MadEntities;
-import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.datareel.ItemDataReelEmpty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -197,53 +194,6 @@ public class MainframeEntity extends MadTileEntityPrefab
             // Computer will slowly dissipate heat while powered off but nowhere near as fast with coolant.
             this.decreaseHeatValue();
         }
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        // Check if machine trying to insert item into given slot is allowed.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET))
-        {
-            // Input slot 1 - water bucket.
-            ItemStack waterBucket = new ItemStack(Item.bucketWater);
-            if (waterBucket.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        else if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) ||
-                slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2))
-        {
-            // We do not allow empty genomes in this slot.
-            if (items != null && items.getItem() instanceof ItemDataReelEmpty)
-            {
-                return false;
-            }
-
-            // Check if we are a genome data reel.
-            if (items != null && items.getItem() instanceof ItemGenomeBase)
-            {
-                return true;
-            }
-
-            // Check if we are a combined genome (monster from mainframe).
-            if (items != null && items.getItem() instanceof CombinedGenomeMonsterPlacer)
-            {
-                return true;
-            }
-        }
-        else if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_EXTRA))
-        {
-            // Input slot 4 - genome reel empty
-            ItemStack genomeEmpty = new ItemStack(MadEntities.DATAREEL_EMPTY);
-            if (genomeEmpty.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override

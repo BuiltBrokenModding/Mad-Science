@@ -3,7 +3,6 @@ package madscience.mobs.enderslime;
 import java.util.Random;
 
 import madscience.MadComponents;
-import madscience.MadConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -463,11 +462,6 @@ public class EnderslimeMobEntity extends EntityLiving implements IMob
     /** Teleport the enderman */
     private boolean teleportTo(double par1, double par3, double par5)
     {
-        if (!MadConfig.ABOMINATION_TELEPORTS)
-        {
-            return false;
-        }
-
         EnderTeleportEvent event = new EnderTeleportEvent(this, par1, par3, par5, 0);
         if (MinecraftForge.EVENT_BUS.post(event))
         {

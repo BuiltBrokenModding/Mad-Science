@@ -1,6 +1,5 @@
-package madscience.items.components;
+package madscience.item.components;
 
-import madscience.factory.item.prefab.ItemComponentBase;
 
 
 public class ComponentTransistor extends ItemComponentBase

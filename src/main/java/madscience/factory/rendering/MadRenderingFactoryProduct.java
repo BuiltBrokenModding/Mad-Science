@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadTileModel;
+import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelFile;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
@@ -33,7 +33,7 @@ public class MadRenderingFactoryProduct
     /** Contains world rendering information such as position and scale which determine how large the model appears in the game world. */
     private MadModelWorldRender modelWorldRenderInformation = null;
     
-    public MadRenderingFactoryProduct(MadTileModel renderInformation)
+    public MadRenderingFactoryProduct(MadModel renderInformation)
     {
         super();
         

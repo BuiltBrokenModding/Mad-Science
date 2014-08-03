@@ -1,4 +1,6 @@
-package madscience.items;
+package madscience.item;
+
+import java.util.Collection;
 
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.prefab.MadItemPrefab;
@@ -9,7 +11,9 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.Facing;
 import net.minecraft.util.MathHelper;
@@ -21,6 +25,34 @@ public class ItemGMOMobPlacer extends MadItemPrefab
     public ItemGMOMobPlacer(MadItemFactoryProduct itemData)
     {
         super(itemData);
+    }
+    
+    private static void addNBTData(Entity entity, NBTTagCompound spawnData)
+    {
+        NBTTagCompound newTag = new NBTTagCompound();
+        entity.writeToNBTOptional(newTag);
+
+        for (NBTBase nbt : (Collection<NBTBase>) spawnData.getTags())
+            newTag.setTag(nbt.getName(), nbt.copy());
+
+        entity.readFromNBT(newTag);
+    }
+    
+    private static void spawnRiddenCreatures(Entity entity, World world, NBTTagCompound cur)
+    {
+        while (cur.hasKey("Riding"))
+        {
+            cur = cur.getCompoundTag("Riding");
+            Entity newEntity = EntityList.createEntityByName(cur.getString("id"), world);
+            if (newEntity != null)
+            {
+                addNBTData(newEntity, cur);
+                newEntity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+                world.spawnEntityInWorld(newEntity);
+                entity.mountEntity(newEntity);
+            }
+            entity = newEntity;
+        }
     }
 
     private static Entity spawnCreature(World world, ItemStack stack, double x, double y, double z)
@@ -129,5 +161,48 @@ public class ItemGMOMobPlacer extends MadItemPrefab
         }
         return true;
 
+    }
+    
+    private static NBTTagCompound createItemTag(byte count, short damage, short id)
+    {
+        NBTTagCompound item = new NBTTagCompound();
+        item.setByte("Count", count);
+        item.setShort("Damage", damage);
+        item.setShort("id", id);
+        return item;
+    }
+
+    private static NBTTagCompound getEntityTag(String entityID)
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setString("id", entityID);
+        return tag;
+    }
+
+    public static NBTTagCompound horseType(int type)
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setInteger("Type", type);
+        return tag;
+    }
+
+    public static NBTTagCompound villagerZombie()
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setByte("IsVillager", (byte) 1);
+        return tag;
+    }
+
+    public static NBTTagCompound witherSkeleton()
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setByte("SkeletonType", (byte) 1);
+        NBTTagList list = new NBTTagList();
+        NBTTagCompound swordItem = createItemTag((byte) 1, (short) 0, (short) 272);
+        list.appendTag(swordItem);
+        for (int i = 0; i < 4; ++i)
+            list.appendTag(new NBTTagCompound());
+        tag.setTag("Equipment", list);
+        return tag;
     }
 }

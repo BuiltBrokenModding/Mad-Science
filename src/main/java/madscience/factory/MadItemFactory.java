@@ -8,11 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.util.Icon;
 import madscience.MadForgeMod;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.mod.MadMod;
+import net.minecraft.util.Icon;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadItemFactory
@@ -67,7 +67,7 @@ public class MadItemFactory
         return registeredItems.get(id);
     }
     
-    public Collection<MadItemFactoryProduct> getMachineInfoList()
+    public Collection<MadItemFactoryProduct> getItemInfoList()
     {
         return Collections.unmodifiableCollection(registeredItems.values());
     }
@@ -80,18 +80,18 @@ public class MadItemFactory
     public MadItemFactoryProductData[] getItemDataList()
     {
         // Loop through every registered item in the system.
-        Set<MadItemFactoryProductData> allMachines = new HashSet<MadItemFactoryProductData>();
-        for (Iterator iterator = getMachineInfoList().iterator(); iterator.hasNext();)
+        Set<MadItemFactoryProductData> allItems = new HashSet<MadItemFactoryProductData>();
+        for (Iterator iterator = getItemInfoList().iterator(); iterator.hasNext();)
         {
-            MadItemFactoryProduct registeredMachine = (MadItemFactoryProduct) iterator.next();
-            if (registeredMachine != null)
+            MadItemFactoryProduct registeredItem = (MadItemFactoryProduct) iterator.next();
+            if (registeredItem != null)
             {
                 // Add the item configuration data to our list for saving.
-                allMachines.add(registeredMachine.getData());
+                allItems.add(registeredItem.getData());
             }
         }
 
-        return allMachines.toArray(new MadItemFactoryProductData[]{});
+        return allItems.toArray(new MadItemFactoryProductData[]{});
     }
 
     /** Associates a loaded Minecraft/Forge asset with given sub-item render pass. */

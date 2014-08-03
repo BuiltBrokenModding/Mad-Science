@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import madscience.MadConfig;
+import madscience.factory.mod.MadMod;
 import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentProtection;
@@ -191,10 +191,10 @@ public class MadExplosion extends Explosion
                     
                     
                     //this.worldObj.spawnParticle("explode", (d0 + this.explosionX * 1.0D) / 2.0D, (d1 + this.explosionY * 1.0D) / 2.0D, (d2 + this.explosionZ * 1.0D) / 2.0D, d3, d4, d5);
-                    PacketDispatcher.sendPacketToAllAround(this.explosionX, this.explosionY, this.explosionZ, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", (d0 + this.explosionX * 1.0D) / 2.0D, (d1 + this.explosionY * 1.0D) / 2.0D, (d2 + this.explosionZ * 1.0D) / 2.0D, d3, d4, d5).makePacket());
+                    PacketDispatcher.sendPacketToAllAround(this.explosionX, this.explosionY, this.explosionZ, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", (d0 + this.explosionX * 1.0D) / 2.0D, (d1 + this.explosionY * 1.0D) / 2.0D, (d2 + this.explosionZ * 1.0D) / 2.0D, d3, d4, d5).makePacket());
                     
                     //this.worldObj.spawnParticle("smoke", d0, d1, d2, d3, d4, d5);
-                    PacketDispatcher.sendPacketToAllAround(this.explosionX, this.explosionY, this.explosionZ, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", d0, d1, d2, d3, d4, d5).makePacket());
+                    PacketDispatcher.sendPacketToAllAround(this.explosionX, this.explosionY, this.explosionZ, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", d0, d1, d2, d3, d4, d5).makePacket());
                 }
 
                 if (l > 0)

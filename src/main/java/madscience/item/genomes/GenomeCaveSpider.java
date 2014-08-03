@@ -1,6 +1,5 @@
-package madscience.items.genomes;
+package madscience.item.genomes;
 
-import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.mod.MadMod;
 
 public class GenomeCaveSpider extends ItemGenomeBase

@@ -1,31 +1,23 @@
 package madscience;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.logging.Level;
 
+import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.item.prefab.MadSpawnEggTags;
+import madscience.factory.item.MadItemFactoryProduct;
+import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.MadTileEntityFactoryProductData;
-import madscience.gui.MadGUI;
-import madscience.mobs.abomination.AbominationMobEntity;
-import madscience.mobs.abomination.AbominationMobLivingHandler;
-import madscience.mobs.creepercow.CreeperCowMobEntity;
-import madscience.mobs.enderslime.EnderslimeMobEntity;
-import madscience.mobs.endersquid.EnderSquidMobEntity;
-import madscience.mobs.shoggoth.ShoggothMobEntity;
-import madscience.mobs.werewolf.WerewolfMobEntity;
-import madscience.mobs.woolycow.WoolyCowMobEntity;
 import madscience.network.MadPacketHandler;
-import madscience.server.CommonProxy;
-import madscience.util.MadColors;
-import net.minecraft.entity.EntityList;
+import madscience.proxy.CommonProxy;
 import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -54,10 +46,9 @@ public class MadForgeMod
     @Mod.Metadata(MadMod.ID)
     private static ModMetadata metadata;
 
-    // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
+    // Hooks Forge's replacement openGUI function so we can route our own ID's to proper interfaces.
     private static MadGUI guiHandler = new MadGUI();
 
-    /** @param event */
     @EventHandler
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static void postInit(FMLPostInitializationEvent event) // NO_UCD (unused code)
@@ -66,9 +57,17 @@ public class MadForgeMod
         // FACTORY RECIPES
         // ---------------
         
-        // TODO: Register item factory crafting recipes.
-        
-        // TODO: Register crafting recipes that are not tied to any particular machine or item.
+        // Register item factory crafting recipes.
+        Iterable<MadItemFactoryProduct> registeredItems = MadItemFactory.instance().getItemInfoList();
+        for (Iterator iterator = registeredItems.iterator(); iterator.hasNext();)
+        {
+            MadItemFactoryProduct registeredItem = (MadItemFactoryProduct) iterator.next();
+            if (registeredItem != null)
+            {                
+                // Recipes for crafting the item (if one exists, since most are made by machines).
+                registeredItem.loadCraftingRecipes();
+            }
+        }
         
         // Loop through all the tile entity factory objects and populate their recipe ItemStacks.
         Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.instance().getMachineInfoList();
@@ -85,35 +84,37 @@ public class MadForgeMod
             }
         }
         
-//        // ----------------
-//        // NOT ENOUGH ITEMS
-//        // ----------------
-//        
-//        // Interface with NEI and attempt to call functions from it if it exists.
-//        // Note: This method was given by Alex_hawks, buy him a beer if you see him!
-//        if (Loader.isModLoaded("NotEnoughItems"))
-//        {
-//            try
-//            {
-//                Class clazz = Class.forName("codechicken.nei.api.API");
-//                Method m = clazz.getMethod("hideItem", Integer.TYPE);
-//
-//                // Magazine Loader Ghost Block.
-//                m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
-//            }
-//            catch (Throwable e)
-//            {
-//                MadMod.log().log(Level.WARNING, "NEI Integration has failed...");
-//                MadMod.log().log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
-//                e.printStackTrace();
-//                MadMod.log().log(Level.WARNING, "Spamming console to make more obvious...");
-//                for (int i = 0; i < 15; i++)
-//                {
-//                    MadMod.log().log(Level.WARNING, "Something Broke. See above.");
-//                }
-//            }
-//
-//        }
+        // TODO: Register crafting recipes that are not tied to any particular machine or item.
+        
+        // ----------------
+        // NOT ENOUGH ITEMS
+        // ----------------
+        
+        // Interface with NEI and attempt to call functions from it if it exists.
+        // Note: This method was given by Alex_hawks, buy him a beer if you see him!
+        if (Loader.isModLoaded("NotEnoughItems"))
+        {
+            try
+            {
+                Class clazz = Class.forName("codechicken.nei.api.API");
+                Method m = clazz.getMethod("hideItem", Integer.TYPE);
+
+                // Magazine Loader Ghost Block.
+                //m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
+            }
+            catch (Throwable err)
+            {
+                MadMod.log().log(Level.WARNING, "NEI Integration has failed...");
+                MadMod.log().log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
+                err.printStackTrace();
+                MadMod.log().log(Level.WARNING, "Spamming console to make more obvious...");
+                for (int i = 0; i < 15; i++)
+                {
+                    MadMod.log().log(Level.WARNING, "Something Broke. See above.");
+                }
+            }
+
+        }
         
         // ---------
         // DEBUGGING
@@ -126,14 +127,13 @@ public class MadForgeMod
         proxy.dumpAllMachineJSON();
     }
 
-    /** @param event */
     @EventHandler
     public void init(FMLInitializationEvent event) // NO_UCD (unused code)
     {
-        // Register any custom sounds we want to play (Client only).
+        // Registers sound handler which will be called to load sounds added to event bus for sounds.
         proxy.registerSoundHandler();
         
-        // Register block handler for custom GUI.
+        // Registers GUI handler which allows server and client to map ID's to GUI's.
         NetworkRegistry.instance().registerGuiHandler(MadForgeMod.instance, MadForgeMod.guiHandler);
         
         // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
@@ -143,15 +143,14 @@ public class MadForgeMod
     @EventHandler
     public void invalidFingerprint(FMLFingerprintViolationEvent event) // NO_UCD (unused code)
     {
-        // Report (log) to the user that the version of Mad Science
-        // they are using has been changed/tampered with
+        // Check to see if fingerprint matches what we expect.
         if (MadMod.FINGERPRINT.equals(MadMod.FINGERPRINT))
         {
-            LogWrapper.warning("The copy of Mad Science that you are running is a development version of the mod, and as such may be unstable and/or incomplete.");
+            LogWrapper.warning("The copy of " + MadMod.NAME + " that you are running passesd all verification and fingerprint checks. It has not been modified from original.");
         }
         else
         {
-            LogWrapper.severe("The copy of Mad Science that you are running has been modified from the original, and unpredictable things may happen. Please consider re-downloading the original version of the mod.");
+            LogWrapper.severe("The copy of " + MadMod.NAME + " that you are running has been modified from the original, and unpredictable things may happen. Please consider re-downloading the original version of the mod.");
         }
     }
 
@@ -170,38 +169,18 @@ public class MadForgeMod
         
         // Generate and read our standardized Forge configuration file.
         Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-        {
-            config.load();
-            
-            // Loop through loaded machines and get ID's for all those blocks.
-            MadTileEntityFactoryProductData[] machineData = MadMod.getUnregisteredMachines();
-            for (int i = 0; i < machineData.length; i++) 
-            {
-                MadTileEntityFactoryProductData unregisteredMachine = machineData[i];
-                
-                // Get a new block ID from our ID manager, and set the block ID for our unregistered machine to whatever ID Manager decides.
-                int defaultID = MadMod.getNextBlockID();
-                unregisteredMachine.setBlockID(defaultID);
-                
-                // Get configuration file information, if there is any...
-                int configBlockID = config.getBlock(Configuration.CATEGORY_BLOCK, unregisteredMachine.getMachineName(), unregisteredMachine.getBlockID()).getInt();
-                
-                // Check if unregistered machine default ID is different from read value.
-                if (unregisteredMachine.getBlockID() == configBlockID)
-                {
-                    MadMod.log().info("[" + unregisteredMachine.getMachineName() + "]Using default block ID of " + String.valueOf(configBlockID));
-                }
-                else
-                {
-                    MadMod.log().info("[" + unregisteredMachine.getMachineName() + "]Using user configured block ID of " + String.valueOf(configBlockID));
-                }
-            }
-            
-            // TODO: Loop through loaded items and get ID's for all those items.
-            
-            
-            config.save();
-        }
+        
+        // Load existing configuration data.
+        config.load();
+        
+        // Loop through loaded machines and get ID's for all those blocks.
+        configureTileEntities(config);
+        
+        // Loop through loaded items and get ID's for all those items.
+        configureItems(config);
+        
+        // Save any changed or added values to config.
+        config.save();
 
         // Setup Mod Metadata for players to see in mod list with other mods.
         metadata.modId = MadMod.ID;
@@ -214,170 +193,8 @@ public class MadForgeMod
         metadata.credits = MadMod.CREDITS;
         metadata.autogenerated = false;
 
-        // ------
-        // FLUIDS
-        // ------
-        MadMod.log().info("Creating Fluids");
-
-        // Creates both flowing and still variants of new fluid.
-        // Note: Still's ID must be 1 above Flowing.
-        MadFluids.createLiquidDNA(MadConfig.LIQUIDDNA, MadConfig.LIQUIDDNA_BUCKET);
-
-        // Liquid Mutant DNA.
-        MadFluids.createLiquidDNAMutant(MadConfig.LIQUIDDNA_MUTANT, MadConfig.LIQUIDDNA_MUTANT_BUCKET);
-
-        // ------
-        // BLOCKS
-        // ------
-        MadMod.log().info("Creating Blocks");
-
-        // Abomination Egg
-        MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
-
-        // Enderslime Block
-        MadBlocks.createEnderslimeBlock(MadConfig.ENDERSLIMEBLOCK);
-
-        // ----------
-        // COMPONENTS
-        // ----------
-        MadMod.log().info("Creating Components");
-
-        MadComponents.createComponentCaseItem(MadConfig.COMPONENT_CASE);
-        MadComponents.createComponentCPUItem(MadConfig.COMPONENT_CPU);
-        MadComponents.createComponentFanItem(MadConfig.COMPONENT_FAN);
-        MadComponents.createComponentFusedQuartzItem(MadConfig.COMPONENT_FUSEDQUARTZ);
-        MadComponents.createComponentMagneticTapeItem(MadConfig.COMPONENT_MAGNETICTAPE);
-        MadComponents.createComponentPowerSupplyItem(MadConfig.COMPONENT_POWERSUPPLY);
-        MadComponents.createComponentRAMItem(MadConfig.COMPONENT_RAM);
-        MadComponents.createComponentScreenItem(MadConfig.COMPONENT_SCREEN);
-        MadComponents.createComponentSiliconWaferItem(MadConfig.COMPONENT_SILICONWAFER);
-        MadComponents.createComponentTransistorItem(MadConfig.COMPONENT_TRANSISTOR);
-        MadComponents.createComponentComputerItem(MadConfig.COMPONENT_COMPUTER);
-        MadComponents.createComponentThumperItem(MadConfig.COMPONENT_THUMPER);
-        MadComponents.createComponentEnderslimeItem(MadConfig.COMPONENT_ENDERSLIME);
-        MadComponents.createComponentPulseRifleBarrelItem(MadConfig.COMPONENT_PULSERIFLEBARREL);
-        MadComponents.createComponentPulseRifleBoltItem(MadConfig.COMPONENT_PULSERIFLEBOLT);
-        MadComponents.createComponentPulseRifleReceiverItem(MadConfig.COMPONENT_PULSERIFLERECEIVER);
-        MadComponents.createComponentPulseRifleTriggerItem(MadConfig.COMPONENT_PULSERIFLETRIGGER);
-        MadComponents.createComponentPulseRifleBulletCasingItem(MadConfig.COMPONENT_PULSERIFLEBULLETCASING);
-        MadComponents.createComponentPulseRifleGrenadeCasingItem(MadConfig.COMPONENT_PULSERIFLEGRENADECASING);
-
-        // --------
-        // CIRCUITS
-        // --------
-        MadMod.log().info("Creating Circuits");
-
-        MadCircuits.createCircuitComparatorItem(MadConfig.CIRCUIT_COMPARATOR);
-        MadCircuits.createCircuitDiamondItem(MadConfig.CIRCUIT_DIAMOND);
-        MadCircuits.createCircuitEmeraldItem(MadConfig.CIRCUIT_EMERALD);
-        MadCircuits.createCircuitEnderEyeItem(MadConfig.CIRCUIT_ENDEREYE);
-        MadCircuits.createCircuitEnderPerlItem(MadConfig.CIRCUIT_ENDERPEARL);
-        MadCircuits.createCircuitGlowstoneItem(MadConfig.CIRCUIT_GLOWSTONE);
-        MadCircuits.createCircuitRedstoneItem(MadConfig.CIRCUIT_REDSTONE);
-        MadCircuits.createCircuitSpiderEyeItem(MadConfig.CIRCUIT_SPIDEREYE);
-
-        // -------
-        // NEEDLES
-        // -------
-        MadMod.log().info("Creating Needles");
-
-        MadNeedles.createEmptyNeedle(MadConfig.NEEDLE_EMPTY);
-        MadNeedles.createDirtyNeedle(MadConfig.NEEDLE_DIRTY);
-        MadNeedles.createCaveSpiderNeedle(MadConfig.NEEDLE_CAVESPIDER);
-        MadNeedles.createChickenNeedle(MadConfig.NEEDLE_CHICKEN);
-        MadNeedles.createCowNeedle(MadConfig.NEEDLE_COW);
-        MadNeedles.createCreeperNeedle(MadConfig.NEEDLE_CREEPER);
-        MadNeedles.createEndermanNeedle(MadConfig.NEEDLE_ENDERMAN);
-        MadNeedles.createHorseNeedle(MadConfig.NEEDLE_HORSE);
-        MadNeedles.createMushroomCowNeedle(MadConfig.NEEDLE_MUSHROOMCOW);
-        MadNeedles.createOcelotNeedle(MadConfig.NEEDLE_OCELOT);
-        MadNeedles.createPigNeedle(MadConfig.NEEDLE_PIG);
-        MadNeedles.createSheepNeedle(MadConfig.NEEDLE_SHEEP);
-        MadNeedles.createSpiderNeedle(MadConfig.NEEDLE_SPIDER);
-        MadNeedles.createSquidNeedle(MadConfig.NEEDLE_SQUID);
-        MadNeedles.createVillagerNeedle(MadConfig.NEEDLE_VILLAGER);
-        MadNeedles.createWitchNeedle(MadConfig.NEEDLE_WITCH);
-        MadNeedles.createWolfNeedle(MadConfig.NEEDLE_WOLF);
-        MadNeedles.createZombieNeedle(MadConfig.NEEDLE_ZOMBIE);
-        MadNeedles.createMutantNeedle(MadConfig.NEEDLE_MUTANT);
-        MadNeedles.createBatNeedle(MadConfig.NEEDLE_BAT);
-
-        // -----------
-        // DNA SAMPLES
-        // -----------
-        MadMod.log().info("Creating DNA Samples");
-
-        MadDNA.createCaveSpiderDNA(MadConfig.DNA_CAVESPIDER);
-        MadDNA.createChickenDNA(MadConfig.DNA_CHICKEN);
-        MadDNA.createCowDNA(MadConfig.DNA_COW);
-        MadDNA.createCreeperDNA(MadConfig.DNA_CREEPER);
-        MadDNA.createEndermanDNA(MadConfig.DNA_ENDERMAN);
-        MadDNA.createGhastDNA(MadConfig.DNA_GHAST);
-        MadDNA.createHorseDNA(MadConfig.DNA_HORSE);
-        MadDNA.createMushroomCowDNA(MadConfig.DNA_MUSHROOMCOW);
-        MadDNA.createOcelotDNA(MadConfig.DNA_OCELOT);
-        MadDNA.createPigDNA(MadConfig.DNA_PIG);
-        MadDNA.createSheepDNA(MadConfig.DNA_SHEEP);
-        MadDNA.createSkeletonDNA(MadConfig.DNA_SKELETON);
-        MadDNA.createSpiderDNA(MadConfig.DNA_SPIDER);
-        MadDNA.createSquidDNA(MadConfig.DNA_SQUID);
-        MadDNA.createVillagerDNA(MadConfig.DNA_VILLAGER);
-        MadDNA.createWitchDNA(MadConfig.DNA_WITCH);
-        MadDNA.createWolfDNA(MadConfig.DNA_WOLF);
-        MadDNA.createZombieDNA(MadConfig.DNA_ZOMBIE);
-        MadDNA.createBatDNA(MadConfig.DNA_BAT);
-        MadDNA.createSlimeDNA(MadConfig.DNA_SLIME);
-
-        // -----------------
-        // GENOME DATA REELS
-        // -----------------
-        MadMod.log().info("Creating Genome Data Reels");
-
-        MadEntities.createEmptyDataReel(MadConfig.DATAREEL_EMPTY);
-        MadGenomes.createCaveSpiderGenome(MadConfig.GENOME_CAVESPIDER);
-        MadGenomes.createChickenGenome(MadConfig.GENOME_CHICKEN);
-        MadGenomes.createCowGenome(MadConfig.GENOME_COW);
-        MadGenomes.createCreeperGenome(MadConfig.GENOME_CREEPER);
-        MadGenomes.createEndermanGenome(MadConfig.GENOME_ENDERMAN);
-        MadGenomes.createGhastGenome(MadConfig.GENOME_GHAST);
-        MadGenomes.createHorseGenome(MadConfig.GENOME_HORSE);
-        MadGenomes.createMushroomCowGenome(MadConfig.GENOME_MUSHROOMCOW);
-        MadGenomes.createOcelotGenome(MadConfig.GENOME_OCELOT);
-        MadGenomes.createPigGenome(MadConfig.GENOME_PIG);
-        MadGenomes.createSheepGenome(MadConfig.GENOME_SHEEP);
-        MadGenomes.createSkeletonGenome(MadConfig.GENOME_SKELETON);
-        MadGenomes.createSpiderGenome(MadConfig.GENOME_SPIDER);
-        MadGenomes.createSquidGenome(MadConfig.GENOME_SQUID);
-        MadGenomes.createVillagerGenome(MadConfig.GENOME_VILLAGER);
-        MadGenomes.createWitchGenome(MadConfig.GENOME_WITCH);
-        MadGenomes.createWolfGenome(MadConfig.GENOME_WOLF);
-        MadGenomes.createZombieGenome(MadConfig.GENOME_ZOMBIE);
-        MadGenomes.createBatGenome(MadConfig.GENOME_BAT);
-        MadGenomes.createSlimeGenome(MadConfig.GENOME_SLIME);
-        MadGenomes.createPigZombieGenome(MadConfig.GENOME_PIGZOMBIE);
-        
-        // -------
-        // WEAPONS
-        // -------
-        MadMod.log().info("Creating Weapons");
-
-        MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
-        MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
-        MadWeapons.createPulseRifleGrenade(MadConfig.WEAPON_PULSERIFLE_GRENADEITEM);
-        MadWeapons.createPulseRifleMagazine(MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM);
-
-        // -------------
-        // TILE ENTITIES
-        // -------------
-        MadMod.log().info("Creating Tile Entities");
-        
-        // Take the machines from loaded mod instance and register them with tile entity factory.
-        MadTileEntityFactoryProductData[] machineData = MadMod.getUnregisteredMachines();
-        for (int i = 0; i < machineData.length; i++) 
-        {
-            MadTileEntityFactoryProductData unregisteredMachine = machineData[i];
-            MadTileEntityFactory.instance().registerMachine(unregisteredMachine);
-        }
+        // Registers all items with factory.
+        loadItems();
         
         // -----
         // ARMOR
@@ -388,106 +205,109 @@ public class MadForgeMod
         MadEntities.createLabCoatBody(MadConfig.LABCOAT_BODY, 1);
         MadEntities.createLabCoatLeggings(MadConfig.LABCOAT_LEGGINGS, 2);
         
-        // -----
-        // ITEMS
-        // -----
+        // ------
+        // FLUIDS
+        // ------
         
-        MadEntities.createWarningSign(MadConfig.WARNING_SIGN);
+        MadMod.log().info("Creating Fluids");
 
-        // --------------------
-        // MONSTER PLACER ITEMS
-        // --------------------
-        MadMod.log().info("Creating Monster Placer Items");
+        // Creates both flowing and still variants of new fluid.
+        MadFluids.createLiquidDNA(MadConfig.LIQUIDDNA, MadConfig.LIQUIDDNA_BUCKET);
 
-        MadEntities.createGeneticallyModifiedMonsterPlacer(MadConfig.GENETICALLYMODIFIED_MONSTERPLACER);
-        MadEntities.createCombinedGenomeMonsterPlacer(MadConfig.COMBINEDGENOME_MONSTERPLACER);
-        MadEntities.createCombinedMemoryMonsterPlacer(MadConfig.COMBINEDMEMORY_MONSTERPLACER);
+        // Liquid Mutant DNA.
+        MadFluids.createLiquidDNAMutant(MadConfig.LIQUIDDNA_MUTANT, MadConfig.LIQUIDDNA_MUTANT_BUCKET);
 
-        // -------
-        // RECIPES
-        // -------
-        MadMod.log().info("Creating Recipes");
+        // ------
+        // BLOCKS
+        // ------
+        
+        MadMod.log().info("Creating Blocks");
 
-        MadRecipes.createCircuitRecipes();
-        MadRecipes.createComponentsRecipes();
-        MadRecipes.createWeaponRecipes();
-        MadRecipes.createOtherRecipes();
+        // Abomination Egg
+        MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
 
-        // -------------------------
-        // GENETICALLY MODIFIED MOBS
-        // -------------------------
-        MadMod.log().info("Creating Genetically Modified Creatures");
+        // Enderslime Block
+        MadBlocks.createEnderslimeBlock(MadConfig.ENDERSLIMEBLOCK);
+        
+        // Registers all tile entities with factory.
+        loadTileEntities();
+    }
 
-        // Werewolf [Villager + Wolf]
-        MadMobs.createGMOMob(MadConfig.GMO_WEREWOLF_METAID, WerewolfMobEntity.class, new NBTTagCompound(), MadMobs.GMO_WEREWOLF_INTERNALNAME, MadMobs.GENOME_WEREWOLF_INTERNALNAME, MadColors.villagerEgg(), MadColors.wolfEgg(), MadGenomes.GENOME_VILLAGER,
-                MadGenomes.GENOME_WOLF, MadConfig.GMO_WEREWOLF_COOKTIME);
+    private void loadTileEntities()
+    {
+        MadMod.log().info("Creating Tile Entities");
+        
+        // Take the machines from loaded mod instance and register them with tile entity factory.
+        MadTileEntityFactoryProductData[] machineData = MadMod.getUnregisteredMachines();
+        for (int i = 0; i < machineData.length; i++) 
+        {
+            MadTileEntityFactoryProductData unregisteredMachine = machineData[i];
+            MadTileEntityFactory.instance().registerMachine(unregisteredMachine);
+        }
+    }
 
-        // Creeper Cow [Creeper + Cow]
-        MadMobs.createGMOMob(MadConfig.GMO_CREEPERCOW_METAID, CreeperCowMobEntity.class, new NBTTagCompound(), MadMobs.GMO_CREEPERCOW_INTERNALNAME, MadMobs.GENOME_CREEPERCOW_INTERNALNAME, MadColors.creeperEgg(), MadColors.cowEgg(),
-                MadGenomes.GENOME_CREEPER, MadGenomes.GENOME_COW, MadConfig.GMO_CREEPERCOW_COOKTIME);
+    private void loadItems()
+    {
+        MadMod.log().info("Creating Items");
+        
+        // Grab all unregistered items from mod manager and pass them through the item factory.
+        MadItemFactoryProductData[] itemData = MadMod.getUnregisteredItems();
+        for (int i = 0; i < itemData.length; i++) 
+        {
+            MadItemFactoryProductData unregisteredItem = itemData[i];
+            MadItemFactory.instance().registerItem(unregisteredItem);
+        }
+    }
 
-        // Enderslime [Enderman + Slime]
-        MadMobs.createGMOMob(MadConfig.GMO_ENDERSLIME_METAID, EnderslimeMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ENDERSLIME_INTERNALNAME, MadMobs.GENOME_ENDERSLIME_INTERNALNAME, MadColors.endermanEgg(), MadColors.slimeEgg(),
-                MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SLIME, MadConfig.GMO_ENDERSLIME_COOKTIME);
+    private void configureTileEntities(Configuration config)
+    {
+        MadTileEntityFactoryProductData[] machineData = MadMod.getUnregisteredMachines();
+        for (int x = 0; x < machineData.length; x++) 
+        {
+            MadTileEntityFactoryProductData unregisteredMachine = machineData[x];
+            
+            // Get a new block ID from our ID manager, and set the block ID for our unregistered machine to whatever ID Manager decides.
+            int defaultBlockID = MadMod.getNextBlockID();
+            unregisteredMachine.setBlockID(defaultBlockID);
+            
+            // Get configuration file information, if there is any...
+            int configBlockID = config.getBlock(Configuration.CATEGORY_BLOCK, unregisteredMachine.getMachineName(), unregisteredMachine.getBlockID()).getInt();
+            
+            // Check if unregistered machine default ID is different from read value.
+            if (unregisteredMachine.getBlockID() == configBlockID)
+            {
+                MadMod.log().info("[" + unregisteredMachine.getMachineName() + "]Using default block ID of " + String.valueOf(configBlockID));
+            }
+            else
+            {
+                MadMod.log().info("[" + unregisteredMachine.getMachineName() + "]Using user configured block ID of " + String.valueOf(configBlockID));
+            }
+        }
+    }
 
-        // --------------------------
-        // Bart74(bart.74@hotmail.fr)
-        // --------------------------
-
-        // Wooly cow [Cow + Sheep]
-        MadMobs.createGMOMob(MadConfig.GMO_WOOLYCOW_METAID, WoolyCowMobEntity.class, new NBTTagCompound(), MadMobs.GMO_WOOLYCOW_INTERNALNAME, MadMobs.GENOME_WOOLYCOW_INTERNALNAME, MadColors.cowEgg(), MadColors.sheepEgg(), MadGenomes.GENOME_COW,
-                MadGenomes.GENOME_SHEEP, MadConfig.GMO_WOOLYCOW_COOKTIME);
-
-        // ----------------------------------------
-        // Deuce_Loosely(captainlunautic@yahoo.com)
-        // ----------------------------------------
-
-        // Shoggoth [Slime + Squid]
-        MadMobs.createGMOMob(MadConfig.GMO_SHOGGOTH_METAID, ShoggothMobEntity.class, new NBTTagCompound(), MadMobs.GMO_SHOGGOTH_INTERNALNAME, MadMobs.GENOME_SHOGGOTH_INTERNALNAME, MadColors.slimeEgg(), MadColors.squidEgg(), MadGenomes.GENOME_SLIME,
-                MadGenomes.GENOME_SQUID, MadConfig.GMO_SHOGGOTH_COOKTIME);
-
-        // ------------------------------------
-        // monodemono(coolplanet3000@gmail.com)
-        // ------------------------------------
-
-        // The Abomination [Enderman + Spider]
-        MadMobs.createGMOMob(MadConfig.GMO_ABOMINATION_METAID, AbominationMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ABOMINATION_INTERNALNAME, MadMobs.GENOME_ABOMINATION_INTERNALNAME, MadColors.endermanEgg(), MadColors.spiderEgg(),
-                MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SPIDER, MadConfig.GMO_ABOMINATION_COOKTIME);
-
-        // Add Forge hook for Abomination so we can know when it kills another mob so we can lay an egg.
-        MinecraftForge.EVENT_BUS.register(new AbominationMobLivingHandler());
-
-        // ---------------------------------
-        // Pyrobrine(haskar.spore@gmail.com)
-        // ---------------------------------
-
-        // Wither Skeleton [Enderman + Skeleton]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_WITHERSKELETON_METAID, MadSpawnEggTags.witherSkeleton(), EntityList.getStringFromID(51), MadMobs.GENOME_WITHERSKELETON_INTERNALNAME, MadColors.endermanEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_ENDERMAN,
-                MadGenomes.GENOME_SKELETON, MadConfig.GMO_WITHERSKELETON_COOKTIME);
-
-        // Villager Zombie [Villager + Zombie]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_VILLAGERZOMBIE_METAID, MadSpawnEggTags.villagerZombie(), EntityList.getStringFromID(54), MadMobs.GENOME_VILLAGERZOMBIE_INTERNALNAME, MadColors.villagerEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_VILLAGER,
-                MadGenomes.GENOME_ZOMBIE, MadConfig.GMO_VILLAGERZOMBIE_COOKTIME);
-
-        // Skeleton Horse [Horse + Skeleton]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_SKELETONHORSE_METAID, MadSpawnEggTags.horseType(4), EntityList.getStringFromID(100), MadMobs.GENOME_SKELETONHORSE_INTERNALNAME, MadColors.horseEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_HORSE,
-                MadGenomes.GENOME_SKELETON, MadConfig.GMO_SKELETONHORSE_COOKTIME);
-
-        // Zombie Horse [Zombie + Horse]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_ZOMBIEHORSE_METAID, MadSpawnEggTags.horseType(3), EntityList.getStringFromID(100), MadMobs.GENOME_ZOMBIEHORSE_INTERNALNAME, MadColors.horseEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_ZOMBIE,
-                MadGenomes.GENOME_HORSE, MadConfig.GMO_ZOMBIEHORSE_COOKTIME);
-
-        // ---------------------------------
-        // TheTechnician(tallahlf@gmail.com)
-        // ---------------------------------
-
-        // Ender Squid [Enderman + Squid]
-        MadMobs.createGMOMob(MadConfig.GMO_ENDERSQUID_METAID, EnderSquidMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ENDERSQUID_INTERNALNAME, MadMobs.GENOME_ENDERSQUID_INTERNALNAME, MadColors.endermanEgg(), MadColors.squidEgg(),
-                MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SQUID, MadConfig.GMO_ENDERSQUID_COOKTIME);
-
-        // ---------
-        // DONE INIT
-        // ---------
-        MadMod.log().info("Finished loading all madness!");
+    private void configureItems(Configuration config)
+    {
+        MadItemFactoryProductData[] itemData = MadMod.getUnregisteredItems();
+        for (int i = 0; i < itemData.length; i++)
+        {
+            MadItemFactoryProductData unregisteredItem = itemData[i];
+            
+            // Get new item ID from ID manager, use this as default.
+            int defaultItemID = MadMod.getNextItemID();
+            unregisteredItem.setItemID(defaultItemID);
+            
+            // Grab existing item item ID configuration if it exists.
+            int configItemID = config.getItem(Configuration.CATEGORY_ITEM, unregisteredItem.getItemBaseName(), unregisteredItem.getItemID()).getInt();
+            
+            // Check if we used the configuration value or the ID manager one.
+            if (unregisteredItem.getItemID() == configItemID)
+            {
+                MadMod.log().info("[" + unregisteredItem.getItemBaseName() + "]Using default item ID of " + String.valueOf(configItemID));
+            }
+            else
+            {
+                MadMod.log().info("[" + unregisteredItem.getItemBaseName() + "]Using user configured item ID of " + String.valueOf(configItemID));
+            }
+        }
     }
 }

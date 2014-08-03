@@ -1,6 +1,6 @@
-package madscience.items.needles;
+package madscience.item.needles;
 
-import madscience.items.ItemNeedleFilledLogic;
+import madscience.item.ItemNeedleFilledLogic;
 
 
 public class NeedleCaveSpider extends ItemNeedleFilledLogic

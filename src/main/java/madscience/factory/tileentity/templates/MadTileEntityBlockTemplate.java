@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadTileModelBounds;
+import madscience.factory.model.MadModelBounds;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
@@ -59,7 +59,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         this.setResistance(registeredMachine.getBlockExplosionResistance());
         
         // Define how big this item is we make it same size as a default block.
-        MadTileModelBounds loadedBlockBounds = registeredMachine.getBlockBounds();
+        MadModelBounds loadedBlockBounds = registeredMachine.getBlockBounds();
         if (loadedBlockBounds != null)
         {
             this.setBlockBounds(
@@ -74,7 +74,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         {
             // Use the default block bounds if none are defined.
             registeredMachine.setBlockBoundsDefault();
-            MadTileModelBounds defaultBlockBounds = registeredMachine.getBlockBounds();
+            MadModelBounds defaultBlockBounds = registeredMachine.getBlockBounds();
             this.setBlockBounds(
                     defaultBlockBounds.getLowerBounds().getModelTranslateX(),   // LOWER BOUNDS
                     defaultBlockBounds.getLowerBounds().getModelTranslateY(),

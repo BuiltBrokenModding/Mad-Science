@@ -1,6 +1,5 @@
-package madscience.items.components.pulserifle;
+package madscience.item.components.pulserifle;
 
-import madscience.factory.item.prefab.ItemComponentBase;
 
 public class ComponentPulseRifleTrigger extends ItemComponentBase
 {

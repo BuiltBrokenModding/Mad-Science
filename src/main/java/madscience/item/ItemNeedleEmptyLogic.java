@@ -1,15 +1,8 @@
-package madscience.items;
-
-import java.util.List;
+package madscience.item;
 
 import madscience.MadNeedles;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.prefab.MadItemPrefab;
-import madscience.factory.mod.MadMod;
-import madscience.items.needles.NeedleSounds;
-import madscience.util.MadUtils;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -30,13 +23,9 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemNeedleEmptyLogic extends MadItemPrefab
 {
@@ -63,7 +52,7 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         }
 
         // Play sound of using the needle on yourself.
-        player.playSound(NeedleSounds.NEEDLEITEM_STABPLAYER, 1.0F, 1.0F);
+        //player.playSound(NeedleSounds.NEEDLEITEM_STABPLAYER, 1.0F, 1.0F);
 
         // If needle is empty we will take blood from the player!
         if (player instanceof EntityPlayer && player.inventory.consumeInventoryItem(MadNeedles.NEEDLE_ITEM.itemID))
@@ -104,7 +93,7 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         }
 
         // Play a sound of you using the needle on a mob!
-        entity.playSound(NeedleSounds.NEEDLEITEM_STABMOB, 1.0F, 1.0F);
+        //entity.playSound(NeedleSounds.NEEDLEITEM_STABMOB, 1.0F, 1.0F);
 
         // -------
         // MUTANTS

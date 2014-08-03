@@ -1,6 +1,5 @@
 package madscience.tile;
 
-import madscience.MadNeedles;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
@@ -67,33 +66,6 @@ public class SanitizerEntity extends MadTileEntityPrefab
         // Check if output slot 2 (for cleaned needles) is above item stack limit.
         int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + recipeResult[0].stackSize;
         return (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult[0].getMaxStackSize());
-    }
-
-    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        // Check if machine trying to insert item into given slot is allowed.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET))
-        {
-            // Input slot 1 - water bucket.
-            ItemStack compareWaterBucket = new ItemStack(Item.bucketWater);
-            if (compareWaterBucket.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        else if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            // Input slot 2 - dirty needle.
-            ItemStack compareDirtyNeedle = new ItemStack(MadNeedles.NEEDLE_DIRTY);
-            if (compareDirtyNeedle.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override

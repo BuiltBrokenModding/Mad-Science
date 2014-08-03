@@ -1,4 +1,4 @@
-package madscience.items.needles;
+package madscience.item.needles;
 
 import madscience.MadNeedles;
 import madscience.factory.mod.MadMod;

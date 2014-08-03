@@ -1,4 +1,4 @@
-package madscience.client;
+package madscience.proxy;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,41 +7,36 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import madscience.MadComponents;
-import madscience.MadConfig;
 import madscience.MadEntities;
 import madscience.MadForgeMod;
 import madscience.MadSounds;
 import madscience.MadWeapons;
+import madscience.factory.MadItemFactory;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.item.MadItemFactoryProduct;
+import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
 import madscience.factory.mod.MadModData;
 import madscience.factory.model.MadTechneModelLoader;
+import madscience.factory.rendering.MadRendererTemplate;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.factory.tileentity.templates.MadTileEntityRendererTemplate;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
-import madscience.items.components.pulserifle.ComponentPulseRifleBarrelItemRender;
-import madscience.items.components.pulserifle.ComponentPulseRifleBoltItemRender;
-import madscience.items.components.pulserifle.ComponentPulseRifleBulletCasingItemRender;
-import madscience.items.components.pulserifle.ComponentPulseRifleGrenadeCasingItemRender;
-import madscience.items.components.pulserifle.ComponentPulseRifleReceiverItemRender;
-import madscience.items.components.pulserifle.ComponentPulseRifleTriggerItemRender;
-import madscience.items.warningsign.WarningSignEntity;
-import madscience.items.warningsign.WarningSignEntityRender;
-import madscience.items.warningsign.WarningSignItemRender;
-import madscience.items.weapons.pulserifle.PulseRifleItemRender;
-import madscience.items.weapons.pulserifle.PulseRifleItemRenderPlayer;
-import madscience.items.weapons.pulserifle.PulseRifleItemTickHandler;
-import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
-import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntityRender;
-import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItemRender;
-import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
-import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntityRender;
-import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItemRender;
-import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItemRender;
+import madscience.item.warningsign.WarningSignEntity;
+import madscience.item.warningsign.WarningSignEntityRender;
+import madscience.item.warningsign.WarningSignItemRender;
+import madscience.item.weapon.pulserifle.PulseRifleItemRender;
+import madscience.item.weapon.pulserifle.PulseRifleItemRenderPlayer;
+import madscience.item.weapon.pulserifle.PulseRifleItemTickHandler;
+import madscience.item.weapon.pulseriflebullet.PulseRifleBulletEntity;
+import madscience.item.weapon.pulseriflebullet.PulseRifleBulletEntityRender;
+import madscience.item.weapon.pulseriflebullet.PulseRifleBulletItemRender;
+import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeEntity;
+import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeEntityRender;
+import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeItemRender;
+import madscience.item.weapon.pulseriflemagazine.PulseRifleMagazineItemRender;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobModel;
 import madscience.mobs.abomination.AbominationMobRender;
@@ -64,7 +59,6 @@ import madscience.mobs.woolycow.WoolyCowMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
-import madscience.server.CommonProxy;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -273,51 +267,72 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     }
 
     @Override
-    public void registerRenderingHandler(int blockID)
+    public void registerRenderingHandler(int itemOrBlockID)
     {
         // ------
         // FLUIDS
         // ------
 
         // Liquid DNA
-        if (blockID == MadConfig.LIQUIDDNA)
+        if (itemOrBlockID == MadConfig.LIQUIDDNA)
         {
             MinecraftForge.EVENT_BUS.register(new LiquidDNARender());
         }
 
         // Liquid Mutant DNA
-        if (blockID == MadConfig.LIQUIDDNA_MUTANT)
+        if (itemOrBlockID == MadConfig.LIQUIDDNA_MUTANT)
         {
             MinecraftForge.EVENT_BUS.register(new LiquidDNAMutantRender());
+        }
+        
+        // -----
+        // ITEMS
+        // -----
+        
+        Iterable<MadItemFactoryProduct> registeredItems = MadItemFactory.instance().getItemInfoList();
+        for (Iterator iterator = registeredItems.iterator(); iterator.hasNext();)
+        {
+            MadItemFactoryProduct registeredItem = (MadItemFactoryProduct) iterator.next();
+            if (registeredItem.getItemID() == itemOrBlockID)
+            {
+                // Loop through every sub-item to get model rendering information.
+                for (MadMetaItemData metaItem : registeredItem.getSubItems())
+                {
+                    // Register models to full item name as it will be used in game.
+                    MadRenderingFactory.instance().registerModelsToProduct(metaItem.getItemNameWithBase(registeredItem.getItemBaseName()), metaItem.getModelArchive());
+                }
+                
+                // Register item renderer with Minecraft/Forge. Subject to change between Forge versions.
+                MinecraftForgeClient.registerItemRenderer(itemOrBlockID, new MadRendererTemplate());
+            }
         }
 
         // -------------
         // TILE ENTITIES
         // -------------
 
-        // Grab an iterable array of all registered machines.
         Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.instance().getMachineInfoList();
         for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
         {
             MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
-            if (registeredMachine.getBlockID() == blockID)
+            if (registeredMachine.getBlockID() == itemOrBlockID)
             {
                 // Populates rendering factory with master reference to what a given machine should have associated with it model and texture wise.
                 MadRenderingFactory.instance().registerModelsToProduct(registeredMachine.getMachineName(), registeredMachine.getModelArchive());
 
                 // Minecraft/Forge related registry calls, these are subject to change between Forge versions.
-                RenderingRegistry.registerBlockHandler(blockID, new MadTileEntityRendererTemplate());
-                ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadTileEntityRendererTemplate());
-                MinecraftForgeClient.registerItemRenderer(blockID, new MadTileEntityRendererTemplate());
+                RenderingRegistry.registerBlockHandler(itemOrBlockID, new MadRendererTemplate());
+                ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadRendererTemplate());
+                MinecraftForgeClient.registerItemRenderer(itemOrBlockID, new MadRendererTemplate());
             }
         }
-
+        
         // -------
         // WEAPONS
         // -------
 
         // Pulse Rifle
-        if (blockID == MadConfig.WEAPON_PULSERIFLE)
+        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE)
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, new PulseRifleItemRender());
             TickRegistry.registerTickHandler(new PulseRifleItemTickHandler(), Side.CLIENT);
@@ -325,63 +340,23 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         }
 
         // Pulse Rifle Bullet
-        if (blockID == MadConfig.WEAPON_PULSERIFLE_BULLETITEM)
+        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE_BULLETITEM)
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_BULLETITEM.itemID, new PulseRifleBulletItemRender());
             RenderingRegistry.registerEntityRenderingHandler(PulseRifleBulletEntity.class, new PulseRifleBulletEntityRender());
         }
 
         // Pulse Rifle Grenade
-        if (blockID == MadConfig.WEAPON_PULSERIFLE_GRENADEITEM)
+        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE_GRENADEITEM)
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_GRENADEITEM.itemID, new PulseRifleGrenadeItemRender());
             RenderingRegistry.registerEntityRenderingHandler(PulseRifleGrenadeEntity.class, new PulseRifleGrenadeEntityRender());
         }
 
         // Pulse Rifle Magazine
-        if (blockID == MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM)
+        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM)
         {
             MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, new PulseRifleMagazineItemRender());
-        }
-
-        // ----------
-        // COMPONENTS
-        // ----------
-
-        // Component Pulse Rifle Barrel
-        if (blockID == MadConfig.COMPONENT_PULSERIFLEBARREL)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBARREL.itemID, new ComponentPulseRifleBarrelItemRender());
-        }
-
-        // Component Pulse Rifle Bolt
-        if (blockID == MadConfig.COMPONENT_PULSERIFLEBOLT)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBOLT.itemID, new ComponentPulseRifleBoltItemRender());
-        }
-
-        // Component Pulse Rifle Receiver
-        if (blockID == MadConfig.COMPONENT_PULSERIFLERECEIVER)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLERECIEVER.itemID, new ComponentPulseRifleReceiverItemRender());
-        }
-
-        // Component Pulse Rifle Trigger
-        if (blockID == MadConfig.COMPONENT_PULSERIFLETRIGGER)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLETRIGGER.itemID, new ComponentPulseRifleTriggerItemRender());
-        }
-
-        // Component Pulse Rifle Bullet Casing
-        if (blockID == MadConfig.COMPONENT_PULSERIFLEBULLETCASING)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEBULLETCASING.itemID, new ComponentPulseRifleBulletCasingItemRender());
-        }
-
-        // Component Pulse Rifle Grenade Casing
-        if (blockID == MadConfig.COMPONENT_PULSERIFLEGRENADECASING)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadComponents.COMPONENT_PULSERIFLEGRENADECASING.itemID, new ComponentPulseRifleGrenadeCasingItemRender());
         }
 
         // -----
@@ -389,7 +364,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // -----
 
         // Warning Sign
-        if (blockID == MadConfig.WARNING_SIGN)
+        if (itemOrBlockID == MadConfig.WARNING_SIGN)
         {
             MinecraftForgeClient.registerItemRenderer(MadEntities.WARNING_SIGN.itemID, new WarningSignItemRender());
             RenderingRegistry.registerEntityRenderingHandler(WarningSignEntity.class, new WarningSignEntityRender());
@@ -400,48 +375,48 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // ----
 
         // Werewolf
-        if (blockID == MadConfig.GMO_WEREWOLF_METAID)
+        if (itemOrBlockID == MadConfig.GMO_WEREWOLF_METAID)
         {
             // Ties together three separate classes to create new mob.
             RenderingRegistry.registerEntityRenderingHandler(WerewolfMobEntity.class, new WerewolfMobRender(new WerewolfMobModel(), 0.5F));
         }
 
         // Creeper Cow [Creeper + Cow]
-        if (blockID == MadConfig.GMO_CREEPERCOW_METAID)
+        if (itemOrBlockID == MadConfig.GMO_CREEPERCOW_METAID)
         {
             RenderingRegistry.registerEntityRenderingHandler(CreeperCowMobEntity.class, new CreeperCowMobRender(new CreeperCowMobModel(), 0.5F));
         }
 
         // Enderslime [Enderman + Slime]
-        if (blockID == MadConfig.GMO_ENDERSLIME_METAID)
+        if (itemOrBlockID == MadConfig.GMO_ENDERSLIME_METAID)
         {
             RenderingRegistry.registerEntityRenderingHandler(EnderslimeMobEntity.class, new EnderslimeMobRender(new EnderslimeMobModel(16), new EnderslimeMobModel(0), 0.25F));
         }
 
         // Bart74(bart.74@hotmail.fr)
         // Wooly cow [Cow + Sheep]
-        if (blockID == MadConfig.GMO_WOOLYCOW_METAID)
+        if (itemOrBlockID == MadConfig.GMO_WOOLYCOW_METAID)
         {
             RenderingRegistry.registerEntityRenderingHandler(WoolyCowMobEntity.class, new WoolyCowMobRender(new WoolyCowMobModel1(), new WoolyCowMobModel2(), 0.5F));
         }
 
         // Deuce_Loosely(captainlunautic@yahoo.com)
         // Shoggoth [Slime + Squid]
-        if (blockID == MadConfig.GMO_SHOGGOTH_METAID)
+        if (itemOrBlockID == MadConfig.GMO_SHOGGOTH_METAID)
         {
             RenderingRegistry.registerEntityRenderingHandler(ShoggothMobEntity.class, new ShoggothMobRender(new ShoggothMobModel(16), new ShoggothMobModel(0), 0.25F));
         }
 
         // monodemono(coolplanet3000@gmail.com)
         // The Abomination [Enderman + Spider]
-        if (blockID == MadConfig.GMO_ABOMINATION_METAID)
+        if (itemOrBlockID == MadConfig.GMO_ABOMINATION_METAID)
         {
             RenderingRegistry.registerEntityRenderingHandler(AbominationMobEntity.class, new AbominationMobRender(new AbominationMobModel(), 0.5F));
         }
 
         // TheTechnician(tallahlf@gmail.com)
         // Ender Squid [Enderman + Squid]
-        if (blockID == MadConfig.GMO_ENDERSQUID_METAID)
+        if (itemOrBlockID == MadConfig.GMO_ENDERSQUID_METAID)
         {
             RenderingRegistry.registerEntityRenderingHandler(EnderSquidMobEntity.class, new EnderSquidMobRender(new EnderSquidMobModel(), 0.5F));
         }

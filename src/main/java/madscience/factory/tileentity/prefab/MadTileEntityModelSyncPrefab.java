@@ -1,7 +1,7 @@
 package madscience.factory.tileentity.prefab;
 
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadTileModel;
+import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
@@ -31,7 +31,7 @@ class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
         super(registeredMachine);
         
         // Default model and texture information.
-        MadTileModel renderingInformation = registeredMachine.getModelArchive();
+        MadModel renderingInformation = registeredMachine.getModelArchive();
         if (renderingInformation != null)
         {
             // Load default texture.
@@ -179,7 +179,7 @@ class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
             MadMod.log().info("[" + this.getMachineInternalName() + "]Unable to load world render information from NBT, using defaults!");
             
             // Use default world rendering data since saved stuff is corrupted.
-            this.entityWorldRenderInformation = MadTileModel.defaultWorldRenderInfo();
+            this.entityWorldRenderInformation = MadModel.defaultWorldRenderInfo();
         }
         
         // Path to current texture what should be loaded onto the model.

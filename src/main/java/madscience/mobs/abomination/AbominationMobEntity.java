@@ -2,7 +2,7 @@ package madscience.mobs.abomination;
 
 import java.util.Random;
 
-import madscience.MadConfig;
+import madscience.factory.mod.MadMod;
 import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -386,7 +386,7 @@ public class AbominationMobEntity extends EntityMob
                     if (this.worldObj.getWorldTime() % 15F == 0L)
                     {
                         // Sends heart packets because a developer has been detected nearby.
-                        PacketDispatcher.sendPacketToAllAround(this.posX, this.posY, this.posZ, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("heart", 0.5D + this.posX, this.posY + 0.5D, this.posZ + 0.5D,
+                        PacketDispatcher.sendPacketToAllAround(this.posX, this.posY, this.posZ, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("heart", 0.5D + this.posX, this.posY + 0.5D, this.posZ + 0.5D,
                                 this.worldObj.rand.nextFloat(), this.worldObj.rand.nextFloat() + 0.5F, this.worldObj.rand.nextFloat()).makePacket());
                     }
                 }
@@ -435,11 +435,6 @@ public class AbominationMobEntity extends EntityMob
     /** Teleport the enderman to a random nearby position */
     private boolean teleportRandomly()
     {
-        if (!MadConfig.ABOMINATION_TELEPORTS)
-        {
-            return false;
-        }
-
         double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
         double d1 = this.posY + (this.rand.nextInt(64) - 32);
         double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
@@ -449,11 +444,6 @@ public class AbominationMobEntity extends EntityMob
     /** Teleport the enderman */
     private boolean teleportTo(double par1, double par3, double par5)
     {
-        if (!MadConfig.ABOMINATION_TELEPORTS)
-        {
-            return false;
-        }
-
         EnderTeleportEvent event = new EnderTeleportEvent(this, par1, par3, par5, 0);
         if (MinecraftForge.EVENT_BUS.post(event))
         {

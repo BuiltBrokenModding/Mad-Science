@@ -1,14 +1,9 @@
 package madscience.tile;
 
-import madscience.MadEntities;
-import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.CombinedMemoryMonsterPlacer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -55,61 +50,6 @@ public class DataDuplicatorEntity extends MadTileEntityPrefab
         // Check if input slot 1 matches output slot 1.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1)))
         {
-            return false;
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if input slot 1 is full data
-        ItemStack compareEmptyDataReel = new ItemStack(MadEntities.DATAREEL_EMPTY);
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            if (compareEmptyDataReel.isItemEqual(items))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        // Check if input slot 2 is empty data reel.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2))
-        {
-            if (compareEmptyDataReel.isItemEqual(items))
-            {
-                return false;
-            }
-
-            // Check if we are a genome data reel that is unfinished (AKA damaged).
-            if (items != null && items.getItem() instanceof ItemGenomeBase && items.isItemDamaged())
-            {
-                return false;
-            }
-
-            // Completed genomes are allowed to be duplicated.
-            if (items != null && items.getItem() instanceof ItemGenomeBase && !items.isItemDamaged())
-            {
-                return true;
-            }
-
-            // Completed mutant genomes are allowed to be duplicated.
-            if (items != null && items.getItem() instanceof CombinedGenomeMonsterPlacer)
-            {
-                return true;
-            }
-
-            // Memory reels are allowed since only way to acquire the best is by chance.
-            if (items != null && items.getItem() instanceof CombinedMemoryMonsterPlacer)
-            {
-                return true;
-            }
-
             return false;
         }
 

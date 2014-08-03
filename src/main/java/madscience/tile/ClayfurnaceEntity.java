@@ -1,6 +1,5 @@
 package madscience.tile;
 
-import madscience.MadConfig;
 import madscience.MadForgeMod;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModelPosition;
@@ -96,37 +95,9 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * smokeRadnomizer == 0L)
         {
             // Send a packet saying we want a little bit of smoke.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
                     worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
         }
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if machine trying to insert item into given slot is allowed.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            // Input slot 1 - Coal block.
-            ItemStack itemsInputSlot1 = new ItemStack(Block.coalBlock);
-            if (itemsInputSlot1.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        // Input slot 2 - Defined recipe for ore into block form.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2))
-        {
-            if (this.isItemUsedInInputRecipes(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override
@@ -227,14 +198,14 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
             if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 // Send a packet saying we want furnace fire
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
+                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
                         worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
             }
 
             if (this.getAnimationCurrentFrame() <= 3 && worldObj.getWorldTime() % 25L == 0L)
             {
                 // Send a packet saying we want puffs of smoke used in minecart furnace.
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
+                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
                         worldObj.rand.nextFloat(), worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
                 // Load this texture onto the entity.

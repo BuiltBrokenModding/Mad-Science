@@ -1,9 +1,9 @@
 package madscience.factory.item;
 
-import net.minecraft.util.Icon;
 import madscience.factory.crafting.MadCraftingRecipe;
-import madscience.factory.model.MadItemModel;
+import madscience.factory.model.MadModel;
 import madscience.factory.sounds.MadSound;
+import net.minecraft.util.Icon;
 
 import com.google.gson.annotations.Expose;
 
@@ -27,7 +27,7 @@ public class MadMetaItemData
     
     /** Contains all of the models and texture information for rendering factory and Minecraft/Forge. */
     @Expose
-    private MadItemModel modelArchive;
+    private MadModel modelArchive;
     
     /** Reference to item icon layers and what color they should render as. Path is relative to Minecraft/Forge asset folder for items. */
     @Expose
@@ -38,7 +38,7 @@ public class MadMetaItemData
             String itemName,
             MadCraftingRecipe[] craftingRecipes,
             MadSound[] soundArchive,
-            MadItemModel modelArchive,
+            MadModel modelArchive,
             MadItemRenderPass[] renderPasses)
     {
         super();
@@ -91,12 +91,12 @@ public class MadMetaItemData
         this.soundArchive = soundArchive;
     }
 
-    public MadItemModel getModelArchive()
+    public MadModel getModelArchive()
     {
         return modelArchive;
     }
 
-    public void setModelArchive(MadItemModel modelArchive)
+    public void setModelArchive(MadModel modelArchive)
     {
         this.modelArchive = modelArchive;
     }
@@ -151,5 +151,16 @@ public class MadMetaItemData
         
         // Default response is to say we have a single render pass.
         return 1;
+    }
+
+    /** Returns item name combined with base name to form full name which is same one used in game world by registered item. */
+    public String getItemNameWithBase(String baseItemName)
+    {
+        StringBuilder fullItemName = new StringBuilder();
+        fullItemName.append(baseItemName);
+        fullItemName.append(".");
+        fullItemName.append(this.itemName);
+        
+        return fullItemName.toString();
     }
 }

@@ -1,11 +1,10 @@
 package madscience.tile;
 
-import madscience.factory.item.prefab.MadItemDecayPrefab;
+import madscience.factory.item.prefab.MadItemPrefab;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -49,26 +48,6 @@ public class CryofreezerEntity extends MadTileEntityPrefab
     }
 
     @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if machine trying to insert item into given slot is allowed.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            return this.isItemUsedInInputRecipes(items);
-        }
-
-        // If you shove the wrong things into the storage slots that is your problem!
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_STORAGE))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
@@ -91,7 +70,7 @@ public class CryofreezerEntity extends MadTileEntityPrefab
                     int dmg = this.getStackInSlot(i).getItemDamage();
 
                     // Heal ourselves for being inside a powered and equipped freezer.
-                    if (this.getStackInSlot(i) != null && this.getStackInSlot(i).getItem() instanceof MadItemDecayPrefab && dmg <= this.getStackInSlot(i).getMaxDamage())
+                    if (this.getStackInSlot(i) != null && this.getStackInSlot(i).getItem() instanceof MadItemPrefab && dmg <= this.getStackInSlot(i).getMaxDamage())
                     {
                         this.getStackInSlot(i).setItemDamage(dmg - 1);
 

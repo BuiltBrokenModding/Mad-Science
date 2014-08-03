@@ -3,7 +3,6 @@ package madscience.factory.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.factory.MadTileEntityFactory;
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.buttons.MadGUIButton;
 import madscience.factory.controls.MadGUIControl;
@@ -15,8 +14,8 @@ import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluids.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadTileModel;
-import madscience.factory.model.MadTileModelBounds;
+import madscience.factory.model.MadModel;
+import madscience.factory.model.MadModelBounds;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
@@ -577,7 +576,7 @@ public class MadTileEntityFactoryProduct
     }
 
     /** Contains all rendering information for clients to render MadTechneModels and load them from AdvancedModelLoader. */
-    public MadTileModel getModelArchive()
+    public MadModel getModelArchive()
     {
         return data.getModelArchive();
     }
@@ -595,7 +594,7 @@ public class MadTileEntityFactoryProduct
     }
 
     /** Returns object with two vector positions inside of it representing block bounds that will be rendered on client. */
-    public MadTileModelBounds getBlockBounds()
+    public MadModelBounds getBlockBounds()
     {
         return data.getBoundingBox();
     }
@@ -603,7 +602,7 @@ public class MadTileEntityFactoryProduct
     /** Sets bounds that will be rendered around the block on clients. This bounds in game looks like a thin black line outlining the entire machine. */
     public void setBlockBoundsDefault()
     {
-        MadTileModelBounds defaultBoundingBox = new MadTileModelBounds(
+        MadModelBounds defaultBoundingBox = new MadModelBounds(
                 new MadModelPosition(0.0F, 0.0F, 0.0F),
                 new MadModelPosition(1.0F, 1.0F, 1.0F));
         

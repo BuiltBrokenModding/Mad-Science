@@ -1,8 +1,8 @@
 package madscience.factory.tileentity.prefab;
 
-import madscience.MadConfig;
 import madscience.MadForgeMod;
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.mod.MadMod;
 import madscience.factory.sounds.MadSoundTriggerEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.templates.MadTileEntityPacketTemplate;
@@ -157,7 +157,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
                 this.xCoord,
                 this.yCoord,
                 this.zCoord,
-                MadConfig.PACKETSEND_RADIUS,
+                MadMod.PACKET_SEND_RADIUS,
                 worldObj.provider.dimensionId,
                 new MadTileEntityPacketTemplate(this).makePacket());
     }

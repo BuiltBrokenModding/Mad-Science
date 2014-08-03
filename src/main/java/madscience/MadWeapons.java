@@ -1,13 +1,13 @@
 package madscience;
 
 import madscience.factory.mod.MadMod;
-import madscience.items.weapons.pulserifle.PulseRifleItem;
-import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
-import madscience.items.weapons.pulseriflebullet.PulseRifleBulletItem;
-import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
-import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItem;
-import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineCraftingHandler;
-import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItem;
+import madscience.item.weapon.pulserifle.PulseRifleItem;
+import madscience.item.weapon.pulseriflebullet.PulseRifleBulletEntity;
+import madscience.item.weapon.pulseriflebullet.PulseRifleBulletItem;
+import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeEntity;
+import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeItem;
+import madscience.item.weapon.pulseriflemagazine.PulseRifleMagazineCraftingHandler;
+import madscience.item.weapon.pulseriflemagazine.PulseRifleMagazineItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.EntityRegistry;

@@ -7,8 +7,8 @@ import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.ItemNeedleFilledLogic;
-import madscience.items.needles.NeedleMutant;
+import madscience.item.ItemNeedleFilledLogic;
+import madscience.item.needles.NeedleMutant;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -172,35 +172,6 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
 
         // Default response is to always return zero.
         return damage;
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        // Input Slot 1 - Genetic material we can get DNA samples from.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            // Check if we are a mutant DNA needle.
-            if (items.getItem() instanceof NeedleMutant)
-            {
-                return true;
-            }
-
-            // Check if we are a valid recipe for this device.
-            return this.isItemUsedInInputRecipes(items);
-        }
-
-        // Input Slot 2 - Empty bucket to be filled with liquid mutant DNA.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET))
-        {
-            ItemStack compareOutputSlot = new ItemStack(Item.bucketEmpty);
-            if (compareOutputSlot.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override

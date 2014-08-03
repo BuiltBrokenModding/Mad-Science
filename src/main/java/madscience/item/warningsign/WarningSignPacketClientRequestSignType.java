@@ -1,4 +1,4 @@
-package madscience.items.warningsign;
+package madscience.item.warningsign;
 
 import madscience.network.MadPackets;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,17 @@
 package madscience.factory.item;
 
-import net.minecraft.util.Icon;
+import java.util.ArrayList;
+import java.util.List;
+
+import madscience.factory.crafting.MadCraftingComponent;
+import madscience.factory.crafting.MadCraftingRecipe;
+import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.item.prefab.MadItemPrefab;
+import madscience.factory.mod.MadMod;
+import madscience.factory.recipes.MadRecipe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadItemFactoryProduct
 {
@@ -211,5 +221,150 @@ public class MadItemFactoryProduct
                 }
             }
         }
+    }
+
+    /** Loads recipes associated with the item itself so that it may be crafted in the game.
+     * This should only be run once, and in postInit after all other mods have been loaded so items from them may be queried. */
+    public void loadCraftingRecipes()
+    {
+        int totalLoadedRecipeItems = 0;
+        int totalFailedRecipeItems = 0;
+        
+        // Loop through all of the sub items inside of this item product data.
+        for (MadMetaItemData subItem : this.data.getSubItemsArchive())
+        {
+            // Grab the recipe data for each individual sub-item.
+            for (MadCraftingRecipe itemCraftingRecipe : subItem.getCraftingRecipes())
+            {
+                // Keeps track if anything bad happened during crafting recipe creation.
+                boolean errorsWithAssociation = true;
+                
+                // Reference to recipe we want to create, Minecraft/Forge accepts them as object array.
+                List<Object> craftingInputArray = new ArrayList<Object>();
+                
+                // Crafting strings that makeup reference to what numbers goto what slot on the grid.
+                Object[] craftingGridLayout = new Object[9];
+                
+                // Initialize each slot with empty space since in Minecraft/Forge this means null/nothing.
+                for (int i = 0; i < craftingGridLayout.length; i++)
+                {
+                    craftingGridLayout[i] = " ";
+                }
+                
+                for (MadCraftingComponent recipeComponent : itemCraftingRecipe.getCraftingRecipeComponents())
+                {
+                    // Starting building output string now, append to it below.
+                    String resultInputPrint = "[" + this.data.getItemBaseName() + "]Crafting Component " + recipeComponent.getModID() + ":" + recipeComponent.getInternalName();
+    
+                    // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
+                    ItemStack[] inputItem = MadRecipe.getItemStackFromString(recipeComponent.getModID(), recipeComponent.getInternalName(), recipeComponent.getAmount(), recipeComponent.getMetaDamage());
+    
+                    boolean searchResult = false;
+                    if (inputItem != null)
+                    {
+                        searchResult = true;
+                        totalLoadedRecipeItems++;
+                        resultInputPrint += "=SUCCESS";
+                        recipeComponent.associateItemStackToRecipeComponent(inputItem);
+                    }
+                    else
+                    {
+                        searchResult = false;
+                        totalFailedRecipeItems++;
+                        resultInputPrint += "=FAILED";
+                    }
+                    
+                    // Mark this entry as being valid since we made it this far.
+                    errorsWithAssociation = false;
+                   
+                    // Only add the craft slot number if we are making a shaped recipe.
+                    if (itemCraftingRecipe.getCraftingRecipeType() == MadCraftingRecipeTypeEnum.SHAPED)
+                    {
+                        // First, place the prepared crafting component into grid as a string.
+                        craftingGridLayout[recipeComponent.getCraftingGridPosition()] = String.valueOf(recipeComponent.getCraftingGridPosition());
+                        
+                        // Second, add to input array the crafting grid number.
+                        craftingInputArray.add(recipeComponent.getCraftingGridPositionAsCharacter());
+                    }
+                    
+                    // Third, add to input array the crafting ingredient (we always will want this).
+                    for (ItemStack craftComponent : recipeComponent.getItemStackArray())
+                    {
+                        craftingInputArray.add(craftComponent);
+                    }
+    
+                    // Debugging!
+                    if (!searchResult)
+                    {
+                        MadMod.log().info(resultInputPrint);
+                    }
+                }
+                
+                // If the above crafting component registration went well then we will add them.
+                if (!errorsWithAssociation)
+                {
+                    // Depending on type of recipe, very different things need to happen with the data we have collected so far.
+                    switch (itemCraftingRecipe.getCraftingRecipeType())
+                    {
+                        case SHAPED:
+                        {
+                            // Move the string array into proper alignment for recipe input, any slots without components become blank spaces this is intentional.
+                            String[] craftingGridLayoutFinal = new String[3];
+                            craftingGridLayoutFinal[0] = String.valueOf(craftingGridLayout[0]) + String.valueOf(craftingGridLayout[1]) + String.valueOf(craftingGridLayout[2]);
+                            craftingGridLayoutFinal[1] = String.valueOf(craftingGridLayout[3]) + String.valueOf(craftingGridLayout[4]) + String.valueOf(craftingGridLayout[5]);
+                            craftingGridLayoutFinal[2] = String.valueOf(craftingGridLayout[6]) + String.valueOf(craftingGridLayout[7]) + String.valueOf(craftingGridLayout[8]);
+                            
+                            // Construct the final object array recipe input.
+                            List<Object> recipeFinalInput = new ArrayList<Object>();
+                            recipeFinalInput.add(craftingGridLayoutFinal[0]);
+                            recipeFinalInput.add(craftingGridLayoutFinal[1]);
+                            recipeFinalInput.add(craftingGridLayoutFinal[2]);
+                            recipeFinalInput.addAll(craftingInputArray);
+                            
+                            // Actually add the recipe to Minecraft/Forge.
+                            try
+                            {
+                                GameRegistry.addShapedRecipe(new ItemStack(this.getItem(), itemCraftingRecipe.getCraftingAmount(), subItem.getMetaID()),
+                                        recipeFinalInput.toArray(new Object[]{}));
+                            }
+                            catch (Exception err)
+                            {
+                                MadMod.log().info("[" + this.getItemBaseName() + "]Unable to load shaped crafting recipe!");
+                            }
+                            
+                            break;
+                        }
+                        case SHAPELESS:
+                        {              
+                            try
+                            {
+                                // Shapeless recipes are a little easier since we only need to pass in the item array.
+                                GameRegistry.addShapelessRecipe(new ItemStack(this.getItem(), itemCraftingRecipe.getCraftingAmount(), subItem.getMetaID()),
+                                        craftingInputArray.toArray(new Object[]{}));
+                            }
+                            catch (Exception err)
+                            {
+                                MadMod.log().info("[" + this.getItemBaseName() + "]Unable to load shapeless crafting recipe!");
+                            }
+                            
+                            break;
+                        }
+                        default:
+                        {
+                            // Nothing to see here.
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    MadMod.log().info("[" + this.data.getItemBaseName() + "]Bad Crafting Recipe: " + itemCraftingRecipe.getCraftingRecipeType().name());
+                }
+            }
+        }
+        
+        // Information about total loaded and failed.
+        MadMod.log().info("[" + this.data.getItemBaseName() + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
+        MadMod.log().info("[" + this.data.getItemBaseName() + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
     }
 }

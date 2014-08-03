@@ -5,7 +5,7 @@ import madscience.factory.rendering.MadModelWorldRender;
 
 import com.google.gson.annotations.Expose;
 
-public class MadTileModel
+public class MadModel
 {
     @Expose
     private MadModelFile[] machineModels;
@@ -20,7 +20,7 @@ public class MadTileModel
     private MadModelWorldRender worldRenderInfo;
     
     @SuppressWarnings("ucd")
-    public MadTileModel(
+    public MadModel(
             MadModelFile[] machineModels,
             String machineTexture,
             MadModelItemRender itemRenderInfo,
@@ -206,11 +206,11 @@ public class MadTileModel
 
     public void setItemRenderInfoDefaults()
     {
-        this.itemRenderInfo = MadTileModel.defaultItemRenderInfo();
+        this.itemRenderInfo = MadModel.defaultItemRenderInfo();
     }
 
     public void setWorldRenderInfoDefaults()
     {
-        this.worldRenderInfo = MadTileModel.defaultWorldRenderInfo();
+        this.worldRenderInfo = MadModel.defaultWorldRenderInfo();
     }
 }

@@ -2,10 +2,10 @@ package madscience.network;
 
 import madscience.factory.mod.MadMod;
 import madscience.factory.tileentity.templates.MadTileEntityPacketTemplate;
-import madscience.items.warningsign.WarningSignPacketClientRequestSignType;
-import madscience.items.warningsign.WarningSignPacketServerRequestReplySignType;
-import madscience.items.warningsign.WarningSignPacketServerUpdateSignType;
-import madscience.items.weapons.pulserifle.PulseRiflePackets;
+import madscience.item.warningsign.WarningSignPacketClientRequestSignType;
+import madscience.item.warningsign.WarningSignPacketServerRequestReplySignType;
+import madscience.item.warningsign.WarningSignPacketServerUpdateSignType;
+import madscience.item.weapon.pulserifle.PulseRiflePackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 
@@ -39,22 +39,22 @@ public abstract class MadPackets
         ImmutableBiMap.Builder<Integer, Class<? extends MadPackets>> builder = ImmutableBiMap.builder();
 
         // Mad Tile Entity Packet
-        builder.put(Integer.valueOf(3), MadTileEntityPacketTemplate.class);
+        builder.put(Integer.valueOf(1), MadTileEntityPacketTemplate.class);
 
         // Mad Particle Packet (Can be any particle!)
-        builder.put(Integer.valueOf(11), MadParticlePacket.class);
+        builder.put(Integer.valueOf(2), MadParticlePacket.class);
         
         // Pulse Rifle
-        builder.put(Integer.valueOf(13), PulseRiflePackets.class);
+        builder.put(Integer.valueOf(3), PulseRiflePackets.class);
         
         // Warning Sign Server (Sent from server to all clients to change Sign Type)
-        builder.put(Integer.valueOf(17), WarningSignPacketServerUpdateSignType.class);
+        builder.put(Integer.valueOf(4), WarningSignPacketServerUpdateSignType.class);
         
         // Warning Sign Server (Sent from server to specific client)
-        builder.put(Integer.valueOf(18), WarningSignPacketServerRequestReplySignType.class);
+        builder.put(Integer.valueOf(5), WarningSignPacketServerRequestReplySignType.class);
         
         // Warning Sign Client (Sent by clients to server to ask for painting)
-        builder.put(Integer.valueOf(19), WarningSignPacketClientRequestSignType.class);
+        builder.put(Integer.valueOf(6), WarningSignPacketClientRequestSignType.class);
 
         idMap = builder.build();
     }

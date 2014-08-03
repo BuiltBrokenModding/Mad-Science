@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulseriflegrenade;
+package madscience.item.weapon.pulseriflegrenade;
 
 import java.util.List;
 

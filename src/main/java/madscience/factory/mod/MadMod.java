@@ -4,13 +4,17 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import madscience.MadManualItems;
+import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.creativetab.MadCreativeTab;
+import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 import madscience.util.IDManager;
@@ -37,8 +41,8 @@ public class MadMod
     public static final String DEPENDENCIES = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion";
     
     // Proxy Classes Namespace.
-    public static final String CLIENT_PROXY = "madscience.client.ClientProxy";
-    public static final String SERVER_PROXY = "madscience.server.CommonProxy";
+    public static final String CLIENT_PROXY = "madscience.proxy.ClientProxy";
+    public static final String SERVER_PROXY = "madscience.proxy.CommonProxy";
     
     // Full version string for internal reference by mod.
     public static final String VMAJOR = "@MAJOR@";
@@ -57,6 +61,9 @@ public class MadMod
     public static final String TEXTURE_DIRECTORY = "textures/";
     public static final String MODEL_DIRECTORY = "models/";
     
+    /** Determines how far away before data packets will no longer be sent to player in question. */
+    public static final int PACKET_SEND_RADIUS = 25;
+    
     /** Quick links to popular places. */
     public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
     
@@ -68,6 +75,8 @@ public class MadMod
     
     /** Data container which gets serialized with all our mod information. */
     private static List<MadTileEntityFactoryProductData> unregisteredMachines;
+    
+    private static List<MadItemFactoryProductData> unregisteredItems;
     
     /** Holds an internal reference to every registered sound for easy reference. */
     private static Map<String, MadSound> soundArchive = new HashMap<String, MadSound>();
@@ -145,7 +154,22 @@ public class MadMod
         MadModData loadedModData = null;
         loadedModData = gson.fromJson(jsonMachineInput, MadModData.class);
         
-        // Populate the list of unregistered machines from the data we just loaded.
+        // Populate the list of unregistered items.
+        unregisteredItems = new ArrayList<MadItemFactoryProductData>();
+        MadItemFactoryProductData[] jsonItems = loadedModData.getUnregisteredItems();
+        for (MadItemFactoryProductData jsonItem : jsonItems)
+        {
+            unregisteredItems.add(jsonItem);
+        }
+        
+        // Check if we have manual item to add.
+        Collection<MadItemFactoryProductData> manualItems = MadManualItems.getManualitems();
+        if (manualItems != null)
+        {
+            unregisteredItems.addAll(manualItems);
+        }
+        
+        // Populate the list of unregistered machines.
         unregisteredMachines = new ArrayList<MadTileEntityFactoryProductData>();
         MadTileEntityFactoryProductData[] jsonMachines = loadedModData.getUnregisteredMachines();
         for (MadTileEntityFactoryProductData jsonMachine : jsonMachines)
@@ -220,7 +244,8 @@ public class MadMod
                 UPDATE_URL,
                 idManagerBlockIndex,
                 idManagerItemIndex,
-                MadTileEntityFactory.instance().getMachineDataList());
+                MadTileEntityFactory.instance().getMachineDataList(),
+                MadItemFactory.instance().getItemDataList());
     }
 
     public static MadCreativeTab getCreativeTab()
@@ -237,5 +262,10 @@ public class MadMod
     {
         logger = lOGGER;
         logger.setParent(fmlLogger);
+    }
+
+    public static MadItemFactoryProductData[] getUnregisteredItems()
+    {
+        return unregisteredItems.toArray(new MadItemFactoryProductData[]{});
     }
 }

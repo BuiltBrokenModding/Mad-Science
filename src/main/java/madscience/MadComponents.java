@@ -1,25 +1,25 @@
 package madscience;
 
 import madscience.factory.mod.MadMod;
-import madscience.items.components.ComponentCPU;
-import madscience.items.components.ComponentCase;
-import madscience.items.components.ComponentComputer;
-import madscience.items.components.ComponentEnderslime;
-import madscience.items.components.ComponentFan;
-import madscience.items.components.ComponentFusedQuartz;
-import madscience.items.components.ComponentMagneticTape;
-import madscience.items.components.ComponentPowerSupply;
-import madscience.items.components.ComponentRAM;
-import madscience.items.components.ComponentScreen;
-import madscience.items.components.ComponentSiliconWafer;
-import madscience.items.components.ComponentThumper;
-import madscience.items.components.ComponentTransistor;
-import madscience.items.components.pulserifle.ComponentPulseRifleBarrel;
-import madscience.items.components.pulserifle.ComponentPulseRifleBolt;
-import madscience.items.components.pulserifle.ComponentPulseRifleBulletCasing;
-import madscience.items.components.pulserifle.ComponentPulseRifleGrenadeCasing;
-import madscience.items.components.pulserifle.ComponentPulseRifleReceiver;
-import madscience.items.components.pulserifle.ComponentPulseRifleTrigger;
+import madscience.item.components.ComponentCPU;
+import madscience.item.components.ComponentCase;
+import madscience.item.components.ComponentComputer;
+import madscience.item.components.ComponentEnderslime;
+import madscience.item.components.ComponentFan;
+import madscience.item.components.ComponentFusedQuartz;
+import madscience.item.components.ComponentMagneticTape;
+import madscience.item.components.ComponentPowerSupply;
+import madscience.item.components.ComponentRAM;
+import madscience.item.components.ComponentScreen;
+import madscience.item.components.ComponentSiliconWafer;
+import madscience.item.components.ComponentThumper;
+import madscience.item.components.ComponentTransistor;
+import madscience.item.components.pulserifle.ComponentPulseRifleBarrel;
+import madscience.item.components.pulserifle.ComponentPulseRifleBolt;
+import madscience.item.components.pulserifle.ComponentPulseRifleBulletCasing;
+import madscience.item.components.pulserifle.ComponentPulseRifleGrenadeCasing;
+import madscience.item.components.pulserifle.ComponentPulseRifleReceiver;
+import madscience.item.components.pulserifle.ComponentPulseRifleTrigger;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadComponents

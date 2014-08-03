@@ -1,13 +1,10 @@
 package madscience.tile;
 
 import madscience.MadEntities;
-import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.ItemDNASampleLogic;
-import madscience.items.datareel.ItemDataReelEmpty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -98,44 +95,6 @@ public class SequencerEntity extends MadTileEntityPrefab
         // Check if output slot 1 (for DNA samples) is above item stack limit.
         int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult[0].stackSize;
         return (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult[0].getMaxStackSize());
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            // Check if we are a DNA sample.
-            if (items != null && items.getItem() instanceof ItemDNASampleLogic)
-            {
-                return true;
-            }
-        }
-        
-        // Check if input slot 2 is a empty genome data reel.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2))
-        {
-            // Input slot 2 - empty genome data reel.
-            ItemStack compareDirtyNeedle = new ItemStack(MadEntities.DATAREEL_EMPTY);
-            if (compareDirtyNeedle.isItemEqual(items))
-            {
-                return true;
-            }
-            
-            // Empty genomes are allowed since they will be encoded in this device.
-            if (items != null && items.getItem() instanceof ItemDataReelEmpty)
-            {
-                return true;
-            }
-
-            // Check if we are a genome data reel that is unfinished (AKA damaged).
-            if (items != null && items.getItem() instanceof ItemGenomeBase && items.isItemDamaged())
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override

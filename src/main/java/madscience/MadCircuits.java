@@ -1,14 +1,14 @@
 package madscience;
 
 import madscience.factory.mod.MadMod;
-import madscience.items.circuits.CircuitComparator;
-import madscience.items.circuits.CircuitDiamond;
-import madscience.items.circuits.CircuitEmerald;
-import madscience.items.circuits.CircuitEnderEye;
-import madscience.items.circuits.CircuitEnderPearl;
-import madscience.items.circuits.CircuitGlowstone;
-import madscience.items.circuits.CircuitRedstone;
-import madscience.items.circuits.CircuitSpiderEye;
+import madscience.item.circuits.CircuitComparator;
+import madscience.item.circuits.CircuitDiamond;
+import madscience.item.circuits.CircuitEmerald;
+import madscience.item.circuits.CircuitEnderEye;
+import madscience.item.circuits.CircuitEnderPearl;
+import madscience.item.circuits.CircuitGlowstone;
+import madscience.item.circuits.CircuitRedstone;
+import madscience.item.circuits.CircuitSpiderEye;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadCircuits

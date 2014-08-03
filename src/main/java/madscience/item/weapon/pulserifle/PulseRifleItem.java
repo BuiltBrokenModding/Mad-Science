@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulserifle;
+package madscience.item.weapon.pulserifle;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import java.util.List;
 import madscience.MadForgeMod;
 import madscience.MadWeapons;
 import madscience.factory.mod.MadMod;
-import madscience.items.weapons.pulseriflebullet.PulseRifleBulletEntity;
-import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
-import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineComparator;
-import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineComparatorItem;
+import madscience.item.weapon.pulseriflebullet.PulseRifleBulletEntity;
+import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeEntity;
+import madscience.item.weapon.pulseriflemagazine.PulseRifleMagazineComparator;
+import madscience.item.weapon.pulseriflemagazine.PulseRifleMagazineComparatorItem;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;

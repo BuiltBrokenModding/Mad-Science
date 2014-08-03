@@ -1,15 +1,13 @@
 package madscience.factory.item.prefab;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-import madscience.MadForgeMod;
 import madscience.factory.MadItemFactory;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.MadItemRenderPass;
 import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,10 +15,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
+
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -66,6 +65,25 @@ abstract class MadItemBasePrefab extends Item
         
         // Determine if this item has subtypes (using damage value as sub-items).
         this.setHasSubtypes(itemData.hasSubItems());
+    }
+    
+    @Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
+    {
+        // Only displays tooltip information when SHIFT key is pressed.
+        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+        String defaultTooltip = StatCollector.translateToLocal("noshift.tooltip");
+        boolean isShiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+
+        // Use LWJGL to detect what key is being pressed.
+        if (tooltip != null && tooltip.length() > 0 && isShiftPressed)
+        {
+            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
+        }
+        else if (defaultTooltip != null && defaultTooltip.length() > 0 && !isShiftPressed)
+        {
+            info.addAll(MadUtils.splitStringPerWord(String.valueOf(defaultTooltip), 10));
+        }
     }
     
     @Override

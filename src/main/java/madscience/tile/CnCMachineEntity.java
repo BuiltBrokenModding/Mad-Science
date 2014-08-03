@@ -1,7 +1,5 @@
 package madscience.tile;
 
-import madscience.MadConfig;
-import madscience.factory.MadTileEntityFactory;
 import madscience.factory.mod.MadMod;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
@@ -497,43 +495,6 @@ public class CnCMachineEntity extends MadTileEntityPrefab
     }
 
     @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if machine trying to insert item into given slot is allowed.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET))
-        {
-            // Input slot 1 - Water Bucket.
-            ItemStack compareWaterBucket = new ItemStack(Item.bucketWater);
-            if (compareWaterBucket.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        else if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            // Input slot 2 - Iron Block.
-            ItemStack compareIronBlock = new ItemStack(Block.blockIron);
-            if (compareIronBlock.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        else if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2))
-        {
-            // Input slot 3 - Written Book.
-            ItemStack compareWrittenBook = new ItemStack(Item.writtenBook);
-            if (compareWrittenBook.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
@@ -588,7 +549,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab
         if (this.canSmelt() && this.isPowered() && this.isRedstonePowered() && cookTimeScaled > 7)
         {
             // Play particle effect of water splashing down.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("splash", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("splash", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
                     this.worldObj.rand.nextFloat(), this.worldObj.rand.nextFloat() + 0.5F, this.worldObj.rand.nextFloat()).makePacket());
 
             // Plays water jet-stream animation to look like iron block is being cut into shape.
@@ -774,7 +735,7 @@ public class CnCMachineEntity extends MadTileEntityPrefab
                     this.playSoundByName("PressStop");
                     
                     // Spawn smoke particles to simulate the block being heated from all the pressure.
-                    PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.666D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
+                    PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.666D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
                             worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
                 }
             }

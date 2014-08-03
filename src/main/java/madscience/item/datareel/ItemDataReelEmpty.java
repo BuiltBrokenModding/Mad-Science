@@ -1,6 +1,5 @@
-package madscience.items.datareel;
+package madscience.item.datareel;
 
-import madscience.factory.item.prefab.ItemGenomeBase;
 import madscience.factory.mod.MadMod;
 
 public class ItemDataReelEmpty extends ItemGenomeBase

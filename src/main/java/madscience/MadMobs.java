@@ -1,8 +1,5 @@
 package madscience;
 
-import madscience.factory.item.prefab.ItemGenomeBase;
-import madscience.factory.item.prefab.MadGenomeInfo;
-import madscience.factory.item.prefab.MadSpawnEggInfo;
 import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;

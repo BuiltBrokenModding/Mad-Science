@@ -1,15 +1,11 @@
-package madscience.factory.tileentity.templates;
+package madscience.factory.rendering;
 
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadTileModel;
+import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
-import madscience.factory.rendering.MadModelItemRender;
-import madscience.factory.rendering.MadModelWorldRender;
-import madscience.factory.rendering.MadRenderTransformationTypes;
-import madscience.factory.rendering.MadRenderingFactoryProduct;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
@@ -31,13 +27,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler, IItemRenderer
+public class MadRendererTemplate extends TileEntitySpecialRenderer implements ISimpleBlockRenderingHandler, IItemRenderer
 {
     private MadRenderingFactoryProduct currentRenderProduct = null;
     private int currentRenderID = -1;
 
     /** Called on startup of game when renderer is associated with event system with Minecraft/Forge. */
-    public MadTileEntityRendererTemplate()
+    public MadRendererTemplate()
     {
         super();
     }
@@ -264,7 +260,7 @@ public class MadTileEntityRendererTemplate extends TileEntitySpecialRenderer imp
         }
         
         // Grab loaded item rendering information from the factory.
-        MadTileModel machineModels = registeredMachine.getModelArchive();
+        MadModel machineModels = registeredMachine.getModelArchive();
         if (machineModels == null)
         {
             return;

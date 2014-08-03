@@ -1,5 +1,6 @@
 package madscience.factory.mod;
 
+import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.tileentity.MadTileEntityFactoryProductData;
 
 import com.google.gson.annotations.Expose;
@@ -75,6 +76,10 @@ public class MadModData
     // Machines
     @Expose
     private MadTileEntityFactoryProductData[] unregisteredMachines;
+    
+    // Items
+    @Expose
+    private MadItemFactoryProductData[] unregisteredItems;
 
     @SuppressWarnings("ucd")
     public MadModData(String id,
@@ -97,7 +102,8 @@ public class MadModData
             String updateURL,
             int blockIDStart,
             int itemIDStart,
-            MadTileEntityFactoryProductData[] madMachines)
+            MadTileEntityFactoryProductData[] madMachines,
+            MadItemFactoryProductData[] madItems)
     {
         super();
 
@@ -129,6 +135,7 @@ public class MadModData
         this.idManagerItemIndex = itemIDStart;
 
         this.unregisteredMachines = madMachines;
+        this.unregisteredItems = madItems;
     }
 
     public String getID()
@@ -234,5 +241,10 @@ public class MadModData
     public int getIDManagerItemIndex()
     {
         return idManagerItemIndex;
+    }
+
+    public MadItemFactoryProductData[] getUnregisteredItems()
+    {
+        return unregisteredItems;
     }
 }

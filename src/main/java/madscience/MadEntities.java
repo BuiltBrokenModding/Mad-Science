@@ -2,12 +2,10 @@ package madscience;
 
 import madscience.factory.item.prefab.ItemLabCoat;
 import madscience.factory.mod.MadMod;
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.CombinedMemoryMonsterPlacer;
-import madscience.items.ItemGMOMobPlacer;
-import madscience.items.datareel.ItemDataReelEmpty;
-import madscience.items.warningsign.WarningSignEntity;
-import madscience.items.warningsign.WarningSignItem;
+import madscience.item.ItemGMOMobPlacer;
+import madscience.item.datareel.ItemDataReelEmpty;
+import madscience.item.warningsign.WarningSignEntity;
+import madscience.item.warningsign.WarningSignItem;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.EnumHelper;

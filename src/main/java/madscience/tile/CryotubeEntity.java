@@ -4,8 +4,7 @@ import madscience.MadEntities;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
-import madscience.items.CombinedMemoryMonsterPlacer;
-import madscience.items.datareel.ItemDataReelEmpty;
+import madscience.item.datareel.ItemDataReelEmpty;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -166,52 +165,6 @@ public class CryotubeEntity extends MadTileEntityPrefab
                 this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_WASTE).stackSize += rottenFlesh.stackSize;
             }
         }
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check input slot 1 for spawn egg of villager only.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            ItemStack compareVillagerSpawnEgg = new ItemStack(Item.monsterPlacer, 1, 120);
-            if (compareVillagerSpawnEgg.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        
-        // Check input slot 2 is a empty genome data reel.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2))
-        {
-            // Empty data reel waiting to be populated with villager memory.
-            ItemStack emptyDataReel = new ItemStack(MadEntities.DATAREEL_EMPTY);
-            if (emptyDataReel.isItemEqual(items))
-            {
-                return true;
-            }
-
-            // Existing memory data reel.
-            ItemStack compareMemoryReel = new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER);
-            if (compareMemoryReel.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        
-        // Checks for nether star in the extra slot which allows us to convert brain waves into electricity.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_EXTRA))
-        {
-            ItemStack compareNetherStar = new ItemStack(Item.netherStar);
-            if (compareNetherStar.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @Override

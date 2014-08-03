@@ -83,7 +83,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
     {
         this.INVENTORY = new ItemStack[this.getSizeInventory()];
     }
-
+    
     @Override
     public void closeChest()
     {
@@ -462,11 +462,11 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
         return true;
     }
 
+    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
     @Override
-    public boolean isItemValidForSlot(int i, ItemStack itemstack)
+    public boolean isItemValidForSlot(int slot, ItemStack items)
     {
-        // Default response is to deny input and allow parent class to implement.
-        return false;
+        return this.isItemUsedInInputRecipes(items);
     }
 
     /** Do not make give this method the name canInteractWith because it clashes with Container */

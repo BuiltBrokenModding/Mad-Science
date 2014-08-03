@@ -1,4 +1,4 @@
-package madscience.gui;
+package madscience;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;

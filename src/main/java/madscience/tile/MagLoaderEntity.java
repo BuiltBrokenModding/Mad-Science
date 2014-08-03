@@ -105,37 +105,6 @@ public class MagLoaderEntity extends MadTileEntityPrefab
         return this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
     }
 
-    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if machine trying to insert item into given slot is allowed.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            // Input slot 1 - Pulse Rifle Magazine in input slot 1.
-            ItemStack compareMagazineItem = new ItemStack(MadWeapons.WEAPONITEM_MAGAZINEITEM);
-            if (compareMagazineItem.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        // Storage area for bullets.
-        ItemStack compareBulletItem = new ItemStack(MadWeapons.WEAPONITEM_BULLETITEM);
-        if (slot >= this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_STORAGE))
-        {
-            // Check to make sure only bullets can be put in these slots.
-            if (compareBulletItem.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     @Override
     public void readFromNBT(NBTTagCompound nbt)
     {

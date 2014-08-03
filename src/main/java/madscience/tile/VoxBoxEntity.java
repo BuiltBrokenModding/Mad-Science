@@ -11,8 +11,6 @@ import madscience.factory.tileentity.MadTileEntityFactoryProduct;
 import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -60,26 +58,6 @@ public class VoxBoxEntity extends MadTileEntityPrefab
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) != null)
         {
             return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if input slot 1 is a written book.
-        ItemStack compareWrittenBook = new ItemStack(Item.writtenBook);
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            if (compareWrittenBook.isItemEqual(items))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         return false;

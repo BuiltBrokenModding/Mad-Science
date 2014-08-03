@@ -3,7 +3,6 @@ package madscience.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.MadConfig;
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tileentity.MadTileEntityFactoryProduct;
@@ -166,51 +165,6 @@ public class SoniclocatorEntity extends MadTileEntityPrefab
             return true;
         }
 
-        return false;
-    }
-
-    /** Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. */
-    @Override
-    public boolean isItemValidForSlot(int slot, ItemStack items)
-    {
-        super.isItemValidForSlot(slot, items);
-        
-        // Check if input slot 1 is a block of gravel ready to replace target block.
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1))
-        {
-            // Input slot 1 - Gravel.
-            ItemStack compareItem = new ItemStack(Block.gravel);
-            if (compareItem.isItemEqual(items))
-            {
-                return true;
-            }
-        }
-        
-        if (slot == this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2))
-        {
-            try
-            {
-                // Check if the target block is indeed a block.
-                ItemStack compareChucnkItem = new ItemStack(Block.blocksList[items.getItem().itemID]);
-                if (items != null && compareChucnkItem.isItemEqual(items))
-                {
-                    return true;
-                }
-            }
-            catch (Exception err)
-            {
-                MadMod.log().info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
-            }
-            
-            // Check if the target block is inside the OreDictionary if first query fails.
-            int oreID = OreDictionary.getOreID(items);
-            ArrayList<ItemStack> oreDictOres = OreDictionary.getOres(oreID);
-            for (ItemStack someItem : oreDictOres)
-            {
-                if (OreDictionary.itemMatches(someItem, items, false)) return true;
-            }
-        }
-        
         return false;
     }
 
@@ -420,7 +374,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab
         if (canSmelt() && isPowered() && isRedstonePowered() && cooldownMode)
         {
             // Send a packet saying we want explosion smoke for 200 ticks at this location.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
                     worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
             if (this.getAnimationCurrentFrame() <= 5 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)

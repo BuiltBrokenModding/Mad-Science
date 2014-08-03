@@ -1,6 +1,5 @@
-package madscience.items.circuits;
+package madscience.item.circuits;
 
-import madscience.factory.item.prefab.ItemComponentBase;
 
 public class CircuitSpiderEye extends ItemComponentBase
 {

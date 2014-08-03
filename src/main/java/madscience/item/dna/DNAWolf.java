@@ -1,6 +1,6 @@
-package madscience.items.dna;
+package madscience.item.dna;
 
-import madscience.items.ItemDNASampleLogic;
+import madscience.item.ItemDNASampleLogic;
 
 
 public class DNAWolf extends ItemDNASampleLogic

@@ -1,8 +1,8 @@
-package madscience.items.weapons.pulseriflegrenade;
+package madscience.item.weapon.pulseriflegrenade;
 
 import java.util.List;
 
-import madscience.items.weapons.pulserifle.PulseRifleSounds;
+import madscience.item.weapon.pulserifle.PulseRifleSounds;
 import madscience.world.MadExplosion;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;

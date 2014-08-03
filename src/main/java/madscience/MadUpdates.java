@@ -41,47 +41,43 @@ class MadUpdates
 
     static void checkJenkinsBuildNumbers()
     {
-        // Determine if we should check for updates by comparing build numbers in our Jenkins build server.
-        if (MadConfig.UPDATE_CHECKER)
+        // Attempt to open a connection to the URL and see if it is active.
+        boolean reachable = false;
+        try
         {
-            // Attempt to open a connection to the URL and see if it is active.
-            boolean reachable = false;
-            try
+            reachable = ping(MadMod.UPDATE_URL, 500);
+        }
+        catch (Exception err)
+        {
+            MadMod.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
+            return;
+        }
+
+        try
+        {
+            // Abort the rest of this process if we cannot even reach the site.
+            if (reachable)
             {
-                reachable = ping(MadMod.UPDATE_URL, 500);
+                // Look for XML response from server for update information.
+                Document docXML = MadXML.loadXMLFromString(MadMod.UPDATE_URL);
+                Node child = docXML.getFirstChild();
+                String xmlBuildNumber = child.getTextContent();
+                long myXMLLong = new Long(xmlBuildNumber);
+
+                // Register a custom connection handler so we can tell the user something when the login to the game world.
+                MadMod.log().info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
+                NetworkRegistry.instance().registerConnectionHandler(new CustomConnectionHandler(myXMLLong));
             }
-            catch (Exception err)
+            else
             {
                 MadMod.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
                 return;
             }
-
-            try
-            {
-                // Abort the rest of this process if we cannot even reach the site.
-                if (reachable)
-                {
-                    // Look for XML response from server for update information.
-                    Document docXML = MadXML.loadXMLFromString(MadMod.UPDATE_URL);
-                    Node child = docXML.getFirstChild();
-                    String xmlBuildNumber = child.getTextContent();
-                    long myXMLLong = new Long(xmlBuildNumber);
-
-                    // Register a custom connection handler so we can tell the user something when the login to the game world.
-                    MadMod.log().info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
-                    NetworkRegistry.instance().registerConnectionHandler(new CustomConnectionHandler(myXMLLong));
-                }
-                else
-                {
-                    MadMod.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
-                    return;
-                }
-            }
-            catch (Exception err)
-            {
-                MadMod.log().info("Unable to parse XML from Jenkins build server... perhaps it is down!");
-                return;
-            }
+        }
+        catch (Exception err)
+        {
+            MadMod.log().info("Unable to parse XML from Jenkins build server... perhaps it is down!");
+            return;
         }
     }
 }

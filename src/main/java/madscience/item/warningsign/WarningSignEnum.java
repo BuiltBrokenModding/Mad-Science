@@ -1,4 +1,4 @@
-package madscience.items.warningsign;
+package madscience.item.warningsign;
 
 enum WarningSignEnum
 {    
