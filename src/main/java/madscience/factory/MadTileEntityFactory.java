@@ -13,8 +13,8 @@ import madscience.factory.block.MadBlockTooltip;
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
-import madscience.factory.tileentity.MadTileEntityFactoryProduct;
-import madscience.factory.tileentity.MadTileEntityFactoryProductData;
+import madscience.factory.tile.MadTileEntityFactoryProduct;
+import madscience.factory.tile.MadTileEntityFactoryProductData;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactory

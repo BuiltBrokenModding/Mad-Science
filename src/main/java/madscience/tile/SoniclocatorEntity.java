@@ -5,8 +5,8 @@ import java.util.List;
 
 import madscience.factory.mod.MadMod;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
-import madscience.factory.tileentity.MadTileEntityFactoryProduct;
-import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.factory.tile.MadTileEntityFactoryProduct;
+import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;

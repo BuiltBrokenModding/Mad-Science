@@ -1,7 +1,7 @@
 package madscience.factory.mod;
 
 import madscience.factory.item.MadItemFactoryProductData;
-import madscience.factory.tileentity.MadTileEntityFactoryProductData;
+import madscience.factory.tile.MadTileEntityFactoryProductData;
 
 import com.google.gson.annotations.Expose;
 

@@ -7,8 +7,8 @@ import java.util.List;
 
 import madscience.MadWeapons;
 import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
-import madscience.factory.tileentity.MadTileEntityFactoryProduct;
-import madscience.factory.tileentity.prefab.MadTileEntityPrefab;
+import madscience.factory.tile.MadTileEntityFactoryProduct;
+import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

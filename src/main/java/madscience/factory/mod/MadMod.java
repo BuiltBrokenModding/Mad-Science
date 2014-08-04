@@ -16,7 +16,7 @@ import madscience.factory.MadTileEntityFactory;
 import madscience.factory.creativetab.MadCreativeTab;
 import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.sounds.MadSound;
-import madscience.factory.tileentity.MadTileEntityFactoryProductData;
+import madscience.factory.tile.MadTileEntityFactoryProductData;
 import madscience.util.IDManager;
 
 import com.google.common.base.Throwables;
@@ -163,10 +163,11 @@ public class MadMod
         }
         
         // Check if we have manual item to add.
-        Collection<MadItemFactoryProductData> manualItems = MadManualItems.getManualitems();
+        MadManualItems manualItems = new MadManualItems();
         if (manualItems != null)
         {
-            unregisteredItems.addAll(manualItems);
+            MadMod.logger.info("Adding manual items from class!");
+            unregisteredItems.addAll(manualItems.getManualitems());
         }
         
         // Populate the list of unregistered machines.
