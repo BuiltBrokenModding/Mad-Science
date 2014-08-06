@@ -1,8 +1,8 @@
 package madscience.tile;
 
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
 import madscience.factory.recipes.MadRecipe;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;

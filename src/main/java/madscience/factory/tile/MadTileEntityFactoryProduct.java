@@ -5,6 +5,7 @@ import java.util.List;
 
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.buttons.MadGUIButton;
+import madscience.factory.container.MadSlotContainer;
 import madscience.factory.controls.MadGUIControl;
 import madscience.factory.crafting.MadCraftingComponent;
 import madscience.factory.crafting.MadCraftingRecipe;
@@ -19,7 +20,6 @@ import madscience.factory.model.MadModelBounds;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
-import madscience.factory.slotcontainers.MadSlotContainer;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.sounds.MadSoundPlaybackTypeEnum;
 import madscience.factory.sounds.MadSoundTriggerEnum;

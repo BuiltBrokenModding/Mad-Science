@@ -1,10 +1,10 @@
 package madscience.tile;
 
 import madscience.MadForgeMod;
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;

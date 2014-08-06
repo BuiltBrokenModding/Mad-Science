@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

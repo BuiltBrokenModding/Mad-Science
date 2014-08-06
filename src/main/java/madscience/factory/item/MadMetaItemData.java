@@ -1,6 +1,7 @@
 package madscience.factory.item;
 
 import madscience.factory.crafting.MadCraftingRecipe;
+import madscience.factory.furnace.MadFurnaceRecipe;
 import madscience.factory.model.MadModel;
 import madscience.factory.sounds.MadSound;
 import net.minecraft.util.Icon;
@@ -33,10 +34,15 @@ public class MadMetaItemData
     @Expose
     private MadItemRenderPass[] renderPassArchive;
     
+    /** Contains recipes that will be loaded into Minecraft vanilla furnace for processing. Allows items to be cooked in vanilla furnace. */
+    @Expose
+    private MadFurnaceRecipe[] furnaceRecipes;
+    
     public MadMetaItemData(
             int metaID,
             String itemName,
             MadCraftingRecipe[] craftingRecipes,
+            MadFurnaceRecipe[] furnaceRecipes,
             MadSound[] soundArchive,
             MadModel modelArchive,
             MadItemRenderPass[] renderPasses)
@@ -46,6 +52,7 @@ public class MadMetaItemData
         this.metaID = metaID;
         this.itemName = itemName;
         this.craftingRecipes = craftingRecipes;
+        this.furnaceRecipes = furnaceRecipes;
         this.soundArchive = soundArchive;
         this.modelArchive = modelArchive;
         this.renderPassArchive = renderPasses;
@@ -162,5 +169,15 @@ public class MadMetaItemData
         fullItemName.append(this.itemName);
         
         return fullItemName.toString();
+    }
+
+    public MadFurnaceRecipe[] getFurnaceRecipes()
+    {
+        return furnaceRecipes;
+    }
+
+    public void setFurnaceRecipes(MadFurnaceRecipe[] furnaceRecipes)
+    {
+        this.furnaceRecipes = furnaceRecipes;
     }
 }

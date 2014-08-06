@@ -1,6 +1,8 @@
-package madscience.factory.slotcontainers;
+package madscience.factory.slot;
 
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.container.MadSlotContainer;
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.recipes.MadRecipe;
 import madscience.factory.recipes.MadRecipeComponent;
 import madscience.factory.tile.MadTileEntityFactoryProduct;

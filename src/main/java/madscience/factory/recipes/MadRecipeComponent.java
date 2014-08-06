@@ -1,7 +1,7 @@
 package madscience.factory.recipes;
 
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;

@@ -1,14 +1,11 @@
 package madscience.tile;
 
-import madscience.MadDNA;
 import madscience.MadFluids;
-import madscience.MadNeedles;
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.item.ItemNeedleFilledLogic;
-import madscience.item.needles.NeedleMutant;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

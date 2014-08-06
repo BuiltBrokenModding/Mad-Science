@@ -229,57 +229,7 @@ class MadRecipes
     }
 
     static void createComponentsRecipes()
-    {
-        // Create components that are needed to craft everything else in the mod.
-        
-        // Case
-        MadMod.log().info("-Case Component recipe");
-        GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_CASE), new Object[]
-        { "121",
-          "2 2",
-          "121",
-
-        '1', Item.ingotIron,
-        '2', Item.stick });
-        
-        // Computer
-        MadMod.log().info("-Computer Component recipe");
-        GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_COMPUTER), new Object[]
-        { "ECE", 
-          "FBD",
-          "EAE",
-
-        'A', new ItemStack(MadComponents.COMPONENT_SCREEN),
-        'B', new ItemStack(MadComponents.COMPONENT_CPU), 
-        'C', new ItemStack(MadComponents.COMPONENT_FAN),
-        'D', new ItemStack(MadComponents.COMPONENT_POWERSUPPLY),
-        'E', new ItemStack(MadComponents.COMPONENT_CASE),
-        'F', new ItemStack(MadComponents.COMPONENT_RAM), });
-        
-        // Fan
-        MadMod.log().info("-Fan Component recipe");
-        GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_FAN), new Object[]
-        { "121",
-          "222",
-          "121",
-
-        '1', new ItemStack(MadComponents.COMPONENT_CASE),
-        '2', Item.ingotIron, });
-        
-        
-        // Bake 1 Quartz = 1 Fused Quartz.
-        MadMod.log().info("-1 Quartz = 1 Fused Quartz recipe");
-        FurnaceRecipes.smelting().addSmelting(Item.netherQuartz.itemID, new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ), 0.1F);
-
-        // Bake 1 Quartz Block = 4 Fused Quartz.
-        MadMod.log().info("-1 Quartz Block = 4 Fused Quartz recipe");
-        FurnaceRecipes.smelting().addSmelting(Block.blockNetherQuartz.blockID, new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ, 4), 0.1F);
-
-        // Craft 1 Fire Charge + 1 Sand = 8 Fused Quartz.
-        MadMod.log().info("-1 Fire Charge + 1 Sand = 8 Fused Quartz recipe");
-        GameRegistry.addShapelessRecipe(new ItemStack(MadComponents.COMPONENT_FUSEDQUARTZ, 8), new Object[]
-        { new ItemStack(Item.fireballCharge), new ItemStack(Block.sand) });
-        
+    {        
         // Magnetic Tape
         MadMod.log().info("-Magnetic Tape Component recipe");
         GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_MAGNETICTAPE), new Object[]
@@ -288,18 +238,6 @@ class MadRecipes
 
         '1', Item.redstone,
         '2', Item.slimeBall, });
-        
-        // Power Supply
-        MadMod.log().info("-Power Supply Component recipe");
-        GameRegistry.addRecipe(new ItemStack(MadComponents.COMPONENT_POWERSUPPLY), new Object[]
-        { "141",
-          "323",
-          "141",
-
-        '1', Item.ingotIron,
-        '2', new ItemStack(MadCircuits.CIRCUIT_REDSTONE),
-        '3', new ItemStack(MadComponents.COMPONENT_TRANSISTOR),
-        '4', Block.blockRedstone, });
         
         // Screen
         MadMod.log().info("-Screen Component recipe");

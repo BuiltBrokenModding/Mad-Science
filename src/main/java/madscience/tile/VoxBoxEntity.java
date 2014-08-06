@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
 import madscience.factory.sounds.MadSound;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;

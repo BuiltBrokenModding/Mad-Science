@@ -1,4 +1,4 @@
-package madscience.factory.slotcontainers;
+package madscience.factory.container;
 
 //NOTE: Many parts of the code depend on this enumeration containing the phrase 'input' or 'output' in order to differentiate between slot types.
 public enum MadSlotContainerTypeEnum

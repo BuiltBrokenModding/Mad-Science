@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.item.needles.NeedleSounds;
 import madscience.item.weapon.pulserifle.PulseRifleSounds;
 import madscience.mobs.abomination.AbominationSounds;
 import madscience.mobs.creepercow.CreeperCowSounds;

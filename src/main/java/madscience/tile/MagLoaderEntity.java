@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import madscience.MadWeapons;
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;

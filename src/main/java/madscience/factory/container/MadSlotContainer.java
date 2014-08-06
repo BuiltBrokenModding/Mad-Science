@@ -1,4 +1,4 @@
-package madscience.factory.slotcontainers;
+package madscience.factory.container;
 
 import net.minecraftforge.common.ForgeDirection;
 

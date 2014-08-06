@@ -26,10 +26,6 @@ public class MadEntities
     public static CombinedMemoryMonsterPlacer COMBINEDMEMORY_MONSTERPLACER;
     public static final String COMBINEDMEMORY_MONSTERPLACER_INTERNALNAME = "memoryMonsterPlacer";
 
-    // Empty Data Reel
-    public static ItemDataReelEmpty DATAREEL_EMPTY;
-    private static final String DATAREEL_EMPTY_INTERNALNAME = "dataReelEmpty";
-
     // Gives our armor a custom material so that we can detect when various events interact with it.
     private static final EnumArmorMaterial labCoatArmorMaterial = EnumHelper.addArmorMaterial("LABCOAT", 0, new int[] { 0, 0, 0, 0 }, 0);
     
@@ -75,23 +71,6 @@ public class MadEntities
         // Note: These mobs are hard-coded into the combined memory monster placer.
 
         /* 0 - Priest [32 EU/t] 1 - Farmer [64 EU/t] 2 - Butcher [128 EU/t] 3 - Blacksmith [128 EU/t] 4 - Librarian [512 EU/t] */
-    }
-
-    static void createEmptyDataReel(int itemID)
-    {
-        // Empty Genome Data Reel
-        MadMod.log().info("-Empty Data Reel");
-        DATAREEL_EMPTY = (ItemDataReelEmpty) new ItemDataReelEmpty(itemID, 3515848, 3515848).setUnlocalizedName(DATAREEL_EMPTY_INTERNALNAME);
-        GameRegistry.registerItem(DATAREEL_EMPTY, DATAREEL_EMPTY_INTERNALNAME);
-
-        // Data Reel
-        GameRegistry.addRecipe(new ItemStack(DATAREEL_EMPTY, 1), new Object[]
-        { "111",
-          "121", 
-          "111",
-
-        '1', new ItemStack(MadComponents.COMPONENT_MAGNETICTAPE), 
-        '2', new ItemStack(MadCircuits.CIRCUIT_EMERALD), });
     }
 
     // Genetically Modified Mob Eggs

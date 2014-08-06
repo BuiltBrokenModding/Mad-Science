@@ -1,6 +1,5 @@
 package madscience.factory.item.prefab;
 
-import madscience.MadNeedles;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.entity.Entity;

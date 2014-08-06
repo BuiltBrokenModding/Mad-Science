@@ -3,13 +3,17 @@ package madscience.factory.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import madscience.MadComponents;
 import madscience.factory.crafting.MadCraftingComponent;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
+import madscience.factory.furnace.MadFurnaceRecipe;
 import madscience.factory.item.prefab.MadItemPrefab;
 import madscience.factory.mod.MadMod;
 import madscience.factory.recipes.MadRecipe;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.Icon;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -366,5 +370,60 @@ public class MadItemFactoryProduct
         // Information about total loaded and failed.
         MadMod.log().info("[" + this.data.getItemBaseName() + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
         MadMod.log().info("[" + this.data.getItemBaseName() + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
+    }
+
+    /** Parses input and output items and associates them with Minecraft/Forge ItemStacks.
+     *  After this it will register the completed items with vanilla cobblestone Furnace. */
+    public void loadVanillaFurnaceRecipes()
+    {
+        // Loop through all the sub items inside of this single item.
+        for (MadMetaItemData subItem : this.data.getSubItemsArchive())
+        {
+            // Loop through all the vanilla furnace recipes and associate them with Minecraft/Forge ItemStacks.
+            for (MadFurnaceRecipe furnaceRecipe : subItem.getFurnaceRecipes())
+            {
+                // Input Component
+                if (furnaceRecipe.getInputComponent() != null)
+                {
+                    // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
+                    ItemStack[] inputItem = MadRecipe.getItemStackFromString(
+                            furnaceRecipe.getInputComponent().getModID(),
+                            furnaceRecipe.getInputComponent().getInternalName(),
+                            furnaceRecipe.getInputComponent().getAmount(),
+                            furnaceRecipe.getInputComponent().getMetaDamage());
+                    
+                    if (inputItem != null && !furnaceRecipe.getInputComponent().isLoaded())
+                    {
+                        furnaceRecipe.getInputComponent().associateItemStackToRecipeComponent(inputItem);
+                    }
+                }
+                
+                // Output Component
+                if (furnaceRecipe.getOutputComponent() != null)
+                {
+                    ItemStack[] outputItem = MadRecipe.getItemStackFromString(
+                            furnaceRecipe.getOutputComponent().getModID(),
+                            furnaceRecipe.getOutputComponent().getInternalName(),
+                            furnaceRecipe.getOutputComponent().getAmount(),
+                            furnaceRecipe.getOutputComponent().getMetaDamage());
+                    
+                    if (outputItem != null && !furnaceRecipe.getOutputComponent().isLoaded())
+                    {
+                        furnaceRecipe.getOutputComponent().associateItemStackToRecipeComponent(outputItem);
+                    }
+                }
+                
+                // Now that input and output items are loaded lets apply this to vanilla furnace.
+                if (furnaceRecipe.getInputComponent().isLoaded() && furnaceRecipe.getOutputComponent().isLoaded())
+                {
+                    ItemStack[] inputItems = furnaceRecipe.getInputComponent().getItemStackArray();
+                    ItemStack[] outputItems = furnaceRecipe.getOutputComponent().getItemStackArray();
+                    if (inputItems[0] != null && outputItems[0] != null)
+                    {
+                        FurnaceRecipes.smelting().addSmelting(inputItems[0].itemID, outputItems[0], 0.0F);
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 package madscience.tile;
 
-import madscience.factory.slotcontainers.MadSlotContainerTypeEnum;
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;

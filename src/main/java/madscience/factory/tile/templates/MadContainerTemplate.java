@@ -1,9 +1,9 @@
 package madscience.factory.tile.templates;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.slotcontainers.MadInputSlot;
-import madscience.factory.slotcontainers.MadOutputSlot;
-import madscience.factory.slotcontainers.MadSlotContainer;
+import madscience.factory.container.MadSlotContainer;
+import madscience.factory.slot.MadInputSlot;
+import madscience.factory.slot.MadOutputSlot;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
