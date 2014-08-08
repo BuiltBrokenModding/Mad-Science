@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 import madscience.MadForgeMod;
-import madscience.factory.block.MadBlockTooltip;
 import madscience.factory.block.MadGhostBlockData;
+import madscience.factory.block.template.MadBlockTooltip;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.tile.MadTileEntityFactoryProduct;

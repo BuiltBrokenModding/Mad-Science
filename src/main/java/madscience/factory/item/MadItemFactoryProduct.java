@@ -37,7 +37,14 @@ public class MadItemFactoryProduct
         this.logicClass = getLogicClassByNamespace(itemData.getLogicClassFullyQualifiedName());
         
         // Create the item that we will register against Minecraft/Forge.
-        this.item = new MadItemPrefab(this);
+        if (this.logicClass != null)
+        {
+            this.item = getNewItemLogicClassInstance();
+        }
+        else
+        {
+            this.item = new MadItemPrefab(this);
+        }
     }
     
     /** Consumes namespace string for logic class and attempts to load and create a new instance of it for use in the game world. */

@@ -1,6 +1,6 @@
 package madscience;
 
-import madscience.factory.block.MadBlockTooltip;
+import madscience.factory.block.template.MadBlockTooltip;
 import madscience.factory.mod.MadMod;
 import madscience.fluids.dna.LiquidDNA;
 import madscience.fluids.dna.LiquidDNABlock;

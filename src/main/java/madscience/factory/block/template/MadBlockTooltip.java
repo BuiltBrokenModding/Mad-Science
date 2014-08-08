@@ -1,4 +1,4 @@
-package madscience.factory.block;
+package madscience.factory.block.template;
 
 import java.util.List;
 
