@@ -1,6 +1,6 @@
 package madscience.tile;
 
-import madscience.MadEntities;
+import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
@@ -73,8 +73,8 @@ public class SequencerEntity extends MadTileEntityPrefab
         else
         {
             // Item not damaged so check if it is an empty data reel.
-            ItemStack itemsInputSlot2 = new ItemStack(MadEntities.DATAREEL_EMPTY);
-            if (!itemsInputSlot2.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2)))
+            ItemStack emptyDataReel = MadItemFactory.instance().getItemStackByFullyQualifiedName("components", "DataReelEmpty", 1);
+            if (!emptyDataReel.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2)))
             {
                 return false;
             }

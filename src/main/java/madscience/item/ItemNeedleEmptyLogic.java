@@ -1,5 +1,6 @@
 package madscience.item;
 
+import madscience.factory.MadItemFactory;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.prefab.MadItemPrefab;
 import net.minecraft.entity.Entity;
@@ -50,18 +51,16 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
             return items;
         }
 
-        // Play sound of using the needle on yourself.
-        //player.playSound(NeedleSounds.NEEDLEITEM_STABPLAYER, 1.0F, 1.0F);
-
         // If needle is empty we will take blood from the player!
-        if (player instanceof EntityPlayer && player.inventory.consumeInventoryItem(MadNeedles.NEEDLE_ITEM.itemID))
+        if (player instanceof EntityPlayer && player.inventory.consumeInventoryItem(this.itemID))
         {
             // If needle is empty we will take blood from the player!
             player.attackEntityFrom(DamageSource.generic, 2);
             player.addExhaustion(5.0F);
 
-            // Return blood of a villager (human) to the player for stabbing
-            player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_VILLAGER));
+            // Return blood of a villager (human) to the player for stabbing.
+            ItemStack villagerNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "villager", 1);
+            player.inventory.addItemStackToInventory(villagerNeedle.copy());
 
             // Remove an item from our stack!
             return items;
@@ -86,24 +85,18 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         }
 
         // Remove an item from our stack!
-        if (!player.inventory.consumeInventoryItem(MadNeedles.NEEDLE_ITEM.itemID))
+        if (!player.inventory.consumeInventoryItem(this.itemID))
         {
             return false;
         }
 
-        // Play a sound of you using the needle on a mob!
-        //entity.playSound(NeedleSounds.NEEDLEITEM_STABMOB, 1.0F, 1.0F);
-
-        // -------
-        // MUTANTS
-        // -------
-
         // Pig Zombie
         if (entity instanceof EntityPigZombie)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_MUTANT)))
+            ItemStack muntantNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mutant", 1);
+            if (!player.inventory.addItemStackToInventory(muntantNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_MUTANT));
+                player.dropPlayerItem(muntantNeedle);
             }
             return false;
         }
@@ -111,23 +104,21 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Mooshroom
         if (entity instanceof EntityMooshroom)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_MUSHROOMCOW)))
+            ItemStack mushroomCowNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mushroomcow", 1);
+            if (!player.inventory.addItemStackToInventory(mushroomCowNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_MUSHROOMCOW));
+                player.dropPlayerItem(mushroomCowNeedle);
             }
             return false;
         }
 
-        // ---------
-        // BASE MOBS
-        // ---------
-
         // Cave Spider
         if (entity instanceof EntityCaveSpider)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_CAVESPIDER)))
+            ItemStack caveSpiderNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "cavespider", 1);
+            if (!player.inventory.addItemStackToInventory(caveSpiderNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_CAVESPIDER));
+                player.dropPlayerItem(caveSpiderNeedle);
             }
             return false;
         }
@@ -135,9 +126,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Chicken
         if (entity instanceof EntityChicken)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_CHICKEN)))
+            ItemStack chickenNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "chicken", 1);
+            if (!player.inventory.addItemStackToInventory(chickenNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_CHICKEN));
+                player.dropPlayerItem(chickenNeedle);
             }
             return false;
         }
@@ -145,9 +137,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Cow
         if (entity instanceof EntityCow)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_COW)))
+            ItemStack cowNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "cow", 1);
+            if (!player.inventory.addItemStackToInventory(cowNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_COW));
+                player.dropPlayerItem(cowNeedle);
             }
             return false;
         }
@@ -155,9 +148,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Creeper
         if (entity instanceof EntityCreeper)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_CREEPER)))
+            ItemStack creeperNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "creeper", 1);
+            if (!player.inventory.addItemStackToInventory(creeperNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_CREEPER));
+                player.dropPlayerItem(creeperNeedle);
             }
             return false;
         }
@@ -165,9 +159,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Bat
         if (entity instanceof EntityBat)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_BAT)))
+            ItemStack batNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "bat", 1);
+            if (!player.inventory.addItemStackToInventory(batNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_BAT));
+                player.dropPlayerItem(batNeedle);
             }
             return false;
         }
@@ -175,9 +170,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Enderman
         if (entity instanceof EntityEnderman)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_ENDERMAN)))
+            ItemStack endermanNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "enderman", 1);
+            if (!player.inventory.addItemStackToInventory(endermanNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_ENDERMAN));
+                player.dropPlayerItem(endermanNeedle);
             }
             return false;
         }
@@ -185,9 +181,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Horse
         if (entity instanceof EntityHorse)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_HORSE)))
+            ItemStack horseNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "horse", 1);
+            if (!player.inventory.addItemStackToInventory(horseNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_HORSE));
+                player.dropPlayerItem(horseNeedle);
             }
             return false;
         }
@@ -195,9 +192,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Ocelot
         if (entity instanceof EntityOcelot)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_OCELOT)))
+            ItemStack ocelotNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "ocelot", 1);
+            if (!player.inventory.addItemStackToInventory(ocelotNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_OCELOT));
+                player.dropPlayerItem(ocelotNeedle);
             }
             return false;
         }
@@ -205,9 +203,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Pig
         if (entity instanceof EntityPig)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_PIG)))
+            ItemStack pigNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "pig", 1);
+            if (!player.inventory.addItemStackToInventory(pigNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_PIG));
+                player.dropPlayerItem(pigNeedle);
             }
             return false;
         }
@@ -215,9 +214,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Sheep
         if (entity instanceof EntitySheep)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_SHEEP)))
+            ItemStack sheepNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "sheep", 1);
+            if (!player.inventory.addItemStackToInventory(sheepNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_SHEEP));
+                player.dropPlayerItem(sheepNeedle);
             }
             return false;
         }
@@ -225,9 +225,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Spider
         if (entity instanceof EntitySpider)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_SPIDER)))
+            ItemStack spiderNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "spider", 1);
+            if (!player.inventory.addItemStackToInventory(spiderNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_SPIDER));
+                player.dropPlayerItem(spiderNeedle);
             }
             return false;
         }
@@ -235,9 +236,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Squid
         if (entity instanceof EntitySquid)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_SQUID)))
+            ItemStack squidNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "squid", 1);
+            if (!player.inventory.addItemStackToInventory(squidNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_SQUID));
+                player.dropPlayerItem(squidNeedle);
             }
             return false;
         }
@@ -245,9 +247,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Villager
         if (entity instanceof EntityVillager)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_VILLAGER)))
+            ItemStack villagerNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "villager", 1);
+            if (!player.inventory.addItemStackToInventory(villagerNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_VILLAGER));
+                player.dropPlayerItem(villagerNeedle);
             }
             return false;
         }
@@ -255,9 +258,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Witch
         if (entity instanceof EntityWitch)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_WITCH)))
+            ItemStack witchNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "witch", 1);
+            if (!player.inventory.addItemStackToInventory(witchNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_WITCH));
+                player.dropPlayerItem(witchNeedle);
             }
             return false;
         }
@@ -265,9 +269,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Wolf
         if (entity instanceof EntityWolf)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_WOLF)))
+            ItemStack wolfNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "wolf", 1);
+            if (!player.inventory.addItemStackToInventory(wolfNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_WOLF));
+                player.dropPlayerItem(wolfNeedle);
             }
             return false;
         }
@@ -275,9 +280,10 @@ public class ItemNeedleEmptyLogic extends MadItemPrefab
         // Zombie
         if (entity instanceof EntityZombie)
         {
-            if (!player.inventory.addItemStackToInventory(new ItemStack(MadNeedles.NEEDLE_ZOMBIE)))
+            ItemStack zombieNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "zombie", 1);
+            if (!player.inventory.addItemStackToInventory(zombieNeedle))
             {
-                player.dropPlayerItem(new ItemStack(MadNeedles.NEEDLE_ZOMBIE));
+                player.dropPlayerItem(zombieNeedle);
             }
             return false;
         }

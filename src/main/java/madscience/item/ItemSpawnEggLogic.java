@@ -20,9 +20,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class ItemGMOMobPlacer extends MadItemPrefab
+public class ItemSpawnEggLogic extends MadItemPrefab
 {
-    public ItemGMOMobPlacer(MadItemFactoryProduct itemData)
+    public ItemSpawnEggLogic(MadItemFactoryProduct itemData)
     {
         super(itemData);
     }

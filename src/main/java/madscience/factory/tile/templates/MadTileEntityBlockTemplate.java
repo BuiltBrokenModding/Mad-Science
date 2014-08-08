@@ -216,8 +216,6 @@ public class MadTileEntityBlockTemplate extends BlockContainer
     @Override
     public boolean hasTileEntity(int meta)
     {
-        //MadMod.log().info("Metadata:" + String.valueOf(meta));
-        
         return true;
     }
 

@@ -1,11 +1,11 @@
 package madscience.tile;
 
 import madscience.MadFluids;
+import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
-import madscience.item.ItemNeedleFilledLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,7 +51,8 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         if (recipeResult == null)
         {
             // Check if we are a mutant DNA needle.
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof NeedleMutant)
+            ItemStack needleMutantCompare = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mutant", 1);
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem().equals(needleMutantCompare.getItem()))
             {
                 // Check if there is fluid inside our internal tank.
                 if (this.getFluidAmount() < this.getFluidCapacity())
@@ -116,9 +117,6 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
             return 200;
         }
 
-        // Parse the next item in the stack to an item.
-        int i = itemstack.getItem().itemID;
-
         // Get the current damage multiplier of the itemstack.
         int damage = scaleItemDamageToBurnTime(itemstack);
 
@@ -126,43 +124,50 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         // http://en.wikipedia.org/wiki/List_of_organisms_by_chromosome_count
 
         // Needle of Mutant DNA.
-        if (itemstack.getItem() instanceof NeedleMutant)
+        ItemStack needleMutantCompare = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mutant", 1);
+        if (needleMutantCompare.getItem().equals(itemstack.getItem()))
         {
             damage += 666;
         }
-
+        
         // Needle of Chicken DNA.
-        if (i == MadDNA.DNA_CHICKEN.itemID)
+        Item chickenItem = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "chicken", 1).getItem();
+        if (itemstack.getItem().equals(chickenItem))
         {
             damage += 780;
         }
 
         // Needle of Cow DNA.
-        if (i == MadDNA.DNA_COW.itemID)
+        Item cowItem = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "cow", 1).getItem();
+        if (itemstack.getItem().equals(cowItem))
         {
             damage += 600;
         }
 
         // Needle of Creeper DNA.
-        if (i == MadDNA.DNA_CREEPER.itemID)
+        Item creeperItem = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "creeper", 1).getItem();
+        if (itemstack.getItem().equals(creeperItem))
         {
             damage += 200;
         }
 
         // Needle of Pig DNA.
-        if (i == MadDNA.DNA_PIG.itemID)
+        Item pigItem = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "pig", 1).getItem();
+        if (itemstack.getItem().equals(pigItem))
         {
             damage += 380;
         }
 
         // Needle of Spider DNA.
-        if (i == MadDNA.DNA_SPIDER.itemID)
+        Item spiderItem = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "spider", 1).getItem();
+        if (itemstack.getItem().equals(spiderItem))
         {
             damage += 140;
         }
 
         // Needle of Villager DNA.
-        if (i == MadDNA.DNA_VILLAGER.itemID)
+        Item villagerItem = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "villager", 1).getItem();
+        if (itemstack.getItem().equals(villagerItem))
         {
             damage += 460;
         }
@@ -299,13 +304,14 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         super.smeltItem();
 
         // Output 1 - Dirty needle leftover from extracting DNA sample.
-        ItemStack itemOutputSlot1 = new ItemStack(MadNeedles.NEEDLE_DIRTY);
+        ItemStack itemDirtyNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "dirty", 1);
 
         // Output 2 - Extracted DNA sample from needle.
         ItemStack[] extractedDNASample = this.getRecipeResult(new MadSlotContainerTypeEnum[]{MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1});
 
         // Check if we are a mutant DNA needle.
-        if (extractedDNASample == null && this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof NeedleMutant)
+        ItemStack mutantNeedleCompare = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mutant", 1);
+        if (extractedDNASample == null && this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem().equals(mutantNeedleCompare.getItem()))
         {
             // Add a bucket's worth of water into the internal tank.
             this.addFluidAmountByBucket(1);
@@ -324,16 +330,16 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         }
 
         // Check if we are working with a filled needle or not.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem() instanceof ItemNeedleFilledLogic)
+        if (MadItemFactory.instance().isItemInstanceOfRegisteredBaseType(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).getItem(), "needle"))
         {
             // Add dirty needle to output slot 1 on GUI.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, itemOutputSlot1.copy());
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, itemDirtyNeedle.copy());
             }
-            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(itemOutputSlot1) && this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize <= this.getInventoryStackLimit())
+            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(itemDirtyNeedle) && this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize <= this.getInventoryStackLimit())
             {
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += itemOutputSlot1.stackSize;
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += itemDirtyNeedle.stackSize;
             }
         }
 

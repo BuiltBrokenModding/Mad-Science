@@ -430,43 +430,11 @@ public class MadManualItems
         {
             List<MadMetaItemData> needleSubitems = new ArrayList<MadMetaItemData>();
             
-            // NEEDLE SOUNDS.
-            List<MadSound> needleSounds = new ArrayList<MadSound>();
-            needleSounds.add(new MadSound("Stab.ogg", 2, 1, MadSoundTriggerEnum.CUSTOM, MadSoundPlaybackTypeEnum.PLAY));
-            needleSounds.add(new MadSound("Stabself.ogg", 2, 1, MadSoundTriggerEnum.CUSTOM, MadSoundPlaybackTypeEnum.PLAY));
-            
-            {
-                // EMPTY NEEDLE
-                List<MadItemRenderPass> iconEmptyNeedle = new ArrayList<MadItemRenderPass>();
-                iconEmptyNeedle.add(new MadItemRenderPass(0, "needleEmpty", 16777215));
-                
-                // CRAFTING RECIPE
-                // Note: Layout of crafting grid is as follows.
-                // 012
-                // 345
-                // 678
-                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
-                subItemCraftingRecipes.add(new MadCraftingRecipe(
-                        MadCraftingRecipeTypeEnum.SHAPED,
-                        1,
-                        "0:minecraft:glass:0:1",
-                        "1:minecraft:ingotIron:0:1",
-                        "2:minecraft:glass:0:1",
-                        "3:minecraft:glass:0:1",
-                        null,
-                        "5:minecraft:glass:0:1",
-                        null,
-                        "7:minecraft:stick:0:1",
-                        null));
-                
-                needleSubitems.add(new MadMetaItemData(0, "Empty", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconEmptyNeedle.toArray(new MadItemRenderPass[]{})));
-            }
-            
             {
                 // DIRTY NEEDLE
                 List<MadItemRenderPass> iconDirtyNeedle = new ArrayList<MadItemRenderPass>();
                 iconDirtyNeedle.add(new MadItemRenderPass(0, "needleDirty", 16777215));
-                needleSubitems.add(new MadMetaItemData(1, "Dirty", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconDirtyNeedle.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(0, "Dirty", null, null, null, itemModelInfo, iconDirtyNeedle.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -475,7 +443,7 @@ public class MadManualItems
                 iconCaveSpider.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconCaveSpider.add(new MadItemRenderPass(1, "needleDNA1", 803406));
                 iconCaveSpider.add(new MadItemRenderPass(2, "needleDNA2", 11013646));
-                needleSubitems.add(new MadMetaItemData(2, "CaveSpider", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconCaveSpider.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(1, "CaveSpider", null, null, null, itemModelInfo, iconCaveSpider.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -484,7 +452,7 @@ public class MadManualItems
                 iconChicken.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconChicken.add(new MadItemRenderPass(1, "needleDNA1", 10592673));
                 iconChicken.add(new MadItemRenderPass(2, "needleDNA2", 16711680));
-                needleSubitems.add(new MadMetaItemData(3, "Chicken", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconChicken.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(2, "Chicken", null, null, null, itemModelInfo, iconChicken.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -493,7 +461,7 @@ public class MadManualItems
                 iconCow.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconCow.add(new MadItemRenderPass(1, "needleDNA1", 4470310));
                 iconCow.add(new MadItemRenderPass(2, "needleDNA2", 10592673));
-                needleSubitems.add(new MadMetaItemData(4, "Cow", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconCow.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(3, "Cow", null, null, null, itemModelInfo, iconCow.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -502,7 +470,7 @@ public class MadManualItems
                 iconCreeper.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconCreeper.add(new MadItemRenderPass(1, "needleDNA1", 894731));
                 iconCreeper.add(new MadItemRenderPass(2, "needleDNA2", 0));
-                needleSubitems.add(new MadMetaItemData(5, "Creeper", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconCreeper.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(4, "Creeper", null, null, null, itemModelInfo, iconCreeper.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -511,7 +479,7 @@ public class MadManualItems
                 iconEnderman.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconEnderman.add(new MadItemRenderPass(1, "needleDNA1", 1447446));
                 iconEnderman.add(new MadItemRenderPass(2, "needleDNA2", 0));
-                needleSubitems.add(new MadMetaItemData(6, "Enderman", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconEnderman.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(5, "Enderman", null, null, null, itemModelInfo, iconEnderman.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -520,7 +488,7 @@ public class MadManualItems
                 iconHorse.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconHorse.add(new MadItemRenderPass(1, "needleDNA1", 12623485));
                 iconHorse.add(new MadItemRenderPass(2, "needleDNA2", 15656192));
-                needleSubitems.add(new MadMetaItemData(7, "Horse", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconHorse.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(6, "Horse", null, null, null, itemModelInfo, iconHorse.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -529,7 +497,7 @@ public class MadManualItems
                 iconMushroomCow.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconMushroomCow.add(new MadItemRenderPass(1, "needleDNA1", 10489616));
                 iconMushroomCow.add(new MadItemRenderPass(2, "needleDNA2", 12040119));
-                needleSubitems.add(new MadMetaItemData(8, "MushroomCow", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconMushroomCow.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(7, "MushroomCow", null, null, null, itemModelInfo, iconMushroomCow.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -538,7 +506,7 @@ public class MadManualItems
                 iconOcelot.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconOcelot.add(new MadItemRenderPass(1, "needleDNA1", 15720061));
                 iconOcelot.add(new MadItemRenderPass(2, "needleDNA2", 5653556));
-                needleSubitems.add(new MadMetaItemData(9, "Ocelot", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconOcelot.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(8, "Ocelot", null, null, null, itemModelInfo, iconOcelot.toArray(new MadItemRenderPass[]{})));
             }     
             
             {
@@ -547,7 +515,7 @@ public class MadManualItems
                 iconPig.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconPig.add(new MadItemRenderPass(1, "needleDNA1", 15771042));
                 iconPig.add(new MadItemRenderPass(2, "needleDNA2", 14377823));
-                needleSubitems.add(new MadMetaItemData(10, "Pig", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconPig.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(9, "Pig", null, null, null, itemModelInfo, iconPig.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -556,7 +524,7 @@ public class MadManualItems
                 iconSheep.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconSheep.add(new MadItemRenderPass(1, "needleDNA1", 15771042));
                 iconSheep.add(new MadItemRenderPass(2, "needleDNA2", 14377823));
-                needleSubitems.add(new MadMetaItemData(11, "Sheep", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconSheep.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(10, "Sheep", null, null, null, itemModelInfo, iconSheep.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -565,7 +533,7 @@ public class MadManualItems
                 iconSpider.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconSpider.add(new MadItemRenderPass(1, "needleDNA1", 3419431));
                 iconSpider.add(new MadItemRenderPass(2, "needleDNA2", 11013646));
-                needleSubitems.add(new MadMetaItemData(12, "Spider", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconSpider.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(11, "Spider", null, null, null, itemModelInfo, iconSpider.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -574,7 +542,7 @@ public class MadManualItems
                 iconSquid.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconSquid.add(new MadItemRenderPass(1, "needleDNA1", 2243405));
                 iconSquid.add(new MadItemRenderPass(2, "needleDNA2", 7375001));
-                needleSubitems.add(new MadMetaItemData(13, "Squid", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconSquid.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(12, "Squid", null, null, null, itemModelInfo, iconSquid.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -583,7 +551,7 @@ public class MadManualItems
                 iconVillager.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconVillager.add(new MadItemRenderPass(1, "needleDNA1", 5651507));
                 iconVillager.add(new MadItemRenderPass(2, "needleDNA2", 12422002));
-                needleSubitems.add(new MadMetaItemData(14, "Villager", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconVillager.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(13, "Villager", null, null, null, itemModelInfo, iconVillager.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -592,7 +560,7 @@ public class MadManualItems
                 iconWitch.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconWitch.add(new MadItemRenderPass(1, "needleDNA1", 3407872));
                 iconWitch.add(new MadItemRenderPass(2, "needleDNA2", 5349438));
-                needleSubitems.add(new MadMetaItemData(15, "Witch", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconWitch.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(14, "Witch", null, null, null, itemModelInfo, iconWitch.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -601,7 +569,7 @@ public class MadManualItems
                 iconWolf.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconWolf.add(new MadItemRenderPass(1, "needleDNA1", 14144467));
                 iconWolf.add(new MadItemRenderPass(2, "needleDNA2", 13545366));
-                needleSubitems.add(new MadMetaItemData(16, "Wolf", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconWolf.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(15, "Wolf", null, null, null, itemModelInfo, iconWolf.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -610,7 +578,7 @@ public class MadManualItems
                 iconZombie.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconZombie.add(new MadItemRenderPass(1, "needleDNA1", 44975));
                 iconZombie.add(new MadItemRenderPass(2, "needleDNA2", 7969893));
-                needleSubitems.add(new MadMetaItemData(17, "Zombie", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconZombie.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(16, "Zombie", null, null, null, itemModelInfo, iconZombie.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -619,7 +587,7 @@ public class MadManualItems
                 iconBat.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconBat.add(new MadItemRenderPass(1, "needleDNA1", 4996656));
                 iconBat.add(new MadItemRenderPass(2, "needleDNA2", 986895));
-                needleSubitems.add(new MadMetaItemData(18, "Bat", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconBat.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(17, "Bat", null, null, null, itemModelInfo, iconBat.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -628,7 +596,7 @@ public class MadManualItems
                 iconMutant.add(new MadItemRenderPass(0, "needleDNA_overlay", 16777215));
                 iconMutant.add(new MadItemRenderPass(1, "needleDNA1", 5349438));
                 iconMutant.add(new MadItemRenderPass(2, "needleDNA2", 8306542));
-                needleSubitems.add(new MadMetaItemData(19, "Mutant", null, null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconMutant.toArray(new MadItemRenderPass[]{})));
+                needleSubitems.add(new MadMetaItemData(18, "Mutant", null, null, null, itemModelInfo, iconMutant.toArray(new MadItemRenderPass[]{})));
             }
             
             MadItemFactoryProductData needles = new MadItemFactoryProductData("needle", true, 0, 64, 2, 0, 0, false, null, needleSubitems.toArray(new MadMetaItemData[]{}));
@@ -1220,8 +1188,67 @@ public class MadManualItems
                 memorySubitems.add(new MadMetaItemData(512, "Librarian", null, null, null, itemModelInfo, iconLibrarian.toArray(new MadItemRenderPass[]{})));
             }
             
-            MadItemFactoryProductData memories = new MadItemFactoryProductData("memories", true, 0, 64, 0, 0, 0, false, null, memorySubitems.toArray(new MadMetaItemData[]{}));
+            MadItemFactoryProductData memories = new MadItemFactoryProductData("memory", true, 0, 64, 0, 0, 0, false, null, memorySubitems.toArray(new MadMetaItemData[]{}));
             manualItems.add(memories);
+        }
+        
+        // ------------
+        // EMPTY NEEDLE
+        // ------------
+        {
+            List<MadMetaItemData> emptyNeedleSubitems = new ArrayList<MadMetaItemData>();
+            
+            // EMPTY NEEDLE SOUNDS.
+            List<MadSound> needleSounds = new ArrayList<MadSound>();
+            needleSounds.add(new MadSound("Stab.ogg", 2, 1, MadSoundTriggerEnum.LEFTCLICK, MadSoundPlaybackTypeEnum.PLAY));
+            needleSounds.add(new MadSound("Stabself.ogg", 2, 1, MadSoundTriggerEnum.RIGHTCLICK, MadSoundPlaybackTypeEnum.PLAY));
+            
+            {
+                List<MadItemRenderPass> iconEmptyNeedle = new ArrayList<MadItemRenderPass>();
+                iconEmptyNeedle.add(new MadItemRenderPass(0, "needleEmpty", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:minecraft:glass:0:1",
+                        "1:minecraft:ingotIron:0:1",
+                        "2:minecraft:glass:0:1",
+                        "3:minecraft:glass:0:1",
+                        null,
+                        "5:minecraft:glass:0:1",
+                        null,
+                        "7:minecraft:stick:0:1",
+                        null));
+                
+                emptyNeedleSubitems.add(new MadMetaItemData(0, "Needle", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, needleSounds.toArray(new MadSound[]{}), itemModelInfo, iconEmptyNeedle.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            MadItemFactoryProductData emptyNeedle = new MadItemFactoryProductData("emptyNeedle", true, 0, 64, 2, 0, 0, false, "madscience.item.ItemNeedleEmptyLogic", emptyNeedleSubitems.toArray(new MadMetaItemData[]{}));
+            manualItems.add(emptyNeedle);
+        }
+        
+        // ----------
+        // SPAWN EGGS
+        // ----------
+        {
+            List<MadMetaItemData> spawnEggSubitems = new ArrayList<MadMetaItemData>();
+            
+            {
+                // PRIEST
+                List<MadItemRenderPass> iconPriest = new ArrayList<MadItemRenderPass>();
+                iconPriest.add(new MadItemRenderPass(0, "gmoMonsterPlacer", 16777215));
+                iconPriest.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", 5651507));
+                spawnEggSubitems.add(new MadMetaItemData(0, "Priest", null, null, null, itemModelInfo, iconPriest.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            MadItemFactoryProductData emptyNeedle = new MadItemFactoryProductData("spawnegg", true, 0, 64, 0, 0, 0, false, "madscience.item.ItemSpawnEggLogic", spawnEggSubitems.toArray(new MadMetaItemData[]{}));
+            manualItems.add(emptyNeedle);
         }
     }
 }

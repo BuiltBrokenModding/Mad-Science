@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 import org.lwjgl.input.Keyboard;
 
@@ -65,13 +66,6 @@ abstract class MadItemBasePrefab extends Item
         
         // Determine if this item has subtypes (using damage value as sub-items).
         this.setHasSubtypes(itemData.hasSubItems());
-    }
-    
-    @Override
-    public boolean shouldRotateAroundWhenRendering()
-    {
-        // Prevents us having to rotate the item 180 degrees in renderer.
-        return true;
     }
     
     @Override
@@ -128,10 +122,10 @@ abstract class MadItemBasePrefab extends Item
     public String getUnlocalizedName(ItemStack stack)
     {
         // Determine if the stack is one of ours.
-        MadItemPrefab madStack = null;
-        if (stack.getItem() instanceof MadItemPrefab)
+        MadItemBasePrefab madStack = null;
+        if (stack.getItem() instanceof MadItemBasePrefab)
         {
-            madStack = (MadItemPrefab) stack.getItem();
+            madStack = (MadItemBasePrefab) stack.getItem();
         }
         
         // String that will become final outputted name.
@@ -156,6 +150,12 @@ abstract class MadItemBasePrefab extends Item
         // Returns the string builder object with or without sub-item additions.
         return itemNameObject.toString();
     }
+
+    @Override
+    public String getUnlocalizedName()
+    {
+        return "item." + this.getRegisteredItem().getItemBaseName();
+    }
     
     @Override
     @SideOnly(Side.CLIENT)
@@ -179,10 +179,10 @@ abstract class MadItemBasePrefab extends Item
     public int getColorFromItemStack(ItemStack stack, int pass)
     {
         // Determine if the stack is one of ours.
-        MadItemPrefab madStack = null;
-        if (stack.getItem() instanceof MadItemPrefab)
+        MadItemBasePrefab madStack = null;
+        if (stack.getItem() instanceof MadItemBasePrefab)
         {
-            madStack = (MadItemPrefab) stack.getItem();
+            madStack = (MadItemBasePrefab) stack.getItem();
         }
         
         // Return the color white if we cannot find the information we need.
@@ -313,5 +313,23 @@ abstract class MadItemBasePrefab extends Item
                 }
             }
         }
+    }
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    {
+        return super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);
+    }
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
+    {
+        return super.onLeftClickEntity(stack, player, entity);
+    }
+
+    @Override
+    public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5)
+    {
+        super.onUpdate(par1ItemStack, par2World, par3Entity, par4, par5);
     }
 }

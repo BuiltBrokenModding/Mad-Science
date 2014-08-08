@@ -1,6 +1,6 @@
 package madscience.tile;
 
-import madscience.MadEntities;
+import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
@@ -103,8 +103,8 @@ public class MainframeEntity extends MadTileEntityPrefab
         }
 
         // Check for empty reel inside input slot 4.
-        ItemStack genomeSlotCompare = new ItemStack(MadEntities.DATAREEL_EMPTY);
-        if (!genomeSlotCompare.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EXTRA)))
+        ItemStack emptyDataReel = MadItemFactory.instance().getItemStackByFullyQualifiedName("components", "DataReelEmpty", 1);
+        if (!emptyDataReel.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EXTRA)))
         {
             return false;
         }
@@ -135,8 +135,8 @@ public class MainframeEntity extends MadTileEntityPrefab
         }
 
         // Check if output is above stack limit.
-        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + genomeSlotCompare.stackSize;
-        return (slot2Result <= getInventoryStackLimit() && slot2Result <= genomeSlotCompare.getMaxStackSize());
+        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + emptyDataReel.stackSize;
+        return (slot2Result <= getInventoryStackLimit() && slot2Result <= emptyDataReel.getMaxStackSize());
     }
 
     /** Return current heat level for this machine. */

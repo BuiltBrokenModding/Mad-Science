@@ -61,7 +61,7 @@ public class MadItemFactoryProductData
     {
         super();
         
-        this.itemBaseName = itemBaseName;
+        this.itemBaseName = itemBaseName.toLowerCase();
         this.noRepair = noRepair;
         this.maxDamage = maxDamage;
         this.maxStacksize = maxStacksize;

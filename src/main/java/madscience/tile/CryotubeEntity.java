@@ -1,7 +1,8 @@
 package madscience.tile;
 
-import madscience.MadEntities;
+import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
+import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.util.MadUtils;
@@ -89,10 +90,12 @@ public class CryotubeEntity extends MadTileEntityPrefab
     private void convertEmptyReelToMemory()
     {
         // Check if input slot 2 is empty data reel.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemEqual(new ItemStack(MadEntities.DATAREEL_EMPTY)))
+        ItemStack emptyDataReel = MadItemFactory.instance().getItemStackByFullyQualifiedName("components", "DataReelEmpty", 1);
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItem().equals(emptyDataReel.getItem()))
         {
             // Create memory based on ceiling of neural activity.
-            ItemStack createdMemory = new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, this.getHeatLevelMaximum());
+            MadItemFactoryProduct memoryItemInfo = MadItemFactory.instance().getItemInfo("memory");
+            ItemStack createdMemory = new ItemStack(memoryItemInfo.getItem(), 1, this.getHeatLevelMaximum());
 
             // Add encoded memory data reel to output slot 1.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
@@ -118,25 +121,25 @@ public class CryotubeEntity extends MadTileEntityPrefab
         {
         case 0:
             // Priest
-            return new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, 32);
+            return MadItemFactory.instance().getItemStackByFullyQualifiedName("memory", "Priest", 1);
         case 1:
             // Farmer
-            return new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, 64);
+            return MadItemFactory.instance().getItemStackByFullyQualifiedName("memory", "Farmer", 1);
         case 2:
             // Butcher
-            return new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, 128);
+            return MadItemFactory.instance().getItemStackByFullyQualifiedName("memory", "Butcher", 1);
         case 3:
             // Blacksmith
-            return new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, 256);
+            return MadItemFactory.instance().getItemStackByFullyQualifiedName("memory", "Blacksmith", 1);
         case 4:
             // Librarian
-            return new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, 512);
+            return MadItemFactory.instance().getItemStackByFullyQualifiedName("memory", "Librarian", 1);
         case 5:
             // Weakest one again...
-            return new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, 32);
+            return MadItemFactory.instance().getItemStackByFullyQualifiedName("memory", "Priest", 1);
         default:
             // Weakest one catch-all...
-            return new ItemStack(MadEntities.COMBINEDMEMORY_MONSTERPLACER, 1, 32);
+            return MadItemFactory.instance().getItemStackByFullyQualifiedName("memory", "Priest", 1);
 
         }
     }
@@ -328,14 +331,18 @@ public class CryotubeEntity extends MadTileEntityPrefab
                     // We flip our state to officially having a subject alive inside of it.
                     this.subjectIsAlive = true;
 
+                    // Grab some comparison items from item factory.
+                    ItemStack emptyDataReel = MadItemFactory.instance().getItemStackByFullyQualifiedName("components", "DataReelEmpty", 1);
+                    
+                    
                     // Check if we have empty data reel or existing memory to work with for generating neural activity.
-                    int ceilingReel = 100;
-                    if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItem() instanceof ItemDataReelEmpty)
+                    int ceilingReel = 100;                    
+                    if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItem().equals(emptyDataReel.getItem()))
                     {
                         // Create a random memory for our villager.
                         ceilingReel = createRandomVillagerMemory().getItemDamage();
                     }
-                    else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItem() instanceof CombinedMemoryMonsterPlacer)
+                    else if (MadItemFactory.instance().isItemInstanceOfRegisteredBaseType(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItem() ,"memory"))
                     {
                         // Damage value of memory item is the ceiling for neural activity.
                         ceilingReel = this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItemDamage();

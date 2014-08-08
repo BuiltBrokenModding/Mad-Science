@@ -9,9 +9,14 @@ import java.util.Map;
 import java.util.Set;
 
 import madscience.MadForgeMod;
+import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.MadItemFactoryProductData;
+import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
+import madscience.util.MadUtils;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -111,4 +116,103 @@ public class MadItemFactory
                     icon);
         }
     }
+
+    /** Parses registered items base names for first parameter, if located then parses all sub-items of the given
+     *  item looking for match. Once base name and sub-item name are located a copy of the associated item is returned
+     *  as an ItemStack with the required amount. */
+    public ItemStack getItemStackByFullyQualifiedName(String baseName, String subItemName, int returnAmount)
+    {
+        // Primary input cannot be null.
+        if (baseName == null)
+        {
+            return null;
+        }
+        
+        if (baseName.isEmpty())
+        {
+            return null;
+        }
+        
+        // No upper-case allowed.
+        baseName = baseName.toLowerCase();
+        subItemName = subItemName.toLowerCase();
+        
+        // Search through master list of registered items.
+        if (!this.registeredItems.containsKey(baseName))
+        {
+            return null;
+        }
+        
+        // Grab the registered item instance.
+        MadItemFactoryProduct registeredItem = this.registeredItems.get(baseName);
+        if (registeredItem == null)
+        {
+            return null;
+        }
+        
+        // Determine if we need to look inside sub-items or not.
+        if (subItemName != null && !subItemName.isEmpty() && registeredItem.hasSubItems())
+        {
+            // Locate sub-item name inside registered item.
+            for (MadMetaItemData subItem : registeredItem.getSubItems())
+            {
+                if (subItem.getItemName().equals(subItemName))
+                {
+                    // Sub-item located, we return the requested amount of them.
+                    return new ItemStack(registeredItem.getItem(), returnAmount, subItem.getMetaID());
+                }
+            }
+        }
+        else if (subItemName == null || (subItemName != null && subItemName.isEmpty()))
+        {
+            // Just return the base item since that is all we are looking for.
+            return new ItemStack(registeredItem.getItem(), returnAmount, 0);
+        }
+        
+        // Default response is to return nothing.
+        return null;
+    }
+
+    /** Returns true if the given input item is apart of the given base registered type.
+     *  This is determined first by checking if the base type exists as a key and if input
+     *  item equals this key. */
+    public boolean isItemInstanceOfRegisteredBaseType(Item compareItem, String baseItemTypeName)
+    {
+        // Null checks.
+        if (compareItem == null)
+        {
+            return false;
+        }
+        
+        if (baseItemTypeName == null)
+        {
+            return false;
+        }
+        
+        if (baseItemTypeName.isEmpty())
+        {
+            return false;
+        }
+        
+        // No upper-case allowed.
+        baseItemTypeName = baseItemTypeName.toLowerCase();
+        
+        // Check if base type exists as key in registered types.
+        if (this.registeredItems.containsKey(baseItemTypeName))
+        {
+            // Check if these names match.
+            if (MadUtils.cleanTag(compareItem.getUnlocalizedName()).equals(baseItemTypeName))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return false;
+        }
+        
+        // Default response is to always say no.
+        return false;
+    }
+
 }

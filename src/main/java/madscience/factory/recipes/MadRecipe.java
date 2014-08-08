@@ -339,7 +339,7 @@ public final class MadRecipe
                 tmpMeta = metaData;
             }
 
-            ItemStack vanillaItemStack = new ItemStack(potentialMCBlock, tmpMeta, stackSize);
+            ItemStack vanillaItemStack = new ItemStack(potentialMCBlock, stackSize, tmpMeta);
 
             if (vanillaItemStack != null)
             {
