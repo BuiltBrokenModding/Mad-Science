@@ -2,7 +2,6 @@ package madscience.mobs.enderslime;
 
 import java.util.Random;
 
-import madscience.MadComponents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;

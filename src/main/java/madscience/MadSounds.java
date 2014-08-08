@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.item.weapon.pulserifle.PulseRifleSounds;
 import madscience.mobs.abomination.AbominationSounds;
 import madscience.mobs.creepercow.CreeperCowSounds;
 import madscience.mobs.werewolf.WerewolfMobSounds;
@@ -58,15 +57,5 @@ public class MadSounds
 
         // Abomination
         AbominationSounds.init(event);
-
-        // Needles
-        NeedleSounds.init(event);
-
-        // -------------
-        // TILE ENTITIES
-        // -------------
-
-        // M41A Pulse Rifle
-        PulseRifleSounds.init(event);
     }
 }

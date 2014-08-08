@@ -2,10 +2,6 @@ package madscience.network;
 
 import madscience.factory.mod.MadMod;
 import madscience.factory.tile.templates.MadTileEntityPacketTemplate;
-import madscience.item.warningsign.WarningSignPacketClientRequestSignType;
-import madscience.item.warningsign.WarningSignPacketServerRequestReplySignType;
-import madscience.item.warningsign.WarningSignPacketServerUpdateSignType;
-import madscience.item.weapon.pulserifle.PulseRiflePackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 
@@ -43,18 +39,6 @@ public abstract class MadPackets
 
         // Mad Particle Packet (Can be any particle!)
         builder.put(Integer.valueOf(2), MadParticlePacket.class);
-        
-        // Pulse Rifle
-        builder.put(Integer.valueOf(3), PulseRiflePackets.class);
-        
-        // Warning Sign Server (Sent from server to all clients to change Sign Type)
-        builder.put(Integer.valueOf(4), WarningSignPacketServerUpdateSignType.class);
-        
-        // Warning Sign Server (Sent from server to specific client)
-        builder.put(Integer.valueOf(5), WarningSignPacketServerRequestReplySignType.class);
-        
-        // Warning Sign Client (Sent by clients to server to ask for painting)
-        builder.put(Integer.valueOf(6), WarningSignPacketClientRequestSignType.class);
 
         idMap = builder.build();
     }

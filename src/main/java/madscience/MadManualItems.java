@@ -1,5 +1,6 @@
 package madscience;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -840,11 +841,387 @@ public class MadManualItems
                 subItemFurnaceRecipes.add(new MadFurnaceRecipe("minecraft:netherquartz:0:1", "madscience:componentFusedQuartz:0:1"));
                 subItemFurnaceRecipes.add(new MadFurnaceRecipe("minecraft:quartzBlock:0:1", "madscience:componentFusedQuartz:0:4"));
                 
-                componentSubitems.add(new MadMetaItemData(8, "FusedQuartz", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconFusedQuartz.toArray(new MadItemRenderPass[]{})));
+                componentSubitems.add(new MadMetaItemData(8, "FusedQuartz", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), subItemFurnaceRecipes.toArray(new MadFurnaceRecipe[]{}), null, itemModelInfo, iconFusedQuartz.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // MAGNETIC TAPE
+                List<MadItemRenderPass> iconMagneticTape = new ArrayList<MadItemRenderPass>();
+                iconMagneticTape.add(new MadItemRenderPass(0, "componentMagneticTape", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:minecraft:redstoneDust:0:1",
+                        "1:minecraft:redstoneDust:0:1",
+                        "2:minecraft:redstoneDust:0:1",
+                        "3:minecraft:slimeball:0:1",
+                        "4:minecraft:slimeball:0:1",
+                        "5:minecraft:slimeball:0:1",
+                        null,
+                        null,
+                        null));
+                
+                componentSubitems.add(new MadMetaItemData(9, "MagneticTape", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconMagneticTape.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // SCREEN
+                List<MadItemRenderPass> iconScreen = new ArrayList<MadItemRenderPass>();
+                iconScreen.add(new MadItemRenderPass(0, "componentScreen", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:minecraft:glass:0:1",
+                        "1:minecraft:glass:0:1",
+                        "2:minecraft:glass:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:madscience:componentTransistor:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:circuitRedstone:0:1",
+                        "7:madscience:circuitDiamond:0:1",
+                        "8:madscience:circuitRedstone:0:1"));
+                
+                componentSubitems.add(new MadMetaItemData(10, "Computer", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconScreen.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // THUMPER
+                List<MadItemRenderPass> iconThumper = new ArrayList<MadItemRenderPass>();
+                iconThumper.add(new MadItemRenderPass(0, "componentScreen", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:minecraft:pistonBase:0:1",
+                        "1:minecraft:blockRedstone:0:1",
+                        "2:minecraft:pistonBase:0:1",
+                        "3:madscience:enderslimeBlock:0:1",
+                        "4:madscience:componentPowerSupply:0:1",
+                        "5:madscience:enderslimeBlock:0:1",
+                        "6:madscience:enderslimeBlock:0:1",
+                        "7:madscience:enderslimeBlock:0:1",
+                        "8:madscience:enderslimeBlock:0:1"));
+                
+                componentSubitems.add(new MadMetaItemData(11, "Thumper", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconThumper.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // TRANSISTOR
+                List<MadItemRenderPass> iconTransistor = new ArrayList<MadItemRenderPass>();
+                iconTransistor.add(new MadItemRenderPass(0, "componentTransistor", 16777215));
+                componentSubitems.add(new MadMetaItemData(12, "Transistor", null, null, null, itemModelInfo, iconTransistor.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // ENDERSLIME
+                List<MadItemRenderPass> iconEnderslime = new ArrayList<MadItemRenderPass>();
+                iconEnderslime.add(new MadItemRenderPass(0, "componentEnderslime", 16777215));
+                componentSubitems.add(new MadMetaItemData(13, "Enderslime", null, null, null, itemModelInfo, iconEnderslime.toArray(new MadItemRenderPass[]{})));
             }
             
             MadItemFactoryProductData components = new MadItemFactoryProductData("components", true, 0, 64, 0, 0, 0, false, null, componentSubitems.toArray(new MadMetaItemData[]{}));
             manualItems.add(components);
+        }
+        
+        // --------
+        // CIRCUITS
+        // --------
+        {
+            List<MadMetaItemData> circuitSubitems = new ArrayList<MadMetaItemData>();
+            
+            {
+                // COMPARATOR
+                List<MadItemRenderPass> iconComparator = new ArrayList<MadItemRenderPass>();
+                iconComparator.add(new MadItemRenderPass(0, "circuitComparator", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:comparator:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(0, "Comparator", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconComparator.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // DIAMOND
+                List<MadItemRenderPass> iconDiamond = new ArrayList<MadItemRenderPass>();
+                iconDiamond.add(new MadItemRenderPass(0, "circuitDiamond", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:diamond:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(1, "Diamond", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconDiamond.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // EMERALD
+                List<MadItemRenderPass> iconEmerald = new ArrayList<MadItemRenderPass>();
+                iconEmerald.add(new MadItemRenderPass(0, "circuitEmerald", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:emerald:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(2, "Emerald", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconEmerald.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // ENDEREYE
+                List<MadItemRenderPass> iconEnderEye = new ArrayList<MadItemRenderPass>();
+                iconEnderEye.add(new MadItemRenderPass(0, "circuitEnderEye", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:eyeOfEnder:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(3, "Endereye", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconEnderEye.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // ENDERPEARL
+                List<MadItemRenderPass> iconEnderpearl = new ArrayList<MadItemRenderPass>();
+                iconEnderpearl.add(new MadItemRenderPass(0, "circuitEnderPearl", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:enderPearl:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(4, "Enderpearl", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconEnderpearl.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // GLOWSTONE
+                List<MadItemRenderPass> iconGlowstone = new ArrayList<MadItemRenderPass>();
+                iconGlowstone.add(new MadItemRenderPass(0, "circuitGlowstone", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:lightgem:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(5, "Glowstone", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconGlowstone.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // REDSTONE
+                List<MadItemRenderPass> iconRedstone = new ArrayList<MadItemRenderPass>();
+                iconRedstone.add(new MadItemRenderPass(0, "circuitRedstone", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:redstoneDust:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(6, "Redstone", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconRedstone.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // SPIDEREYE
+                List<MadItemRenderPass> iconSpidereye = new ArrayList<MadItemRenderPass>();
+                iconSpidereye.add(new MadItemRenderPass(0, "circuitSpiderEye", 16777215));
+                
+                // CRAFTING RECIPE
+                // Note: Layout of crafting grid is as follows.
+                // 012
+                // 345
+                // 678
+                List<MadCraftingRecipe> subItemCraftingRecipes = new ArrayList<MadCraftingRecipe>();
+                subItemCraftingRecipes.add(new MadCraftingRecipe(
+                        MadCraftingRecipeTypeEnum.SHAPED,
+                        1,
+                        "0:madscience:componentTransistor:0:1",
+                        "1:madscience:componentTransistor:0:1",
+                        "2:madscience:componentTransistor:0:1",
+                        "3:madscience:componentTransistor:0:1",
+                        "4:minecraft:spiderEye:0:1",
+                        "5:madscience:componentTransistor:0:1",
+                        "6:madscience:componentTransistor:0:1",
+                        "7:madscience:componentTransistor:0:1",
+                        "8:madscience:componentTransistor:0:1"));
+                
+                circuitSubitems.add(new MadMetaItemData(7, "Spidereye", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconSpidereye.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            MadItemFactoryProductData circuits = new MadItemFactoryProductData("circuits", true, 0, 64, 0, 0, 0, false, null, circuitSubitems.toArray(new MadMetaItemData[]{}));
+            manualItems.add(circuits);
+        }
+        
+        // -----------------
+        // MEMORY DATA REELS
+        // -----------------
+        {
+            List<MadMetaItemData> memorySubitems = new ArrayList<MadMetaItemData>();
+            
+            {
+                // PRIEST
+                List<MadItemRenderPass> iconPriest = new ArrayList<MadItemRenderPass>();
+                iconPriest.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
+                iconPriest.add(new MadItemRenderPass(1, "genomeDataReel1", 5651507));
+                iconPriest.add(new MadItemRenderPass(2, "genomeDataReel2", Color.RED.getRGB()));
+                memorySubitems.add(new MadMetaItemData(32, "Priest", null, null, null, itemModelInfo, iconPriest.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // FARMER
+                List<MadItemRenderPass> iconFarmer = new ArrayList<MadItemRenderPass>();
+                iconFarmer.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
+                iconFarmer.add(new MadItemRenderPass(1, "genomeDataReel1", 5651507));
+                iconFarmer.add(new MadItemRenderPass(2, "genomeDataReel2", Color.ORANGE.getRGB()));
+                memorySubitems.add(new MadMetaItemData(64, "Farmer", null, null, null, itemModelInfo, iconFarmer.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // BUTCHER
+                List<MadItemRenderPass> iconButcher = new ArrayList<MadItemRenderPass>();
+                iconButcher.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
+                iconButcher.add(new MadItemRenderPass(1, "genomeDataReel1", 5651507));
+                iconButcher.add(new MadItemRenderPass(2, "genomeDataReel2", Color.GREEN.getRGB()));
+                memorySubitems.add(new MadMetaItemData(128, "Butcher", null, null, null, itemModelInfo, iconButcher.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // BLACKSMITH
+                List<MadItemRenderPass> iconBlacksmith = new ArrayList<MadItemRenderPass>();
+                iconBlacksmith.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
+                iconBlacksmith.add(new MadItemRenderPass(1, "genomeDataReel1", 5651507));
+                iconBlacksmith.add(new MadItemRenderPass(2, "genomeDataReel2", Color.BLUE.getRGB()));
+                memorySubitems.add(new MadMetaItemData(256, "Blacksmith", null, null, null, itemModelInfo, iconBlacksmith.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            {
+                // LIBRARIAN
+                List<MadItemRenderPass> iconLibrarian = new ArrayList<MadItemRenderPass>();
+                iconLibrarian.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
+                iconLibrarian.add(new MadItemRenderPass(1, "genomeDataReel1", 5651507));
+                iconLibrarian.add(new MadItemRenderPass(2, "genomeDataReel2", Color.MAGENTA.getRGB()));
+                memorySubitems.add(new MadMetaItemData(512, "Librarian", null, null, null, itemModelInfo, iconLibrarian.toArray(new MadItemRenderPass[]{})));
+            }
+            
+            MadItemFactoryProductData memories = new MadItemFactoryProductData("memories", true, 0, 64, 0, 0, 0, false, null, memorySubitems.toArray(new MadMetaItemData[]{}));
+            manualItems.add(memories);
         }
     }
 }

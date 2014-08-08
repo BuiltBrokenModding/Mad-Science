@@ -7,10 +7,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import madscience.MadEntities;
 import madscience.MadForgeMod;
 import madscience.MadSounds;
-import madscience.MadWeapons;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
@@ -24,19 +22,6 @@ import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
-import madscience.item.warningsign.WarningSignEntity;
-import madscience.item.warningsign.WarningSignEntityRender;
-import madscience.item.warningsign.WarningSignItemRender;
-import madscience.item.weapon.pulserifle.PulseRifleItemRender;
-import madscience.item.weapon.pulserifle.PulseRifleItemRenderPlayer;
-import madscience.item.weapon.pulserifle.PulseRifleItemTickHandler;
-import madscience.item.weapon.pulseriflebullet.PulseRifleBulletEntity;
-import madscience.item.weapon.pulseriflebullet.PulseRifleBulletEntityRender;
-import madscience.item.weapon.pulseriflebullet.PulseRifleBulletItemRender;
-import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeEntity;
-import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeEntityRender;
-import madscience.item.weapon.pulseriflegrenade.PulseRifleGrenadeItemRender;
-import madscience.item.weapon.pulseriflemagazine.PulseRifleMagazineItemRender;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobModel;
 import madscience.mobs.abomination.AbominationMobRender;
@@ -82,7 +67,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -325,49 +309,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                 ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadRendererTemplate());
                 MinecraftForgeClient.registerItemRenderer(itemOrBlockID, new MadRendererTemplate());
             }
-        }
-        
-        // -------
-        // WEAPONS
-        // -------
-
-        // Pulse Rifle
-        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_PULSERIFLE.itemID, new PulseRifleItemRender());
-            TickRegistry.registerTickHandler(new PulseRifleItemTickHandler(), Side.CLIENT);
-            MinecraftForge.EVENT_BUS.register(new PulseRifleItemRenderPlayer());
-        }
-
-        // Pulse Rifle Bullet
-        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE_BULLETITEM)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_BULLETITEM.itemID, new PulseRifleBulletItemRender());
-            RenderingRegistry.registerEntityRenderingHandler(PulseRifleBulletEntity.class, new PulseRifleBulletEntityRender());
-        }
-
-        // Pulse Rifle Grenade
-        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE_GRENADEITEM)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_GRENADEITEM.itemID, new PulseRifleGrenadeItemRender());
-            RenderingRegistry.registerEntityRenderingHandler(PulseRifleGrenadeEntity.class, new PulseRifleGrenadeEntityRender());
-        }
-
-        // Pulse Rifle Magazine
-        if (itemOrBlockID == MadConfig.WEAPON_PULSERIFLE_MAGAZINEITEM)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadWeapons.WEAPONITEM_MAGAZINEITEM.itemID, new PulseRifleMagazineItemRender());
-        }
-
-        // -----
-        // ITEMS
-        // -----
-
-        // Warning Sign
-        if (itemOrBlockID == MadConfig.WARNING_SIGN)
-        {
-            MinecraftForgeClient.registerItemRenderer(MadEntities.WARNING_SIGN.itemID, new WarningSignItemRender());
-            RenderingRegistry.registerEntityRenderingHandler(WarningSignEntity.class, new WarningSignEntityRender());
         }
 
         // ----

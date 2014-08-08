@@ -68,6 +68,13 @@ abstract class MadItemBasePrefab extends Item
     }
     
     @Override
+    public boolean shouldRotateAroundWhenRendering()
+    {
+        // Prevents us having to rotate the item 180 degrees in renderer.
+        return true;
+    }
+    
+    @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
         // Only displays tooltip information when SHIFT key is pressed.

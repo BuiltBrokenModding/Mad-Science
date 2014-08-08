@@ -3,7 +3,6 @@ package madscience.factory.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.MadComponents;
 import madscience.factory.crafting.MadCraftingComponent;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
@@ -11,7 +10,6 @@ import madscience.factory.furnace.MadFurnaceRecipe;
 import madscience.factory.item.prefab.MadItemPrefab;
 import madscience.factory.mod.MadMod;
 import madscience.factory.recipes.MadRecipe;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.Icon;

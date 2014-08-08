@@ -1,7 +1,5 @@
 package madscience.factory.furnace;
 
-import java.util.ArrayList;
-
 import madscience.factory.mod.MadMod;
 
 import com.google.gson.annotations.Expose;

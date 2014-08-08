@@ -199,15 +199,6 @@ public class MadForgeMod
         // Registers all items with factory.
         this.loadItems();
         
-        // -----
-        // ARMOR
-        // -----
-
-        // Note: Armor follows an array 0,1,2,3 for helmet, body, leggings, boots.
-        MadEntities.createLabCoatGoggles(MadConfig.LABCOAT_GOGGLES, 0);
-        MadEntities.createLabCoatBody(MadConfig.LABCOAT_BODY, 1);
-        MadEntities.createLabCoatLeggings(MadConfig.LABCOAT_LEGGINGS, 2);
-        
         // ------
         // FLUIDS
         // ------

@@ -4,7 +4,6 @@ import madscience.MadEntities;
 import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
-import madscience.item.datareel.ItemDataReelEmpty;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
