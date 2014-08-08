@@ -1,4 +1,4 @@
-package madscience.factory.recipes;
+package madscience.factory.recipe;
 
 import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;

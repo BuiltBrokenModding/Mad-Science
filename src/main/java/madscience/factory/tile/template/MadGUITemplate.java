@@ -1,4 +1,4 @@
-package madscience.factory.tile.templates;
+package madscience.factory.tile.template;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -6,13 +6,13 @@ import java.net.URI;
 import java.util.HashMap;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.buttons.MadGUIButton;
-import madscience.factory.buttons.MadGUIButtonClickActionEnum;
-import madscience.factory.buttons.MadGUIButtonInvisibleControl;
-import madscience.factory.buttons.MadGUIButtonTypeEnum;
+import madscience.factory.button.MadGUIButton;
+import madscience.factory.button.MadGUIButtonClickActionEnum;
+import madscience.factory.button.MadGUIButtonInvisibleControl;
+import madscience.factory.button.MadGUIButtonTypeEnum;
 import madscience.factory.container.MadSlotContainer;
-import madscience.factory.controls.MadGUIControl;
-import madscience.factory.controls.MadGUIControlTypeEnum;
+import madscience.factory.control.MadGUIControl;
+import madscience.factory.control.MadGUIControlTypeEnum;
 import madscience.factory.mod.MadMod;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;

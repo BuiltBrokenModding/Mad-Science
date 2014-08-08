@@ -1,4 +1,4 @@
-package madscience.factory.controls;
+package madscience.factory.control;
 
 public enum MadGUIControlTypeEnum
 {

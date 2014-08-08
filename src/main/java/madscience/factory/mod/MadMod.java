@@ -14,7 +14,7 @@ import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.creativetab.MadCreativeTab;
 import madscience.factory.item.MadItemFactoryProductData;
-import madscience.factory.sounds.MadSound;
+import madscience.factory.sound.MadSound;
 import madscience.factory.tile.MadTileEntityFactoryProductData;
 import madscience.util.IDManager;
 

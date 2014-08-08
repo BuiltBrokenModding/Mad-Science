@@ -1,4 +1,4 @@
-package madscience.factory.sounds;
+package madscience.factory.sound;
 
 @SuppressWarnings("ucd")
 public enum MadSoundTriggerEnum

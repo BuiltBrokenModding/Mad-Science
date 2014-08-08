@@ -1,4 +1,4 @@
-package madscience.factory.controls;
+package madscience.factory.control;
 
 import com.google.gson.annotations.Expose;
 

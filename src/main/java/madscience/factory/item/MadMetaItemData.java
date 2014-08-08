@@ -7,9 +7,9 @@ import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.furnace.MadFurnaceRecipe;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
-import madscience.factory.sounds.MadSound;
-import madscience.factory.sounds.MadSoundPlaybackTypeEnum;
-import madscience.factory.sounds.MadSoundTriggerEnum;
+import madscience.factory.sound.MadSound;
+import madscience.factory.sound.MadSoundPlaybackTypeEnum;
+import madscience.factory.sound.MadSoundTriggerEnum;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Icon;
 

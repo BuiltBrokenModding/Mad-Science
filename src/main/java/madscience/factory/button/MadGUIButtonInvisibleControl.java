@@ -1,4 +1,4 @@
-package madscience.factory.buttons;
+package madscience.factory.button;
 
 import madscience.factory.mod.MadMod;
 import net.minecraft.client.Minecraft;

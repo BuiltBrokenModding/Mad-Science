@@ -1,11 +1,7 @@
 package madscience;
 
 import madscience.factory.mod.MadMod;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 class MadRecipes

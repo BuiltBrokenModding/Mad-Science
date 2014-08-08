@@ -1,4 +1,4 @@
-package madscience.factory.tile.templates;
+package madscience.factory.tile.template;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.container.MadSlotContainer;

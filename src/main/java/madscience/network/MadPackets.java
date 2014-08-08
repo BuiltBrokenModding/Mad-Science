@@ -1,7 +1,7 @@
 package madscience.network;
 
 import madscience.factory.mod.MadMod;
-import madscience.factory.tile.templates.MadTileEntityPacketTemplate;
+import madscience.factory.tile.template.MadTileEntityPacketTemplate;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 

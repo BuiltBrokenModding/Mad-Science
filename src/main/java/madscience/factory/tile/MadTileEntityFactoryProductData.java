@@ -1,18 +1,18 @@
 package madscience.factory.tile;
 
 import madscience.factory.block.MadGhostBlockData;
-import madscience.factory.buttons.MadGUIButton;
+import madscience.factory.button.MadGUIButton;
 import madscience.factory.container.MadSlotContainer;
-import madscience.factory.controls.MadGUIControl;
+import madscience.factory.control.MadGUIControl;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.damage.MadDamage;
 import madscience.factory.energy.MadEnergy;
-import madscience.factory.fluids.MadFluid;
+import madscience.factory.fluid.MadFluid;
 import madscience.factory.heat.MadHeat;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelBounds;
-import madscience.factory.recipes.MadRecipe;
-import madscience.factory.sounds.MadSound;
+import madscience.factory.recipe.MadRecipe;
+import madscience.factory.sound.MadSound;
 
 import com.google.gson.annotations.Expose;
 

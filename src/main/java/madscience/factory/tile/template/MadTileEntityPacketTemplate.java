@@ -1,4 +1,4 @@
-package madscience.factory.tile.templates;
+package madscience.factory.tile.template;
 
 import java.util.ArrayList;
 import java.util.List;

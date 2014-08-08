@@ -1,7 +1,5 @@
 package madscience;
 
-import madscience.blocks.abominationegg.AbominationEggBlock;
-import madscience.blocks.abominationegg.AbominationEggMobSpawnerTileEntity;
 import madscience.blocks.enderslime.EnderslimeBlock;
 import madscience.factory.block.MadBlockTooltip;
 import madscience.factory.mod.MadMod;
@@ -10,26 +8,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadBlocks
 {
-    // Abomination Egg
-    public static Block ABOMINATIONEGGBLOCK;
-    public static final String ABOMINATIONEGG_INTERNALNAME = "abominationEgg";
-    
     // Enderslime Block
     public static Block ENDERSLIMEBLOCK;
     public static final String ENDERSLIMEBLOCK_INTERNALNAME = "enderslimeBlock";
-
-    static void createAbominationEgg(int blockID)
-    {
-        MadMod.log().info("-Abomination Egg");
-        ABOMINATIONEGGBLOCK = new AbominationEggBlock(blockID).setUnlocalizedName(ABOMINATIONEGG_INTERNALNAME);
-
-        // Register the block with the world.
-        GameRegistry.registerBlock(ABOMINATIONEGGBLOCK, MadBlockTooltip.class, MadMod.ID + ABOMINATIONEGGBLOCK.getUnlocalizedName().substring(5));
-        GameRegistry.registerTileEntity(AbominationEggMobSpawnerTileEntity.class, ABOMINATIONEGGBLOCK.getUnlocalizedName());
-
-        // Register our rendering handles on clients and ignore them on servers.
-        MadForgeMod.proxy.registerRenderingHandler(blockID);
-    }
 
     static void createEnderslimeBlock(int blockID)
     {

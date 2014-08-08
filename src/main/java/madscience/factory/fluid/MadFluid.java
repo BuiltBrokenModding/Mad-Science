@@ -1,4 +1,4 @@
-package madscience.factory.fluids;
+package madscience.factory.fluid;
 
 import com.google.gson.annotations.Expose;
 

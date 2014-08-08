@@ -1,4 +1,4 @@
-package madscience.factory.buttons;
+package madscience.factory.button;
 
 import com.google.gson.annotations.Expose;
 

@@ -217,9 +217,6 @@ public class MadForgeMod
         
         MadMod.log().info("Creating Blocks");
 
-        // Abomination Egg
-        MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
-
         // Enderslime Block
         MadBlocks.createEnderslimeBlock(MadConfig.ENDERSLIMEBLOCK);
         

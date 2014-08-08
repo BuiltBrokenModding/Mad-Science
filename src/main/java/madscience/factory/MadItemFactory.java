@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import madscience.MadForgeMod;
-import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.item.MadMetaItemData;
@@ -107,10 +106,10 @@ public class MadItemFactory
             Icon icon)
     {
         // Check if valid registered item name.
-        if (this.registeredItems.containsKey(baseItemName))
+        if (MadItemFactory.registeredItems.containsKey(baseItemName))
         {
             // Update the current item product instance from factory.
-            this.registeredItems.get(baseItemName).loadRenderPassIcon(
+            MadItemFactory.registeredItems.get(baseItemName).loadRenderPassIcon(
                     subItemName,
                     renderPass,
                     icon);
@@ -138,13 +137,13 @@ public class MadItemFactory
         subItemName = subItemName.toLowerCase();
         
         // Search through master list of registered items.
-        if (!this.registeredItems.containsKey(baseName))
+        if (!MadItemFactory.registeredItems.containsKey(baseName))
         {
             return null;
         }
         
         // Grab the registered item instance.
-        MadItemFactoryProduct registeredItem = this.registeredItems.get(baseName);
+        MadItemFactoryProduct registeredItem = MadItemFactory.registeredItems.get(baseName);
         if (registeredItem == null)
         {
             return null;
@@ -198,7 +197,7 @@ public class MadItemFactory
         baseItemTypeName = baseItemTypeName.toLowerCase();
         
         // Check if base type exists as key in registered types.
-        if (this.registeredItems.containsKey(baseItemTypeName))
+        if (MadItemFactory.registeredItems.containsKey(baseItemTypeName))
         {
             // Check if these names match.
             if (MadUtils.cleanTag(compareItem.getUnlocalizedName()).equals(baseItemTypeName))

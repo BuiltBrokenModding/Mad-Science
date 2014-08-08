@@ -1,6 +1,6 @@
 package madscience.factory.tile.prefab;
 
-import madscience.factory.fluids.MadFluid;
+import madscience.factory.fluid.MadFluid;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;

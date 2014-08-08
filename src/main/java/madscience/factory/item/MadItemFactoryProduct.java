@@ -9,7 +9,7 @@ import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.furnace.MadFurnaceRecipe;
 import madscience.factory.item.prefab.MadItemPrefab;
 import madscience.factory.mod.MadMod;
-import madscience.factory.recipes.MadRecipe;
+import madscience.factory.recipe.MadRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.Icon;

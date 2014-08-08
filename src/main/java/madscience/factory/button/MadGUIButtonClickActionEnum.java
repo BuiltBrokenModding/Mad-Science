@@ -1,4 +1,4 @@
-package madscience.factory.buttons;
+package madscience.factory.button;
 
 public enum MadGUIButtonClickActionEnum
 {

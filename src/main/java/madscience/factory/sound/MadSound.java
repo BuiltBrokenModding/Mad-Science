@@ -1,4 +1,4 @@
-package madscience.factory.sounds;
+package madscience.factory.sound;
 
 import com.google.gson.annotations.Expose;
 

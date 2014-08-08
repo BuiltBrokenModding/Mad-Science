@@ -2,7 +2,9 @@ package madscience.item;
 
 import java.util.Collection;
 
+import madscience.factory.MadItemFactory;
 import madscience.factory.item.MadItemFactoryProduct;
+import madscience.factory.item.MadMetaItemData;
 import madscience.factory.item.prefab.MadItemPrefab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -57,25 +59,41 @@ public class ItemSpawnEggLogic extends MadItemPrefab
 
     private static Entity spawnCreature(World world, ItemStack stack, double x, double y, double z)
     {
-        MadSpawnEggInfo info = MadGMORegistry.getEggInfo((short) stack.getItemDamage());
-
-        if (info == null)
+        // Query item product so we can get clean sub-item name.
+        MadItemFactoryProduct baseSpawnEggItem = MadItemFactory.instance().getItemInfo(stack.getUnlocalizedName());
+        if (baseSpawnEggItem == null)
+        {
             return null;
-
-        String mobID = info.mobID;
-        NBTTagCompound spawnData = info.getSpawnData();
+        }
+        
+        MadMetaItemData spawnEggSubItem = baseSpawnEggItem.getSubItemByDamageValue(stack.getItemDamage());
+        if (spawnEggSubItem == null)
+        {
+            return null;
+        }
+        
+        // Grab the name of the mob we want to spawn from the sub-item name on the spawn-egg.
+        String mobID = spawnEggSubItem.getItemName();
+        
+        // TODO: Query MadMobFactory for information about sub item mob data.
+        NBTTagCompound spawnData = new NBTTagCompound();
 
         if (stack.hasTagCompound())
         {
             NBTTagCompound compound = stack.getTagCompound();
             if (compound.hasKey("mobID"))
+            {
                 mobID = compound.getString("mobID");
+            }
+            
             if (compound.hasKey("spawnData"))
+            {
                 spawnData = compound.getCompoundTag("spawnData");
+            }
         }
 
+        // Create the mob we want to spawn into the game world by name from sub-item on spawn egg.
         Entity entity = null;
-
         entity = EntityList.createEntityByName(mobID, world);
 
         if (entity != null)
@@ -87,8 +105,12 @@ public class ItemSpawnEggLogic extends MadItemPrefab
                 entityliving.rotationYawHead = entityliving.rotationYaw;
                 entityliving.renderYawOffset = entityliving.rotationYaw;
                 entityliving.onSpawnWithEgg(null);
+                
                 if (!spawnData.hasNoTags())
+                {
                     addNBTData(entity, spawnData);
+                }
+                
                 world.spawnEntityInWorld(entity);
                 entityliving.playLivingSound();
                 spawnRiddenCreatures(entity, world, spawnData);
@@ -163,7 +185,7 @@ public class ItemSpawnEggLogic extends MadItemPrefab
 
     }
     
-    private static NBTTagCompound createItemTag(byte count, short damage, short id)
+    private NBTTagCompound createItemTag(byte count, short damage, short id)
     {
         NBTTagCompound item = new NBTTagCompound();
         item.setByte("Count", count);
@@ -172,28 +194,28 @@ public class ItemSpawnEggLogic extends MadItemPrefab
         return item;
     }
 
-    private static NBTTagCompound getEntityTag(String entityID)
+    private NBTTagCompound getEntityTag(String entityID)
     {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("id", entityID);
         return tag;
     }
 
-    public static NBTTagCompound horseType(int type)
+    public NBTTagCompound horseType(int type)
     {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("Type", type);
         return tag;
     }
 
-    public static NBTTagCompound villagerZombie()
+    public NBTTagCompound villagerZombie()
     {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setByte("IsVillager", (byte) 1);
         return tag;
     }
 
-    public static NBTTagCompound witherSkeleton()
+    public NBTTagCompound witherSkeleton()
     {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setByte("SkeletonType", (byte) 1);

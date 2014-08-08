@@ -1,4 +1,4 @@
-package madscience.factory.recipes;
+package madscience.factory.recipe;
 
 import java.text.Collator;
 import java.util.ArrayList;

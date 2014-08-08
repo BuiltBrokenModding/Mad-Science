@@ -1,12 +1,12 @@
 package madscience.factory.item.prefab;
 
+import madscience.factory.item.MadItemFactoryProduct;
+import madscience.factory.item.MadMetaItemData;
+import madscience.factory.sound.MadSoundTriggerEnum;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import madscience.factory.item.MadItemFactoryProduct;
-import madscience.factory.item.MadMetaItemData;
-import madscience.factory.sounds.MadSoundTriggerEnum;
 
 public class MadItemPrefab extends MadItemBasePrefab
 {
