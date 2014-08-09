@@ -1,6 +1,7 @@
 package madscience.factory.block;
 
 import madscience.factory.block.prefab.MadBlockPrefab;
+import net.minecraft.util.Icon;
 
 public class MadBlockFactoryProduct
 {
@@ -28,6 +29,30 @@ public class MadBlockFactoryProduct
         else
         {
             this.block = new MadBlockPrefab(this);
+        }
+    }
+    
+    /** Associates a loaded Minecraft/Forge icon with given sub-item render pass. */
+    public void loadRenderPassIcon(
+            String subBlockName,
+            int renderPass,
+            Icon icon)
+    {
+        // Loop through all sub-items looking for the one we want to update.
+        for (MadMetaBlockData subItem : this.data.getSubBlocks())
+        {
+            if (subItem.getSubBlockName().equals(subBlockName))
+            {
+                // Locate the matching render pass inside of this sub-item.
+                for (MadBlockRenderPass renderPassObject : subItem.getRenderPassArchive())
+                {
+                    if (renderPassObject.getRenderPass() == renderPass)
+                    {
+                        // Update the icon of this matching sub-item render type.
+                        renderPassObject.setIcon(icon);
+                    }
+                }
+            }
         }
     }
     

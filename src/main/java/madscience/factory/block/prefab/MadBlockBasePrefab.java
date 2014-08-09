@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import madscience.factory.MadBlockFactory;
-import madscience.factory.MadItemFactory;
 import madscience.factory.block.MadBlockFactoryProduct;
 import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
@@ -26,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 abstract class MadBlockBasePrefab extends Block
 {    
     private MadBlockFactoryProduct registeredBlock;
-    private String registeredItemName;
+    private String registeredBlockName;
 
     public MadBlockBasePrefab(MadBlockFactoryProduct registeredBlock)
     {
@@ -68,9 +67,9 @@ abstract class MadBlockBasePrefab extends Block
         // Only query and recreate the registered item if we need it.
         if (this.registeredBlock == null)
         {
-            MadBlockFactoryProduct reloadedItem = MadBlockFactory.instance().getBlockInfo(this.registeredItemName);
-            this.registeredBlock = reloadedItem;
-            this.registeredItemName = reloadedItem.getBlockBaseName();
+            MadBlockFactoryProduct reloadedBlock = MadBlockFactory.instance().getBlockInfo(this.registeredBlockName);
+            this.registeredBlock = reloadedBlock;
+            this.registeredBlockName = reloadedBlock.getBlockBaseName();
         }
         
         return this.registeredBlock;
@@ -138,72 +137,62 @@ abstract class MadBlockBasePrefab extends Block
     }
 
     @Override
-    public int damageDropped(int par1)
+    public boolean canRenderInPass(int pass)
     {
-        // TODO Auto-generated method stub
-        return super.damageDropped(par1);
+        return super.canRenderInPass(pass);
+    }
+
+    @Override
+    protected boolean canSilkHarvest()
+    {
+        return super.canSilkHarvest();
+    }
+
+    @Override
+    public int getBlockColor()
+    {
+        return super.getBlockColor();
     }
 
     @Override
     public int getRenderBlockPass()
     {
-        // TODO Auto-generated method stub
         return super.getRenderBlockPass();
     }
 
     @Override
     public int getRenderColor(int par1)
     {
-        // TODO Auto-generated method stub
         return super.getRenderColor(par1);
-    }
-
-    @Override
-    public int getRenderType()
-    {
-        // TODO Auto-generated method stub
-        return super.getRenderType();
     }
 
     @Override
     public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-        // TODO Auto-generated method stub
         super.getSubBlocks(par1, par2CreativeTabs, par3List);
     }
 
     @Override
-    protected String getTextureName()
+    public String getUnlocalizedName()
     {
-        // TODO Auto-generated method stub
-        return super.getTextureName();
-    }
-
-    @Override
-    public boolean getTickRandomly()
-    {
-        // TODO Auto-generated method stub
-        return super.getTickRandomly();
-    }
-
-    @Override
-    public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
-    {
-        // TODO Auto-generated method stub
-        super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
-    }
-
-    @Override
-    protected void initializeBlock()
-    {
-        // TODO Auto-generated method stub
-        super.initializeBlock();
+        return super.getUnlocalizedName();
     }
 
     @Override
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
     {
-        // TODO Auto-generated method stub
         super.updateTick(par1World, par2, par3, par4, par5Random);
+    }
+
+    @Override
+    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    {
+        return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer, par6, par7, par8, par9);
+    }
+
+    @Override
+    public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
+    {
+        super.onBlockClicked(par1World, par2, par3, par4, par5EntityPlayer);
     }
 }

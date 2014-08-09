@@ -12,6 +12,7 @@ import madscience.factory.block.MadBlockFactoryProduct;
 import madscience.factory.block.MadBlockFactoryProductData;
 import madscience.factory.block.template.MadBlockTooltip;
 import madscience.factory.mod.MadMod;
+import net.minecraft.util.Icon;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadBlockFactory
@@ -56,6 +57,24 @@ public class MadBlockFactory
         GameRegistry.registerBlock(blockProduct.getBlock(), MadBlockTooltip.class, blockProduct.getBlockBaseName());
 
         return blockProduct;
+    }
+    
+    /** Associates a loaded Minecraft/Forge asset with given sub-block render pass. */
+    public void loadRenderPassIcon(
+            String baseBlockName,
+            String subBlockName,
+            int renderPass,
+            Icon icon)
+    {
+        // Check if valid registered item name.
+        if (MadBlockFactory.registeredBlocks.containsKey(baseBlockName))
+        {
+            // Update the current block product instance from factory.
+            MadBlockFactory.registeredBlocks.get(baseBlockName).loadRenderPassIcon(
+                    subBlockName,
+                    renderPass,
+                    icon);
+        }
     }
     
     public boolean isValidItemID(String blockBaseName)

@@ -1,7 +1,7 @@
 package madscience.factory.block.prefab;
 
-import net.minecraft.block.material.Material;
 import madscience.factory.block.MadBlockFactoryProduct;
+import net.minecraft.block.material.Material;
 
 public class MadBlockPrefab extends MadBlockBasePrefab
 {

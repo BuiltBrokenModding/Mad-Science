@@ -1,10 +1,8 @@
 package madscience;
 
 import madscience.blocks.enderslime.EnderslimeBlock;
-import madscience.factory.block.template.MadBlockTooltip;
 import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadBlocks
 {

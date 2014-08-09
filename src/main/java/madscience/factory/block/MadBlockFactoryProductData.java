@@ -51,7 +51,7 @@ public class MadBlockFactoryProductData
     {
         super();
         
-        this.blockName = blockName;
+        this.blockName = blockName.toLowerCase();
         this.logicClassFullyQualifiedName = logicClassFullyQualifiedName;
         this.blockHardness = blockHardness;
         this.explosionResistance = explosionResistance;
@@ -131,12 +131,12 @@ public class MadBlockFactoryProductData
         this.lightBrightness = lightBrightness;
     }
 
-    public MadMetaBlockData[] getSubBlocksArchive()
+    public MadMetaBlockData[] getSubBlocks()
     {
         return subBlocksArchive;
     }
 
-    public void setSubBlocksArchive(MadMetaBlockData[] subBlocksArchive)
+    public void setSubBlocks(MadMetaBlockData[] subBlocksArchive)
     {
         this.subBlocksArchive = subBlocksArchive;
     }
