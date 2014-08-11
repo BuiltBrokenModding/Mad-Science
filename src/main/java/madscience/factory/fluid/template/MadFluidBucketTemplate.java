@@ -1,8 +1,8 @@
-package madscience.fluids.dnamutant;
+package madscience.factory.fluid.template;
 
 import java.util.List;
 
-import madscience.MadFluids;
+import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.material.Material;
@@ -16,6 +16,8 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event;
+import net.minecraftforge.event.Event.Result;
+import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.ItemFluidContainer;
 
@@ -24,17 +26,18 @@ import org.lwjgl.input.Keyboard;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LiquidDNAMutantBucket extends ItemFluidContainer
+public class MadFluidBucketTemplate extends ItemFluidContainer
 {
-
-    public LiquidDNAMutantBucket(int id, int capacity)
+    public MadFluidBucketTemplate(MadFluidFactoryProduct madFluidFactoryProduct)
     {
-        super(id);
-
+        super(madFluidFactoryProduct.getFluidContainerID());
+        
+        setUnlocalizedName(madFluidFactoryProduct.getFluidContainerName());
+        
         // Add the block to the specific tab in creative mode.
         this.setCreativeTab(MadMod.getCreativeTab());
     }
-    
+
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
@@ -156,7 +159,7 @@ public class LiquidDNAMutantBucket extends ItemFluidContainer
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir)
     {
-        this.itemIcon = ir.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_MUTANT_BUCKET_INTERNALNAME);
+        this.itemIcon = ir.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_BUCKET_INTERNALNAME);
     }
 
     private boolean tryPlaceContainedLiquid(World w, int x, int y, int z)
@@ -176,9 +179,36 @@ public class LiquidDNAMutantBucket extends ItemFluidContainer
             {
                 w.destroyBlock(x, y, z, true);
             }
-            w.setBlock(x, y, z, MadFluids.LIQUIDDNA_MUTANT.getBlockID(), 0, 3);
+            w.setBlock(x, y, z, MadFluids.LIQUIDDNA.getBlockID(), 0, 3);
             return true;
         }
 
+    }
+    
+    private ItemStack fillCustomBucket(World world, MovingObjectPosition pos)
+    {
+        int blockID = world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
+
+        if ((blockID == MadFluids.LIQUIDDNA.getBlockID() || blockID == MadFluids.LIQUIDDNA_BLOCK.blockID) && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0)
+        {
+            world.setBlock(pos.blockX, pos.blockY, pos.blockZ, 0);
+            return new ItemStack(MadFluids.LIQUIDDNA_BUCKET_ITEM);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @ForgeSubscribe
+    public void onBucketFill(FillBucketEvent event) // NO_UCD (unused code)
+    {
+        ItemStack result = fillCustomBucket(event.world, event.target);
+
+        if (result != null)
+        {
+            event.result = result;
+            event.setResult(Result.ALLOW);
+        }
     }
 }

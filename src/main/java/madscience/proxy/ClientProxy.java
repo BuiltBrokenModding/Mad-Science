@@ -9,9 +9,12 @@ import java.util.TreeSet;
 
 import madscience.MadForgeMod;
 import madscience.MadSounds;
+import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
+import madscience.factory.fluid.template.MadFluidRenderingTemplate;
 import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
@@ -20,8 +23,6 @@ import madscience.factory.model.MadTechneModelLoader;
 import madscience.factory.rendering.MadRendererTemplate;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
-import madscience.fluids.dna.LiquidDNARender;
-import madscience.fluids.dnamutant.LiquidDNAMutantRender;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobModel;
 import madscience.mobs.abomination.AbominationMobRender;
@@ -256,23 +257,23 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // ------
         // FLUIDS
         // ------
-
-        // Liquid DNA
-        if (itemOrBlockID == MadConfig.LIQUIDDNA)
+        Iterable<MadFluidFactoryProduct> registeredFluids = MadFluidFactory.instance().getFluidInfoList();
+        for (Iterator iterator = registeredFluids.iterator(); iterator.hasNext();)
         {
-            MinecraftForge.EVENT_BUS.register(new LiquidDNARender());
-        }
-
-        // Liquid Mutant DNA
-        if (itemOrBlockID == MadConfig.LIQUIDDNA_MUTANT)
-        {
-            MinecraftForge.EVENT_BUS.register(new LiquidDNAMutantRender());
+            MadFluidFactoryProduct registeredFluid = (MadFluidFactoryProduct) iterator.next();
+            if (registeredFluid.getFluidID() == itemOrBlockID)
+            {
+                // Register fluid renderer with Minecraft/Forge. Subject to change between Forge versions.
+                MinecraftForge.EVENT_BUS.register(new MadFluidRenderingTemplate());
+                
+                // Allows us to override icon displays and how fluid is rendered in pipes and tanks.
+                RenderingRegistry.registerBlockHandler(new MadFluidRenderingTemplate());
+            }
         }
         
         // -----
         // ITEMS
         // -----
-        
         Iterable<MadItemFactoryProduct> registeredItems = MadItemFactory.instance().getItemInfoList();
         for (Iterator iterator = registeredItems.iterator(); iterator.hasNext();)
         {
@@ -294,7 +295,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // -------------
         // TILE ENTITIES
         // -------------
-
         Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.instance().getMachineInfoList();
         for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext();)
         {

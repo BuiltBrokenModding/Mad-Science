@@ -9,9 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import madscience.MadManualBlocks;
 import madscience.MadManualItems;
+import madscience.factory.MadBlockFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.block.MadBlockFactoryProductData;
 import madscience.factory.creativetab.MadCreativeTab;
 import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.sound.MadSound;
@@ -72,10 +75,14 @@ public class MadMod
     /** Hook standardized logging class so we can report data on the console without standard out. */
     private static Logger logger = null;
     
-    /** Data container which gets serialized with all our mod information. */
+    /** Data container for loaded tiles from JSON loader and manual machines added by code. */
     private static List<MadTileEntityFactoryProductData> unregisteredMachines;
     
+    /** Data container for loaded items from JSON loader and also manual items added by code. */
     private static List<MadItemFactoryProductData> unregisteredItems;
+    
+    /** Data container for loaded blocks from JSON loader and also manual blocks added by code. */
+    private static List<MadBlockFactoryProductData> unregisteredBlocks;
     
     /** Holds an internal reference to every registered sound for easy reference. */
     private static Map<String, MadSound> soundArchive = new HashMap<String, MadSound>();
@@ -153,15 +160,29 @@ public class MadMod
         MadModData loadedModData = null;
         loadedModData = gson.fromJson(jsonMachineInput, MadModData.class);
         
-        // Populate the list of unregistered items.
+        // Load Blocks
+        unregisteredBlocks = new ArrayList<MadBlockFactoryProductData>();
+        for (MadBlockFactoryProductData jsonBlock : loadedModData.getUnregisteredBlocks())
+        {
+            unregisteredBlocks.add(jsonBlock);
+        }
+        
+        // Manual block(s) check.
+        MadManualBlocks manualBlocks = new MadManualBlocks();
+        if (manualBlocks != null)
+        {
+            MadMod.log().info("Adding manual blocks from class!");
+            unregisteredBlocks.addAll(manualBlocks.getManualBlocks());
+        }
+        
+        // Load Items.
         unregisteredItems = new ArrayList<MadItemFactoryProductData>();
-        MadItemFactoryProductData[] jsonItems = loadedModData.getUnregisteredItems();
-        for (MadItemFactoryProductData jsonItem : jsonItems)
+        for (MadItemFactoryProductData jsonItem : loadedModData.getUnregisteredItems())
         {
             unregisteredItems.add(jsonItem);
         }
         
-        // Check if we have manual item to add.
+        // Manual item(s) check.
         MadManualItems manualItems = new MadManualItems();
         if (manualItems != null)
         {
@@ -169,10 +190,9 @@ public class MadMod
             unregisteredItems.addAll(manualItems.getManualitems());
         }
         
-        // Populate the list of unregistered machines.
+        // Load tiles (machines).
         unregisteredMachines = new ArrayList<MadTileEntityFactoryProductData>();
-        MadTileEntityFactoryProductData[] jsonMachines = loadedModData.getUnregisteredMachines();
-        for (MadTileEntityFactoryProductData jsonMachine : jsonMachines)
+        for (MadTileEntityFactoryProductData jsonMachine : loadedModData.getUnregisteredMachines())
         {
             unregisteredMachines.add(jsonMachine);
         }
@@ -207,19 +227,6 @@ public class MadMod
         return soundArchive.get(soundNameWithoutExtension);
     }
     
-    /** Intended for developers to use to manually create machines when converting existing code to JSON. */
-    @SuppressWarnings("ucd")
-    public static void addUnregisteredMachine(MadTileEntityFactoryProductData newMachine)
-    {
-        unregisteredMachines.add(newMachine);
-    }
-    
-    /** Returns a list of machines that have yet to be run through MadTileEntityFactory.registerMachine(). */
-    public static MadTileEntityFactoryProductData[] getUnregisteredMachines()
-    {
-        return unregisteredMachines.toArray(new MadTileEntityFactoryProductData[]{});
-    }
-    
     /** Used to serialize mod data to JSON file on disk during data dump. */
     public static MadModData getMadModData()
     {
@@ -245,7 +252,8 @@ public class MadMod
                 idManagerBlockIndex,
                 idManagerItemIndex,
                 MadTileEntityFactory.instance().getMachineDataList(),
-                MadItemFactory.instance().getItemDataList());
+                MadItemFactory.instance().getItemDataList(),
+                MadBlockFactory.instance().getBlockDataList());
     }
 
     public static MadCreativeTab getCreativeTab()
@@ -264,8 +272,21 @@ public class MadMod
         logger.setParent(fmlLogger);
     }
 
+    /** Returns array of all loaded and unregistered items. */
     public static MadItemFactoryProductData[] getUnregisteredItems()
     {
         return unregisteredItems.toArray(new MadItemFactoryProductData[]{});
+    }
+    
+    /** Returns array of all loaded and unregistered blocks. */
+    public static MadBlockFactoryProductData[] getUnregisteredBlocks()
+    {
+        return unregisteredBlocks.toArray(new MadBlockFactoryProductData[]{});
+    }
+    
+    /** Returns array of all loaded and unregistered tile entities. */
+    public static MadTileEntityFactoryProductData[] getUnregisteredMachines()
+    {
+        return unregisteredMachines.toArray(new MadTileEntityFactoryProductData[]{});
     }
 }

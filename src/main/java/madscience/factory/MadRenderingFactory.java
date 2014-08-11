@@ -60,7 +60,7 @@ public class MadRenderingFactory
         {
             // Add the product and associated models from tile entity factory product.
             MadRenderingFactory.masterModelInformationReference.put(productName, renderInformation);
-            MadMod.log().info("[" + productName + "]Loading master reference for machine with " + renderInformation.getModelPartCount() + " model parts.");
+            MadMod.log().info("[" + productName + "]Loading master reference for product with " + renderInformation.getModelPartCount() + " model parts.");
         }
         else
         {

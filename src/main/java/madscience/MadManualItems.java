@@ -265,7 +265,7 @@ public class MadManualItems
                 iconCreeper.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
                 iconCreeper.add(new MadItemRenderPass(1, "genomeDataReel1", 894731));
                 iconCreeper.add(new MadItemRenderPass(2, "genomeDataReel2", 0));
-                genomeSubitems.add(new MadMetaItemData(3, "Cow", null, null, null, itemModelInfo, iconCreeper.toArray(new MadItemRenderPass[]{})));
+                genomeSubitems.add(new MadMetaItemData(3, "Creeper", null, null, null, itemModelInfo, iconCreeper.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -283,7 +283,7 @@ public class MadManualItems
                 iconGhast.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
                 iconGhast.add(new MadItemRenderPass(1, "genomeDataReel1", 16382457));
                 iconGhast.add(new MadItemRenderPass(2, "genomeDataReel2", 12369084));
-                genomeSubitems.add(new MadMetaItemData(5, "Enderman", null, null, null, itemModelInfo, iconGhast.toArray(new MadItemRenderPass[]{})));
+                genomeSubitems.add(new MadMetaItemData(5, "Ghast", null, null, null, itemModelInfo, iconGhast.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -346,7 +346,7 @@ public class MadManualItems
                 iconSkeleton.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
                 iconSkeleton.add(new MadItemRenderPass(1, "genomeDataReel1", 12698049));
                 iconSkeleton.add(new MadItemRenderPass(2, "genomeDataReel2", 4802889));
-                genomeSubitems.add(new MadMetaItemData(12, "Sheep", null, null, null, itemModelInfo, iconSkeleton.toArray(new MadItemRenderPass[]{})));
+                genomeSubitems.add(new MadMetaItemData(12, "Skeleton", null, null, null, itemModelInfo, iconSkeleton.toArray(new MadItemRenderPass[]{})));
             }
             
             {
@@ -445,7 +445,7 @@ public class MadManualItems
                 iconEnderslime.add(new MadItemRenderPass(0, "genomeDataReel_overlay", 16777215));
                 iconEnderslime.add(new MadItemRenderPass(1, "genomeDataReel1", MadColors.endermanEgg()));
                 iconEnderslime.add(new MadItemRenderPass(2, "genomeDataReel2", MadColors.slimeEgg()));
-                genomeSubitems.add(new MadMetaItemData(23, "Enderslime", null, null, null, itemModelInfo, iconEnderslime.toArray(new MadItemRenderPass[]{})));
+                genomeSubitems.add(new MadMetaItemData(23, "EnderSlime", null, null, null, itemModelInfo, iconEnderslime.toArray(new MadItemRenderPass[]{})));
             }
             
             {

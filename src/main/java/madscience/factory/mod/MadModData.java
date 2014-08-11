@@ -1,5 +1,6 @@
 package madscience.factory.mod;
 
+import madscience.factory.block.MadBlockFactoryProductData;
 import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.tile.MadTileEntityFactoryProductData;
 
@@ -80,6 +81,10 @@ public class MadModData
     // Items
     @Expose
     private MadItemFactoryProductData[] unregisteredItems;
+    
+    // Blocks
+    @Expose
+    private MadBlockFactoryProductData[] unregisteredBlocks;
 
     @SuppressWarnings("ucd")
     public MadModData(String id,
@@ -103,7 +108,8 @@ public class MadModData
             int blockIDStart,
             int itemIDStart,
             MadTileEntityFactoryProductData[] madMachines,
-            MadItemFactoryProductData[] madItems)
+            MadItemFactoryProductData[] madItems,
+            MadBlockFactoryProductData[] madBlocks)
     {
         super();
 
@@ -136,6 +142,7 @@ public class MadModData
 
         this.unregisteredMachines = madMachines;
         this.unregisteredItems = madItems;
+        this.unregisteredBlocks = madBlocks;
     }
 
     public String getID()
@@ -246,5 +253,10 @@ public class MadModData
     public MadItemFactoryProductData[] getUnregisteredItems()
     {
         return unregisteredItems;
+    }
+
+    public MadBlockFactoryProductData[] getUnregisteredBlocks() 
+    {
+        return unregisteredBlocks;
     }
 }

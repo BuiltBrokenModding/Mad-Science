@@ -1,6 +1,5 @@
 package madscience.tile;
 
-import madscience.MadFluids;
 import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;

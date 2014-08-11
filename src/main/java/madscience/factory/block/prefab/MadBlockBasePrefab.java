@@ -5,6 +5,8 @@ import java.util.Random;
 
 import madscience.factory.MadBlockFactory;
 import madscience.factory.block.MadBlockFactoryProduct;
+import madscience.factory.block.MadBlockRenderPass;
+import madscience.factory.block.MadMetaBlockData;
 import madscience.factory.mod.MadMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,6 +36,7 @@ abstract class MadBlockBasePrefab extends Block
         
         // Hold onto information about this machine.
         this.registeredBlock = registeredBlock;
+        this.registeredBlockName = registeredBlock.getBlockBaseName();
         
         // Set name that is used internally to reference machine.
         this.setUnlocalizedName(registeredBlock.getBlockBaseName());
@@ -124,9 +127,38 @@ abstract class MadBlockBasePrefab extends Block
     }
 
     @Override
-    public void registerIcons(IconRegister icon)
+    public void registerIcons(IconRegister iconRegistry)
     {
-        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + registeredBlock.getBlockBaseName());
+        // Grab the subtypes array for this block (some will contain one and others many).
+        MadMetaBlockData[] subItemsArray = this.getRegisteredBlock().getSubBlocks();
+        if (subItemsArray != null)
+        {
+            // Loop through all sub-blocks and grab rendering pass data.
+            for (MadMetaBlockData subItem : subItemsArray)
+            {
+                // Grab all of the render passes that this sub-block will need.
+                MadBlockRenderPass[] itemRenderPasses = subItem.getRenderPassArchive();
+                
+                // Associate via mapping render passes to a given registered icon.
+                for (MadBlockRenderPass renderPassObject : itemRenderPasses)
+                {
+                    // Loop through all render passes in the registered item and register their icons with Minecraft/Forge.
+                    Icon itemIconLayer = iconRegistry.registerIcon(MadMod.ID + ":" + renderPassObject.getIconPath());
+                    if (renderPassObject.getRenderPass() <= 0)
+                    {
+                        // Use the zero index (first) item in the icon archive that should be primary icon even if no sub-types.
+                        this.blockIcon = itemIconLayer; 
+                    }
+                    
+                    // Add the populated renderpass object into mapping with all populated icons.
+                    MadBlockFactory.instance().loadRenderPassIcon(
+                            this.getRegisteredBlock().getBlockBaseName(),
+                            subItem.getSubBlockName(),
+                            renderPassObject.getRenderPass(),
+                            itemIconLayer);
+                }
+            }
+        }
     }
 
     @Override
@@ -137,45 +169,32 @@ abstract class MadBlockBasePrefab extends Block
     }
 
     @Override
-    public boolean canRenderInPass(int pass)
+    public int getRenderColor(int pass)
     {
-        return super.canRenderInPass(pass);
+        for (MadMetaBlockData subBlock : this.getRegisteredBlock().getSubBlocks())
+        {
+            for (MadBlockRenderPass blockRenderPass : subBlock.getRenderPassArchive())
+            {
+                return blockRenderPass.getColorRGB();
+            }
+        }
+        
+        return 16777215;
     }
 
     @Override
-    protected boolean canSilkHarvest()
+    public void getSubBlocks(int blockID, CreativeTabs creativeTab, List list)
     {
-        return super.canSilkHarvest();
+        for (MadMetaBlockData subBlock : this.getRegisteredBlock().getSubBlocks())
+        {
+            list.add(new ItemStack(blockID, 1, subBlock.getMetaID()));
+        }
     }
-
-    @Override
-    public int getBlockColor()
-    {
-        return super.getBlockColor();
-    }
-
-    @Override
-    public int getRenderBlockPass()
-    {
-        return super.getRenderBlockPass();
-    }
-
-    @Override
-    public int getRenderColor(int par1)
-    {
-        return super.getRenderColor(par1);
-    }
-
-    @Override
-    public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
-        super.getSubBlocks(par1, par2CreativeTabs, par3List);
-    }
-
+    
     @Override
     public String getUnlocalizedName()
     {
-        return super.getUnlocalizedName();
+        return "item." + this.getRegisteredBlock().getBlockBaseName();
     }
 
     @Override
@@ -194,5 +213,25 @@ abstract class MadBlockBasePrefab extends Block
     public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
     {
         super.onBlockClicked(par1World, par2, par3, par4, par5EntityPlayer);
+    }
+
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return true;
+    }
+
+    @Override
+    public String getItemIconName()
+    {
+        // TODO Auto-generated method stub
+        return super.getItemIconName();
+    }
+
+    @Override
+    public boolean hasTileEntity(int metadata)
+    {
+        // TODO Auto-generated method stub
+        return super.hasTileEntity(metadata);
     }
 }

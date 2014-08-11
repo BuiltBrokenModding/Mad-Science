@@ -1,6 +1,6 @@
-package madscience.fluids.dna;
+package madscience.factory.fluid.template;
 
-import madscience.MadFluids;
+import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.mod.MadMod;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -12,24 +12,23 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LiquidDNABlock extends BlockFluidClassic
+public class MadFluidBlockTemplate extends BlockFluidClassic
 {
     @SideOnly(Side.CLIENT)
     private Icon stillIcon;
     
     @SideOnly(Side.CLIENT)
     private Icon flowingIcon;
-
-    public LiquidDNABlock(int id)
+    
+    public MadFluidBlockTemplate(MadFluidFactoryProduct madFluidFactoryProduct)
     {
-        super(id, MadFluids.LIQUIDDNA, Material.water);
-
-        // Give the classic minecraft fluid the same ID as our forge fluid
-        // registry class.
-        MadFluids.LIQUIDDNA.setBlockID(id);
+        super(madFluidFactoryProduct.getFluidID(), madFluidFactoryProduct.getFluid(), Material.water);
+        
+        // Using same name that we registered our fluid with for the block.
+        this.setUnlocalizedName(madFluidFactoryProduct.getFluidName());
 
         // Add the block to the specific tab in creative mode.
-        // this.setCreativeTab(MadEntities.tabMadScience);
+        this.setCreativeTab(MadMod.getCreativeTab());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package madscience.mobs.creepercow;
 
-import madscience.MadFluids;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;

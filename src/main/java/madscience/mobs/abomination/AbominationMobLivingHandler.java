@@ -1,6 +1,5 @@
 package madscience.mobs.abomination;
 
-import madscience.MadBlocks;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
