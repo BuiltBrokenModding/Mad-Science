@@ -23,28 +23,6 @@ import madscience.factory.model.MadTechneModelLoader;
 import madscience.factory.rendering.MadRendererTemplate;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
-import madscience.mobs.abomination.AbominationMobEntity;
-import madscience.mobs.abomination.AbominationMobModel;
-import madscience.mobs.abomination.AbominationMobRender;
-import madscience.mobs.creepercow.CreeperCowMobEntity;
-import madscience.mobs.creepercow.CreeperCowMobModel;
-import madscience.mobs.creepercow.CreeperCowMobRender;
-import madscience.mobs.enderslime.EnderslimeMobEntity;
-import madscience.mobs.enderslime.EnderslimeMobModel;
-import madscience.mobs.enderslime.EnderslimeMobRender;
-import madscience.mobs.endersquid.EnderSquidMobEntity;
-import madscience.mobs.endersquid.EnderSquidMobModel;
-import madscience.mobs.endersquid.EnderSquidMobRender;
-import madscience.mobs.shoggoth.ShoggothMobEntity;
-import madscience.mobs.shoggoth.ShoggothMobModel;
-import madscience.mobs.shoggoth.ShoggothMobRender;
-import madscience.mobs.werewolf.WerewolfMobEntity;
-import madscience.mobs.werewolf.WerewolfMobModel;
-import madscience.mobs.werewolf.WerewolfMobRender;
-import madscience.mobs.woolycow.WoolyCowMobEntity;
-import madscience.mobs.woolycow.WoolyCowMobModel1;
-import madscience.mobs.woolycow.WoolyCowMobModel2;
-import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -264,10 +242,10 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             if (registeredFluid.getFluidID() == itemOrBlockID)
             {
                 // Register fluid renderer with Minecraft/Forge. Subject to change between Forge versions.
-                MinecraftForge.EVENT_BUS.register(new MadFluidRenderingTemplate());
+                MinecraftForge.EVENT_BUS.register(new MadFluidRenderingTemplate(registeredFluid));
                 
                 // Allows us to override icon displays and how fluid is rendered in pipes and tanks.
-                RenderingRegistry.registerBlockHandler(new MadFluidRenderingTemplate());
+                RenderingRegistry.registerBlockHandler(new MadFluidRenderingTemplate(registeredFluid));
             }
         }
         
@@ -309,57 +287,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                 ClientRegistry.bindTileEntitySpecialRenderer(MadTileEntityPrefab.class, new MadRendererTemplate());
                 MinecraftForgeClient.registerItemRenderer(itemOrBlockID, new MadRendererTemplate());
             }
-        }
-
-        // ----
-        // MOBS
-        // ----
-
-        // Werewolf
-        if (itemOrBlockID == MadConfig.GMO_WEREWOLF_METAID)
-        {
-            // Ties together three separate classes to create new mob.
-            RenderingRegistry.registerEntityRenderingHandler(WerewolfMobEntity.class, new WerewolfMobRender(new WerewolfMobModel(), 0.5F));
-        }
-
-        // Creeper Cow [Creeper + Cow]
-        if (itemOrBlockID == MadConfig.GMO_CREEPERCOW_METAID)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(CreeperCowMobEntity.class, new CreeperCowMobRender(new CreeperCowMobModel(), 0.5F));
-        }
-
-        // Enderslime [Enderman + Slime]
-        if (itemOrBlockID == MadConfig.GMO_ENDERSLIME_METAID)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(EnderslimeMobEntity.class, new EnderslimeMobRender(new EnderslimeMobModel(16), new EnderslimeMobModel(0), 0.25F));
-        }
-
-        // Bart74(bart.74@hotmail.fr)
-        // Wooly cow [Cow + Sheep]
-        if (itemOrBlockID == MadConfig.GMO_WOOLYCOW_METAID)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(WoolyCowMobEntity.class, new WoolyCowMobRender(new WoolyCowMobModel1(), new WoolyCowMobModel2(), 0.5F));
-        }
-
-        // Deuce_Loosely(captainlunautic@yahoo.com)
-        // Shoggoth [Slime + Squid]
-        if (itemOrBlockID == MadConfig.GMO_SHOGGOTH_METAID)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(ShoggothMobEntity.class, new ShoggothMobRender(new ShoggothMobModel(16), new ShoggothMobModel(0), 0.25F));
-        }
-
-        // monodemono(coolplanet3000@gmail.com)
-        // The Abomination [Enderman + Spider]
-        if (itemOrBlockID == MadConfig.GMO_ABOMINATION_METAID)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(AbominationMobEntity.class, new AbominationMobRender(new AbominationMobModel(), 0.5F));
-        }
-
-        // TheTechnician(tallahlf@gmail.com)
-        // Ender Squid [Enderman + Squid]
-        if (itemOrBlockID == MadConfig.GMO_ENDERSQUID_METAID)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(EnderSquidMobEntity.class, new EnderSquidMobRender(new EnderSquidMobModel(), 0.5F));
         }
     }
 

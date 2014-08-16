@@ -1,5 +1,6 @@
 package madscience.factory.fluid.template;
 
+import madscience.factory.MadFluidFactory;
 import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.mod.MadMod;
 import net.minecraft.block.material.Material;
@@ -19,16 +20,34 @@ public class MadFluidBlockTemplate extends BlockFluidClassic
     
     @SideOnly(Side.CLIENT)
     private Icon flowingIcon;
+
+    private String registeredFluidName;
+    private MadFluidFactoryProduct registeredFluid;
     
     public MadFluidBlockTemplate(MadFluidFactoryProduct madFluidFactoryProduct)
     {
         super(madFluidFactoryProduct.getFluidID(), madFluidFactoryProduct.getFluid(), Material.water);
+        
+        this.registeredFluid = madFluidFactoryProduct;
+        this.registeredFluidName = madFluidFactoryProduct.getFluidName();
         
         // Using same name that we registered our fluid with for the block.
         this.setUnlocalizedName(madFluidFactoryProduct.getFluidName());
 
         // Add the block to the specific tab in creative mode.
         this.setCreativeTab(MadMod.getCreativeTab());
+    }
+    
+    public MadFluidFactoryProduct getRegisteredFluid()
+    {
+        if (this.registeredFluid == null)
+        {
+            MadFluidFactoryProduct reloadedFluid = MadFluidFactory.instance().getFluidInfo(this.registeredFluidName);
+            this.registeredFluid = reloadedFluid;
+            this.registeredFluidName = reloadedFluid.getFluidName();
+        }
+        
+        return this.registeredFluid;
     }
 
     @Override
@@ -41,9 +60,6 @@ public class MadFluidBlockTemplate extends BlockFluidClassic
 
         return super.canDisplace(world, x, y, z);
     }
-
-    /*
-     * @Override public int colorMultiplier(IBlockAccess iblockaccess, int i, int j, int k) { // Changes the color of the default minecraft water to be blood red. // Note: HEX color can be changed to any HEX based color code. return 0x8A0707; } */
 
     @Override
     public boolean displaceIfPossible(World world, int x, int y, int z)
@@ -75,7 +91,7 @@ public class MadFluidBlockTemplate extends BlockFluidClassic
     @Override
     public void registerIcons(IconRegister register)
     {
-        stillIcon = register.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_INTERNALNAME + "_still");
-        flowingIcon = register.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_INTERNALNAME + "_flowing");
+        stillIcon = register.registerIcon(MadMod.ID + ":" + this.getRegisteredFluid().getIconStillPath());
+        flowingIcon = register.registerIcon(MadMod.ID + ":" + this.getRegisteredFluid().getIconFlowingPath());
     }
 }

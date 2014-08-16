@@ -1,9 +1,9 @@
 package madscience.factory.fluid.prefab;
 
+import net.minecraftforge.fluids.FluidRegistry;
 import madscience.factory.fluid.template.MadFluidBlockTemplate;
 import madscience.factory.fluid.template.MadFluidBucketTemplate;
 import madscience.factory.fluid.template.MadFluidTemplate;
-import net.minecraftforge.fluids.Fluid;
 
 public class MadFluidFactoryProduct
 {
@@ -22,74 +22,90 @@ public class MadFluidFactoryProduct
     
     public MadFluidFactoryProduct(MadFluidFactoryProductData blockData)
     {
+        // Information about the fluid we save and load to disk via JSON loader.
+        this.data = blockData;
+        
         // Still's ID must be 1 above Flowing.
-        fluidTemplate = new MadFluidTemplate(this);
+        this.fluidTemplate = new MadFluidTemplate(this);
+        
+        // Register this fluid in the game registry.
+        // Note: This is done here because registering the block fluid classic will query the fluid registry. 
+        FluidRegistry.registerFluid(this.fluidTemplate);
 
         // Create the block of flowing liquid only after registering it with the system.
-        blockFluidTemplate =  new MadFluidBlockTemplate(this);
+        this.blockFluidTemplate =  new MadFluidBlockTemplate(this);
 
         // Container for our fluid.
-        bucketTemplate = new MadFluidBucketTemplate(this);
+        this.bucketTemplate = new MadFluidBucketTemplate(this);
+    }
+    
+    public MadFluidFactoryProductData getData()
+    {
+        return data;
     }
 
     public String getFluidName()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return data.getFluidName();
     }
 
     public MadFluidBlockTemplate getFluidBlock()
     {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public MadFluidFactoryProductData getData()
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return blockFluidTemplate;
     }
 
     public int getDensity()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return data.getDensity();
     }
 
     public int getViscosity()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return data.getViscosity();
     }
 
     public int getLuminosity()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return data.getLuminosity();
     }
 
     public int getFluidID()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return data.getFluidID();
     }
 
-    public Fluid getFluid()
+    public MadFluidTemplate getFluid()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return fluidTemplate;
     }
 
     public int getFluidContainerID()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return data.getFluidContainerID();
     }
 
     public String getFluidContainerName()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return data.getFluidContainerName();
     }
 
+    public MadFluidBucketTemplate getFluidContainer()
+    {
+        return bucketTemplate;
+    }
+
+    public String getIconStillPath()
+    {
+        return data.getIconStillPath();
+    }
+
+    public String getIconFlowingPath()
+    {
+        return data.getIconFlowingPath();
+    }
+
+    public String getIconFluidContainerPath()
+    {
+        return data.getIconFluidContainerPath();
+    }
 }

@@ -222,7 +222,7 @@ public class MadItemFactoryProduct
                 // Locate the matching render pass inside of this sub-item.
                 for (MadItemRenderPass renderPassObject : subItem.getRenderPassArchive())
                 {
-                    if (renderPassObject.getRenderPass() == renderPass)
+                    if (renderPassObject.getRenderPass() == renderPass && !renderPassObject.isLoadedIcon())
                     {
                         // Update the icon of this matching sub-item render type.
                         renderPassObject.setIcon(icon);
@@ -242,6 +242,12 @@ public class MadItemFactoryProduct
         // Loop through all of the sub items inside of this item product data.
         for (MadMetaItemData subItem : this.data.getSubItemsArchive())
         {
+            // Skip items that have no crafting recipes to register.
+            if (subItem.getCraftingRecipes() == null)
+            {
+                continue;
+            }
+            
             // Grab the recipe data for each individual sub-item.
             for (MadCraftingRecipe itemCraftingRecipe : subItem.getCraftingRecipes())
             {
@@ -384,6 +390,12 @@ public class MadItemFactoryProduct
         // Loop through all the sub items inside of this single item.
         for (MadMetaItemData subItem : this.data.getSubItemsArchive())
         {
+            // Skip items that have no vanilla furnace recipes.
+            if (subItem.getFurnaceRecipes() == null)
+            {
+                continue;
+            }
+            
             // Loop through all the vanilla furnace recipes and associate them with Minecraft/Forge ItemStacks.
             for (MadFurnaceRecipe furnaceRecipe : subItem.getFurnaceRecipes())
             {

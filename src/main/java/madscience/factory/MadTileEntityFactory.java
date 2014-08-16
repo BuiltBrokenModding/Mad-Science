@@ -10,7 +10,7 @@ import java.util.Set;
 
 import madscience.MadForgeMod;
 import madscience.factory.block.MadGhostBlockData;
-import madscience.factory.block.template.MadBlockTooltip;
+import madscience.factory.itemblock.MadItemBlockTooltip;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
@@ -104,7 +104,7 @@ public class MadTileEntityFactory
         
         // Register the machine with Minecraft/Forge.
         GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), tileEntityProduct.getMachineName());
-        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), MadBlockTooltip.class, MadMod.ID + tileEntityProduct.getMachineName());
+        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), MadItemBlockTooltip.class, MadMod.ID + tileEntityProduct.getMachineName());
         
         // Register client only information such as rendering and model information to the given machine.
         MadForgeMod.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());

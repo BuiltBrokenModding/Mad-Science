@@ -123,6 +123,11 @@ public class MadModel
 
     public int getModelPartCount()
     {
+        if (machineModels == null)
+        {
+            return 0;
+        }
+        
         return machineModels.length;
     }
 

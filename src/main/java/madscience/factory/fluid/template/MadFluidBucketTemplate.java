@@ -2,6 +2,7 @@ package madscience.factory.fluid.template;
 
 import java.util.List;
 
+import madscience.factory.MadFluidFactory;
 import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
@@ -28,14 +29,32 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class MadFluidBucketTemplate extends ItemFluidContainer
 {
+    private String registeredFluidName;
+    private MadFluidFactoryProduct registeredFluid;
+    
     public MadFluidBucketTemplate(MadFluidFactoryProduct madFluidFactoryProduct)
     {
         super(madFluidFactoryProduct.getFluidContainerID());
+        
+        this.registeredFluid = madFluidFactoryProduct;
+        this.registeredFluidName = madFluidFactoryProduct.getFluidName();
         
         setUnlocalizedName(madFluidFactoryProduct.getFluidContainerName());
         
         // Add the block to the specific tab in creative mode.
         this.setCreativeTab(MadMod.getCreativeTab());
+    }
+    
+    public MadFluidFactoryProduct getRegisteredFluid()
+    {
+        if (this.registeredFluid == null)
+        {
+            MadFluidFactoryProduct reloadedFluid = MadFluidFactory.instance().getFluidInfo(this.registeredFluidName);
+            this.registeredFluid = reloadedFluid;
+            this.registeredFluidName = reloadedFluid.getFluidName();
+        }
+        
+        return this.registeredFluid;
     }
 
     @Override
@@ -157,9 +176,9 @@ public class MadFluidBucketTemplate extends ItemFluidContainer
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister ir)
+    public void registerIcons(IconRegister iconRegistry)
     {
-        this.itemIcon = ir.registerIcon(MadMod.ID + ":" + MadFluids.LIQUIDDNA_BUCKET_INTERNALNAME);
+        this.itemIcon = iconRegistry.registerIcon(MadMod.ID + ":" + this.getRegisteredFluid().getIconFluidContainerPath());
     }
 
     private boolean tryPlaceContainedLiquid(World w, int x, int y, int z)
@@ -179,7 +198,7 @@ public class MadFluidBucketTemplate extends ItemFluidContainer
             {
                 w.destroyBlock(x, y, z, true);
             }
-            w.setBlock(x, y, z, MadFluids.LIQUIDDNA.getBlockID(), 0, 3);
+            w.setBlock(x, y, z, this.getRegisteredFluid().getFluidID(), 0, 3);
             return true;
         }
 
@@ -189,10 +208,10 @@ public class MadFluidBucketTemplate extends ItemFluidContainer
     {
         int blockID = world.getBlockId(pos.blockX, pos.blockY, pos.blockZ);
 
-        if ((blockID == MadFluids.LIQUIDDNA.getBlockID() || blockID == MadFluids.LIQUIDDNA_BLOCK.blockID) && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0)
+        if (blockID == this.getRegisteredFluid().getFluidID() && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0)
         {
             world.setBlock(pos.blockX, pos.blockY, pos.blockZ, 0);
-            return new ItemStack(MadFluids.LIQUIDDNA_BUCKET_ITEM);
+            return new ItemStack(this.getRegisteredFluid().getFluidContainer());
         }
         else
         {

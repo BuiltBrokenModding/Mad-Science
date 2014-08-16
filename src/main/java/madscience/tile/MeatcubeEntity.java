@@ -1,6 +1,8 @@
 package madscience.tile;
 
+import madscience.factory.MadFluidFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
+import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.factory.sound.MadSound;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
@@ -53,7 +55,10 @@ public class MeatcubeEntity extends MadTileEntityPrefab
 
         // Output 1 - Empty bucket returns from full one in input slot 1
         ItemStack bucketEmpty = new ItemStack(Item.bucketEmpty);
-        ItemStack bucketMutantDNA = new ItemStack(MadFluids.LIQUIDDNA_MUTANT_BUCKET_ITEM);
+        
+        // Input check for mutant DNA bucket.
+        MadFluidFactoryProduct fluidProduct = MadFluidFactory.instance().getFluidInfo("maddnamutant");
+        ItemStack bucketMutantDNA = new ItemStack(fluidProduct.getFluidContainer());
 
         // Check if input slot 1 is a filled bucket.
         if (!this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).isItemEqual(bucketMutantDNA))

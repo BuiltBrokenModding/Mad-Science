@@ -1,7 +1,9 @@
 package madscience.tile;
 
+import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
+import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.mod.MadMod;
 import madscience.factory.tile.MadTileEntityFactoryProduct;
 import madscience.factory.tile.prefab.MadTileEntityPrefab;
@@ -191,7 +193,9 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
 
         // Items we will use to compare with in our input slots.
         ItemStack emptyBucket = new ItemStack(Item.bucketEmpty);
-        ItemStack liquidDNABucket = new ItemStack(MadFluids.LIQUIDDNA_MUTANT_BUCKET_ITEM);
+        
+        MadFluidFactoryProduct fluidProduct = MadFluidFactory.instance().getFluidInfo("maddnamutant");
+        ItemStack liquidDNABucket = new ItemStack(fluidProduct.getFluidContainer());
 
         // Check if input slot 2 is a empty bucket.
         if (!this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EMPTYBUCKET).isItemEqual(emptyBucket))

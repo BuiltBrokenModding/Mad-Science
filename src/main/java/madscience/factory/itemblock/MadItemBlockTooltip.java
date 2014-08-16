@@ -1,4 +1,4 @@
-package madscience.factory.block.template;
+package madscience.factory.itemblock;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
 
-public class MadBlockTooltip extends ItemBlock
+public class MadItemBlockTooltip extends ItemBlock
 {
-    public MadBlockTooltip(int id) // NO_UCD (unused code)
+    public MadItemBlockTooltip(int id) // NO_UCD (unused code)
     {
         super(id);
     }

@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 import madscience.MadForgeMod;
-import madscience.factory.block.template.MadBlockTooltip;
 import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.fluid.prefab.MadFluidFactoryProductData;
+import madscience.factory.itemblock.MadItemBlockTooltip;
 import madscience.factory.mod.MadMod;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -45,44 +45,45 @@ public class MadFluidFactory
     public MadFluidFactoryProduct registerFluid(MadFluidFactoryProductData blockData) throws IllegalArgumentException
     {
         // Pass the data object into the product to activate it, creates needed data structures inside it based on data supplied.
-        MadFluidFactoryProduct blockProduct = new MadFluidFactoryProduct(blockData);
+        MadFluidFactoryProduct fluidProduct = new MadFluidFactoryProduct(blockData);
 
         // Check to make sure we have not added this item before.
-        if (!isValidItemID(blockProduct.getFluidName()))
+        if (!isValidFluidID(fluidProduct.getFluidName()))
         {
-            throw new IllegalArgumentException("Duplicate MadFluidFactoryProduct '" + blockProduct.getFluidName() + "' was added. Execution halted!");
+            throw new IllegalArgumentException("Duplicate MadFluidFactoryProduct '" + fluidProduct.getFluidName() + "' was added. Execution halted!");
         }
 
         // Debugging!
-        MadMod.log().info("[MadFluidFactory]Registering fluid: " + blockProduct.getFluidName());
+        MadMod.log().info("[MadFluidFactory]Registering fluid: " + fluidProduct.getFluidName());
         
         // Actually register the fluid with the product listing.
-        registeredFluids.put(blockProduct.getFluidName(), blockProduct);
-        
-        // Register this fluid in the game registry.
-        FluidRegistry.registerFluid(LIQUIDDNA);
+        registeredFluids.put(fluidProduct.getFluidName(), fluidProduct);
         
         // Register the fluid with Minecraft/Forge.
-        GameRegistry.registerBlock(LIQUIDDNA_BLOCK, MadBlockTooltip.class, blockProduct.getFluidName());
+        GameRegistry.registerBlock(fluidProduct.getFluidBlock(), MadItemBlockTooltip.class, fluidProduct.getFluidName());
 
         // Register fluid container item.
-        GameRegistry.registerItem(LIQUIDDNA_BUCKET_ITEM, LIQUIDDNA_BUCKET_ITEM.getUnlocalizedName());
+        GameRegistry.registerItem(fluidProduct.getFluidContainer(), fluidProduct.getFluidContainerName());
 
         // Register our class as a valid container for our fluid.
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(LIQUIDDNA.getName(), FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(LIQUIDDNA_BUCKET_ITEM), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(
+                        FluidRegistry.getFluidStack(fluidProduct.getFluidName(),
+                        FluidContainerRegistry.BUCKET_VOLUME),
+                        new ItemStack(fluidProduct.getFluidContainer()),
+                        new ItemStack(Item.bucketEmpty)));
         
         // Hook event in forge for filling a bucket with liquid.
-        MinecraftForge.EVENT_BUS.register(new LiquidDNABucketEvent());
+        MinecraftForge.EVENT_BUS.register(fluidProduct.getFluidContainer());
 
         // Register custom rendering for GUI's.
-        MadForgeMod.proxy.registerRenderingHandler(blockFluidID);
+        MadForgeMod.proxy.registerRenderingHandler(fluidProduct.getFluidID());
 
-        return blockProduct;
+        return fluidProduct;
     }
     
     public boolean isValidFluidID(String blockBaseName)
     {
-        return this.registeredFluids.containsKey(blockBaseName);
+        return !this.registeredFluids.containsKey(blockBaseName);
     }
 
     public MadFluidFactoryProduct getFluidInfo(String id)

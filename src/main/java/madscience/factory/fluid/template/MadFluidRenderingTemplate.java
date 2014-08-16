@@ -1,5 +1,7 @@
 package madscience.factory.fluid.template;
 
+import madscience.factory.MadFluidFactory;
+import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
@@ -15,9 +17,27 @@ public class MadFluidRenderingTemplate implements ISimpleBlockRenderingHandler
 {
     private int currentRenderID = -1;
     
-    public MadFluidRenderingTemplate()
+    private String registeredFluidName;
+    private MadFluidFactoryProduct registeredFluid;
+    
+    public MadFluidRenderingTemplate(MadFluidFactoryProduct madFluidFactoryProduct)
     {
         super();
+        
+        this.registeredFluid = madFluidFactoryProduct;
+        this.registeredFluidName = madFluidFactoryProduct.getFluidName();
+    }
+    
+    public MadFluidFactoryProduct getRegisteredFluid()
+    {
+        if (this.registeredFluid == null)
+        {
+            MadFluidFactoryProduct reloadedFluid = MadFluidFactory.instance().getFluidInfo(this.registeredFluidName);
+            this.registeredFluid = reloadedFluid;
+            this.registeredFluidName = reloadedFluid.getFluidName();
+        }
+        
+        return this.registeredFluid;
     }
     
     @Override
@@ -42,7 +62,9 @@ public class MadFluidRenderingTemplate implements ISimpleBlockRenderingHandler
     @ForgeSubscribe
     public void postStitch(TextureStitchEvent.Post event) // NO_UCD (unused code)
     {
-        MadFluids.LIQUIDDNA.setIcons(MadFluids.LIQUIDDNA_BLOCK.getBlockTextureFromSide(0), MadFluids.LIQUIDDNA_BLOCK.getBlockTextureFromSide(1));
+        this.getRegisteredFluid().getFluid().setIcons(
+                this.getRegisteredFluid().getFluidBlock().getBlockTextureFromSide(0),
+                this.getRegisteredFluid().getFluidBlock().getBlockTextureFromSide(1));
     }
 
     @Override

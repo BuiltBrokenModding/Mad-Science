@@ -963,13 +963,13 @@ public class MadManualItems
                         "7:madscience:circuitDiamond:0:1",
                         "8:madscience:circuitRedstone:0:1"));
                 
-                componentSubitems.add(new MadMetaItemData(10, "Computer", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconScreen.toArray(new MadItemRenderPass[]{})));
+                componentSubitems.add(new MadMetaItemData(10, "Screen", subItemCraftingRecipes.toArray(new MadCraftingRecipe[]{}), null, null, itemModelInfo, iconScreen.toArray(new MadItemRenderPass[]{})));
             }
             
             {
                 // THUMPER
                 List<MadItemRenderPass> iconThumper = new ArrayList<MadItemRenderPass>();
-                iconThumper.add(new MadItemRenderPass(0, "componentScreen", 16777215));
+                iconThumper.add(new MadItemRenderPass(0, "componentThumper", 16777215));
                 
                 // CRAFTING RECIPE
                 // Note: Layout of crafting grid is as follows.
@@ -1330,104 +1330,6 @@ public class MadManualItems
             }
             
             MadItemFactoryProductData emptyNeedle = new MadItemFactoryProductData("emptyNeedle", true, 0, 64, 2, 0, 0, false, "madscience.item.ItemNeedleEmptyLogic", emptyNeedleSubitems.toArray(new MadMetaItemData[]{}));
-            manualItems.add(emptyNeedle);
-        }
-        
-        // ----------
-        // SPAWN EGGS
-        // ----------
-        {
-            List<MadMetaItemData> spawnEggSubitems = new ArrayList<MadMetaItemData>();
-            
-            {
-                // WEREWOLF
-                List<MadItemRenderPass> iconWerewolf = new ArrayList<MadItemRenderPass>();
-                iconWerewolf.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.villagerEgg()));
-                iconWerewolf.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.wolfEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(0, "Werewolf", null, null, null, itemModelInfo, iconWerewolf.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // CREEPER COW
-                List<MadItemRenderPass> iconCreeperCow = new ArrayList<MadItemRenderPass>();
-                iconCreeperCow.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.creeperEgg()));
-                iconCreeperCow.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.cowEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(1, "CreeperCow", null, null, null, itemModelInfo, iconCreeperCow.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // ENDERSLIME
-                List<MadItemRenderPass> iconEnderslime = new ArrayList<MadItemRenderPass>();
-                iconEnderslime.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.endermanEgg()));
-                iconEnderslime.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.slimeEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(2, "Enderslime", null, null, null, itemModelInfo, iconEnderslime.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // WOOLY COW
-                List<MadItemRenderPass> iconWoolyCow = new ArrayList<MadItemRenderPass>();
-                iconWoolyCow.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.cowEgg()));
-                iconWoolyCow.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.sheepEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(3, "WoolyCow", null, null, null, itemModelInfo, iconWoolyCow.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // SHOGGOTH
-                List<MadItemRenderPass> iconShogooth = new ArrayList<MadItemRenderPass>();
-                iconShogooth.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.slimeEgg()));
-                iconShogooth.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.squidEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(4, "Shoggoth", null, null, null, itemModelInfo, iconShogooth.toArray(new MadItemRenderPass[]{})));
-            }
-                                   
-            {
-                // ABOMINATION
-                List<MadItemRenderPass> iconAbomination = new ArrayList<MadItemRenderPass>();
-                iconAbomination.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.endermanEgg()));
-                iconAbomination.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.spiderEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(5, "Abomination", null, null, null, itemModelInfo, iconAbomination.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // WITHER SKELETON
-                List<MadItemRenderPass> iconWitherSkeleton = new ArrayList<MadItemRenderPass>();
-                iconWitherSkeleton.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.endermanEgg()));
-                iconWitherSkeleton.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.skeletonEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(6, "WitherSkeleton", null, null, null, itemModelInfo, iconWitherSkeleton.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // VILLAGER ZOMBIE
-                List<MadItemRenderPass> iconVillagerZombie = new ArrayList<MadItemRenderPass>();
-                iconVillagerZombie.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.villagerEgg()));
-                iconVillagerZombie.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.zombieEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(7, "VillagerZombie", null, null, null, itemModelInfo, iconVillagerZombie.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // SKELETON HORSE
-                List<MadItemRenderPass> iconSkeletonHorse = new ArrayList<MadItemRenderPass>();
-                iconSkeletonHorse.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.horseEgg()));
-                iconSkeletonHorse.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.skeletonEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(8, "SkeletonHorse", null, null, null, itemModelInfo, iconSkeletonHorse.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // ZOMBIE HORSE
-                List<MadItemRenderPass> iconZombieHorse = new ArrayList<MadItemRenderPass>();
-                iconZombieHorse.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.horseEgg()));
-                iconZombieHorse.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.zombieEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(9, "ZombieHorse", null, null, null, itemModelInfo, iconZombieHorse.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            {
-                // ENDER SQUID
-                List<MadItemRenderPass> iconEnderSquid = new ArrayList<MadItemRenderPass>();
-                iconEnderSquid.add(new MadItemRenderPass(0, "gmoMonsterPlacer", MadColors.endermanEgg()));
-                iconEnderSquid.add(new MadItemRenderPass(1, "gmoMonsterPlacer_overlay", MadColors.squidEgg()));
-                spawnEggSubitems.add(new MadMetaItemData(10, "EnderSquid", null, null, null, itemModelInfo, iconEnderSquid.toArray(new MadItemRenderPass[]{})));
-            }
-            
-            MadItemFactoryProductData emptyNeedle = new MadItemFactoryProductData("spawnegg", true, 0, 64, 0, 0, 0, false, "madscience.item.ItemSpawnEggLogic", spawnEggSubitems.toArray(new MadMetaItemData[]{}));
             manualItems.add(emptyNeedle);
         }
     }

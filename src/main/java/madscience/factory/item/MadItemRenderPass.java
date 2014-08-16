@@ -67,4 +67,9 @@ public class MadItemRenderPass
         this.loadedIcon = true;
         this.icon = icon;
     }
+
+    public boolean isLoadedIcon()
+    {
+        return loadedIcon;
+    }
 }

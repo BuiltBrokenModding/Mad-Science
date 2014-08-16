@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import madscience.MadManualBlocks;
+import madscience.MadManualFluids;
 import madscience.MadManualItems;
-import madscience.factory.MadBlockFactory;
+import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.block.MadBlockFactoryProductData;
 import madscience.factory.creativetab.MadCreativeTab;
+import madscience.factory.fluid.prefab.MadFluidFactoryProductData;
 import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.sound.MadSound;
 import madscience.factory.tile.MadTileEntityFactoryProductData;
@@ -81,8 +81,8 @@ public class MadMod
     /** Data container for loaded items from JSON loader and also manual items added by code. */
     private static List<MadItemFactoryProductData> unregisteredItems;
     
-    /** Data container for loaded blocks from JSON loader and also manual blocks added by code. */
-    private static List<MadBlockFactoryProductData> unregisteredBlocks;
+    /** Data container for loaded fluids from JSON loader and manual fluids added by code. */
+    private static List<MadFluidFactoryProductData> unregisteredFluids;
     
     /** Holds an internal reference to every registered sound for easy reference. */
     private static Map<String, MadSound> soundArchive = new HashMap<String, MadSound>();
@@ -160,49 +160,79 @@ public class MadMod
         MadModData loadedModData = null;
         loadedModData = gson.fromJson(jsonMachineInput, MadModData.class);
         
-        // Load Blocks
-        unregisteredBlocks = new ArrayList<MadBlockFactoryProductData>();
-        for (MadBlockFactoryProductData jsonBlock : loadedModData.getUnregisteredBlocks())
+        // Loads information from JSON MadModData into respective unregistered products.
+        loadFluidJSON(loadedModData);
+        loadItemJSON(loadedModData);
+        loadTileEntityJSON(loadedModData);
+        
+        // Initializes ID manager with respective starting ranges for block and item ID's.
+        loadIDManager(loadedModData);
+    }
+
+    private static void loadIDManager(MadModData loadedModData)
+    {
+        // Create ID manager with ranges it should operate in.
+        idManagerBlockIndex = loadedModData.getIDManagerBlockIndex();
+        idManagerItemIndex = loadedModData.getIDManagerItemIndex();
+        idManager = new IDManager(idManagerBlockIndex, idManagerItemIndex);
+    }
+
+    private static void loadFluidJSON(MadModData loadedModData)
+    {
+        // Load fluids (and fluid containers).
+        unregisteredFluids = new ArrayList<MadFluidFactoryProductData>();
+        
+        if (loadedModData.getUnregisteredFluids() != null)
         {
-            unregisteredBlocks.add(jsonBlock);
+            for (MadFluidFactoryProductData jsonFluid : loadedModData.getUnregisteredFluids())
+            {
+                unregisteredFluids.add(jsonFluid);
+            }
         }
         
-        // Manual block(s) check.
-        MadManualBlocks manualBlocks = new MadManualBlocks();
-        if (manualBlocks != null)
+        // Manual fluids check.
+        MadManualFluids manualFluids = new MadManualFluids();
+        if (manualFluids != null)
         {
-            MadMod.log().info("Adding manual blocks from class!");
-            unregisteredBlocks.addAll(manualBlocks.getManualBlocks());
+            unregisteredFluids.addAll(manualFluids.getManualFluids());
         }
+    }
+
+    private static void loadTileEntityJSON(MadModData loadedModData)
+    {
+        // Load tiles (machines).
+        unregisteredMachines = new ArrayList<MadTileEntityFactoryProductData>();
         
+        if (loadedModData.getUnregisteredMachines() != null)
+        {
+            for (MadTileEntityFactoryProductData jsonMachine : loadedModData.getUnregisteredMachines())
+            {
+                unregisteredMachines.add(jsonMachine);
+            }
+        }
+    }
+
+    private static void loadItemJSON(MadModData loadedModData)
+    {
         // Load Items.
         unregisteredItems = new ArrayList<MadItemFactoryProductData>();
-        for (MadItemFactoryProductData jsonItem : loadedModData.getUnregisteredItems())
+        
+        if (loadedModData.getUnregisteredItems() != null)
         {
-            unregisteredItems.add(jsonItem);
+            for (MadItemFactoryProductData jsonItem : loadedModData.getUnregisteredItems())
+            {
+                unregisteredItems.add(jsonItem);
+            }
         }
         
         // Manual item(s) check.
         MadManualItems manualItems = new MadManualItems();
         if (manualItems != null)
         {
-            MadMod.logger.info("Adding manual items from class!");
             unregisteredItems.addAll(manualItems.getManualitems());
         }
-        
-        // Load tiles (machines).
-        unregisteredMachines = new ArrayList<MadTileEntityFactoryProductData>();
-        for (MadTileEntityFactoryProductData jsonMachine : loadedModData.getUnregisteredMachines())
-        {
-            unregisteredMachines.add(jsonMachine);
-        }
-        
-        // Create ID manager with ranges it should operate in.
-        idManagerBlockIndex = loadedModData.getIDManagerBlockIndex();
-        idManagerItemIndex = loadedModData.getIDManagerItemIndex();
-        idManager = new IDManager(idManagerBlockIndex, idManagerItemIndex);
     }
-    
+
     /** Returns the next block ID based on initial index on creation. */
     public static int getNextBlockID()
     {
@@ -253,7 +283,7 @@ public class MadMod
                 idManagerItemIndex,
                 MadTileEntityFactory.instance().getMachineDataList(),
                 MadItemFactory.instance().getItemDataList(),
-                MadBlockFactory.instance().getBlockDataList());
+                MadFluidFactory.instance().getFluidDataList());
     }
 
     public static MadCreativeTab getCreativeTab()
@@ -278,15 +308,14 @@ public class MadMod
         return unregisteredItems.toArray(new MadItemFactoryProductData[]{});
     }
     
-    /** Returns array of all loaded and unregistered blocks. */
-    public static MadBlockFactoryProductData[] getUnregisteredBlocks()
-    {
-        return unregisteredBlocks.toArray(new MadBlockFactoryProductData[]{});
-    }
-    
     /** Returns array of all loaded and unregistered tile entities. */
     public static MadTileEntityFactoryProductData[] getUnregisteredMachines()
     {
         return unregisteredMachines.toArray(new MadTileEntityFactoryProductData[]{});
+    }
+
+    public static MadFluidFactoryProductData[] getUnregisteredFluids()
+    {
+        return unregisteredFluids.toArray(new MadFluidFactoryProductData[]{});
     }
 }

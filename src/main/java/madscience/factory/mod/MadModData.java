@@ -1,6 +1,6 @@
 package madscience.factory.mod;
 
-import madscience.factory.block.MadBlockFactoryProductData;
+import madscience.factory.fluid.prefab.MadFluidFactoryProductData;
 import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.tile.MadTileEntityFactoryProductData;
 
@@ -82,9 +82,9 @@ public class MadModData
     @Expose
     private MadItemFactoryProductData[] unregisteredItems;
     
-    // Blocks
+    // Fluids
     @Expose
-    private MadBlockFactoryProductData[] unregisteredBlocks;
+    private MadFluidFactoryProductData[] unregisteredFluids;
 
     @SuppressWarnings("ucd")
     public MadModData(String id,
@@ -109,7 +109,7 @@ public class MadModData
             int itemIDStart,
             MadTileEntityFactoryProductData[] madMachines,
             MadItemFactoryProductData[] madItems,
-            MadBlockFactoryProductData[] madBlocks)
+            MadFluidFactoryProductData[] madFluids)
     {
         super();
 
@@ -142,7 +142,7 @@ public class MadModData
 
         this.unregisteredMachines = madMachines;
         this.unregisteredItems = madItems;
-        this.unregisteredBlocks = madBlocks;
+        this.unregisteredFluids = madFluids;
     }
 
     public String getID()
@@ -235,11 +235,6 @@ public class MadModData
         return updateURL;
     }
 
-    public MadTileEntityFactoryProductData[] getUnregisteredMachines()
-    {
-        return unregisteredMachines;
-    }
-
     public int getIDManagerBlockIndex()
     {
         return idManagerBlockIndex;
@@ -249,14 +244,19 @@ public class MadModData
     {
         return idManagerItemIndex;
     }
+    
+    public MadTileEntityFactoryProductData[] getUnregisteredMachines()
+    {
+        return unregisteredMachines;
+    }
 
     public MadItemFactoryProductData[] getUnregisteredItems()
     {
         return unregisteredItems;
     }
 
-    public MadBlockFactoryProductData[] getUnregisteredBlocks() 
+    public MadFluidFactoryProductData[] getUnregisteredFluids()
     {
-        return unregisteredBlocks;
+        return unregisteredFluids;
     }
 }
