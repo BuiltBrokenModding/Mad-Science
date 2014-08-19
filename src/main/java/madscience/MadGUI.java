@@ -1,8 +1,8 @@
 package madscience;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.prefab.MadTileEntityPrefab;
+import madscience.factory.product.MadTileEntityFactoryProduct;
+import madscience.factory.tile.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

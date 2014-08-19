@@ -1,12 +1,12 @@
-package madscience.factory.tile.prefab;
+package madscience.factory.tile;
 
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.rendering.MadModelWorldRender;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 

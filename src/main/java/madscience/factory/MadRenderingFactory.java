@@ -8,7 +8,7 @@ import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
-import madscience.factory.rendering.MadRenderingFactoryProduct;
+import madscience.factory.product.MadRenderingFactoryProduct;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

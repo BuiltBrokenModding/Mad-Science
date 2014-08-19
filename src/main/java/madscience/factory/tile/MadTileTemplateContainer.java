@@ -1,18 +1,17 @@
-package madscience.factory.tile.template;
+package madscience.factory.tile;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.container.MadSlotContainer;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.slot.MadInputSlot;
 import madscience.factory.slot.MadOutputSlot;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class MadContainerTemplate extends Container
+public class MadTileTemplateContainer extends Container
 {
     private MadTileEntityPrefab ENTITY;
     
@@ -29,12 +28,12 @@ public class MadContainerTemplate extends Container
     private int HOTBAR_START;
     private int HOTBAR_END;
 
-    public MadContainerTemplate()
+    public MadTileTemplateContainer()
     {
         super();
     }
 
-    public MadContainerTemplate(InventoryPlayer entityPlayer, MadTileEntityPrefab tileEntity)
+    public MadTileTemplateContainer(InventoryPlayer entityPlayer, MadTileEntityPrefab tileEntity)
     {
         // Hook the server world entity.
         this.ENTITY = tileEntity;

@@ -1,4 +1,6 @@
-package madscience.factory.item;
+package madscience.factory.data;
+
+import madscience.factory.item.MadMetaItemData;
 
 import com.google.gson.annotations.Expose;
 

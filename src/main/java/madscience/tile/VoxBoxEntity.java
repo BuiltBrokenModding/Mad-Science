@@ -6,9 +6,9 @@ import java.util.Queue;
 
 import madscience.factory.container.MadSlotContainerTypeEnum;
 import madscience.factory.mod.MadMod;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSound;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.prefab.MadTileEntityPrefab;
+import madscience.factory.tile.MadTileEntityPrefab;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;

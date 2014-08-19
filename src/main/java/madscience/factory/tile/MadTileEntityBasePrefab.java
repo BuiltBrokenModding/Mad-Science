@@ -1,7 +1,7 @@
-package madscience.factory.tile.prefab;
+package madscience.factory.tile;
 
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

@@ -1,4 +1,4 @@
-package madscience.factory.tile.template;
+package madscience.factory.tile;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -14,8 +14,7 @@ import madscience.factory.container.MadSlotContainer;
 import madscience.factory.control.MadGUIControl;
 import madscience.factory.control.MadGUIControlTypeEnum;
 import madscience.factory.mod.MadMod;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.prefab.MadTileEntityPrefab;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.util.Region2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -38,7 +37,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class MadGUITemplate extends GuiContainer
+public class MadTileTemplateGUI extends GuiContainer
 {
     private MadTileEntityPrefab ENTITY;
     private MadGUIControl[] GUICONTROLS;
@@ -61,14 +60,14 @@ public class MadGUITemplate extends GuiContainer
     private Fluid gaugeFluid;
 
     @SuppressWarnings("ucd")
-    public MadGUITemplate(Container container)
+    public MadTileTemplateGUI(Container container)
     {
         super(container);
     }
 
-    public MadGUITemplate(InventoryPlayer entityPlayer, MadTileEntityPrefab tileEntity)
+    public MadTileTemplateGUI(InventoryPlayer entityPlayer, MadTileEntityPrefab tileEntity)
     {
-        super(new MadContainerTemplate(entityPlayer, tileEntity));
+        super(new MadTileTemplateContainer(entityPlayer, tileEntity));
         this.ENTITY = tileEntity;
 
         // Query machine registry for GUI control information.

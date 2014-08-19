@@ -1,13 +1,12 @@
-package madscience.factory.tile.template;
+package madscience.factory.tile;
 
 import java.util.List;
 import java.util.Random;
 
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModelBounds;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSoundTriggerEnum;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -31,14 +30,14 @@ import universalelectricity.api.UniversalElectricity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MadTileEntityBlockTemplate extends BlockContainer
+public class MadTileTemplateBlock extends BlockContainer
 {    
     private MadTileEntityFactoryProduct registeredProduct;
     
     /** Determines if this machine should explode it's inventory contents into world when broken. */
     private boolean keepFurnaceInventory;
 
-    public MadTileEntityBlockTemplate(MadTileEntityFactoryProduct registeredMachine)
+    public MadTileTemplateBlock(MadTileEntityFactoryProduct registeredMachine)
     {
         // Create Minecraft/Forge to create a block with our specifications.
         super(registeredMachine.getBlockID(), UniversalElectricity.machine);
@@ -85,7 +84,7 @@ public class MadTileEntityBlockTemplate extends BlockContainer
         }
     }
 
-    public MadTileEntityBlockTemplate(int blockID, Material blockMaterial) // NO_UCD (unused code)
+    public MadTileTemplateBlock(int blockID, Material blockMaterial) // NO_UCD (unused code)
     {
         super(blockID, blockMaterial);
     }

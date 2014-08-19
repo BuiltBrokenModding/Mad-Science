@@ -6,9 +6,9 @@ import java.util.List;
 
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.item.MadItemFactoryProduct;
 import madscience.factory.item.MadMetaItemData;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
+import madscience.factory.product.MadItemFactoryProduct;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.relauncher.Side;
@@ -69,8 +69,15 @@ public class MadSounds
                 // Loop through all sub-items.
                 for (MadMetaItemData subItem : registeredItem.getSubItems())
                 {
+                    // Skip items that have no sounds associated with them.
+                    String[] itemSounds = subItem.loadSoundArchive();
+                    if (itemSounds == null)
+                    {
+                        continue;
+                    }
+                    
                     // Load sound archive for each sub-item.
-                    for (String unloadedSound : subItem.loadSoundArchive())
+                    for (String unloadedSound : itemSounds)
                     {
                         unregisteredSounds.add(unloadedSound);
                     }

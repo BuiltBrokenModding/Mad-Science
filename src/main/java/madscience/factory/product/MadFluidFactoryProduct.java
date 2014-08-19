@@ -1,9 +1,10 @@
-package madscience.factory.fluid.prefab;
+package madscience.factory.product;
 
+import madscience.factory.data.MadFluidFactoryProductData;
+import madscience.factory.fluid.MadFluidBlockTemplate;
+import madscience.factory.fluid.MadFluidBucketTemplate;
+import madscience.factory.fluid.MadFluidTemplate;
 import net.minecraftforge.fluids.FluidRegistry;
-import madscience.factory.fluid.template.MadFluidBlockTemplate;
-import madscience.factory.fluid.template.MadFluidBucketTemplate;
-import madscience.factory.fluid.template.MadFluidTemplate;
 
 public class MadFluidFactoryProduct
 {

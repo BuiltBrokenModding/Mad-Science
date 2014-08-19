@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.Set;
 
 import madscience.MadForgeMod;
-import madscience.factory.item.MadItemFactoryProduct;
-import madscience.factory.item.MadItemFactoryProductData;
+import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
+import madscience.factory.product.MadItemFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

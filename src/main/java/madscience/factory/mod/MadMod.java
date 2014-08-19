@@ -15,10 +15,10 @@ import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.creativetab.MadCreativeTab;
-import madscience.factory.fluid.prefab.MadFluidFactoryProductData;
-import madscience.factory.item.MadItemFactoryProductData;
+import madscience.factory.data.MadFluidFactoryProductData;
+import madscience.factory.data.MadItemFactoryProductData;
+import madscience.factory.data.MadTileEntityFactoryProductData;
 import madscience.factory.sound.MadSound;
-import madscience.factory.tile.MadTileEntityFactoryProductData;
 import madscience.util.IDManager;
 
 import com.google.common.base.Throwables;

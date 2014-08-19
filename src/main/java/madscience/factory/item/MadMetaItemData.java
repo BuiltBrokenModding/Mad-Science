@@ -82,6 +82,12 @@ public class MadMetaItemData
 
         // List we will be returning if everything goes well.
         List<String> soundFileList = new ArrayList<String>();
+        
+        if (this.getSoundArchive() == null)
+        {
+            MadMod.log().info("[" + this.getItemName() + "]Skipping sounds since none exist.");
+            return null;
+        }
 
         // Begin looping through all the sounds that makeup this particular product.
         for (int i = 0; i < this.getSoundArchive().length; i++)

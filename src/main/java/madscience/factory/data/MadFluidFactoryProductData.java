@@ -1,4 +1,4 @@
-package madscience.factory.fluid.prefab;
+package madscience.factory.data;
 
 import com.google.gson.annotations.Expose;
 

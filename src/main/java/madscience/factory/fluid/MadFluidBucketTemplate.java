@@ -1,10 +1,10 @@
-package madscience.factory.fluid.template;
+package madscience.factory.fluid;
 
 import java.util.List;
 
 import madscience.factory.MadFluidFactory;
-import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
 import madscience.factory.mod.MadMod;
+import madscience.factory.product.MadFluidFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;

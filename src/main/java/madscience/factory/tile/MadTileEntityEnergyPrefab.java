@@ -1,9 +1,9 @@
-package madscience.factory.tile.prefab;
+package madscience.factory.tile;
 
 import java.util.EnumSet;
 
 import madscience.factory.energy.MadEnergy;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;

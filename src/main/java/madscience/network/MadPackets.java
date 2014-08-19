@@ -1,7 +1,7 @@
 package madscience.network;
 
 import madscience.factory.mod.MadMod;
-import madscience.factory.tile.template.MadTileEntityPacketTemplate;
+import madscience.factory.tile.MadTileTemplatePacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 
@@ -35,7 +35,7 @@ public abstract class MadPackets
         ImmutableBiMap.Builder<Integer, Class<? extends MadPackets>> builder = ImmutableBiMap.builder();
 
         // Mad Tile Entity Packet
-        builder.put(Integer.valueOf(1), MadTileEntityPacketTemplate.class);
+        builder.put(Integer.valueOf(1), MadTileTemplatePacket.class);
 
         // Mad Particle Packet (Can be any particle!)
         builder.put(Integer.valueOf(2), MadParticlePacket.class);

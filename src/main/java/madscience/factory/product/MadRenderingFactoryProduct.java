@@ -1,4 +1,4 @@
-package madscience.factory.rendering;
+package madscience.factory.product;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -9,6 +9,8 @@ import madscience.factory.model.MadModelFile;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
 import madscience.factory.model.MadTechneModel;
+import madscience.factory.rendering.MadModelItemRender;
+import madscience.factory.rendering.MadModelWorldRender;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import cpw.mods.fml.client.registry.RenderingRegistry;

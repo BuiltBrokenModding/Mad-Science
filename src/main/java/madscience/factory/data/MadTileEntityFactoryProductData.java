@@ -1,4 +1,4 @@
-package madscience.factory.tile;
+package madscience.factory.data;
 
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.button.MadGUIButton;

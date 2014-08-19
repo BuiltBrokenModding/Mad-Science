@@ -1,8 +1,8 @@
 package madscience.factory.mod;
 
-import madscience.factory.fluid.prefab.MadFluidFactoryProductData;
-import madscience.factory.item.MadItemFactoryProductData;
-import madscience.factory.tile.MadTileEntityFactoryProductData;
+import madscience.factory.data.MadFluidFactoryProductData;
+import madscience.factory.data.MadItemFactoryProductData;
+import madscience.factory.data.MadTileEntityFactoryProductData;
 
 import com.google.gson.annotations.Expose;
 

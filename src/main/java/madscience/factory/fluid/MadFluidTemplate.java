@@ -1,6 +1,6 @@
-package madscience.factory.fluid.template;
+package madscience.factory.fluid;
 
-import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
+import madscience.factory.product.MadFluidFactoryProduct;
 import net.minecraft.block.Block;
 import net.minecraft.util.Icon;
 import net.minecraftforge.fluids.Fluid;

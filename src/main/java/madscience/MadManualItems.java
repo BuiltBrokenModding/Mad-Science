@@ -6,8 +6,8 @@ import java.util.List;
 
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
+import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.furnace.MadFurnaceRecipe;
-import madscience.factory.item.MadItemFactoryProductData;
 import madscience.factory.item.MadItemRenderPass;
 import madscience.factory.item.MadMetaItemData;
 import madscience.factory.model.MadModel;

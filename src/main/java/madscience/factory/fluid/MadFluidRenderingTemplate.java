@@ -1,7 +1,7 @@
-package madscience.factory.fluid.template;
+package madscience.factory.fluid;
 
 import madscience.factory.MadFluidFactory;
-import madscience.factory.fluid.prefab.MadFluidFactoryProduct;
+import madscience.factory.product.MadFluidFactoryProduct;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;

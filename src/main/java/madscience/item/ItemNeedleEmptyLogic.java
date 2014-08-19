@@ -1,8 +1,8 @@
 package madscience.item;
 
 import madscience.factory.MadItemFactory;
-import madscience.factory.item.MadItemFactoryProduct;
-import madscience.factory.item.prefab.MadItemPrefab;
+import madscience.factory.item.MadItemPrefab;
+import madscience.factory.product.MadItemFactoryProduct;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;

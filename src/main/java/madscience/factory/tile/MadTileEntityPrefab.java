@@ -1,11 +1,10 @@
-package madscience.factory.tile.prefab;
+package madscience.factory.tile;
 
 import madscience.MadForgeMod;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.mod.MadMod;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSoundTriggerEnum;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.template.MadTileEntityPacketTemplate;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -159,7 +158,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
                 this.zCoord,
                 MadMod.PACKET_SEND_RADIUS,
                 worldObj.provider.dimensionId,
-                new MadTileEntityPacketTemplate(this).makePacket());
+                new MadTileTemplatePacket(this).makePacket());
     }
 
     public void smeltItem()

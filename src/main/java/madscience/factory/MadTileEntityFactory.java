@@ -10,11 +10,11 @@ import java.util.Set;
 
 import madscience.MadForgeMod;
 import madscience.factory.block.MadGhostBlockData;
+import madscience.factory.data.MadTileEntityFactoryProductData;
 import madscience.factory.itemblock.MadItemBlockTooltip;
 import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.MadTileEntityFactoryProductData;
+import madscience.factory.product.MadTileEntityFactoryProduct;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactory

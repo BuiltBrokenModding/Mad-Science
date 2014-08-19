@@ -1,4 +1,4 @@
-package madscience.factory.tile.template;
+package madscience.factory.tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
 import madscience.factory.rendering.MadModelWorldRender;
-import madscience.factory.tile.prefab.MadTileEntityPrefab;
 import madscience.network.MadPackets;
 import madscience.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +18,7 @@ import com.google.common.io.ByteArrayDataOutput;
 
 import cpw.mods.fml.relauncher.Side;
 
-public class MadTileEntityPacketTemplate extends MadPackets
+public class MadTileTemplatePacket extends MadPackets
 {
     /** Registered machine name from factory. */
     private String machineName;
@@ -78,12 +77,12 @@ public class MadTileEntityPacketTemplate extends MadPackets
     /** Delimited list of position and scale information for world renderer. */
     private String worldRenderInformation;
     
-    public MadTileEntityPacketTemplate()
+    public MadTileTemplatePacket()
     {
         // Required for reflection.
     }
 
-    public MadTileEntityPacketTemplate(MadTileEntityPrefab madMachine) // NO_UCD (use default)
+    public MadTileTemplatePacket(MadTileEntityPrefab madMachine) // NO_UCD (use default)
     {
         // ------
         // SERVER

@@ -8,14 +8,17 @@ import java.util.logging.Level;
 import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.fluid.prefab.MadFluidFactoryProductData;
-import madscience.factory.item.MadItemFactoryProduct;
-import madscience.factory.item.MadItemFactoryProductData;
+import madscience.factory.data.MadFluidFactoryProductData;
+import madscience.factory.data.MadItemFactoryProductData;
+import madscience.factory.data.MadTileEntityFactoryProductData;
+import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
-import madscience.factory.tile.MadTileEntityFactoryProduct;
-import madscience.factory.tile.MadTileEntityFactoryProductData;
+import madscience.factory.product.MadItemFactoryProduct;
+import madscience.factory.product.MadTileEntityFactoryProduct;
+import madscience.factory.recipe.MadRecipe;
 import madscience.network.MadPacketHandler;
 import madscience.proxy.CommonProxy;
+import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.FMLLog;
@@ -124,8 +127,6 @@ public class MadForgeMod
         this.recipeItems();
         this.recipeTileEntity();
         
-        // TODO: Register crafting recipes that are not tied to any particular machine or item.
-        
         // Interface with NEI and attempt to call functions from it if it exists.
         // Note: This method was given by Alex_hawks, buy him a beer if you see him!
         if (Loader.isModLoaded("NotEnoughItems"))
@@ -175,7 +176,10 @@ public class MadForgeMod
                 registeredMachine.loadMachineInternalRecipes();
                 
                 // Recipes for crafting the machine itself, registered with Minecraft/Forge GameRegistry.
-                registeredMachine.loadCraftingRecipes();
+                MadRecipe.loadCraftingRecipes(
+                        registeredMachine.getCraftingRecipe(),
+                        registeredMachine.getMachineName(),
+                        new ItemStack(registeredMachine.getBlockContainer()));
             }
         }
     }
@@ -189,10 +193,17 @@ public class MadForgeMod
             if (registeredItem != null)
             {                
                 // Recipes for crafting the item (if one exists, since most are made by machines).
-                registeredItem.loadCraftingRecipes();
-                
-                // Recipes for cooking one item into another in vanilla Minecraft furnace.
-                registeredItem.loadVanillaFurnaceRecipes();
+                // Note: ItemStack that is sent will have output amount changed according to recipe.
+                for (MadMetaItemData subItem : registeredItem.getSubItems())
+                {
+                    MadRecipe.loadCraftingRecipes(
+                            subItem.getCraftingRecipes(),
+                            subItem.getItemName(),
+                            new ItemStack(registeredItem.getItem(), 1, subItem.getMetaID()));
+                    
+                    // Recipes for cooking one item into another in vanilla Minecraft furnace.
+                    MadRecipe.loadVanillaFurnaceRecipes(subItem.getFurnaceRecipes());
+                }
             }
         }
     }

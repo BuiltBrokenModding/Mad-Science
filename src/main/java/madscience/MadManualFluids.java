@@ -3,7 +3,7 @@ package madscience;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.factory.fluid.prefab.MadFluidFactoryProductData;
+import madscience.factory.data.MadFluidFactoryProductData;
 
 public class MadManualFluids
 {

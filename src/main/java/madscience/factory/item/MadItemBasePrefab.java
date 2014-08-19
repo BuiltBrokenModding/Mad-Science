@@ -1,12 +1,10 @@
-package madscience.factory.item.prefab;
+package madscience.factory.item;
 
 import java.util.List;
 
 import madscience.factory.MadItemFactory;
-import madscience.factory.item.MadItemFactoryProduct;
-import madscience.factory.item.MadItemRenderPass;
-import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
+import madscience.factory.product.MadItemFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;

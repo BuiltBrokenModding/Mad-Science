@@ -1,7 +1,6 @@
-package madscience.factory.item.prefab;
+package madscience.factory.item;
 
-import madscience.factory.item.MadItemFactoryProduct;
-import madscience.factory.item.MadMetaItemData;
+import madscience.factory.product.MadItemFactoryProduct;
 import madscience.factory.sound.MadSoundTriggerEnum;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
