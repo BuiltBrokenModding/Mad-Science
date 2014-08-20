@@ -16,7 +16,6 @@ import madscience.factory.product.MadItemFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadItemFactory
@@ -96,24 +95,6 @@ public class MadItemFactory
         }
 
         return allItems.toArray(new MadItemFactoryProductData[]{});
-    }
-
-    /** Associates a loaded Minecraft/Forge asset with given sub-item render pass. */
-    public void loadRenderPassIcon(
-            String baseItemName,
-            String subItemName,
-            int renderPass,
-            Icon icon)
-    {
-        // Check if valid registered item name.
-        if (MadItemFactory.registeredItems.containsKey(baseItemName))
-        {
-            // Update the current item product instance from factory.
-            MadItemFactory.registeredItems.get(baseItemName).loadRenderPassIcon(
-                    subItemName,
-                    renderPass,
-                    icon);
-        }
     }
 
     /** Parses registered items base names for first parameter, if located then parses all sub-items of the given

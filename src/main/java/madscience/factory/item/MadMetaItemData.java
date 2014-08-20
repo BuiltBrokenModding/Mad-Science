@@ -11,7 +11,6 @@ import madscience.factory.sound.MadSound;
 import madscience.factory.sound.MadSoundPlaybackTypeEnum;
 import madscience.factory.sound.MadSoundTriggerEnum;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Icon;
 
 import com.google.gson.annotations.Expose;
 
@@ -266,32 +265,6 @@ public class MadMetaItemData
         // Default response is to return the color white.
         return 16777215;
     }
-
-    public Icon getIconForPass(int pass)
-    {
-        for (MadItemRenderPass renderPass : this.renderPassArchive)
-        {
-            if (renderPass.getRenderPass() == pass)
-            {
-                // Grabs the color for this given render pass.
-                return renderPass.getIcon();
-            }
-        }
-        
-        return null;
-    }
-
-    /** Return the total number of render passes required for this sub-item. */
-    public int getRenderPassCount()
-    {
-        if (this.renderPassArchive != null)
-        {
-            return this.renderPassArchive.length;        
-        }
-        
-        // Default response is to say we have a single render pass.
-        return 1;
-    }
     
     /** Returns item name combined with base name to form full name which is same one used in game world by registered item. */
     public String getItemNameWithBase(String baseItemName)
@@ -312,5 +285,15 @@ public class MadMetaItemData
     public void setFurnaceRecipes(MadFurnaceRecipe[] furnaceRecipes)
     {
         this.furnaceRecipes = furnaceRecipes;
+    }
+
+    public int getRenderPassCount()
+    {
+        if (this.renderPassArchive != null)
+        {
+            return this.renderPassArchive.length;
+        }
+        
+        return 0;
     }
 }

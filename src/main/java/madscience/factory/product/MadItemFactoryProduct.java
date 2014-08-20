@@ -2,9 +2,7 @@ package madscience.factory.product;
 
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.item.MadItemPrefab;
-import madscience.factory.item.MadItemRenderPass;
 import madscience.factory.item.MadMetaItemData;
-import net.minecraft.util.Icon;
 
 public class MadItemFactoryProduct
 {
@@ -186,40 +184,18 @@ public class MadItemFactoryProduct
     /** Determine if we need more than a single render pass for this item. */
     public boolean requiresMultipleRenderPasses()
     {
-        for (MadMetaItemData subItem : this.getSubItems())
+        // Multiple means more than one kids.
+        if (data.getRenderPasses() > 1)
         {
-            // Return true on the first instance of having more than a single render pass for the entire item.
-            if (subItem.getRenderPassCount() > 1)
-            {
-                return true;
-            }
+            return true;
         }
         
         // Default response is to support only a single render pass.
         return false;
     }
 
-    /** Associates a loaded Minecraft/Forge icon with given sub-item render pass. */
-    public void loadRenderPassIcon(
-            String subItemName,
-            int renderPass,
-            Icon icon)
+    public int getRenderPassCount()
     {
-        // Loop through all sub-items looking for the one we want to update.
-        for (MadMetaItemData subItem : this.getSubItems())
-        {
-            if (subItem.getItemName().equals(subItemName))
-            {
-                // Locate the matching render pass inside of this sub-item.
-                for (MadItemRenderPass renderPassObject : subItem.getRenderPassArchive())
-                {
-                    if (renderPassObject.getRenderPass() == renderPass && !renderPassObject.isLoadedIcon())
-                    {
-                        // Update the icon of this matching sub-item render type.
-                        renderPassObject.setIcon(icon);
-                    }
-                }
-            }
-        }
+        return data.getRenderPasses();
     }
 }

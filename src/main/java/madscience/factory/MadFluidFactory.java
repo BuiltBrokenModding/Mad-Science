@@ -42,10 +42,10 @@ public class MadFluidFactory
         return instance;
     }
     
-    public MadFluidFactoryProduct registerFluid(MadFluidFactoryProductData blockData) throws IllegalArgumentException
+    public MadFluidFactoryProduct registerFluid(MadFluidFactoryProductData fluidData) throws IllegalArgumentException
     {
         // Pass the data object into the product to activate it, creates needed data structures inside it based on data supplied.
-        MadFluidFactoryProduct fluidProduct = new MadFluidFactoryProduct(blockData);
+        MadFluidFactoryProduct fluidProduct = new MadFluidFactoryProduct(fluidData);
 
         // Check to make sure we have not added this item before.
         if (!isValidFluidID(fluidProduct.getFluidName()))
@@ -83,17 +83,17 @@ public class MadFluidFactory
     
     public boolean isValidFluidID(String blockBaseName)
     {
-        return !this.registeredFluids.containsKey(blockBaseName);
+        return !MadFluidFactory.registeredFluids.containsKey(blockBaseName);
     }
 
     public MadFluidFactoryProduct getFluidInfo(String id)
     {
-        return this.registeredFluids.get(id);
+        return MadFluidFactory.registeredFluids.get(id);
     }
     
     public Collection<MadFluidFactoryProduct> getFluidInfoList()
     {
-        return Collections.unmodifiableCollection(this.registeredFluids.values());
+        return Collections.unmodifiableCollection(MadFluidFactory.registeredFluids.values());
     }
     
     public MadFluidFactoryProductData[] getFluidDataList()

@@ -1,7 +1,5 @@
 package madscience.factory.item;
 
-import net.minecraft.util.Icon;
-
 import com.google.gson.annotations.Expose;
 
 public class MadItemRenderPass
@@ -17,12 +15,6 @@ public class MadItemRenderPass
     /** Stored path to icon which will later be used to populate Icon variable. */
     @Expose
     private String iconPath;
-    
-    /** Holds loaded icon from Minecraft/Forge icon registry. */
-    private Icon icon = null;
-    
-    /** Holds reference to if we have loaded icon from Minecraft/Forge icon registry, prevents and throws error for double loading. */
-    private boolean loadedIcon = false;
     
     public MadItemRenderPass(
             int renderPass,
@@ -49,27 +41,5 @@ public class MadItemRenderPass
     public String getIconPath()
     {
         return iconPath;
-    }
-
-    public Icon getIcon()
-    {
-        return icon;
-    }
-
-    public void setIcon(Icon icon)
-    {
-        // Prevent loading of icons more than once.
-        if (loadedIcon)
-        {
-            throw new IllegalArgumentException("Unable to load icon '" + this.iconPath + "' because it has already been loaded!");
-        }
-        
-        this.loadedIcon = true;
-        this.icon = icon;
-    }
-
-    public boolean isLoadedIcon()
-    {
-        return loadedIcon;
     }
 }

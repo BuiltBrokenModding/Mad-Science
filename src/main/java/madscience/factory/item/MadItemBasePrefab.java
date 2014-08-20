@@ -1,6 +1,8 @@
 package madscience.factory.item;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import madscience.factory.MadItemFactory;
 import madscience.factory.mod.MadMod;
@@ -29,6 +31,9 @@ abstract class MadItemBasePrefab extends Item
     
     /** Reference to registered product from item factory. */
     private MadItemFactoryProduct registeredItem;
+    
+    /** Mapping for all registered Icons for client rendering. */
+    private Map<String, Icon> clientRegisteredIcons = new LinkedHashMap<String, Icon>();
     
     public MadItemBasePrefab(int itemID)
     {
@@ -97,13 +102,7 @@ abstract class MadItemBasePrefab extends Item
     public int getRenderPasses(int metadata)
     {
         // Determine how many render passes are inside given sub-item for rendering purposes.
-        MadMetaItemData subItem = this.getRegisteredItem().getSubItemByDamageValue(metadata);
-        if (subItem != null)
-        {
-            return subItem.getRenderPassCount();
-        }
-        
-        return 1;
+        return this.getRegisteredItem().getRenderPassCount();
     }
     
     @Override
@@ -161,11 +160,11 @@ abstract class MadItemBasePrefab extends Item
     {
         // Grab the instance of the item as we know it from item factory.
         MadItemFactoryProduct referenceItemProduct = MadItemFactory.instance().getItemInfo(this.getRegisteredItemBaseName());
-        MadMetaItemData subItems = referenceItemProduct.getSubItemByDamageValue(damage);
-        if (subItems != null)
+        MadMetaItemData subItem = referenceItemProduct.getSubItemByDamageValue(damage);
+        if (subItem != null)
         {
             // Grabs required icon for sub-item for given render pass.
-            return subItems.getIconForPass(pass);
+            return clientRegisteredIcons.get(subItem.getItemName() + "_" + pass);
         }
         
         // Default response is to return default item icon.
@@ -196,11 +195,11 @@ abstract class MadItemBasePrefab extends Item
         if (referenceItemProduct != null)
         {
             // Grab the sub-item for this damage value.
-            MadMetaItemData subItems = referenceItemProduct.getSubItemByDamageValue(stack.getItemDamage());
-            if (subItems != null)
+            MadMetaItemData subItem = referenceItemProduct.getSubItemByDamageValue(stack.getItemDamage());
+            if (subItem != null)
             {
                 // Grabs the color that this particular sub-item for given render pass.
-                return subItems.getColorForPass(pass);
+                return subItem.getColorForPass(pass);
             }
         }
         
@@ -213,22 +212,31 @@ abstract class MadItemBasePrefab extends Item
     {
         // Use the mapping to get Icons populated by registerIcons() to a given render pass.
         MadItemFactoryProduct referenceItemProduct = MadItemFactory.instance().getItemInfo(this.getRegisteredItemBaseName());
-        MadMetaItemData subItems = referenceItemProduct.getSubItemByDamageValue(stack.getItemDamage());
-        if (subItems != null)
+        MadMetaItemData subItem = referenceItemProduct.getSubItemByDamageValue(stack.getItemDamage());
+        if (subItem != null)
         {
             // Grabs required icon for sub-item for given render pass.
-            return subItems.getIconForPass(pass);
+            return clientRegisteredIcons.get(subItem.getItemName() + "_" + pass);
         }
         
         // Default response is to return item default icon.
         return this.itemIcon;
     }
-
+    
     @Override
-    public Icon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    public Icon getIconFromDamage(int damage)
     {
-        // Fired by Minecraft/Forge so it can get the icons for different render passes.
-        return getIcon(stack, renderPass);
+        // Use the mapping to get Icons populated by registerIcons() to a given render pass.
+        MadItemFactoryProduct referenceItemProduct = MadItemFactory.instance().getItemInfo(this.getRegisteredItemBaseName());
+        MadMetaItemData subItem = referenceItemProduct.getSubItemByDamageValue(damage);
+        if (subItem != null)
+        {
+            // Grabs required icon for sub-item for given render pass.
+            return clientRegisteredIcons.get(subItem.getItemName() + "_0");
+        }
+        
+        // Default response is to return item default icon.
+        return this.itemIcon;
     }
     
     public String getRegisteredItemBaseName()
@@ -293,21 +301,16 @@ abstract class MadItemBasePrefab extends Item
                 // Associate via mapping render passes to a given registered icon.
                 for (MadItemRenderPass renderPassObject : itemRenderPasses)
                 {
-                    // Loop through all render passes in the registered item and register their icons with Minecraft/Forge.
-                    Icon itemIconLayer = iconRegistry.registerIcon(MadMod.ID + ":" + renderPassObject.getIconPath());
-                    if (renderPassObject.getRenderPass() <= 0)
-                    {
-                        // Use the zero index (first) item in the icon archive that should be primary icon even if no sub-types.
-                        this.itemIcon = itemIconLayer; 
-                        this.iconString = itemIcon.getIconName();
-                    }
+//                    // Register a single icon for those items which have but one.
+//                    if (this.getRegisteredItem().getRenderPassCount() == 1 && renderPassObject.getRenderPass() == 0)
+//                    {
+//                        // Use the zero index (first) item in the icon archive that should be primary icon even if no sub-types.
+//                        this.itemIcon = iconRegistry.registerIcon(MadMod.ID + ":" + renderPassObject.getIconPath()); 
+//                        this.iconString = itemIcon.getIconName();
+//                    }
                     
-                    // Add the populated renderpass object into mapping with all populated icons.
-                    MadItemFactory.instance().loadRenderPassIcon(
-                            this.getRegisteredItemBaseName(),
-                            subItem.getItemName(),
-                            renderPassObject.getRenderPass(),
-                            itemIconLayer);
+                    // Items with multiple render passes have their icons registered in a mapping local to the item instance.
+                    clientRegisteredIcons.put(subItem.getItemName() + "_" + renderPassObject.getRenderPass(), iconRegistry.registerIcon(MadMod.ID + ":" + renderPassObject.getIconPath()));                        
                 }
             }
         }
