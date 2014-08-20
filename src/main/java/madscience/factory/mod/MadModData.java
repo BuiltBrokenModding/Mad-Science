@@ -8,7 +8,9 @@ import com.google.gson.annotations.Expose;
 
 public class MadModData
 {
-    // Identification.
+    // --------------
+    // IDENTIFICATION
+    // --------------
     @Expose
     private String id;
 
@@ -18,7 +20,9 @@ public class MadModData
     @Expose
     private String channelName;
 
-    // Metadata.
+    // --------
+    // METADATA
+    // --------
     @Expose
     private String description;
 
@@ -43,14 +47,18 @@ public class MadModData
     @Expose
     private String dependencies;
 
-    // Proxy Classes Namespace.
+    // ----------------
+    // PROXY NAMESPACES
+    // ----------------
     @Expose
     private String proxyClient;
 
     @Expose
     private String proxyServer;
 
-    // Full version string for internal reference by mod.
+    // -------
+    // VERSION
+    // -------
     @Expose
     private String versionMajor;
 
@@ -63,26 +71,45 @@ public class MadModData
     @Expose
     private String versionBuild;
 
-    // Update checker.
+    // --------------
+    // UPDATE CHECKER
+    // --------------
     @Expose
     private String updateURL;
     
-    // ID Manager.
+    // ----------
+    // ID MANAGER
+    // ----------
     @Expose
     private int idManagerBlockIndex;
     
     @Expose
     private int idManagerItemIndex;
-
-    // Machines
+    
+    // -----------------
+    // CREATIVE TAB ICON
+    // -----------------
+    @Expose
+    private String creativeTabIconName;
+    
+    @Expose
+    private int creativeTabIconMetadata;
+    
+    // -------------
+    // TILE ENTITIES
+    // -------------
     @Expose
     private MadTileEntityFactoryProductData[] unregisteredMachines;
     
-    // Items
+    // -----
+    // ITEMS
+    // -----
     @Expose
     private MadItemFactoryProductData[] unregisteredItems;
     
-    // Fluids
+    // ------
+    // FLUIDS
+    // ------
     @Expose
     private MadFluidFactoryProductData[] unregisteredFluids;
 
@@ -107,6 +134,8 @@ public class MadModData
             String updateURL,
             int blockIDStart,
             int itemIDStart,
+            String creativeTabIconName,
+            int creativeTabIconMeta,
             MadTileEntityFactoryProductData[] madMachines,
             MadItemFactoryProductData[] madItems,
             MadFluidFactoryProductData[] madFluids)
@@ -140,6 +169,9 @@ public class MadModData
         this.idManagerBlockIndex = blockIDStart;
         this.idManagerItemIndex = itemIDStart;
 
+        this.creativeTabIconName = creativeTabIconName;
+        this.creativeTabIconMetadata = creativeTabIconMeta;
+        
         this.unregisteredMachines = madMachines;
         this.unregisteredItems = madItems;
         this.unregisteredFluids = madFluids;
@@ -258,5 +290,34 @@ public class MadModData
     public MadFluidFactoryProductData[] getUnregisteredFluids()
     {
         return unregisteredFluids;
+    }
+
+    /** Name of icon that should be loaded onto the creative tab menu in post-initialization (after factories have registered everything). */
+    public String getCreativeTabIconName()
+    {
+        if (creativeTabIconName != null && !creativeTabIconName.isEmpty())
+        {
+            return creativeTabIconName;
+        }
+        
+        return "default";
+    }
+
+    /** Metadata related to icon name that will be loaded onto the creative tab for this mod ID. */
+    public int getCreativeTabIconMetadata()
+    {
+        return creativeTabIconMetadata;
+    }
+
+    /** Defines where ID manager starts counting block ID's. */
+    public int getIdManagerBlockIndex()
+    {
+        return idManagerBlockIndex;
+    }
+
+    /** Defines where ID manager starts counting item ID's. */
+    public int getIdManagerItemIndex()
+    {
+        return idManagerItemIndex;
     }
 }

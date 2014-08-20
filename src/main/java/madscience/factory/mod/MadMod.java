@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import madscience.MadManualFluids;
-import madscience.MadManualItems;
 import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
@@ -18,8 +16,10 @@ import madscience.factory.creativetab.MadCreativeTab;
 import madscience.factory.data.MadFluidFactoryProductData;
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.data.MadTileEntityFactoryProductData;
+import madscience.factory.recipe.MadRecipe;
 import madscience.factory.sound.MadSound;
 import madscience.util.IDManager;
+import net.minecraft.item.ItemStack;
 
 import com.google.common.base.Throwables;
 import com.google.gson.Gson;
@@ -72,6 +72,9 @@ public class MadMod
     /** Allow only one instance to be created. */
     private static MadMod instance;
     
+    /** Loaded data from JSON loader, useful for obtaining metadata for Forge and other data. */
+    private static MadModData data = null;
+    
     /** Hook standardized logging class so we can report data on the console without standard out. */
     private static Logger logger = null;
     
@@ -89,12 +92,6 @@ public class MadMod
     
     /** Auto-incrementing configuration IDs. Use this to make sure no config ID is the same. */
     private static IDManager idManager;
-    
-    /** Defines where ID manager starts counting block ID's. */
-    private static int idManagerBlockIndex;
-    
-    /** Defines where ID manager starts counting item ID's. */
-    private static int idManagerItemIndex;
     
     /** Defines a tab that is created in the Minecraft creative menu where all this mods items and blocks will be registered. */
     private static MadCreativeTab creativeTab = new MadCreativeTab(ID);
@@ -160,21 +157,16 @@ public class MadMod
         MadModData loadedModData = null;
         loadedModData = gson.fromJson(jsonMachineInput, MadModData.class);
         
+        // Data from JSON loader that is not for factories.
+        setData(loadedModData);
+        
         // Loads information from JSON MadModData into respective unregistered products.
         loadFluidJSON(loadedModData);
         loadItemJSON(loadedModData);
         loadTileEntityJSON(loadedModData);
         
         // Initializes ID manager with respective starting ranges for block and item ID's.
-        loadIDManager(loadedModData);
-    }
-
-    private static void loadIDManager(MadModData loadedModData)
-    {
-        // Create ID manager with ranges it should operate in.
-        idManagerBlockIndex = loadedModData.getIDManagerBlockIndex();
-        idManagerItemIndex = loadedModData.getIDManagerItemIndex();
-        idManager = new IDManager(idManagerBlockIndex, idManagerItemIndex);
+        idManager = new IDManager(loadedModData.getIDManagerBlockIndex(), loadedModData.getIDManagerItemIndex());
     }
 
     private static void loadFluidJSON(MadModData loadedModData)
@@ -188,13 +180,6 @@ public class MadMod
             {
                 unregisteredFluids.add(jsonFluid);
             }
-        }
-        
-        // Manual fluids check.
-        MadManualFluids manualFluids = new MadManualFluids();
-        if (manualFluids != null)
-        {
-            unregisteredFluids.addAll(manualFluids.getManualFluids());
         }
     }
 
@@ -223,13 +208,6 @@ public class MadMod
             {
                 unregisteredItems.add(jsonItem);
             }
-        }
-        
-        // Manual item(s) check.
-        MadManualItems manualItems = new MadManualItems();
-        if (manualItems != null)
-        {
-            unregisteredItems.addAll(manualItems.getManualitems());
         }
     }
 
@@ -279,8 +257,10 @@ public class MadMod
                 VREVISION,
                 VBUILD,
                 UPDATE_URL,
-                idManagerBlockIndex,
-                idManagerItemIndex,
+                data.getIdManagerBlockIndex(),
+                data.getIdManagerItemIndex(),
+                data.getCreativeTabIconName(),
+                data.getCreativeTabIconMetadata(),
                 MadTileEntityFactory.instance().getMachineDataList(),
                 MadItemFactory.instance().getItemDataList(),
                 MadFluidFactory.instance().getFluidDataList());
@@ -317,5 +297,27 @@ public class MadMod
     public static MadFluidFactoryProductData[] getUnregisteredFluids()
     {
         return unregisteredFluids.toArray(new MadFluidFactoryProductData[]{});
+    }
+
+    /** Returns ItemStack for creative tab which should be set by the user. */
+    public static ItemStack getCreativeTabIcon()
+    {
+        ItemStack[] possibleItem = MadRecipe.getItemStackFromString(
+                ID,
+                data.getCreativeTabIconName(),
+                1,
+                String.valueOf(data.getCreativeTabIconMetadata()));
+        
+        if (possibleItem != null && possibleItem[0] != null)
+        {
+            return possibleItem[0];
+        }
+        
+        return null;
+    }
+
+    public static void setData(MadModData data)
+    {
+        MadMod.data = data;
     }
 }

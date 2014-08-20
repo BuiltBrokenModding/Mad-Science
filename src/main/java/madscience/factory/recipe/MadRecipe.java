@@ -453,6 +453,17 @@ public final class MadRecipe
         ArrayList<ItemStack> itemsToAssociate = new ArrayList<ItemStack>();
         Collection<String> unlocalizedNames = new TreeSet<String>(Collator.getInstance());
 
+        // Abort if name is empty or null.
+        if (itemName == null)
+        {
+            return null;
+        }
+        
+        if (itemName.isEmpty())
+        {
+            return null;
+        }
+        
         // Reference to if this recipe deals with wildcard (*) values in meta/damage or name.
         boolean wildcardName = itemName.contains("*");
         boolean wildcardMeta = metaDataText.contains("*");

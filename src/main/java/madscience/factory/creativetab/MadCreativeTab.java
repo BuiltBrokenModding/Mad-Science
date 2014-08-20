@@ -14,20 +14,16 @@ public class MadCreativeTab extends CreativeTabs
     @Override
     public ItemStack getIconItemStack()
     {
+        // Grab the icon for creative tab from main mod data.
+        ItemStack possibleIcon = MadMod.getCreativeTabIcon();
+        if (possibleIcon != null)
+        {
+            return possibleIcon;
+        }
+        
+        // Default response is to return texture for stone.
         return super.getIconItemStack();
     }
-
-//    @Override
-//    public Item getTabIconItem()
-//    {
-//        return super.getTabIconItem();
-//    }
-//
-//    @Override
-//    public int getTabIconItemIndex()
-//    {
-//        return super.getTabIconItemIndex();
-//    }
 
     @Override
     public String getTabLabel()
