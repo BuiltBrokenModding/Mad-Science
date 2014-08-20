@@ -6,7 +6,6 @@ import java.util.List;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.furnace.MadFurnaceRecipe;
 import madscience.factory.mod.MadMod;
-import madscience.factory.model.MadModel;
 import madscience.factory.sound.MadSound;
 import madscience.factory.sound.MadSoundPlaybackTypeEnum;
 import madscience.factory.sound.MadSoundTriggerEnum;
@@ -32,10 +31,6 @@ public class MadMetaItemData
     @Expose
     private MadSound[] soundArchive;
     
-    /** Contains all of the models and texture information for rendering factory and Minecraft/Forge. */
-    @Expose
-    private MadModel modelArchive;
-    
     /** Reference to item icon layers and what color they should render as. Path is relative to Minecraft/Forge asset folder for items. */
     @Expose
     private MadItemRenderPass[] renderPassArchive;
@@ -57,7 +52,6 @@ public class MadMetaItemData
             MadCraftingRecipe[] craftingRecipes,
             MadFurnaceRecipe[] furnaceRecipes,
             MadSound[] soundArchive,
-            MadModel modelArchive,
             MadItemRenderPass[] renderPasses)
     {
         super();
@@ -68,7 +62,6 @@ public class MadMetaItemData
         this.craftingRecipes = craftingRecipes;
         this.furnaceRecipes = furnaceRecipes;
         this.soundArchive = soundArchive;
-        this.modelArchive = modelArchive;
         this.renderPassArchive = renderPasses;
     }
     
@@ -239,16 +232,6 @@ public class MadMetaItemData
     public void setSoundArchive(MadSound[] soundArchive)
     {
         this.soundArchive = soundArchive;
-    }
-
-    public MadModel getModelArchive()
-    {
-        return modelArchive;
-    }
-
-    public void setModelArchive(MadModel modelArchive)
-    {
-        this.modelArchive = modelArchive;
     }
 
     public MadItemRenderPass[] getRenderPassArchive()

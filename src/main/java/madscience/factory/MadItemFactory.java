@@ -8,7 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import madscience.MadForgeMod;
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
@@ -59,9 +58,6 @@ public class MadItemFactory
         // Register the item with Minecraft/Forge.
         GameRegistry.registerItem(itemProduct.getItem(), itemProduct.getItemBaseName());
         
-        // Register client only information such as rendering and model information to the given item.
-        MadForgeMod.proxy.registerRenderingHandler(itemProduct.getItemID());
-
         return itemProduct;
     }
     

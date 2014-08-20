@@ -2,7 +2,6 @@ package madscience.factory.creativetab;
 
 import madscience.factory.mod.MadMod;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class MadCreativeTab extends CreativeTabs

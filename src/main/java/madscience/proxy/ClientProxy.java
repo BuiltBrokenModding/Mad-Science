@@ -10,16 +10,13 @@ import java.util.TreeSet;
 import madscience.MadForgeMod;
 import madscience.MadSounds;
 import madscience.factory.MadFluidFactory;
-import madscience.factory.MadItemFactory;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.fluid.MadFluidRenderingTemplate;
-import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
 import madscience.factory.mod.MadModData;
 import madscience.factory.model.MadTechneModelLoader;
 import madscience.factory.product.MadFluidFactoryProduct;
-import madscience.factory.product.MadItemFactoryProduct;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.rendering.MadRendererTemplate;
 import madscience.factory.tile.MadTileEntityPrefab;
@@ -249,27 +246,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
             }
         }
         
-        // -----
-        // ITEMS
-        // -----
-        Iterable<MadItemFactoryProduct> registeredItems = MadItemFactory.instance().getItemInfoList();
-        for (Iterator iterator = registeredItems.iterator(); iterator.hasNext();)
-        {
-            MadItemFactoryProduct registeredItem = (MadItemFactoryProduct) iterator.next();
-            if (registeredItem.getItemID() == itemOrBlockID)
-            {
-                // Loop through every sub-item to get model rendering information.
-                for (MadMetaItemData metaItem : registeredItem.getSubItems())
-                {
-                    // Register models to full item name as it will be used in game.
-                    MadRenderingFactory.instance().registerModelsToProduct(metaItem.getItemNameWithBase(registeredItem.getItemBaseName()), metaItem.getModelArchive());
-                }
-                
-                // Register item renderer with Minecraft/Forge. Subject to change between Forge versions.
-                MinecraftForgeClient.registerItemRenderer(itemOrBlockID, new MadRendererTemplate());
-            }
-        }
-
         // -------------
         // TILE ENTITIES
         // -------------
