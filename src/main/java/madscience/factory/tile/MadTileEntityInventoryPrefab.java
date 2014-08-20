@@ -234,7 +234,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
     }
     
     /** Returns recipe result for a single furnace input based on enumeration slot types. */
-    public ItemStack[] getRecipeResult(MadSlotContainerTypeEnum... searchPatternArray)
+    public ItemStack getRecipeResult(MadSlotContainerTypeEnum... searchPatternArray)
     {
         // Grab the recipe archive object array, exit if we return nothing to compare against.
         MadRecipe[] recipeArchiveArray = this.getRegisteredMachine().getRecipeArchive();
@@ -283,13 +283,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
             {
                 if (inputComponent.isLoaded())
                 {
-                    for (ItemStack tmpInputArray : inputComponent.getItemStackArray())
-                    {
-                        if (tmpInputArray != null)
-                        {
-                            finalRecipeArchiveInputArray.add(tmpInputArray.getItem().getUnlocalizedName());
-                        }
-                    }
+                    finalRecipeArchiveInputArray.add(inputComponent.getAssociatedItemStack().getItem().getUnlocalizedName());
                 }
             }
             
@@ -308,7 +302,7 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
                     if (machineOutputSlot != null && machineOutputSlot.equals(outputComponent.getSlotType()))
                     {
                         // Return the items that are associated with these input items and given output slot.
-                        return outputComponent.getItemStackArray();
+                        return outputComponent.getAssociatedItemStack();
                     }
                 }
             }
@@ -352,12 +346,9 @@ abstract class MadTileEntityInventoryPrefab extends MadTileEntityRedstonePrefab 
                 }
                 
                 // Determine if this recipe result matches anything in ingredient list.
-                for (ItemStack singleItem : recipeResult.getItemStackArray())
+                if (recipeResult.getAssociatedItemStack().getItem().equals(possibleInputItem.getItem()))
                 {
-                    if (singleItem.getItem().equals(possibleInputItem.getItem()))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

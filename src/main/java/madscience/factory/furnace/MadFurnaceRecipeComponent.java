@@ -13,20 +13,20 @@ public class MadFurnaceRecipeComponent
     
     @Expose private String parentModID;
     
-    @Expose private String metaDamage;
+    @Expose private int metaDamage;
     
     private boolean hasLoaded = false;
     
-    private ItemStack[] associatedItemStack = null;
+    private ItemStack associatedItemStack = null;
     
-    MadFurnaceRecipeComponent(String parentModID, String internalName, String metaDamage, int amount)
+    MadFurnaceRecipeComponent(String parentModID, String internalName, int amount, int metaDamage)
     {
         super();
         
         this.parentModID = parentModID;
         this.itemName = internalName;
-        this.metaDamage = metaDamage;
         this.itemAmount = amount;
+        this.metaDamage = metaDamage;
     }
 
     public String getInternalName()
@@ -44,7 +44,7 @@ public class MadFurnaceRecipeComponent
         return this.parentModID + ":" + this.itemName;
     }
 
-    public String getMetaDamage()
+    public int getMetaDamage()
     {
         return this.metaDamage;
     }
@@ -54,7 +54,7 @@ public class MadFurnaceRecipeComponent
         return this.hasLoaded;
     }
 
-    public ItemStack[] getItemStackArray()
+    public ItemStack getAssociatedItemStack()
     {
         if (!this.hasLoaded)
         {
@@ -65,7 +65,7 @@ public class MadFurnaceRecipeComponent
         return this.associatedItemStack;
     }
 
-    public void associateItemStackToRecipeComponent(ItemStack[] associatedItemStack)
+    public void associateItemStackToRecipeComponent(ItemStack associatedItemStack)
     {
         // Prevent double-loading!
         if (hasLoaded)

@@ -39,10 +39,10 @@ public class SequencerEntity extends MadTileEntityPrefab
         }
         
         // Check if input slot 1 is a DNA sample.
-        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack recipeResult = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
         
         if (recipeResult == null)
         {
@@ -54,10 +54,10 @@ public class SequencerEntity extends MadTileEntityPrefab
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
         {
             // Check if the data reel inserted to input slot 2 has recipe.
-            ItemStack[] slot2SmeltResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+            ItemStack slot2SmeltResult = this.getRecipeResult(
                     MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                     MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                    MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+                    MadSlotContainerTypeEnum.OUTPUT_RESULT1);
             if (slot2SmeltResult == null)
             {
                 // Input slot 2 was not a damaged genome data reel.
@@ -65,7 +65,7 @@ public class SequencerEntity extends MadTileEntityPrefab
             }
 
             // Check if the DNA sample matches the genome type it is healing.
-            if (recipeResult[0].itemID != this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).itemID)
+            if (recipeResult.itemID != this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).itemID)
             {
                 return false;
             }
@@ -93,8 +93,8 @@ public class SequencerEntity extends MadTileEntityPrefab
         }
 
         // Check if output slot 1 (for DNA samples) is above item stack limit.
-        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult[0].stackSize;
-        return (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult[0].getMaxStackSize());
+        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult.stackSize;
+        return (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult.getMaxStackSize());
     }
 
     @Override
@@ -109,10 +109,10 @@ public class SequencerEntity extends MadTileEntityPrefab
         super.smeltItem();
         
         // Output 1 - Encoded genome data reel that used to be empty.
-        ItemStack[] craftedItem = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack craftedItem = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
 
         // Check if we should damage the genome (new), or increase health by eating DNA samples.
         if (craftedItem != null && this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) != null &&
@@ -149,16 +149,16 @@ public class SequencerEntity extends MadTileEntityPrefab
                 this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
             // New genomes that are fresh get set to maximum damage.
-            craftedItem[0].setItemDamage(craftedItem[0].getMaxDamage());
+            craftedItem.setItemDamage(craftedItem.getMaxDamage());
 
             // Add encoded genome data reel to output slot 1.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, craftedItem[0].copy());
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, craftedItem.copy());
             }
-            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(craftedItem[0]))
+            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(craftedItem))
             {
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += craftedItem[0].stackSize;
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += craftedItem.stackSize;
             }
             
             // Remove empty data reel from input stack 2.

@@ -222,13 +222,17 @@ public class MadTileEntityFactoryProduct
                     String resultInputPrint = "[" + this.data.getMachineName() + "]Input Ingredient " + inputIngredient.getModID() + ":" + inputIngredient.getInternalName();
 
                     // Query game registry and vanilla blocks and items for the incoming name in an attempt to turn it into an itemstack.
-                    ItemStack[] inputItem = MadRecipe.getItemStackFromString(inputIngredient.getModID(), inputIngredient.getInternalName(), inputIngredient.getAmount(), inputIngredient.getMetaDamage());
+                    ItemStack inputItem = MadRecipe.getItemStackFromString(
+                            inputIngredient.getModID(),
+                            inputIngredient.getInternalName(),
+                            inputIngredient.getAmount(),
+                            inputIngredient.getMetaDamage());
 
                     boolean searchResult = false;
                     if (inputItem != null)
                     {
                         searchResult = true;
-                        totalLoadedRecipeItems += inputItem.length;
+                        totalLoadedRecipeItems += 1;
                         resultInputPrint += "=SUCCESS";
                         inputIngredient.associateItemStackToRecipeComponent(inputItem);
                     }
@@ -257,13 +261,17 @@ public class MadTileEntityFactoryProduct
                 if (outputResult.getSlotType().name().toLowerCase().contains("output"))
                 {
                     String resultOutputPrint = "[" + this.data.getMachineName() + "]Output Result " + outputResult.getModID() + ":" + outputResult.getInternalName();
-                    ItemStack[] outputStack = MadRecipe.getItemStackFromString(outputResult.getModID(), outputResult.getInternalName(), outputResult.getAmount(), outputResult.getMetaDamage());
+                    ItemStack outputStack = MadRecipe.getItemStackFromString(
+                            outputResult.getModID(),
+                            outputResult.getInternalName(),
+                            outputResult.getAmount(),
+                            outputResult.getMetaDamage());
 
                     boolean searchResult = false;
                     if (outputStack != null)
                     {
                         searchResult = true;
-                        totalLoadedRecipeItems += outputStack.length;
+                        totalLoadedRecipeItems += 1;
                         resultOutputPrint += "=SUCCESS";
                         outputResult.associateItemStackToRecipeComponent(outputStack);
                     }

@@ -72,10 +72,10 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         }
 
         // Check if the item inserted to input slot 2 has valid conversion.
-        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack recipeResult = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
         if (recipeResult == null)
         {
             // Input slot 2 was not a damaged.
@@ -85,8 +85,8 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         // Check if output slot 1 is above item stack limit.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null)
         {
-            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult[0].stackSize;
-            return (slot1Result <= getInventoryStackLimit() && slot1Result <= recipeResult[0].getMaxStackSize());
+            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult.stackSize;
+            return (slot1Result <= getInventoryStackLimit() && slot1Result <= recipeResult.getMaxStackSize());
         }
 
         // Check if output slots are empty and ready to be filled with items.
@@ -99,8 +99,8 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null && recipeResult != null)
         {
             // Check item difference by sub-type since item will always be equal (monster placer).
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult[0]) &&
-                    this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult[0].getItemDamage())
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult) &&
+                    this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult.getItemDamage())
             {
                 // The egg we are producing matches what the cooking recipe says.
                 return true;
@@ -125,10 +125,10 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         super.smeltItem();
         
         // Output 1 - Transformed mainframe component.
-        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack recipeResult = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
         
         if (recipeResult == null)
         {
@@ -138,11 +138,11 @@ public class ThermosonicBonderEntity extends MadTileEntityPrefab
         // Add transformed mainframe component to output stack.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult[0].copy());
+            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult[0]))
+        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult[0].stackSize;
+            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
         }
 
         // Remove a gold nugget from input slot 1.

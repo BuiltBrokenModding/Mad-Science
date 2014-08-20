@@ -110,12 +110,11 @@ public class MainframeEntity extends MadTileEntityPrefab
         }
 
         // Check if input slots 2 and 3 which should be genome data reels are compatible with each other.
-        ItemStack[] currentRecipe = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack currentRecipe = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
                 MadSlotContainerTypeEnum.INPUT_EXTRA,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1
-        });
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
         
         if (currentRecipe == null)
         {
@@ -208,14 +207,13 @@ public class MainframeEntity extends MadTileEntityPrefab
         super.smeltItem();
         
         // Converts input item into result item along with waste items.
-        ItemStack[] currentRecipe = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack currentRecipe = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
                 MadSlotContainerTypeEnum.INPUT_EXTRA,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1
-        });
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
         
-        ItemStack itemOutputSlot2 = currentRecipe[0].copy();
+        ItemStack itemOutputSlot2 = currentRecipe.copy();
 
         // Add merged genome to output slot 1.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
@@ -345,12 +343,11 @@ public class MainframeEntity extends MadTileEntityPrefab
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered() && this.isRedstonePowered())
             {
                 // Calculate length of time it should take to compute these genome combinations.
-                ItemStack[] currentRecipe = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+                ItemStack currentRecipe = this.getRecipeResult(
                         MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                         MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
                         MadSlotContainerTypeEnum.INPUT_EXTRA,
-                        MadSlotContainerTypeEnum.OUTPUT_RESULT1
-                });
+                        MadSlotContainerTypeEnum.OUTPUT_RESULT1);
                 
                 if (currentRecipe == null)
                 {

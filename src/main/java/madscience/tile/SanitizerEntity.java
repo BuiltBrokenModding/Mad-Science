@@ -37,7 +37,7 @@ public class SanitizerEntity extends MadTileEntityPrefab
         }
         
         // Check if input slot 2 is a dirty needle stack.
-        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+        ItemStack recipeResult = this.getRecipeResult(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
         if (recipeResult == null)
         {
             // Input slot 2 was not a dirty needle.
@@ -64,8 +64,8 @@ public class SanitizerEntity extends MadTileEntityPrefab
         }
 
         // Check if output slot 2 (for cleaned needles) is above item stack limit.
-        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + recipeResult[0].stackSize;
-        return (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult[0].getMaxStackSize());
+        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + recipeResult.stackSize;
+        return (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult.getMaxStackSize());
     }
 
     @Override
@@ -81,16 +81,16 @@ public class SanitizerEntity extends MadTileEntityPrefab
         if (this.canSmelt())
         {
             // Output 2 - Cleaned needle that used to be dirty input slot 2.
-            ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+            ItemStack recipeResult = this.getRecipeResult(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
 
             // Add cleaned needle to output slot 1 GUI.
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult[0].copy());
+                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
             }
-            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult[0]))
+            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
             {
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult[0].stackSize;
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
             }
 
             // Remove a dirty needle from input stack 2.

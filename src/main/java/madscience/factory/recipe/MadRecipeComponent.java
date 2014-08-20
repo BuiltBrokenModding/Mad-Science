@@ -21,23 +21,28 @@ public class MadRecipeComponent
     @Expose private String parentModID;
     
     /** Reference to how much damage this item has or in the case of meta items determines which one it will be. */
-    @Expose private String metaDamage;
+    @Expose private int metaDamage;
     
     /** Determines if this recipe has been recognized by Minecraft/Forge GameRegistry as being valid. */
     private boolean hasLoaded = false;
     
     /** Stores reference to recipe component ItemStack (with metadata). Populated when loadRecipes() is called.*/
-    private ItemStack[] associatedItemStack = null;
+    private ItemStack associatedItemStack = null;
     
-    MadRecipeComponent(MadSlotContainerTypeEnum slotDestination, String parentModID, String internalName, String metaDamage, int amount)
+    MadRecipeComponent(
+            MadSlotContainerTypeEnum slotDestination,
+            String parentModID,
+            String internalName,
+            int amount,
+            int metaDamage)
     {
         super();
         
         this.slotDestination = slotDestination;
         this.parentModID = parentModID;
         this.slotExpectedItem = internalName;
-        this.metaDamage = metaDamage;
         this.slotExpectedAmount = amount;
+        this.metaDamage = metaDamage;
     }
 
     public MadSlotContainerTypeEnum getSlotType()
@@ -60,7 +65,7 @@ public class MadRecipeComponent
         return this.parentModID + ":" + this.slotExpectedItem;
     }
 
-    public String getMetaDamage()
+    public int getMetaDamage()
     {
         return this.metaDamage;
     }
@@ -70,7 +75,7 @@ public class MadRecipeComponent
         return this.hasLoaded;
     }
 
-    public ItemStack[] getItemStackArray()
+    public ItemStack getAssociatedItemStack()
     {
         if (!this.hasLoaded)
         {
@@ -81,7 +86,7 @@ public class MadRecipeComponent
         return this.associatedItemStack;
     }
 
-    public void associateItemStackToRecipeComponent(ItemStack[] associatedItemStack)
+    public void associateItemStackToRecipeComponent(ItemStack associatedItemStack)
     {
         // Prevent double-loading!
         if (hasLoaded)

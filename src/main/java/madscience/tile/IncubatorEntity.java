@@ -70,10 +70,10 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Check if the data reel inserted to input slot 2 has valid conversion.
-        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack recipeResult = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
         
         if (recipeResult == null)
         {
@@ -92,8 +92,8 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null && recipeResult != null)
         {
             // Check item difference by sub-type since item will always be equal (monster placer).
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult[0]) &&
-                    this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult[0].getItemDamage())
+            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult) &&
+                    this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult.getItemDamage())
             {
                 // The egg we are producing matches what the genome cooking recipe says.
                 return true;
@@ -120,10 +120,10 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         super.smeltItem();
         
         // Output 1 - Encoded mob egg from genome and fresh egg.
-        ItemStack[] recipeResult = this.getRecipeResult(new MadSlotContainerTypeEnum[]{
+        ItemStack recipeResult = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1});
+                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
 
         if (recipeResult == null)
         {
@@ -133,11 +133,11 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         // Add encoded mob egg to output slot 1.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult[0].copy());
+            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult[0]))
+        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult[0].stackSize;
+            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
         }
 
         // Remove a fresh egg from input stack 1.

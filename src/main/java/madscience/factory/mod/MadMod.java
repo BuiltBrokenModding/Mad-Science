@@ -302,15 +302,15 @@ public class MadMod
     /** Returns ItemStack for creative tab which should be set by the user. */
     public static ItemStack getCreativeTabIcon()
     {
-        ItemStack[] possibleItem = MadRecipe.getItemStackFromString(
+        ItemStack possibleItem = MadRecipe.getItemStackFromString(
                 ID,
                 data.getCreativeTabIconName(),
                 1,
-                String.valueOf(data.getCreativeTabIconMetadata()));
+                data.getCreativeTabIconMetadata());
         
-        if (possibleItem != null && possibleItem[0] != null)
+        if (possibleItem != null)
         {
-            return possibleItem[0];
+            return possibleItem;
         }
         
         return null;

@@ -70,7 +70,7 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
     ItemStack createEndResult()
     {
         // Get the final form of the inputed block will be from recipe list.
-        ItemStack[] convertedOreRecipe = this.getRecipeResult(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.INPUT_INGREDIENT2, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack convertedOreRecipe = this.getRecipeResult(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.INPUT_INGREDIENT2, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
 
         if (convertedOreRecipe == null)
         {
@@ -83,7 +83,7 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         // Remove input ore that we used to convert.
         this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2), 1);
         
-        return convertedOreRecipe[0];
+        return convertedOreRecipe;
     }
 
     private void createRandomSmoke()
