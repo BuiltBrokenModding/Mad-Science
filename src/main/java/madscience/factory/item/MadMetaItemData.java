@@ -44,12 +44,16 @@ public class MadMetaItemData
     @Expose
     private MadFurnaceRecipe[] furnaceRecipes;
     
+    @Expose
+    private boolean hiddenInCreativeTab = false;
+    
     /** Determines if sounds for this given item product have been registered on Minecraft client. */
     private boolean soundArchiveLoaded = false;
     
     public MadMetaItemData(
             int metaID,
             String itemName,
+            boolean hiddenInCreativeTab,
             MadCraftingRecipe[] craftingRecipes,
             MadFurnaceRecipe[] furnaceRecipes,
             MadSound[] soundArchive,
@@ -60,6 +64,7 @@ public class MadMetaItemData
         
         this.metaID = metaID;
         this.itemName = itemName.toLowerCase();
+        this.hiddenInCreativeTab = hiddenInCreativeTab;
         this.craftingRecipes = craftingRecipes;
         this.furnaceRecipes = furnaceRecipes;
         this.soundArchive = soundArchive;
@@ -170,6 +175,12 @@ public class MadMetaItemData
     /** Plays a sound registered to specific machine event such as working, idle, destroyed, etc. */
     public void playTriggerSound(MadSoundTriggerEnum trigger, EntityPlayer player)
     {
+        // Abort if there are no sounds to play.
+        if (this.getSoundArchive() == null)
+        {
+            return;
+        }
+        
         // Locate the sound to play based on trigger enumeration.
         for (int i = 0; i < this.getSoundArchive().length; i++)
         {
@@ -295,5 +306,15 @@ public class MadMetaItemData
         }
         
         return 0;
+    }
+
+    public boolean isHiddenInCreativeTab()
+    {
+        return hiddenInCreativeTab;
+    }
+
+    public void setHiddenInCreativeTab(boolean hiddenInCreativeTab)
+    {
+        this.hiddenInCreativeTab = hiddenInCreativeTab;
     }
 }

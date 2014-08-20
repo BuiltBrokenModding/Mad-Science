@@ -184,18 +184,20 @@ public class MadItemFactoryProduct
     /** Determine if we need more than a single render pass for this item. */
     public boolean requiresMultipleRenderPasses()
     {
-        // Multiple means more than one kids.
-        if (data.getRenderPasses() > 1)
+        if (data.getSubItemsArchive() == null)
         {
-            return true;
+            return false;
+        }
+        
+        for (MadMetaItemData subItem : data.getSubItemsArchive())
+        {
+            if (subItem.getRenderPassCount() > 1)
+            {
+                return true;
+            }
         }
         
         // Default response is to support only a single render pass.
         return false;
-    }
-
-    public int getRenderPassCount()
-    {
-        return data.getRenderPasses();
     }
 }

@@ -46,9 +46,6 @@ public class MadItemFactoryProductData
     @Expose
     private MadMetaItemData[] subItemsArchive;
     
-    @Expose
-    private int renderPasses;
-    
     /** Not saved by JSON loaded but is configured by Minecraft/Forge configuration file class. */
     private int itemID;
     
@@ -62,7 +59,6 @@ public class MadItemFactoryProductData
             int enchantability,
             boolean canHarvestBlocks,
             String logicClassFullyQualifiedName,
-            int requiredRenderPasses,
             MadMetaItemData[] subItemsArchive)
     {
         super();
@@ -76,30 +72,7 @@ public class MadItemFactoryProductData
         this.enchantability = enchantability;
         this.canHarvestBlocks = canHarvestBlocks;
         this.logicClassFullyQualifiedName = logicClassFullyQualifiedName;
-        this.renderPasses = requiredRenderPasses;
         this.subItemsArchive = subItemsArchive;
-
-        // Check sub-item render pass count, they should all equal defined number here.
-        if (this.subItemsArchive != null)
-        {
-            for (MadMetaItemData metaItem : this.subItemsArchive)
-            {
-                if (metaItem.getRenderPassCount() != this.renderPasses)
-                {
-                    throw new IllegalArgumentException("[ERROR][" + this.itemBaseName + "]Contains sub-item '" + metaItem.getItemName() + "' with incorrect number of render passes! Expected " + this.renderPasses + " but got " + metaItem.getRenderPassCount());
-                }
-            }
-        }
-    }
-
-    public int getRenderPasses()
-    {
-        return renderPasses;
-    }
-
-    public void setRenderPasses(int renderPasses)
-    {
-        this.renderPasses = renderPasses;
     }
 
     public String getItemBaseName()

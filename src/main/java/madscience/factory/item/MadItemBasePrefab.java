@@ -102,7 +102,14 @@ abstract class MadItemBasePrefab extends Item
     public int getRenderPasses(int metadata)
     {
         // Determine how many render passes are inside given sub-item for rendering purposes.
-        return this.getRegisteredItem().getRenderPassCount();
+        MadItemFactoryProduct referenceItemProduct = MadItemFactory.instance().getItemInfo(this.getRegisteredItemBaseName());
+        MadMetaItemData subItem = referenceItemProduct.getSubItemByDamageValue(metadata);
+        if (subItem != null)
+        {
+            return subItem.getRenderPassCount();
+        }
+        
+        return 1;
     }
     
     @Override
@@ -111,6 +118,12 @@ abstract class MadItemBasePrefab extends Item
     {
         for (MadMetaItemData subItem : this.getRegisteredItem().getSubItems())
         {
+            // Skip items that don't want to be shown in creative menu (example: logo for creative tab).
+            if (subItem.isHiddenInCreativeTab())
+            {
+                continue;
+            }
+                
             list.add(new ItemStack(itemID, 1, subItem.getMetaID()));
         }
     }

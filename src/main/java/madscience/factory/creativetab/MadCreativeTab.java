@@ -18,17 +18,17 @@ public class MadCreativeTab extends CreativeTabs
         return super.getIconItemStack();
     }
 
-    @Override
-    public Item getTabIconItem()
-    {
-        return super.getTabIconItem();
-    }
-
-    @Override
-    public int getTabIconItemIndex()
-    {
-        return super.getTabIconItemIndex();
-    }
+//    @Override
+//    public Item getTabIconItem()
+//    {
+//        return super.getTabIconItem();
+//    }
+//
+//    @Override
+//    public int getTabIconItemIndex()
+//    {
+//        return super.getTabIconItemIndex();
+//    }
 
     @Override
     public String getTabLabel()
