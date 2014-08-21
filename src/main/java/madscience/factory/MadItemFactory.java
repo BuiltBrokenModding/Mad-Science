@@ -1,13 +1,17 @@
 package madscience.factory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import madscience.factory.data.MadFluidFactoryProductData;
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.item.MadMetaItemData;
 import madscience.factory.mod.MadMod;
@@ -79,7 +83,7 @@ public class MadItemFactory
     public MadItemFactoryProductData[] getItemDataList()
     {
         // Loop through every registered item in the system.
-        Set<MadItemFactoryProductData> allItems = new HashSet<MadItemFactoryProductData>();
+        List<MadItemFactoryProductData> allItems = new ArrayList<MadItemFactoryProductData>();
         for (Iterator iterator = getItemInfoList().iterator(); iterator.hasNext();)
         {
             MadItemFactoryProduct registeredItem = (MadItemFactoryProduct) iterator.next();
@@ -89,6 +93,16 @@ public class MadItemFactory
                 allItems.add(registeredItem.getData());
             }
         }
+        
+        // Sort the list alphabetically.
+        Collections.sort(allItems, new Comparator<MadItemFactoryProductData>() 
+        {
+            @Override
+            public int compare(final MadItemFactoryProductData object1, final MadItemFactoryProductData object2) 
+            {
+                return object1.getItemBaseName().compareTo(object2.getItemBaseName());
+            }
+         });
 
         return allItems.toArray(new MadItemFactoryProductData[]{});
     }

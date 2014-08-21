@@ -1,10 +1,13 @@
 package madscience.factory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,7 +60,7 @@ public class MadTileEntityFactory
     public MadTileEntityFactoryProductData[] getMachineDataList()
     {
         // Loop through every registered machine in the system.
-        Set<MadTileEntityFactoryProductData> allMachines = new HashSet<MadTileEntityFactoryProductData>();
+        List<MadTileEntityFactoryProductData> allMachines = new ArrayList<MadTileEntityFactoryProductData>();
         for (Iterator iterator = getMachineInfoList().iterator(); iterator.hasNext();)
         {
             MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
@@ -67,6 +70,16 @@ public class MadTileEntityFactory
                 allMachines.add(registeredMachine.getData());
             }
         }
+        
+        // Sort the list alphabetically.
+        Collections.sort(allMachines, new Comparator<MadTileEntityFactoryProductData>() 
+        {
+            @Override
+            public int compare(final MadTileEntityFactoryProductData object1, final MadTileEntityFactoryProductData object2) 
+            {
+                return object1.getMachineName().compareTo(object2.getMachineName());
+            }
+         });
 
         return allMachines.toArray(new MadTileEntityFactoryProductData[]{});
     }

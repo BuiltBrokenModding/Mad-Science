@@ -218,7 +218,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         {
             // Save this information to the disk!
             File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
-            FileUtils.writeStringToFile(new File(dataDir, "dump/" + MadUtils.getValidFileName("mod") + ".json"), json);
+            FileUtils.writeStringToFile(new File(dataDir, "dump/mod.json"), json);
         }
         catch (IOException e)
         {

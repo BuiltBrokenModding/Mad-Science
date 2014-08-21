@@ -1,15 +1,19 @@
 package madscience.factory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import madscience.MadForgeMod;
 import madscience.factory.data.MadFluidFactoryProductData;
+import madscience.factory.data.MadTileEntityFactoryProductData;
 import madscience.factory.itemblock.MadItemBlockTooltip;
 import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadFluidFactoryProduct;
@@ -99,7 +103,7 @@ public class MadFluidFactory
     public MadFluidFactoryProductData[] getFluidDataList()
     {
         // Loop through every registered block in the system.
-        Set<MadFluidFactoryProductData> allFluids = new HashSet<MadFluidFactoryProductData>();
+        List<MadFluidFactoryProductData> allFluids = new ArrayList<MadFluidFactoryProductData>();
         for (Iterator iterator = getFluidInfoList().iterator(); iterator.hasNext();)
         {
             MadFluidFactoryProduct singleFluid = (MadFluidFactoryProduct) iterator.next();
@@ -109,6 +113,16 @@ public class MadFluidFactory
                 allFluids.add(singleFluid.getData());
             }
         }
+        
+        // Sort the list alphabetically.
+        Collections.sort(allFluids, new Comparator<MadFluidFactoryProductData>() 
+        {
+            @Override
+            public int compare(final MadFluidFactoryProductData object1, final MadFluidFactoryProductData object2) 
+            {
+                return object1.getFluidName().compareTo(object2.getFluidName());
+            }
+         });
 
         return allFluids.toArray(new MadFluidFactoryProductData[]{});
     }
