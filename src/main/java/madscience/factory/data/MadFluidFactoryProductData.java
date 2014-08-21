@@ -36,12 +36,16 @@ public class MadFluidFactoryProductData
     @Expose
     private boolean hasFluidContainerItem;
     
+    /** Determines if the fluid source block will be shown in the creative tab for the mod. */
+    @Expose
+    private boolean showFluidBlockInCreativeTab;
+    
     /** Fluid ID which is also the same ID used for block flowing classic. */
     private int fluidID;
     
     /** Fluid container item ID, this item has special event binded to it to pickup this fluid. */
     private int fluidContainerID;
-    
+
     public MadFluidFactoryProductData(
             String fluidName,
             int density,
@@ -127,5 +131,10 @@ public class MadFluidFactoryProductData
     public String getIconFluidContainerPath()
     {
         return iconFluidContainerPath;
+    }
+
+    public boolean getShowFluidBlockInCreativeTab()
+    {
+        return showFluidBlockInCreativeTab;
     }
 }

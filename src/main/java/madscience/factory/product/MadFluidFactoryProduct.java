@@ -109,4 +109,9 @@ public class MadFluidFactoryProduct
     {
         return data.getIconFluidContainerPath();
     }
+
+    public boolean getShowFluidBlockInCreativeTab()
+    {
+        return data.getShowFluidBlockInCreativeTab();
+    }
 }

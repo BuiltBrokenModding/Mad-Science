@@ -34,7 +34,8 @@ public class MadFluidBlockTemplate extends BlockFluidClassic
         // Using same name that we registered our fluid with for the block.
         this.setUnlocalizedName(madFluidFactoryProduct.getFluidName());
 
-        // Add the block to the specific tab in creative mode.
+        // Only add the fluid source block to creative tab if requested.
+        if (madFluidFactoryProduct.getShowFluidBlockInCreativeTab())
         this.setCreativeTab(MadMod.getCreativeTab());
     }
     
