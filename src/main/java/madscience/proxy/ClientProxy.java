@@ -36,6 +36,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.commons.io.FileUtils;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -187,7 +188,10 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         }
         
         // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder()
+        .setPrettyPrinting()
+        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+        .create();
         
         // Convert the data portion of our tile entity factory product to JSON string.
         String json = gson.toJson(unlocalizedNames);
@@ -209,7 +213,11 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     public void dumpAllMachineJSON()
     {        
         // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder()
+        .excludeFieldsWithoutExposeAnnotation()
+        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+        .setPrettyPrinting()
+        .create();
 
         // Convert the data loaded for this mod into JSON string.
         MadModData data = MadMod.getMadModData();
