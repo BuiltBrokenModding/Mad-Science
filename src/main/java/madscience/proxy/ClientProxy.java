@@ -190,7 +190,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Create a JSON builder that makes nice human-readable entries and only uses the fields we specified. 
         Gson gson = new GsonBuilder()
         .setPrettyPrinting()
-        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
         .create();
         
         // Convert the data portion of our tile entity factory product to JSON string.
