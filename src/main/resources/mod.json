@@ -19,7 +19,7 @@
   "VersionMinor": "@MINOR@",
   "VersionRevision": "@REVIS@",
   "VersionBuild": "@BUILD@",
-  "UpdateURL": "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath\u003d/freeStyleBuild/number",
+  "UpdateURL": "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath=/freeStyleBuild/number",
   "IDManagerBlockIndex": 500,
   "IDManagerItemIndex": 3840,
   "CreativeTabIconName": "components",
@@ -13788,6 +13788,7 @@
               "IconPath": "componentFusedQuartz"
             }
           ],
+          "HiddenInCreativeTab": false,
           "FurnaceRecipes": [
             {
               "InputComponent": {
@@ -13817,8 +13818,7 @@
                 "MetaDamage": 0
               }
             }
-          ],
-          "HiddenInCreativeTab": false
+          ]
         },
         {
           "ItemName": "magnetictape",
@@ -15102,7 +15102,6 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
-      "LogicClassFullyQualifiedName": "madscience.item.ItemNeedleEmptyLogic",
       "SubItemsArchive": [
         {
           "ItemName": "needle",
@@ -15157,6 +15156,14 @@
               "CraftingAmount": 1
             }
           ],
+          "RenderPassArchive": [
+            {
+              "ColorRGB": 16777215,
+              "RenderPass": 0,
+              "IconPath": "needleEmpty"
+            }
+          ],
+          "HiddenInCreativeTab": false,
           "SoundArchive": [
             {
               "Sound": {
@@ -15176,15 +15183,7 @@
                 "RandomVariance": 1
               }
             }
-          ],
-          "RenderPassArchive": [
-            {
-              "ColorRGB": 16777215,
-              "RenderPass": 0,
-              "IconPath": "needleEmpty"
-            }
-          ],
-          "HiddenInCreativeTab": false
+          ]
         },
         {
           "ItemName": "dirty",
@@ -15198,7 +15197,8 @@
           ],
           "HiddenInCreativeTab": false
         }
-      ]
+      ],
+      "LogicClassFullyQualifiedName": "madscience.item.ItemNeedleEmptyLogic"
     },
     {
       "ItemBaseName": "memory",
