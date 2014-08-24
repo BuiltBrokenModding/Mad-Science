@@ -3,16 +3,37 @@ package madscience.factory.sound;
 import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 class MadSoundFile
 {
-    @Expose private String soundNameWithoutExtension = null;
-    @Expose private String soundNameWithExtension = null;
-    @Expose private String soundExtension = null;
-    @Expose private MadSoundTriggerEnum soundTrigger = null;
-    @Expose private float soundLengthInSeconds = 0;
-    @Expose private MadSoundPlaybackTypeEnum soundPlaybackMode = null;
-    @Expose private int randomVariance = 1;
+    @Expose 
+    @SerializedName("SoundNameWithExtension")
+    private String soundNameWithExtension = null;
+    
+    @Expose 
+    @SerializedName("SoundTrigger")
+    private MadSoundTriggerEnum soundTrigger = null;
+    
+    @Expose 
+    @SerializedName("SoundLengthInSeconds")
+    private float soundLengthInSeconds = 0;
+    
+    @Expose 
+    @SerializedName("SoundPlaybackMode")
+    private MadSoundPlaybackTypeEnum soundPlaybackMode = null;
+    
+    @Expose
+    @SerializedName("RandomVariance")
+    private int randomVariance = 1;
+    
+    @Expose(serialize = false, deserialize = true)
+    @SerializedName("SoundExtension")
+    private String soundExtension = null;
+    
+    @Expose(serialize = false, deserialize = true)
+    @SerializedName("SoundNameWithoutExtension")
+    private String soundNameWithoutExtension = null;
     
     MadSoundFile(
             String fileName,

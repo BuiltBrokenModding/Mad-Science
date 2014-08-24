@@ -1,11 +1,14 @@
 package madscience.factory.sound;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 
 public final class MadSound
 {
-    @Expose private MadSoundFile sound = null;
+    @Expose
+    @SerializedName("Sound")
+    private MadSoundFile sound = null;
     
     private boolean hasLoaded = false;
     

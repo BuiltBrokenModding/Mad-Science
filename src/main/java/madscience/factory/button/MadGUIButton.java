@@ -1,41 +1,64 @@
 package madscience.factory.button;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public final class MadGUIButton
 {
-    /** Screen coordinates for where data where render. */
-    @Expose private final int screenX;
+    /** Screen coordinates for where data will render. */
+    @Expose
+    @SerializedName("ScreenX")
+    private final int screenX;
 
-    /** Screen coordinates for where data where render. */
-    @Expose private final int screenY;
+    /** Screen coordinates for where data will render. */
+    @Expose
+    @SerializedName("ScreenY")
+    private final int screenY;
 
     /** Filler coordinates where image data to render at screen coords can be found. */
-    @Expose private final int fillerX;
+    @Expose
+    @SerializedName("FillerX")
+    private final int fillerX;
 
     /** Filler coordinates where image data to render at screen coords can be found. */
-    @Expose private final int fillerY;
+    @Expose
+    @SerializedName("FillerY")
+    private final int fillerY;
 
     /** Total size of area that needs to be rendered. */
-    @Expose private final int sizeX;
+    @Expose
+    @SerializedName("SizeX")
+    private final int sizeX;
 
     /** Total size of area that needs to be rendered. */
-    @Expose private final int sizeY;
+    @Expose
+    @SerializedName("SizeY")
+    private final int sizeY;
 
     /** String token used to locate tooltip information in localization files */
-    @Expose private final String tooltipToken;
+    @Expose
+    @SerializedName("TooltipToken")
+    private final String tooltipToken;
 
     /** Type of control based on enumeration. */
-    @Expose private final MadGUIButtonTypeEnum buttonType;
+    @Expose
+    @SerializedName("ButtonType")
+    private final MadGUIButtonTypeEnum buttonType;
 
     /** Determines action taken when button is clicked by player */
-    @Expose private final MadGUIButtonClickActionEnum clickAction;
+    @Expose
+    @SerializedName("ClickAction")
+    private final MadGUIButtonClickActionEnum clickAction;
 
     /** Custom object that holds anything that we want it to. */
-    @Expose private final Object userData;
+    @Expose
+    @SerializedName("UserData")
+    private final Object userData;
     
     /** Reference to button via ID number which is unique to every button and separate from containers or other controls. */
-    @Expose private final int buttonID;
+    @Expose
+    @SerializedName("ButtonID")
+    private final int buttonID;
 
     public MadGUIButton(int buttonID, MadGUIButtonTypeEnum buttonType, MadGUIButtonClickActionEnum clickAction, String unlocalizedTooltip, Object userData, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY) // NO_UCD (unused code)
     {

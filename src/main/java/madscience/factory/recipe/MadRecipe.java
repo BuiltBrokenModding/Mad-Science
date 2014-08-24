@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -25,16 +26,24 @@ public final class MadRecipe
     private final HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]> smeltingList = new HashMap<List<MadRecipeComponent[]>, MadRecipeComponent[]>();
     
     /** Final input result of recipe. */
-    @Expose private final MadRecipeComponent[] inputIngredientsArray = null;
+    @Expose 
+    @SerializedName("InputIngredientsArray")
+    private final MadRecipeComponent[] inputIngredientsArray = null;
     
     /** Final output result of recipe. */
-    @Expose private final MadRecipeComponent[] outputResultsArray = null;
+    @Expose 
+    @SerializedName("OutputResultsArray")
+    private final MadRecipeComponent[] outputResultsArray = null;
     
     /** Amount of time in seconds it should take to create this recipe. */
-    @Expose private final int creationTimeInSeconds = 0;
+    @Expose 
+    @SerializedName("CreationTimeInSeconds")
+    private final int creationTimeInSeconds = 0;
     
     /** Amount of experience the player will get after crafting this recipe. */
-    @Expose private final float experienceFromCreation = 0.0F;
+    @Expose 
+    @SerializedName("ExperienceFromCreation")
+    private final float experienceFromCreation = 0.0F;
     
     public int getCreationTimeInSeconds()
     {

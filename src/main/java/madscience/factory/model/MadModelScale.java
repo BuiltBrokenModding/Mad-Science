@@ -1,16 +1,20 @@
 package madscience.factory.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadModelScale
 {
     @Expose
+    @SerializedName("ModelScaleX")
     private float modelScaleX;
     
     @Expose
+    @SerializedName("ModelScaleY")
     private float modelScaleY;
     
     @Expose
+    @SerializedName("ModelScaleZ")
     private float modelScaleZ;
     
     public MadModelScale(

@@ -1,12 +1,21 @@
 package madscience.factory.fluid;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public final class MadFluid
 {
-    @Expose private final String internalName;
-    @Expose private final int startingAmount;
-    @Expose private final int maximumAmount;
+    @Expose 
+    @SerializedName("InternalName")
+    private final String internalName;
+    
+    @Expose 
+    @SerializedName("StartingAmount")
+    private final int startingAmount;
+    
+    @Expose 
+    @SerializedName("MaximumAmount")
+    private final int maximumAmount;
 
     public MadFluid(String fluidDictionaryName, int amount, int capacity) // NO_UCD (unused code)
     {

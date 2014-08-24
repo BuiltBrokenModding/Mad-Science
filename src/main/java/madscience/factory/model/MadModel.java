@@ -4,19 +4,24 @@ import madscience.factory.rendering.MadModelItemRender;
 import madscience.factory.rendering.MadModelWorldRender;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadModel
 {
     @Expose
+    @SerializedName("MachineModels")
     private MadModelFile[] machineModels;
 
     @Expose
+    @SerializedName("TexturePath")
     private String texturePath;
 
     @Expose
+    @SerializedName("ItemRenderInfo")
     private MadModelItemRender itemRenderInfo;
     
     @Expose
+    @SerializedName("WorldRenderInfo")
     private MadModelWorldRender worldRenderInfo;
     
     @SuppressWarnings("ucd")

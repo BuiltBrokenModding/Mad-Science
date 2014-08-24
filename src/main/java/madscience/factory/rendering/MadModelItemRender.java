@@ -5,55 +5,72 @@ import madscience.factory.model.MadModelRotation;
 import madscience.factory.model.MadModelScale;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadModelItemRender
 {
     @Expose
+    @SerializedName("RenderItemEntity3D")
     private boolean renderItemEntity3D;
     
     @Expose
+    @SerializedName("RenderItemEquipped3D")
     private boolean renderItemEquipped3D;
     
     @Expose
+    @SerializedName("RenderItemFirstPerson3D")
     private boolean renderItemFirstPerson3D;
     
     @Expose
+    @SerializedName("RenderItemInventory3D")
     private boolean renderItemInventory3D;
     
     @Expose
+    @SerializedName("ModelItemEquippedScale")
     private MadModelScale modelItemEquippedScale;
     
     @Expose
+    @SerializedName("ModelItemEquippedPosition")
     private MadModelPosition modelItemEquippedPosition;
     
     @Expose
+    @SerializedName("ModelItemEquippedRotation")
     private MadModelRotation modelItemEquippedRotation;
     
     @Expose
+    @SerializedName("ModelItemFirstPersonScale")
     private MadModelScale modelItemFirstPersonScale;
     
     @Expose
+    @SerializedName("ModelItemFirstPersonPosition")
     private MadModelPosition modelItemFirstPersonPosition;
     
     @Expose
+    @SerializedName("ModelItemFirstPersonRotation")
     private MadModelRotation modelItemFirstPersonRotation; 
     
     @Expose
+    @SerializedName("ModelItemInventoryScale")
     private MadModelScale modelItemInventoryScale;
     
     @Expose
+    @SerializedName("ModelItemInventoryPosition")
     private MadModelPosition modelItemInventoryPosition;
     
     @Expose
+    @SerializedName("ModelItemInventoryRotation")
     private MadModelRotation modelItemInventoryRotation;
     
     @Expose
+    @SerializedName("ModelItemEntityScale")
     private MadModelScale modelItemEntityScale;
     
     @Expose
+    @SerializedName("ModelItemEntityPosition")
     private MadModelPosition modelItemEntityPosition;
     
     @Expose
+    @SerializedName("ModelItemEntityRotation")
     private MadModelRotation modelItemEntityRotation;
     
     public MadModelItemRender(

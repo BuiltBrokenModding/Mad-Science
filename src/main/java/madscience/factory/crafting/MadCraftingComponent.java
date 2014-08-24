@@ -4,23 +4,34 @@ import madscience.factory.mod.MadMod;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadCraftingComponent
 {
     /** Holds reference to the item (meta or otherwise) that we expect in given slot. */
-    @Expose private String slotExpectedItem;
+    @Expose 
+    @SerializedName("SlotExpectedItem")
+    private String slotExpectedItem;
     
     /** Reference to how many of the given item we should have for this slot. */
-    @Expose private int slotExpectedAmount;
+    @Expose 
+    @SerializedName("SlotExpectedAmount")
+    private int slotExpectedAmount;
     
     /** Reference to mod ID the given item should come from. */
-    @Expose private String parentModID;
+    @Expose 
+    @SerializedName("ParentModID")
+    private String parentModID;
     
     /** Reference to how much damage this item has or in the case of meta items determines which one it will be. */
-    @Expose private int metaDamage;
+    @Expose 
+    @SerializedName("MetaDamage")
+    private int metaDamage;
     
     /** Reference to position this item needs to be in the crafting grid to maintain list order. */
-    @Expose private int craftingGridPosition;
+    @Expose 
+    @SerializedName("CraftingGridPosition")
+    private int craftingGridPosition;
     
     /** Determines if this recipe has been recognized by Minecraft/Forge GameRegistry as being valid. */
     private boolean hasLoaded = false;

@@ -5,6 +5,7 @@ import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.data.MadTileEntityFactoryProductData;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadModData
 {
@@ -12,105 +13,130 @@ public class MadModData
     // IDENTIFICATION
     // --------------
     @Expose
+    @SerializedName("ID")
     private String id;
 
     @Expose
+    @SerializedName("Name")
     private String name;
 
     @Expose
+    @SerializedName("ChannelName")
     private String channelName;
 
     // --------
     // METADATA
     // --------
     @Expose
+    @SerializedName("Description")
     private String description;
 
     @Expose
+    @SerializedName("HomeURL")
     private String homeURL;
 
     @Expose
+    @SerializedName("LogoPath")
     private String logoPath;
 
     @Expose
+    @SerializedName("Credits")
     private String credits;
 
     @Expose
+    @SerializedName("Authors")
     private String[] authors;
 
     @Expose
+    @SerializedName("Fingerprint")
     private String fingerprint;
 
     @Expose
+    @SerializedName("MinecraftVersion")
     private String minecraftVersion;
 
     @Expose
+    @SerializedName("Dependencies")
     private String dependencies;
 
     // ----------------
     // PROXY NAMESPACES
     // ----------------
     @Expose
+    @SerializedName("ProxyClient")
     private String proxyClient;
 
     @Expose
+    @SerializedName("ProxyServer")
     private String proxyServer;
 
     // -------
     // VERSION
     // -------
     @Expose
+    @SerializedName("VersionMajor")
     private String versionMajor;
 
     @Expose
+    @SerializedName("VersionMinor")
     private String versionMinor;
 
     @Expose
+    @SerializedName("VersionRevision")
     private String versionRevision;
 
     @Expose
+    @SerializedName("VersionBuild")
     private String versionBuild;
 
     // --------------
     // UPDATE CHECKER
     // --------------
     @Expose
+    @SerializedName("UpdateURL")
     private String updateURL;
     
     // ----------
     // ID MANAGER
     // ----------
     @Expose
+    @SerializedName("IDManagerBlockIndex")
     private int idManagerBlockIndex;
     
     @Expose
+    @SerializedName("IDManagerItemIndex")
     private int idManagerItemIndex;
     
     // -----------------
     // CREATIVE TAB ICON
     // -----------------
     @Expose
+    @SerializedName("CreativeTabIconName")
     private String creativeTabIconName;
     
     @Expose
+    @SerializedName("CreativeTabIconMetaData")
     private int creativeTabIconMetadata;
     
     // -------------
     // TILE ENTITIES
     // -------------
     @Expose
+    @SerializedName("UnregisteredMachines")
     private MadTileEntityFactoryProductData[] unregisteredMachines;
     
     // -----
     // ITEMS
     // -----
     @Expose
+    @SerializedName("UnregisteredItems")
     private MadItemFactoryProductData[] unregisteredItems;
     
     // ------
     // FLUIDS
     // ------
     @Expose
+    @SerializedName("UnregisteredFluids")
     private MadFluidFactoryProductData[] unregisteredFluids;
 
     @SuppressWarnings("ucd")

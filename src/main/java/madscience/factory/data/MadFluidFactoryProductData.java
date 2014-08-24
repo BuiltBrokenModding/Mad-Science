@@ -1,43 +1,53 @@
 package madscience.factory.data;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadFluidFactoryProductData
 {
     /** Internal name of the fluid that will be used on bucket and fluid itself. */
     @Expose
+    @SerializedName("FluidName")
     private String fluidName;
     
     /** Determines how much this fluid slows down entities. Higher values make the player move slower through the fluid. */
     @Expose 
+    @SerializedName("Density")
     private int density;
     
     /** Determines how fast this fluid will flow over other blocks and down channels. */
     @Expose
+    @SerializedName("Viscosity")
     private int viscosity;
     
     /** Determines how well light can pass through this fluid. */
     @Expose
+    @SerializedName("Luminosity")
     private int luminosity;
     
     /** Path to texture which will be loaded and become out still fluid. */
     @Expose
+    @SerializedName("IconStillPath")
     private String iconStillPath;
     
     /** Path to texture which will be loaded and become side texture for fluid. */
     @Expose
+    @SerializedName("IconFlowingPath")
     private String iconFlowingPath;
     
     /** Path to texture which will be used to represent a filled bucket of the given fluid. */
     @Expose
+    @SerializedName("IconFluidContainerPath")
     private String iconFluidContainerPath;
     
     /** Determines if this fluid requires a bucket to be registered to pick it up into a container. */
     @Expose
+    @SerializedName("HasFluidContainerItem")
     private boolean hasFluidContainerItem;
     
     /** Determines if the fluid source block will be shown in the creative tab for the mod. */
     @Expose
+    @SerializedName("ShowFluidBlockInCreativeTab")
     private boolean showFluidBlockInCreativeTab;
     
     /** Fluid ID which is also the same ID used for block flowing classic. */

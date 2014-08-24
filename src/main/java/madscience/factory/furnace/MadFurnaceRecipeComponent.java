@@ -4,16 +4,25 @@ import madscience.factory.mod.MadMod;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadFurnaceRecipeComponent
 {
-    @Expose private String itemName;
+    @Expose 
+    @SerializedName("ItemName")
+    private String itemName;
     
-    @Expose private int itemAmount;
+    @Expose 
+    @SerializedName("ItemAmount")
+    private int itemAmount;
     
-    @Expose private String parentModID;
+    @Expose 
+    @SerializedName("ParentModID")
+    private String parentModID;
     
-    @Expose private int metaDamage;
+    @Expose 
+    @SerializedName("MetaDamage")
+    private int metaDamage;
     
     private boolean hasLoaded = false;
     

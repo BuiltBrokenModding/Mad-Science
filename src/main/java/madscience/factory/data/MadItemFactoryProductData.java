@@ -3,47 +3,58 @@ package madscience.factory.data;
 import madscience.factory.item.MadMetaItemData;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadItemFactoryProductData
 {
     /** Defines name of item before any sub-items. Final form would be like itemBaseName.itemName. */
     @Expose
+    @SerializedName("ItemBaseName")
     private String itemBaseName;
     
     /** Determines if this item can be repairs in an anvil or by crafting it with other items of same type. */
     @Expose
+    @SerializedName("NoRepair")
     private boolean noRepair;
     
     /** Maximum amount of damage this given item can take before it is considered destroyed, this can also be metadata to determine which item is what. */
     @Expose
+    @SerializedName("MaxDamage")
     private int maxDamage;
 
     /** Determines how many of this item can be stacked into a single inventory slot. Default is 64. */
     @Expose
+    @SerializedName("MaxStackSize")
     private int maxStacksize;
     
     /** Amount of damage this item does against mobs and other players. */
     @Expose
+    @SerializedName("DamageVSEntity")
     private int damageVSEntity;
     
     /** Amount of damage this item does against other blocks and tiles in the game world. */
     @Expose
+    @SerializedName("DamageVSBlocks")
     private float damageVSBlocks;
     
     /** Number determines what level of enchantments Minecraft/Forge is able to apply to this item. */
     @Expose
+    @SerializedName("Enchantability")
     private int enchantability;
     
     /** Determines if this item can begin executing code to damage and pickup blocks in the game world. */
     @Expose
+    @SerializedName("CanHarvestBlocks")
     private boolean canHarvestBlocks;
 
     /** Class that will store logic specific to this entity, useful for advanced things like weapons. */
     @Expose
+    @SerializedName("LogicClassFullyQualifiedName")
     private String logicClassFullyQualifiedName;
     
     /** All items can have meta data which treats damage values as another item. This archive defines all those sub items based on damage value. */
     @Expose
+    @SerializedName("SubItemsArchive")
     private MadMetaItemData[] subItemsArchive;
     
     /** Not saved by JSON loaded but is configured by Minecraft/Forge configuration file class. */

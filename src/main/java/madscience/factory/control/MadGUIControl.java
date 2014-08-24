@@ -1,30 +1,45 @@
 package madscience.factory.control;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 
 public final class MadGUIControl
 {
     /* Screen coordinates for where data where render. */
-    @Expose private final int screenX;
+    @Expose
+    @SerializedName("ScreenX")
+    private final int screenX;
 
     /* Screen coordinates for where data where render. */
-    @Expose private final int screenY;
+    @Expose 
+    @SerializedName("ScreenY")
+    private final int screenY;
 
     /* Filler coordinates where image data to render at screen coords can be found. */
-    @Expose private final int fillerX;
+    @Expose 
+    @SerializedName("FillerX")
+    private final int fillerX;
 
     /* Filler coordinates where image data to render at screen coords can be found. */
-    @Expose private final int fillerY;
+    @Expose 
+    @SerializedName("FillerY")
+    private final int fillerY;
 
     /* Total size of area that needs to be rendered. */
-    @Expose private final int sizeX;
+    @Expose 
+    @SerializedName("SizeX")
+    private final int sizeX;
 
     /* Total size of area that needs to be rendered. */
-    @Expose private final int sizeY;
+    @Expose 
+    @SerializedName("SizeY")
+    private final int sizeY;
 
     /* Type of control based on enumeration. */
-    @Expose private final MadGUIControlTypeEnum controlType;
+    @Expose 
+    @SerializedName("ControlType")
+    private final MadGUIControlTypeEnum controlType;
 
     public MadGUIControl(MadGUIControlTypeEnum controlType, int screenX, int screenY, int fillX, int fillY, int sizeX, int sizeY) // NO_UCD (unused code)
     {

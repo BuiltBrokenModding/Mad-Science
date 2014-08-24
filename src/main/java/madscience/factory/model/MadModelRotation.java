@@ -1,19 +1,24 @@
 package madscience.factory.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadModelRotation
 {
     @Expose
+    @SerializedName("ModelRotationX")
     private float modelRotationX;
     
     @Expose
+    @SerializedName("ModelRotationY")
     private float modelRotationY;
     
     @Expose
+    @SerializedName("ModelRotationZ")
     private float modelRotationZ;
     
     @Expose
+    @SerializedName("ModelRotationAngle")
     private float modelRotationAngle;
     
     @SuppressWarnings("ucd")

@@ -1,13 +1,16 @@
 package madscience.factory.damage;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadDamage
 {
     @Expose
+    @SerializedName("DamageMinimum")
     private int damageMinimum;
     
     @Expose
+    @SerializedName("DamageMaximum")
     private int damageMaximum;
     
     @SuppressWarnings("ucd")

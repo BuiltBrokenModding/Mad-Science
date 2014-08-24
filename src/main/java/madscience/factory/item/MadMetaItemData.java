@@ -12,34 +12,42 @@ import madscience.factory.sound.MadSoundTriggerEnum;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadMetaItemData
 {
     /** Name of the item which will also be used to reference it in code and in rendering registry. */
     @Expose
+    @SerializedName("ItemName")
     private String itemName;
     
     /** Defines what damage value on the base item will equal this sub item. */
     @Expose
+    @SerializedName("MetaID")
     private int metaID;
     
     /** Contains all recipes that can be used to create this particular item. */
     @Expose
+    @SerializedName("CraftingRecipes")
     private MadCraftingRecipe[] craftingRecipes;
     
     /** Contains all related sounds for this item that as associated with triggers to be played at certain times. */
     @Expose
+    @SerializedName("SoundArchive")
     private MadSound[] soundArchive;
     
     /** Reference to item icon layers and what color they should render as. Path is relative to Minecraft/Forge asset folder for items. */
     @Expose
+    @SerializedName("RenderPassArchive")
     private MadItemRenderPass[] renderPassArchive;
     
     /** Contains recipes that will be loaded into Minecraft vanilla furnace for processing. Allows items to be cooked in vanilla furnace. */
     @Expose
+    @SerializedName("FurnaceRecipes")
     private MadFurnaceRecipe[] furnaceRecipes;
     
     @Expose
+    @SerializedName("HiddenInCreativeTab")
     private boolean hiddenInCreativeTab = false;
     
     /** Determines if sounds for this given item product have been registered on Minecraft client. */

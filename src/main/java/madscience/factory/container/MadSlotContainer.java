@@ -3,38 +3,59 @@ package madscience.factory.container;
 import net.minecraftforge.common.ForgeDirection;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public final class MadSlotContainer
 {
     /* Determines what side this entry can have items extracted from it. */
-    @Expose private final ForgeDirection extractSide;
+    @Expose
+    @SerializedName("ExtractSide")
+    private final ForgeDirection extractSide;
 
     /* Determines what side this entry can accept items from. */
-    @Expose private final ForgeDirection insertSide;
+    @Expose
+    @SerializedName("InsertSide")
+    private final ForgeDirection insertSide;
 
     /* Determines if entry can extract period. */
-    @Expose private final boolean allowExtract;
+    @Expose
+    @SerializedName("AllowExtract")
+    private final boolean allowExtract;
 
     /* Determines if entry can have items inserted period. */
-    @Expose private final boolean allowInput;
+    @Expose
+    @SerializedName("AllowInput")
+    private final boolean allowInput;
 
     /* Offset of container slot on GUI. */
-    @Expose private final int offsetX;
+    @Expose
+    @SerializedName("OffsetX")
+    private final int offsetX;
 
     /* Offset of container slot on GUI. */
-    @Expose private final int offsetY;
+    @Expose
+    @SerializedName("OffsetY")
+    private final int offsetY;
 
     /* Size of container slot on GUI. */
-    @Expose private final int sizeX;
+    @Expose
+    @SerializedName("SizeX")
+    private final int sizeX;
 
     /* Size of container slot on GUI. */
-    @Expose private final int sizeY;
+    @Expose
+    @SerializedName("SizeY")
+    private final int sizeY;
     
     /** Reference to type of slot this will be input, output, other, etc. */
-    @Expose private final MadSlotContainerTypeEnum slotType;
+    @Expose
+    @SerializedName("SlotType")
+    private final MadSlotContainerTypeEnum slotType;
     
     /** Reference to container number used by Minecraft/Forge and our own logic classes. */
-    @Expose private final int slotNumber;
+    @Expose
+    @SerializedName("SlotNumber")
+    private final int slotNumber;
 
     public MadSlotContainer( // NO_UCD (unused code)
             int slotNumber,

@@ -1,16 +1,29 @@
 package madscience.factory.energy;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public final class MadEnergy
 {
-    @Expose private long energyMaxExtract;
-    @Expose private long energyMaxRecieve;
+    @Expose 
+    @SerializedName("EnergyMaxExtract")
+    private long energyMaxExtract;
     
-    @Expose private long energyCapacity;
+    @Expose 
+    @SerializedName("EnergyMaxRecieve")
+    private long energyMaxRecieve;
     
-    @Expose private long consumptionRate;
-    @Expose private long productionRate;
+    @Expose 
+    @SerializedName("EnergyCapacity")
+    private long energyCapacity;
+    
+    @Expose 
+    @SerializedName("EnergyConsumptionRate")
+    private long consumptionRate;
+    
+    @Expose 
+    @SerializedName("EnergyProductionRate")
+    private long productionRate;
 
     @SuppressWarnings("ucd")
     public MadEnergy(long capacity,

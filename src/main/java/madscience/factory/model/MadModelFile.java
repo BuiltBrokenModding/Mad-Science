@@ -3,13 +3,16 @@ package madscience.factory.model;
 import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadModelFile
 {
     @Expose
+    @SerializedName("ModelPath")
     private String modelPath;
     
     @Expose
+    @SerializedName("ModelVisible")
     private boolean modelVisible;
     
     private String modelNameWithoutExtension;

@@ -1,16 +1,20 @@
 package madscience.factory.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MadModelPosition
 {
     @Expose
+    @SerializedName("ModelTranslateX")
     private float modelTranslateX;
     
     @Expose
+    @SerializedName("ModelTranslateY")
     private float modelTranslateY;
     
     @Expose
+    @SerializedName("ModelTranslateZ")
     private float modelTranslateZ;
     
     public MadModelPosition(
