@@ -19,7 +19,7 @@
   "VersionMinor": "@MINOR@",
   "VersionRevision": "@REVIS@",
   "VersionBuild": "@BUILD@",
-  "UpdateURL": "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath=/freeStyleBuild/number",
+  "UpdateURL": "http://madsciencemod.com:8080/job/Mad%20Science/Release%20Version/api/xml?xpath\u003d/freeStyleBuild/number",
   "IDManagerBlockIndex": 500,
   "IDManagerItemIndex": 3840,
   "CreativeTabIconName": "components",
@@ -753,7 +753,8 @@
           "HeatLevelTriggerValue": 420,
           "HeatLevelMaximumValue": 1000
         }
-      ]
+      ],
+      "DamageTrackingSupported": null
     },
     {
       "MachineName": "cryoTube",
@@ -1581,7 +1582,9 @@
             "ModelScaleZ": 1.0
           }
         }
-      }
+      },
+      "HeatLevelsSupported": null,
+      "DamageTrackingSupported": null
     },
     {
       "MachineName": "dnaExtractor",
@@ -2966,7 +2969,9 @@
             "ModelScaleZ": 1.0
           }
         }
-      }
+      },
+      "HeatLevelsSupported": null,
+      "DamageTrackingSupported": null
     },
     {
       "MachineName": "genomeIncubator",
@@ -3890,7 +3895,8 @@
           "HeatLevelTriggerValue": 780,
           "HeatLevelMaximumValue": 1000
         }
-      ]
+      ],
+      "DamageTrackingSupported": null
     },
     {
       "MachineName": "genomeSequencer",
@@ -5350,7 +5356,8 @@
           }
         }
       },
-      "HeatLevelsSupported": []
+      "HeatLevelsSupported": [],
+      "DamageTrackingSupported": null
     },
     {
       "MachineName": "meatCube",
@@ -5981,7 +5988,9 @@
             "ModelScaleZ": 1.0
           }
         }
-      }
+      },
+      "HeatLevelsSupported": null,
+      "DamageTrackingSupported": null
     },
     {
       "MachineName": "soniclocator",
@@ -6838,7 +6847,8 @@
           "HeatLevelTriggerValue": 780,
           "HeatLevelMaximumValue": 1000
         }
-      ]
+      ],
+      "DamageTrackingSupported": null
     },
     {
       "MachineName": "voxBox",
@@ -12636,7 +12646,8 @@
           }
         }
       },
-      "HeatLevelsSupported": []
+      "HeatLevelsSupported": [],
+      "DamageTrackingSupported": null
     }
   ],
   "UnregisteredItems": [
@@ -12649,6 +12660,7 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
+      "LogicClassFullyQualifiedName": null,
       "SubItemsArchive": [
         {
           "ItemName": "comparator",
@@ -12724,6 +12736,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -12731,6 +12744,7 @@
               "IconPath": "circuitComparator"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -12807,6 +12821,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -12814,6 +12829,7 @@
               "IconPath": "circuitDiamond"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -12890,6 +12906,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -12897,6 +12914,7 @@
               "IconPath": "circuitEmerald"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -12973,6 +12991,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -12980,6 +12999,7 @@
               "IconPath": "circuitEnderEye"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13056,6 +13076,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13063,6 +13084,7 @@
               "IconPath": "circuitEnderPearl"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13139,6 +13161,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13146,6 +13169,7 @@
               "IconPath": "circuitGlowstone"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13222,6 +13246,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13229,6 +13254,7 @@
               "IconPath": "circuitRedstone"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13305,6 +13331,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13312,6 +13339,7 @@
               "IconPath": "circuitSpiderEye"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         }
       ]
@@ -13325,6 +13353,7 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
+      "LogicClassFullyQualifiedName": null,
       "SubItemsArchive": [
         {
           "ItemName": "case",
@@ -13393,6 +13422,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13400,11 +13430,14 @@
               "IconPath": "componentCase"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "cpu",
           "MetaID": 1,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13412,6 +13445,7 @@
               "IconPath": "componentCPU"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13488,6 +13522,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13495,6 +13530,7 @@
               "IconPath": "componentFan"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13571,6 +13607,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13578,11 +13615,14 @@
               "IconPath": "componentPowerSupply"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "ram",
           "MetaID": 4,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13590,11 +13630,14 @@
               "IconPath": "componentRAM"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "siliconwafer",
           "MetaID": 5,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13602,6 +13645,7 @@
               "IconPath": "componentSiliconWafer"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13678,6 +13722,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13685,6 +13730,7 @@
               "IconPath": "componentComputer"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13781,6 +13827,7 @@
               "CraftingAmount": 8
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13788,7 +13835,6 @@
               "IconPath": "componentFusedQuartz"
             }
           ],
-          "HiddenInCreativeTab": false,
           "FurnaceRecipes": [
             {
               "InputComponent": {
@@ -13818,7 +13864,8 @@
                 "MetaDamage": 0
               }
             }
-          ]
+          ],
+          "HiddenInCreativeTab": false
         },
         {
           "ItemName": "magnetictape",
@@ -13873,6 +13920,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13880,6 +13928,7 @@
               "IconPath": "componentMagneticTape"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -13956,6 +14005,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -13963,6 +14013,7 @@
               "IconPath": "componentScreen"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
@@ -14039,6 +14090,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14046,11 +14098,14 @@
               "IconPath": "componentThumper"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "transistor",
           "MetaID": 11,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14058,11 +14113,14 @@
               "IconPath": "componentTransistor"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "enderslime",
           "MetaID": 12,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14070,11 +14128,14 @@
               "IconPath": "componentEnderslime"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "logo",
           "MetaID": 13,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14082,6 +14143,7 @@
               "IconPath": "logo"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": true
         }
       ]
@@ -14095,6 +14157,7 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
+      "LogicClassFullyQualifiedName": null,
       "SubItemsArchive": [
         {
           "ItemName": "datareelempty",
@@ -14170,6 +14233,7 @@
               "CraftingAmount": 1
             }
           ],
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14187,11 +14251,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "cavespider",
           "MetaID": 1,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14209,11 +14276,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "chicken",
           "MetaID": 2,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14231,11 +14301,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "cow",
           "MetaID": 3,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14253,11 +14326,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "creeper",
           "MetaID": 4,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14275,11 +14351,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "enderman",
           "MetaID": 5,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14297,11 +14376,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "ghast",
           "MetaID": 6,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14319,11 +14401,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "horse",
           "MetaID": 7,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14341,11 +14426,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "mushroomcow",
           "MetaID": 8,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14363,11 +14451,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "ocelot",
           "MetaID": 9,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14385,11 +14476,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "pig",
           "MetaID": 10,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14407,11 +14501,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "pigzombie",
           "MetaID": 11,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14429,11 +14526,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "sheep",
           "MetaID": 12,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14451,11 +14551,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "skeleton",
           "MetaID": 13,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14473,11 +14576,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "squid",
           "MetaID": 14,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14495,11 +14601,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "spider",
           "MetaID": 15,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14517,11 +14626,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "villager",
           "MetaID": 16,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14539,11 +14651,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "witch",
           "MetaID": 17,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14561,11 +14676,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "wolf",
           "MetaID": 18,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14583,11 +14701,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "zombie",
           "MetaID": 19,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14605,11 +14726,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "bat",
           "MetaID": 20,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14627,11 +14751,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "slime",
           "MetaID": 21,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14649,11 +14776,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "witherskeleton",
           "MetaID": 22,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14671,11 +14801,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "villagerzombie",
           "MetaID": 23,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14693,11 +14826,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "skeletonhorse",
           "MetaID": 24,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14715,11 +14851,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "zombiehorse",
           "MetaID": 25,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -14737,6 +14876,7 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         }
       ]
@@ -14750,10 +14890,13 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
+      "LogicClassFullyQualifiedName": null,
       "SubItemsArchive": [
         {
           "ItemName": "cavespider",
           "MetaID": 0,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 803406,
@@ -14766,11 +14909,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "chicken",
           "MetaID": 1,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 10592673,
@@ -14783,11 +14929,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "cow",
           "MetaID": 2,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 4470310,
@@ -14800,11 +14949,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "creeper",
           "MetaID": 3,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 894731,
@@ -14817,11 +14969,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "enderman",
           "MetaID": 4,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 1447446,
@@ -14834,11 +14989,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "ghast",
           "MetaID": 5,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16382457,
@@ -14851,11 +15009,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "horse",
           "MetaID": 6,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 12623485,
@@ -14868,11 +15029,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "mushroomcow",
           "MetaID": 7,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 10489616,
@@ -14885,11 +15049,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "ocelot",
           "MetaID": 8,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 15720061,
@@ -14902,11 +15069,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "pig",
           "MetaID": 9,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 15771042,
@@ -14919,11 +15089,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "sheep",
           "MetaID": 10,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 15198183,
@@ -14936,11 +15109,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "skeleton",
           "MetaID": 11,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 12698049,
@@ -14953,11 +15129,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "spider",
           "MetaID": 12,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 3419431,
@@ -14970,11 +15149,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "squid",
           "MetaID": 13,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 2243405,
@@ -14987,11 +15169,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "villager",
           "MetaID": 14,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 5651507,
@@ -15004,11 +15189,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "witch",
           "MetaID": 15,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 3407872,
@@ -15021,11 +15209,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "wolf",
           "MetaID": 16,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 14144467,
@@ -15038,11 +15229,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "zombie",
           "MetaID": 17,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 44975,
@@ -15055,11 +15249,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "bat",
           "MetaID": 18,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 4996656,
@@ -15072,11 +15269,14 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "slime",
           "MetaID": 19,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 5349438,
@@ -15089,6 +15289,7 @@
               "IconPath": "dnaSample"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         }
       ]
@@ -15102,6 +15303,7 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
+      "LogicClassFullyQualifiedName": "madscience.item.ItemNeedleEmptyLogic",
       "SubItemsArchive": [
         {
           "ItemName": "needle",
@@ -15156,14 +15358,6 @@
               "CraftingAmount": 1
             }
           ],
-          "RenderPassArchive": [
-            {
-              "ColorRGB": 16777215,
-              "RenderPass": 0,
-              "IconPath": "needleEmpty"
-            }
-          ],
-          "HiddenInCreativeTab": false,
           "SoundArchive": [
             {
               "Sound": {
@@ -15183,11 +15377,22 @@
                 "RandomVariance": 1
               }
             }
-          ]
+          ],
+          "RenderPassArchive": [
+            {
+              "ColorRGB": 16777215,
+              "RenderPass": 0,
+              "IconPath": "needleEmpty"
+            }
+          ],
+          "FurnaceRecipes": null,
+          "HiddenInCreativeTab": false
         },
         {
           "ItemName": "dirty",
           "MetaID": 1,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15195,10 +15400,10 @@
               "IconPath": "needleDirty"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         }
-      ],
-      "LogicClassFullyQualifiedName": "madscience.item.ItemNeedleEmptyLogic"
+      ]
     },
     {
       "ItemBaseName": "memory",
@@ -15209,10 +15414,13 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
+      "LogicClassFullyQualifiedName": null,
       "SubItemsArchive": [
         {
           "ItemName": "priest",
           "MetaID": 32,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15230,11 +15438,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "farmer",
           "MetaID": 64,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15252,11 +15463,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "butcher",
           "MetaID": 128,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15274,11 +15488,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "blacksmith",
           "MetaID": 256,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15296,11 +15513,14 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "librarian",
           "MetaID": 512,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15318,6 +15538,7 @@
               "IconPath": "genomeDataReel2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         }
       ]
@@ -15331,10 +15552,13 @@
       "DamageVSBlocks": 0.0,
       "Enchantability": 0,
       "CanHarvestBlocks": false,
+      "LogicClassFullyQualifiedName": null,
       "SubItemsArchive": [
         {
           "ItemName": "cavespider",
           "MetaID": 0,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15352,11 +15576,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "chicken",
           "MetaID": 1,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15374,11 +15601,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "cow",
           "MetaID": 2,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15396,11 +15626,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "creeper",
           "MetaID": 3,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15418,11 +15651,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "enderman",
           "MetaID": 4,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15440,11 +15676,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "horse",
           "MetaID": 5,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15462,11 +15701,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "mushroomcow",
           "MetaID": 6,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15484,11 +15726,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "ocelot",
           "MetaID": 7,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15506,11 +15751,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "pig",
           "MetaID": 8,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15528,11 +15776,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "sheep",
           "MetaID": 9,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15550,11 +15801,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "spider",
           "MetaID": 10,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15572,11 +15826,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "squid",
           "MetaID": 11,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15594,11 +15851,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "villager",
           "MetaID": 12,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15616,11 +15876,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "witch",
           "MetaID": 13,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15638,11 +15901,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "wolf",
           "MetaID": 14,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15660,11 +15926,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "zombie",
           "MetaID": 15,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15682,11 +15951,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "bat",
           "MetaID": 16,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15704,11 +15976,14 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         },
         {
           "ItemName": "mutant",
           "MetaID": 17,
+          "CraftingRecipes": null,
+          "SoundArchive": null,
           "RenderPassArchive": [
             {
               "ColorRGB": 16777215,
@@ -15726,6 +16001,7 @@
               "IconPath": "needleDNA2"
             }
           ],
+          "FurnaceRecipes": null,
           "HiddenInCreativeTab": false
         }
       ]
