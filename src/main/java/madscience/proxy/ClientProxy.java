@@ -215,6 +215,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         Gson gson = new GsonBuilder()
         .excludeFieldsWithoutExposeAnnotation()
         .setPrettyPrinting()
+        //.serializeNulls()
         .create();
 
         // Convert the data loaded for this mod into JSON string.

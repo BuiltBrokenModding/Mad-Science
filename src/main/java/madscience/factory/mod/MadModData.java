@@ -1,5 +1,7 @@
 package madscience.factory.mod;
 
+import java.util.List;
+
 import madscience.factory.data.MadFluidFactoryProductData;
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.data.MadTileEntityFactoryProductData;
@@ -123,21 +125,21 @@ public class MadModData
     // -------------
     @Expose
     @SerializedName("UnregisteredMachines")
-    private MadTileEntityFactoryProductData[] unregisteredMachines;
+    private List<MadTileEntityFactoryProductData> unregisteredMachines;
     
     // -----
     // ITEMS
     // -----
     @Expose
     @SerializedName("UnregisteredItems")
-    private MadItemFactoryProductData[] unregisteredItems;
+    private List<MadItemFactoryProductData> unregisteredItems;
     
     // ------
     // FLUIDS
     // ------
     @Expose
     @SerializedName("UnregisteredFluids")
-    private MadFluidFactoryProductData[] unregisteredFluids;
+    private List<MadFluidFactoryProductData> unregisteredFluids;
 
     @SuppressWarnings("ucd")
     public MadModData(String id,
@@ -162,9 +164,9 @@ public class MadModData
             int itemIDStart,
             String creativeTabIconName,
             int creativeTabIconMeta,
-            MadTileEntityFactoryProductData[] madMachines,
-            MadItemFactoryProductData[] madItems,
-            MadFluidFactoryProductData[] madFluids)
+            List<MadTileEntityFactoryProductData> madMachines,
+            List<MadItemFactoryProductData> madItems,
+            List<MadFluidFactoryProductData> madFluids)
     {
         super();
 
@@ -303,17 +305,17 @@ public class MadModData
         return idManagerItemIndex;
     }
     
-    public MadTileEntityFactoryProductData[] getUnregisteredMachines()
+    public List<MadTileEntityFactoryProductData> getUnregisteredMachines()
     {
         return unregisteredMachines;
     }
 
-    public MadItemFactoryProductData[] getUnregisteredItems()
+    public List<MadItemFactoryProductData> getUnregisteredItems()
     {
         return unregisteredItems;
     }
 
-    public MadFluidFactoryProductData[] getUnregisteredFluids()
+    public List<MadFluidFactoryProductData> getUnregisteredFluids()
     {
         return unregisteredFluids;
     }

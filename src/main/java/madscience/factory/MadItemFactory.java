@@ -77,7 +77,7 @@ public class MadItemFactory
         return !registeredItems.containsKey(id);
     }
     
-    public MadItemFactoryProductData[] getItemDataList()
+    public List<MadItemFactoryProductData> getItemDataList()
     {
         // Loop through every registered item in the system.
         List<MadItemFactoryProductData> allItems = new ArrayList<MadItemFactoryProductData>();
@@ -101,7 +101,7 @@ public class MadItemFactory
             }
          });
 
-        return allItems.toArray(new MadItemFactoryProductData[]{});
+        return allItems;
     }
 
     /** Parses registered items base names for first parameter, if located then parses all sub-items of the given

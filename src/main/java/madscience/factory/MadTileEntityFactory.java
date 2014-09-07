@@ -55,7 +55,7 @@ public class MadTileEntityFactory
     }
 
     /** Returns all registered machines, but as data objects which may be serialized by JSON loader to disk. */
-    public MadTileEntityFactoryProductData[] getMachineDataList()
+    public List<MadTileEntityFactoryProductData> getMachineDataList()
     {
         // Loop through every registered machine in the system.
         List<MadTileEntityFactoryProductData> allMachines = new ArrayList<MadTileEntityFactoryProductData>();
@@ -79,7 +79,7 @@ public class MadTileEntityFactory
             }
          });
 
-        return allMachines.toArray(new MadTileEntityFactoryProductData[]{});
+        return allMachines;
     }
 
     /** Determines is this machine name has already been registered by this factory. Hopefully this never returns true. */

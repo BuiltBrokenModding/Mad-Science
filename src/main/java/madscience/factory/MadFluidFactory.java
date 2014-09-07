@@ -97,7 +97,7 @@ public class MadFluidFactory
         return Collections.unmodifiableCollection(MadFluidFactory.registeredFluids.values());
     }
     
-    public MadFluidFactoryProductData[] getFluidDataList()
+    public List<MadFluidFactoryProductData> getFluidDataList()
     {
         // Loop through every registered block in the system.
         List<MadFluidFactoryProductData> allFluids = new ArrayList<MadFluidFactoryProductData>();
@@ -121,6 +121,6 @@ public class MadFluidFactory
             }
          });
 
-        return allFluids.toArray(new MadFluidFactoryProductData[]{});
+        return allFluids;
     }
 }
