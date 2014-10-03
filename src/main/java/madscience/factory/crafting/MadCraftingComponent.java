@@ -1,6 +1,6 @@
 package madscience.factory.crafting;
 
-import madscience.MadModLoader;
+import madscience.factory.mod.MadModLoader;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;

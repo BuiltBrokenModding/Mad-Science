@@ -1,6 +1,6 @@
 package madscience.factory.tile;
 
-import madscience.MadModLoader;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;

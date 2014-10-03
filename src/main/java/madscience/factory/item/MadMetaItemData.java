@@ -3,10 +3,10 @@ package madscience.factory.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.furnace.MadFurnaceRecipe;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.sound.MadSound;
 import madscience.factory.sound.MadSoundPlaybackTypeEnum;
 import madscience.factory.sound.MadSoundTriggerEnum;

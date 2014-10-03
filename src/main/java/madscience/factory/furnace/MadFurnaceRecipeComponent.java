@@ -1,6 +1,6 @@
 package madscience.factory.furnace;
 
-import madscience.MadModLoader;
+import madscience.factory.mod.MadModLoader;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;

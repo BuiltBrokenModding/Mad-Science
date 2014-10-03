@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.button.MadGUIButton;
@@ -15,6 +14,7 @@ import madscience.factory.button.MadGUIButtonTypeEnum;
 import madscience.factory.container.MadSlotContainer;
 import madscience.factory.control.MadGUIControl;
 import madscience.factory.control.MadGUIControlTypeEnum;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.util.Region2;
 import net.minecraft.client.Minecraft;

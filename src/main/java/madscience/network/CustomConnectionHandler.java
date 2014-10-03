@@ -1,7 +1,7 @@
 package madscience.network;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
+import madscience.factory.mod.MadModLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;

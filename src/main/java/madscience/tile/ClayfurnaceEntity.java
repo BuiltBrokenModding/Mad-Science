@@ -1,8 +1,8 @@
 package madscience.tile;
 
 import madscience.MadForgeMod;
-import madscience.MadModLoader;
 import madscience.factory.container.MadSlotContainerTypeEnum;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
 import madscience.factory.product.MadTileEntityFactoryProduct;

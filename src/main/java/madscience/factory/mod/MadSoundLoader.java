@@ -1,4 +1,4 @@
-package madscience;
+package madscience.factory.mod;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +14,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MadSounds
+public class MadSoundLoader
 {
     @SideOnly(Side.CLIENT)
     @ForgeSubscribe

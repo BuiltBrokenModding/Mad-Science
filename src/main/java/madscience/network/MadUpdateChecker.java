@@ -1,10 +1,11 @@
-package madscience;
+package madscience.network;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import madscience.network.CustomConnectionHandler;
+import madscience.MadModMetadata;
+import madscience.factory.mod.MadModLoader;
 import madscience.util.MadXML;
 
 import org.w3c.dom.Document;
@@ -12,7 +13,7 @@ import org.w3c.dom.Node;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-class MadUpdates
+public class MadUpdateChecker
 {
     /** Pings a HTTP URL. This effectively sends a HEAD request and returns <code>true</code> if the response code is in the 200-399 range.
      * 
@@ -38,7 +39,7 @@ class MadUpdates
         }
     }
 
-    static void checkJenkinsBuildNumbers()
+    public static void checkJenkinsBuildNumbers()
     {
         // Attempt to open a connection to the URL and see if it is active.
         boolean reachable = false;

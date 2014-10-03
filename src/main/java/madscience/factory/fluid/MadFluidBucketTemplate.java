@@ -2,9 +2,9 @@ package madscience.factory.fluid;
 
 import java.util.List;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.MadFluidFactory;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadFluidFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.block.material.Material;

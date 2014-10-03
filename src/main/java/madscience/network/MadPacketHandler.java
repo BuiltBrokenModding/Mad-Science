@@ -1,6 +1,6 @@
 package madscience.network;
 
-import madscience.MadModLoader;
+import madscience.factory.mod.MadModLoader;
 import madscience.network.MadPackets.ProtocolException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

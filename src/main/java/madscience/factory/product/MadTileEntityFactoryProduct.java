@@ -3,7 +3,6 @@ package madscience.factory.product;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.button.MadGUIButton;
@@ -15,6 +14,7 @@ import madscience.factory.data.MadTileEntityFactoryProductData;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluid.MadFluid;
 import madscience.factory.heat.MadHeat;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelBounds;
 import madscience.factory.model.MadModelPosition;

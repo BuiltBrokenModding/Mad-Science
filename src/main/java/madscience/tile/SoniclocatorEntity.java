@@ -3,8 +3,8 @@ package madscience.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.MadModLoader;
 import madscience.factory.container.MadSlotContainerTypeEnum;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.tile.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;

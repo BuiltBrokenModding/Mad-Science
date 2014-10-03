@@ -3,8 +3,8 @@ package madscience.factory.product;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelFile;
 import madscience.factory.model.MadModelPosition;

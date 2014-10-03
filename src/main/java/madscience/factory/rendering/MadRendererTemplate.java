@@ -1,9 +1,9 @@
 package madscience.factory.rendering;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;

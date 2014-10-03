@@ -1,8 +1,8 @@
 package madscience.factory.tile;
 
 import madscience.MadForgeMod;
-import madscience.MadModLoader;
 import madscience.factory.MadTileEntityFactory;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSoundTriggerEnum;
 import madscience.util.MadUtils;

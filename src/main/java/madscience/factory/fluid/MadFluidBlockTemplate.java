@@ -1,8 +1,8 @@
 package madscience.factory.fluid;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.MadFluidFactory;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadFluidFactoryProduct;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;

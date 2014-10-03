@@ -1,7 +1,7 @@
 package madscience.factory.creativetab;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
+import madscience.factory.mod.MadModLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 

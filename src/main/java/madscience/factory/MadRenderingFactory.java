@@ -3,7 +3,7 @@ package madscience.factory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.MadModLoader;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;

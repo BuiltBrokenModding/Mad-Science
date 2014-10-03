@@ -3,8 +3,8 @@ package madscience.factory.tile;
 import java.util.List;
 import java.util.Random;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.model.MadModelBounds;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSoundTriggerEnum;

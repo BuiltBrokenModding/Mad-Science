@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.container.MadSlotContainerTypeEnum;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSound;
 import madscience.factory.tile.MadTileEntityPrefab;

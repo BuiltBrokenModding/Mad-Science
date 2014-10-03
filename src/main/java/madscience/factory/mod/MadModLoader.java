@@ -1,4 +1,4 @@
-package madscience;
+package madscience.factory.mod;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import madscience.MadModMetadata;
 import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.MadTileEntityFactory;
@@ -16,7 +17,6 @@ import madscience.factory.creativetab.MadCreativeTab;
 import madscience.factory.data.MadFluidFactoryProductData;
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.data.MadTileEntityFactoryProductData;
-import madscience.factory.mod.MadModData;
 import madscience.factory.recipe.MadRecipe;
 import madscience.factory.sound.MadSound;
 import madscience.util.IDManager;

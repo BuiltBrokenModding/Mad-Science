@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import madscience.MadForgeMod;
-import madscience.MadModLoader;
 import madscience.factory.data.MadFluidFactoryProductData;
 import madscience.factory.itemblock.MadItemBlockTooltip;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadFluidFactoryProduct;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

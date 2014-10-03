@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import madscience.MadModLoader;
 import madscience.factory.crafting.MadCraftingComponent;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.furnace.MadFurnaceRecipe;
+import madscience.factory.mod.MadModLoader;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

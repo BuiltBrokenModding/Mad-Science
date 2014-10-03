@@ -8,13 +8,13 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 import madscience.MadForgeMod;
-import madscience.MadModLoader;
-import madscience.MadSounds;
 import madscience.factory.MadFluidFactory;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.fluid.MadFluidRenderingTemplate;
 import madscience.factory.mod.MadModData;
+import madscience.factory.mod.MadModLoader;
+import madscience.factory.mod.MadSoundLoader;
 import madscience.factory.model.MadTechneModelLoader;
 import madscience.factory.product.MadFluidFactoryProduct;
 import madscience.factory.product.MadTileEntityFactoryProduct;
@@ -277,6 +277,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     public void registerSoundHandler()
     {
         // Register the sound event handling class.
-        MinecraftForge.EVENT_BUS.register(new MadSounds());
+        MinecraftForge.EVENT_BUS.register(new MadSoundLoader());
     }
 }

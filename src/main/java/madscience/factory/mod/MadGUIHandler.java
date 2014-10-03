@@ -1,4 +1,4 @@
-package madscience;
+package madscience.factory.mod;
 
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.product.MadTileEntityFactoryProduct;
@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
-public class MadGUI implements IGuiHandler
+public class MadGUIHandler implements IGuiHandler
 {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)

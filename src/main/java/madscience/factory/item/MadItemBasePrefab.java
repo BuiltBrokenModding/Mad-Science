@@ -4,9 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import madscience.MadModLoader;
 import madscience.MadModMetadata;
 import madscience.factory.MadItemFactory;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadItemFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;

@@ -12,10 +12,13 @@ import madscience.factory.data.MadFluidFactoryProductData;
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.data.MadTileEntityFactoryProductData;
 import madscience.factory.item.MadMetaItemData;
+import madscience.factory.mod.MadGUIHandler;
+import madscience.factory.mod.MadModLoader;
 import madscience.factory.product.MadItemFactoryProduct;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.recipe.MadRecipe;
 import madscience.network.MadPacketHandler;
+import madscience.network.MadUpdateChecker;
 import madscience.proxy.CommonProxy;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.LogWrapper;
@@ -51,7 +54,7 @@ public class MadForgeMod
     private static ModMetadata metadata;
 
     // Hooks Forge's replacement openGUI function so we can route our own ID's to proper interfaces.
-    private static MadGUI guiHandler = new MadGUI();
+    private static MadGUIHandler guiHandler = new MadGUIHandler();
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) // NO_UCD (unused code)
@@ -111,7 +114,7 @@ public class MadForgeMod
         NetworkRegistry.instance().registerGuiHandler(MadForgeMod.instance, MadForgeMod.guiHandler);
         
         // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
-        MadUpdates.checkJenkinsBuildNumbers();
+        MadUpdateChecker.checkJenkinsBuildNumbers();
     }
     
     @EventHandler
