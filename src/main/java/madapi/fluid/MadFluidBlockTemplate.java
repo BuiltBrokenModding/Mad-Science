@@ -1,9 +1,9 @@
 package madapi.fluid;
 
 import madapi.MadFluidFactory;
-import madapi.MadModMetadata;
 import madapi.mod.MadModLoader;
 import madapi.product.MadFluidFactoryProduct;
+import madscience.MadModMetadata;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;

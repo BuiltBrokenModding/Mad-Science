@@ -1,7 +1,6 @@
 package madapi.network;
 
-import madapi.MadModMetadata;
-import madapi.mod.MadModLoader;
+import madscience.MadModMetadata;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;

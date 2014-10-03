@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import madapi.MadItemFactory;
-import madapi.MadModMetadata;
 import madapi.mod.MadModLoader;
 import madapi.product.MadItemFactoryProduct;
 import madapi.util.MadUtils;
+import madscience.MadModMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;

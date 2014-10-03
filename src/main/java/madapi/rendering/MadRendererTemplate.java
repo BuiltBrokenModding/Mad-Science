@@ -1,9 +1,7 @@
 package madapi.rendering;
 
-import madapi.MadModMetadata;
 import madapi.MadRenderingFactory;
 import madapi.MadTileEntityFactory;
-import madapi.mod.MadModLoader;
 import madapi.model.MadModel;
 import madapi.model.MadModelPosition;
 import madapi.model.MadModelScale;
@@ -11,6 +9,7 @@ import madapi.product.MadRenderingFactoryProduct;
 import madapi.product.MadTileEntityFactoryProduct;
 import madapi.tile.MadTileEntityPrefab;
 import madapi.util.MadUtils;
+import madscience.MadModMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;

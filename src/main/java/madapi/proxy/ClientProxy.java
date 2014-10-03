@@ -36,7 +36,6 @@ import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.commons.io.FileUtils;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

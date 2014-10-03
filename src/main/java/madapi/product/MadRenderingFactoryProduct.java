@@ -3,8 +3,6 @@ package madapi.product;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madapi.MadModMetadata;
-import madapi.mod.MadModLoader;
 import madapi.model.MadModel;
 import madapi.model.MadModelFile;
 import madapi.model.MadModelPosition;
@@ -12,6 +10,7 @@ import madapi.model.MadModelScale;
 import madapi.model.MadTechneModel;
 import madapi.rendering.MadModelItemRender;
 import madapi.rendering.MadModelWorldRender;
+import madscience.MadModMetadata;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import cpw.mods.fml.client.registry.RenderingRegistry;

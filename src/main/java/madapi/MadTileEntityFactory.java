@@ -15,6 +15,7 @@ import madapi.itemblock.MadItemBlockTooltip;
 import madapi.mod.MadModLoader;
 import madapi.model.MadModel;
 import madapi.product.MadTileEntityFactoryProduct;
+import madscience.MadModMetadata;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadTileEntityFactory

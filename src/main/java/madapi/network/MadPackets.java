@@ -1,8 +1,7 @@
 package madapi.network;
 
-import madapi.MadModMetadata;
-import madapi.mod.MadModLoader;
 import madapi.tile.MadTileTemplatePacket;
+import madscience.MadModMetadata;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
 

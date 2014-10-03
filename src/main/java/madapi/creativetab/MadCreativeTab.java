@@ -1,7 +1,7 @@
 package madapi.creativetab;
 
-import madapi.MadModMetadata;
 import madapi.mod.MadModLoader;
+import madscience.MadModMetadata;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 

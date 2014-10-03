@@ -1,4 +1,4 @@
-package madscience.tile;
+package madscience.logic;
 
 import madapi.container.MadSlotContainerTypeEnum;
 import madapi.product.MadTileEntityFactoryProduct;

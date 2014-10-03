@@ -1,4 +1,4 @@
-package madscience.item;
+package madscience.logic;
 
 import madapi.MadItemFactory;
 import madapi.item.MadItemPrefab;

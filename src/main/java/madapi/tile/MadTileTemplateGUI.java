@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 
-import madapi.MadModMetadata;
 import madapi.MadTileEntityFactory;
 import madapi.button.MadGUIButton;
 import madapi.button.MadGUIButtonClickActionEnum;
@@ -17,6 +16,7 @@ import madapi.control.MadGUIControlTypeEnum;
 import madapi.mod.MadModLoader;
 import madapi.product.MadTileEntityFactoryProduct;
 import madapi.util.Region2;
+import madscience.MadModMetadata;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiConfirmOpenLink;

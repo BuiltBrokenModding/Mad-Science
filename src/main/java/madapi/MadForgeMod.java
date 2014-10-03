@@ -17,6 +17,7 @@ import madapi.product.MadItemFactoryProduct;
 import madapi.product.MadTileEntityFactoryProduct;
 import madapi.proxy.CommonProxy;
 import madapi.recipe.MadRecipe;
+import madscience.MadModMetadata;
 import net.minecraft.item.ItemStack;
 import net.minecraft.launchwrapper.LogWrapper;
 import net.minecraftforge.common.Configuration;

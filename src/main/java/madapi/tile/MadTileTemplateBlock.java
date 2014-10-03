@@ -3,11 +3,11 @@ package madapi.tile;
 import java.util.List;
 import java.util.Random;
 
-import madapi.MadModMetadata;
 import madapi.mod.MadModLoader;
 import madapi.model.MadModelBounds;
 import madapi.product.MadTileEntityFactoryProduct;
 import madapi.sound.MadSoundTriggerEnum;
+import madscience.MadModMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

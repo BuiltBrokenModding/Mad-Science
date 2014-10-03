@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import madapi.MadModMetadata;
 import madapi.mod.MadModLoader;
 import madapi.util.MadXML;
+import madscience.MadModMetadata;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

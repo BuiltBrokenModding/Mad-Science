@@ -3,13 +3,13 @@ package madapi.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import madapi.MadModMetadata;
 import madapi.crafting.MadCraftingRecipe;
 import madapi.furnace.MadFurnaceRecipe;
 import madapi.mod.MadModLoader;
 import madapi.sound.MadSound;
 import madapi.sound.MadSoundPlaybackTypeEnum;
 import madapi.sound.MadSoundTriggerEnum;
+import madscience.MadModMetadata;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.google.gson.annotations.Expose;

@@ -1,7 +1,6 @@
 package madapi.button;
 
-import madapi.MadModMetadata;
-import madapi.mod.MadModLoader;
+import madscience.MadModMetadata;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;

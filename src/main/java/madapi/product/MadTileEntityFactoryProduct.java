@@ -3,7 +3,6 @@ package madapi.product;
 import java.util.ArrayList;
 import java.util.List;
 
-import madapi.MadModMetadata;
 import madapi.block.MadGhostBlockData;
 import madapi.button.MadGUIButton;
 import madapi.container.MadSlotContainer;
@@ -27,6 +26,7 @@ import madapi.tile.MadTileEntityPrefab;
 import madapi.tile.MadTileTemplateBlock;
 import madapi.tile.MadTileTemplateContainer;
 import madapi.tile.MadTileTemplateGUI;
+import madscience.MadModMetadata;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;

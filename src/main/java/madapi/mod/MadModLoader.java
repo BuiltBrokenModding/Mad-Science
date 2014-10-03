@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import madapi.MadFluidFactory;
 import madapi.MadItemFactory;
-import madapi.MadModMetadata;
 import madapi.MadTileEntityFactory;
 import madapi.creativetab.MadCreativeTab;
 import madapi.data.MadFluidFactoryProductData;
@@ -20,6 +19,7 @@ import madapi.data.MadTileEntityFactoryProductData;
 import madapi.recipe.MadRecipe;
 import madapi.sound.MadSound;
 import madapi.util.IDManager;
+import madscience.MadModMetadata;
 import net.minecraft.item.ItemStack;
 
 import com.google.common.base.Throwables;

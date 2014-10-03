@@ -1,4 +1,4 @@
-package madscience.tile;
+package madscience.logic;
 
 import java.util.ArrayList;
 import java.util.List;

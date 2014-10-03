@@ -1,4 +1,4 @@
-package madapi;
+package madscience;
 
 public class MadModMetadata
 {
@@ -19,8 +19,8 @@ public class MadModMetadata
     public static final String DEPENDENCIES = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion";
     
     // Proxy Classes Namespace.
-    public static final String CLIENT_PROXY = "madscience.proxy.ClientProxy";
-    public static final String SERVER_PROXY = "madscience.proxy.CommonProxy";
+    public static final String CLIENT_PROXY = "madapi.proxy.ClientProxy";
+    public static final String SERVER_PROXY = "madapi.proxy.CommonProxy";
     
     // Full version string for internal reference by mod.
     public static final String VMAJOR = "@MAJOR@";
