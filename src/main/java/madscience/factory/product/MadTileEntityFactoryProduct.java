@@ -3,6 +3,8 @@ package madscience.factory.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.button.MadGUIButton;
 import madscience.factory.container.MadSlotContainer;
@@ -13,7 +15,6 @@ import madscience.factory.data.MadTileEntityFactoryProductData;
 import madscience.factory.energy.MadEnergy;
 import madscience.factory.fluid.MadFluid;
 import madscience.factory.heat.MadHeat;
-import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelBounds;
 import madscience.factory.model.MadModelPosition;
@@ -204,7 +205,7 @@ public class MadTileEntityFactoryProduct
         // Complain if we are somehow already loaded!
         if (this.data.getRecipeArchive() == null)
         {
-            MadMod.log().warning("[MadTileEntityFactoryProduct]Unable to load internal machine recipes for '" + this.data.getMachineName() + "' because it has none!");
+            MadModLoader.log().warning("[MadTileEntityFactoryProduct]Unable to load internal machine recipes for '" + this.data.getMachineName() + "' because it has none!");
             return;
         }
 
@@ -246,12 +247,12 @@ public class MadTileEntityFactoryProduct
                     // Debugging!
                     if (!searchResult)
                     {
-                        MadMod.log().info(resultInputPrint);
+                        MadModLoader.log().info(resultInputPrint);
                     }
                 }
                 else
                 {
-                    MadMod.log().info("[" + this.data.getMachineName() + "]Bad Input: " + inputIngredient.getSlotType().name());
+                    MadModLoader.log().info("[" + this.data.getMachineName() + "]Bad Input: " + inputIngredient.getSlotType().name());
                 }
             }
 
@@ -284,18 +285,18 @@ public class MadTileEntityFactoryProduct
 
                     if (!searchResult)
                     {
-                        MadMod.log().info(resultOutputPrint);
+                        MadModLoader.log().info(resultOutputPrint);
                     }
                 }
                 else
                 {
-                    MadMod.log().info("[" + this.data.getMachineName() + "]Bad Output: " + outputResult.getSlotType().name());
+                    MadModLoader.log().info("[" + this.data.getMachineName() + "]Bad Output: " + outputResult.getSlotType().name());
                 }
             }
         }
 
-        MadMod.log().info("[" + this.data.getMachineName() + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
-        MadMod.log().info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
+        MadModLoader.log().info("[" + this.data.getMachineName() + "]Total Loaded Recipe Items: " + totalLoadedRecipeItems);
+        MadModLoader.log().info("[" + this.data.getMachineName() + "]Failed To Load Recipe Items: " + totalFailedRecipeItems);
     }
 
     /** Populates an internal list of sounds associated with this machine and returns them as a string array to be ready by Minecraft/Forge. */
@@ -324,14 +325,14 @@ public class MadTileEntityFactoryProduct
             }
 
             // Store pathing information to where this sound lives.
-            String machineSoundPath = MadMod.ID + ":" + this.data.getMachineName() + "/";
+            String machineSoundPath = MadModMetadata.ID + ":" + this.data.getMachineName() + "/";
             machineSound.setResourcePath(machineSoundPath);
             
             // For future reference we have been here.
             machineSound.setLoaded();
             
             // Reference to this sound globally which anything can address.
-            MadMod.addSoundToArchive(machineSound.getSoundNameWithoutExtension(), machineSound);
+            MadModLoader.addSoundToArchive(machineSound.getSoundNameWithoutExtension(), machineSound);
             
             // Check if this sound is random one and needs multiple files checked.
             if (machineSound.getSoundPlaybackMode().equals(MadSoundPlaybackTypeEnum.RANDOM) && machineSound.getSoundRandomVariance() > 0)
@@ -340,7 +341,7 @@ public class MadTileEntityFactoryProduct
                 // Note: Minecraft will automatically play a random sound if named File1,2,3.
                 for (int x = 1; x <= machineSound.getSoundRandomVariance(); x++)
                 {
-                    MadMod.log().info("[" + this.getMachineName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
+                    MadModLoader.log().info("[" + this.getMachineName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
                     String fullRandomSoundPath = machineSoundPath + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension();  
                     
                     // Add to list which gets returned to Minecraft/Forge for actual loading.
@@ -350,7 +351,7 @@ public class MadTileEntityFactoryProduct
             else
             {
                 // Add just the individual sound file.
-                MadMod.log().info("[" + this.getMachineName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
+                MadModLoader.log().info("[" + this.getMachineName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
                 String fullSingleSoundPath = machineSoundPath + machineSound.getSoundNameWithExtension(); 
                 soundFileList.add(fullSingleSoundPath);
             }
@@ -384,7 +385,7 @@ public class MadTileEntityFactoryProduct
             // Check if sound name matches the one from internal list.
             if (machineSound.getSoundNameWithoutExtension().equals(soundNameWithoutExtension))
             {
-                String soundName = MadMod.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
+                String soundName = MadModMetadata.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
                 worldObj.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, soundName, 1.0F, 1.0F);
                 //MadMod.log().info("[" + this.getMachineName() + "]Playing Sound By Name: " + soundName);
                 break;
@@ -408,7 +409,7 @@ public class MadTileEntityFactoryProduct
             // Note: Multiple sounds with same trigger will play one after the other.
             if (machineSound.getSoundTrigger().equals(trigger))
             {
-                String soundName = MadMod.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
+                String soundName = MadModMetadata.ID + ":" + this.data.getMachineName() + "." + machineSound.getSoundNameWithoutExtension();
                 worldObj.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, soundName, 1.0F, 1.0F);
                 //MadMod.log().info("[" + this.getMachineName() + "]Playing Trigger Sound: " + soundName);
             }

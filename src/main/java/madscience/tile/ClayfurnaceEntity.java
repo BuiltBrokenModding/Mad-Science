@@ -1,8 +1,8 @@
 package madscience.tile;
 
 import madscience.MadForgeMod;
+import madscience.MadModLoader;
 import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
 import madscience.factory.product.MadTileEntityFactoryProduct;
@@ -95,7 +95,7 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * smokeRadnomizer == 0L)
         {
             // Send a packet saying we want a little bit of smoke.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
                     worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
         }
     }
@@ -133,7 +133,7 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
         }
 
         // Flips a bool that allows this device to start cooking because it has been hit with a flint and steel.
-        MadMod.log().info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
+        MadModLoader.log().info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
         hasBeenLit = true;
     }
 
@@ -198,14 +198,14 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
             if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 // Send a packet saying we want furnace fire
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
+                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
                         worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
             }
 
             if (this.getAnimationCurrentFrame() <= 3 && worldObj.getWorldTime() % 25L == 0L)
             {
                 // Send a packet saying we want puffs of smoke used in minecart furnace.
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
+                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
                         worldObj.rand.nextFloat(), worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
                 // Load this texture onto the entity.
@@ -398,7 +398,7 @@ public class ClayfurnaceEntity extends MadTileEntityPrefab
             // COOLED OFF MODE - WAITING FOR PLAYER TO HIT US
             if (player.canHarvestBlock(this.getBlockType()))
             {
-                MadMod.log().info("Clay Furnace: Harvested player after having been cooled down!");
+                MadModLoader.log().info("Clay Furnace: Harvested player after having been cooled down!");
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.anvil_land", 1.0F, 1.0F);
 
                 // Set ourselves to the end result we should be!

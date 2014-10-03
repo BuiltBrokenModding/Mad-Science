@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import madscience.factory.mod.MadMod;
 import madscience.network.CustomConnectionHandler;
 import madscience.util.MadXML;
 
@@ -45,11 +44,11 @@ class MadUpdates
         boolean reachable = false;
         try
         {
-            reachable = ping(MadMod.UPDATE_URL, 500);
+            reachable = ping(MadModMetadata.UPDATE_URL, 500);
         }
         catch (Exception err)
         {
-            MadMod.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
+            MadModLoader.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
             return;
         }
 
@@ -59,24 +58,24 @@ class MadUpdates
             if (reachable)
             {
                 // Look for XML response from server for update information.
-                Document docXML = MadXML.loadXMLFromString(MadMod.UPDATE_URL);
+                Document docXML = MadXML.loadXMLFromString(MadModMetadata.UPDATE_URL);
                 Node child = docXML.getFirstChild();
                 String xmlBuildNumber = child.getTextContent();
                 long myXMLLong = new Long(xmlBuildNumber);
 
                 // Register a custom connection handler so we can tell the user something when the login to the game world.
-                MadMod.log().info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
+                MadModLoader.log().info("Mad Science Jenkins Build Server Last Stable Build: " + String.valueOf(myXMLLong));
                 NetworkRegistry.instance().registerConnectionHandler(new CustomConnectionHandler(myXMLLong));
             }
             else
             {
-                MadMod.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
+                MadModLoader.log().info("Unable to connect to Mad Science Jenkins build server for update information. Skipping...");
                 return;
             }
         }
         catch (Exception err)
         {
-            MadMod.log().info("Unable to parse XML from Jenkins build server... perhaps it is down!");
+            MadModLoader.log().info("Unable to parse XML from Jenkins build server... perhaps it is down!");
             return;
         }
     }

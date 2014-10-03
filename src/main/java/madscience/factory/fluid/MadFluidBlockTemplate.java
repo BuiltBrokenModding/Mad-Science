@@ -1,7 +1,8 @@
 package madscience.factory.fluid;
 
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.MadFluidFactory;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadFluidFactoryProduct;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -36,7 +37,7 @@ public class MadFluidBlockTemplate extends BlockFluidClassic
 
         // Only add the fluid source block to creative tab if requested.
         if (madFluidFactoryProduct.getShowFluidBlockInCreativeTab())
-        this.setCreativeTab(MadMod.getCreativeTab());
+        this.setCreativeTab(MadModLoader.getCreativeTab());
     }
     
     public MadFluidFactoryProduct getRegisteredFluid()
@@ -92,7 +93,7 @@ public class MadFluidBlockTemplate extends BlockFluidClassic
     @Override
     public void registerIcons(IconRegister register)
     {
-        stillIcon = register.registerIcon(MadMod.ID + ":" + this.getRegisteredFluid().getIconStillPath());
-        flowingIcon = register.registerIcon(MadMod.ID + ":" + this.getRegisteredFluid().getIconFlowingPath());
+        stillIcon = register.registerIcon(MadModMetadata.ID + ":" + this.getRegisteredFluid().getIconStillPath());
+        flowingIcon = register.registerIcon(MadModMetadata.ID + ":" + this.getRegisteredFluid().getIconFlowingPath());
     }
 }

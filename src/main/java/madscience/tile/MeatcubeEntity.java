@@ -1,8 +1,8 @@
 package madscience.tile;
 
+import madscience.MadModLoader;
 import madscience.factory.MadFluidFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadFluidFactoryProduct;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSound;
@@ -347,7 +347,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
                     // Play a cow mooaning sound, but not every single time because that is annoying.
                     if (world.rand.nextBoolean() && world.rand.nextInt(10) < 5)
                     {
-                        MadSound mooaning = MadMod.getSoundByName("Moo");
+                        MadSound mooaning = MadModLoader.getSoundByName("Moo");
                         if (mooaning != null)
                         {
                             world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, mooaning.getSoundNameWithoutExtension(), 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);

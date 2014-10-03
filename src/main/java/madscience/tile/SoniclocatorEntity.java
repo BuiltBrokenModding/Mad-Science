@@ -3,8 +3,8 @@ package madscience.tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import madscience.MadModLoader;
 import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.tile.MadTileEntityPrefab;
 import madscience.network.MadParticlePacket;
@@ -146,7 +146,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab
             }
             catch (Exception err)
             {
-                MadMod.log().info("Attempted to poison living creature and failed!");
+                MadModLoader.log().info("Attempted to poison living creature and failed!");
             }
         }
     }
@@ -222,7 +222,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab
                             }
                             catch (Exception err)
                             {
-                                MadMod.log().info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
+                                MadModLoader.log().info("SONICLOCATOR: Attempted to query Minecraft blocklist with value out of index.");
                             }
 
                             // Check if the target block is inside the OreDictionary if first query fails.
@@ -253,7 +253,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab
                     }
                     catch (Exception err)
                     {
-                        MadMod.log().info("Error while trying to locate target block!");
+                        MadModLoader.log().info("Error while trying to locate target block!");
                         continue;
                     }
                 }
@@ -374,7 +374,7 @@ public class SoniclocatorEntity extends MadTileEntityPrefab
         if (canSmelt() && isPowered() && isRedstonePowered() && cooldownMode)
         {
             // Send a packet saying we want explosion smoke for 200 ticks at this location.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadMod.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("explode", 0.5D + this.xCoord, this.yCoord + 1.0D, this.zCoord + 0.5D, worldObj.rand.nextFloat(),
                     worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
             if (this.getAnimationCurrentFrame() <= 5 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)

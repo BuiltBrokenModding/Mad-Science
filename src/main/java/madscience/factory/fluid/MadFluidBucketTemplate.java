@@ -2,8 +2,9 @@ package madscience.factory.fluid;
 
 import java.util.List;
 
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.MadFluidFactory;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadFluidFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.block.material.Material;
@@ -42,7 +43,7 @@ public class MadFluidBucketTemplate extends ItemFluidContainer
         setUnlocalizedName(madFluidFactoryProduct.getFluidContainerName());
         
         // Add the block to the specific tab in creative mode.
-        this.setCreativeTab(MadMod.getCreativeTab());
+        this.setCreativeTab(MadModLoader.getCreativeTab());
     }
     
     public MadFluidFactoryProduct getRegisteredFluid()
@@ -178,7 +179,7 @@ public class MadFluidBucketTemplate extends ItemFluidContainer
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegistry)
     {
-        this.itemIcon = iconRegistry.registerIcon(MadMod.ID + ":" + this.getRegisteredFluid().getIconFluidContainerPath());
+        this.itemIcon = iconRegistry.registerIcon(MadModMetadata.ID + ":" + this.getRegisteredFluid().getIconFluidContainerPath());
     }
 
     private boolean tryPlaceContainedLiquid(World w, int x, int y, int z)

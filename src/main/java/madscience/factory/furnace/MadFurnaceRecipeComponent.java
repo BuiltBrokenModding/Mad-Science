@@ -1,6 +1,6 @@
 package madscience.factory.furnace;
 
-import madscience.factory.mod.MadMod;
+import madscience.MadModLoader;
 import net.minecraft.item.ItemStack;
 
 import com.google.gson.annotations.Expose;
@@ -67,7 +67,7 @@ public class MadFurnaceRecipeComponent
     {
         if (!this.hasLoaded)
         {
-            MadMod.log().warning("[MadFurnaceRecipeComponent]Cannot return associated itemstack for recipe since it was never loaded!");
+            MadModLoader.log().warning("[MadFurnaceRecipeComponent]Cannot return associated itemstack for recipe since it was never loaded!");
             return null;
         }
         
@@ -79,13 +79,13 @@ public class MadFurnaceRecipeComponent
         // Prevent double-loading!
         if (hasLoaded)
         {
-            MadMod.log().warning("[MadFurnaceRecipeComponent]Already loaded and verified this recipe with GameRegistry!");
+            MadModLoader.log().warning("[MadFurnaceRecipeComponent]Already loaded and verified this recipe with GameRegistry!");
             return;
         }
         
         if (this.associatedItemStack != null)
         {
-            MadMod.log().warning("[MadFurnaceRecipeComponent]Associated item stack is not null! How can this be?!");
+            MadModLoader.log().warning("[MadFurnaceRecipeComponent]Associated item stack is not null! How can this be?!");
             return;
         }
         

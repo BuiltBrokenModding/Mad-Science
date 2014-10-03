@@ -1,0 +1,7 @@
+CLIENT
+Program: --version 1.6 --tweakClass cpw.mods.fml.common.launcher.FMLTweaker -username ronwolf
+VM: -Xincgc -Xmx1024M -Xms1024M -Dfml.ignoreInvalidMinecraftCertificates=true -Dfml.coreMods.load=universalelectricity.core.UELoader,resonant.core.ResonantPluginLoader -Duedev=true
+
+SERVER
+Program: None
+VM: -Xincgc -Xmx1024M -Xms1024M -Dfml.coreMods.load=universalelectricity.core.UELoader,resonant.core.ResonantPluginLoader -Duedev=true

@@ -1,6 +1,6 @@
 package madscience.factory.tile;
 
-import madscience.factory.mod.MadMod;
+import madscience.MadModLoader;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;
@@ -175,8 +175,8 @@ class MadTileEntityModelSyncPrefab extends MadTileEntityDamagePrefab
         catch (Exception err)
         {
             // Print the exception to the log so users know something bad happened.
-            MadMod.log().warning(err.getMessage());
-            MadMod.log().info("[" + this.getMachineInternalName() + "]Unable to load world render information from NBT, using defaults!");
+            MadModLoader.log().warning(err.getMessage());
+            MadModLoader.log().info("[" + this.getMachineInternalName() + "]Unable to load world render information from NBT, using defaults!");
             
             // Use default world rendering data since saved stuff is corrupted.
             this.entityWorldRenderInformation = MadModel.defaultWorldRenderInfo();

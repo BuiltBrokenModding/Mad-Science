@@ -9,9 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import madscience.MadModLoader;
 import madscience.factory.data.MadItemFactoryProductData;
 import madscience.factory.item.MadMetaItemData;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadItemFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.item.Item;
@@ -51,7 +51,7 @@ public class MadItemFactory
         }
 
         // Debugging!
-        MadMod.log().info("[MadItemFactory]Registering item: " + itemProduct.getItemBaseName());
+        MadModLoader.log().info("[MadItemFactory]Registering item: " + itemProduct.getItemBaseName());
         
         // Actually register the item with the product listing.
         registeredItems.put(itemProduct.getItemBaseName(), itemProduct);

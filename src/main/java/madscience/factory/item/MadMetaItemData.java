@@ -3,9 +3,10 @@ package madscience.factory.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.furnace.MadFurnaceRecipe;
-import madscience.factory.mod.MadMod;
 import madscience.factory.sound.MadSound;
 import madscience.factory.sound.MadSoundPlaybackTypeEnum;
 import madscience.factory.sound.MadSoundTriggerEnum;
@@ -90,7 +91,7 @@ public class MadMetaItemData
         
         if (this.getSoundArchive() == null)
         {
-            MadMod.log().info("[" + this.getItemName() + "]Skipping sounds since none exist.");
+            MadModLoader.log().info("[" + this.getItemName() + "]Skipping sounds since none exist.");
             return null;
         }
 
@@ -105,14 +106,14 @@ public class MadMetaItemData
             }
 
             // Store pathing information to where this sound lives.
-            String machineSoundPath = MadMod.ID + ":" + this.getItemName() + "/";
+            String machineSoundPath = MadModMetadata.ID + ":" + this.getItemName() + "/";
             machineSound.setResourcePath(machineSoundPath);
             
             // For future reference we have been here.
             machineSound.setLoaded();
             
             // Reference to this sound globally which anything can address.
-            MadMod.addSoundToArchive(machineSound.getSoundNameWithoutExtension(), machineSound);
+            MadModLoader.addSoundToArchive(machineSound.getSoundNameWithoutExtension(), machineSound);
             
             // Check if this sound is random one and needs multiple files checked.
             if (machineSound.getSoundPlaybackMode().equals(MadSoundPlaybackTypeEnum.RANDOM) && machineSound.getSoundRandomVariance() > 0)
@@ -121,7 +122,7 @@ public class MadMetaItemData
                 // Note: Minecraft will automatically play a random sound if named File1,2,3.
                 for (int x = 1; x <= machineSound.getSoundRandomVariance(); x++)
                 {
-                    MadMod.log().info("[" + this.getItemName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
+                    MadModLoader.log().info("[" + this.getItemName() + "]Loading random sound " + machineSound.getSoundNameWithoutExtension() + String.valueOf(x) + " " + String.valueOf(x) + "/" + String.valueOf(machineSound.getSoundRandomVariance()));
                     String fullRandomSoundPath = machineSoundPath + machineSound.getSoundNameWithoutExtension() + x + "." + machineSound.getSoundExtension();  
                     
                     // Add to list which gets returned to Minecraft/Forge for actual loading.
@@ -131,7 +132,7 @@ public class MadMetaItemData
             else
             {
                 // Add just the individual sound file.
-                MadMod.log().info("[" + this.getItemName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
+                MadModLoader.log().info("[" + this.getItemName() + "]Loading sound " + machineSound.getSoundNameWithoutExtension());
                 String fullSingleSoundPath = machineSoundPath + machineSound.getSoundNameWithExtension(); 
                 soundFileList.add(fullSingleSoundPath);
             }
@@ -165,7 +166,7 @@ public class MadMetaItemData
             // Check if sound name matches the one from internal list.
             if (machineSound.getSoundNameWithoutExtension().equals(soundNameWithoutExtension))
             {
-                String soundName = MadMod.ID + ":" + this.getItemName() + "." + machineSound.getSoundNameWithoutExtension();
+                String soundName = MadModMetadata.ID + ":" + this.getItemName() + "." + machineSound.getSoundNameWithoutExtension();
                 player.playSound(soundName, 1.0F, 1.0F);
                 //MadMod.log().info("[" + this.getMachineName() + "]Playing Sound By Name: " + soundName);
                 break;
@@ -195,7 +196,7 @@ public class MadMetaItemData
             // Note: Multiple sounds with same trigger will play one after the other.
             if (machineSound.getSoundTrigger().equals(trigger))
             {
-                String soundName = MadMod.ID + ":" + this.getItemName() + "." + machineSound.getSoundNameWithoutExtension();
+                String soundName = MadModMetadata.ID + ":" + this.getItemName() + "." + machineSound.getSoundNameWithoutExtension();
                 player.playSound(soundName, 1.0F, 1.0F);
                 //MadMod.log().info("[" + this.getMachineName() + "]Playing Trigger Sound: " + soundName);
             }

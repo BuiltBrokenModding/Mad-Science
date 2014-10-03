@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import madscience.MadModLoader;
 import madscience.factory.crafting.MadCraftingComponent;
 import madscience.factory.crafting.MadCraftingRecipe;
 import madscience.factory.crafting.MadCraftingRecipeTypeEnum;
 import madscience.factory.furnace.MadFurnaceRecipe;
-import madscience.factory.mod.MadMod;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -130,7 +130,7 @@ public final class MadRecipe
                 // Debugging!
                 if (!searchResult)
                 {
-                    MadMod.log().info(resultInputPrint);
+                    MadModLoader.log().info(resultInputPrint);
                 }
             }
             
@@ -163,7 +163,7 @@ public final class MadRecipe
                         }
                         catch (Exception err)
                         {
-                            MadMod.log().info("[" + productName + "]Unable to load shaped crafting recipe!");
+                            MadModLoader.log().info("[" + productName + "]Unable to load shaped crafting recipe!");
                         }
                         
                         break;
@@ -178,7 +178,7 @@ public final class MadRecipe
                         }
                         catch (Exception err)
                         {
-                            MadMod.log().info("[" + productName + "]Unable to load shapeless crafting recipe!");
+                            MadModLoader.log().info("[" + productName + "]Unable to load shapeless crafting recipe!");
                         }
                         
                         break;
@@ -192,13 +192,13 @@ public final class MadRecipe
             }
             else
             {
-                MadMod.log().info("[" + productName + "]Bad Crafting Recipe: " + itemCraftingRecipe.getCraftingRecipeType().name());
+                MadModLoader.log().info("[" + productName + "]Bad Crafting Recipe: " + itemCraftingRecipe.getCraftingRecipeType().name());
             }
         }
         
         // Information about total loaded and failed.
-        MadMod.log().info("[" + productName + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
-        MadMod.log().info("[" + productName + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
+        MadModLoader.log().info("[" + productName + "]Total Loaded Crafting Recipe Items: " + totalLoadedRecipeItems);
+        MadModLoader.log().info("[" + productName + "]Failed To Load Crafting Recipe Items: " + totalFailedRecipeItems);
     }
     
     /** Parses input and output items and associates them with Minecraft/Forge ItemStacks.

@@ -1,6 +1,7 @@
 package madscience.network;
 
-import madscience.factory.mod.MadMod;
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.tile.MadTileTemplatePacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet;
@@ -75,7 +76,7 @@ public abstract class MadPackets
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeByte(getPacketId());
         write(out);
-        return PacketDispatcher.getPacket(MadMod.CHANNEL_NAME, out.toByteArray());
+        return PacketDispatcher.getPacket(MadModMetadata.CHANNEL_NAME, out.toByteArray());
     }
 
     public abstract void read(ByteArrayDataInput in) throws ProtocolException;

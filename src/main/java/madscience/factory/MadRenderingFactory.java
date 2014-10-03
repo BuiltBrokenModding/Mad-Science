@@ -3,7 +3,7 @@ package madscience.factory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.factory.mod.MadMod;
+import madscience.MadModLoader;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelData;
 import madscience.factory.model.MadModelPosition;
@@ -60,7 +60,7 @@ public class MadRenderingFactory
         {
             // Add the product and associated models from tile entity factory product.
             MadRenderingFactory.masterModelInformationReference.put(productName, renderInformation);
-            MadMod.log().info("[" + productName + "]Loading master reference for product with " + renderInformation.getModelPartCount() + " model parts.");
+            MadModLoader.log().info("[" + productName + "]Loading master reference for product with " + renderInformation.getModelPartCount() + " model parts.");
         }
         else
         {
@@ -139,7 +139,7 @@ public class MadRenderingFactory
             // Inform console if updated model visibility.
             if (modelsUpdated)
             {
-                MadMod.log().info("[" + productName + "]Updating instance number " + updatedListing.getRenderingID() + " with key " + renderKey + " total of " + totalModelsUpdated + " updates.");
+                MadModLoader.log().info("[" + productName + "]Updating instance number " + updatedListing.getRenderingID() + " with key " + renderKey + " total of " + totalModelsUpdated + " updates.");
             }
             
             // Check that inserted data matches updated one.
@@ -169,7 +169,7 @@ public class MadRenderingFactory
             }
             
             // Create a new rendering instance for this device.
-            MadMod.log().info("[" + productName + "]Creating new " + renderType + " render instance with key: " + renderKey);
+            MadModLoader.log().info("[" + productName + "]Creating new " + renderType + " render instance with key: " + renderKey);
             MadRenderingFactory.worldInstanceRenderingReference.put(renderKey, new MadRenderingFactoryProduct(masterMadModelReference));
         }
         else

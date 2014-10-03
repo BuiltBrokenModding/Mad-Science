@@ -1,8 +1,9 @@
 package madscience.factory.rendering;
 
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.model.MadModelPosition;
 import madscience.factory.model.MadModelScale;
@@ -219,7 +220,7 @@ public class MadRendererTemplate extends TileEntitySpecialRenderer implements IS
         // Grab texture and model information from entity.
         if (madTileEntity.getEntityTexture() != null)
         {
-            bindTexture(new ResourceLocation(MadMod.ID, madTileEntity.getEntityTexture()));
+            bindTexture(new ResourceLocation(MadModMetadata.ID, madTileEntity.getEntityTexture()));
         }
         else
         {

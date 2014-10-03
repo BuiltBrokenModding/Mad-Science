@@ -8,12 +8,12 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 import madscience.MadForgeMod;
+import madscience.MadModLoader;
 import madscience.MadSounds;
 import madscience.factory.MadFluidFactory;
 import madscience.factory.MadRenderingFactory;
 import madscience.factory.MadTileEntityFactory;
 import madscience.factory.fluid.MadFluidRenderingTemplate;
-import madscience.factory.mod.MadMod;
 import madscience.factory.mod.MadModData;
 import madscience.factory.model.MadTechneModelLoader;
 import madscience.factory.product.MadFluidFactoryProduct;
@@ -82,7 +82,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         World clientWorld = MadForgeMod.proxy.getClientWorld();
         if (clientWorld == null)
         {
-            MadMod.log().info("Mad Particle: Could not spawn particle because client world was null!");
+            MadModLoader.log().info("Mad Particle: Could not spawn particle because client world was null!");
             return;
         }
 
@@ -219,7 +219,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         .create();
 
         // Convert the data loaded for this mod into JSON string.
-        MadModData data = MadMod.getMadModData();
+        MadModData data = MadModLoader.getMadModData();
         String json = gson.toJson(data, MadModData.class);
         try
         {

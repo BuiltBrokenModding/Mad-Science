@@ -1,8 +1,8 @@
 package madscience.tile;
 
+import madscience.MadModLoader;
 import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.tile.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
@@ -126,7 +126,7 @@ public class SequencerEntity extends MadTileEntityPrefab
                 this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).setItemDamage(--currentGenomeStatus);
 
                 // Debug message about data reel health as it is healed by the server.
-                MadMod.log().info("WORLD(" + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getUnlocalizedName() + "): " + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItemDamage());
+                MadModLoader.log().info("WORLD(" + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getUnlocalizedName() + "): " + this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItemDamage());
             }
 
             // Check if the genome was healed completely in this last pass and if so complete it.

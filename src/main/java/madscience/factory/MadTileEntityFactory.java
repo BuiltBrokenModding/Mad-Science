@@ -10,10 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 import madscience.MadForgeMod;
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.block.MadGhostBlockData;
 import madscience.factory.data.MadTileEntityFactoryProductData;
 import madscience.factory.itemblock.MadItemBlockTooltip;
-import madscience.factory.mod.MadMod;
 import madscience.factory.model.MadModel;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -102,7 +103,7 @@ public class MadTileEntityFactory
         }
 
         // Debugging!
-        MadMod.log().info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
+        MadModLoader.log().info("[MadTileEntityFactory]Registering machine: " + tileEntityProduct.getMachineName());
         
         // Check if rendering information is null and needs to be set to defaults.
         this.checkRenderingInformation(tileEntityProduct);
@@ -115,7 +116,7 @@ public class MadTileEntityFactory
         
         // Register the machine with Minecraft/Forge.
         GameRegistry.registerTileEntity(tileEntityProduct.getTileEntityLogicClass(), tileEntityProduct.getMachineName());
-        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), MadItemBlockTooltip.class, MadMod.ID + tileEntityProduct.getMachineName());
+        GameRegistry.registerBlock(tileEntityProduct.getBlockContainer(), MadItemBlockTooltip.class, MadModMetadata.ID + tileEntityProduct.getMachineName());
         
         // Register client only information such as rendering and model information to the given machine.
         MadForgeMod.proxy.registerRenderingHandler(tileEntityProduct.getBlockID());
@@ -144,14 +145,14 @@ public class MadTileEntityFactory
             // Rendering information for tile as it would exist as an item block in players inventory.
             if (renderingInformation.getItemRenderInfoClone() == null)
             {
-                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default ITEM rendering information where there is none.");
+                MadModLoader.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default ITEM rendering information where there is none.");
                 renderingInformation.setItemRenderInfoDefaults();
             }
             
             // Rendering information for tile as it would exist in the game world as seen by the player and other players.
             if (renderingInformation.getWorldRenderInfoClone() == null)
             {
-                MadMod.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default WORLD rendering information where there is none.");
+                MadModLoader.log().info("[" + tileEntityProduct.getMachineName() + "]Creating default WORLD rendering information where there is none.");
                 renderingInformation.setWorldRenderInfoDefaults();
             }
         }

@@ -1,6 +1,7 @@
 package madscience.network;
 
-import madscience.factory.mod.MadMod;
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
@@ -59,10 +60,10 @@ public class CustomConnectionHandler implements IConnectionHandler
                     maxTries--;
                 }
 
-                if (mc.thePlayer != null && MadMod.VBUILD != "@BUILD@")
+                if (mc.thePlayer != null && MadModMetadata.VBUILD != "@BUILD@")
                 {
                     // Ensure both numbers are proper for comparing.
-                    long runningBuild = new Long(MadMod.VBUILD);
+                    long runningBuild = new Long(MadModMetadata.VBUILD);
 
                     // Tell the user how many builds behind they are.
                     if (jenkinsLastBuild > runningBuild)
@@ -71,11 +72,11 @@ public class CustomConnectionHandler implements IConnectionHandler
                         
                         if (buildDiff > 1)
                         {
-                            mc.thePlayer.addChatMessage(MadMod.NAME + ": You're " + String.valueOf(buildDiff) + " versions behind. Visit madsciencemod.com for updates.");
+                            mc.thePlayer.addChatMessage(MadModMetadata.NAME + ": You're " + String.valueOf(buildDiff) + " versions behind. Visit madsciencemod.com for updates.");
                         }
                         else
                         {
-                            mc.thePlayer.addChatMessage(MadMod.NAME + ": You're " + String.valueOf(buildDiff) + " version behind. Visit madsciencemod.com for updates.");
+                            mc.thePlayer.addChatMessage(MadModMetadata.NAME + ": You're " + String.valueOf(buildDiff) + " version behind. Visit madsciencemod.com for updates.");
                         }
                     }
                 }

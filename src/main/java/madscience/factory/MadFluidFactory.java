@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import madscience.MadForgeMod;
+import madscience.MadModLoader;
 import madscience.factory.data.MadFluidFactoryProductData;
 import madscience.factory.itemblock.MadItemBlockTooltip;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadFluidFactoryProduct;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -55,7 +55,7 @@ public class MadFluidFactory
         }
 
         // Debugging!
-        MadMod.log().info("[MadFluidFactory]Registering fluid: " + fluidProduct.getFluidName());
+        MadModLoader.log().info("[MadFluidFactory]Registering fluid: " + fluidProduct.getFluidName());
         
         // Actually register the fluid with the product listing.
         registeredFluids.put(fluidProduct.getFluidName(), fluidProduct);

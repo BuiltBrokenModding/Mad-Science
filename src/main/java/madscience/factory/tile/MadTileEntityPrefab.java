@@ -1,8 +1,8 @@
 package madscience.factory.tile;
 
 import madscience.MadForgeMod;
+import madscience.MadModLoader;
 import madscience.factory.MadTileEntityFactory;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSoundTriggerEnum;
 import madscience.util.MadUtils;
@@ -156,7 +156,7 @@ public abstract class MadTileEntityPrefab extends MadTileEntityModelSyncPrefab
                 this.xCoord,
                 this.yCoord,
                 this.zCoord,
-                MadMod.PACKET_SEND_RADIUS,
+                MadModLoader.PACKET_SEND_RADIUS,
                 worldObj.provider.dimensionId,
                 new MadTileTemplatePacket(this).makePacket());
     }

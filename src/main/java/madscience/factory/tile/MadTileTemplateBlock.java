@@ -3,7 +3,8 @@ package madscience.factory.tile;
 import java.util.List;
 import java.util.Random;
 
-import madscience.factory.mod.MadMod;
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.model.MadModelBounds;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.sound.MadSoundTriggerEnum;
@@ -49,7 +50,7 @@ public class MadTileTemplateBlock extends BlockContainer
         this.setUnlocalizedName(registeredMachine.getMachineName());
         
         // Set what tab we show up in creative tab.
-        this.setCreativeTab(MadMod.getCreativeTab());
+        this.setCreativeTab(MadModLoader.getCreativeTab());
 
         // Determines how many hits it takes to break the block.
         this.setHardness(registeredMachine.getBlockHardness());
@@ -354,7 +355,7 @@ public class MadTileTemplateBlock extends BlockContainer
     @Override
     public void registerIcons(IconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadMod.ID + ":" + registeredProduct.getMachineName());
+        this.blockIcon = icon.registerIcon(MadModMetadata.ID + ":" + registeredProduct.getMachineName());
     }
 
     @Override

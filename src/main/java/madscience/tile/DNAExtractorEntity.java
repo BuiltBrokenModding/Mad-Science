@@ -1,9 +1,9 @@
 package madscience.tile;
 
+import madscience.MadModLoader;
 import madscience.factory.MadFluidFactory;
 import madscience.factory.MadItemFactory;
 import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadFluidFactoryProduct;
 import madscience.factory.product.MadTileEntityFactoryProduct;
 import madscience.factory.tile.MadTileEntityPrefab;
@@ -114,7 +114,7 @@ public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused co
         // Check if the current item stack null and return zero if so.
         if (itemstack == null)
         {
-            MadMod.log().info("getItemBurnTime() was called with null ItemStack!");
+            MadModLoader.log().info("getItemBurnTime() was called with null ItemStack!");
             return 200;
         }
 

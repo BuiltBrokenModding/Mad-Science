@@ -1,6 +1,7 @@
 package madscience.factory.creativetab;
 
-import madscience.factory.mod.MadMod;
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
@@ -15,7 +16,7 @@ public class MadCreativeTab extends CreativeTabs
     public ItemStack getIconItemStack()
     {
         // Grab the icon for creative tab from main mod data.
-        ItemStack possibleIcon = MadMod.getCreativeTabIcon();
+        ItemStack possibleIcon = MadModLoader.getCreativeTabIcon();
         if (possibleIcon != null)
         {
             return possibleIcon;
@@ -29,6 +30,6 @@ public class MadCreativeTab extends CreativeTabs
     public String getTabLabel()
     {
         // Using modID as creative tab label.
-        return MadMod.ID;
+        return MadModMetadata.ID;
     }
 }

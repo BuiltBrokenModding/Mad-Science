@@ -4,8 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import madscience.MadModLoader;
+import madscience.MadModMetadata;
 import madscience.factory.MadItemFactory;
-import madscience.factory.mod.MadMod;
 import madscience.factory.product.MadItemFactoryProduct;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
@@ -53,7 +54,7 @@ abstract class MadItemBasePrefab extends Item
         this.setUnlocalizedName(itemData.getItemBaseName());
         
         // Defines which creative tab this item will belong to.
-        this.setCreativeTab(MadMod.getCreativeTab());
+        this.setCreativeTab(MadModLoader.getCreativeTab());
         
         // Determine if this item should have repair recipes disabled in Minecraft/Forge.
         if (itemData.isNoRepair())
@@ -323,7 +324,7 @@ abstract class MadItemBasePrefab extends Item
 //                    }
                     
                     // Items with multiple render passes have their icons registered in a mapping local to the item instance.
-                    clientRegisteredIcons.put(subItem.getItemName() + "_" + renderPassObject.getRenderPass(), iconRegistry.registerIcon(MadMod.ID + ":" + renderPassObject.getIconPath()));                        
+                    clientRegisteredIcons.put(subItem.getItemName() + "_" + renderPassObject.getRenderPass(), iconRegistry.registerIcon(MadModMetadata.ID + ":" + renderPassObject.getIconPath()));                        
                 }
             }
         }
