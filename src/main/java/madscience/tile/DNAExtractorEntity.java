@@ -1,12 +1,12 @@
 package madscience.tile;
 
-import madscience.factory.MadFluidFactory;
-import madscience.factory.MadItemFactory;
-import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadModLoader;
-import madscience.factory.product.MadFluidFactoryProduct;
-import madscience.factory.product.MadTileEntityFactoryProduct;
-import madscience.factory.tile.MadTileEntityPrefab;
+import madapi.MadFluidFactory;
+import madapi.MadItemFactory;
+import madapi.container.MadSlotContainerTypeEnum;
+import madapi.mod.MadModLoader;
+import madapi.product.MadFluidFactoryProduct;
+import madapi.product.MadTileEntityFactoryProduct;
+import madapi.tile.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -2,10 +2,10 @@ package madscience.item;
 
 import java.util.Collection;
 
-import madscience.factory.MadItemFactory;
-import madscience.factory.item.MadItemPrefab;
-import madscience.factory.item.MadMetaItemData;
-import madscience.factory.product.MadItemFactoryProduct;
+import madapi.MadItemFactory;
+import madapi.item.MadItemPrefab;
+import madapi.item.MadMetaItemData;
+import madapi.product.MadItemFactoryProduct;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;

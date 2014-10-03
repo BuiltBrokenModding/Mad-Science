@@ -1,10 +1,10 @@
 package madscience.tile;
 
-import madscience.factory.MadItemFactory;
-import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadModLoader;
-import madscience.factory.product.MadTileEntityFactoryProduct;
-import madscience.factory.tile.MadTileEntityPrefab;
+import madapi.MadItemFactory;
+import madapi.container.MadSlotContainerTypeEnum;
+import madapi.mod.MadModLoader;
+import madapi.product.MadTileEntityFactoryProduct;
+import madapi.tile.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

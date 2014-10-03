@@ -1,9 +1,9 @@
 package madscience.tile;
 
-import madscience.factory.MadItemFactory;
-import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.product.MadTileEntityFactoryProduct;
-import madscience.factory.tile.MadTileEntityPrefab;
+import madapi.MadItemFactory;
+import madapi.container.MadSlotContainerTypeEnum;
+import madapi.product.MadTileEntityFactoryProduct;
+import madapi.tile.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

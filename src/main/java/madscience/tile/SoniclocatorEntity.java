@@ -3,12 +3,12 @@ package madscience.tile;
 import java.util.ArrayList;
 import java.util.List;
 
-import madscience.factory.container.MadSlotContainerTypeEnum;
-import madscience.factory.mod.MadModLoader;
-import madscience.factory.product.MadTileEntityFactoryProduct;
-import madscience.factory.tile.MadTileEntityPrefab;
-import madscience.network.MadParticlePacket;
-import madscience.util.MadUtils;
+import madapi.container.MadSlotContainerTypeEnum;
+import madapi.mod.MadModLoader;
+import madapi.network.MadParticlePacket;
+import madapi.product.MadTileEntityFactoryProduct;
+import madapi.tile.MadTileEntityPrefab;
+import madapi.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
