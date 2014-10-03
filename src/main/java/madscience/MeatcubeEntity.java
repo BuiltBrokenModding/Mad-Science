@@ -1,4 +1,4 @@
-package madscience.logic;
+package madscience;
 
 import madapi.MadFluidFactory;
 import madapi.container.MadSlotContainerTypeEnum;

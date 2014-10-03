@@ -1,16 +1,16 @@
-package madscience.logic;
+package madscience;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import madapi.MadModMetadata;
 import madapi.container.MadSlotContainerTypeEnum;
 import madapi.mod.MadModLoader;
 import madapi.product.MadTileEntityFactoryProduct;
 import madapi.sound.MadSound;
 import madapi.tile.MadTileEntityPrefab;
 import madapi.util.MadUtils;
-import madscience.MadModMetadata;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;

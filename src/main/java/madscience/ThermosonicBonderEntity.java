@@ -1,32 +1,33 @@
-package madscience.logic;
+package madscience;
 
 import madapi.container.MadSlotContainerTypeEnum;
 import madapi.product.MadTileEntityFactoryProduct;
 import madapi.tile.MadTileEntityPrefab;
+import madapi.util.MadUtils;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInventory
+public class ThermosonicBonderEntity extends MadTileEntityPrefab
 {
-    public IncubatorEntity()
+    public ThermosonicBonderEntity()
     {
         super();
     }
-
-    public IncubatorEntity(MadTileEntityFactoryProduct registeredMachine)
+    
+    public ThermosonicBonderEntity(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public IncubatorEntity(String machineName)
+    public ThermosonicBonderEntity(String machineName)
     {
         super(machineName);
     }
 
+    /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
     @Override
     public boolean canSmelt()
     {
@@ -51,14 +52,15 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Check if input slots are empty.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null || this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null ||
+                this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
         {
             return false;
         }
 
-        // Check if input slot 1 is a fresh egg.
-        ItemStack itemsInputSlot1 = new ItemStack(Item.egg);
-        if (!itemsInputSlot1.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)))
+        // Check if input slot 1 is gold nuggets.
+        ItemStack goldNuggetCompareItem = new ItemStack(Item.goldNugget);
+        if (!goldNuggetCompareItem.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)))
         {
             return false;
         }
@@ -69,43 +71,46 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
             return false;
         }
 
-        // Check if the data reel inserted to input slot 2 has valid conversion.
+        // Check if the item inserted to input slot 2 has valid conversion.
         ItemStack recipeResult = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
                 MadSlotContainerTypeEnum.OUTPUT_RESULT1);
-        
         if (recipeResult == null)
         {
-            // Input slot 2 was not a damaged genome data reel.
+            // Input slot 2 was not a damaged.
             return false;
         }
+        
+        // Check if output slot 1 is above item stack limit.
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null)
+        {
+            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult.stackSize;
+            return (slot1Result <= getInventoryStackLimit() && slot1Result <= recipeResult.getMaxStackSize());
+        }
 
-        // Check if output slots are empty and ready to be filled with
-        // items.
+        // Check if output slots are empty and ready to be filled with items.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
             return true;
         }
 
-        // Check if genome being cooked is same as one in output slot.
+        // Check if item being cooked is same as one in output slot.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null && recipeResult != null)
         {
             // Check item difference by sub-type since item will always be equal (monster placer).
             if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult) &&
                     this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult.getItemDamage())
             {
-                // The egg we are producing matches what the genome cooking recipe says.
+                // The egg we are producing matches what the cooking recipe says.
                 return true;
             }
 
-            // There was a problem comparing genome to egg in output slot so we halt.
+            // There was a problem comparing item in output slot so we halt.
             return false;
         }
 
-        // Check if output slot 1 is above item stack limit.
-        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + itemsInputSlot1.stackSize;
-        return (slot2Result <= getInventoryStackLimit() && slot2Result <= itemsInputSlot1.getMaxStackSize());
+        return false;
     }
 
     @Override
@@ -119,18 +124,18 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
     {
         super.smeltItem();
         
-        // Output 1 - Encoded mob egg from genome and fresh egg.
+        // Output 1 - Transformed mainframe component.
         ItemStack recipeResult = this.getRecipeResult(
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
                 MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
                 MadSlotContainerTypeEnum.OUTPUT_RESULT1);
-
+        
         if (recipeResult == null)
         {
             return;
         }
 
-        // Add encoded mob egg to output slot 1.
+        // Add transformed mainframe component to output stack.
         if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
             this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
@@ -140,8 +145,19 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
             this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
         }
 
-        // Remove a fresh egg from input stack 1.
-        this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2), 1);
+        // Remove a gold nugget from input slot 1.
+        --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
+        {
+            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, null);
+        }
+
+        // Remove whatever was input slot 2.
+        --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize;
+        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize <= 0)
+        {
+            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2, null);
+        }
     }
 
     @Override
@@ -149,40 +165,48 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
     {
         super.updateAnimation();
         
-        // Main state is when all four requirements have been met to cook items.
+        if (!isRedstonePowered())
+        {
+            // Turned off.
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/idle.png");
+            return;
+        }
+
         if (canSmelt() && isPowered() && this.isHeatedPastTriggerValue() && isRedstonePowered())
         {
-            if (this.getAnimationCurrentFrame() <= 4 && worldObj.getWorldTime() % 5L == 0L)
+            // Working state.
+            if (this.getAnimationCurrentFrame() <= 5 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
-                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/work_" + this.getAnimationCurrentFrame() + ".png");
+                this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/run_" + this.getAnimationCurrentFrame() + ".png");
 
                 // Update animation frame.
                 this.incrementAnimationCurrentFrame();
             }
-            else if (this.getAnimationCurrentFrame() >= 5)
+            else if (this.getAnimationCurrentFrame() >= 6)
             {
                 // Check if we have exceeded the ceiling and need to reset.
                 this.setAnimationCurrentFrame(0);
             }
+            return;
         }
-        else if (!canSmelt() && isPowered() && !this.isHeatedPastTriggerValue() && !this.isRedstonePowered())
+
+        if (!canSmelt() && isPowered() && !this.isHeatedPastTriggerValue() && isRedstonePowered())
         {
             // Powered up but still very cold, not ready!
-            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/powered.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/power_" + this.getHeatLevelTimeScaled(6) + ".png");
+            return;
         }
-        else if (isPowered() && this.isHeatedPastTriggerValue() && !this.canSmelt() && this.isRedstonePowered())
+
+        if (isPowered() && this.isHeatedPastTriggerValue() && !canSmelt() && isRedstonePowered())
         {
             // Powered up, heater on. Just nothing inside of me!
-            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/ready.png");
-        }
-        else if (!isRedstonePowered())
-        {
-            // Turned off.
-            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/idle.png");
+            this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/laser_off.png");
+            return;
         }
     }
 
+    /** Allows the entity to update its state. */
     @Override
     public void updateEntity()
     {
@@ -202,7 +226,7 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Remove heat from this object all the time if it has any.
-        if (this.getHeatLevelValue() > 0)
+        if (this.isHeatAboveZero() && !this.isRedstonePowered())
         {
             // Does not remove heat constantly but instead every five ticks.
             if (worldObj.getWorldTime() % 5L == 0L)
@@ -210,17 +234,15 @@ public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInvent
                 this.decreaseHeatValue();
             }
         }
-
+        
         // Server side processing for furnace.
         if (!this.worldObj.isRemote)
         {
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.isPowered())
             {
-                // New item pulled from cooking stack to be processed, check how
-                // long this item will take to cook.
-                //this.setProgressMaximum(2600);
-                this.setProgressMaximum(42);
+                // New item pulled from cooking stack to be processed, check how long this item will take to cook.
+                this.setProgressMaximum(2600);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.incrementProgressValue();

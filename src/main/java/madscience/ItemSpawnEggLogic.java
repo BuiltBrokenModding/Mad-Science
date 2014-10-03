@@ -1,4 +1,4 @@
-package madscience.logic;
+package madscience;
 
 import java.util.Collection;
 
