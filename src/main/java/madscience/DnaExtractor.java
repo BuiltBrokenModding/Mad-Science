@@ -13,20 +13,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class DNAExtractorEntity extends MadTileEntityPrefab // NO_UCD (unused code)
+public class DnaExtractor extends MadTileEntityPrefab // NO_UCD (unused code)
 {
-    public DNAExtractorEntity()
+    public DnaExtractor()
     {
         // Required for loading tile entity from NBT (saved game state).
         super();
     }
 
-    public DNAExtractorEntity(String machineName) // NO_UCD (unused code)
+    public DnaExtractor(String machineName) // NO_UCD (unused code)
     {
         super(machineName);
     }
 
-    public DNAExtractorEntity(MadTileEntityFactoryProduct registeredMachine) // NO_UCD (unused code)
+    public DnaExtractor(MadTileEntityFactoryProduct registeredMachine) // NO_UCD (unused code)
     {
         // Primary instantiation constructor for registered machines.
         super(registeredMachine);

@@ -24,7 +24,7 @@ import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class SoniclocatorEntity extends MadTileEntityPrefab
+public class Soniclocator extends MadTileEntityPrefab
 {
     /** Server only variable that determines if we are in cooldown mode */
     private boolean cooldownMode = false;
@@ -35,17 +35,17 @@ public class SoniclocatorEntity extends MadTileEntityPrefab
     /** Stores total number of thumps this machine has made, used for determining empty status */
     long lastKnownNumberOfTotalThumps = 0;
 
-    public SoniclocatorEntity()
+    public Soniclocator()
     {
         super();
     }
 
-    public SoniclocatorEntity(MadTileEntityFactoryProduct registeredMachine)
+    public Soniclocator(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public SoniclocatorEntity(String machineName)
+    public Soniclocator(String machineName)
     {
         super(machineName);
     }

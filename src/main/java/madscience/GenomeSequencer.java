@@ -10,19 +10,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class SequencerEntity extends MadTileEntityPrefab
+public class GenomeSequencer extends MadTileEntityPrefab
 {
-    public SequencerEntity()
+    public GenomeSequencer()
     {
         super();
     }
 
-    public SequencerEntity(MadTileEntityFactoryProduct registeredMachine)
+    public GenomeSequencer(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public SequencerEntity(String machineName)
+    public GenomeSequencer(String machineName)
     {
         super(machineName);
     }

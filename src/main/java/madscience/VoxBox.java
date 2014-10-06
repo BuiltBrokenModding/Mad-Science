@@ -15,7 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class VoxBoxEntity extends MadTileEntityPrefab
+public class VoxBox extends MadTileEntityPrefab
 {    
     /** Provides a list of sounds, lengths and the order in which they should be played for update function. */
     private Queue<MadSound> fifoSpeech = new LinkedList<MadSound>();
@@ -35,17 +35,17 @@ public class VoxBoxEntity extends MadTileEntityPrefab
     /** Reference to total time we should be speaking a phrase, this prevents repeating phrases from single button push */
     private int currentPhraseTimeInTicks;
 
-    public VoxBoxEntity()
+    public VoxBox()
     {
         super();
     }
 
-    public VoxBoxEntity(MadTileEntityFactoryProduct registeredMachine)
+    public VoxBox(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public VoxBoxEntity(String machineName)
+    public VoxBox(String machineName)
     {
         super(machineName);
     }

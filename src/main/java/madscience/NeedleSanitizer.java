@@ -9,19 +9,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class SanitizerEntity extends MadTileEntityPrefab
+public class NeedleSanitizer extends MadTileEntityPrefab
 {
-    public SanitizerEntity()
+    public NeedleSanitizer()
     {
         super();
     }
     
-    public SanitizerEntity(MadTileEntityFactoryProduct registeredMachine)
+    public NeedleSanitizer(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public SanitizerEntity(String machineName)
+    public NeedleSanitizer(String machineName)
     {
         super(machineName);
     }

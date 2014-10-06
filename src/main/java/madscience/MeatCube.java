@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public class MeatcubeEntity extends MadTileEntityPrefab
+public class MeatCube extends MadTileEntityPrefab
 {
     /** Last amount of ticks waited before playing an animation. */
     private long lastAnimTriggerTime = 42L;
@@ -24,12 +24,12 @@ public class MeatcubeEntity extends MadTileEntityPrefab
     /** Last known number of frames played. */
     private int lastAnimFrameCount = 9;
     
-    public MeatcubeEntity()
+    public MeatCube()
     {
         super();
     }
 
-    public MeatcubeEntity(MadTileEntityFactoryProduct registeredMachine)
+    public MeatCube(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
         
@@ -40,7 +40,7 @@ public class MeatcubeEntity extends MadTileEntityPrefab
         }
     }
 
-    public MeatcubeEntity(String machineName)
+    public MeatCube(String machineName)
     {
         super(machineName);
     }

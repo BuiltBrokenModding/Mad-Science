@@ -7,19 +7,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class DataDuplicatorEntity extends MadTileEntityPrefab
+public class DataDuplicator extends MadTileEntityPrefab
 {
-    public DataDuplicatorEntity()
+    public DataDuplicator()
     {
         super();
     }
     
-    public DataDuplicatorEntity(MadTileEntityFactoryProduct registeredMachine)
+    public DataDuplicator(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public DataDuplicatorEntity(String machineName)
+    public DataDuplicator(String machineName)
     {
         super(machineName);
     }

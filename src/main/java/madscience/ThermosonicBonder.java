@@ -10,19 +10,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ThermosonicBonderEntity extends MadTileEntityPrefab
+public class ThermosonicBonder extends MadTileEntityPrefab
 {
-    public ThermosonicBonderEntity()
+    public ThermosonicBonder()
     {
         super();
     }
     
-    public ThermosonicBonderEntity(MadTileEntityFactoryProduct registeredMachine)
+    public ThermosonicBonder(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public ThermosonicBonderEntity(String machineName)
+    public ThermosonicBonder(String machineName)
     {
         super(machineName);
     }

@@ -17,24 +17,24 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class ClayfurnaceEntity extends MadTileEntityPrefab
+public class ClayFurnace extends MadTileEntityPrefab
 {
     boolean hasBeenLit = false;
     boolean hasStoppedSmoldering = false;
     boolean hasCompletedBurnCycle = false;
     boolean hasCooledDown = false;
 
-    public ClayfurnaceEntity()
+    public ClayFurnace()
     {
         super();
     }
 
-    public ClayfurnaceEntity(MadTileEntityFactoryProduct registeredMachine)
+    public ClayFurnace(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public ClayfurnaceEntity(String machineName)
+    public ClayFurnace(String machineName)
     {
         super(machineName);
     }

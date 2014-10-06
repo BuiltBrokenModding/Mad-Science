@@ -10,19 +10,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class IncubatorEntity extends MadTileEntityPrefab implements ISidedInventory
+public class GenomeIncubator extends MadTileEntityPrefab implements ISidedInventory
 {
-    public IncubatorEntity()
+    public GenomeIncubator()
     {
         super();
     }
 
-    public IncubatorEntity(MadTileEntityFactoryProduct registeredMachine)
+    public GenomeIncubator(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public IncubatorEntity(String machineName)
+    public GenomeIncubator(String machineName)
     {
         super(machineName);
     }

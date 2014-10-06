@@ -12,19 +12,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public class MainframeEntity extends MadTileEntityPrefab
+public class ComputerMainframe extends MadTileEntityPrefab
 {
-    public MainframeEntity(MadTileEntityFactoryProduct registeredMachine)
+    public ComputerMainframe(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public MainframeEntity(String machineName)
+    public ComputerMainframe(String machineName)
     {
         super(machineName);
     }
 
-    public MainframeEntity()
+    public ComputerMainframe()
     {
         super();
     }

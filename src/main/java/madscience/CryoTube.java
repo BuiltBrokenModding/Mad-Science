@@ -12,22 +12,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class CryotubeEntity extends MadTileEntityPrefab
+public class CryoTube extends MadTileEntityPrefab
 {
     /** Keeps track of what state we are supposed to be in. */
     private boolean subjectIsAlive = false;
     
-    public CryotubeEntity()
+    public CryoTube()
     {
         super();
     }
 
-    public CryotubeEntity(MadTileEntityFactoryProduct registeredMachine)
+    public CryoTube(MadTileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
 
-    public CryotubeEntity(String machineName)
+    public CryoTube(String machineName)
     {
         super(machineName);
     }
