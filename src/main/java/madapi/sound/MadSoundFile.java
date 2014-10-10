@@ -27,13 +27,13 @@ class MadSoundFile
     @SerializedName("RandomVariance")
     private int randomVariance = 1;
     
-    @Expose(serialize = false, deserialize = true)
+/*    @Expose(serialize = false, deserialize = true)
     @SerializedName("SoundExtension")
     private String soundExtension = null;
     
     @Expose(serialize = false, deserialize = true)
     @SerializedName("SoundNameWithoutExtension")
-    private String soundNameWithoutExtension = null;
+    private String soundNameWithoutExtension = null;*/
     
     MadSoundFile(
             String fileName,
@@ -45,8 +45,8 @@ class MadSoundFile
         super();
         
         this.soundNameWithExtension = fileName;
-        this.soundNameWithoutExtension = FilenameUtils.removeExtension(fileName);
-        this.soundExtension = FilenameUtils.getExtension(fileName);
+//        this.soundNameWithoutExtension = FilenameUtils.removeExtension(fileName);
+//        this.soundExtension = FilenameUtils.getExtension(fileName);
         this.soundLengthInSeconds = length;
         this.soundPlaybackMode = playbackMode;
         this.soundTrigger = trigger;
@@ -55,7 +55,7 @@ class MadSoundFile
 
     public String getSoundNameWithoutExtension()
     {
-        return soundNameWithoutExtension;
+        return FilenameUtils.removeExtension(soundNameWithExtension);
     }
 
     public String getSoundNameWithExtension()
@@ -85,6 +85,6 @@ class MadSoundFile
 
     public String getSoundExtension()
     {
-        return soundExtension;
+        return FilenameUtils.getExtension(soundNameWithExtension);
     }
 }
