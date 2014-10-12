@@ -1,7 +1,7 @@
 package madscience;
 
-import madapi.MadItemFactory;
 import madapi.container.MadSlotContainerTypeEnum;
+import madapi.factory.MadItemFactory;
 import madapi.product.MadTileEntityFactoryProduct;
 import madapi.tile.MadTileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;

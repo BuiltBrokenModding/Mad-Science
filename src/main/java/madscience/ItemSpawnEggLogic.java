@@ -2,7 +2,7 @@ package madscience;
 
 import java.util.Collection;
 
-import madapi.MadItemFactory;
+import madapi.factory.MadItemFactory;
 import madapi.item.MadItemPrefab;
 import madapi.item.MadMetaItemData;
 import madapi.product.MadItemFactoryProduct;

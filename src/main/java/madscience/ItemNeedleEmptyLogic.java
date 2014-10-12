@@ -1,6 +1,6 @@
 package madscience;
 
-import madapi.MadItemFactory;
+import madapi.factory.MadItemFactory;
 import madapi.item.MadItemPrefab;
 import madapi.product.MadItemFactoryProduct;
 import net.minecraft.entity.Entity;

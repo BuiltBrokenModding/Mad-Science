@@ -1,7 +1,7 @@
 package madscience;
 
-import madapi.MadForgeMod;
 import madapi.container.MadSlotContainerTypeEnum;
+import madapi.mod.MadForgeMod;
 import madapi.mod.MadModLoader;
 import madapi.model.MadModelPosition;
 import madapi.model.MadModelScale;

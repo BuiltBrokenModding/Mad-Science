@@ -1,8 +1,8 @@
 package madscience;
 
-import madapi.MadFluidFactory;
-import madapi.MadItemFactory;
 import madapi.container.MadSlotContainerTypeEnum;
+import madapi.factory.MadFluidFactory;
+import madapi.factory.MadItemFactory;
 import madapi.mod.MadModLoader;
 import madapi.product.MadFluidFactoryProduct;
 import madapi.product.MadTileEntityFactoryProduct;
