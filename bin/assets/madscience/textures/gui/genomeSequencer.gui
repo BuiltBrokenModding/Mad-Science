@@ -1,0 +1,126 @@
+{
+  "ControlData": [
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "BackgroundPositionX": 18,
+      "BackgroundPositionY": 29,
+      "ControlDisplayName": "Input Slot",
+      "ControlInternalName": "inputSlot",
+      "ControlType": "CONTAINER_SLOT",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "TemplateContainer": {
+        "AllowExtract": false,
+        "AllowInput": true,
+        "ExtractSide": "UNKNOWN",
+        "InsertSide": "NORTH",
+        "OffsetX": 18,
+        "OffsetY": 29,
+        "SizeX": 18,
+        "SizeY": 18,
+        "SlotNumber": 0,
+        "SlotType": "INPUT_INGREDIENT1"
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "BackgroundPositionX": 48,
+      "BackgroundPositionY": 29,
+      "ControlDisplayName": "Input Slot",
+      "ControlInternalName": "inputSlot",
+      "ControlType": "CONTAINER_SLOT",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "TemplateContainer": {
+        "AllowExtract": false,
+        "AllowInput": true,
+        "ExtractSide": "UNKNOWN",
+        "InsertSide": "SOUTH",
+        "OffsetX": 48,
+        "OffsetY": 29,
+        "SizeX": 18,
+        "SizeY": 18,
+        "SlotNumber": 1,
+        "SlotType": "INPUT_INGREDIENT2"
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQ0KEhdAwF0AAABtSURBVDhPrdCBCYAwDERRt8p0dYHslbVSTghEe4lFFD5Y6qOxh5n5l0ooIlfnGHS/harqeNg+hW8I/Qd3ECohLgXviF3QDQaKEwGq0ymMD5/r3DJqHguQIbTAqDsNUZj/dXvUqLsYVEJUITPzCT5/ajSfy0GPAAAAAElFTkSuQmCC",
+      "BackgroundPositionX": 50,
+      "BackgroundPositionY": 50,
+      "ControlDisplayName": "Energy Bolt",
+      "ControlInternalName": "energyBolt",
+      "ControlType": "CONTROL",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQ0LBY2IdNsAAADmSURBVDhPYzh27Nh/cjBOjQ+kBf/fUpP9f0FJEqs8To3n5cX+v5Pg/X+RFI0XgJpuygr/fy3JhyEHw1g13gJq+i/C8f+QsQ6GHAxjaDwHtO0fUNNnoDPR5ZAxhsarcqJg20D4qpzI/xtAP14CGoauDkUjyLZP4jxgTaCAAYXsL1FOsJ+R1YEwisajdubgAAFpBPFPWJuADQAZiKwOhDGcetLbFcI+evT/bWUprLaBMIZGOLa3+P9NjJs0jef11P4/lhIAO/kN0OmX5IhwKgxfhAbUS0l+rPK4nQrEt2VFsIofO3bsPwCDGE1ORK4ErwAAAABJRU5ErkJggg==",
+      "TemplateControl": {
+        "ControlType": "PowerLevelY",
+        "FillerX": 3,
+        "FillerY": 167,
+        "ScreenX": 50,
+        "ScreenY": 50,
+        "SizeX": 14,
+        "SizeY": 14
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAACsAAAARCAYAAABEvFULAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQ0ZHwge/XIAAACNSURBVEhL7Y7RCQAhDEPdyiHdy7U8IgRCpRXhFAQL7ydN06Raa7uFV3YXd5bNOQ+UUoaDiN0ZvSwFC0aDIk5kLJWFj2Bvd/Ye/JmR1KCH1gjU6+nUwMzr6dSAel9ZMvN6OjWg3rvKWqOC0UPvkd0pkS/aKfQtlaXG0d2JjF6Wgh0NmnEio5e9hVd2D7V9pg3h7GZhoVcAAAAASUVORK5CYII=",
+      "BackgroundPositionX": 71,
+      "BackgroundPositionY": 30,
+      "ControlDisplayName": "Dots",
+      "ControlInternalName": "dots",
+      "ControlType": "CONTROL",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAACsAAAARCAYAAABEvFULAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQ0ZKymqCccAAACUSURBVEhL7ZPRCcAgDESdpws4pLN0jazVckLgiBjxw0DAwPu5XM6j0CIiXxZu2VPkLFtrHWitDQcepzN6WQjlfQYwHOQRkbFVFj7FfrGIjMIGPrRGwN6ZrhpYeWe6aoC9t6yy8s501QB7c5W1RgbDh7OH7I7xfN6OUd9WWfy9PLyLyOhlbYAOB62IyOhls3DLnkG+H4vufOxTcZFvAAAAAElFTkSuQmCC",
+      "TemplateControl": {
+        "ControlType": "CookingProgressX",
+        "FillerX": 17,
+        "FillerY": 167,
+        "ScreenX": 71,
+        "ScreenY": 30,
+        "SizeX": 43,
+        "SizeY": 17
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsXGXtzCXsAAAA8SURBVEhL7c3BCQAwDMPAbpUhM7RLC11AkE+R4cA/rarKtO7ODZ0z6cwQYggzhBnCDGGGMEPYp6F3ZpdsNqYBSoG57DgAAAAASUVORK5CYII=",
+      "BackgroundPositionX": 121,
+      "BackgroundPositionY": 25,
+      "ControlDisplayName": "Output Slot",
+      "ControlInternalName": "outputSlot",
+      "ControlType": "CONTAINER_SLOT",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsXGXtzCXsAAAA8SURBVEhL7c3BCQAwDMPAbpUhM7RLC11AkE+R4cA/rarKtO7ODZ0z6cwQYggzhBnCDGGGMEPYp6F3ZpdsNqYBSoG57DgAAAAASUVORK5CYII=",
+      "TemplateContainer": {
+        "AllowExtract": true,
+        "AllowInput": false,
+        "ExtractSide": "WEST",
+        "InsertSide": "UNKNOWN",
+        "OffsetX": 121,
+        "OffsetY": 25,
+        "SizeX": 26,
+        "SizeY": 26,
+        "SlotNumber": 2,
+        "SlotType": "OUTPUT_RESULT1"
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAAAYAAAAFCAYAAABmWJ3mAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94CHAkqDO3j1zQAAAAaSURBVBhXYwCC/1jxsWPHwAwQjcymmsSx/wBy+UMDWH6pKQAAAABJRU5ErkJggg==",
+      "BackgroundPositionX": 165,
+      "BackgroundPositionY": 5,
+      "ControlDisplayName": "Sandra Bullock",
+      "ControlInternalName": "",
+      "ControlType": "BUTTON",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAAAYAAAAFCAYAAABmWJ3mAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94CHAkqDO3j1zQAAAAaSURBVBhXYwCC/1jxsWPHwAwQjcymmsSx/wBy+UMDWH6pKQAAAABJRU5ErkJggg==",
+      "TemplateButton": {
+        "ButtonID": 0,
+        "ButtonType": "InvisibleButton",
+        "ClickAction": "OpenLink",
+        "FillerX": 0,
+        "FillerY": 0,
+        "ScreenX": 165,
+        "ScreenY": 5,
+        "SizeX": 6,
+        "SizeY": 5,
+        "TooltipToken": "button.help",
+        "UserData": "http://madsciencemod.com/minecraft-item/genetic-sequencer/"
+      }
+    }
+  ],
+  "MainBackground": "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"
+}

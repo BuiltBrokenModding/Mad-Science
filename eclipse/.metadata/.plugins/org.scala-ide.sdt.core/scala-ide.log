@@ -1,0 +1,4 @@
+2014-12-22 23:59:27,416 ERROR [Worker-5] - System.err - Dec 22, 2014 11:59:27 PM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+2014-12-23 00:04:36,362 ERROR [Worker-3] - System.err - Dec 23, 2014 12:04:36 AM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.

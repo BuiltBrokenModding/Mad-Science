@@ -1,9 +1,6 @@
 @ECHO OFF
-title Press any key to compile mod from sources...
-echo  ================================
-echo  CONFIGURES ECLIPSE PROJECT FILES
-echo  ================================
-pause
-title Building Mod From Sources...
+title Configure New MineAPI Project
+echo ================================
+echo CONFIGURES ECLIPSE PROJECT FILES
+echo ================================
 gradlew cleanCache --refresh-dependencies setupDecompWorkspace setupDevWorkspace eclipse build
-pause

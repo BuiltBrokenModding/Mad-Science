@@ -1,14 +1,14 @@
 package madscience;
 
-import madapi.container.MadSlotContainerTypeEnum;
-import madapi.mod.MadForgeMod;
-import madapi.mod.MadModLoader;
-import madapi.model.MadModelPosition;
-import madapi.model.MadModelScale;
-import madapi.network.MadParticlePacket;
-import madapi.product.MadTileEntityFactoryProduct;
-import madapi.tile.MadTileEntityPrefab;
-import madapi.util.MadUtils;
+import madscience.mod.MadForgeMod;
+import madscience.container.MadSlotContainerTypeEnum;
+import madscience.mod.MadModLoader;
+import madscience.model.MadModelPosition;
+import madscience.model.MadModelScale;
+import madscience.network.MadParticlePacket;
+import madscience.product.MadTileEntityFactoryProduct;
+import madscience.tile.MadTileEntityPrefab;
+import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -300,7 +300,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             // IDLE OR WORKING
             this.setModelWorldRenderVisibilityByName("MoltenBlock", false);
             this.setModelWorldRenderVisibilityByName("MoltenBlockShell", false);
-            this.setModelWorldRenderVisibilityByName("clayFurnace", true);
+            this.setModelWorldRenderVisibilityByName("ClayFurnace", true);
             
             // Shrink the world render.
             this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.34F, 0.5F), new MadModelScale(0.6F, 0.68F, 0.6F));
@@ -310,7 +310,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             // RED HOT BLOCK
             this.setModelWorldRenderVisibilityByName("MoltenBlock", true);
             this.setModelWorldRenderVisibilityByName("MoltenBlockShell", false);
-            this.setModelWorldRenderVisibilityByName("clayFurnace", false);
+            this.setModelWorldRenderVisibilityByName("ClayFurnace", false);
             
             // Grow the world render.
             this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.5F, 0.5F), new MadModelScale(1.0F, 1.0F, 1.0F));
@@ -320,7 +320,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             // COOLDOWN MODE AFTER RED HOT STATUS ENDS
             this.setModelWorldRenderVisibilityByName("MoltenBlock", false);
             this.setModelWorldRenderVisibilityByName("MoltenBlockShell", true);
-            this.setModelWorldRenderVisibilityByName("clayFurnace", false);
+            this.setModelWorldRenderVisibilityByName("ClayFurnace", false);
             
             // Grow the world render.
             this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.5F, 0.5F), new MadModelScale(1.0F, 1.0F, 1.0F));

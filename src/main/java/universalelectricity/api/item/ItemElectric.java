@@ -138,7 +138,7 @@ public abstract class ItemElectric extends Item implements IEnergyItem, IVoltage
             }
             else if (obj instanceof NBTTagLong)
             {
-                energyStored = (long) ((NBTTagLong) obj).data;
+                energyStored = ((NBTTagLong) obj).data;
             }
         }
 

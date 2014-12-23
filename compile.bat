@@ -1,10 +1,9 @@
 @ECHO OFF
-echo  =====================================
-echo  COMPILES MADSCIENCE USING FORGEGRADLE
-echo  =====================================
-pause
+title Compile MineAPI Project
+echo ==============================
+echo COMPILING MINEAPI USING GRADLE
+echo ==============================
 echo Removing output directory...
 rmdir /Q /S output
 echo Starting Buildscript...
 gradlew build
-pause

@@ -29,36 +29,11 @@ buildProps.withReader {
     ext.config = new ConfigSlurper().parse prop
 }
 
-version = "MC${config.version.minecraft}-F${config.version.forge}_v${config.version.mod.major}.${config.version.mod.minor}${config.version.mod.revis}"
-group = "madscience"
-archivesBaseName = "MadScience"
+group = "mineapi"
+archivesBaseName = "mineapi"
 
 minecraft {
     version = "${config.version.minecraft}-${config.version.forge}"
-	
-	replaceIn "MadScience.java"
-	replace "@MAJOR@", config.version.mod.major
-	replace "@MINOR@", config.version.mod.minor
-	replace "@REVIS@", config.version.mod.revis
-	
-	if (System.getenv("BUILD_NUMBER") != null) {
-		replace "@BUILD@", System.getenv("BUILD_NUMBER")
-	}
-	else
-	{
-		replace "@BUILD@", "[NIGHTLY]"
-	}
-	
-	if (project.hasProperty("mad_signature")) {
-        replace "@FINGERPRINT@", project.mad_signature
-	}
-}
-
-if (System.getenv("BUILD_NUMBER") != null) {
-    version += ".${System.getenv("BUILD_NUMBER")}";
-}
-else {
-	version = "MC${config.version.minecraft}-F${config.version.forge}_[NIGHTLY]"
 }
 
 processResources {
@@ -70,31 +45,13 @@ task copyBuildXml(type: Copy) {
     into 'output'
 }
 
-task apiZip(type: Zip) {
-    classifier = 'api'
-    from sourceSets*.allSource
-    include 'madscience/api/**'
-    destinationDir = file 'output'
-}
-
-artifacts {
-    archives apiZip
-}
-
 jar {
     dependsOn copyBuildXml
     classifier = 'universal'
     destinationDir = file 'output'
-    manifest {
-        attributes "Implementation-Version": version
-    }
 }
 
 repositories {
-    maven {
-		name 'Calclavia Maven'
-		url 'http://calclavia.com/maven'
-	}
     maven {
         name 'ForgeFS'
         url 'http://files.minecraftforge.net/maven'
@@ -102,41 +59,72 @@ repositories {
 }
 
 dependencies {
-	compile group: 'universalelectricity', name: 'Universal-Electricity', version: "${config.version.universalelectricity}", classifier: "dev"
+	compile fileTree(dir: 'lib', includes: ['*.jar']) 
 }
 
-import net.minecraftforge.gradle.tasks.dev.ChangelogTask
-import net.minecraftforge.gradle.common.Constants
-import net.minecraftforge.gradle.delayed.*
- 
-task createChangelog(type: ChangelogTask) {
-    def jobName = "${System.getenv().JOB_NAME}";
-    def buildNumber = "1";
-	
-	if (jobName?.trim())
-	{
-		jobName = "Mad Science";
-	}
-	
-	if (System.getenv("BUILD_NUMBER") != null) {
-		buildNumber = "${System.getenv("BUILD_NUMBER")}";
-		setServerRoot(new DelayedString(project, 'http://madsciencemod.com:8080/'));
-		setJobName(new DelayedString(project, jobName.replaceAll("\\s+","%20").toString()));
-		setAuthName(new DelayedString(project, 'MadScienceMod'));
-		setAuthPassword(new DelayedString(project, 'Xp8k8BkF9UjVsR75A58c82RK'));
-		setTargetBuild({buildNumber.toString()});
-		setOutput(new DelayedFile(project, 'output/' + 'changelog' + '.txt'));
-	}
-}
-
-if (System.getenv("BUILD_NUMBER") != null) {
-	build.dependsOn "apiZip", "copyBuildXml", "createChangelog"
-}
-else
-{
-	build.dependsOn "apiZip", "copyBuildXml"
-}
+build.dependsOn "copyBuildXml"
 
 wrapper {
     version = "1.8"
+}
+
+task("buildapi", type: Zip) {
+    description = 'Builds MineAPI Re-distributable Zip'
+	destinationDir = file 'output'
+	
+	// Copy over default eclipse project data.
+	logger.lifecycle "Copying default Eclipse project information..."
+	into('eclipse'){ from fileTree('eclipse/default/'){exclude 'readme.txt'} }
+
+    // Grab all the files that make up a client installation.
+	logger.lifecycle "Packing API files and Gradle build script..."
+    from('.')
+	{
+        include 'src/**'
+		include 'gradle/**'
+		include 'lib/**'
+		include 'eclipse/default/**'
+		include 'eclipse/dump/**'
+		include 'eclipse/mods-extra/**'
+		include '.gitignore'
+		include 'build.gradle'
+		include 'build.properties'
+		include 'gradlew'
+		include 'gradlew.bat'
+		include 'build_arguments.txt'
+		include 'clean.bat'
+		include 'compile.bat'
+		include 'install.bat'
+		include 'compile_api.bat'
+		exclude 'src/main/resources/*.json'
+    }
+	
+	// Do not get empty directories from which no files are included.
+    includeEmptyDirs = false
+
+    // info output.
+    eachFile { file -> logger.lifecycle "packing $file" }
+
+	// Set build number to default if environment variable does not exist.
+	if (System.getenv("BUILD_NUMBER") != null) {
+		// Replace the MineAPI version number in the build properties.
+		logger.lifecycle "Opening existing build properties file..."
+		String jenkinsBuild = new File('build.properties').getText( 'UTF-8')
+		jenkinsBuild = jenkinsBuild.replaceAll( "version.mineapi=" + "${config.version.mineapi}", "version.mineapi=1." + "${System.getenv("BUILD_NUMBER")}" )
+		
+		// Create the new file that will take its place.
+		logger.lifecycle "Saving updated build properties file with Jenkins build number..."
+		new File('build.properties').write(jenkinsBuild, 'UTF-8')
+	
+		// Create file name based on build number from Jenkins.
+		logger.lifecycle "Using version from environment variable..."
+		baseName = "/MineAPI-M${config.version.minecraft}-F${config.version.forge}-V1.${System.getenv("BUILD_NUMBER")}"
+	}
+	else {
+		logger.lifecycle "Using version from build properties..."
+		baseName = "/MineAPI-M${config.version.minecraft}-F${config.version.forge}-V${config.version.mineapi}"
+	}
+
+    // Logging is always important.
+	doLast { logger.lifecycle "MineAPI Re-distributable Created: $archivePath" }
 }
