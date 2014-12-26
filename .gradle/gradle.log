@@ -36,7 +36,7 @@ Injecting source info...
 :getAssetsIndex
 :getAssets
 Current status: 6/1120   0%
-Current status: 1033/1120   92%
+Current status: 1015/1120   90%
 :copyAssets
 :applyBinPatches
 :deobfBinJar
@@ -74,4 +74,4 @@ Note: Recompile with -Xlint:unchecked for details.
 
 BUILD SUCCESSFUL
 
-Total time: 2 mins 40.068 secs
+Total time: 2 mins 38.048 secs

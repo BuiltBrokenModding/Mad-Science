@@ -85,7 +85,7 @@ task("buildapi", type: Zip) {
 		include 'lib/**'
 		include 'eclipse/default/**'
 		include 'eclipse/dump/**'
-		include 'eclipse/mods-extra/**'
+		include 'eclipse/mods/**'
 		include '.gitignore'
 		include 'build.gradle'
 		include 'build.properties'
