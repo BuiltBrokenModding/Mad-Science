@@ -1,0 +1,87 @@
+{
+  "ControlData": [
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAAAYAAAAFCAYAAABmWJ3mAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94CHAkqDO3j1zQAAAAaSURBVBhXYwCC/1jxsWPHwAwQjcymmsSx/wBy+UMDWH6pKQAAAABJRU5ErkJggg==",
+      "BackgroundPositionX": 163,
+      "BackgroundPositionY": 5,
+      "ControlDisplayName": "Sandra Bullock",
+      "ControlInternalName": "",
+      "ControlType": "BUTTON",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAAAYAAAAFCAYAAABmWJ3mAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94CHAkqDO3j1zQAAAAaSURBVBhXYwCC/1jxsWPHwAwQjcymmsSx/wBy+UMDWH6pKQAAAABJRU5ErkJggg==",
+      "TemplateButton": {
+        "ButtonID": 0,
+        "ButtonType": "InvisibleButton",
+        "ClickAction": "OpenLink",
+        "FillerX": 0,
+        "FillerY": 0,
+        "ScreenX": 163,
+        "ScreenY": 5,
+        "SizeX": 6,
+        "SizeY": 5,
+        "TooltipToken": "button.help",
+        "UserData": "http://madsciencemod.com/minecraft-item/clay-furnace/"
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "BackgroundPositionX": 61,
+      "BackgroundPositionY": 52,
+      "ControlDisplayName": "Input Slot",
+      "ControlInternalName": "inputSlot",
+      "ControlType": "CONTAINER_SLOT",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "TemplateContainer": {
+        "AllowExtract": false,
+        "AllowInput": true,
+        "ExtractSide": "UNKNOWN",
+        "InsertSide": "NORTH",
+        "OffsetX": 61,
+        "OffsetY": 52,
+        "SizeX": 18,
+        "SizeY": 18,
+        "SlotNumber": 0,
+        "SlotType": "INPUT_INGREDIENT1"
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "BackgroundPositionX": 104,
+      "BackgroundPositionY": 52,
+      "ControlDisplayName": "Input Slot",
+      "ControlInternalName": "inputSlot",
+      "ControlType": "CONTAINER_SLOT",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MBQsYGmXiRA4AAAAvSURBVDhPYzA3N/9PKe7u7v4PNgjEoASDwKhB+PGoQYTxqEGE8XA3CMagDPz/DwBJ/l8OtdYNegAAAABJRU5ErkJggg==",
+      "TemplateContainer": {
+        "AllowExtract": false,
+        "AllowInput": true,
+        "ExtractSide": "UNKNOWN",
+        "InsertSide": "SOUTH",
+        "OffsetX": 104,
+        "OffsetY": 52,
+        "SizeX": 18,
+        "SizeY": 18,
+        "SlotNumber": 1,
+        "SlotType": "INPUT_INGREDIENT2"
+      }
+    },
+    {
+      "BackgroundImage": "iVBORw0KGgoAAAANSUhEUgAAABwAAAAbCAYAAABvCO8sAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MERc1CpI4lFkAAACLSURBVEhL7ZJBCsAgDAT7f/+Vb1ksLCxLNEJKteBhLt2Jc+llZhWUUh74WwbvvRNMEQZBFM7sJ+iS2d2fZnTA9Dx+Q/cTHNLz+A3dn6AKgEUm8nQHbdsjyMces77n7R1UD3huw/P2CAI+9jzdgXqgbWuCPZG3mR2MvH8FQeTxtiaoAmDxLW9N8Dus3rP7B2A3Wh/iAAAAAElFTkSuQmCC",
+      "BackgroundPositionX": 76,
+      "BackgroundPositionY": 21,
+      "ControlDisplayName": "Big Fire",
+      "ControlInternalName": "bigFire",
+      "ControlType": "CONTROL",
+      "ForegroundImage": "iVBORw0KGgoAAAANSUhEUgAAABwAAAAaCAYAAACkVDyJAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAAAd0SU1FB94MERc1AQXqTdEAAADhSURBVEhLzZHRDcMgEEOzSafpXzdjn46QGboNVeEeJ0xOaaQKaslSOBsbXbZ93/OH+bkVvh73QubKb3XyUkqF6OsKIUadw6v6/xS2VeRboRohOv6r+rpCVsGFqBDq6trc7kf6wkKMhqiQVRGoPsfxw+cXtgAKgyB45mOOj3z0+YVuqMCgQcwdNTD2HT9sQSGCQQOgP6z6CQ79DdWPb0WhwIKHgFZYQQCMfOsLWY2jN7QgmwPVI5+ufn6hG3tooAZxRndfD82ZXzj8ZDsPheoznPrsjD6/kA8uKtF/5ZtcmPIbSJ7LJfgLd9QAAAAASUVORK5CYII=",
+      "TemplateControl": {
+        "ControlType": "CookingProgressX",
+        "FillerX": 3,
+        "FillerY": 167,
+        "ScreenX": 76,
+        "ScreenY": 21,
+        "SizeX": 28,
+        "SizeY": 27
+      }
+    }
+  ],
+  "MainBackground": "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"
+}

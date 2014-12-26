@@ -1,0 +1,38 @@
+// class version 50.0 (50)
+// access flags 0x601
+public abstract interface TTileInfoPacketHandler$$5 implements cofh/network/ITileInfoPacketHandler  {
+
+
+  // access flags 0x401
+  public abstract TTileInfoPacketHandler$$5$$impl()Lcofh/network/ITileInfoPacketHandler;
+
+  // access flags 0x401
+  public abstract TTileInfoPacketHandler$$5$$impl_$eq(Lcofh/network/ITileInfoPacketHandler;)V
+
+  // access flags 0x401
+  public abstract bindPart(Lcodechicken/multipart/TMultiPart;)V
+
+  // access flags 0x401
+  public abstract TTileInfoPacketHandler$$5$$super$bindPart(Lcodechicken/multipart/TMultiPart;)V
+
+  // access flags 0x401
+  public abstract partRemoved(Lcodechicken/multipart/TMultiPart;I)V
+
+  // access flags 0x401
+  public abstract TTileInfoPacketHandler$$5$$super$partRemoved(Lcodechicken/multipart/TMultiPart;I)V
+
+  // access flags 0x401
+  public abstract canAddPart(Lcodechicken/multipart/TMultiPart;)Z
+
+  // access flags 0x401
+  public abstract TTileInfoPacketHandler$$5$$super$canAddPart(Lcodechicken/multipart/TMultiPart;)Z
+
+  // access flags 0x401
+  public abstract handleTileInfoPacket(Lcofh/network/Payload;Lnet/minecraft/network/packet/NetHandler;)V
+
+  // access flags 0x401
+  public abstract copyFrom(Lcodechicken/multipart/TileMultipart;)V
+
+  // access flags 0x401
+  public abstract TTileInfoPacketHandler$$5$$super$copyFrom(Lcodechicken/multipart/TileMultipart;)V
+}

@@ -1,14 +1,14 @@
 package madscience.templates;
 
 
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.tile.MadTileEntityPrefab;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.tile.TileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 
-public class NewMachine extends MadTileEntityPrefab
+public class NewMachine extends TileEntityPrefab
 {
 
     public NewMachine()
@@ -17,7 +17,7 @@ public class NewMachine extends MadTileEntityPrefab
         // TODO Auto-generated constructor stub
     }
 
-    public NewMachine(MadTileEntityFactoryProduct registeredMachine)
+    public NewMachine(TileEntityFactoryProduct registeredMachine)
     {
         super( registeredMachine );
         // TODO Auto-generated constructor stub

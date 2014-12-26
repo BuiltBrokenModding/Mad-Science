@@ -1,14 +1,14 @@
 package madscience;
 
-import madscience.mod.MadForgeMod;
-import madscience.container.MadSlotContainerTypeEnum;
-import madscience.mod.MadModLoader;
-import madscience.model.MadModelPosition;
-import madscience.model.MadModelScale;
-import madscience.network.MadParticlePacket;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.tile.MadTileEntityPrefab;
-import madscience.util.MadUtils;
+import madscience.container.SlotContainerTypeEnum;
+import madscience.mod.ForgeMod;
+import madscience.mod.ModLoader;
+import madscience.model.ModelPosition;
+import madscience.model.ModelScale;
+import madscience.network.ParticlePacket;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.tile.TileEntityPrefab;
+import madscience.util.MiscUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,7 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class ClayFurnace extends MadTileEntityPrefab
+public class ClayFurnace extends TileEntityPrefab
 {
     boolean hasBeenLit = false;
     boolean hasStoppedSmoldering = false;
@@ -29,7 +29,7 @@ public class ClayFurnace extends MadTileEntityPrefab
         super();
     }
 
-    public ClayFurnace(MadTileEntityFactoryProduct registeredMachine)
+    public ClayFurnace(TileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
@@ -51,15 +51,15 @@ public class ClayFurnace extends MadTileEntityPrefab
         }
 
         // Check if input slots are empty.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null ||
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1) == null ||
+            this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
         {
             return false;
         }
 
         // Check if input slot 1 is a block of coal.
         ItemStack itemsInputSlot1 = new ItemStack(Block.coalBlock);
-        if (!itemsInputSlot1.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)))
+        if (!itemsInputSlot1.isItemEqual(this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1)))
         {
             return false;
         }
@@ -70,7 +70,7 @@ public class ClayFurnace extends MadTileEntityPrefab
     ItemStack createEndResult()
     {
         // Get the final form of the inputed block will be from recipe list.
-        ItemStack convertedOreRecipe = this.getRecipeResult(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.INPUT_INGREDIENT2, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack convertedOreRecipe = this.getRecipeResult(SlotContainerTypeEnum.INPUT_INGREDIENT1, SlotContainerTypeEnum.INPUT_INGREDIENT2, SlotContainerTypeEnum.OUTPUT_RESULT1);
 
         if (convertedOreRecipe == null)
         {
@@ -78,10 +78,10 @@ public class ClayFurnace extends MadTileEntityPrefab
         }
 
         // Remove block of coal from input slot 1.
-        this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1), 1);
+        this.decrStackSize(this.getSlotIDByType(SlotContainerTypeEnum.INPUT_INGREDIENT1), 1);
 
         // Remove input ore that we used to convert.
-        this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2), 1);
+        this.decrStackSize(this.getSlotIDByType(SlotContainerTypeEnum.INPUT_INGREDIENT2), 1);
         
         return convertedOreRecipe;
     }
@@ -92,10 +92,10 @@ public class ClayFurnace extends MadTileEntityPrefab
         int smokeRadnomizer = Math.abs(worldObj.rand.nextInt(5));
         if (smokeRadnomizer <= 0)
             smokeRadnomizer = 1;
-        if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS * smokeRadnomizer == 0L)
+        if (worldObj.getWorldTime() % MiscUtils.SECOND_IN_TICKS * smokeRadnomizer == 0L)
         {
             // Send a packet saying we want a little bit of smoke.
-            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("smoke", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
+            PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, ModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new ParticlePacket("smoke", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
                     worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
         }
     }
@@ -133,7 +133,7 @@ public class ClayFurnace extends MadTileEntityPrefab
         }
 
         // Flips a bool that allows this device to start cooking because it has been hit with a flint and steel.
-        MadModLoader.log().info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
+        ModLoader.log().info("Attempting to light clay furnace at " + this.xCoord + ", " + this.yCoord + ", " + this.zCoord);
         hasBeenLit = true;
     }
 
@@ -165,7 +165,7 @@ public class ClayFurnace extends MadTileEntityPrefab
         if (!this.canSmelt() && this.hasBeenLit && this.hasCompletedBurnCycle && hasStoppedSmoldering && !this.hasCooledDown)
         {
             // COOL DOWN (RED HOT MODE)
-            if (this.getAnimationCurrentFrame() <= 4 && worldObj.getWorldTime() % (MadUtils.SECOND_IN_TICKS * 5) == 0L)
+            if (this.getAnimationCurrentFrame() <= 4 && worldObj.getWorldTime() % (MiscUtils.SECOND_IN_TICKS * 5) == 0L)
             {
                 // Same one as before.
                 this.createRandomSmoke();
@@ -195,17 +195,17 @@ public class ClayFurnace extends MadTileEntityPrefab
         else if (this.canSmelt() && this.hasBeenLit && !this.hasCompletedBurnCycle && !hasStoppedSmoldering && !this.hasCooledDown)
         {
             // BURN CYCLE (COOKING).
-            if (worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
+            if (worldObj.getWorldTime() % MiscUtils.SECOND_IN_TICKS == 0L)
             {
                 // Send a packet saying we want furnace fire
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
+                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, ModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new ParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
                         worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
             }
 
             if (this.getAnimationCurrentFrame() <= 3 && worldObj.getWorldTime() % 25L == 0L)
             {
                 // Send a packet saying we want puffs of smoke used in minecart furnace.
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
+                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, ModLoader.PACKET_SEND_RADIUS, worldObj.provider.dimensionId, new ParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
                         worldObj.rand.nextFloat(), worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
 
                 // Load this texture onto the entity.
@@ -246,7 +246,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             // First tick for new item being cooked in furnace.
             if (this.getProgressValue() == 0 && this.canSmelt() && this.hasBeenLit)
             {
-                this.setProgressMaximum(MadUtils.SECOND_IN_TICKS * 420);
+                this.setProgressMaximum(MiscUtils.SECOND_IN_TICKS * 420);
 
                 // Increments the timer to kickstart the cooking loop.
                 this.incrementProgressValue();
@@ -303,7 +303,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             this.setModelWorldRenderVisibilityByName("ClayFurnace", true);
             
             // Shrink the world render.
-            this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.34F, 0.5F), new MadModelScale(0.6F, 0.68F, 0.6F));
+            this.setWorldRenderInformation(new ModelPosition(0.5F, 0.34F, 0.5F), new ModelScale(0.6F, 0.68F, 0.6F));
         }
         else if (this.hasStoppedSmoldering && !this.hasCooledDown)
         {
@@ -313,7 +313,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             this.setModelWorldRenderVisibilityByName("ClayFurnace", false);
             
             // Grow the world render.
-            this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.5F, 0.5F), new MadModelScale(1.0F, 1.0F, 1.0F));
+            this.setWorldRenderInformation(new ModelPosition(0.5F, 0.5F, 0.5F), new ModelScale(1.0F, 1.0F, 1.0F));
         }
         else if (this.hasStoppedSmoldering && this.hasCooledDown)
         {
@@ -323,7 +323,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             this.setModelWorldRenderVisibilityByName("ClayFurnace", false);
             
             // Grow the world render.
-            this.setWorldRenderInformation(new MadModelPosition(0.5F, 0.5F, 0.5F), new MadModelScale(1.0F, 1.0F, 1.0F));
+            this.setWorldRenderInformation(new ModelPosition(0.5F, 0.5F, 0.5F), new ModelScale(1.0F, 1.0F, 1.0F));
         }
     }
 
@@ -367,7 +367,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             {
                 if (!player.isSneaking())
                 {
-                    player.openGui(MadForgeMod.instance, this.getRegisteredMachine().getBlockID(), world, x, y, z);
+                    player.openGui(ForgeMod.instance, this.getRegisteredMachine().getBlockID(), world, x, y, z);
                     return;
                 }
             }
@@ -398,7 +398,7 @@ public class ClayFurnace extends MadTileEntityPrefab
             // COOLED OFF MODE - WAITING FOR PLAYER TO HIT US
             if (player.canHarvestBlock(this.getBlockType()))
             {
-                MadModLoader.log().info("Clay Furnace: Harvested player after having been cooled down!");
+                ModLoader.log().info("Clay Furnace: Harvested player after having been cooled down!");
                 world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, "random.anvil_land", 1.0F, 1.0F);
 
                 // Set ourselves to the end result we should be!

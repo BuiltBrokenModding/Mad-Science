@@ -1,13 +1,13 @@
 package madscience;
 
-import madscience.factory.MadFluidFactory;
-import madscience.container.MadSlotContainerTypeEnum;
-import madscience.mod.MadModLoader;
-import madscience.product.MadFluidFactoryProduct;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.sound.MadSound;
-import madscience.tile.MadTileEntityPrefab;
-import madscience.util.MadUtils;
+import madscience.container.SlotContainerTypeEnum;
+import madscience.factory.FluidFactory;
+import madscience.mod.ModLoader;
+import madscience.product.FluidFactoryProduct;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.sound.SoundArchive;
+import madscience.tile.TileEntityPrefab;
+import madscience.util.MiscUtils;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public class MeatCube extends MadTileEntityPrefab
+public class MeatCube extends TileEntityPrefab
 {
     /** Last amount of ticks waited before playing an animation. */
     private long lastAnimTriggerTime = 42L;
@@ -29,7 +29,7 @@ public class MeatCube extends MadTileEntityPrefab
         super();
     }
 
-    public MeatCube(MadTileEntityFactoryProduct registeredMachine)
+    public MeatCube(TileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
         
@@ -48,7 +48,7 @@ public class MeatCube extends MadTileEntityPrefab
     private void addBucketToInternalTank()
     {
         // Check if the input slot for filled buckets is null.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET) == null)
         {
             return;
         }
@@ -57,20 +57,20 @@ public class MeatCube extends MadTileEntityPrefab
         ItemStack bucketEmpty = new ItemStack(Item.bucketEmpty);
         
         // Input check for mutant DNA bucket.
-        MadFluidFactoryProduct fluidProduct = MadFluidFactory.instance().getFluidInfo("maddnamutant");
+        FluidFactoryProduct fluidProduct = FluidFactory.instance().getFluidInfo("maddnamutant");
         ItemStack bucketMutantDNA = new ItemStack(fluidProduct.getFluidContainer());
 
         // Check if input slot 1 is a filled bucket.
-        if (!this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).isItemEqual(bucketMutantDNA))
+        if (!this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET).isItemEqual(bucketMutantDNA))
         {
             // Input slot 1 was not a filled bucket.
             return;
         }
 
         // Check if output slot 1 (for empty buckets) is above item stack limit.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) != null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) != null)
         {
-            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + bucketEmpty.stackSize;
+            int slot1Result = this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + bucketEmpty.stackSize;
             boolean underStackLimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= bucketEmpty.getMaxStackSize());
             if (!underStackLimit)
             {
@@ -86,13 +86,13 @@ public class MeatCube extends MadTileEntityPrefab
         }
 
         // Add empty water bucket to output slot 1 GUI.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET, bucketEmpty.copy());
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET, bucketEmpty.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).isItemEqual(bucketEmpty))
+        else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).isItemEqual(bucketEmpty))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize += bucketEmpty.stackSize;
+            this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize += bucketEmpty.stackSize;
         }
 
         // Add a bucket's worth of water into the internal tank.
@@ -102,7 +102,7 @@ public class MeatCube extends MadTileEntityPrefab
         //this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_REGROW, 1.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
 
         // Remove a filled bucket of water from input stack 1.
-        this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET), 1);
+        this.decrStackSize(this.getSlotIDByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET), 1);
 
         return;
     }
@@ -114,7 +114,7 @@ public class MeatCube extends MadTileEntityPrefab
 
         // Current number of ticks we should wait until playing an animation.
         // Note: We ensure this is not restored to zero by old versions.
-        this.lastAnimTriggerTime = Math.max(nbt.getLong("LastAnimTriggerTime"), MadUtils.SECOND_IN_TICKS);
+        this.lastAnimTriggerTime = Math.max(nbt.getLong("LastAnimTriggerTime"), MiscUtils.SECOND_IN_TICKS);
 
         // Last number of frames that were played.
         this.lastAnimFrameCount = nbt.getInteger("LastAnimFrameCount");
@@ -242,7 +242,7 @@ public class MeatCube extends MadTileEntityPrefab
         {
             // Get how long we should wait until next animation.
             // Note: This cannot be zero!
-            lastAnimTriggerTime = Math.max(this.worldObj.rand.nextInt(666), MadUtils.SECOND_IN_TICKS);
+            lastAnimTriggerTime = Math.max(this.worldObj.rand.nextInt(666), MiscUtils.SECOND_IN_TICKS);
 
             // Get how many frames of animation we should play this time.
             lastAnimFrameCount = this.worldObj.rand.nextInt(9);
@@ -263,7 +263,7 @@ public class MeatCube extends MadTileEntityPrefab
         super.updateSound();
         
         // Play the sound of a heartbeat every few seconds.
-        if (worldObj.getWorldTime() % ((this.getDamageValue() * MadUtils.SECOND_IN_TICKS) + MadUtils.SECOND_IN_TICKS) == 0L)
+        if (worldObj.getWorldTime() % ((this.getDamageValue() * MiscUtils.SECOND_IN_TICKS) + MiscUtils.SECOND_IN_TICKS) == 0L)
         {
             //this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, MeatcubeSounds.MEATCUBE_HEARTBEAT, ((1.0F / this.currentMeatCubeDamageValue) + 0.42F), this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         }
@@ -347,7 +347,7 @@ public class MeatCube extends MadTileEntityPrefab
                     // Play a cow mooaning sound, but not every single time because that is annoying.
                     if (world.rand.nextBoolean() && world.rand.nextInt(10) < 5)
                     {
-                        MadSound mooaning = MadModLoader.getSoundByName("Moo");
+                        SoundArchive mooaning = ModLoader.getSoundByName("Moo");
                         if (mooaning != null)
                         {
                             world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, mooaning.getSoundNameWithoutExtension(), 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);

@@ -1,15 +1,15 @@
 package madscience.templates;
 
 
-import madscience.item.MadItemPrefab;
-import madscience.product.MadItemFactoryProduct;
+import madscience.item.ItemPrefab;
+import madscience.product.ItemFactoryProduct;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 
-public class NewItem extends MadItemPrefab
+public class NewItem extends ItemPrefab
 {
 
     public NewItem(int itemID)
@@ -18,7 +18,7 @@ public class NewItem extends MadItemPrefab
         // TODO Auto-generated constructor stub
     }
 
-    public NewItem(MadItemFactoryProduct itemData)
+    public NewItem(ItemFactoryProduct itemData)
     {
         super( itemData );
         // TODO Auto-generated constructor stub

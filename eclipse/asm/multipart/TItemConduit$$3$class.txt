@@ -1,0 +1,118 @@
+// class version 50.0 (50)
+// access flags 0x401
+public abstract class TItemConduit$$3$class {
+
+
+  // access flags 0x9
+  public static $init$(LTItemConduit$$3;)V
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x9
+  public static bindPart(LTItemConduit$$3;Lcodechicken/multipart/TMultiPart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$super$bindPart (Lcodechicken/multipart/TMultiPart;)V
+    ALOAD 1
+    INSTANCEOF cofh/api/transport/IItemConduit
+    IFEQ L0
+    ALOAD 0
+    ALOAD 1
+    CHECKCAST cofh/api/transport/IItemConduit
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl_$eq (Lcofh/api/transport/IItemConduit;)V
+   L0
+   FRAME SAME
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x9
+  public static partRemoved(LTItemConduit$$3;Lcodechicken/multipart/TMultiPart;I)V
+    ALOAD 0
+    ALOAD 1
+    ILOAD 2
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$super$partRemoved (Lcodechicken/multipart/TMultiPart;I)V
+    ALOAD 1
+    ALOAD 0
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl ()Lcofh/api/transport/IItemConduit;
+    IF_ACMPNE L0
+    ALOAD 0
+    ACONST_NULL
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl_$eq (Lcofh/api/transport/IItemConduit;)V
+   L0
+   FRAME SAME
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x9
+  public static canAddPart(LTItemConduit$$3;Lcodechicken/multipart/TMultiPart;)Z
+    ALOAD 0
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl ()Lcofh/api/transport/IItemConduit;
+    IFNULL L0
+    ALOAD 1
+    INSTANCEOF cofh/api/transport/IItemConduit
+    IFEQ L0
+    ICONST_0
+    IRETURN
+   L0
+   FRAME SAME
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$super$canAddPart (Lcodechicken/multipart/TMultiPart;)Z
+    IRETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x9
+  public static insertItem(LTItemConduit$$3;Lnet/minecraftforge/common/ForgeDirection;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;
+    ALOAD 0
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl ()Lcofh/api/transport/IItemConduit;
+    ALOAD 1
+    ALOAD 2
+    INVOKEINTERFACE cofh/api/transport/IItemConduit.insertItem (Lnet/minecraftforge/common/ForgeDirection;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;
+    ARETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x9
+  public static insertItem(LTItemConduit$$3;Lnet/minecraftforge/common/ForgeDirection;Lnet/minecraft/item/ItemStack;Z)Lnet/minecraft/item/ItemStack;
+    ALOAD 0
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl ()Lcofh/api/transport/IItemConduit;
+    ALOAD 1
+    ALOAD 2
+    ILOAD 3
+    INVOKEINTERFACE cofh/api/transport/IItemConduit.insertItem (Lnet/minecraftforge/common/ForgeDirection;Lnet/minecraft/item/ItemStack;Z)Lnet/minecraft/item/ItemStack;
+    ARETURN
+    MAXSTACK = 4
+    MAXLOCALS = 4
+
+  // access flags 0x9
+  public static sendItems(LTItemConduit$$3;Lnet/minecraft/item/ItemStack;Lnet/minecraftforge/common/ForgeDirection;)Lnet/minecraft/item/ItemStack;
+    ALOAD 0
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl ()Lcofh/api/transport/IItemConduit;
+    ALOAD 1
+    ALOAD 2
+    INVOKEINTERFACE cofh/api/transport/IItemConduit.sendItems (Lnet/minecraft/item/ItemStack;Lnet/minecraftforge/common/ForgeDirection;)Lnet/minecraft/item/ItemStack;
+    ARETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x9
+  public static copyFrom(LTItemConduit$$3;Lcodechicken/multipart/TileMultipart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$super$copyFrom (Lcodechicken/multipart/TileMultipart;)V
+    ALOAD 1
+    INSTANCEOF TItemConduit$$3
+    IFEQ L0
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl ()Lcofh/api/transport/IItemConduit;
+    INVOKEINTERFACE TItemConduit$$3.TItemConduit$$3$$impl_$eq (Lcofh/api/transport/IItemConduit;)V
+   L0
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+}

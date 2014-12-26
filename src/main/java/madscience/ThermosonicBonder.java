@@ -1,23 +1,23 @@
 package madscience;
 
-import madscience.container.MadSlotContainerTypeEnum;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.tile.MadTileEntityPrefab;
-import madscience.util.MadUtils;
+import madscience.container.SlotContainerTypeEnum;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.tile.TileEntityPrefab;
+import madscience.util.MiscUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class ThermosonicBonder extends MadTileEntityPrefab
+public class ThermosonicBonder extends TileEntityPrefab
 {
     public ThermosonicBonder()
     {
         super();
     }
     
-    public ThermosonicBonder(MadTileEntityFactoryProduct registeredMachine)
+    public ThermosonicBonder(TileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
@@ -52,30 +52,30 @@ public class ThermosonicBonder extends MadTileEntityPrefab
         }
 
         // Check if input slots are empty.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null ||
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1) == null ||
+                this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
         {
             return false;
         }
 
         // Check if input slot 1 is gold nuggets.
         ItemStack goldNuggetCompareItem = new ItemStack(Item.goldNugget);
-        if (!goldNuggetCompareItem.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)))
+        if (!goldNuggetCompareItem.isItemEqual(this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1)))
         {
             return false;
         }
 
         // Check if input slot 2 is a completed genome data reel.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
         {
             return false;
         }
 
         // Check if the item inserted to input slot 2 has valid conversion.
         ItemStack recipeResult = this.getRecipeResult(
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+                SlotContainerTypeEnum.INPUT_INGREDIENT1,
+                SlotContainerTypeEnum.INPUT_INGREDIENT2,
+                SlotContainerTypeEnum.OUTPUT_RESULT1);
         if (recipeResult == null)
         {
             // Input slot 2 was not a damaged.
@@ -83,24 +83,24 @@ public class ThermosonicBonder extends MadTileEntityPrefab
         }
         
         // Check if output slot 1 is above item stack limit.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) != null)
         {
-            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult.stackSize;
+            int slot1Result = this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + recipeResult.stackSize;
             return (slot1Result <= getInventoryStackLimit() && slot1Result <= recipeResult.getMaxStackSize());
         }
 
         // Check if output slots are empty and ready to be filled with items.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
             return true;
         }
 
         // Check if item being cooked is same as one in output slot.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null && recipeResult != null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) != null && recipeResult != null)
         {
             // Check item difference by sub-type since item will always be equal (monster placer).
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult) &&
-                    this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult.getItemDamage())
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult) &&
+                    this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult.getItemDamage())
             {
                 // The egg we are producing matches what the cooking recipe says.
                 return true;
@@ -126,9 +126,9 @@ public class ThermosonicBonder extends MadTileEntityPrefab
         
         // Output 1 - Transformed mainframe component.
         ItemStack recipeResult = this.getRecipeResult(
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+                SlotContainerTypeEnum.INPUT_INGREDIENT1,
+                SlotContainerTypeEnum.INPUT_INGREDIENT2,
+                SlotContainerTypeEnum.OUTPUT_RESULT1);
         
         if (recipeResult == null)
         {
@@ -136,27 +136,27 @@ public class ThermosonicBonder extends MadTileEntityPrefab
         }
 
         // Add transformed mainframe component to output stack.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
+        else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
+            this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
         }
 
         // Remove a gold nugget from input slot 1.
-        --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
+        --this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, null);
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.INPUT_INGREDIENT1, null);
         }
 
         // Remove whatever was input slot 2.
-        --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize;
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize <= 0)
+        --this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize;
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize <= 0)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2, null);
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.INPUT_INGREDIENT2, null);
         }
     }
 
@@ -175,7 +175,7 @@ public class ThermosonicBonder extends MadTileEntityPrefab
         if (canSmelt() && isPowered() && this.isHeatedPastTriggerValue() && isRedstonePowered())
         {
             // Working state.
-            if (this.getAnimationCurrentFrame() <= 5 && worldObj.getWorldTime() % MadUtils.SECOND_IN_TICKS == 0L)
+            if (this.getAnimationCurrentFrame() <= 5 && worldObj.getWorldTime() % MiscUtils.SECOND_IN_TICKS == 0L)
             {
                 // Load this texture onto the entity.
                 this.setTextureRenderedOnModel("models/" + this.getMachineInternalName() + "/run_" + this.getAnimationCurrentFrame() + ".png");

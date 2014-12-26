@@ -10,23 +10,23 @@ import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadModMetadata;
+import madscience.ModMetadata;
 import madscience.dump.ItemStackRenderer;
 import madscience.dump.MinecraftItemJSONObject;
 import madscience.dump.RenderTickHandler;
-import madscience.factory.MadFluidFactory;
-import madscience.factory.MadRenderingFactory;
-import madscience.factory.MadTileEntityFactory;
-import madscience.fluid.MadFluidRenderingTemplate;
-import madscience.mod.MadForgeMod;
-import madscience.mod.MadModData;
-import madscience.mod.MadModLoader;
-import madscience.mod.MadSoundLoader;
-import madscience.model.MadTechneModelLoader;
-import madscience.product.MadFluidFactoryProduct;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.rendering.MadRendererTemplate;
-import madscience.tile.MadTileEntityPrefab;
+import madscience.factory.FluidFactory;
+import madscience.factory.RenderingFactory;
+import madscience.factory.TileEntityFactory;
+import madscience.fluid.FluidRenderingTemplate;
+import madscience.mod.ForgeMod;
+import madscience.mod.ModData;
+import madscience.mod.ModLoader;
+import madscience.mod.SoundLoader;
+import madscience.model.TechneModelLoader;
+import madscience.product.FluidFactoryProduct;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.rendering.RendererTemplate;
+import madscience.tile.TileEntityPrefab;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
@@ -58,7 +58,7 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
 
     static
     {
-        AdvancedModelLoader.registerModelHandler( new MadTechneModelLoader() );
+        AdvancedModelLoader.registerModelHandler( new TechneModelLoader() );
     }
 
     public float fovModifierHand = 0F;
@@ -92,10 +92,10 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                               double velY,
                               double velZ)
     {
-        World clientWorld = MadForgeMod.proxy.getClientWorld();
+        World clientWorld = ForgeMod.proxy.getClientWorld();
         if (clientWorld == null)
         {
-            MadModLoader.log().info( "Mad Particle: Could not spawn particle because client world was null!" );
+            ModLoader.log().info( "Mad Particle: Could not spawn particle because client world was null!" );
             return;
         }
 
@@ -375,15 +375,15 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
                 new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().serializeNulls().create();
 
         // Convert the data loaded for this mod into JSON string.
-        MadModData data = MadModLoader.getMadModData();
+        ModData data = ModLoader.getMadModData();
         String json = gson.toJson( data,
-                                   MadModData.class );
+                                   ModData.class );
         try
         {
             // Save this information to the disk!
             File dataDir = FMLClientHandler.instance().getClient().mcDataDir;
             FileUtils.writeStringToFile( new File( dataDir,
-                                                   "dump/" + MadModMetadata.ID +
+                                                   "dump/" + ModMetadata.ID +
                                                    ".json" ),
                                          json );
         }
@@ -399,40 +399,40 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // ------
         // FLUIDS
         // ------
-        Iterable<MadFluidFactoryProduct> registeredFluids = MadFluidFactory.instance().getFluidInfoList();
+        Iterable<FluidFactoryProduct> registeredFluids = FluidFactory.instance().getFluidInfoList();
         for (Iterator iterator = registeredFluids.iterator(); iterator.hasNext(); )
         {
-            MadFluidFactoryProduct registeredFluid = (MadFluidFactoryProduct) iterator.next();
+            FluidFactoryProduct registeredFluid = (FluidFactoryProduct) iterator.next();
             if (registeredFluid.getFluidID() == itemOrBlockID)
             {
                 // Register fluid renderer with Minecraft/Forge. Subject to change between Forge versions.
-                MinecraftForge.EVENT_BUS.register( new MadFluidRenderingTemplate( registeredFluid ) );
+                MinecraftForge.EVENT_BUS.register( new FluidRenderingTemplate( registeredFluid ) );
 
                 // Allows us to override icon displays and how fluid is rendered in pipes and tanks.
-                RenderingRegistry.registerBlockHandler( new MadFluidRenderingTemplate( registeredFluid ) );
+                RenderingRegistry.registerBlockHandler( new FluidRenderingTemplate( registeredFluid ) );
             }
         }
 
         // -------------
         // TILE ENTITIES
         // -------------
-        Iterable<MadTileEntityFactoryProduct> registeredMachines = MadTileEntityFactory.instance().getMachineInfoList();
+        Iterable<TileEntityFactoryProduct> registeredMachines = TileEntityFactory.instance().getMachineInfoList();
         for (Iterator iterator = registeredMachines.iterator(); iterator.hasNext(); )
         {
-            MadTileEntityFactoryProduct registeredMachine = (MadTileEntityFactoryProduct) iterator.next();
+            TileEntityFactoryProduct registeredMachine = (TileEntityFactoryProduct) iterator.next();
             if (registeredMachine.getBlockID() == itemOrBlockID)
             {
                 // Populates rendering factory with master reference to what a given machine should have associated with it model and texture wise.
-                MadRenderingFactory.instance().registerModelsToProduct( registeredMachine.getMachineName(),
-                                                                        registeredMachine.getModelArchive() );
+                RenderingFactory.instance().registerModelsToProduct( registeredMachine.getMachineName(),
+                                                                     registeredMachine.getModelArchive() );
 
                 // Minecraft/Forge related registry calls, these are subject to change between Forge versions.
                 RenderingRegistry.registerBlockHandler( itemOrBlockID,
-                                                        new MadRendererTemplate() );
-                ClientRegistry.bindTileEntitySpecialRenderer( MadTileEntityPrefab.class,
-                                                              new MadRendererTemplate() );
+                                                        new RendererTemplate() );
+                ClientRegistry.bindTileEntitySpecialRenderer( TileEntityPrefab.class,
+                                                              new RendererTemplate() );
                 MinecraftForgeClient.registerItemRenderer( itemOrBlockID,
-                                                           new MadRendererTemplate() );
+                                                           new RendererTemplate() );
             }
         }
     }
@@ -441,6 +441,6 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
     public void registerSoundHandler()
     {
         // Register the sound event handling class.
-        MinecraftForge.EVENT_BUS.register( new MadSoundLoader() );
+        MinecraftForge.EVENT_BUS.register( new SoundLoader() );
     }
 }

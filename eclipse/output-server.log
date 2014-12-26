@@ -1,0 +1,24 @@
+2014-12-26 00:50:28 [SERVER] [INFO] Starting integrated minecraft server version 1.6.4
+2014-12-26 00:50:28 [SERVER] [INFO] Generating keypair
+2014-12-26 00:50:28 [SERVER] [INFO] Converting map!
+2014-12-26 00:50:28 [SERVER] [INFO] Scanning folders...
+2014-12-26 00:50:28 [SERVER] [INFO] Total conversion count is 0
+2014-12-26 00:50:30 [SERVER] [INFO] Preparing start region for level 0
+2014-12-26 00:50:31 [SERVER] [INFO] Preparing spawn area: 64%
+2014-12-26 00:50:32 [SERVER] [INFO] Player890[/127.0.0.1:0] logged in with entity id 2 at (-748.5, 4.0, 639.5)
+2014-12-26 00:50:32 [SERVER] [INFO] Player890 joined the game
+2014-12-26 00:51:10 [SERVER] [INFO] Saving and pausing game...
+2014-12-26 00:51:10 [SERVER] [INFO] Saving chunks for level 'New World'/Overworld
+2014-12-26 00:51:10 [SERVER] [INFO] Saving chunks for level 'New World'/Nether
+2014-12-26 00:51:10 [SERVER] [INFO] Saving chunks for level 'New World'/The End
+2014-12-26 00:52:27 [SERVER] [INFO] Saving and pausing game...
+2014-12-26 00:52:27 [SERVER] [INFO] Saving chunks for level 'New World'/Overworld
+2014-12-26 00:52:27 [SERVER] [INFO] Saving chunks for level 'New World'/Nether
+2014-12-26 00:52:27 [SERVER] [INFO] Saving chunks for level 'New World'/The End
+2014-12-26 00:52:30 [SERVER] [INFO] Stopping server
+2014-12-26 00:52:30 [SERVER] [INFO] Saving players
+2014-12-26 00:52:30 [SERVER] [INFO] Player890 left the game
+2014-12-26 00:52:30 [SERVER] [INFO] Saving worlds
+2014-12-26 00:52:30 [SERVER] [INFO] Saving chunks for level 'New World'/Overworld
+2014-12-26 00:52:30 [SERVER] [INFO] Saving chunks for level 'New World'/Nether
+2014-12-26 00:52:30 [SERVER] [INFO] Saving chunks for level 'New World'/The End

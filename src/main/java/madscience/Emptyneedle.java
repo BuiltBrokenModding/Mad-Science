@@ -1,8 +1,8 @@
 package madscience;
 
-import madscience.factory.MadItemFactory;
-import madscience.item.MadItemPrefab;
-import madscience.product.MadItemFactoryProduct;
+import madscience.factory.ItemFactory;
+import madscience.item.ItemPrefab;
+import madscience.product.ItemFactoryProduct;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -27,14 +27,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class Emptyneedle extends MadItemPrefab
+public class Emptyneedle extends ItemPrefab
 {
     public Emptyneedle(int itemID)
     {
         super(itemID);
     }
 
-    public Emptyneedle(MadItemFactoryProduct itemData)
+    public Emptyneedle(ItemFactoryProduct itemData)
     {
         super(itemData);
     }
@@ -64,7 +64,7 @@ public class Emptyneedle extends MadItemPrefab
             player.addExhaustion(5.0F);
 
             // Return blood of a villager (human) to the player for stabbing.
-            ItemStack villagerNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "villager", 1);
+            ItemStack villagerNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "villager", 1);
             player.inventory.addItemStackToInventory(villagerNeedle.copy());
 
             // Remove an item from our stack!
@@ -98,7 +98,7 @@ public class Emptyneedle extends MadItemPrefab
         // Pig Zombie
         if (entity instanceof EntityPigZombie)
         {
-            ItemStack muntantNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mutant", 1);
+            ItemStack muntantNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mutant", 1);
             if (!player.inventory.addItemStackToInventory(muntantNeedle))
             {
                 player.dropPlayerItem(muntantNeedle);
@@ -109,7 +109,7 @@ public class Emptyneedle extends MadItemPrefab
         // Mooshroom
         if (entity instanceof EntityMooshroom)
         {
-            ItemStack mushroomCowNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mushroomcow", 1);
+            ItemStack mushroomCowNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "mushroomcow", 1);
             if (!player.inventory.addItemStackToInventory(mushroomCowNeedle))
             {
                 player.dropPlayerItem(mushroomCowNeedle);
@@ -120,7 +120,7 @@ public class Emptyneedle extends MadItemPrefab
         // Cave Spider
         if (entity instanceof EntityCaveSpider)
         {
-            ItemStack caveSpiderNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "cavespider", 1);
+            ItemStack caveSpiderNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "cavespider", 1);
             if (!player.inventory.addItemStackToInventory(caveSpiderNeedle))
             {
                 player.dropPlayerItem(caveSpiderNeedle);
@@ -131,7 +131,7 @@ public class Emptyneedle extends MadItemPrefab
         // Chicken
         if (entity instanceof EntityChicken)
         {
-            ItemStack chickenNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "chicken", 1);
+            ItemStack chickenNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "chicken", 1);
             if (!player.inventory.addItemStackToInventory(chickenNeedle))
             {
                 player.dropPlayerItem(chickenNeedle);
@@ -142,7 +142,7 @@ public class Emptyneedle extends MadItemPrefab
         // Cow
         if (entity instanceof EntityCow)
         {
-            ItemStack cowNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "cow", 1);
+            ItemStack cowNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "cow", 1);
             if (!player.inventory.addItemStackToInventory(cowNeedle))
             {
                 player.dropPlayerItem(cowNeedle);
@@ -153,7 +153,7 @@ public class Emptyneedle extends MadItemPrefab
         // Creeper
         if (entity instanceof EntityCreeper)
         {
-            ItemStack creeperNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "creeper", 1);
+            ItemStack creeperNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "creeper", 1);
             if (!player.inventory.addItemStackToInventory(creeperNeedle))
             {
                 player.dropPlayerItem(creeperNeedle);
@@ -164,7 +164,7 @@ public class Emptyneedle extends MadItemPrefab
         // Bat
         if (entity instanceof EntityBat)
         {
-            ItemStack batNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "bat", 1);
+            ItemStack batNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "bat", 1);
             if (!player.inventory.addItemStackToInventory(batNeedle))
             {
                 player.dropPlayerItem(batNeedle);
@@ -175,7 +175,7 @@ public class Emptyneedle extends MadItemPrefab
         // Enderman
         if (entity instanceof EntityEnderman)
         {
-            ItemStack endermanNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "enderman", 1);
+            ItemStack endermanNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "enderman", 1);
             if (!player.inventory.addItemStackToInventory(endermanNeedle))
             {
                 player.dropPlayerItem(endermanNeedle);
@@ -186,7 +186,7 @@ public class Emptyneedle extends MadItemPrefab
         // Horse
         if (entity instanceof EntityHorse)
         {
-            ItemStack horseNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "horse", 1);
+            ItemStack horseNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "horse", 1);
             if (!player.inventory.addItemStackToInventory(horseNeedle))
             {
                 player.dropPlayerItem(horseNeedle);
@@ -197,7 +197,7 @@ public class Emptyneedle extends MadItemPrefab
         // Ocelot
         if (entity instanceof EntityOcelot)
         {
-            ItemStack ocelotNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "ocelot", 1);
+            ItemStack ocelotNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "ocelot", 1);
             if (!player.inventory.addItemStackToInventory(ocelotNeedle))
             {
                 player.dropPlayerItem(ocelotNeedle);
@@ -208,7 +208,7 @@ public class Emptyneedle extends MadItemPrefab
         // Pig
         if (entity instanceof EntityPig)
         {
-            ItemStack pigNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "pig", 1);
+            ItemStack pigNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "pig", 1);
             if (!player.inventory.addItemStackToInventory(pigNeedle))
             {
                 player.dropPlayerItem(pigNeedle);
@@ -219,7 +219,7 @@ public class Emptyneedle extends MadItemPrefab
         // Sheep
         if (entity instanceof EntitySheep)
         {
-            ItemStack sheepNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "sheep", 1);
+            ItemStack sheepNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "sheep", 1);
             if (!player.inventory.addItemStackToInventory(sheepNeedle))
             {
                 player.dropPlayerItem(sheepNeedle);
@@ -230,7 +230,7 @@ public class Emptyneedle extends MadItemPrefab
         // Spider
         if (entity instanceof EntitySpider)
         {
-            ItemStack spiderNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "spider", 1);
+            ItemStack spiderNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "spider", 1);
             if (!player.inventory.addItemStackToInventory(spiderNeedle))
             {
                 player.dropPlayerItem(spiderNeedle);
@@ -241,7 +241,7 @@ public class Emptyneedle extends MadItemPrefab
         // Squid
         if (entity instanceof EntitySquid)
         {
-            ItemStack squidNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "squid", 1);
+            ItemStack squidNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "squid", 1);
             if (!player.inventory.addItemStackToInventory(squidNeedle))
             {
                 player.dropPlayerItem(squidNeedle);
@@ -252,7 +252,7 @@ public class Emptyneedle extends MadItemPrefab
         // Villager
         if (entity instanceof EntityVillager)
         {
-            ItemStack villagerNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "villager", 1);
+            ItemStack villagerNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "villager", 1);
             if (!player.inventory.addItemStackToInventory(villagerNeedle))
             {
                 player.dropPlayerItem(villagerNeedle);
@@ -263,7 +263,7 @@ public class Emptyneedle extends MadItemPrefab
         // Witch
         if (entity instanceof EntityWitch)
         {
-            ItemStack witchNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "witch", 1);
+            ItemStack witchNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "witch", 1);
             if (!player.inventory.addItemStackToInventory(witchNeedle))
             {
                 player.dropPlayerItem(witchNeedle);
@@ -274,7 +274,7 @@ public class Emptyneedle extends MadItemPrefab
         // Wolf
         if (entity instanceof EntityWolf)
         {
-            ItemStack wolfNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "wolf", 1);
+            ItemStack wolfNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "wolf", 1);
             if (!player.inventory.addItemStackToInventory(wolfNeedle))
             {
                 player.dropPlayerItem(wolfNeedle);
@@ -285,7 +285,7 @@ public class Emptyneedle extends MadItemPrefab
         // Zombie
         if (entity instanceof EntityZombie)
         {
-            ItemStack zombieNeedle = MadItemFactory.instance().getItemStackByFullyQualifiedName("needle", "zombie", 1);
+            ItemStack zombieNeedle = ItemFactory.instance().getItemStackByFullyQualifiedName("needle", "zombie", 1);
             if (!player.inventory.addItemStackToInventory(zombieNeedle))
             {
                 player.dropPlayerItem(zombieNeedle);

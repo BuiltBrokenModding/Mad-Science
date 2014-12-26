@@ -1,0 +1,77 @@
+Creating properties on demand (a.k.a. dynamic properties) has been deprecated and is scheduled to be removed in Gradle 2.0. Please read http://gradle.org/docs/current/dsl/org.gradle.api.plugins.ExtraPropertiesExtension.html for information on the replacement for dynamic properties.Creating properties on demand (a.k.a. dynamic properties) has been deprecated and is scheduled to be removed in Gradle 2.0. Please read http://gradle.org/docs/current/dsl/org.gradle.api.plugins.ExtraPropertiesExtension.html for information on the replacement for dynamic properties.
+
+Deprecated dynamic property: "version" on "task ':wrapper'", value: "1.8".Deprecated dynamic property: "version" on "task ':wrapper'", value: "1.8".
+
+Copying default Eclipse project information...Copying default Eclipse project information...
+
+Packing API files and Gradle build script...Packing API files and Gradle build script...
+
+Using version from build properties...Using version from build properties...
+
+****************************
+ Powered By MCP:            
+ http://mcp.ocean-labs.de/  
+ Searge, ProfMobius, Fesh0r,
+ R4wk, ZeuX, IngisKahn      
+ MCP Data version : unknown
+****************************
+:cleanCache
+:downloadMcpTools
+:extractUserDev
+:genSrgs
+:downloadClient
+:downloadServer
+:mergeJars
+Adding cpw/mods/fml/relauncher/SideOnly.class
+Adding cpw/mods/fml/relauncher/Side.class
+:deobfuscateJar
+Applying SpecialSource...
+Applying Exceptor...
+Injecting source info...
+:decompile
+:doFmlPatches
+:addFmlSources
+:remapJar
+:doForgePatches
+:getAssetsIndex
+:getAssets
+Current status: 6/1120   0%
+Current status: 1033/1120   92%
+:copyAssets
+:applyBinPatches
+:deobfBinJar
+Applying SpecialSource...
+Applying Exceptor...
+Injecting source info...
+:extractNatives
+:setupDevWorkspace
+:setupDecompWorkspace
+:eclipseClasspath
+:eclipseJdt
+:eclipseProject
+:eclipse
+:compileApiJava UP-TO-DATE
+:processApiResources UP-TO-DATE
+:apiClasses UP-TO-DATE
+:sourceMainJava
+:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:processResources
+:classes
+:copyBuildXml
+:jar
+:reobf
+:assemble
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test UP-TO-DATE
+:check UP-TO-DATE
+:build
+
+BUILD SUCCESSFUL
+
+Total time: 2 mins 40.068 secs

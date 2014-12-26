@@ -1,0 +1,59 @@
+// class version 50.0 (50)
+// access flags 0x601
+public abstract interface TRedstoneControl$$2 implements cofh/api/tileentity/IRedstoneControl  {
+
+
+  // access flags 0x401
+  public abstract TRedstoneControl$$2$$impl()Lcofh/api/tileentity/IRedstoneControl;
+
+  // access flags 0x401
+  public abstract TRedstoneControl$$2$$impl_$eq(Lcofh/api/tileentity/IRedstoneControl;)V
+
+  // access flags 0x401
+  public abstract bindPart(Lcodechicken/multipart/TMultiPart;)V
+
+  // access flags 0x401
+  public abstract TRedstoneControl$$2$$super$bindPart(Lcodechicken/multipart/TMultiPart;)V
+
+  // access flags 0x401
+  public abstract partRemoved(Lcodechicken/multipart/TMultiPart;I)V
+
+  // access flags 0x401
+  public abstract TRedstoneControl$$2$$super$partRemoved(Lcodechicken/multipart/TMultiPart;I)V
+
+  // access flags 0x401
+  public abstract canAddPart(Lcodechicken/multipart/TMultiPart;)Z
+
+  // access flags 0x401
+  public abstract TRedstoneControl$$2$$super$canAddPart(Lcodechicken/multipart/TMultiPart;)Z
+
+  // access flags 0x401
+  public abstract handlePowerUpdate(Z)V
+
+  // access flags 0x401
+  public abstract isPowered()Z
+
+  // access flags 0x401
+  public abstract handleConfigUpdate(ZZ)V
+
+  // access flags 0x401
+  public abstract setControlDisable(Z)Z
+
+  // access flags 0x401
+  public abstract getControlDisable()Z
+
+  // access flags 0x401
+  public abstract getControlSetting()Z
+
+  // access flags 0x401
+  public abstract setControlSetting(Z)Z
+
+  // access flags 0x401
+  public abstract setRedstoneConfig(ZZ)Z
+
+  // access flags 0x401
+  public abstract copyFrom(Lcodechicken/multipart/TileMultipart;)V
+
+  // access flags 0x401
+  public abstract TRedstoneControl$$2$$super$copyFrom(Lcodechicken/multipart/TileMultipart;)V
+}

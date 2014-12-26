@@ -1,22 +1,22 @@
 package madscience;
 
-import madscience.container.MadSlotContainerTypeEnum;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.tile.MadTileEntityPrefab;
+import madscience.container.SlotContainerTypeEnum;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.tile.TileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class NeedleSanitizer extends MadTileEntityPrefab
+public class NeedleSanitizer extends TileEntityPrefab
 {
     public NeedleSanitizer()
     {
         super();
     }
     
-    public NeedleSanitizer(MadTileEntityFactoryProduct registeredMachine)
+    public NeedleSanitizer(TileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
@@ -31,13 +31,13 @@ public class NeedleSanitizer extends MadTileEntityPrefab
     public boolean canSmelt()
     {
         // Check if we have water bucket and dirty needles in input slots and that our internal tank has fluid.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1) == null)
         {
             return false;
         }
         
         // Check if input slot 2 is a dirty needle stack.
-        ItemStack recipeResult = this.getRecipeResult(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+        ItemStack recipeResult = this.getRecipeResult(SlotContainerTypeEnum.INPUT_INGREDIENT1, SlotContainerTypeEnum.OUTPUT_RESULT1);
         if (recipeResult == null)
         {
             // Input slot 2 was not a dirty needle.
@@ -51,20 +51,20 @@ public class NeedleSanitizer extends MadTileEntityPrefab
         }
 
         // Check if output slots are empty and ready to be filled with items.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null ||
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null ||
+                this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
         {
             return true;
         }
 
         // Check if input slot 2 matches output slot 2.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET)))
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).isItemEqual(this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET)))
         {
             return false;
         }
 
         // Check if output slot 2 (for cleaned needles) is above item stack limit.
-        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + recipeResult.stackSize;
+        int slot2Result = this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + recipeResult.stackSize;
         return (slot2Result <= getInventoryStackLimit() && slot2Result <= recipeResult.getMaxStackSize());
     }
 
@@ -81,23 +81,23 @@ public class NeedleSanitizer extends MadTileEntityPrefab
         if (this.canSmelt())
         {
             // Output 2 - Cleaned needle that used to be dirty input slot 2.
-            ItemStack recipeResult = this.getRecipeResult(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+            ItemStack recipeResult = this.getRecipeResult(SlotContainerTypeEnum.INPUT_INGREDIENT1, SlotContainerTypeEnum.OUTPUT_RESULT1);
 
             // Add cleaned needle to output slot 1 GUI.
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
+                this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
             }
-            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
+            else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
             {
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
+                this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
             }
 
             // Remove a dirty needle from input stack 2.
-            --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
+            --this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, null);
+                this.setInventorySlotContentsByType(SlotContainerTypeEnum.INPUT_INGREDIENT1, null);
             }
         }
     }
@@ -191,7 +191,7 @@ public class NeedleSanitizer extends MadTileEntityPrefab
     private boolean addBucketToInternalTank()
     {
         // Check if the input slot for filled buckets is null.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET) == null)
         {
             return false;
         }
@@ -201,15 +201,15 @@ public class NeedleSanitizer extends MadTileEntityPrefab
         ItemStack compareWaterBucket = new ItemStack(Item.bucketWater);
 
         // Check if input slot 1 is a water bucket.
-        if (!this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).isItemEqual(compareWaterBucket))
+        if (!this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET).isItemEqual(compareWaterBucket))
         {
             return false;
         }
 
         // Check if output slot 1 (for empty buckets) is above item stack limit.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) != null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) != null)
         {
-            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + compareWaterBucket.stackSize;
+            int slot1Result = this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + compareWaterBucket.stackSize;
             boolean shouldStop = (slot1Result <= getInventoryStackLimit() && slot1Result <= compareWaterBucket.getMaxStackSize());
             if (shouldStop)
                 return false;
@@ -222,23 +222,23 @@ public class NeedleSanitizer extends MadTileEntityPrefab
         }
 
         // Add empty water bucket to output slot 2 GUI.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET, compareEmptyBucket.copy());
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET, compareEmptyBucket.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).isItemEqual(compareEmptyBucket))
+        else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).isItemEqual(compareEmptyBucket))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize += compareEmptyBucket.stackSize;
+            this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize += compareEmptyBucket.stackSize;
         }
 
         // Add a bucket's worth of water into the internal tank.
         if (this.addFluidAmountByBucket(1))
         {
             // Remove a filled bucket of water from input stack 1.
-            --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize;
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize <= 0)
+            --this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize;
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET).stackSize <= 0)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET, null);
+                this.setInventorySlotContentsByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET, null);
             }
             
             return true;

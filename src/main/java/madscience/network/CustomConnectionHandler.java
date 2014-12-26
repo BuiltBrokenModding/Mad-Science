@@ -5,7 +5,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.Player;
-import madscience.MadModMetadata;
+import madscience.ModMetadata;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
@@ -61,10 +61,10 @@ public class CustomConnectionHandler implements IConnectionHandler
                     maxTries--;
                 }
 
-                if (mc.thePlayer != null && MadModMetadata.VBUILD != "@BUILD@")
+                if (mc.thePlayer != null && ModMetadata.VBUILD != "@BUILD@")
                 {
                     // Ensure both numbers are proper for comparing.
-                    long runningBuild = new Long( MadModMetadata.VBUILD );
+                    long runningBuild = new Long( ModMetadata.VBUILD );
 
                     // Tell the user how many builds behind they are.
                     if (jenkinsLastBuild > runningBuild)
@@ -73,14 +73,14 @@ public class CustomConnectionHandler implements IConnectionHandler
 
                         if (buildDiff > 1)
                         {
-                            mc.thePlayer.addChatMessage( MadModMetadata.NAME +
+                            mc.thePlayer.addChatMessage( ModMetadata.NAME +
                                                          ": You're " +
                                                          String.valueOf( buildDiff ) +
                                                          " versions behind." );
                         }
                         else
                         {
-                            mc.thePlayer.addChatMessage( MadModMetadata.NAME +
+                            mc.thePlayer.addChatMessage( ModMetadata.NAME +
                                                          ": You're " +
                                                          String.valueOf( buildDiff ) +
                                                          " version behind." );

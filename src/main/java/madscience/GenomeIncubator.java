@@ -1,8 +1,8 @@
 package madscience;
 
-import madscience.container.MadSlotContainerTypeEnum;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.tile.MadTileEntityPrefab;
+import madscience.container.SlotContainerTypeEnum;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.tile.TileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
@@ -10,14 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class GenomeIncubator extends MadTileEntityPrefab implements ISidedInventory
+public class GenomeIncubator extends TileEntityPrefab implements ISidedInventory
 {
     public GenomeIncubator()
     {
         super();
     }
 
-    public GenomeIncubator(MadTileEntityFactoryProduct registeredMachine)
+    public GenomeIncubator(TileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
@@ -51,29 +51,29 @@ public class GenomeIncubator extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Check if input slots are empty.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null || this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1) == null || this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
         {
             return false;
         }
 
         // Check if input slot 1 is a fresh egg.
         ItemStack itemsInputSlot1 = new ItemStack(Item.egg);
-        if (!itemsInputSlot1.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)))
+        if (!itemsInputSlot1.isItemEqual(this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1)))
         {
             return false;
         }
 
         // Check if input slot 2 is a completed genome data reel.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
         {
             return false;
         }
 
         // Check if the data reel inserted to input slot 2 has valid conversion.
         ItemStack recipeResult = this.getRecipeResult(
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+                SlotContainerTypeEnum.INPUT_INGREDIENT1,
+                SlotContainerTypeEnum.INPUT_INGREDIENT2,
+                SlotContainerTypeEnum.OUTPUT_RESULT1);
         
         if (recipeResult == null)
         {
@@ -83,17 +83,17 @@ public class GenomeIncubator extends MadTileEntityPrefab implements ISidedInvent
 
         // Check if output slots are empty and ready to be filled with
         // items.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
             return true;
         }
 
         // Check if genome being cooked is same as one in output slot.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) != null && recipeResult != null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) != null && recipeResult != null)
         {
             // Check item difference by sub-type since item will always be equal (monster placer).
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult) &&
-                    this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult.getItemDamage())
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult) &&
+                    this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).getItemDamage() == recipeResult.getItemDamage())
             {
                 // The egg we are producing matches what the genome cooking recipe says.
                 return true;
@@ -104,7 +104,7 @@ public class GenomeIncubator extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Check if output slot 1 is above item stack limit.
-        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + itemsInputSlot1.stackSize;
+        int slot2Result = this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + itemsInputSlot1.stackSize;
         return (slot2Result <= getInventoryStackLimit() && slot2Result <= itemsInputSlot1.getMaxStackSize());
     }
 
@@ -121,9 +121,9 @@ public class GenomeIncubator extends MadTileEntityPrefab implements ISidedInvent
         
         // Output 1 - Encoded mob egg from genome and fresh egg.
         ItemStack recipeResult = this.getRecipeResult(
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+                SlotContainerTypeEnum.INPUT_INGREDIENT1,
+                SlotContainerTypeEnum.INPUT_INGREDIENT2,
+                SlotContainerTypeEnum.OUTPUT_RESULT1);
 
         if (recipeResult == null)
         {
@@ -131,17 +131,17 @@ public class GenomeIncubator extends MadTileEntityPrefab implements ISidedInvent
         }
 
         // Add encoded mob egg to output slot 1.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_RESULT1, recipeResult.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
+        else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(recipeResult))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
+            this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += recipeResult.stackSize;
         }
 
         // Remove a fresh egg from input stack 1.
-        this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2), 1);
+        this.decrStackSize(this.getSlotIDByType(SlotContainerTypeEnum.INPUT_INGREDIENT2), 1);
     }
 
     @Override

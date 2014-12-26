@@ -1,0 +1,95 @@
+// class version 50.0 (50)
+// access flags 0x401
+public abstract class TTileInfoPacketHandler$$5$class {
+
+
+  // access flags 0x9
+  public static $init$(LTTileInfoPacketHandler$$5;)V
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x9
+  public static bindPart(LTTileInfoPacketHandler$$5;Lcodechicken/multipart/TMultiPart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$super$bindPart (Lcodechicken/multipart/TMultiPart;)V
+    ALOAD 1
+    INSTANCEOF cofh/network/ITileInfoPacketHandler
+    IFEQ L0
+    ALOAD 0
+    ALOAD 1
+    CHECKCAST cofh/network/ITileInfoPacketHandler
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$impl_$eq (Lcofh/network/ITileInfoPacketHandler;)V
+   L0
+   FRAME SAME
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x9
+  public static partRemoved(LTTileInfoPacketHandler$$5;Lcodechicken/multipart/TMultiPart;I)V
+    ALOAD 0
+    ALOAD 1
+    ILOAD 2
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$super$partRemoved (Lcodechicken/multipart/TMultiPart;I)V
+    ALOAD 1
+    ALOAD 0
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$impl ()Lcofh/network/ITileInfoPacketHandler;
+    IF_ACMPNE L0
+    ALOAD 0
+    ACONST_NULL
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$impl_$eq (Lcofh/network/ITileInfoPacketHandler;)V
+   L0
+   FRAME SAME
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x9
+  public static canAddPart(LTTileInfoPacketHandler$$5;Lcodechicken/multipart/TMultiPart;)Z
+    ALOAD 0
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$impl ()Lcofh/network/ITileInfoPacketHandler;
+    IFNULL L0
+    ALOAD 1
+    INSTANCEOF cofh/network/ITileInfoPacketHandler
+    IFEQ L0
+    ICONST_0
+    IRETURN
+   L0
+   FRAME SAME
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$super$canAddPart (Lcodechicken/multipart/TMultiPart;)Z
+    IRETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x9
+  public static handleTileInfoPacket(LTTileInfoPacketHandler$$5;Lcofh/network/Payload;Lnet/minecraft/network/packet/NetHandler;)V
+    ALOAD 0
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$impl ()Lcofh/network/ITileInfoPacketHandler;
+    ALOAD 1
+    ALOAD 2
+    INVOKEINTERFACE cofh/network/ITileInfoPacketHandler.handleTileInfoPacket (Lcofh/network/Payload;Lnet/minecraft/network/packet/NetHandler;)V
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x9
+  public static copyFrom(LTTileInfoPacketHandler$$5;Lcodechicken/multipart/TileMultipart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$super$copyFrom (Lcodechicken/multipart/TileMultipart;)V
+    ALOAD 1
+    INSTANCEOF TTileInfoPacketHandler$$5
+    IFEQ L0
+    ALOAD 0
+    ALOAD 1
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$impl ()Lcofh/network/ITileInfoPacketHandler;
+    INVOKEINTERFACE TTileInfoPacketHandler$$5.TTileInfoPacketHandler$$5$$impl_$eq (Lcofh/network/ITileInfoPacketHandler;)V
+   L0
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+}

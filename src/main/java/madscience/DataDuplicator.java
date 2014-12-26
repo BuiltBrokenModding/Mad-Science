@@ -1,20 +1,20 @@
 package madscience;
 
-import madscience.container.MadSlotContainerTypeEnum;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.tile.MadTileEntityPrefab;
+import madscience.container.SlotContainerTypeEnum;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.tile.TileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class DataDuplicator extends MadTileEntityPrefab
+public class DataDuplicator extends TileEntityPrefab
 {
     public DataDuplicator()
     {
         super();
     }
     
-    public DataDuplicator(MadTileEntityFactoryProduct registeredMachine)
+    public DataDuplicator(TileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
@@ -36,19 +36,19 @@ public class DataDuplicator extends MadTileEntityPrefab
         }
         
         // Check if both input slots for reel to copy and empty reel to copy onto.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null || this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1) == null || this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2) == null)
         {
             return false;
         }
 
         // Check if output slots are empty and ready to be filled with.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
             return true;
         }
 
         // Check if input slot 1 matches output slot 1.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1)))
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).isItemEqual(this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1)))
         {
             return false;
         }
@@ -67,55 +67,55 @@ public class DataDuplicator extends MadTileEntityPrefab
     {
         super.smeltItem();
         
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) != null &&
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged() &&
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2) != null &&
+                this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged() &&
+                this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
             {
-                int currentGenomeStatus = this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).getItemDamage();
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).setItemDamage(--currentGenomeStatus);
+                int currentGenomeStatus = this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).getItemDamage();
+                this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).setItemDamage(--currentGenomeStatus);
             }
 
             // Copy B -> A
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null &&
-                    !this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null &&
+                    !this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).isItemDamaged())
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).copy());
+                this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_RESULT1, this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).copy());
 
-                --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize;
-                if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize <= 0)
+                --this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize;
+                if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize <= 0)
                 {
-                    this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2, null);
+                    this.setInventorySlotContentsByType(SlotContainerTypeEnum.INPUT_INGREDIENT2, null);
                 }
             }
 
-            --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
+            --this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize <= 0)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1, null);
+                this.setInventorySlotContentsByType(SlotContainerTypeEnum.INPUT_INGREDIENT1, null);
             }
 
             return;
         }
 
         // Copy A -> B
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) != null &&
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2) != null &&
+                this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).copy());
+                this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_RESULT1, this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).copy());
             }
-            else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1)))
+            else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1)))
             {
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
+                this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1).stackSize;
             }
 
-            --this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize;
-            if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize <= 0)
+            --this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize;
+            if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2).stackSize <= 0)
             {
-                this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2, null);
+                this.setInventorySlotContentsByType(SlotContainerTypeEnum.INPUT_INGREDIENT2, null);
             }
         }
     }

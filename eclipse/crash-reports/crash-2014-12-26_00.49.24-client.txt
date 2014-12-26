@@ -1,0 +1,78 @@
+---- Minecraft Crash Report ----
+// Don't be sad, have a hug! <3
+
+Time: 12/26/14 12:49 AM
+Description: There was a severe problem during mod loading that has caused the game to fail
+
+cpw.mods.fml.common.LoaderException: java.lang.NoSuchMethodError: net.minecraft.util.StatCollector.func_74838_a(Ljava/lang/String;)Ljava/lang/String;
+	at cpw.mods.fml.common.LoadController.transition(LoadController.java:152)
+	at cpw.mods.fml.common.Loader.loadMods(Loader.java:494)
+	at cpw.mods.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:175)
+	at net.minecraft.client.Minecraft.startGame(Minecraft.java:473)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:808)
+	at net.minecraft.client.main.Main.main(Main.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:131)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:27)
+Caused by: java.lang.NoSuchMethodError: net.minecraft.util.StatCollector.func_74838_a(Ljava/lang/String;)Ljava/lang/String;
+	at cofh.util.StringHelper.localize(StringHelper.java:58)
+	at cofh.util.StringHelper.<clinit>(StringHelper.java:155)
+	at cofh.core.CoFHProps.<clinit>(CoFHProps.java:31)
+	at cofh.CoFHCore.preInit(CoFHCore.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at cpw.mods.fml.common.FMLModContainer.handleModStateEvent(FMLModContainer.java:523)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.EventHandler.handleEvent(EventHandler.java:74)
+	at com.google.common.eventbus.SynchronizedEventHandler.handleEvent(SynchronizedEventHandler.java:45)
+	at com.google.common.eventbus.EventBus.dispatch(EventBus.java:313)
+	at com.google.common.eventbus.EventBus.dispatchQueuedEvents(EventBus.java:296)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:267)
+	at cpw.mods.fml.common.LoadController.sendEventToModContainer(LoadController.java:197)
+	at cpw.mods.fml.common.LoadController.propogateStateMessage(LoadController.java:177)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.google.common.eventbus.EventHandler.handleEvent(EventHandler.java:74)
+	at com.google.common.eventbus.SynchronizedEventHandler.handleEvent(SynchronizedEventHandler.java:45)
+	at com.google.common.eventbus.EventBus.dispatch(EventBus.java:313)
+	at com.google.common.eventbus.EventBus.dispatchQueuedEvents(EventBus.java:296)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:267)
+	at cpw.mods.fml.common.LoadController.distributeStateMessage(LoadController.java:108)
+	at cpw.mods.fml.common.Loader.loadMods(Loader.java:493)
+	... 10 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.6.4
+	Operating System: Windows 8.1 (amd64) version 6.3
+	Java Version: 1.7.0_67, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 833142544 bytes (794 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	AABB Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	Suspicious classes: FML and Forge are installed
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP v8.11 FML v6.99.19.964 Minecraft Forge 9.11.1.964 9 mods loaded, 9 mods active
+	mcp{8.09} [Minecraft Coder Pack] (minecraft.jar) Unloaded->Constructed->Pre-initialized
+	FML{6.99.19.964} [Forge Mod Loader] (forge-1.6.4-9.11.1.964-mcp.jar) Unloaded->Constructed->Pre-initialized
+	Forge{9.11.1.964} [Minecraft Forge] (forge-1.6.4-9.11.1.964-mcp.jar) Unloaded->Constructed->Pre-initialized
+	madscience{1.0.0.165} [Mad Science] (bin) Unloaded->Constructed->Pre-initialized
+	CoFHCore{2.0.0.5} [CoFH Core] (CoFHCore-2.0.0.5.jar) Unloaded->Constructed->Errored
+	CoFHLoot{2.0.0.5} [CoFH Loot] (CoFHCore-2.0.0.5.jar) Unloaded->Constructed->Errored
+	CoFHMasquerade{2.0.0.5} [CoFH Masquerade] (CoFHCore-2.0.0.5.jar) Unloaded->Constructed->Errored
+	CoFHSocial{2.0.0.5} [CoFH Social] (CoFHCore-2.0.0.5.jar) Unloaded->Constructed->Errored
+	CoFHWorld{2.0.0.5} [CoFH World] (CoFHCore-2.0.0.5.jar) Unloaded->Constructed->Errored

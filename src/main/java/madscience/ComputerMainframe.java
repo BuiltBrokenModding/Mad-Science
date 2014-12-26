@@ -1,9 +1,9 @@
 package madscience;
 
-import madscience.factory.MadItemFactory;
-import madscience.container.MadSlotContainerTypeEnum;
-import madscience.product.MadTileEntityFactoryProduct;
-import madscience.tile.MadTileEntityPrefab;
+import madscience.container.SlotContainerTypeEnum;
+import madscience.factory.ItemFactory;
+import madscience.product.TileEntityFactoryProduct;
+import madscience.tile.TileEntityPrefab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-public class ComputerMainframe extends MadTileEntityPrefab
+public class ComputerMainframe extends TileEntityPrefab
 {
-    public ComputerMainframe(MadTileEntityFactoryProduct registeredMachine)
+    public ComputerMainframe(TileEntityFactoryProduct registeredMachine)
     {
         super(registeredMachine);
     }
@@ -32,7 +32,7 @@ public class ComputerMainframe extends MadTileEntityPrefab
     private void addBucketToInternalTank()
     {
         // Check if the input slot for filled buckets is null.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET) == null)
         {
             return;
         }
@@ -42,15 +42,15 @@ public class ComputerMainframe extends MadTileEntityPrefab
         ItemStack bucketWater = new ItemStack(Item.bucketWater);
 
         // Check if input slot 1 is a water bucket.
-        if (!this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET).isItemEqual(bucketWater))
+        if (!this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET).isItemEqual(bucketWater))
         {
             return;
         }
 
         // Check if output slot 1 (for empty buckets) is above item stack limit.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) != null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) != null)
         {
-            int slot1Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + bucketEmpty.stackSize;
+            int slot1Result = this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize + bucketEmpty.stackSize;
             boolean underStackLimit = (slot1Result <= getInventoryStackLimit() && slot1Result <= bucketEmpty.getMaxStackSize());
             if (!underStackLimit)
             {
@@ -66,20 +66,20 @@ public class ComputerMainframe extends MadTileEntityPrefab
         }
 
         // Add empty water bucket to output slot 2.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET, bucketEmpty.copy());
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET, bucketEmpty.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).isItemEqual(bucketEmpty))
+        else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).isItemEqual(bucketEmpty))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize += bucketEmpty.stackSize;
+            this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_EMPTYBUCKET).stackSize += bucketEmpty.stackSize;
         }
 
         // Add a bucket's worth of water into the internal tank.
         this.addFluidAmountByBucket(1);
 
         // Remove a filled bucket of water from input stack 1.
-        this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_FILLEDBUCKET), 1);
+        this.decrStackSize(this.getSlotIDByType(SlotContainerTypeEnum.INPUT_FILLEDBUCKET), 1);
     }
 
     /** Returns true if the furnace can smelt an item, i.e. has a source item, destination stack isn't full, etc. */
@@ -89,9 +89,9 @@ public class ComputerMainframe extends MadTileEntityPrefab
         super.canSmelt();
         
         // Check if we have all the genome slots filled and internal tank is not null.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT1) == null ||
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_INGREDIENT2) == null ||
-                this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EXTRA) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT1) == null ||
+                this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_INGREDIENT2) == null ||
+                this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_EXTRA) == null)
         {
             return false;
         }
@@ -103,18 +103,18 @@ public class ComputerMainframe extends MadTileEntityPrefab
         }
 
         // Check for empty reel inside input slot 4.
-        ItemStack emptyDataReel = MadItemFactory.instance().getItemStackByFullyQualifiedName("components", "DataReelEmpty", 1);
-        if (!emptyDataReel.isItemEqual(this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EXTRA)))
+        ItemStack emptyDataReel = ItemFactory.instance().getItemStackByFullyQualifiedName("components", "DataReelEmpty", 1);
+        if (!emptyDataReel.isItemEqual(this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_EXTRA)))
         {
             return false;
         }
 
         // Check if input slots 2 and 3 which should be genome data reels are compatible with each other.
         ItemStack currentRecipe = this.getRecipeResult(
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.INPUT_EXTRA,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+                SlotContainerTypeEnum.INPUT_INGREDIENT1,
+                SlotContainerTypeEnum.INPUT_INGREDIENT2,
+                SlotContainerTypeEnum.INPUT_EXTRA,
+                SlotContainerTypeEnum.OUTPUT_RESULT1);
         
         if (currentRecipe == null)
         {
@@ -128,13 +128,13 @@ public class ComputerMainframe extends MadTileEntityPrefab
         }
 
         // Check if output slots are empty and ready to be filled with items.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
             return true;
         }
 
         // Check if output is above stack limit.
-        int slot2Result = this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + emptyDataReel.stackSize;
+        int slot2Result = this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize + emptyDataReel.stackSize;
         return (slot2Result <= getInventoryStackLimit() && slot2Result <= emptyDataReel.getMaxStackSize());
     }
 
@@ -144,7 +144,7 @@ public class ComputerMainframe extends MadTileEntityPrefab
         // Computer is switched on and has power reserves.
         if (this.isPowered() && this.isRedstonePowered())
         {
-            if (this.getEnergy(ForgeDirection.UNKNOWN) <= this.getEnergyCapacity(ForgeDirection.UNKNOWN))
+            if (this.getEnergyStored(ForgeDirection.UNKNOWN) <= this.getMaxEnergyStored(ForgeDirection.UNKNOWN))
             {
                 // Running computer consumes energy from internal reserve.
                 this.consumeInternalEnergy(this.getEnergyConsumeRate());
@@ -208,27 +208,27 @@ public class ComputerMainframe extends MadTileEntityPrefab
         
         // Converts input item into result item along with waste items.
         ItemStack currentRecipe = this.getRecipeResult(
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
-                MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                MadSlotContainerTypeEnum.INPUT_EXTRA,
-                MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+                SlotContainerTypeEnum.INPUT_INGREDIENT1,
+                SlotContainerTypeEnum.INPUT_INGREDIENT2,
+                SlotContainerTypeEnum.INPUT_EXTRA,
+                SlotContainerTypeEnum.OUTPUT_RESULT1);
         
         ItemStack itemOutputSlot2 = currentRecipe.copy();
 
         // Add merged genome to output slot 1.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1) == null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1) == null)
         {
-            this.setInventorySlotContentsByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1, itemOutputSlot2.copy());
+            this.setInventorySlotContentsByType(SlotContainerTypeEnum.OUTPUT_RESULT1, itemOutputSlot2.copy());
         }
-        else if (this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(itemOutputSlot2))
+        else if (this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).isItemEqual(itemOutputSlot2))
         {
-            this.getStackInSlotByType(MadSlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += itemOutputSlot2.stackSize;
+            this.getStackInSlotByType(SlotContainerTypeEnum.OUTPUT_RESULT1).stackSize += itemOutputSlot2.stackSize;
         }
 
         // Remove a empty genome data reel from bottom right slot.
-        if (this.getStackInSlotByType(MadSlotContainerTypeEnum.INPUT_EXTRA) != null)
+        if (this.getStackInSlotByType(SlotContainerTypeEnum.INPUT_EXTRA) != null)
         {
-            this.decrStackSize(this.getSlotIDByType(MadSlotContainerTypeEnum.INPUT_EXTRA), 1);
+            this.decrStackSize(this.getSlotIDByType(SlotContainerTypeEnum.INPUT_EXTRA), 1);
         }
     }
 
@@ -344,10 +344,10 @@ public class ComputerMainframe extends MadTileEntityPrefab
             {
                 // Calculate length of time it should take to compute these genome combinations.
                 ItemStack currentRecipe = this.getRecipeResult(
-                        MadSlotContainerTypeEnum.INPUT_INGREDIENT1,
-                        MadSlotContainerTypeEnum.INPUT_INGREDIENT2,
-                        MadSlotContainerTypeEnum.INPUT_EXTRA,
-                        MadSlotContainerTypeEnum.OUTPUT_RESULT1);
+                        SlotContainerTypeEnum.INPUT_INGREDIENT1,
+                        SlotContainerTypeEnum.INPUT_INGREDIENT2,
+                        SlotContainerTypeEnum.INPUT_EXTRA,
+                        SlotContainerTypeEnum.OUTPUT_RESULT1);
                 
                 if (currentRecipe == null)
                 {
