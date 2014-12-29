@@ -1,7 +1,7 @@
 # MAD SCIENCE - MINECRAFT LANGUAGE FILE
 # LANGUAGE: American English (en_US)
 # CREDIT: Maxwolf Goodliffe, Fox Diller
-# NOTE: This file was automatically generated using MineAPI Editor. 
+# NOTE: This file was automatically generated using MineAPI Editor [ALPHA]. 
 
 # BASIC MOD API ITEMS
 button.help=Help
@@ -39,10 +39,10 @@ tile.voxBox.name=Announcement System
 tile.voxBox.tooltip=Public address system for relaying audible messages and announcements with a male voice.
 
 # ITEMS
-item.circuits.comparator.name=Comparator Circuit Component
-item.circuits.comparator.tooltip=Enables electronic devices to compare items to other items.
-item.circuits.diamond.name=Diamond Circuit Component
-item.circuits.diamond.tooltip=Advanced circuit used as central core in several machines.
+item.circuits.comparator.tooltip=Advanced circuit that is used in the creation of some of the most scientifically accurate equipment known to Minecraft.
+item.circuits.diamond.tooltip=Advanced circuit that is used in the creation of some of the most scientifically accurate equipment known to Minecraft.
+item.circuits.emerald.name=Emerald Circuit Component
+item.circuits.emerald.name=Emerald Circuit Component
 item.circuits.emerald.name=Emerald Circuit Component
 item.circuits.emerald.tooltip=Advanced circuit that is used in the creation of some of the most scientifically accurate equipment known to Minecraft.
 item.circuits.endereye.name=Ender Eye Circuit Component
