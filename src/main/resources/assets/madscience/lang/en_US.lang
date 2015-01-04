@@ -39,10 +39,10 @@ tile.voxBox.name=Announcement System
 tile.voxBox.tooltip=Public address system for relaying audible messages and announcements with a male voice.
 
 # ITEMS
+item.circuits.comparator.name=
 item.circuits.comparator.tooltip=Advanced circuit that is used in the creation of some of the most scientifically accurate equipment known to Minecraft.
+item.circuits.diamond.name=
 item.circuits.diamond.tooltip=Advanced circuit that is used in the creation of some of the most scientifically accurate equipment known to Minecraft.
-item.circuits.emerald.name=Emerald Circuit Component
-item.circuits.emerald.name=Emerald Circuit Component
 item.circuits.emerald.name=Emerald Circuit Component
 item.circuits.emerald.tooltip=Advanced circuit that is used in the creation of some of the most scientifically accurate equipment known to Minecraft.
 item.circuits.endereye.name=Ender Eye Circuit Component

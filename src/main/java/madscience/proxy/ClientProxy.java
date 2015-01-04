@@ -221,17 +221,12 @@ public class ClientProxy extends CommonProxy // NO_UCD (unused code)
         // Build a path to dump directory.
         File dumpDirectory = new File( dataDir,
                                        "dump" );
-        try
+        
+        // Abort if the dump directory already exists so we do not constantly re-make files.
+        if (dumpDirectory.exists())
         {
-            // Clean the dump directory if it exists.
-            if (dumpDirectory.exists())
-            {
-                FileUtils.deleteDirectory( dumpDirectory );
-            }
-        }
-        catch (IOException err)
-        {
-            err.printStackTrace();
+        	ModLoader.log().info("Stopping execution of game asset dumper since directory already exists!");
+            return;
         }
 
         // Renderer that we will be using to render game assets.
