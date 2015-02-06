@@ -1,25 +1,29 @@
 package madscience.items;
 
-import madscience.MadScience;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import madscience.MadScience;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 public class ItemDecayDNA extends ItemDecay
 {
-    /** Base color of the egg */
+    /**
+     * Base color of the egg
+     */
     public int primaryColor;
 
-    /** Color of the egg spots */
+    /**
+     * Color of the egg spots
+     */
     public int secondaryColor;
 
     @SideOnly(Side.CLIENT)
-    private Icon dnaSampleOverlay;
+    private IIcon dnaSampleOverlay;
 
     public ItemDecayDNA(int id, int primaryColor, int secondaryColor)
     {
@@ -40,7 +44,7 @@ public class ItemDecayDNA extends ItemDecay
     }
 
     @Override
-    public Icon getIcon(ItemStack stack, int pass)
+    public IIcon getIcon(ItemStack stack, int pass)
     {
         if (pass == 0)
         {
@@ -55,7 +59,7 @@ public class ItemDecayDNA extends ItemDecay
     }
 
     @Override
-    public Icon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
     {
         // Fired by Minecraft/Forge so it can get the icons for different render passes.
         return getIcon(stack, renderPass);
@@ -63,7 +67,7 @@ public class ItemDecayDNA extends ItemDecay
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons(IIconRegister par1IconRegister)
     {
         super.registerIcons(par1IconRegister);
 
@@ -84,7 +88,7 @@ public class ItemDecayDNA extends ItemDecay
             {
                 if (((EntityPlayer) entity).inventory.mainInventory[i] == stack)
                 {
-                    ((EntityPlayer) entity).inventory.mainInventory[i] = new ItemStack(Item.slimeBall, stack.stackSize);
+                    ((EntityPlayer) entity).inventory.mainInventory[i] = new ItemStack(Items.slime_ball, stack.stackSize);
                 }
             }
         }

@@ -136,7 +136,7 @@ public class CryotubeBlock extends BlockContainer
     @Override
     public boolean canBlockStay(World world, int x, int y, int z)
     {
-        if (world.getBlockMaterial(x, y + 1, z).isSolid())
+        if (world.getMaterial(x, y + 1, z).isSolid())
         {
             return false;
         }

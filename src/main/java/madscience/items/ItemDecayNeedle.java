@@ -1,28 +1,32 @@
 package madscience.items;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadNeedles;
 import madscience.MadScience;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.IIcon;
 
 public class ItemDecayNeedle extends ItemDecay
 {
-    /** Base color of the egg */
+    /**
+     * Base color of the egg
+     */
     public int primaryColor;
 
-    /** Color of the egg spots */
+    /**
+     * Color of the egg spots
+     */
     public int secondaryColor;
 
     @SideOnly(Side.CLIENT)
-    private Icon needleReelLayer1;
+    private IIcon needleReelLayer1;
 
     @SideOnly(Side.CLIENT)
-    private Icon needleReelLayer2;
+    private IIcon needleReelLayer2;
 
     public ItemDecayNeedle(int id, int primaryColor, int secondaryColor)
     {
@@ -49,7 +53,7 @@ public class ItemDecayNeedle extends ItemDecay
     }
 
     @Override
-    public Icon getIcon(ItemStack stack, int pass)
+    public IIcon getIcon(ItemStack stack, int pass)
     {
         if (pass == 0)
         {
@@ -68,7 +72,7 @@ public class ItemDecayNeedle extends ItemDecay
     }
 
     @Override
-    public Icon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
     {
         // Fired by Minecraft/Forge so it can get the icons for different render passes.
         return getIcon(stack, renderPass);
@@ -82,7 +86,7 @@ public class ItemDecayNeedle extends ItemDecay
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons(IIconRegister par1IconRegister)
     {
         super.registerIcons(par1IconRegister);
 

@@ -8,12 +8,14 @@ import madscience.tileentities.prefab.MadTileEntity;
 import madscience.util.MadUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -21,7 +23,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -85,8 +86,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
 
         // Output 1 - Empty bucket returns from full one in input slot 1
-        ItemStack compareEmptyBucket = new ItemStack(Item.bucketEmpty);
-        ItemStack compareFilledBucket = new ItemStack(Item.bucketWater);
+        ItemStack compareEmptyBucket = new ItemStack(Items.bucket);
+        ItemStack compareFilledBucket = new ItemStack(Items.water_bucket);
         if (!this.CnCMachineInput[0].isItemEqual(compareFilledBucket))
         {
             MadScience.logger.info("addBucketToInternalTank() aborted due to item not being a filled water bucket.");
@@ -213,11 +214,6 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
 
         return true;
-    }
-
-    @Override
-    public void closeChest()
-    {
     }
 
     private ItemStack DecreaseInputSlot(int slot, int numItems)
@@ -359,7 +355,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     }
 
     @Override
-    public String getInvName()
+    public String getInventoryName()
     {
         return MadFurnaces.CNCMACHINE_INTERNALNAME;
     }
@@ -589,7 +585,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         }
 
         // Compare iron block.
-        ItemStack compareIronBlock = new ItemStack(Block.blockIron);
+        ItemStack compareIronBlock = new ItemStack(Blocks.iron_block);
         if (this.CnCMachineInput[1].isItemEqual(compareIronBlock))
         {
             return true;
@@ -601,7 +597,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     }
 
     @Override
-    public boolean isInvNameLocalized()
+    public boolean hasCustomInventoryName()
     {
         return true;
     }
@@ -613,7 +609,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         if (slot == 0)
         {
             // Input slot 1 - Water Bucket.
-            ItemStack compareWaterBucket = new ItemStack(Item.bucketWater);
+            ItemStack compareWaterBucket = new ItemStack(Items.water_bucket);
             if (compareWaterBucket.isItemEqual(items))
             {
                 return true;
@@ -622,7 +618,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         else if (slot == 1)
         {
             // Input slot 2 - Iron Block.
-            ItemStack compareIronBlock = new ItemStack(Block.blockIron);
+            ItemStack compareIronBlock = new ItemStack(Blocks.iron_block);
             if (compareIronBlock.isItemEqual(items))
             {
                 return true;
@@ -631,7 +627,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         else if (slot == 2)
         {
             // Input slot 3 - Written Book.
-            ItemStack compareWrittenBook = new ItemStack(Item.writtenBook);
+            ItemStack compareWrittenBook = new ItemStack(Items.written_book);
             if (compareWrittenBook.isItemEqual(items))
             {
                 return true;
@@ -651,12 +647,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
     @Override
     public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
     {
-        return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
-    }
-
-    @Override
-    public void openChest()
-    {
+        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -665,8 +656,8 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         super.readFromNBT(nbt);
 
         // Read input/output items from world save data.
-        NBTTagList nbtInput = nbt.getTagList("InputItems");
-        NBTTagList nbtOutput = nbt.getTagList("OutputItems");
+        NBTTagList nbtInput = nbt.getTagList("InputItems", 0);
+        NBTTagList nbtOutput = nbt.getTagList("OutputItems", 0);
 
         // Cast the save data onto our running object.
         this.CnCMachineInput = new ItemStack[this.getSizeInputInventory()];
@@ -675,7 +666,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         // Input items process.
         for (int i = 0; i < nbtInput.tagCount(); ++i)
         {
-            NBTTagCompound inputSaveData = (NBTTagCompound) nbtInput.tagAt(i);
+            NBTTagCompound inputSaveData = nbtInput.getCompoundTagAt(i);
             byte b0 = inputSaveData.getByte("InputSlot");
 
             if (b0 >= 0 && b0 < this.CnCMachineInput.length)
@@ -687,7 +678,7 @@ public class CnCMachineEntity extends MadTileEntity implements ISidedInventory, 
         // Output items process.
         for (int i = 0; i < nbtOutput.tagCount(); ++i)
         {
-            NBTTagCompound outputSaveData = (NBTTagCompound) nbtOutput.tagAt(i);
+            NBTTagCompound outputSaveData = nbtOutput.getCompoundTagAt(i);
             byte b0 = outputSaveData.getByte("OutputSlot");
 
             if (b0 >= 0 && b0 < this.CnCMachineOutput.length)

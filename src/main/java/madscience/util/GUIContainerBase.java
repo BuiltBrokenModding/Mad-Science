@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import com.builtbroken.mc.lib.transform.vector.Point;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiYesNoCallback;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -24,12 +25,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import universalelectricity.api.CompatibilityType;
-import universalelectricity.api.energy.UnitDisplay;
-import universalelectricity.api.energy.UnitDisplay.Unit;
-import universalelectricity.api.vector.Vector2;
-
-public class GUIContainerBase extends GuiContainer
+public class GUIContainerBase extends GuiContainer implements GuiYesNoCallback
 {
     public ResourceLocation TEXTURE;
 
@@ -113,7 +109,7 @@ public class GUIContainerBase extends GuiContainer
         {
             Entry<Region2, String> entry = it.next();
 
-            if (entry.getKey().isIn(new Vector2(mouseX - this.guiLeft, mouseY - this.guiTop)))
+            if (entry.getKey().isIn(new Point(mouseX - this.guiLeft, mouseY - this.guiTop)))
             {
                 this.tooltip = entry.getValue();
                 break;
@@ -177,7 +173,7 @@ public class GUIContainerBase extends GuiContainer
         // drawTexturedModelRectFromIcon
         // GL11.glEnable(GL11.GL_BLEND);
         // GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, itemStack, x, y);
+        this.itemRenderer.renderItemAndEffectIntoGUI(this.fontRendererObj, this.mc.renderEngine, itemStack, x, y);
         // GL11.glDisable(GL11.GL_BLEND);
     }
 
@@ -188,11 +184,11 @@ public class GUIContainerBase extends GuiContainer
 
     protected void drawTextWithTooltip(String textName, String format, int x, int y, int mouseX, int mouseY, int color)
     {
-        String name = I18n.getString("gui." + textName + ".name");
+        String name = I18n.format("gui." + textName + ".name");
         String text = format.replaceAll("%1", name);
-        this.fontRenderer.drawString(text, x, y, color);
+        this.fontRendererObj.drawString(text, x, y, color);
 
-        String tooltip = I18n.getString("gui." + textName + ".tooltip");
+        String tooltip = I18n.format("gui." + textName + ".tooltip");
 
         if (tooltip != null && tooltip != "")
         {
@@ -223,7 +219,7 @@ public class GUIContainerBase extends GuiContainer
 
                 for (var6 = 0; var6 < toolTips.length; ++var6)
                 {
-                    var7 = this.fontRenderer.getStringWidth(toolTips[var6]);
+                    var7 = this.fontRendererObj.getStringWidth(toolTips[var6]);
 
                     if (var7 > var5)
                     {
@@ -264,7 +260,7 @@ public class GUIContainerBase extends GuiContainer
                 {
                     String var14 = toolTips[var13];
 
-                    this.fontRenderer.drawStringWithShadow(var14, var6, var7, -1);
+                    this.fontRendererObj.drawStringWithShadow(var14, var6, var7, -1);
                     var7 += 10;
                 }
 

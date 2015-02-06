@@ -1,30 +1,26 @@
 package madscience.items.labcoat;
 
-import java.util.List;
-
-import org.lwjgl.input.Keyboard;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.util.MadUtils;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
+import org.lwjgl.input.Keyboard;
+
+import java.util.List;
 
 public class ItemLabCoat extends ItemArmor
 {
-    public ItemLabCoat(int id, EnumArmorMaterial material, int index, int slot)
+    public ItemLabCoat(ItemArmor.ArmorMaterial material, int index, int slot)
     {
-        super(id, material, index, slot);
+        super(material, index, slot);
         this.setCreativeTab(MadEntities.tabMadScience);
         this.setMaxDamage(200000);
     }
@@ -37,19 +33,18 @@ public class ItemLabCoat extends ItemArmor
         return this;
     }
 
-    @Override
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer)
     {
         return MadScience.ID + ":" + MadScience.MODEL_DIRECTORY + "labCoat/labCoat.png";
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons(IIconRegister par1IconRegister)
     {
         this.itemIcon = par1IconRegister.registerIcon(MadScience.ID + ":" + (this.getUnlocalizedName().substring(5)));
     }
-    
+
     @Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {

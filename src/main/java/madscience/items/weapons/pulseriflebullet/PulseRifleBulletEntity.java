@@ -12,8 +12,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet70GameEvent;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -22,6 +22,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.text.translate.EntityArrays;
 
 public class PulseRifleBulletEntity extends Entity implements IProjectile
 {
@@ -30,7 +31,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
     private double damage = 4.2D;
     private int inData;
     private boolean inGround;
-    private int inTile;
+    private Block inTile;
 
     /** The amount of knockback an arrow applies when it hits a mob. */
     private int knockbackStrength;
@@ -198,14 +199,14 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
             this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, f) * 180.0D / Math.PI);
         }
 
-        int i = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+        Block block = this.worldObj.getBlock(this.xTile, this.yTile, this.zTile);
 
-        if (i > 0)
+        if (block != null && block.isAir(this.worldObj, this.xTile, this.yTile, this.zTile))
         {
-            Block.blocksList[i].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
-            AxisAlignedBB axisalignedbb = Block.blocksList[i].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
+            block.setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
+            AxisAlignedBB axisalignedbb = block.getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
 
-            if (axisalignedbb != null && axisalignedbb.isVecInside(this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ)))
+            if (axisalignedbb != null && axisalignedbb.isVecInside(Vec3.createVectorHelper(this.posX, this.posY, this.posZ)))
             {
                 this.inGround = true;
             }
@@ -218,7 +219,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
 
         if (this.inGround)
         {
-            int j = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+            Block j = this.worldObj.getBlock(this.xTile, this.yTile, this.zTile);
             int k = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
 
             if (j == this.inTile && k == this.inData)
@@ -237,15 +238,15 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
         else
         {
             ++this.ticksInAir;
-            Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ);
-            Vec3 vec31 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-            MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks_do_do(vec3, vec31, false, true);
-            vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ);
-            vec31 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            Vec3 vec3 = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
+            Vec3 vec31 = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+            MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(vec3, vec31, false);
+            vec3 = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
+            vec31 = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
             if (movingobjectposition != null)
             {
-                vec31 = this.worldObj.getWorldVec3Pool().getVecFromPool(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
+                vec31 = Vec3.createVectorHelper(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
             }
 
             Entity entity = null;
@@ -338,12 +339,12 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
 
                             if (this.shootingEntity != null)
                             {
-                                EnchantmentThorns.func_92096_a(this.shootingEntity, entitylivingbase, this.rand);
+                                //EnchantmentThorns.func_151367_b(this.shootingEntity, entitylivingbase, this.rand);
                             }
 
                             if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP)
                             {
-                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(6, 0));
+                                //((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(6, 0));
                             }
                         }
                     }
@@ -362,7 +363,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     this.xTile = movingobjectposition.blockX;
                     this.yTile = movingobjectposition.blockY;
                     this.zTile = movingobjectposition.blockZ;
-                    this.inTile = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+                    this.inTile = this.worldObj.getBlock(this.xTile, this.yTile, this.zTile);
                     this.inData = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
                     this.motionX = ((float) (movingobjectposition.hitVec.xCoord - this.posX));
                     this.motionY = ((float) (movingobjectposition.hitVec.yCoord - this.posY));
@@ -375,9 +376,9 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
                     this.arrowShake = 7;
                     this.setIsCritical(false);
 
-                    if (this.inTile != 0)
+                    if (this.inTile != null)
                     {
-                        Block.blocksList[this.inTile].onEntityCollidedWithBlock(this.worldObj, this.xTile, this.yTile, this.zTile, this);
+                        this.inTile.onEntityCollidedWithBlock(this.worldObj, this.xTile, this.yTile, this.zTile, this);
                         this.fireBullet(this.xTile, this.yTile, this.zTile);
                     }
                 }
@@ -438,7 +439,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
             this.motionZ *= f4;
             this.motionY -= f1;
             this.setPosition(this.posX, this.posY, this.posZ);
-            this.doBlockCollisions();
+            this.func_145775_I();
         }
     }
 
@@ -449,7 +450,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
         this.xTile = par1NBTTagCompound.getShort("xTile");
         this.yTile = par1NBTTagCompound.getShort("yTile");
         this.zTile = par1NBTTagCompound.getShort("zTile");
-        this.inTile = par1NBTTagCompound.getByte("inTile") & 255;
+        this.inTile = Block.getBlockById(par1NBTTagCompound.getByte("inTile"));
         this.inData = par1NBTTagCompound.getByte("inData") & 255;
         this.arrowShake = par1NBTTagCompound.getByte("shake") & 255;
         this.inGround = par1NBTTagCompound.getByte("inGround") == 1;
@@ -549,7 +550,7 @@ public class PulseRifleBulletEntity extends Entity implements IProjectile
         par1NBTTagCompound.setShort("xTile", (short) this.xTile);
         par1NBTTagCompound.setShort("yTile", (short) this.yTile);
         par1NBTTagCompound.setShort("zTile", (short) this.zTile);
-        par1NBTTagCompound.setByte("inTile", (byte) this.inTile);
+        par1NBTTagCompound.setByte("inTile", (byte) Block.getIdFromBlock(this.inTile));
         par1NBTTagCompound.setByte("inData", (byte) this.inData);
         par1NBTTagCompound.setByte("shake", (byte) this.arrowShake);
         par1NBTTagCompound.setByte("inGround", (byte) (this.inGround ? 1 : 0));
