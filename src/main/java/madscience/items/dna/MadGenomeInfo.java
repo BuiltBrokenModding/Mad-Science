@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.items.dna;
 
 
 public class MadGenomeInfo

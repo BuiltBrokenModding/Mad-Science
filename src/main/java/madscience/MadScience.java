@@ -16,6 +16,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import madscience.gui.MadGUI;
 import madscience.items.ItemCircuits;
 import madscience.items.ItemComponents;
+import madscience.items.dna.ItemDNASample;
+import madscience.items.dna.ItemGenome;
 import madscience.items.weapons.ItemWeaponPart;
 import madscience.items.dna.ItemNeedle;
 import madscience.mobs.abomination.AbominationMobEntity;
@@ -213,86 +215,8 @@ public class MadScience extends AbstractMod
         itemComponents = getManager().newItem(ItemComponents.class);
         itemWeaponParts = getManager().newItem(ItemWeaponPart.class);
         itemNeedle = getManager().newItem(ItemNeedle.class);
-
-        // -------
-        // NEEDLES
-        // -------
-        logger.info("Creating Needles");
-
-        MadNeedles.createEmptyNeedle(MadConfig.NEEDLE_EMPTY);
-        MadNeedles.createDirtyNeedle(MadConfig.NEEDLE_DIRTY);
-        MadNeedles.createCaveSpiderNeedle(MadConfig.NEEDLE_CAVESPIDER);
-        MadNeedles.createChickenNeedle(MadConfig.NEEDLE_CHICKEN);
-        MadNeedles.createCowNeedle(MadConfig.NEEDLE_COW);
-        MadNeedles.createCreeperNeedle(MadConfig.NEEDLE_CREEPER);
-        MadNeedles.createEndermanNeedle(MadConfig.NEEDLE_ENDERMAN);
-        MadNeedles.createHorseNeedle(MadConfig.NEEDLE_HORSE);
-        MadNeedles.createMushroomCowNeedle(MadConfig.NEEDLE_MUSHROOMCOW);
-        MadNeedles.createOcelotNeedle(MadConfig.NEEDLE_OCELOT);
-        MadNeedles.createPigNeedle(MadConfig.NEEDLE_PIG);
-        MadNeedles.createSheepNeedle(MadConfig.NEEDLE_SHEEP);
-        MadNeedles.createSpiderNeedle(MadConfig.NEEDLE_SPIDER);
-        MadNeedles.createSquidNeedle(MadConfig.NEEDLE_SQUID);
-        MadNeedles.createVillagerNeedle(MadConfig.NEEDLE_VILLAGER);
-        MadNeedles.createWitchNeedle(MadConfig.NEEDLE_WITCH);
-        MadNeedles.createWolfNeedle(MadConfig.NEEDLE_WOLF);
-        MadNeedles.createZombieNeedle(MadConfig.NEEDLE_ZOMBIE);
-        MadNeedles.createMutantNeedle(MadConfig.NEEDLE_MUTANT);
-        MadNeedles.createBatNeedle(MadConfig.NEEDLE_BAT);
-
-        // -----------
-        // DNA SAMPLES
-        // -----------
-        logger.info("Creating DNA Samples");
-
-        MadDNA.createCaveSpiderDNA(MadConfig.DNA_CAVESPIDER);
-        MadDNA.createChickenDNA(MadConfig.DNA_CHICKEN);
-        MadDNA.createCowDNA(MadConfig.DNA_COW);
-        MadDNA.createCreeperDNA(MadConfig.DNA_CREEPER);
-        MadDNA.createEndermanDNA(MadConfig.DNA_ENDERMAN);
-        MadDNA.createGhastDNA(MadConfig.DNA_GHAST);
-        MadDNA.createHorseDNA(MadConfig.DNA_HORSE);
-        MadDNA.createMushroomCowDNA(MadConfig.DNA_MUSHROOMCOW);
-        MadDNA.createOcelotDNA(MadConfig.DNA_OCELOT);
-        MadDNA.createPigDNA(MadConfig.DNA_PIG);
-        MadDNA.createSheepDNA(MadConfig.DNA_SHEEP);
-        MadDNA.createSkeletonDNA(MadConfig.DNA_SKELETON);
-        MadDNA.createSpiderDNA(MadConfig.DNA_SPIDER);
-        MadDNA.createSquidDNA(MadConfig.DNA_SQUID);
-        MadDNA.createVillagerDNA(MadConfig.DNA_VILLAGER);
-        MadDNA.createWitchDNA(MadConfig.DNA_WITCH);
-        MadDNA.createWolfDNA(MadConfig.DNA_WOLF);
-        MadDNA.createZombieDNA(MadConfig.DNA_ZOMBIE);
-        MadDNA.createBatDNA(MadConfig.DNA_BAT);
-        MadDNA.createSlimeDNA(MadConfig.DNA_SLIME);
-
-        // -----------------
-        // GENOME DATA REELS
-        // -----------------
-        logger.info("Creating Genome Data Reels");
-
-        MadEntities.createEmptyDataReel(MadConfig.DATAREEL_EMPTY);
-        MadGenomes.createCaveSpiderGenome(MadConfig.GENOME_CAVESPIDER);
-        MadGenomes.createChickenGenome(MadConfig.GENOME_CHICKEN);
-        MadGenomes.createCowGenome(MadConfig.GENOME_COW);
-        MadGenomes.createCreeperGenome(MadConfig.GENOME_CREEPER);
-        MadGenomes.createEndermanGenome(MadConfig.GENOME_ENDERMAN);
-        MadGenomes.createGhastGenome(MadConfig.GENOME_GHAST);
-        MadGenomes.createHorseGenome(MadConfig.GENOME_HORSE);
-        MadGenomes.createMushroomCowGenome(MadConfig.GENOME_MUSHROOMCOW);
-        MadGenomes.createOcelotGenome(MadConfig.GENOME_OCELOT);
-        MadGenomes.createPigGenome(MadConfig.GENOME_PIG);
-        MadGenomes.createSheepGenome(MadConfig.GENOME_SHEEP);
-        MadGenomes.createSkeletonGenome(MadConfig.GENOME_SKELETON);
-        MadGenomes.createSpiderGenome(MadConfig.GENOME_SPIDER);
-        MadGenomes.createSquidGenome(MadConfig.GENOME_SQUID);
-        MadGenomes.createVillagerGenome(MadConfig.GENOME_VILLAGER);
-        MadGenomes.createWitchGenome(MadConfig.GENOME_WITCH);
-        MadGenomes.createWolfGenome(MadConfig.GENOME_WOLF);
-        MadGenomes.createZombieGenome(MadConfig.GENOME_ZOMBIE);
-        MadGenomes.createBatGenome(MadConfig.GENOME_BAT);
-        MadGenomes.createSlimeGenome(MadConfig.GENOME_SLIME);
-        MadGenomes.createPigZombieGenome(MadConfig.GENOME_PIGZOMBIE);
+        itemGnome = getManager().newItem(ItemGenome.class);
+        itemDNA = getManager().newItem(ItemDNASample.class);
 
         // -------
         // WEAPONS
@@ -440,20 +364,5 @@ public class MadScience extends AbstractMod
         // DONE INIT
         // ---------
         logger.info("Finished loading all madness!");
-    }
-
-    @EventHandler
-    public void invalidFingerprint(FMLFingerprintViolationEvent event)
-    {
-        // Report (log) to the user that the version of Mad Science
-        // they are using has been changed/tampered with
-        if (FINGERPRINT.equals("@FINGERPRINT@"))
-        {
-            LogWrapper.warning("The copy of Mad Science that you are running is a development version of the mod, and as such may be unstable and/or incomplete.");
-        }
-        else
-        {
-            LogWrapper.severe("The copy of Mad Science that you are running has been modified from the original, and unpredictable things may happen. Please consider re-downloading the original version of the mod.");
-        }
     }
 }

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.items.MadGenomeInfo;
+import madscience.items.dna.MadGenomeInfo;
 
 public class GenomeRegistry
 {

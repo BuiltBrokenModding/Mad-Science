@@ -1,5 +1,6 @@
 package madscience.items.dna;
 
+import madscience.MadDNA;
 import madscience.MadScience;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
@@ -8,11 +9,15 @@ import madscience.mobs.endersquid.EnderSquidMobEntity;
 import madscience.mobs.shoggoth.ShoggothMobEntity;
 import madscience.mobs.werewolf.WerewolfMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobEntity;
+import madscience.tileentities.incubator.IncubatorRecipes;
+import madscience.tileentities.sequencer.SequencerRecipes;
 import madscience.util.MadColors;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -94,6 +99,17 @@ public enum EnumDNA
     public String needleString()
     {
         return "needle" + INTERNAL_NAME;
+    }
+
+    public static void registerRecipes()
+    {
+        IncubatorRecipes.addSmelting(new ItemStack(MadScience.itemGnome, 1, BAT.ordinal()), new ItemStack(Items.spawn_egg, 1, 65));
+        IncubatorRecipes.addSmelting(GENOME_CAVESPIDER.itemID, new ItemStack(Item.monsterPlacer, 1, 59));
+        for (EnumDNA dna : values())
+        {
+            SequencerRecipes.addSmelting(new ItemStack(MadScience.itemGnome, 1, dna.ordinal() + 1), new ItemStack(MadScience.itemGnome, 1, dna.ordinal() + 1), 0);
+            SequencerRecipes.addSmelting(new ItemStack(MadScience.itemDNA, 1, dna.ordinal()), new ItemStack(MadScience.itemGnome, 1, dna.ordinal() + 1), 0.05F);
+        }
     }
 
     public static ItemStack getNeedleFor(Entity entity)

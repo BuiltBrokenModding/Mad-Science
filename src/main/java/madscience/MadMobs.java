@@ -1,8 +1,8 @@
 package madscience;
 
 import madscience.items.dna.ItemGenome;
-import madscience.items.MadGenomeInfo;
-import madscience.items.MadSpawnEggInfo;
+import madscience.items.dna.MadGenomeInfo;
+import madscience.items.dna.MadSpawnEggInfo;
 import madscience.tileentities.incubator.IncubatorRecipes;
 import madscience.tileentities.mainframe.MainframeRecipes;
 import net.minecraft.item.ItemStack;
