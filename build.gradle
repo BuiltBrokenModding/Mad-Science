@@ -16,7 +16,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
@@ -92,9 +92,9 @@ jar {
 
 repositories {
     maven {
-		name 'Calclavia Maven'
-		url 'http://calclavia.com/maven'
-	}
+        name "BuiltBroken"
+        url "http://ci.builtbroken.com/maven/"
+    }
     maven {
         name 'ForgeFS'
         url 'http://files.minecraftforge.net/maven'
@@ -102,7 +102,7 @@ repositories {
 }
 
 dependencies {
-	compile group: 'universalelectricity', name: 'Universal-Electricity', version: "${config.version.universalelectricity}", classifier: "dev"
+	compile "dev.builtbroken.voltzengine:VoltzEngine:1.7.10-0.+:deobf-dev"
 }
 
 import net.minecraftforge.gradle.tasks.dev.ChangelogTask
