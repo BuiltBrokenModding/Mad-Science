@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class SanitizerRecipes
@@ -17,10 +18,10 @@ public class SanitizerRecipes
     private static HashMap<List<Integer>, Float> metaExperience = new HashMap<List<Integer>, Float>();
 
     /** Adds a smelting recipe. */
-    public static void addSmelting(int par1, ItemStack par2ItemStack, float par3)
+    public static void addSmelting(Item par1, ItemStack par2ItemStack, float par3)
     {
-        SanitizerRecipes.smeltingList.put(Integer.valueOf(par1), par2ItemStack);
-        SanitizerRecipes.experienceList.put(Integer.valueOf(par2ItemStack.itemID), Float.valueOf(par3));
+        SanitizerRecipes.smeltingList.put(par1, par2ItemStack);
+        SanitizerRecipes.experienceList.put(par2ItemStack, Float.valueOf(par3));
     }
 
     /** Grabs the amount of base experience for this item to give when pulled from the furnace slot. */

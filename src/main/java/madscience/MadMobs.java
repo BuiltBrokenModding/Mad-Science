@@ -1,6 +1,6 @@
 package madscience;
 
-import madscience.items.ItemGenome;
+import madscience.items.dna.ItemGenome;
 import madscience.items.MadGenomeInfo;
 import madscience.items.MadSpawnEggInfo;
 import madscience.tileentities.incubator.IncubatorRecipes;

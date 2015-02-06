@@ -1,7 +1,7 @@
 package madscience.tileentities.incubator;
 
 import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.ItemGenome;
+import madscience.items.dna.ItemGenome;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

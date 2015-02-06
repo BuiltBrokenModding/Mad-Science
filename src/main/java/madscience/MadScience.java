@@ -17,7 +17,7 @@ import madscience.gui.MadGUI;
 import madscience.items.ItemCircuits;
 import madscience.items.ItemComponents;
 import madscience.items.weapons.ItemWeaponPart;
-import madscience.items.needles.ItemNeedle;
+import madscience.items.dna.ItemNeedle;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.abomination.AbominationMobLivingHandler;
 import madscience.mobs.creepercow.CreeperCowMobEntity;

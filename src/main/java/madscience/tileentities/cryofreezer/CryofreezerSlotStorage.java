@@ -1,6 +1,6 @@
 package madscience.tileentities.cryofreezer;
 
-import madscience.items.ItemDecayDNA;
+import madscience.items.dna.ItemDNASample;
 import madscience.items.ItemDecayNeedle;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -17,7 +17,7 @@ public class CryofreezerSlotStorage extends Slot
     public boolean isItemValid(ItemStack stack)
     {
         // Check if we are a DNA sample.
-        if (stack != null && stack.getItem() instanceof ItemDecayDNA)
+        if (stack != null && stack.getItem() instanceof ItemDNASample)
         {
             return true;
         }

@@ -28,7 +28,6 @@ import net.minecraft.world.World;
 
 public class GeneticallyModifiedMonsterPlacer extends Item
 {
-
     private static void addNBTData(Entity entity, NBTTagCompound spawnData)
     {
         NBTTagCompound newTag = new NBTTagCompound();
