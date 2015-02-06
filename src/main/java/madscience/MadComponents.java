@@ -1,84 +1,15 @@
 package madscience;
 
-import madscience.items.components.ComponentCPU;
-import madscience.items.components.ComponentCase;
-import madscience.items.components.ComponentComputer;
-import madscience.items.components.ComponentEnderslime;
-import madscience.items.components.ComponentFan;
-import madscience.items.components.ComponentFusedQuartz;
-import madscience.items.components.ComponentMagneticTape;
-import madscience.items.components.ComponentPowerSupply;
-import madscience.items.components.ComponentRAM;
-import madscience.items.components.ComponentScreen;
-import madscience.items.components.ComponentSiliconWafer;
-import madscience.items.components.ComponentThumper;
-import madscience.items.components.ComponentTransistor;
 import madscience.items.components.pulserifle.ComponentPulseRifleBarrel;
 import madscience.items.components.pulserifle.ComponentPulseRifleBolt;
 import madscience.items.components.pulserifle.ComponentPulseRifleBulletCasing;
 import madscience.items.components.pulserifle.ComponentPulseRifleGrenadeCasing;
 import madscience.items.components.pulserifle.ComponentPulseRifleReceiver;
 import madscience.items.components.pulserifle.ComponentPulseRifleTrigger;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MadComponents
 {
-    // Case
-    public static ComponentCase COMPONENT_CASE;
-    public static final String COMPONENT_CASE_INTERNALNAME = "componentCase";
-
-    // CPU
-    public static ComponentCPU COMPONENT_CPU;
-    public static final String COMPONENT_CPU_INTERNALNAME = "componentCPU";
-
-    // Fan
-    public static ComponentFan COMPONENT_FAN;
-    public static final String COMPONENT_FAN_INTERNALNAME = "componentFan";
-
-    // Power Supply
-    public static ComponentPowerSupply COMPONENT_POWERSUPPLY;
-    public static final String COMPONENT_POWERSUPPLY_INTERNALNAME = "componentPowerSupply";
-
-    // RAM
-    public static ComponentRAM COMPONENT_RAM;
-    public static final String COMPONENT_RAM_INTERNALNAME = "componentRAM";
-
-    // Silicon Wafer
-    public static ComponentSiliconWafer COMPONENT_SILICONWAFER;
-    public static final String COMPONENT_SILICONWAFER_INTERNALNAME = "componentSiliconWafer";
-
-    // Computer
-    public static ComponentComputer COMPONENT_COMPUTER;
-    public static final String COMPONENT_COMPUTER_INTERNALNAME = "componentComputer";
-
-    // Screen
-    public static ComponentScreen COMPONENT_SCREEN;
-    public static final String COMPONENT_SCREEN_INTERNALNAME = "componentScreen";
-
-    // Transistor
-    public static ComponentTransistor COMPONENT_TRANSISTOR;
-    public static final String COMPONENT_TRANSISTOR_INTERNALNAME = "componentTransistor";
-
-    // Fused Quartz
-    public static ComponentFusedQuartz COMPONENT_FUSEDQUARTZ;
-    public static final String COMPONENT_FUSEDQUARTZ_INTERNALNAME = "componentFusedQuartz";
-
-    // Magnetic Tape
-    public static ComponentMagneticTape COMPONENT_MAGNETICTAPE;
-    public static final String COMPONENT_MAGNETICTAPE_INTERNALNAME = "componentMagneticTape";
-    
-    // Thumper
-    public static ComponentThumper COMPONENT_THUMPER;
-    public static final String COMPONENT_THUMPER_INTERNALNAME = "componentThumper";
-    
-    // Ender Slime
-    public static ComponentEnderslime COMPONENT_ENDERSLIME;
-    public static final String COMPONENT_ENDERSLIME_INTERNALNAME = "componentEnderslime";
-    
     // M41A Barrel
     public static ComponentPulseRifleBarrel COMPONENT_PULSERIFLEBARREL;
     public static final String COMPONENT_PULSERIFLEBARREL_INTERNALNAME = "componentPulseRifleBarrel";

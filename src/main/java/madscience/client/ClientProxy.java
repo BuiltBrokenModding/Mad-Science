@@ -157,15 +157,6 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public String getItemDisplayName(ItemStack stack)
-    {
-        if (Item.itemsList[stack.itemID] == null)
-            return "";
-
-        return Item.itemsList[stack.itemID].getItemDisplayName(stack);
-    }
-
-    @Override
     public void resetSavedFOV()
     {
         this.fovModifierHand = 0F;
@@ -214,7 +205,7 @@ public class ClientProxy extends CommonProxy
     }
 
     @Override
-    public void registerRenderingHandler(int blockID)
+    public void init()
     {
         // ------
         // FLUIDS
@@ -489,12 +480,5 @@ public class ClientProxy extends CommonProxy
         {
             RenderingRegistry.registerEntityRenderingHandler(EnderSquidMobEntity.class, new EnderSquidMobRender(new EnderSquidMobModel(), 0.5F));
         }
-    }
-
-    @Override
-    public void registerSoundHandler()
-    {
-        // Register the sound event handling class
-        MinecraftForge.EVENT_BUS.register(new MadSounds());
     }
 }

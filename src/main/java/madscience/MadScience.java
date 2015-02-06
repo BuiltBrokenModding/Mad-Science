@@ -1,38 +1,7 @@
 package madscience;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
-import net.minecraft.entity.EntityList;
-import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.MinecraftForge;
-import madscience.gui.MadGUI;
-import madscience.mobs.abomination.AbominationMobEntity;
-import madscience.mobs.abomination.AbominationMobLivingHandler;
-import madscience.mobs.creepercow.CreeperCowMobEntity;
-import madscience.mobs.enderslime.EnderslimeMobEntity;
-import madscience.mobs.endersquid.EnderSquidMobEntity;
-import madscience.mobs.shoggoth.ShoggothMobEntity;
-import madscience.mobs.werewolf.WerewolfMobEntity;
-import madscience.mobs.woolycow.WoolyCowMobEntity;
-import madscience.network.CustomConnectionHandler;
-import madscience.network.MadPacketHandler;
-import madscience.server.CommonProxy;
-import madscience.util.MadColors;
-import madscience.util.MadTags;
-import madscience.util.MadXML;
-import cpw.mods.fml.common.FMLLog;
+import com.builtbroken.mc.lib.mod.AbstractMod;
+import com.builtbroken.mc.lib.mod.AbstractProxy;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -43,13 +12,33 @@ import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import madscience.gui.MadGUI;
+import madscience.items.ItemComponent;
+import madscience.items.circuits.ItemCircuits;
+import madscience.mobs.abomination.AbominationMobEntity;
+import madscience.mobs.abomination.AbominationMobLivingHandler;
+import madscience.mobs.creepercow.CreeperCowMobEntity;
+import madscience.mobs.enderslime.EnderslimeMobEntity;
+import madscience.mobs.endersquid.EnderSquidMobEntity;
+import madscience.mobs.shoggoth.ShoggothMobEntity;
+import madscience.mobs.werewolf.WerewolfMobEntity;
+import madscience.mobs.woolycow.WoolyCowMobEntity;
+import madscience.server.CommonProxy;
+import madscience.util.MadColors;
+import madscience.util.MadTags;
+import net.minecraft.entity.EntityList;
+import net.minecraft.item.Item;
+import net.minecraft.launchwrapper.LogWrapper;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
-@NetworkMod(channels =
-{ MadScience.CHANNEL_NAME }, packetHandler = MadPacketHandler.class, clientSideRequired = true, serverSideRequired = false)
-public class MadScience
+public class MadScience extends AbstractMod
 {
     // Used in Forge mod identification below.
     public static final String ID = "madscience";
@@ -90,7 +79,7 @@ public class MadScience
     public static CommonProxy proxy;
 
     // Public instance of our mod that Forge needs to hook us, based on our internal modid.
-    @Instance(value = CHANNEL_NAME)
+    @Instance(MadScience.ID)
     public static MadScience instance;
 
     // Public extra data about our mod that Forge uses in the mods listing page for more information.
@@ -100,15 +89,21 @@ public class MadScience
     // Hooks Forge's replacement openGUI function so we can route our block ID's to proper interfaces.
     public static MadGUI guiHandler = new MadGUI();
 
-    // Link to our configuration file which Forge also handles in a standardized way.
-    private static Configuration config;
+    public static Item itemCircuits;
+    public static Item itemComponents;
 
-    /** @param event */
-    @EventHandler
-    @SuppressWarnings(
-    { "rawtypes", "unchecked" })
-    public static void postInit(FMLPostInitializationEvent event)
+    public MadScience()
     {
+        super(ID);
+    }
+
+    /**
+     * @param event
+     */
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        super.postInit(event);
         // Interface with NEI and attempt to call functions from it if it exists.
         // Note: This method was given by Alex_hawks, buy him a beer if you see him!
         if (Loader.isModLoaded("NotEnoughItems"))
@@ -119,18 +114,17 @@ public class MadScience
                 Method m = clazz.getMethod("hideItem", Integer.TYPE);
 
                 // Cryotube Ghost Block.
-                m.invoke(null, MadFurnaces.CRYOTUBEGHOST.blockID);
+                m.invoke(null, MadFurnaces.CRYOTUBEGHOST);
 
                 // Soniclocator Ghost Block.
-                m.invoke(null, MadFurnaces.SONICLOCATORGHOST.blockID);
+                m.invoke(null, MadFurnaces.SONICLOCATORGHOST);
 
                 // Magazine Loader Ghost Block.
-                m.invoke(null, MadFurnaces.MAGLOADERGHOST.blockID);
-                
+                m.invoke(null, MadFurnaces.MAGLOADERGHOST);
+
                 // CnC Machine Ghost Block.
-                m.invoke(null, MadFurnaces.CNCMACHINEGHOST_TILEENTITY.blockID);
-            }
-            catch (Throwable e)
+                m.invoke(null, MadFurnaces.CNCMACHINEGHOST_TILEENTITY);
+            } catch (Throwable e)
             {
                 logger.log(Level.WARNING, "NEI Integration has failed...");
                 logger.log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
@@ -145,49 +139,36 @@ public class MadScience
         }
     }
 
-    /** @param event */
+    @Override
+    public AbstractProxy getProxy()
+    {
+        return proxy;
+    }
+
+    /**
+     * @param event
+     */
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        // Register any custom sounds we want to play (Client only).
-        proxy.registerSoundHandler();
+        super.init(event);
 
         // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
         MadUpdates.checkJenkinsBuildNumbers();
     }
 
-    @EventHandler
-    public void invalidFingerprint(FMLFingerprintViolationEvent event)
-    {
-        // Report (log) to the user that the version of Mad Science
-        // they are using has been changed/tampered with
-        if (FINGERPRINT.equals("@FINGERPRINT@"))
-        {
-            LogWrapper.warning("The copy of Mad Science that you are running is a development version of the mod, and as such may be unstable and/or incomplete.");
-        }
-        else
-        {
-            LogWrapper.severe("The copy of Mad Science that you are running has been modified from the original, and unpredictable things may happen. Please consider re-downloading the original version of the mod.");
-        }
-    }
+
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        super.preInit(event);
         // --------------
         // PRE-INT CONFIG
         // --------------
 
         // Register instance.
         instance = this;
-
-        // Logging.
-        logger = event.getModLog();
-        logger.setParent(FMLLog.getLogger());
-
-        // Read our mod only config, Forge provides a method for getting standardized filename.
-        config = new Configuration(event.getSuggestedConfigurationFile());
-        MadConfig.load(config);
 
         // Setup Mod Metadata for players to see in mod list with other mods.
         metadata.modId = MadScience.ID;
@@ -196,8 +177,7 @@ public class MadScience
         metadata.url = "http://madsciencemod.com/";
         metadata.logoFile = "assets/madscience/logo.png";
         metadata.version = V_MAJOR + "." + V_MINOR + V_REVIS;
-        metadata.authorList = Arrays.asList(new String[]
-        { "Maxwolf Goodliffe", "Fox Diller" });
+        metadata.authorList = Arrays.asList(new String[] {"Maxwolf Goodliffe", "Fox Diller"});
         metadata.credits = "Thanks to Prowler for the awesome assets!";
         metadata.autogenerated = false;
 
@@ -232,19 +212,7 @@ public class MadScience
         // ----------
         logger.info("Creating Components");
 
-        MadComponents.createComponentCaseItem(MadConfig.COMPONENT_CASE);
-        MadComponents.createComponentCPUItem(MadConfig.COMPONENT_CPU);
-        MadComponents.createComponentFanItem(MadConfig.COMPONENT_FAN);
-        MadComponents.createComponentFusedQuartzItem(MadConfig.COMPONENT_FUSEDQUARTZ);
-        MadComponents.createComponentMagneticTapeItem(MadConfig.COMPONENT_MAGNETICTAPE);
-        MadComponents.createComponentPowerSupplyItem(MadConfig.COMPONENT_POWERSUPPLY);
-        MadComponents.createComponentRAMItem(MadConfig.COMPONENT_RAM);
-        MadComponents.createComponentScreenItem(MadConfig.COMPONENT_SCREEN);
-        MadComponents.createComponentSiliconWaferItem(MadConfig.COMPONENT_SILICONWAFER);
-        MadComponents.createComponentTransistorItem(MadConfig.COMPONENT_TRANSISTOR);
-        MadComponents.createComponentComputerItem(MadConfig.COMPONENT_COMPUTER);
-        MadComponents.createComponentThumperItem(MadConfig.COMPONENT_THUMPER);
-        MadComponents.createComponentEnderslimeItem(MadConfig.COMPONENT_ENDERSLIME);
+
         MadComponents.createComponentPulseRifleBarrelItem(MadConfig.COMPONENT_PULSERIFLEBARREL);
         MadComponents.createComponentPulseRifleBoltItem(MadConfig.COMPONENT_PULSERIFLEBOLT);
         MadComponents.createComponentPulseRifleReceiverItem(MadConfig.COMPONENT_PULSERIFLERECEIVER);
@@ -255,16 +223,7 @@ public class MadScience
         // --------
         // CIRCUITS
         // --------
-        logger.info("Creating Circuits");
-
-        MadCircuits.createCircuitComparatorItem(MadConfig.CIRCUIT_COMPARATOR);
-        MadCircuits.createCircuitDiamondItem(MadConfig.CIRCUIT_DIAMOND);
-        MadCircuits.createCircuitEmeraldItem(MadConfig.CIRCUIT_EMERALD);
-        MadCircuits.createCircuitEnderEyeItem(MadConfig.CIRCUIT_ENDEREYE);
-        MadCircuits.createCircuitEnderPerlItem(MadConfig.CIRCUIT_ENDERPEARL);
-        MadCircuits.createCircuitGlowstoneItem(MadConfig.CIRCUIT_GLOWSTONE);
-        MadCircuits.createCircuitRedstoneItem(MadConfig.CIRCUIT_REDSTONE);
-        MadCircuits.createCircuitSpiderEyeItem(MadConfig.CIRCUIT_SPIDEREYE);
+        itemCircuits = getManager().newItem(ItemCircuits.class);
 
         // -------
         // NEEDLES
@@ -345,11 +304,11 @@ public class MadScience
         MadGenomes.createBatGenome(MadConfig.GENOME_BAT);
         MadGenomes.createSlimeGenome(MadConfig.GENOME_SLIME);
         MadGenomes.createPigZombieGenome(MadConfig.GENOME_PIGZOMBIE);
-        
+
         // -------
         // WEAPONS
         // -------
-        logger.info("Creating Weapons");
+        itemComponents = getManager().newItem(ItemComponent.class);
 
         MadWeapons.createPulseRifle(MadConfig.WEAPON_PULSERIFLE);
         MadWeapons.createPulseRifleBullet(MadConfig.WEAPON_PULSERIFLE_BULLETITEM);
@@ -379,7 +338,7 @@ public class MadScience
         MadFurnaces.createMagLoaderGhostTileEntity(MadConfig.MAGLOADERGHOST);
         MadFurnaces.createCnCMachineTileEntity(MadConfig.CNCMACHINE);
         MadFurnaces.createCnCMachineGhostTileEntity(MadConfig.CNCMACHINEGHOST);
-        
+
         // -----
         // ARMOR
         // -----
@@ -388,11 +347,11 @@ public class MadScience
         MadEntities.createLabCoatGoggles(MadConfig.LABCOAT_GOGGLES, 0);
         MadEntities.createLabCoatBody(MadConfig.LABCOAT_BODY, 1);
         MadEntities.createLabCoatLeggings(MadConfig.LABCOAT_LEGGINGS, 2);
-        
+
         // -----
         // ITEMS
         // -----
-        
+
         MadEntities.createWarningSign(MadConfig.WARNING_SIGN);
 
         // --------------------
@@ -493,5 +452,20 @@ public class MadScience
         // DONE INIT
         // ---------
         logger.info("Finished loading all madness!");
+    }
+
+    @EventHandler
+    public void invalidFingerprint(FMLFingerprintViolationEvent event)
+    {
+        // Report (log) to the user that the version of Mad Science
+        // they are using has been changed/tampered with
+        if (FINGERPRINT.equals("@FINGERPRINT@"))
+        {
+            LogWrapper.warning("The copy of Mad Science that you are running is a development version of the mod, and as such may be unstable and/or incomplete.");
+        }
+        else
+        {
+            LogWrapper.severe("The copy of Mad Science that you are running has been modified from the original, and unpredictable things may happen. Please consider re-downloading the original version of the mod.");
+        }
     }
 }
