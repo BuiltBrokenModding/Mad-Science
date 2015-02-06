@@ -25,11 +25,8 @@ public class ItemDecayDNA extends ItemDecay
     @SideOnly(Side.CLIENT)
     private IIcon dnaSampleOverlay;
 
-    public ItemDecayDNA(int id, int primaryColor, int secondaryColor)
+    public ItemDecayDNA(int primaryColor, int secondaryColor)
     {
-        // Used to ensure that DNA samples decay into bad blood samples.
-        super(id);
-
         // Define color information about the egg in HEX color notation (thanks Notch).
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;

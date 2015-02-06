@@ -82,20 +82,6 @@ public class MadEntities
         /* 0 - Priest [32 EU/t] 1 - Farmer [64 EU/t] 2 - Butcher [128 EU/t] 3 - Blacksmith [128 EU/t] 4 - Librarian [512 EU/t] */
     }
 
-    public static void createCustomCreativeTab(String tabInternalName, String tabDisplayName)
-    {
-        // Creates custom tab that shows up in creative mode to organize.
-        tabMadScience = new CreativeTabs(tabInternalName)
-        {
-            @Override
-            public ItemStack getIconItemStack()
-            {
-                // Shows icon of human DNA double-helix.
-                return new ItemStack(MadDNA.DNA_SPIDER, 1, 0);
-            }
-        };
-    }
-
     public static void createEmptyDataReel(int itemID)
     {
         // Empty Genome Data Reel

@@ -4,9 +4,9 @@ import madscience.MadEntities;
 
 public class ItemDataReelEmpty extends ItemGenome
 {
-    public ItemDataReelEmpty(int id, int primaryColor, int secondaryColor)
+    public ItemDataReelEmpty(int primaryColor, int secondaryColor)
     {
-        super(id, primaryColor, secondaryColor);
+        super(primaryColor, secondaryColor);
         this.setCreativeTab(MadEntities.tabMadScience);
     }
 }

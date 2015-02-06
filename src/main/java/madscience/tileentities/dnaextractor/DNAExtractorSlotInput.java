@@ -1,7 +1,5 @@
 package madscience.tileentities.dnaextractor;
 
-import madscience.items.needles.NeedleMutant;
-import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

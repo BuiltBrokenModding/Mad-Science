@@ -2,6 +2,7 @@ package madscience.items;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import org.lwjgl.input.Keyboard;
 
 import madscience.util.MadUtils;
@@ -12,16 +13,16 @@ import net.minecraft.util.StatCollector;
 
 public class ItemBlockTooltip extends ItemBlock
 {
-    public ItemBlockTooltip(int id)
+    public ItemBlockTooltip(Block block)
     {
-        super(id);
+        super(block);
     }
 
     @Override
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
+    public void addInformation(ItemStack stack, EntityPlayer par2EntityPlayer, List info, boolean par4)
     {
         // Only displays tooltip information when SHIFT key is pressed.
-        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
+        String tooltip = StatCollector.translateToLocal(getUnlocalizedName(stack) + ".tooltip");
         String defaultTooltip = StatCollector.translateToLocal("noshift.tooltip");
         boolean isShiftPressed = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 

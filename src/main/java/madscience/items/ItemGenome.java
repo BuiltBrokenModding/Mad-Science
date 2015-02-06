@@ -1,39 +1,36 @@
 package madscience.items;
 
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadEntities;
 import madscience.MadScience;
-import madscience.util.MadUtils;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.IIcon;
 
 public class ItemGenome extends Item
 {
-    /** Base color of the egg */
+    /**
+     * Base color of the egg
+     */
     public int primaryColor;
 
-    /** Color of the egg spots */
+    /**
+     * Color of the egg spots
+     */
     public int secondaryColor;
 
     @SideOnly(Side.CLIENT)
-    private Icon genomeReelLayer1;
+    private IIcon genomeReelLayer1;
 
     @SideOnly(Side.CLIENT)
-    private Icon genomeReelLayer2;
+    private IIcon genomeReelLayer2;
 
-    public ItemGenome(int id, int primaryColor, int secondaryColor)
+    public ItemGenome(int primaryColor, int secondaryColor)
     {
-        super(id);
-
         // Define color information about the egg in HEX color notation (thanks Notch).
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
@@ -64,11 +61,6 @@ public class ItemGenome extends Item
         }
     }*/
 
-    @Override
-    public boolean canHarvestBlock(Block par1Block)
-    {
-        return false;
-    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -90,7 +82,7 @@ public class ItemGenome extends Item
     }
 
     @Override
-    public Icon getIcon(ItemStack stack, int pass)
+    public IIcon getIcon(ItemStack stack, int pass)
     {
         if (pass == 0)
         {
@@ -109,16 +101,10 @@ public class ItemGenome extends Item
     }
 
     @Override
-    public Icon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
     {
         // Fired by Minecraft/Forge so it can get the icons for different render passes.
         return getIcon(stack, renderPass);
-    }
-
-    @Override
-    public int getItemEnchantability()
-    {
-        return 0;
     }
 
     @Override
@@ -127,15 +113,9 @@ public class ItemGenome extends Item
         return 3;
     }
 
-    @Override
-    public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block)
-    {
-        return 0.0F;
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons(IIconRegister par1IconRegister)
     {
         super.registerIcons(par1IconRegister);
 

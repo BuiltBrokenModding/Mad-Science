@@ -2,7 +2,6 @@ package madscience.tileentities.voxbox;
 
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.util.MadTechneModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;

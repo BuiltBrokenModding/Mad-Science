@@ -1,26 +1,5 @@
 package madscience;
 
-import madscience.items.genomes.GenomeBat;
-import madscience.items.genomes.GenomeCaveSpider;
-import madscience.items.genomes.GenomeChicken;
-import madscience.items.genomes.GenomeCow;
-import madscience.items.genomes.GenomeCreeper;
-import madscience.items.genomes.GenomeEnderman;
-import madscience.items.genomes.GenomeGhast;
-import madscience.items.genomes.GenomeHorse;
-import madscience.items.genomes.GenomeMushroomCow;
-import madscience.items.genomes.GenomeOcelot;
-import madscience.items.genomes.GenomePig;
-import madscience.items.genomes.GenomePigZombie;
-import madscience.items.genomes.GenomeSheep;
-import madscience.items.genomes.GenomeSkeleton;
-import madscience.items.genomes.GenomeSlime;
-import madscience.items.genomes.GenomeSpider;
-import madscience.items.genomes.GenomeSquid;
-import madscience.items.genomes.GenomeVillager;
-import madscience.items.genomes.GenomeWitch;
-import madscience.items.genomes.GenomeWolf;
-import madscience.items.genomes.GenomeZombie;
 import madscience.tileentities.incubator.IncubatorRecipes;
 import madscience.tileentities.mainframe.MainframeRecipes;
 import madscience.tileentities.sequencer.SequencerRecipes;

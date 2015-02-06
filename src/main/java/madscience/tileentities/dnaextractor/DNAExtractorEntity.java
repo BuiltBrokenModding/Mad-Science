@@ -9,7 +9,6 @@ import madscience.MadFurnaces;
 import madscience.MadNeedles;
 import madscience.MadScience;
 import madscience.items.ItemDecayNeedle;
-import madscience.items.needles.NeedleMutant;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;

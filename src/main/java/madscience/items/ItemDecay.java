@@ -18,9 +18,8 @@ import net.minecraft.world.World;
 
 public class ItemDecay extends Item
 {
-    public ItemDecay(int id)
+    public ItemDecay()
     {
-        super(id);
 
         // All of our needles inherit this class and all our needles go into
         // creative tab.
@@ -47,31 +46,10 @@ public class ItemDecay extends Item
         }
     }*/
 
-    @Override
-    public boolean canHarvestBlock(Block par1Block)
-    {
-        // You cannot harvest blocks with a needle.
-        return false;
-    }
-
     public int getDamageVsEntity(Entity par1Entity)
     {
         // Stabbing another entity other than yourself takes 1 heart.
         return 2;
-    }
-
-    @Override
-    public int getItemEnchantability()
-    {
-        // This item is not enchantable.
-        return 0;
-    }
-
-    @Override
-    public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block)
-    {
-        // Trying to break a block with a needle won't work.
-        return 0.0F;
     }
 
     @Override

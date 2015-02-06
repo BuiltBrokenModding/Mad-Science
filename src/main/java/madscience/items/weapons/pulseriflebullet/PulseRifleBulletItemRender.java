@@ -2,7 +2,6 @@ package madscience.items.weapons.pulseriflebullet;
 
 import madscience.MadScience;
 import madscience.MadWeapons;
-import madscience.util.MadTechneModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

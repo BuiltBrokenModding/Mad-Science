@@ -1,10 +1,10 @@
 package madscience.metaitems;
 
+import net.minecraft.entity.EntityList;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import net.minecraft.entity.EntityEggInfo;
 
 public class CombinedMemoryEntityList
 {
@@ -24,6 +24,6 @@ public class CombinedMemoryEntityList
     public static void addMapping(String par1Str, int par2, int par3, int par4)
     {
         addMapping(par1Str, par2);
-        entityEggs.put(Integer.valueOf(par2), new EntityEggInfo(par2, par3, par4));
+        entityEggs.put(Integer.valueOf(par2), new EntityList.EntityEggInfo(par2, par3, par4));
     }
 }

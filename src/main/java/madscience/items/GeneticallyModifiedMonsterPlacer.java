@@ -21,12 +21,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.*;
 import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.Facing;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class GeneticallyModifiedMonsterPlacer extends Item
@@ -122,11 +119,10 @@ public class GeneticallyModifiedMonsterPlacer extends Item
         }
     }
 
-    private Icon icon;
+    private IIcon icon;
 
-    public GeneticallyModifiedMonsterPlacer(int id)
+    public GeneticallyModifiedMonsterPlacer()
     {
-        super(id);
         setHasSubtypes(true);
         setCreativeTab(MadEntities.tabMadScience);
         this.setUnlocalizedName("gmoMonsterPlacer");
@@ -158,13 +154,13 @@ public class GeneticallyModifiedMonsterPlacer extends Item
     }
 
     @Override
-    public Icon getIconFromDamageForRenderPass(int par1, int par2)
+    public IIcon getIconFromDamageForRenderPass(int par1, int par2)
     {
         return par2 > 0 ? icon : super.getIconFromDamageForRenderPass(par1, par2);
     }
 
     @Override
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List list)
+    public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
     {
         for (MadSpawnEggInfo info : GMORegistry.getEggInfoList())
             list.add(new ItemStack(par1, 1, info.eggID));

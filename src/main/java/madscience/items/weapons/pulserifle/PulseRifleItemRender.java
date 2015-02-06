@@ -5,7 +5,6 @@ import java.util.List;
 
 import madscience.MadScience;
 import madscience.MadWeapons;
-import madscience.util.MadTechneModel;
 import madscience.util.MadUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;

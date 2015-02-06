@@ -1,25 +1,7 @@
 package madscience;
 
-import madscience.items.needles.NeedleBat;
-import madscience.items.needles.NeedleCaveSpider;
-import madscience.items.needles.NeedleChicken;
-import madscience.items.needles.NeedleCow;
-import madscience.items.needles.NeedleCreeper;
+import madscience.items.needles.ItemNeedle;
 import madscience.items.needles.NeedleDirtyItem;
-import madscience.items.needles.NeedleEmptyItem;
-import madscience.items.needles.NeedleEnderman;
-import madscience.items.needles.NeedleHorse;
-import madscience.items.needles.NeedleMushroomCow;
-import madscience.items.needles.NeedleMutant;
-import madscience.items.needles.NeedleOcelot;
-import madscience.items.needles.NeedlePig;
-import madscience.items.needles.NeedleSheep;
-import madscience.items.needles.NeedleSpider;
-import madscience.items.needles.NeedleSquid;
-import madscience.items.needles.NeedleVillager;
-import madscience.items.needles.NeedleWitch;
-import madscience.items.needles.NeedleWolf;
-import madscience.items.needles.NeedleZombie;
 import madscience.tileentities.sanitizer.SanitizerRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -33,7 +15,7 @@ public class MadNeedles
     // -------
 
     // Empty needle.
-    public static NeedleEmptyItem NEEDLE_ITEM;
+    public static ItemNeedle NEEDLE_ITEM;
     public static final String NEEDLE_ITEM_INTERNALNAME = "needleEmpty";
 
     // Dirty needle.
@@ -171,7 +153,7 @@ public class MadNeedles
     {
         // Adds empty needle to the game used for taking DNA out of mobs.
         MadScience.logger.info("-Empty Needle");
-        NEEDLE_ITEM = (NeedleEmptyItem) new NeedleEmptyItem(itemID).setUnlocalizedName(NEEDLE_ITEM_INTERNALNAME);
+        NEEDLE_ITEM = (ItemNeedle) new ItemNeedle(itemID).setUnlocalizedName(NEEDLE_ITEM_INTERNALNAME);
         GameRegistry.registerItem(NEEDLE_ITEM, NEEDLE_ITEM_INTERNALNAME);
 
         // Shaped.
