@@ -52,7 +52,7 @@ import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
 import madscience.server.CommonProxy;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
-import madscience.tileentities.clayfurnace.ClayfurnaceRender;
+import madscience.tileentities.clayfurnace.RenderClayfurnace;
 import madscience.tileentities.cncmachine.CnCMachineEntity;
 import madscience.tileentities.cncmachine.CnCMachineRender;
 import madscience.tileentities.cryofreezer.CryofreezerEntity;
@@ -308,9 +308,9 @@ public class ClientProxy extends CommonProxy
         // Clay Furnace
         if (blockID == MadConfig.CLAYFURNACE)
         {
-            RenderingRegistry.registerBlockHandler(MadFurnaces.CLAYFURNACE_TILEENTITY.blockID, new ClayfurnaceRender());
-            ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new ClayfurnaceRender());
-            MinecraftForgeClient.registerItemRenderer(blockID, new ClayfurnaceRender());
+            RenderingRegistry.registerBlockHandler(MadFurnaces.CLAYFURNACE_TILEENTITY.blockID, new RenderClayfurnace());
+            ClientRegistry.bindTileEntitySpecialRenderer(ClayfurnaceEntity.class, new RenderClayfurnace());
+            MinecraftForgeClient.registerItemRenderer(blockID, new RenderClayfurnace());
         }
         
         // VOX Box
