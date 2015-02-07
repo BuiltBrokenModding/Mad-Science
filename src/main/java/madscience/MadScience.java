@@ -12,6 +12,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import madscience.blocks.BlockAbominationEgg;
+import madscience.blocks.BlockEnderslime;
 import madscience.blocks.BlockFluidDNA;
 import madscience.gui.MadGUI;
 import madscience.items.ItemCircuits;
@@ -94,6 +96,8 @@ public class MadScience extends AbstractMod
 
     public static Block blockDNA;
     public static Block blockMutantDNA;
+    public static Block blockAbominationEgg;
+    public static Block blockEnderslime;
 
     public static String liquidDNA_name = "maddna";
     public static final String liquidMutantDNA_name = "maddnamutant";
@@ -134,10 +138,10 @@ public class MadScience extends AbstractMod
             liquidMutantDNA = FluidRegistry.getFluid(liquidMutantDNA_name);
 
         // Blocks
-        MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
-        MadBlocks.createEnderslimeBlock(MadConfig.ENDERSLIMEBLOCK);
         blockDNA = getManager().newBlock("maddna", new BlockFluidDNA(liquidDNA));
         blockMutantDNA = getManager().newBlock("madmutantdna", new BlockFluidDNA(liquidMutantDNA));
+        blockAbominationEgg = getManager().newBlock(BlockAbominationEgg.class);
+        blockEnderslime = getManager().newBlock(BlockEnderslime.class);
 
         // Items
         itemCircuits = getManager().newItem(ItemCircuits.class);

@@ -1,9 +1,8 @@
 package madscience.blocks;
 
-import madscience.mobs.abomination.AbominationEntitySelector;
-import madscience.mobs.abomination.AbominationMobEntity;
+import madscience.mobs.abomination.EntitySelectorAbomination;
+import madscience.mobs.abomination.EntityAbomination;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -37,11 +36,11 @@ public class TileEntityAbominationEgg extends TileEntity
         {
             AxisAlignedBB box = AxisAlignedBB.getBoundingBox(xCoord - 29, yCoord - 2, zCoord - 29, xCoord + 30, yCoord + 2, zCoord + 30);
             //TODO replace with target select to only hatch if a valid entity to kill is near
-            List list = getWorldObj().selectEntitiesWithinAABB(EntityLivingBase.class, box, AbominationEntitySelector.GENERIC);
+            List list = getWorldObj().selectEntitiesWithinAABB(EntityLivingBase.class, box, EntitySelectorAbomination.GENERIC);
             if(list.size() > 0)
             {
                 getWorldObj().setBlockToAir(xCoord, yCoord, zCoord);
-                AbominationMobEntity mob = new AbominationMobEntity(getWorldObj());
+                EntityAbomination mob = new EntityAbomination(getWorldObj());
                 mob.setPosition(xCoord + 0.5, yCoord + 0.7, zCoord + 0.5);
                 getWorldObj().spawnEntityInWorld(mob);
             }

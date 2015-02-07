@@ -11,8 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
-import cpw.mods.fml.common.network.PacketDispatcher;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
 {
@@ -36,19 +35,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
     @Override
     public boolean canExtractItem(int slot, ItemStack items, int side)
     {
-        // Extract output from the bottom of the block.
-        if (slot == 0 && ForgeDirection.getOrientation(side) == ForgeDirection.WEST)
-        {
-            // Filled bucket.
-            return true;
-        }
-        else if (slot == 1 && ForgeDirection.getOrientation(side) == ForgeDirection.WEST)
-        {
-            // Empty water bucket
-            return true;
-        }
-
-        // Default response is no.
         return false;
     }
 
@@ -82,11 +68,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         }
 
         return true;
-    }
-
-    @Override
-    public void closeChest()
-    {
     }
 
     public ItemStack createEndResult()
@@ -313,11 +294,6 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
     }
 
-    @Override
-    public void openChest()
-    {
-    }
-
     /** Reads a tile entity from NBT. */
     @Override
     public void readFromNBT(NBTTagCompound nbt)
@@ -411,84 +387,7 @@ public class ClayfurnaceEntity extends TileEntity implements ISidedInventory
         }
     }
 
-    private void updateAnimation()
-    {
-        // Active state has many textures based on item cook progress.
-        if (this.hasCooledDown)
-        {
-            // COOLED DOWN (WAITING FOR PLAYER TO HIT US)
-            TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/shell.png";
-        }
-        if (!this.canSmelt() && this.hasBeenLit && this.hasCompletedBurnCycle && hasStoppedSmoldering && !this.hasCooledDown)
-        {
-            // COOL DOWN (RED HOT MODE)
-            if (animationCurrentFrame <= 4 && worldObj.getWorldTime() % (MadScience.SECOND_IN_TICKS * 5) == 0L)
-            {
-                // Same one as before.
-                this.createRandomSmoke();
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", 1.0F, 1.0F);
 
-                // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot" + animationCurrentFrame + ".png";
-
-                // Update animation frame.
-                ++animationCurrentFrame;
-            }
-            else if (animationCurrentFrame >= 5)
-            {
-                // Check if we have exceeded the ceiling and need to reset.
-                animationCurrentFrame = 0;
-                this.hasCooledDown = true;
-            }
-        }
-        else if (!this.canSmelt() && this.hasBeenLit && this.hasCompletedBurnCycle && !hasStoppedSmoldering && !this.hasCooledDown)
-        {
-            // SMOLDERING FURNACE MODE
-            TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/done.png";
-
-            // Method in this class.
-            this.createRandomSmoke();
-        }
-        else if (this.canSmelt() && this.hasBeenLit && !this.hasCompletedBurnCycle && !hasStoppedSmoldering && !this.hasCooledDown)
-        {
-            // BURN CYCLE (COOKING).
-            if (worldObj.getWorldTime() % MadScience.SECOND_IN_TICKS == 0L)
-            {
-                // Send a packet saying we want furnace fire
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("flame", 0.5D + this.xCoord, this.yCoord + 0.65D, this.zCoord + 0.5D, 0.01F,
-                        worldObj.rand.nextFloat() - 0.25F, 0.01F).makePacket());
-            }
-
-            if (animationCurrentFrame <= 3 && worldObj.getWorldTime() % 25L == 0L)
-            {
-                // Send a packet saying we want puffs of smoke used in minecart furnace.
-                PacketDispatcher.sendPacketToAllAround(this.xCoord, this.yCoord, this.zCoord, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("largesmoke", 0.5D + this.xCoord, this.yCoord + 0.5D, this.zCoord + 0.5D,
-                        worldObj.rand.nextFloat(), worldObj.rand.nextFloat() + 3.0D, worldObj.rand.nextFloat()).makePacket());
-
-                // Load this texture onto the entity.
-                TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/work" + animationCurrentFrame + ".png";
-
-                // Update animation frame.
-                ++animationCurrentFrame;
-            }
-            else if (animationCurrentFrame >= 4)
-            {
-                // Check if we have exceeded the ceiling and need to reset.
-                animationCurrentFrame = 0;
-                
-                // Play fire burning sound randomly.
-                if (worldObj.rand.nextBoolean())
-                {
-                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "fire.fire", 1.0F, 1.0F);
-                }
-            }
-        }
-        else if (!hasBeenLit && !this.hasCooledDown)
-        {
-            // Idle state single texture.
-            TEXTURE = "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png";
-        }
-    }
 
     /** Allows the entity to update its state. */
     @Override

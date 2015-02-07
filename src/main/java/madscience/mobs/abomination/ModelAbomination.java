@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
 
-public class AbominationMobModel extends ModelBase
+public class ModelAbomination extends ModelBase
 {
     ModelRenderer Body;
     // fields
@@ -23,7 +23,7 @@ public class AbominationMobModel extends ModelBase
     ModelRenderer Leg8;
     ModelRenderer RearEnd;
 
-    public AbominationMobModel()
+    public ModelAbomination()
     {
         float f = 0.0F;
         byte b0 = 15;

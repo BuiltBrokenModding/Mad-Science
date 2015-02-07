@@ -1,34 +1,17 @@
 package madscience.mobs.abomination;
 
-import java.util.Random;
-
-import cpw.mods.fml.common.network.PacketDispatcher;
 import madscience.MadConfig;
+import madscience.MadMobs;
 import madscience.MadScience;
-import madscience.network.MadParticlePacket;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingData;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.SpiderEffectsGroupData;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -39,14 +22,29 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
-public class AbominationMobEntity extends EntityMob
+import java.util.Random;
+
+public class EntityAbomination extends EntityMob
 {
+    public static final String ABOMINATION_ATTACK = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".attack";
+    public static final String ABOMINATION_HISS = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".hiss";
+    public static final String ABOMINATION_GROWL = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".growl";
+    public static final String ABOMINATION_DEATH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".death";
+    public static final String ABOMINATION_STEP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".step";
+    public static final String ABOMINATION_PAIN = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".pain";
+    public static final String ABOMINATION_EGG = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egg";
+    public static final String ABOMINATION_HATCH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egghatch";
+    public static final String ABOMINATION_EGGPOP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".eggpop";
+
+
     private Random rand = new Random();
 
-    /** Counter to delay the teleportation of an enderman towards the currently attacked target */
+    /**
+     * Counter to delay the teleportation of an enderman towards the currently attacked target
+     */
     private int teleportDelay;
 
-    public AbominationMobEntity(World par1World)
+    public EntityAbomination(World par1World)
     {
         super(par1World);
 
@@ -64,7 +62,7 @@ public class AbominationMobEntity extends EntityMob
         // Makes the mob try and attack the nearest player that it encounters.
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 0, false, true, AbominationEntitySelector.GENERIC));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 0, false, true, EntitySelectorAbomination.GENERIC));
 
         // Forces the player to take damage if the mob touches them.
         this.tasks.addTask(3, new EntityAIAttackOnCollide(this, 1.0D, false));
@@ -88,24 +86,26 @@ public class AbominationMobEntity extends EntityMob
         super.applyEntityAttributes();
 
         // Set mob total amount of health (hearts).
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(42.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(42.0D);
 
         // Recommended default speed is used for the mob.
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.666666666666D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.666666666666D);
 
         // How much damage does this mob do to other mobs.
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setAttribute(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(10.0D);
 
         // How many blocks will the mob pursue it's target.
-        this.getEntityAttribute(SharedMonsterAttributes.followRange).setAttribute(42.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(42.0D);
     }
 
-    /** Basic mob attack. Default to touch of death in EntityCreature. Overridden by each mob to define their attack. */
+    /**
+     * Basic mob attack. Default to touch of death in EntityCreature. Overridden by each mob to define their attack.
+     */
     @Override
     protected void attackEntity(Entity par1Entity, float par2)
     {
         float f1 = this.getBrightness(1.0F);
-        
+
         if (f1 > 0.5F && this.rand.nextInt(100) == 0)
         {
             this.entityToAttack = null;
@@ -116,7 +116,9 @@ public class AbominationMobEntity extends EntityMob
         }
     }
 
-    /** Called when the entity is attacked. */
+    /**
+     * Called when the entity is attacked.
+     */
     @Override
     public boolean attackEntityFrom(DamageSource par1DamageSource, float par2)
     {
@@ -159,13 +161,13 @@ public class AbominationMobEntity extends EntityMob
     @Override
     public boolean canAttackClass(Class par1Class)
     {
-        return AbominationMobEntity.class != par1Class && EntityGhast.class != par1Class;
+        return EntityAbomination.class != par1Class && EntityGhast.class != par1Class;
     }
 
     @Override
     protected void collideWithEntity(Entity par1Entity)
     {
-        if (par1Entity instanceof IMob && !(par1Entity instanceof AbominationMobEntity) && this.getRNG().nextInt(20) == 0)
+        if (par1Entity instanceof IMob && !(par1Entity instanceof EntityAbomination) && this.getRNG().nextInt(20) == 0)
         {
             this.setAttackTarget((EntityLiving) par1Entity);
         }
@@ -180,7 +182,9 @@ public class AbominationMobEntity extends EntityMob
         return null;
     }
 
-    /** Drop 0-2 items of this living's type. @param par1 - Whether this entity has recently been hit by a player. @param par2 - Level of Looting used to kill this mob. */
+    /**
+     * Drop 0-2 items of this living's type. @param par1 - Whether this entity has recently been hit by a player. @param par2 - Level of Looting used to kill this mob.
+     */
     @Override
     protected void dropFewItems(boolean par1, int par2)
     {
@@ -188,8 +192,8 @@ public class AbominationMobEntity extends EntityMob
 
         if (par1 && (this.rand.nextInt(3) == 0 || this.rand.nextInt(1 + par2) > 0))
         {
-            this.dropItem(Item.spiderEye.itemID, 1);
-            this.dropItem(Item.enderPearl.itemID, 1);
+            this.dropItem(Items.spider_eye, 1);
+            this.dropItem(Items.ender_pearl, 1);
         }
     }
 
@@ -202,19 +206,23 @@ public class AbominationMobEntity extends EntityMob
         this.dataWatcher.addObject(18, new Byte((byte) 0));
     }
 
-    /** Finds the closest player within 16 blocks to attack, or null if this Entity isn't interested in attacking (Animals, Spiders at day, peaceful PigZombies). */
+    /**
+     * Finds the closest player within 16 blocks to attack, or null if this Entity isn't interested in attacking (Animals, Spiders at day, peaceful PigZombies).
+     */
     @Override
     protected Entity findPlayerToAttack()
     {
         double d0 = 16.0D;
         if (this.rand.nextInt(100) == 0)
         {
-            this.playSound(AbominationSounds.ABOMINATION_GROWL, 1.0F, 0.5F);
+            this.playSound(ABOMINATION_GROWL, 1.0F, 0.5F);
         }
         return this.worldObj.getClosestVulnerablePlayerToEntity(this, d0);
     }
 
-    /** Get this Entity's EnumCreatureAttribute */
+    /**
+     * Get this Entity's EnumCreatureAttribute
+     */
     @Override
     public EnumCreatureAttribute getCreatureAttribute()
     {
@@ -225,14 +233,16 @@ public class AbominationMobEntity extends EntityMob
     @Override
     protected String getDeathSound()
     {
-        return AbominationSounds.ABOMINATION_DEATH;
+        return ABOMINATION_DEATH;
     }
 
-    /** Returns the item ID for the item the mob drops on death. */
+    /**
+     * Returns the item ID for the item the mob drops on death.
+     */
     @Override
-    protected int getDropItemId()
+    protected Item getDropItem()
     {
-        return Item.silk.itemID;
+        return Items.string;
     }
 
     // The sound made when it's attacked. Often it's the same as the normal say
@@ -240,14 +250,14 @@ public class AbominationMobEntity extends EntityMob
     @Override
     protected String getHurtSound()
     {
-        return AbominationSounds.ABOMINATION_PAIN;
+        return ABOMINATION_PAIN;
     }
 
     // The sound effect played when it's just living, like a cow mooing.
     @Override
     protected String getLivingSound()
     {
-        return AbominationSounds.ABOMINATION_HISS;
+        return ABOMINATION_HISS;
     }
 
     @Override
@@ -264,13 +274,17 @@ public class AbominationMobEntity extends EntityMob
         return true;
     }
 
-    /** Returns true if the WatchableObject (Byte) is 0x01 otherwise returns false. The WatchableObject is updated using setBesideClimableBlock. */
+    /**
+     * Returns true if the WatchableObject (Byte) is 0x01 otherwise returns false. The WatchableObject is updated using setBesideClimableBlock.
+     */
     public boolean isBesideClimbableBlock()
     {
         return (this.dataWatcher.getWatchableObjectByte(16) & 1) != 0;
     }
 
-    /** returns true if this entity is by a ladder, false otherwise */
+    /**
+     * returns true if this entity is by a ladder, false otherwise
+     */
     @Override
     public boolean isOnLadder()
     {
@@ -288,11 +302,12 @@ public class AbominationMobEntity extends EntityMob
         return this.dataWatcher.getWatchableObjectByte(18) > 0;
     }
 
-    /** Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn. */
+    /**
+     * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+     */
     @Override
     public void onLivingUpdate()
-    {   
-        this.lastEntityToAttack = this.entityToAttack;
+    {
         int i;
 
         for (i = 0; i < 2; ++i)
@@ -306,7 +321,9 @@ public class AbominationMobEntity extends EntityMob
         super.onLivingUpdate();
     }
 
-    /** Called to update the entity's position/logic. */
+    /**
+     * Called to update the entity's position/logic.
+     */
     @Override
     public void onUpdate()
     {
@@ -319,14 +336,16 @@ public class AbominationMobEntity extends EntityMob
     }
 
     // The sound the mob plays when walking around.
-    @Override
+
     protected void playStepSound(int par1, int par2, int par3, int par4)
     {
         // First variable is volume and the second is pitch.
-        this.worldObj.playSoundAtEntity(this, AbominationSounds.ABOMINATION_STEP, 1.0F, 1.0F);
+        this.worldObj.playSoundAtEntity(this, ABOMINATION_STEP, 1.0F, 1.0F);
     }
 
-    /** Updates the WatchableObject (Byte) created in entityInit(), setting it to 0x01 if par1 is true or 0x00 if it is false. */
+    /**
+     * Updates the WatchableObject (Byte) created in entityInit(), setting it to 0x01 if par1 is true or 0x00 if it is false.
+     */
     public void setBesideClimbableBlock(boolean par1)
     {
         byte b0 = this.dataWatcher.getWatchableObjectByte(16);
@@ -343,13 +362,17 @@ public class AbominationMobEntity extends EntityMob
         this.dataWatcher.updateObject(16, Byte.valueOf(b0));
     }
 
-    /** Sets the Entity inside a web block. */
+    /**
+     * Sets the Entity inside a web block.
+     */
     @Override
     public void setInWeb()
     {
     }
 
-    /** Teleport the enderman to a random nearby position */
+    /**
+     * Teleport the enderman to a random nearby position
+     */
     protected boolean teleportRandomly()
     {
         if (!MadConfig.ABOMINATION_TELEPORTS)
@@ -363,7 +386,9 @@ public class AbominationMobEntity extends EntityMob
         return this.teleportTo(d0, d1, d2);
     }
 
-    /** Teleport the enderman */
+    /**
+     * Teleport the enderman
+     */
     protected boolean teleportTo(double par1, double par3, double par5)
     {
         if (!MadConfig.ABOMINATION_TELEPORTS)
@@ -387,7 +412,7 @@ public class AbominationMobEntity extends EntityMob
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.posY);
         int k = MathHelper.floor_double(this.posZ);
-        int l;
+        Block l;
 
         if (this.worldObj.blockExists(i, j, k))
         {
@@ -395,9 +420,9 @@ public class AbominationMobEntity extends EntityMob
 
             while (!flag1 && j > 0)
             {
-                l = this.worldObj.getBlockId(i, j - 1, k);
+                l = this.worldObj.getBlock(i, j - 1, k);
 
-                if (l != 0 && Block.blocksList[l].blockMaterial.blocksMovement())
+                if (l != null && l.getMaterial().blocksMovement())
                 {
                     flag1 = true;
                 }
@@ -428,9 +453,9 @@ public class AbominationMobEntity extends EntityMob
         {
             short short1 = 128;
 
-            for (l = 0; l < short1; ++l)
+            for (int ii = 0; ii < short1; ++ii)
             {
-                double d6 = l / (short1 - 1.0D);
+                double d6 = ii / (short1 - 1.0D);
                 float f = (this.rand.nextFloat() - 0.5F) * 0.2F;
                 float f1 = (this.rand.nextFloat() - 0.5F) * 0.2F;
                 float f2 = (this.rand.nextFloat() - 0.5F) * 0.2F;
@@ -446,7 +471,9 @@ public class AbominationMobEntity extends EntityMob
         }
     }
 
-    /** Teleport the enderman to another entity */
+    /**
+     * Teleport the enderman to another entity
+     */
     protected boolean teleportToEntity(Entity par1Entity)
     {
         if (!MadConfig.ABOMINATION_TELEPORTS)
@@ -454,7 +481,7 @@ public class AbominationMobEntity extends EntityMob
             return false;
         }
 
-        Vec3 vec3 = this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX - par1Entity.posX, this.boundingBox.minY + this.height / 2.0F - par1Entity.posY + par1Entity.getEyeHeight(), this.posZ - par1Entity.posZ);
+        Vec3 vec3 = Vec3.createVectorHelper(this.posX - par1Entity.posX, this.boundingBox.minY + this.height / 2.0F - par1Entity.posY + par1Entity.getEyeHeight(), this.posZ - par1Entity.posZ);
         vec3 = vec3.normalize();
         double d0 = 16.0D;
         double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3.xCoord * d0;

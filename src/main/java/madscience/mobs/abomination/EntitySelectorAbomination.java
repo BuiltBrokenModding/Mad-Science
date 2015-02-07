@@ -8,14 +8,14 @@ import net.minecraft.entity.player.EntityPlayer;
 /**
  * Created by robert on 2/6/2015.
  */
-public class AbominationEntitySelector implements IEntitySelector
+public class EntitySelectorAbomination implements IEntitySelector
 {
-    public static final AbominationEntitySelector GENERIC = new AbominationEntitySelector();
+    public static final EntitySelectorAbomination GENERIC = new EntitySelectorAbomination();
 
     @Override
     public boolean isEntityApplicable(Entity entity)
     {
-        if(!(entity instanceof AbominationMobEntity) && entity instanceof EntityLivingBase)
+        if(!(entity instanceof EntityAbomination) && entity instanceof EntityLivingBase)
         {
             if(entity instanceof EntityPlayer)
             {

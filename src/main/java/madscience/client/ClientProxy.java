@@ -28,9 +28,9 @@ import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntity;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeEntityRender;
 import madscience.items.weapons.pulseriflegrenade.PulseRifleGrenadeItemRender;
 import madscience.items.weapons.pulseriflemagazine.PulseRifleMagazineItemRender;
-import madscience.mobs.abomination.AbominationMobEntity;
-import madscience.mobs.abomination.AbominationMobModel;
-import madscience.mobs.abomination.AbominationMobRender;
+import madscience.mobs.abomination.EntityAbomination;
+import madscience.mobs.abomination.ModelAbomination;
+import madscience.mobs.abomination.RenderAbomination;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
 import madscience.mobs.creepercow.CreeperCowMobModel;
 import madscience.mobs.creepercow.CreeperCowMobRender;
@@ -469,7 +469,7 @@ public class ClientProxy extends CommonProxy
         // The Abomination [Enderman + Spider]
         if (blockID == MadConfig.GMO_ABOMINATION_METAID)
         {
-            RenderingRegistry.registerEntityRenderingHandler(AbominationMobEntity.class, new AbominationMobRender(new AbominationMobModel(), 0.5F));
+            RenderingRegistry.registerEntityRenderingHandler(EntityAbomination.class, new RenderAbomination(new ModelAbomination(), 0.5F));
         }
 
         // TheTechnician(tallahlf@gmail.com)

@@ -1,11 +1,13 @@
 package madscience.blocks;
 
+import com.builtbroken.mc.core.registry.IRegistryInit;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadBlocks;
 import madscience.MadEntities;
 import madscience.MadScience;
-import madscience.mobs.abomination.AbominationSounds;
+import madscience.mobs.abomination.EntityAbomination;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.ITileEntityProvider;
@@ -20,7 +22,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityProvider
+public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityProvider, IRegistryInit
 {
     public BlockAbominationEgg()
     {
@@ -28,6 +30,12 @@ public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityPr
         this.setHardness(5.0F);
         this.setResistance(1.0F);
         this.setCreativeTab(MadEntities.tabMadScience);
+    }
+
+    @Override
+    public void onRegistered()
+    {
+        GameRegistry.registerTileEntity(TileEntityAbominationEgg.class, "TileAbominationEgg");
     }
 
     @Override
@@ -82,7 +90,7 @@ public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityPr
     public void onBlockDestroyedByPlayer(World par1World, int par2, int par3, int par4, int par5)
     {
         // Play nasty sound of egg exploding into meat chunks.
-        par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, AbominationSounds.ABOMINATION_EGGPOP, 1.0F, 1.0F);
+        par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, EntityAbomination.ABOMINATION_EGGPOP, 1.0F, 1.0F);
         par1World.setBlock(par2, par3, par4, MadScience.blockMutantDNA);
     }
 
@@ -92,7 +100,7 @@ public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityPr
         super.onBlockPlacedBy(world, x, y, z, living, stack);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, AbominationSounds.ABOMINATION_EGG, 1.0F, 1.0F);
+        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, EntityAbomination.ABOMINATION_EGG, 1.0F, 1.0F);
     }
 
     @Override

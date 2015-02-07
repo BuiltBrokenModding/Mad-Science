@@ -1,7 +1,7 @@
 package madscience.tileentities.cryotube;
 
 import madscience.items.ItemDataReelEmpty;
-import madscience.metaitems.CombinedMemoryMonsterPlacer;
+import madscience.items.CombinedMemoryMonsterPlacer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

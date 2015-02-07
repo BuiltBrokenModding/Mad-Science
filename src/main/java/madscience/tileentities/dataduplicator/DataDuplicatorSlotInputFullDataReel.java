@@ -3,7 +3,7 @@ package madscience.tileentities.dataduplicator;
 import madscience.MadEntities;
 import madscience.items.CombinedGenomeMonsterPlacer;
 import madscience.items.dna.ItemGenome;
-import madscience.metaitems.CombinedMemoryMonsterPlacer;
+import madscience.items.CombinedMemoryMonsterPlacer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

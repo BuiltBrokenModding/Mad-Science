@@ -2,7 +2,7 @@ package madscience.items.dna;
 
 import com.builtbroken.mc.lib.helper.ReflectionUtility;
 import madscience.MadScience;
-import madscience.mobs.abomination.AbominationMobEntity;
+import madscience.mobs.abomination.EntityAbomination;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
 import madscience.mobs.enderslime.EnderslimeMobEntity;
 import madscience.mobs.endersquid.EnderSquidMobEntity;
@@ -18,7 +18,6 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.lang.reflect.Field;
@@ -64,7 +63,7 @@ public enum EnumDNA
     // Shoggoth [Slime + Squid] Deuce_Loosely(captainlunautic@yahoo.com)
     SHOGGOTH("Shoggoth", ShoggothMobEntity.class, MadColors.slimeEgg(), MadColors.squidEgg()),
     // The Abomination [Enderman + Spider] monodemono(coolplanet3000@gmail.com)
-    ABOMINATION("Abomination", AbominationMobEntity.class, MadColors.endermanEgg(), MadColors.spiderEgg()),
+    ABOMINATION("Abomination", EntityAbomination.class, MadColors.endermanEgg(), MadColors.spiderEgg()),
     // Wither Skeleton [Enderman + Skeleton] Pyrobrine(haskar.spore@gmail.com)
     WITHER_SKELETON("WitherSkeleton", EntitySkeleton.class, MadColors.endermanEgg(), MadColors.skeletonEgg()),
     // Villager Zombie [Villager + Zombie] Pyrobrine(haskar.spore@gmail.com)

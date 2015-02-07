@@ -8,7 +8,7 @@ import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.items.CombinedGenomeMonsterPlacer;
 import madscience.items.dna.ItemGenome;
-import madscience.metaitems.CombinedMemoryMonsterPlacer;
+import madscience.items.CombinedMemoryMonsterPlacer;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
