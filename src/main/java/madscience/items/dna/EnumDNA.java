@@ -1,6 +1,6 @@
 package madscience.items.dna;
 
-import madscience.MadDNA;
+import com.builtbroken.mc.lib.helper.ReflectionUtility;
 import madscience.MadScience;
 import madscience.mobs.abomination.AbominationMobEntity;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
@@ -13,12 +13,15 @@ import madscience.tileentities.incubator.IncubatorRecipes;
 import madscience.tileentities.sequencer.SequencerRecipes;
 import madscience.util.MadColors;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by robert on 2/6/2015.
@@ -67,16 +70,22 @@ public enum EnumDNA
     // Villager Zombie [Villager + Zombie] Pyrobrine(haskar.spore@gmail.com)
     VILLAGER_ZOMBIE("VillagerZombie", EntityZombie.class, MadColors.villagerEgg(), MadColors.zombieEgg()),
     // Skeleton Horse [Horse + Skeleton] Pyrobrine(haskar.spore@gmail.com)
-    SKELETON_HORSE("SkeletonHorse",EntityHorse.class, MadColors.horseEgg(), MadColors.skeletonEgg()),
+    SKELETON_HORSE("SkeletonHorse", EntityHorse.class, MadColors.horseEgg(), MadColors.skeletonEgg()),
     // Zombie Horse [Zombie + Horse] Pyrobrine(haskar.spore@gmail.com)
     ZOMBIE_HORSE("ZombieHorse", EntityHorse.class, MadColors.horseEgg(), MadColors.zombieEgg()),
     // Ender Squid [Enderman + Squid] TheTechnician(tallahlf@gmail.com)
-    ENDER_SQUID("EnderSquid", EnderSquidMobEntity.class,MadColors.endermanEgg(), MadColors.squidEgg());
+    ENDER_SQUID("EnderSquid", EnderSquidMobEntity.class, MadColors.endermanEgg(), MadColors.squidEgg());
 
     private final String INTERNAL_NAME;
     private final Class<? extends Entity> ENTITY_CLASS;
     public final int primary_color;
     public final int secondary_color;
+
+    //TO MODDERS: Feel free to change these but remember to change the recipes with it
+    public ItemStack spawnItem;
+    public ItemStack needleItem;
+    public ItemStack dnaItem;
+    public ItemStack gnomeItem;
 
     private EnumDNA(String langName, Class<? extends Entity> entity, int p, int s)
     {
@@ -103,12 +112,11 @@ public enum EnumDNA
 
     public static void registerRecipes()
     {
-        IncubatorRecipes.addSmelting(new ItemStack(MadScience.itemGnome, 1, BAT.ordinal()), new ItemStack(Items.spawn_egg, 1, 65));
-        IncubatorRecipes.addSmelting(GENOME_CAVESPIDER.itemID, new ItemStack(Item.monsterPlacer, 1, 59));
         for (EnumDNA dna : values())
         {
-            SequencerRecipes.addSmelting(new ItemStack(MadScience.itemGnome, 1, dna.ordinal() + 1), new ItemStack(MadScience.itemGnome, 1, dna.ordinal() + 1), 0);
-            SequencerRecipes.addSmelting(new ItemStack(MadScience.itemDNA, 1, dna.ordinal()), new ItemStack(MadScience.itemGnome, 1, dna.ordinal() + 1), 0.05F);
+            IncubatorRecipes.addSmelting(dna.getGnomeItem(), dna.getSpawnItem());
+            SequencerRecipes.addSmelting(dna.getGnomeItem(), dna.getGnomeItem(), 0.01F);
+            SequencerRecipes.addSmelting(dna.getDnaItem(), dna.getGnomeItem(), 0.05F);
         }
     }
 
@@ -116,12 +124,12 @@ public enum EnumDNA
     {
         if (entity instanceof EntityPlayer)
         {
-            //TODO make return player DNA
+            //TODO make return player DNA when we add genetics.
             return new ItemStack(MadScience.itemNeedle, 1, VILLAGER.ordinal() + 2);
         }
-        else if(entity instanceof EntitySkeleton)
+        else if (entity instanceof EntitySkeleton)
         {
-            if(((EntitySkeleton) entity).getSkeletonType() == 1)
+            if (((EntitySkeleton) entity).getSkeletonType() == 1)
             {
                 return new ItemStack(MadScience.itemNeedle, 1, WITHER_SKELETON.ordinal() + 2);
             }
@@ -130,9 +138,9 @@ public enum EnumDNA
                 return new ItemStack(MadScience.itemNeedle, 1, SKELETON.ordinal() + 2);
             }
         }
-        else if(entity instanceof EntityZombie)
+        else if (entity instanceof EntityZombie)
         {
-            if(((EntityZombie) entity).isVillager())
+            if (((EntityZombie) entity).isVillager())
             {
                 return new ItemStack(MadScience.itemNeedle, 1, VILLAGER_ZOMBIE.ordinal() + 2);
             }
@@ -141,17 +149,17 @@ public enum EnumDNA
                 return new ItemStack(MadScience.itemNeedle, 1, ZOMBIE.ordinal() + 2);
             }
         }
-        else if(entity instanceof EntityHorse)
+        else if (entity instanceof EntityHorse)
         {
-            if(((EntityHorse)entity).getHorseType() == 3)
+            if (((EntityHorse) entity).getHorseType() == 3)
             {
                 return new ItemStack(MadScience.itemNeedle, 1, ZOMBIE_HORSE.ordinal() + 2);
             }
-            else if(((EntityHorse)entity).getHorseType() == 4)
+            else if (((EntityHorse) entity).getHorseType() == 4)
             {
                 return new ItemStack(MadScience.itemNeedle, 1, SKELETON_HORSE.ordinal() + 2);
             }
-            else if(((EntityHorse)entity).getHorseType() == 0)
+            else if (((EntityHorse) entity).getHorseType() == 0)
             {
                 return new ItemStack(MadScience.itemNeedle, 1, HORSE.ordinal() + 2);
             }
@@ -169,5 +177,55 @@ public enum EnumDNA
             }
         }
         return null;
+    }
+
+    public ItemStack getNeedleItem()
+    {
+        if(needleItem == null)
+        {
+            needleItem = new ItemStack(MadScience.itemNeedle, 1, ordinal() + 2);
+        }
+        return needleItem;
+    }
+
+    public ItemStack getDnaItem()
+    {
+        if(dnaItem == null)
+        {
+            dnaItem = new ItemStack(MadScience.itemDNA, 1, ordinal());
+        }
+        return dnaItem;
+    }
+
+    public ItemStack getGnomeItem()
+    {
+        if(gnomeItem == null)
+        {
+            gnomeItem = new ItemStack(MadScience.itemGnome, 1, ordinal() + 1);
+        }
+        return gnomeItem;
+    }
+
+    public ItemStack getSpawnItem()
+    {
+        if (spawnItem == null)
+        {
+            Field field = ReflectionUtility.getMCField(EntityList.class, "classToIDMapping");
+            if (field != null)
+            {
+                try
+                {
+                    int id = field.getInt(null);
+                    if (EntityList.entityEggs.containsKey(id))
+                    {
+                        spawnItem = new ItemStack(Items.spawn_egg, 1, ((EntityList.EntityEggInfo) EntityList.entityEggs.get(id)).spawnedID);
+                    }
+                } catch (IllegalAccessException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return spawnItem.copy();
     }
 }

@@ -9,10 +9,10 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import madscience.blocks.BlockFluidDNA;
 import madscience.gui.MadGUI;
 import madscience.items.ItemCircuits;
 import madscience.items.ItemComponents;
@@ -20,29 +20,18 @@ import madscience.items.dna.ItemDNASample;
 import madscience.items.dna.ItemGenome;
 import madscience.items.weapons.ItemWeaponPart;
 import madscience.items.dna.ItemNeedle;
-import madscience.mobs.abomination.AbominationMobEntity;
-import madscience.mobs.abomination.AbominationMobLivingHandler;
-import madscience.mobs.creepercow.CreeperCowMobEntity;
-import madscience.mobs.enderslime.EnderslimeMobEntity;
-import madscience.mobs.endersquid.EnderSquidMobEntity;
-import madscience.mobs.shoggoth.ShoggothMobEntity;
-import madscience.mobs.werewolf.WerewolfMobEntity;
-import madscience.mobs.woolycow.WoolyCowMobEntity;
 import madscience.server.CommonProxy;
-import madscience.util.MadColors;
-import madscience.util.MadTags;
-import net.minecraft.entity.EntityList;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.launchwrapper.LogWrapper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.6.4,)", dependencies = "required-after:Forge@[9.11.1.953,);after:BuildCraft|Energy;after:factorization;after:IC2;after:Railcraft;after:ThermalExpansion")
+@Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.7.10,)", dependencies = "after:VoltzEngine")
 public class MadScience extends AbstractMod
 {
     // Used in Forge mod identification below.
@@ -103,72 +92,19 @@ public class MadScience extends AbstractMod
     public static Item itemGnome;
     public static Item itemDNA;
 
+    public static Block blockDNA;
+    public static Block blockMutantDNA;
+
+    public static String liquidDNA_name = "maddna";
+    public static final String liquidMutantDNA_name = "maddnamutant";
+
+    public static Fluid liquidDNA;
+    public static Fluid liquidMutantDNA;
+
     public MadScience()
     {
         super(ID);
     }
-
-    /**
-     * @param event
-     */
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
-        super.postInit(event);
-        // Interface with NEI and attempt to call functions from it if it exists.
-        // Note: This method was given by Alex_hawks, buy him a beer if you see him!
-        if (Loader.isModLoaded("NotEnoughItems"))
-        {
-            try
-            {
-                Class clazz = Class.forName("codechicken.nei.api.API");
-                Method m = clazz.getMethod("hideItem", Integer.TYPE);
-
-                // Cryotube Ghost Block.
-                m.invoke(null, MadFurnaces.CRYOTUBEGHOST);
-
-                // Soniclocator Ghost Block.
-                m.invoke(null, MadFurnaces.SONICLOCATORGHOST);
-
-                // Magazine Loader Ghost Block.
-                m.invoke(null, MadFurnaces.MAGLOADERGHOST);
-
-                // CnC Machine Ghost Block.
-                m.invoke(null, MadFurnaces.CNCMACHINEGHOST_TILEENTITY);
-            } catch (Throwable e)
-            {
-                logger.log(Level.WARNING, "NEI Integration has failed...");
-                logger.log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
-                e.printStackTrace();
-                logger.log(Level.WARNING, "Spamming console to make more obvious...");
-                for (int i = 0; i < 15; i++)
-                {
-                    logger.log(Level.WARNING, "Something Broke. See above.");
-                }
-            }
-
-        }
-    }
-
-    @Override
-    public AbstractProxy getProxy()
-    {
-        return proxy;
-    }
-
-    /**
-     * @param event
-     */
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-        super.init(event);
-
-        // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
-        MadUpdates.checkJenkinsBuildNumbers();
-    }
-
-
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -188,29 +124,22 @@ public class MadScience extends AbstractMod
         metadata.credits = "Thanks to Prowler for the awesome assets!";
         metadata.autogenerated = false;
 
-        // ------
-        // FLUIDS
-        // ------
-        logger.info("Creating Fluids");
+        //  FLUIDS
+        liquidDNA = new Fluid(liquidDNA_name).setDensity(3).setViscosity(4000).setLuminosity(5);
+        if(!FluidRegistry.registerFluid(liquidDNA))
+            liquidDNA = FluidRegistry.getFluid(liquidDNA_name);
 
-        // Creates both flowing and still variants of new fluid.
-        // Note: Still's ID must be 1 above Flowing.
-        MadFluids.createLiquidDNA(MadConfig.LIQUIDDNA, MadConfig.LIQUIDDNA_BUCKET);
+        liquidMutantDNA = new Fluid(liquidMutantDNA_name).setDensity(3).setViscosity(4000).setLuminosity(5);
+        if(!FluidRegistry.registerFluid(liquidMutantDNA))
+            liquidMutantDNA = FluidRegistry.getFluid(liquidMutantDNA_name);
 
-        // Liquid Mutant DNA.
-        MadFluids.createLiquidDNAMutant(MadConfig.LIQUIDDNA_MUTANT, MadConfig.LIQUIDDNA_MUTANT_BUCKET);
-
-        // ------
-        // BLOCKS
-        // ------
-        logger.info("Creating Blocks");
-
-        // Abomination Egg
+        // Blocks
         MadBlocks.createAbominationEgg(MadConfig.ABOMINATIONEGG);
-
-        // Enderslime Block
         MadBlocks.createEnderslimeBlock(MadConfig.ENDERSLIMEBLOCK);
+        blockDNA = getManager().newBlock("maddna", new BlockFluidDNA(liquidDNA));
+        blockMutantDNA = getManager().newBlock("madmutantdna", new BlockFluidDNA(liquidMutantDNA));
 
+        // Items
         itemCircuits = getManager().newItem(ItemCircuits.class);
         itemComponents = getManager().newItem(ItemComponents.class);
         itemWeaponParts = getManager().newItem(ItemWeaponPart.class);
@@ -284,85 +213,65 @@ public class MadScience extends AbstractMod
         MadRecipes.createComponentsRecipes();
         MadRecipes.createWeaponRecipes();
         MadRecipes.createOtherRecipes();
+    }
 
-        // -------------------------
-        // GENETICALLY MODIFIED MOBS
-        // -------------------------
-        logger.info("Creating Genetically Modified Creatures");
+    /**
+     * @param event
+     */
+    @EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+        super.init(event);
 
-        // Werewolf [Villager + Wolf]
-        MadMobs.createGMOMob(MadConfig.GMO_WEREWOLF_METAID, WerewolfMobEntity.class, new NBTTagCompound(), MadMobs.GMO_WEREWOLF_INTERNALNAME, MadMobs.GENOME_WEREWOLF_INTERNALNAME, MadColors.villagerEgg(), MadColors.wolfEgg(), MadGenomes.GENOME_VILLAGER,
-                MadGenomes.GENOME_WOLF, MadConfig.GMO_WEREWOLF_COOKTIME);
+        // Check Mad Science Jenkins build server for latest build numbers to compare with running one.
+        MadUpdates.checkJenkinsBuildNumbers();
+    }
 
-        // Disgusting Meatcube [Slime + Cow,Pig,Chicken]
-        MadFurnaces.createMeatcubeTileEntity(MadConfig.MEATCUBE, MadConfig.GMO_MEATCUBE_METAID, MadColors.slimeEgg(), MadColors.pigEgg(), MadConfig.GMO_MEATCUBE_COOKTIME);
+    /**
+     * @param event
+     */
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        super.postInit(event);
+        // Interface with NEI and attempt to call functions from it if it exists.
+        // Note: This method was given by Alex_hawks, buy him a beer if you see him!
+        if (Loader.isModLoaded("NotEnoughItems"))
+        {
+            try
+            {
+                Class clazz = Class.forName("codechicken.nei.api.API");
+                Method m = clazz.getMethod("hideItem", Integer.TYPE);
 
-        // Creeper Cow [Creeper + Cow]
-        MadMobs.createGMOMob(MadConfig.GMO_CREEPERCOW_METAID, CreeperCowMobEntity.class, new NBTTagCompound(), MadMobs.GMO_CREEPERCOW_INTERNALNAME, MadMobs.GENOME_CREEPERCOW_INTERNALNAME, MadColors.creeperEgg(), MadColors.cowEgg(),
-                MadGenomes.GENOME_CREEPER, MadGenomes.GENOME_COW, MadConfig.GMO_CREEPERCOW_COOKTIME);
+                // Cryotube Ghost Block.
+                m.invoke(null, MadFurnaces.CRYOTUBEGHOST);
 
-        // Enderslime [Enderman + Slime]
-        MadMobs.createGMOMob(MadConfig.GMO_ENDERSLIME_METAID, EnderslimeMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ENDERSLIME_INTERNALNAME, MadMobs.GENOME_ENDERSLIME_INTERNALNAME, MadColors.endermanEgg(), MadColors.slimeEgg(),
-                MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SLIME, MadConfig.GMO_ENDERSLIME_COOKTIME);
+                // Soniclocator Ghost Block.
+                m.invoke(null, MadFurnaces.SONICLOCATORGHOST);
 
-        // --------------------------
-        // Bart74(bart.74@hotmail.fr)
-        // --------------------------
+                // Magazine Loader Ghost Block.
+                m.invoke(null, MadFurnaces.MAGLOADERGHOST);
 
-        // Wooly cow [Cow + Sheep]
-        MadMobs.createGMOMob(MadConfig.GMO_WOOLYCOW_METAID, WoolyCowMobEntity.class, new NBTTagCompound(), MadMobs.GMO_WOOLYCOW_INTERNALNAME, MadMobs.GENOME_WOOLYCOW_INTERNALNAME, MadColors.cowEgg(), MadColors.sheepEgg(), MadGenomes.GENOME_COW,
-                MadGenomes.GENOME_SHEEP, MadConfig.GMO_WOOLYCOW_COOKTIME);
+                // CnC Machine Ghost Block.
+                m.invoke(null, MadFurnaces.CNCMACHINEGHOST_TILEENTITY);
+            } catch (Throwable e)
+            {
+                logger.log(Level.WARNING, "NEI Integration has failed...");
+                logger.log(Level.WARNING, "Please email devs@madsciencemod.com the following stacktrace.");
+                e.printStackTrace();
+                logger.log(Level.WARNING, "Spamming console to make more obvious...");
+                for (int i = 0; i < 15; i++)
+                {
+                    logger.log(Level.WARNING, "Something Broke. See above.");
+                }
+            }
 
-        // ----------------------------------------
-        // Deuce_Loosely(captainlunautic@yahoo.com)
-        // ----------------------------------------
+        }
+    }
 
-        // Shoggoth [Slime + Squid]
-        MadMobs.createGMOMob(MadConfig.GMO_SHOGGOTH_METAID, ShoggothMobEntity.class, new NBTTagCompound(), MadMobs.GMO_SHOGGOTH_INTERNALNAME, MadMobs.GENOME_SHOGGOTH_INTERNALNAME, MadColors.slimeEgg(), MadColors.squidEgg(), MadGenomes.GENOME_SLIME,
-                MadGenomes.GENOME_SQUID, MadConfig.GMO_SHOGGOTH_COOKTIME);
-
-        // ------------------------------------
-        // monodemono(coolplanet3000@gmail.com)
-        // ------------------------------------
-
-        // The Abomination [Enderman + Spider]
-        MadMobs.createGMOMob(MadConfig.GMO_ABOMINATION_METAID, AbominationMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ABOMINATION_INTERNALNAME, MadMobs.GENOME_ABOMINATION_INTERNALNAME, MadColors.endermanEgg(), MadColors.spiderEgg(),
-                MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SPIDER, MadConfig.GMO_ABOMINATION_COOKTIME);
-
-        // Add Forge hook for Abomination so we can know when it kills another mob so we can lay an egg.
-        MinecraftForge.EVENT_BUS.register(new AbominationMobLivingHandler());
-
-        // ---------------------------------
-        // Pyrobrine(haskar.spore@gmail.com)
-        // ---------------------------------
-
-        // Wither Skeleton [Enderman + Skeleton]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_WITHERSKELETON_METAID, MadTags.witherSkeleton(), EntityList.getStringFromID(51), MadMobs.GENOME_WITHERSKELETON_INTERNALNAME, MadColors.endermanEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_ENDERMAN,
-                MadGenomes.GENOME_SKELETON, MadConfig.GMO_WITHERSKELETON_COOKTIME);
-
-        // Villager Zombie [Villager + Zombie]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_VILLAGERZOMBIE_METAID, MadTags.villagerZombie(), EntityList.getStringFromID(54), MadMobs.GENOME_VILLAGERZOMBIE_INTERNALNAME, MadColors.villagerEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_VILLAGER,
-                MadGenomes.GENOME_ZOMBIE, MadConfig.GMO_VILLAGERZOMBIE_COOKTIME);
-
-        // Skeleton Horse [Horse + Skeleton]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_SKELETONHORSE_METAID, MadTags.horseType(4), EntityList.getStringFromID(100), MadMobs.GENOME_SKELETONHORSE_INTERNALNAME, MadColors.horseEgg(), MadColors.skeletonEgg(), MadGenomes.GENOME_HORSE,
-                MadGenomes.GENOME_SKELETON, MadConfig.GMO_SKELETONHORSE_COOKTIME);
-
-        // Zombie Horse [Zombie + Horse]
-        MadMobs.createVanillaGMOMob(MadConfig.GMO_ZOMBIEHORSE_METAID, MadTags.horseType(3), EntityList.getStringFromID(100), MadMobs.GENOME_ZOMBIEHORSE_INTERNALNAME, MadColors.horseEgg(), MadColors.zombieEgg(), MadGenomes.GENOME_ZOMBIE,
-                MadGenomes.GENOME_HORSE, MadConfig.GMO_ZOMBIEHORSE_COOKTIME);
-
-        // ---------------------------------
-        // TheTechnician(tallahlf@gmail.com)
-        // ---------------------------------
-
-        // Ender Squid [Enderman + Squid]
-        MadMobs.createGMOMob(MadConfig.GMO_ENDERSQUID_METAID, EnderSquidMobEntity.class, new NBTTagCompound(), MadMobs.GMO_ENDERSQUID_INTERNALNAME, MadMobs.GENOME_ENDERSQUID_INTERNALNAME, MadColors.endermanEgg(), MadColors.squidEgg(),
-                MadGenomes.GENOME_ENDERMAN, MadGenomes.GENOME_SQUID, MadConfig.GMO_ENDERSQUID_COOKTIME);
-
-        // ---------
-        // DONE INIT
-        // ---------
-        logger.info("Finished loading all madness!");
+    @Override
+    public AbstractProxy getProxy()
+    {
+        return proxy;
     }
 }

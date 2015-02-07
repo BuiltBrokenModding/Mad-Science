@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 
+import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
 
 public class PulseRifleGrenadeItemRender implements IItemRenderer
@@ -17,7 +18,7 @@ public class PulseRifleGrenadeItemRender implements IItemRenderer
         DROPPED, INVENTORY, NONE, THIRDPERSONEQUIPPED
     }
 
-    private MadTechneModel MODEL = (MadTechneModel) AdvancedModelLoader.loadModel(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME + ".mad");
+    private IModelCustom MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(MadScience.MODEL_PATH + MadWeapons.WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME + ".mad"));
     private ResourceLocation TEXTURE = new ResourceLocation(MadScience.ID, "models/" + MadWeapons.WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME + "/" + MadWeapons.WEAPONITEM_PULSERIFLE_GRENADE_INTERNALNAME + ".png");
 
     @Override

@@ -1,14 +1,12 @@
 package madscience;
 
+import madscience.blocks.BlockFluidDNA;
 import madscience.fluids.dna.LiquidDNA;
-import madscience.fluids.dna.LiquidDNABlock;
 import madscience.fluids.dna.LiquidDNABucket;
 import madscience.fluids.dna.LiquidDNABucketEvent;
 import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutant;
 import madscience.fluids.dnamutant.LiquidDNAMutantBlock;
-import madscience.fluids.dnamutant.LiquidDNAMutantBucket;
-import madscience.fluids.dnamutant.LiquidDNAMutantBucketEvent;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
 import madscience.items.ItemBlockTooltip;
 import net.minecraft.item.Item;
@@ -32,7 +30,7 @@ public class MadFluids
 
     // Liquid DNA
     public static LiquidDNA LIQUIDDNA;
-    public static LiquidDNABlock LIQUIDDNA_BLOCK;
+    public static BlockFluidDNA LIQUIDDNA_BLOCK;
     public static final String LIQUIDDNA_INTERNALNAME = "maddna";
 
     // Liquid DNA Bucket
@@ -67,7 +65,7 @@ public class MadFluids
         FluidRegistry.registerFluid(LIQUIDDNA);
 
         // Create the block of flowing liquid only after registering it with the system.
-        LIQUIDDNA_BLOCK = (LiquidDNABlock) new LiquidDNABlock(blockFluidID).setUnlocalizedName(LIQUIDDNA_INTERNALNAME);
+        LIQUIDDNA_BLOCK = (BlockFluidDNA) new BlockFluidDNA(blockFluidID).setUnlocalizedName(LIQUIDDNA_INTERNALNAME);
 
         // Container for our fluid.
         LIQUIDDNA_BUCKET_ITEM = (LiquidDNABucket) new LiquidDNABucket(bucketItemID, 10).setUnlocalizedName(LIQUIDDNA_BUCKET_INTERNALNAME);

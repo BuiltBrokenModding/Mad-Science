@@ -41,7 +41,6 @@ import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
 public class AbominationMobEntity extends EntityMob
 {
-    private Entity lastEntityToAttack;
     private Random rand = new Random();
 
     /** Counter to delay the teleportation of an enderman towards the currently attacked target */
@@ -65,8 +64,7 @@ public class AbominationMobEntity extends EntityMob
         // Makes the mob try and attack the nearest player that it encounters.
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, false, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, false, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 0, false, true, AbominationEntitySelector.GENERIC));
 
         // Forces the player to take damage if the mob touches them.
         this.tasks.addTask(3, new EntityAIAttackOnCollide(this, 1.0D, false));
@@ -308,43 +306,6 @@ public class AbominationMobEntity extends EntityMob
         super.onLivingUpdate();
     }
 
-    @Override
-    public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData)
-    {
-        Object par1EntityLivingData1 = super.onSpawnWithEgg(par1EntityLivingData);
-
-        if (this.worldObj.rand.nextInt(100) == 0)
-        {
-            EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
-            entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.onSpawnWithEgg((EntityLivingData) null);
-            this.worldObj.spawnEntityInWorld(entityskeleton);
-            entityskeleton.mountEntity(this);
-        }
-
-        if (par1EntityLivingData1 == null)
-        {
-            par1EntityLivingData1 = new SpiderEffectsGroupData();
-
-            if (this.worldObj.difficultySetting > 2 && this.worldObj.rand.nextFloat() < 0.1F * this.worldObj.getLocationTensionFactor(this.posX, this.posY, this.posZ))
-            {
-                ((SpiderEffectsGroupData) par1EntityLivingData1).func_111104_a(this.worldObj.rand);
-            }
-        }
-
-        if (par1EntityLivingData1 instanceof SpiderEffectsGroupData)
-        {
-            int i = ((SpiderEffectsGroupData) par1EntityLivingData1).field_111105_a;
-
-            if (i > 0 && Potion.potionTypes[i] != null)
-            {
-                this.addPotionEffect(new PotionEffect(i, Integer.MAX_VALUE));
-            }
-        }
-
-        return (EntityLivingData) par1EntityLivingData1;
-    }
-
     /** Called to update the entity's position/logic. */
     @Override
     public void onUpdate()
@@ -363,53 +324,6 @@ public class AbominationMobEntity extends EntityMob
     {
         // First variable is volume and the second is pitch.
         this.worldObj.playSoundAtEntity(this, AbominationSounds.ABOMINATION_STEP, 1.0F, 1.0F);
-    }
-
-    // Sets the active target the Task system uses for tracking.
-    @Override
-    public void setAttackTarget(EntityLivingBase par1EntityLivingBase)
-    {
-        boolean targetingModAuthors = false;
-        
-        // Do not allow the Abomination to attack the mod authors.
-        // NOTE: Nice try trolls, jokes on you.
-        try
-        {
-            EntityPlayer somePlayer = (EntityPlayer) par1EntityLivingBase;
-            if (somePlayer != null)
-            {
-                //MadScience.logger.info("SCANNING!");
-                if (somePlayer.username.equals("ronwolf") ||
-                    somePlayer.username.equals("FoxDiller") ||
-                    somePlayer.username.equals("Prowlerwolf"))
-                {
-                    //MadScience.logger.info("TARGETING DEVELOPER!");
-                    targetingModAuthors = true;
-                    
-                    if (this.worldObj.getWorldTime() % 15F == 0L)
-                    {
-                        // Sends heart packets because a developer has been detected nearby.
-                        PacketDispatcher.sendPacketToAllAround(this.posX, this.posY, this.posZ, MadConfig.PACKETSEND_RADIUS, worldObj.provider.dimensionId, new MadParticlePacket("heart", 0.5D + this.posX, this.posY + 0.5D, this.posZ + 0.5D,
-                                this.worldObj.rand.nextFloat(), this.worldObj.rand.nextFloat() + 0.5F, this.worldObj.rand.nextFloat()).makePacket());
-                    }
-                }
-            }
-        }
-        catch (Exception err)
-        {
-            targetingModAuthors = false;
-        }
-        
-        // Kill current target since it is the player.
-        if (targetingModAuthors)
-        {
-            this.entityToAttack = null;
-            this.lastEntityToAttack = null;
-            super.setAttackTarget(null);
-            return;
-        }
-        
-        super.setAttackTarget(par1EntityLivingBase);
     }
 
     /** Updates the WatchableObject (Byte) created in entityInit(), setting it to 0x01 if par1 is true or 0x00 if it is false. */
