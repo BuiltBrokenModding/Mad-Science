@@ -4,7 +4,6 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadFurnaces;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -28,28 +27,28 @@ public class RenderClayfurnace extends TileEntitySpecialRenderer implements ISim
     }
 
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
-    private IModelCustom MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(MadScience.MODEL_PATH + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + ".mad"));
+    private IModelCustom MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(MadScience.MODEL_PATH + "clayFurnace/clayFurnace.mad"));
 
-    private ResourceLocation TEXTURE_IDLE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/idle.png");
-    private ResourceLocation TEXTURE_SHELL = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/shell.png");
-    private ResourceLocation TEXTURE_DONE = new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/done.png");
+    private ResourceLocation TEXTURE_IDLE = new ResourceLocation(MadScience.ID, "models/clayFurnace/idle.png");
+    private ResourceLocation TEXTURE_SHELL = new ResourceLocation(MadScience.ID, "models/clayFurnace/shell.png");
+    private ResourceLocation TEXTURE_DONE = new ResourceLocation(MadScience.ID, "models/clayFurnace/done.png");
 
     private ResourceLocation[] TEXTURE_WORK = new ResourceLocation[]
             {
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/work0.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/work1.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/work2.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/work3.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/work4.png")
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work0.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work1.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work2.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work3.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work4.png")
             };
 
     private ResourceLocation[] TEXTURE_REDHOT = new ResourceLocation[]
             {
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot0.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot1.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot2.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot3.png"),
-                    new ResourceLocation(MadScience.ID, "models/" + MadFurnaces.CLAYFURNACE_INTERNALNAME + "/redhot4.png")
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/redhot0.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/redhot1.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/redhot2.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/redhot3.png"),
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/redhot4.png")
             };
 
     @Override

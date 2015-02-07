@@ -1,4 +1,4 @@
-package madscience.client;
+package madscience;
 
 import madscience.MadComponents;
 import madscience.MadConfig;
@@ -50,7 +50,7 @@ import madscience.mobs.woolycow.WoolyCowMobEntity;
 import madscience.mobs.woolycow.WoolyCowMobModel1;
 import madscience.mobs.woolycow.WoolyCowMobModel2;
 import madscience.mobs.woolycow.WoolyCowMobRender;
-import madscience.server.CommonProxy;
+import madscience.CommonProxy;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.RenderClayfurnace;
 import madscience.tileentities.cncmachine.CnCMachineEntity;

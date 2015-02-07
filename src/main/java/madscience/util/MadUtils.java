@@ -1,19 +1,13 @@
 package madscience.util;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
-import madscience.MadScience;
-import madscience.world.MadExplosion;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
 
 public class MadUtils
 {
@@ -46,40 +40,27 @@ public class MadUtils
         return binary.toString();
     }
 
-    @SuppressWarnings("unused")
+    /**
+     * Gets the first page from a written book as a string
+     * derived from {@link net.minecraft.item.ItemWritableBook#func_150930_a(net.minecraft.nbt.NBTTagCompound)}
+     * @param nbt - tag to read from
+     * @return first page of the book as a string
+     */
     public static String getWrittenBookContents(NBTTagCompound nbt)
     {
-        if (nbt == null)
+        if (nbt != null && nbt.hasKey("pages"))
         {
-            return null;
-        }
-        else if (!nbt.hasKey("pages"))
-        {
-            return null;
-        }
-        else
-        {
-            NBTTagList nbttaglist = (NBTTagList) nbt.getTag("pages");
+            NBTTagList nbttaglist = nbt.getTagList("pages", 8);
 
             for (int i = 0; i < nbttaglist.tagCount(); ++i)
             {
-                NBTTagString nbttagstring = (NBTTagString) nbttaglist.tagAt(i);
+                String s = nbttaglist.getStringTagAt(i);
 
-                if (nbttagstring.data == null)
-                {
-                    return null;
-                }
-
-                if (nbttagstring.data.length() > 256)
-                {
-                    return null;
-                }
-
-                return nbttagstring.data.toLowerCase().trim();
+                if (s != null && s.length() <= 256)
+                    return s;
             }
-
-            return null;
         }
+        return null;
     }
 
     public static String getMD5String(String unencodedText)
@@ -88,8 +69,7 @@ public class MadUtils
         try
         {
             md = MessageDigest.getInstance("MD5");
-        }
-        catch (NoSuchAlgorithmException e)
+        } catch (NoSuchAlgorithmException e)
         {
             e.printStackTrace();
         }
@@ -109,8 +89,7 @@ public class MadUtils
         try
         {
             md = MessageDigest.getInstance("SHA-1");
-        }
-        catch (NoSuchAlgorithmException e)
+        } catch (NoSuchAlgorithmException e)
         {
             e.printStackTrace();
         }
@@ -119,8 +98,7 @@ public class MadUtils
         try
         {
             unencodedBytes = unencodedText.getBytes("UTF-8");
-        }
-        catch (UnsupportedEncodingException e)
+        } catch (UnsupportedEncodingException e)
         {
             e.printStackTrace();
         }

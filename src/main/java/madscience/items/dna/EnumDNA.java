@@ -3,14 +3,6 @@ package madscience.items.dna;
 import com.builtbroken.mc.lib.helper.ReflectionUtility;
 import madscience.MadScience;
 import madscience.mobs.abomination.EntityAbomination;
-import madscience.mobs.creepercow.CreeperCowMobEntity;
-import madscience.mobs.enderslime.EnderslimeMobEntity;
-import madscience.mobs.endersquid.EnderSquidMobEntity;
-import madscience.mobs.shoggoth.ShoggothMobEntity;
-import madscience.mobs.werewolf.WerewolfMobEntity;
-import madscience.mobs.woolycow.WoolyCowMobEntity;
-import madscience.tileentities.incubator.IncubatorRecipes;
-import madscience.tileentities.sequencer.SequencerRecipes;
 import madscience.util.MadColors;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -53,15 +45,15 @@ public enum EnumDNA
     WOLF("Wolf", EntityWolf.class, 14144467, 13545366),
     ZOMBIE("Zombie", EntityPigZombie.class, 44975, 7969893),
     // Werewolf [Wolf + Villager]
-    WEREWOLF("Werewolf", WerewolfMobEntity.class, MadColors.villagerEgg(), MadColors.wolfEgg()),
+    //TODO WEREWOLF("Werewolf", WerewolfMobEntity.class, MadColors.villagerEgg(), MadColors.wolfEgg()),
     // Creeper Cow [Cow + Creeper]
-    CREEPER_COW("CreeperCow", CreeperCowMobEntity.class, MadColors.creeperEgg(), MadColors.cowEgg()),
+    //TODO CREEPER_COW("CreeperCow", CreeperCowMobEntity.class, MadColors.creeperEgg(), MadColors.cowEgg()),
     // Enderslime [Enderman + Slime]
-    ENDERSLIME("Enderslime", EnderslimeMobEntity.class, MadColors.endermanEgg(), MadColors.slimeEgg()),
+    //TODO ENDERSLIME("Enderslime", EnderslimeMobEntity.class, MadColors.endermanEgg(), MadColors.slimeEgg()),
     // Wooly Cow [Cow + Sheep] Bart74(bart.74@hotmail.fr)
-    WOOLY_COW("WoolyCow", WoolyCowMobEntity.class, MadColors.cowEgg(), MadColors.sheepEgg()),
+    //TODO WOOLY_COW("WoolyCow", WoolyCowMobEntity.class, MadColors.cowEgg(), MadColors.sheepEgg()),
     // Shoggoth [Slime + Squid] Deuce_Loosely(captainlunautic@yahoo.com)
-    SHOGGOTH("Shoggoth", ShoggothMobEntity.class, MadColors.slimeEgg(), MadColors.squidEgg()),
+    //TODO SHOGGOTH("Shoggoth", ShoggothMobEntity.class, MadColors.slimeEgg(), MadColors.squidEgg()),
     // The Abomination [Enderman + Spider] monodemono(coolplanet3000@gmail.com)
     ABOMINATION("Abomination", EntityAbomination.class, MadColors.endermanEgg(), MadColors.spiderEgg()),
     // Wither Skeleton [Enderman + Skeleton] Pyrobrine(haskar.spore@gmail.com)
@@ -71,9 +63,9 @@ public enum EnumDNA
     // Skeleton Horse [Horse + Skeleton] Pyrobrine(haskar.spore@gmail.com)
     SKELETON_HORSE("SkeletonHorse", EntityHorse.class, MadColors.horseEgg(), MadColors.skeletonEgg()),
     // Zombie Horse [Zombie + Horse] Pyrobrine(haskar.spore@gmail.com)
-    ZOMBIE_HORSE("ZombieHorse", EntityHorse.class, MadColors.horseEgg(), MadColors.zombieEgg()),
+    ZOMBIE_HORSE("ZombieHorse", EntityHorse.class, MadColors.horseEgg(), MadColors.zombieEgg());
     // Ender Squid [Enderman + Squid] TheTechnician(tallahlf@gmail.com)
-    ENDER_SQUID("EnderSquid", EnderSquidMobEntity.class, MadColors.endermanEgg(), MadColors.squidEgg());
+    //TODO ENDER_SQUID("EnderSquid", EnderSquidMobEntity.class, MadColors.endermanEgg(), MadColors.squidEgg());
 
     private final String INTERNAL_NAME;
     private final Class<? extends Entity> ENTITY_CLASS;

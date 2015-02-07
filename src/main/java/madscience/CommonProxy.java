@@ -1,4 +1,4 @@
-package madscience.server;
+package madscience;
 
 import java.util.Random;
 

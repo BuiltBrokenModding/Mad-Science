@@ -22,7 +22,6 @@ import madscience.items.dna.ItemDNASample;
 import madscience.items.dna.ItemGenome;
 import madscience.items.weapons.ItemWeaponPart;
 import madscience.items.dna.ItemNeedle;
-import madscience.server.CommonProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
@@ -71,7 +70,7 @@ public class MadScience extends AbstractMod
     public static Logger logger;
 
     // Proxy that runs commands based on where they are from so we can separate server and client logic easily.
-    @SidedProxy(clientSide = "madscience.client.ClientProxy", serverSide = "madscience.server.CommonProxy")
+    @SidedProxy(clientSide = "madscience.ClientProxy", serverSide = "madscience.CommonProxy")
     public static CommonProxy proxy;
 
     // Public instance of our mod that Forge needs to hook us, based on our internal modid.
