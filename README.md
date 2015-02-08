@@ -15,4 +15,4 @@ Join *#universalelectricity* on EsperNet (irc.esper.net:5555). Remember to follo
 
 ### License
 Mad Science is licensed under Minecraft Mod Public License (http://madsciencemod.com/license/).
-By using or interacting with this software in any way shape or form, you agree to the license of this software.
+By using or interacting with this software in any way shape or form, you agree to the license of this software. 
