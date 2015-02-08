@@ -56,12 +56,15 @@ public class TileClayFurnace extends TileModuleMachine
     public TileClayFurnace()
     {
         super("ClayFurnace", Material.clay);
+        this.renderNormalBlock = false; //We have a custom renderer
+        this.renderTileEntity = false; //Renderer is not internal
         hardness = 5.0F;
         resistance = 10.0F;
-        this.addInventoryModule(2);
+        this.addInventoryModule(2); //Init inventory
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void onClientRegistered()
     {
         RenderClayfurnace renderer = new RenderClayfurnace();
@@ -99,14 +102,14 @@ public class TileClayFurnace extends TileModuleMachine
 
                     //Spit invalid items out
                     //TODO drop in front of tile - Dark
-                    if(getStackInSlot(0) != null && !oreToResultMap.containsKey(getStackInSlot(0)))
+                    if (getStackInSlot(0) != null && !oreToResultMap.containsKey(getStackInSlot(0)))
                     {
-                        InventoryUtility.dropItemStack(new Location((TileEntity)this), getStackInSlot(0));
+                        InventoryUtility.dropItemStack(new Location((TileEntity) this), getStackInSlot(0));
                         setInventorySlotContents(0, null);
                     }
-                    if(getStackInSlot(1) != null && !validCoalBlocks.contains(getStackInSlot(1)))
+                    if (getStackInSlot(1) != null && !validCoalBlocks.contains(getStackInSlot(1)))
                     {
-                        InventoryUtility.dropItemStack(new Location((TileEntity)this), getStackInSlot(1));
+                        InventoryUtility.dropItemStack(new Location((TileEntity) this), getStackInSlot(1));
                         setInventorySlotContents(1, null);
                     }
                 }
@@ -226,12 +229,12 @@ public class TileClayFurnace extends TileModuleMachine
                             //Send changes to client
                             updateClient();
                         }
-                        else if(getStackInSlot(0) == null)
+                        else if (getStackInSlot(0) == null)
                         {
                             //TODO add translation key - Dark
                             player.addChatComponentMessage(new ChatComponentText("*No point in starting without something to smelt*"));
                         }
-                        else if(getStackInSlot(1) == null)
+                        else if (getStackInSlot(1) == null)
                         {
                             //TODO add translation key - Dark
                             player.addChatComponentMessage(new ChatComponentText("*Needs Fuel*"));
@@ -241,22 +244,22 @@ public class TileClayFurnace extends TileModuleMachine
                 return true;
             }
         }
-        else if(state == BurnState.DONE)
+        else if (state == BurnState.DONE)
         {
             //TODO add translation key - Dark
             player.addChatComponentMessage(new ChatComponentText("*It looks like its finally cooled down*"));
         }
-        else if(state == BurnState.COOLING)
+        else if (state == BurnState.COOLING)
         {
             //TODO add translation key - Dark
             player.addChatComponentMessage(new ChatComponentText("*It looks a bit hot, best not touch it*"));
         }
-        else if(state == BurnState.COOKING)
+        else if (state == BurnState.COOKING)
         {
             //TODO add translation key - Dark
             player.addChatComponentMessage(new ChatComponentText("*Just waiting for it to melt*"));
         }
-        else if(state == BurnState.SMOLDERING)
+        else if (state == BurnState.SMOLDERING)
         {
             //TODO add translation key - Dark
             player.addChatComponentMessage(new ChatComponentText("*Now to break the shell to let the molten core cool*"));
@@ -309,7 +312,7 @@ public class TileClayFurnace extends TileModuleMachine
     public ArrayList<ItemStack> getDrops(int metadata, int fortune)
     {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-        if(state == BurnState.IDLE)
+        if (state == BurnState.IDLE)
         {
             if (dropFurnace)
             {

@@ -27,7 +27,7 @@ public class RenderClayfurnace extends TileEntitySpecialRenderer implements ISim
     }
 
     public int modelRenderID = RenderingRegistry.getNextAvailableRenderId();
-    private IModelCustom MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(MadScience.MODEL_PATH + "clayFurnace/clayFurnace.mad"));
+    private IModelCustom MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(MadScience.ID, "models/clayFurnace/clayFurnace.tcn"));
 
     private ResourceLocation TEXTURE_IDLE = new ResourceLocation(MadScience.ID, "models/clayFurnace/idle.png");
     private ResourceLocation TEXTURE_SHELL = new ResourceLocation(MadScience.ID, "models/clayFurnace/shell.png");
