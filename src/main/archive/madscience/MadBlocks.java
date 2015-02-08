@@ -1,8 +1,8 @@
 package madscience;
 
-import madscience.blocks.BlockEnderslime;
-import madscience.blocks.BlockAbominationEgg;
-import madscience.blocks.TileEntityAbominationEgg;
+import madscience.tiles.BlockEnderslime;
+import madscience.tiles.BlockAbominationEgg;
+import madscience.tiles.TileEntityAbominationEgg;
 import madscience.items.ItemBlockTooltip;
 import net.minecraft.block.Block;
 import cpw.mods.fml.common.registry.GameRegistry;

@@ -1,4 +1,4 @@
-package madscience.tileentities.clayfurnace;
+package madscience.tiles.clayfurnace;
 
 import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;
@@ -6,8 +6,10 @@ import com.builtbroken.mc.prefab.inventory.InventoryUtility;
 import com.builtbroken.mc.prefab.recipe.ItemStackWrapper;
 import com.builtbroken.mc.prefab.tile.Tile;
 import com.builtbroken.mc.prefab.tile.TileModuleMachine;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import li.cil.oc.common.block.Item;
 import madscience.MadConfig;
 import madscience.MadScience;
 import net.minecraft.block.Block;
@@ -18,6 +20,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +59,14 @@ public class TileClayFurnace extends TileModuleMachine
         hardness = 5.0F;
         resistance = 10.0F;
         this.addInventoryModule(2);
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public void onClientRegistered()
+    {
+        RenderClayfurnace renderer = new RenderClayfurnace();
+        ClientRegistry.bindTileEntitySpecialRenderer(this.getClass(), renderer);
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(getTileBlock()), renderer);
     }
 
     public void updateClient()

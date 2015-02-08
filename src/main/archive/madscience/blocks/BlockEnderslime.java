@@ -1,4 +1,4 @@
-package madscience.blocks;
+package madscience.tiles;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

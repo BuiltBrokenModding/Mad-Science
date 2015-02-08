@@ -1,4 +1,4 @@
-package madscience.blocks;
+package madscience.tiles;
 
 import madscience.mobs.abomination.EntitySelectorAbomination;
 import madscience.mobs.abomination.EntityAbomination;

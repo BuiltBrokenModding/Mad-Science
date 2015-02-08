@@ -1,6 +1,6 @@
 package madscience;
 
-import madscience.blocks.BlockFluidDNA;
+import madscience.tiles.BlockFluidDNA;
 import madscience.fluids.dna.LiquidDNA;
 import madscience.fluids.dna.LiquidDNABucket;
 import madscience.fluids.dna.LiquidDNABucketEvent;

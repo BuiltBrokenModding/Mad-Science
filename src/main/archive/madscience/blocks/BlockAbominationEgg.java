@@ -1,4 +1,4 @@
-package madscience.blocks;
+package madscience.tiles;
 
 import com.builtbroken.mc.core.registry.IRegistryInit;
 import cpw.mods.fml.common.registry.GameRegistry;

@@ -1,7 +1,7 @@
 package madscience.gui;
 
 import madscience.MadFurnaces;
-import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
+import madscience.tiles.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.cncmachine.CnCMachineContainer;
 import madscience.tileentities.cncmachine.CnCMachineEntity;
 import madscience.tileentities.cncmachine.CnCMachineGUI;

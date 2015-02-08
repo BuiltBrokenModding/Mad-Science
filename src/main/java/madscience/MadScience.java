@@ -11,23 +11,22 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import madscience.blocks.BlockAbominationEgg;
-import madscience.blocks.BlockEnderslime;
-import madscience.blocks.BlockFluidDNA;
+import madscience.tiles.BlockAbominationEgg;
+import madscience.tiles.BlockEnderslime;
+import madscience.tiles.BlockFluidDNA;
 import madscience.items.ItemCircuits;
 import madscience.items.ItemComponents;
 import madscience.items.dna.ItemDNASample;
 import madscience.items.dna.ItemGenome;
 import madscience.items.dna.ItemNeedle;
 import madscience.items.weapons.ItemWeaponPart;
-import madscience.tileentities.clayfurnace.TileClayFurnace;
+import madscience.tiles.clayfurnace.TileClayFurnace;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 @Mod(modid = MadScience.ID, name = MadScience.NAME, version = MadScience.VERSION_FULL, useMetadata = false, acceptedMinecraftVersions = "[1.7.10,)", dependencies = "after:VoltzEngine")
 public class MadScience extends AbstractMod
