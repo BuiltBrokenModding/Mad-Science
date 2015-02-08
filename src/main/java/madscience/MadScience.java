@@ -20,6 +20,7 @@ import madscience.items.dna.ItemDNASample;
 import madscience.items.dna.ItemGenome;
 import madscience.items.dna.ItemNeedle;
 import madscience.items.weapons.ItemWeaponPart;
+import madscience.tileentities.clayfurnace.TileClayFurnace;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.fluids.Fluid;
@@ -77,6 +78,7 @@ public class MadScience extends AbstractMod
     public static Block blockMutantDNA;
     public static Block blockAbominationEgg;
     public static Block blockEnderslime;
+    public static Block blockClayFurnace;
 
     public static String liquidDNA_name = "maddna";
     public static final String liquidMutantDNA_name = "maddnamutant";
@@ -121,6 +123,7 @@ public class MadScience extends AbstractMod
         blockMutantDNA = getManager().newBlock("madmutantdna", new BlockFluidDNA(liquidMutantDNA)).setCreativeTab(null);
         blockAbominationEgg = getManager().newBlock(BlockAbominationEgg.class);
         blockEnderslime = getManager().newBlock(BlockEnderslime.class);
+        blockClayFurnace = getManager().newBlock("clayFurnace", TileClayFurnace.class);
 
         // Items
         itemCircuits = getManager().newItem(ItemCircuits.class);

@@ -152,4 +152,10 @@ public class ItemNeedle extends ItemDNADecay implements IRegistryInit
                         // Parameters.
                         'G', Blocks.glass, 'I', Items.iron_ingot, 'S', Items.stick});
     }
+
+    @Override @SideOnly(Side.CLIENT)
+    public void onClientRegistered()
+    {
+
+    }
 }
