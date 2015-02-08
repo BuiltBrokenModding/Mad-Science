@@ -1,9 +1,6 @@
 package madscience.tiles.clayfurnace;
 
-import com.builtbroken.mc.api.ISave;
-import com.builtbroken.mc.api.tile.node.ITileModule;
 import com.builtbroken.mc.core.network.IPacketReceiver;
-import com.builtbroken.mc.core.network.packet.AbstractPacket;
 import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.lib.render.RenderUtility;
@@ -14,26 +11,24 @@ import com.builtbroken.mc.prefab.recipe.ItemStackWrapper;
 import com.builtbroken.mc.prefab.tile.Tile;
 import com.builtbroken.mc.prefab.tile.TileModuleMachine;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import madscience.MadConfig;
 import madscience.MadScience;
+import madscience.items.ItemBlockTooltip;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
-import net.minecraftforge.client.MinecraftForgeClient;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -46,6 +41,7 @@ import java.util.List;
 public class TileClayFurnace extends TileModuleMachine implements IPacketReceiver
 {
     public static boolean dropFurnace = false;
+    public static int MAX_COOK_TIME = MadScience.SECOND_IN_TICKS * MadConfig.CLAYFURNACE_COOKTIME_IN_SECONDS;
 
     //Very simple recipe handling since the furnace only supports ore -> Ingot Block recipes
     public static HashMap<ItemStackWrapper, ItemStack> recipeMap = new HashMap();
@@ -72,11 +68,18 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     public TileClayFurnace()
     {
         super("ClayFurnace", Material.clay);
+        this.itemBlock = ItemBlockTooltip.class;
         this.renderNormalBlock = false; //We have a custom renderer
         this.renderTileEntity = true; //Renderer is internal
         hardness = 5.0F;
         resistance = 10.0F;
         this.addInventoryModule(2); //Init inventory
+    }
+
+    @Override
+    public void onRegistered()
+    {
+        GameRegistry.addShapedRecipe(new ItemStack(MadScience.blockClayFurnace), "ccc", "cfc", "ccc", 'c', Blocks.hardened_clay, 'f', Blocks.furnace);
     }
 
     @Override
@@ -90,7 +93,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                 if (canSmelt())
                 {
                     cookTime++;
-                    if (cookTime >= MadScience.SECOND_IN_TICKS * MadConfig.CLAYFURNACE_COOKTIME_IN_SECONDS)
+                    if (cookTime >= MAX_COOK_TIME)
                     {
                         cookTime = 0;
                         state = BurnState.SMOLDERING;
@@ -122,7 +125,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "fire.fire", 1.0F, 1.0F);
                 }
-                if(ticks % 5 == 0)
+                if (ticks % 5 == 0)
                 {
                     for (int l = 0; l < 2; ++l)
                     {
@@ -192,10 +195,10 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                             ItemStack copy = heldItem.copy();
                             copy.stackSize = 1;
                             setInventorySlotContents(0, copy);
-                            if(getStackInSlot(0) != null)
+                            if (getStackInSlot(0) != null)
                             {
                                 //Take item from player
-                                if(!player.capabilities.isCreativeMode)
+                                if (!player.capabilities.isCreativeMode)
                                 {
                                     heldItem.stackSize--;
                                     if (heldItem.stackSize <= 0)
@@ -223,10 +226,10 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                             ItemStack copy = heldItem.copy();
                             copy.stackSize = 1;
                             setInventorySlotContents(1, copy);
-                            if(getStackInSlot(1) != null)
+                            if (getStackInSlot(1) != null)
                             {
                                 //Take item from player
-                                if(!player.capabilities.isCreativeMode)
+                                if (!player.capabilities.isCreativeMode)
                                 {
                                     heldItem.stackSize--;
                                     if (heldItem.stackSize <= 0)
@@ -302,7 +305,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                 }
                 return true;
             }
-            else if(!player.isSneaking())
+            else if (!player.isSneaking())
             {
                 return true;
             }
@@ -324,7 +327,10 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                 else if (state == BurnState.COOKING)
                 {
                     //TODO add translation key - Dark
-                    player.addChatComponentMessage(new ChatComponentText("*Just waiting for it to melt*"));
+                    int percent = (int)(100 * ((double)cookTime / (double)MAX_COOK_TIME));
+
+                    //TODO add witty remarks about the long ass wait time
+                    player.addChatComponentMessage(new ChatComponentText("* " + percent + "%  Just waiting for it to melt*"));
                 }
                 else if (state == BurnState.SMOLDERING)
                 {
@@ -412,14 +418,16 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
         return new TileClayFurnace();
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon()
     {
         //Use clay texture for breaking animation
         return Blocks.hardened_clay.getIcon(0, 0);
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister)
     {
         //We have no icons to register
@@ -494,7 +502,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     @Override
     public void read(ByteBuf buf, EntityPlayer player, PacketType packet)
     {
-        if(isClient())
+        if (isClient())
         {
             state = BurnState.get(buf.readInt());
             cookTime = buf.readInt();
@@ -514,7 +522,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        nbt.setByte("burnState", (byte)state.ordinal());
+        nbt.setByte("burnState", (byte) state.ordinal());
         nbt.setInteger("cookTime", cookTime);
     }
 
@@ -544,7 +552,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
 
         public static BurnState get(int s)
         {
-            if(s >= 0 && s < BurnState.values().length)
+            if (s >= 0 && s < BurnState.values().length)
                 return BurnState.values()[s];
             return DONE;
         }
