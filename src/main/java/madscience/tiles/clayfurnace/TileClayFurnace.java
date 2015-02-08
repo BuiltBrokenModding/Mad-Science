@@ -1,5 +1,11 @@
 package madscience.tiles.clayfurnace;
 
+import com.builtbroken.mc.api.ISave;
+import com.builtbroken.mc.api.tile.node.ITileModule;
+import com.builtbroken.mc.core.network.IPacketReceiver;
+import com.builtbroken.mc.core.network.packet.AbstractPacket;
+import com.builtbroken.mc.core.network.packet.PacketTile;
+import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.lib.render.RenderUtility;
 import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;
@@ -11,6 +17,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
 import madscience.MadConfig;
 import madscience.MadScience;
 import net.minecraft.block.Block;
@@ -21,6 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
@@ -34,7 +42,7 @@ import java.util.List;
 /**
  * Created by robert on 2/7/2015.
  */
-public class TileClayFurnace extends TileModuleMachine
+public class TileClayFurnace extends TileModuleMachine implements IPacketReceiver
 {
     public static boolean dropFurnace = false;
 
@@ -68,11 +76,6 @@ public class TileClayFurnace extends TileModuleMachine
         hardness = 5.0F;
         resistance = 10.0F;
         this.addInventoryModule(2); //Init inventory
-    }
-
-    public void updateClient()
-    {
-
     }
 
     @Override
@@ -465,6 +468,45 @@ public class TileClayFurnace extends TileModuleMachine
         GL11.glPopMatrix();
     }
 
+    public void updateClient()
+    {
+        sendPacket(getDescPacket());
+    }
+
+    @Override
+    public PacketTile getDescPacket()
+    {
+        return new PacketTile(this, state.ordinal(), cookTime);
+    }
+
+
+    @Override
+    public void read(ByteBuf buf, EntityPlayer player, PacketType packet)
+    {
+        if(isClient())
+        {
+            state = BurnState.get(buf.readInt());
+            cookTime = buf.readInt();
+        }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt)
+    {
+        super.readFromNBT(nbt);
+        state = BurnState.get(nbt.getByte("burnState"));
+        cookTime = nbt.getInteger("cookTime");
+
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt)
+    {
+        super.writeToNBT(nbt);
+        nbt.setByte("burnState", (byte)state.ordinal());
+        nbt.setInteger("cookTime", cookTime);
+    }
+
     /**
      * States of the furnace
      */
@@ -488,5 +530,12 @@ public class TileClayFurnace extends TileModuleMachine
          * Waiting to be picked up
          */
         DONE;
+
+        public static BurnState get(int s)
+        {
+            if(s >= 0 && s < BurnState.values().length)
+                return BurnState.values()[s];
+            return DONE;
+        }
     }
 }
