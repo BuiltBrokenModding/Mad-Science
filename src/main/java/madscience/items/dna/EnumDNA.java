@@ -105,9 +105,9 @@ public enum EnumDNA
     {
         for (EnumDNA dna : values())
         {
-            IncubatorRecipes.addSmelting(dna.getGnomeItem(), dna.getSpawnItem());
-            SequencerRecipes.addSmelting(dna.getGnomeItem(), dna.getGnomeItem(), 0.01F);
-            SequencerRecipes.addSmelting(dna.getDnaItem(), dna.getGnomeItem(), 0.05F);
+            //TODO IncubatorRecipes.addSmelting(dna.getGnomeItem(), dna.getSpawnItem());
+            //TODO SequencerRecipes.addSmelting(dna.getGnomeItem(), dna.getGnomeItem(), 0.01F);
+            //TODO SequencerRecipes.addSmelting(dna.getDnaItem(), dna.getGnomeItem(), 0.05F);
         }
     }
 

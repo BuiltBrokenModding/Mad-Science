@@ -2,7 +2,6 @@ package madscience.items.labcoat;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,7 +20,6 @@ public class ItemLabCoat extends ItemArmor
     public ItemLabCoat(ItemArmor.ArmorMaterial material, int index, int slot)
     {
         super(material, index, slot);
-        this.setCreativeTab(MadEntities.tabMadScience);
         this.setMaxDamage(200000);
     }
 

@@ -2,7 +2,6 @@ package madscience.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadFluids;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -57,7 +56,7 @@ public class BlockFluidDNA extends BlockFluidClassic
     @Override
     public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity entity)
     {
-        if(getFluid() == MadScience.liquidMutantDNA)
+        if (getFluid() == MadScience.liquidMutantDNA)
         {
             entity.attackEntityFrom(DamageSource.generic, 1);
         }
@@ -68,15 +67,15 @@ public class BlockFluidDNA extends BlockFluidClassic
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register)
     {
-        if(getFluid() == MadScience.liquidDNA)
+        if (getFluid() == MadScience.liquidDNA)
         {
-            stillIcon = register.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_INTERNALNAME + "_still");
-            flowingIcon = register.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_INTERNALNAME + "_flowing");
+            stillIcon = register.registerIcon(MadScience.ID + ":maddna_still");
+            flowingIcon = register.registerIcon(MadScience.ID + ":maddna_flowing");
         }
         else
         {
-            stillIcon = register.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME + "_still");
-            flowingIcon = register.registerIcon(MadScience.ID + ":" + MadFluids.LIQUIDDNA_MUTANT_INTERNALNAME + "_flowing");
+            stillIcon = register.registerIcon(MadScience.ID + ":maddnamutant_still");
+            flowingIcon = register.registerIcon(MadScience.ID + ":maddnamutant_flowing");
         }
     }
 }

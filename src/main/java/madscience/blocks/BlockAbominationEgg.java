@@ -4,8 +4,6 @@ import com.builtbroken.mc.core.registry.IRegistryInit;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadBlocks;
-import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.mobs.abomination.EntityAbomination;
 import net.minecraft.block.Block;
@@ -29,7 +27,6 @@ public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityPr
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
         this.setHardness(5.0F);
         this.setResistance(1.0F);
-        this.setCreativeTab(MadEntities.tabMadScience);
     }
 
     @Override
@@ -119,7 +116,7 @@ public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityPr
     @Override
     public void registerBlockIcons(IIconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadBlocks.ABOMINATIONEGG_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":abominationEgg");
     }
 
     /**

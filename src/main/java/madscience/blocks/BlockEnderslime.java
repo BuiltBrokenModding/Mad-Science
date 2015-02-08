@@ -2,10 +2,8 @@ package madscience.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadBlocks;
-import madscience.MadEntities;
 import madscience.MadScience;
-import madscience.mobs.abomination.AbominationSounds;
+import madscience.mobs.abomination.EntityAbomination;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -23,7 +21,6 @@ public class BlockEnderslime extends Block
         super(Material.rock);
         this.setHardness(5.0F);
         this.setResistance(10.0F);
-        this.setCreativeTab(MadEntities.tabMadScience);
         this.hasTileEntity(0);
     }
 
@@ -45,7 +42,7 @@ public class BlockEnderslime extends Block
         super.onBlockPlacedBy(world, x, y, z, living, stack);
         int dir = MathHelper.floor_double((living.rotationYaw * 4F) / 360F + 0.5D) & 3;
         world.setBlockMetadataWithNotify(x, y, z, dir, 0);
-        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, AbominationSounds.ABOMINATION_EGG, 1.0F, 1.0F);
+        world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, EntityAbomination.ABOMINATION_EGG, 1.0F, 1.0F);
     }
 
     @Override
@@ -57,7 +54,7 @@ public class BlockEnderslime extends Block
     @Override
     public void registerBlockIcons(IIconRegister icon)
     {
-        this.blockIcon = icon.registerIcon(MadScience.ID + ":" + MadBlocks.ENDERSLIMEBLOCK_INTERNALNAME);
+        this.blockIcon = icon.registerIcon(MadScience.ID + ":enderslimeBlock");
     }
 
     @Override

@@ -35,6 +35,7 @@ public class MadScience extends AbstractMod
     public static final String ID = "madscience";
     public static final String CHANNEL_NAME = ID;
     public static final String NAME = "Mad Science";
+    public static final String SANDRA_YOUTUBE = "https://www.youtube.com/watch?feature=player_detailpage&v=ItjKGURohzU#t=76";
 
     // Version identification.
     public static final String V_MAJOR = "@MAJOR@";

@@ -6,7 +6,6 @@ import madscience.items.ItemDataReelEmpty;
 import madscience.items.labcoat.ItemLabCoat;
 import madscience.items.warningsign.WarningSignEntity;
 import madscience.items.warningsign.WarningSignItem;
-import madscience.items.CombinedMemoryMonsterPlacer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;

@@ -8,7 +8,6 @@ import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadSounds;
 import madscience.items.ItemDataReelEmpty;
-import madscience.items.CombinedMemoryMonsterPlacer;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

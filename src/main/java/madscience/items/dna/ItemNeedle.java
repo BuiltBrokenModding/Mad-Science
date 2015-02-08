@@ -5,7 +5,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadScience;
-import madscience.tileentities.sanitizer.SanitizerRecipes;
 import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -154,7 +153,7 @@ public class ItemNeedle extends ItemDNADecay implements IRegistryInit
     public void onRegistered()
     {
         // Needle Sanitizer (cleans dirty needles).
-        SanitizerRecipes.addSmelting(this, new ItemStack(this), 0.15F);
+        //TODO SanitizerRecipes.addSmelting(this, new ItemStack(this), 0.15F);
 
         // Shaped.
         GameRegistry.addRecipe(new ItemStack(this), new Object[]

@@ -1,19 +1,18 @@
 package madscience.mobs.abomination;
 
-import madscience.MadMobs;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadScience;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderAbomination extends RenderLiving
 {
     // Refers to location in asset folder with other textures and sounds.
-    private static final ResourceLocation mobTexture = new ResourceLocation(MadScience.ID, "models/" + MadMobs.GMO_ABOMINATION_INTERNALNAME + "/" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".png");
+    private static final ResourceLocation mobTexture = new ResourceLocation(MadScience.ID, "models/gmoAbomination/gmoAbomination.png");
 
     public RenderAbomination(ModelAbomination par1ModelBase, float par2)
     {
@@ -29,7 +28,9 @@ public class RenderAbomination extends RenderLiving
         return this.setSpiderDeathMaxRotation((EntityAbomination) par1EntityLivingBase);
     }
 
-    /** Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture. */
+    /**
+     * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
+     */
     @Override
     protected ResourceLocation getEntityTexture(Entity par1Entity)
     {

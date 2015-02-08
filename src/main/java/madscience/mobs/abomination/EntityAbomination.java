@@ -1,7 +1,6 @@
 package madscience.mobs.abomination;
 
 import madscience.MadConfig;
-import madscience.MadMobs;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.entity.*;
@@ -26,15 +25,16 @@ import java.util.Random;
 
 public class EntityAbomination extends EntityMob
 {
-    public static final String ABOMINATION_ATTACK = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".attack";
-    public static final String ABOMINATION_HISS = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".hiss";
-    public static final String ABOMINATION_GROWL = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".growl";
-    public static final String ABOMINATION_DEATH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".death";
-    public static final String ABOMINATION_STEP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".step";
-    public static final String ABOMINATION_PAIN = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".pain";
-    public static final String ABOMINATION_EGG = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egg";
-    public static final String ABOMINATION_HATCH = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".egghatch";
-    public static final String ABOMINATION_EGGPOP = MadScience.ID + ":" + MadMobs.GMO_ABOMINATION_INTERNALNAME + ".eggpop";
+    public static final String GMO_ABOMINATION_INTERNALNAME = "gmoAbomination";
+    public static final String ABOMINATION_ATTACK = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".attack";
+    public static final String ABOMINATION_HISS = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".hiss";
+    public static final String ABOMINATION_GROWL = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".growl";
+    public static final String ABOMINATION_DEATH = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".death";
+    public static final String ABOMINATION_STEP = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".step";
+    public static final String ABOMINATION_PAIN = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".pain";
+    public static final String ABOMINATION_EGG = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".egg";
+    public static final String ABOMINATION_HATCH = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".egghatch";
+    public static final String ABOMINATION_EGGPOP = MadScience.ID + ":" + GMO_ABOMINATION_INTERNALNAME + ".eggpop";
 
 
     private Random rand = new Random();
