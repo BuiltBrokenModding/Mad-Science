@@ -7,7 +7,7 @@ import madscience.MadEntities;
 import madscience.MadFurnaces;
 import madscience.MadScience;
 import madscience.MadSounds;
-import madscience.items.ItemDataReelEmpty;
+import madscience.content.items.ItemDataReelEmpty;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

@@ -1,7 +1,7 @@
-package madscience.items.weapons.pulseriflemagazine;
+package madscience.content.items.weapons.pulseriflemagazine;
 
 import madscience.MadWeapons;
-import madscience.items.weapons.pulserifle.PulseRifleSounds;
+import madscience.content.items.weapons.pulserifle.PulseRifleSounds;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

@@ -1,4 +1,4 @@
-package madscience.items.warningsign;
+package madscience.content.items.warningsign;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.PacketDispatcher;

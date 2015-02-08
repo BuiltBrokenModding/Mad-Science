@@ -1,4 +1,4 @@
-package madscience.mobs.abomination;
+package madscience.content.abomination;
 
 import java.util.Random;
 

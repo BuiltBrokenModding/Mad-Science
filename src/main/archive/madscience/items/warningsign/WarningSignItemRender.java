@@ -1,4 +1,4 @@
-package madscience.items.warningsign;
+package madscience.content.items.warningsign;
 
 import madscience.MadEntities;
 import madscience.MadScience;

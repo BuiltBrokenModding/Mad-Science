@@ -1,6 +1,6 @@
 package madscience.tileentities.cryotube;
 
-import madscience.items.ItemDataReelEmpty;
+import madscience.content.items.ItemDataReelEmpty;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

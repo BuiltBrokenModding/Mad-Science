@@ -1,6 +1,6 @@
-package madscience.items.dna;
+package madscience.content.items.dna;
 
-import com.builtbroken.mc.core.registry.IRegistryInit;
+import com.builtbroken.mc.core.registry.implement.IRegistryInit;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

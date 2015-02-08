@@ -1,10 +1,8 @@
-package madscience.items.dna;
+package madscience.content.items.dna;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadScience;
-import madscience.items.ItemComponent;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import madscience.content.items.ItemComponent;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

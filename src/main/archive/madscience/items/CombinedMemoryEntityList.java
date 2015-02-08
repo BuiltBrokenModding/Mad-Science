@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.content.items;
 
 import net.minecraft.entity.EntityList;
 

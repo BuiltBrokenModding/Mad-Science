@@ -1,11 +1,11 @@
 package madscience;
 
-import madscience.items.CombinedGenomeMonsterPlacer;
-import madscience.items.GeneticallyModifiedMonsterPlacer;
-import madscience.items.ItemDataReelEmpty;
-import madscience.items.labcoat.ItemLabCoat;
-import madscience.items.warningsign.WarningSignEntity;
-import madscience.items.warningsign.WarningSignItem;
+import madscience.content.items.CombinedGenomeMonsterPlacer;
+import madscience.content.items.GeneticallyModifiedMonsterPlacer;
+import madscience.content.items.ItemDataReelEmpty;
+import madscience.content.items.labcoat.ItemLabCoat;
+import madscience.content.items.warningsign.WarningSignEntity;
+import madscience.content.items.warningsign.WarningSignItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;

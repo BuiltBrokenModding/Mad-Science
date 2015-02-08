@@ -1,4 +1,4 @@
-package madscience.mobs.abomination;
+package madscience.content.abomination;
 
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;

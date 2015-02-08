@@ -1,4 +1,4 @@
-package madscience.items.dna;
+package madscience.content.items.dna;
 
 import net.minecraft.nbt.NBTTagCompound;
 

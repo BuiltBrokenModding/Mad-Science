@@ -1,4 +1,4 @@
-package madscience.items.labcoat;
+package madscience.content.items.labcoat;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

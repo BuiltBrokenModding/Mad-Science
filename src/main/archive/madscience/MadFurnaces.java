@@ -1,9 +1,9 @@
 package madscience;
 
-import madscience.items.ItemBlockTooltip;
-import madscience.tiles.clayfurnace.ClayfurnaceBlock;
-import madscience.tiles.clayfurnace.ClayfurnaceEntity;
-import madscience.tiles.clayfurnace.ClayfurnaceRecipes;
+import madscience.content.items.ItemBlockTooltip;
+import madscience.content.tiles.clayfurnace.ClayfurnaceBlock;
+import madscience.content.tiles.clayfurnace.ClayfurnaceEntity;
+import madscience.content.tiles.clayfurnace.ClayfurnaceRecipes;
 import madscience.tileentities.cncmachine.CnCMachineBlock;
 import madscience.tileentities.cncmachine.CnCMachineBlockGhost;
 import madscience.tileentities.cncmachine.CnCMachineEntity;

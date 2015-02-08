@@ -1,7 +1,7 @@
 package madscience.tileentities.cryofreezer;
 
-import madscience.items.dna.ItemDNASample;
-import madscience.items.ItemDecayNeedle;
+import madscience.content.items.dna.ItemDNASample;
+import madscience.content.items.ItemDecayNeedle;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

@@ -1,4 +1,4 @@
-package madscience.items.dna;
+package madscience.content.items.dna;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

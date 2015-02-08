@@ -1,4 +1,4 @@
-package madscience.tiles.clayfurnace;
+package madscience.content.tiles.clayfurnace;
 
 import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;

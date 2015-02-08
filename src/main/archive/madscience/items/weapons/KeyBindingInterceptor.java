@@ -1,4 +1,4 @@
-package madscience.items.weapons;
+package madscience.content.items.weapons;
 
 import net.minecraft.client.settings.KeyBinding;
 import cpw.mods.fml.relauncher.Side;

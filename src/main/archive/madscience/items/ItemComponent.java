@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.content.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -6,7 +6,6 @@ import madscience.MadEntities;
 import madscience.MadScience;
 import madscience.util.MadUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

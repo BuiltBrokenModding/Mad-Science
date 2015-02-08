@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulserifle;
+package madscience.content.items.weapons.pulserifle;
 
 import java.util.ArrayList;
 import java.util.List;

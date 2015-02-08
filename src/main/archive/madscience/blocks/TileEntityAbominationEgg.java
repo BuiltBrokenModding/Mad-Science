@@ -1,7 +1,7 @@
-package madscience.tiles;
+package madscience.content.tiles;
 
-import madscience.mobs.abomination.EntitySelectorAbomination;
-import madscience.mobs.abomination.EntityAbomination;
+import madscience.content.abomination.EntitySelectorAbomination;
+import madscience.content.abomination.EntityAbomination;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

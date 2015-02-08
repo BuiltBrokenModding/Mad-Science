@@ -1,6 +1,6 @@
 package madscience;
 
-import madscience.tiles.BlockFluidDNA;
+import madscience.content.tiles.BlockFluidDNA;
 import madscience.fluids.dna.LiquidDNA;
 import madscience.fluids.dna.LiquidDNABucket;
 import madscience.fluids.dna.LiquidDNABucketEvent;
@@ -8,7 +8,7 @@ import madscience.fluids.dna.LiquidDNARender;
 import madscience.fluids.dnamutant.LiquidDNAMutant;
 import madscience.fluids.dnamutant.LiquidDNAMutantBlock;
 import madscience.fluids.dnamutant.LiquidDNAMutantRender;
-import madscience.items.ItemBlockTooltip;
+import madscience.content.items.ItemBlockTooltip;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;

@@ -3,7 +3,7 @@ package madscience.tileentities.cryofreezer;
 import madscience.MadConfig;
 import madscience.MadFurnaces;
 import madscience.MadScience;
-import madscience.items.ItemDecay;
+import madscience.content.items.ItemDecay;
 import madscience.tileentities.prefab.MadTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

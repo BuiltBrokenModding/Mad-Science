@@ -1,8 +1,8 @@
-package madscience.items.dna;
+package madscience.content.items.dna;
 
 import com.builtbroken.mc.lib.helper.ReflectionUtility;
 import madscience.MadScience;
-import madscience.mobs.abomination.EntityAbomination;
+import madscience.content.abomination.EntityAbomination;
 import madscience.mobs.creepercow.CreeperCowMobEntity;
 import madscience.mobs.enderslime.EnderslimeMobEntity;
 import madscience.mobs.endersquid.EnderSquidMobEntity;

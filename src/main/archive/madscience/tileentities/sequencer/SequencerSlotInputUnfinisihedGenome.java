@@ -1,7 +1,7 @@
 package madscience.tileentities.sequencer;
 
-import madscience.items.ItemDataReelEmpty;
-import madscience.items.dna.ItemGenome;
+import madscience.content.items.ItemDataReelEmpty;
+import madscience.content.items.dna.ItemGenome;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

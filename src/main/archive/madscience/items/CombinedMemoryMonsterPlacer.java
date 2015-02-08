@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.content.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

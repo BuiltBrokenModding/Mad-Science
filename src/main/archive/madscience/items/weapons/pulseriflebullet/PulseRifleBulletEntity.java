@@ -1,18 +1,16 @@
-package madscience.items.weapons.pulseriflebullet;
+package madscience.content.items.weapons.pulseriflebullet;
 
 import java.util.List;
 
 import madscience.MadConfig;
-import madscience.items.weapons.pulserifle.PulseRifleSounds;
+import madscience.content.items.weapons.pulserifle.PulseRifleSounds;
 import madscience.world.MadExplosion;
 import net.minecraft.block.Block;
-import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -22,7 +20,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.text.translate.EntityArrays;
 
 public class PulseRifleBulletEntity extends Entity implements IProjectile
 {

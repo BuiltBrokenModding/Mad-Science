@@ -1,11 +1,11 @@
-package madscience.tiles;
+package madscience.content.tiles;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadBlocks;
 import madscience.MadEntities;
 import madscience.MadScience;
-import madscience.mobs.abomination.AbominationSounds;
+import madscience.content.abomination.AbominationSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

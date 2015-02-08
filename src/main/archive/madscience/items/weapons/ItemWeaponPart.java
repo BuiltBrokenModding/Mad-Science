@@ -1,9 +1,9 @@
-package madscience.items.weapons;
+package madscience.content.items.weapons;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadScience;
-import madscience.items.ItemComponent;
+import madscience.content.items.ItemComponent;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

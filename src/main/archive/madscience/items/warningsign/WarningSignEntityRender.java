@@ -1,8 +1,7 @@
-package madscience.items.warningsign;
+package madscience.content.items.warningsign;
 
 import madscience.MadEntities;
 import madscience.MadScience;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;

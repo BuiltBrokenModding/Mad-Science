@@ -1,4 +1,4 @@
-package madscience.items.weapons.pulseriflegrenade;
+package madscience.content.items.weapons.pulseriflegrenade;
 
 import madscience.MadScience;
 import madscience.MadWeapons;

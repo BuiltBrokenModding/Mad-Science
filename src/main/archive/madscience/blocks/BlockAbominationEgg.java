@@ -1,13 +1,13 @@
-package madscience.tiles;
+package madscience.content.tiles;
 
-import com.builtbroken.mc.core.registry.IRegistryInit;
+import com.builtbroken.mc.core.registry.implement.IRegistryInit;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadBlocks;
 import madscience.MadEntities;
 import madscience.MadScience;
-import madscience.mobs.abomination.EntityAbomination;
+import madscience.content.abomination.EntityAbomination;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.ITileEntityProvider;

@@ -1,8 +1,7 @@
-package madscience.items.dna;
+package madscience.content.items.dna;
 
 import madscience.MadConfig;
 import madscience.MadScience;
-import madscience.items.ItemComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

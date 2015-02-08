@@ -1,4 +1,4 @@
-package madscience.items;
+package madscience.content.items;
 
 import java.util.List;
 

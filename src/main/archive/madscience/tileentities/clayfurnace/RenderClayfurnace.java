@@ -1,4 +1,4 @@
-package madscience.tiles.clayfurnace;
+package madscience.content.tiles.clayfurnace;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
