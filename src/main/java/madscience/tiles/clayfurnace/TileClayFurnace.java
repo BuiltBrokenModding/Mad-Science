@@ -21,6 +21,7 @@ import io.netty.buffer.ByteBuf;
 import madscience.MadConfig;
 import madscience.MadScience;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -120,6 +121,16 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                 if (ticks % MadScience.SECOND_IN_TICKS * 5 == 0)
                 {
                     this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "fire.fire", 1.0F, 1.0F);
+                }
+                if(ticks % 5 == 0)
+                {
+                    for (int l = 0; l < 2; ++l)
+                    {
+                        double f = x() + 0.5 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
+                        double f1 = y() + 0.9 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
+                        double f2 = z() + 0.5 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
+                        world().spawnParticle("largesmoke", f, f1, f2, 0.0D, 0.0D, 0.0D);
+                    }
                 }
             }
         }
