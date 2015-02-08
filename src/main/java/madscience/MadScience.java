@@ -13,6 +13,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import madscience.items.ItemCircuits;
 import madscience.items.ItemComponents;
+import madscience.items.dna.EnumDNA;
 import madscience.items.dna.ItemDNASample;
 import madscience.items.dna.ItemGenome;
 import madscience.items.dna.ItemNeedle;
@@ -23,6 +24,7 @@ import madscience.tiles.BlockFluidDNA;
 import madscience.tiles.clayfurnace.TileClayFurnace;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
@@ -131,6 +133,9 @@ public class MadScience extends AbstractMod
         itemNeedle = getManager().newItem(ItemNeedle.class);
         itemGnome = getManager().newItem(ItemGenome.class);
         itemDNA = getManager().newItem(ItemDNASample.class);
+
+        //Set creative tab to slime gnome item
+        creativeTab.itemStack = EnumDNA.SLIME.getGnomeItem();
 
         // -------
         // WEAPONS

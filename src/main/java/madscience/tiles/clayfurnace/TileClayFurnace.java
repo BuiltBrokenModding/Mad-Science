@@ -1,11 +1,13 @@
 package madscience.tiles.clayfurnace;
 
+import com.builtbroken.mc.lib.render.RenderUtility;
 import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.inventory.InventoryUtility;
 import com.builtbroken.mc.prefab.recipe.ItemStackWrapper;
 import com.builtbroken.mc.prefab.tile.Tile;
 import com.builtbroken.mc.prefab.tile.TileModuleMachine;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,6 +15,7 @@ import madscience.MadConfig;
 import madscience.MadScience;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -20,7 +23,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.MinecraftForgeClient;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,18 +37,20 @@ import java.util.List;
 public class TileClayFurnace extends TileModuleMachine
 {
     public static boolean dropFurnace = false;
-    public static HashMap<ItemStackWrapper, ItemStack> oreToResultMap = new HashMap();
-    public static List<ItemStackWrapper> validCoalBlocks = new ArrayList();
+
+    //Very simple recipe handling since the furnace only supports ore -> Ingot Block recipes
+    public static HashMap<ItemStackWrapper, ItemStack> recipeMap = new HashMap();
+    public static List<ItemStackWrapper> validFuels = new ArrayList();
 
     static
     {
         //Init recipes
-        oreToResultMap.put(new ItemStackWrapper(Blocks.iron_ore), new ItemStack(Blocks.iron_block));
-        oreToResultMap.put(new ItemStackWrapper(Blocks.gold_ore), new ItemStack(Blocks.gold_block));
+        recipeMap.put(new ItemStackWrapper(Blocks.iron_ore), new ItemStack(Blocks.iron_block));
+        recipeMap.put(new ItemStackWrapper(Blocks.gold_ore), new ItemStack(Blocks.gold_block));
         //TODO add VE ores - Dark
 
         //Init fuels
-        validCoalBlocks.add(new ItemStackWrapper(Blocks.coal_block));
+        validFuels.add(new ItemStackWrapper(Blocks.coal_block));
         //TODO add mekanism charcoal block - Dark
     }
 
@@ -57,19 +64,10 @@ public class TileClayFurnace extends TileModuleMachine
     {
         super("ClayFurnace", Material.clay);
         this.renderNormalBlock = false; //We have a custom renderer
-        this.renderTileEntity = false; //Renderer is not internal
+        this.renderTileEntity = true; //Renderer is internal
         hardness = 5.0F;
         resistance = 10.0F;
         this.addInventoryModule(2); //Init inventory
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void onClientRegistered()
-    {
-        RenderClayfurnace renderer = new RenderClayfurnace();
-        ClientRegistry.bindTileEntitySpecialRenderer(this.getClass(), renderer);
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(getTileBlock()), renderer);
     }
 
     public void updateClient()
@@ -102,12 +100,12 @@ public class TileClayFurnace extends TileModuleMachine
 
                     //Spit invalid items out
                     //TODO drop in front of tile - Dark
-                    if (getStackInSlot(0) != null && !oreToResultMap.containsKey(getStackInSlot(0)))
+                    if (getStackInSlot(0) != null && !isValidOreBlock(getStackInSlot(0)))
                     {
                         InventoryUtility.dropItemStack(new Location((TileEntity) this), getStackInSlot(0));
                         setInventorySlotContents(0, null);
                     }
-                    if (getStackInSlot(1) != null && !validCoalBlocks.contains(getStackInSlot(1)))
+                    if (getStackInSlot(1) != null && !isValidFuel(getStackInSlot(1)))
                     {
                         InventoryUtility.dropItemStack(new Location((TileEntity) this), getStackInSlot(1));
                         setInventorySlotContents(1, null);
@@ -147,21 +145,32 @@ public class TileClayFurnace extends TileModuleMachine
 
     public boolean canSmelt()
     {
-        return oreToResultMap.containsKey(getStackInSlot(0)) && validCoalBlocks.contains(getStackInSlot(1));
+        return isValidOreBlock(getStackInSlot(0)) && isValidFuel(getStackInSlot(1));
+    }
+
+    public boolean isValidOreBlock(ItemStack stack)
+    {
+        //NBT compare is turned off to fix a slight glitch with NEI
+        return stack != null && recipeMap.containsKey(new ItemStackWrapper(stack).setNBTCompare(false).setStackCompare(false));
+    }
+
+    public boolean isValidFuel(ItemStack stack)
+    {
+        //NBT compare is turned off to fix a slight glitch with NEI
+        return stack != null && validFuels.contains(new ItemStackWrapper(stack).setNBTCompare(false).setStackCompare(false));
     }
 
     @Override
     protected boolean onPlayerRightClick(EntityPlayer player, int side, Pos hit)
     {
-        if (state == BurnState.IDLE && !player.isSneaking())
+        if (state == BurnState.IDLE)
         {
             ItemStack heldItem = player.getHeldItem();
-            if (heldItem != null && (oreToResultMap.containsKey(heldItem) || heldItem.getItem() == Items.flint_and_steel || validCoalBlocks.contains(heldItem)))
+            if (heldItem != null && (isValidOreBlock(heldItem) || heldItem.getItem() == Items.flint_and_steel || isValidFuel(heldItem)))
             {
                 if (isServer())
                 {
-                    //TODO add sneak right clicks support to take the item back out - Dark
-                    if (oreToResultMap.containsKey(heldItem))
+                    if (isValidOreBlock(heldItem))
                     {
                         if (getStackInSlot(0) == null)
                         {
@@ -169,23 +178,30 @@ public class TileClayFurnace extends TileModuleMachine
                             ItemStack copy = heldItem.copy();
                             copy.stackSize = 1;
                             setInventorySlotContents(0, copy);
+                            if(getStackInSlot(0) != null)
+                            {
+                                //Take item from player
+                                if(!player.capabilities.isCreativeMode)
+                                {
+                                    heldItem.stackSize--;
+                                    if (heldItem.stackSize <= 0)
+                                        player.inventory.mainInventory[player.inventory.currentItem] = null;
+                                    player.inventoryContainer.detectAndSendChanges();
+                                }
+                                //TODO add translation key - Dark
+                                player.addChatComponentMessage(new ChatComponentText("Ore added"));
 
-                            //Take item from player
-                            heldItem.stackSize--;
-                            if (heldItem.stackSize <= 0)
-                                player.inventory.mainInventory[player.inventory.currentItem] = null;
-                            player.inventoryContainer.detectAndSendChanges();
-
-                            //Send changes to client
-                            updateClient();
+                                //Send changes to client
+                                updateClient();
+                            }
                         }
                         else
                         {
                             //TODO add translation key - Dark
-                            player.addChatComponentMessage(new ChatComponentText("Furnace already contains an ore block"));
+                            player.addChatComponentMessage(new ChatComponentText("Furnace already contains an ore block. Sneak-right click with empty hand to remove."));
                         }
                     }
-                    else if (validCoalBlocks.contains(heldItem))
+                    else if (isValidFuel(heldItem))
                     {
                         if (getStackInSlot(1) == null)
                         {
@@ -193,20 +209,27 @@ public class TileClayFurnace extends TileModuleMachine
                             ItemStack copy = heldItem.copy();
                             copy.stackSize = 1;
                             setInventorySlotContents(1, copy);
+                            if(getStackInSlot(1) != null)
+                            {
+                                //Take item from player
+                                if(!player.capabilities.isCreativeMode)
+                                {
+                                    heldItem.stackSize--;
+                                    if (heldItem.stackSize <= 0)
+                                        player.inventory.mainInventory[player.inventory.currentItem] = null;
+                                    player.inventoryContainer.detectAndSendChanges();
+                                }
+                                //TODO add translation key - Dark
+                                player.addChatComponentMessage(new ChatComponentText("Fuel added"));
 
-                            //Take item from player
-                            heldItem.stackSize--;
-                            if (heldItem.stackSize <= 0)
-                                player.inventory.mainInventory[player.inventory.currentItem] = null;
-                            player.inventoryContainer.detectAndSendChanges();
-
-                            //Send changes to client
-                            updateClient();
+                                //Send changes to client
+                                updateClient();
+                            }
                         }
                         else
                         {
                             //TODO add translation key - Dark
-                            player.addChatComponentMessage(new ChatComponentText("Furnace already contains a coal block"));
+                            player.addChatComponentMessage(new ChatComponentText("Furnace already contains a coal block. Sneak-right click with empty hand to remove."));
                         }
                     }
                     else if (heldItem.getItem() == Items.flint_and_steel)
@@ -243,27 +266,61 @@ public class TileClayFurnace extends TileModuleMachine
                 }
                 return true;
             }
+            else if (heldItem == null && player.isSneaking())
+            {
+                if (isServer() && (getStackInSlot(0) != null || getStackInSlot(1) != null))
+                {
+                    //TODO add translation key - Dark
+                    player.addChatComponentMessage(new ChatComponentText("*Items removed from furnace*"));
+                    for (int i = 0; i <= 1; i++)
+                    {
+                        if (getStackInSlot(i) != null)
+                        {
+                            ItemStack stack = getStackInSlot(i).copy();
+                            setInventorySlotContents(i, null);
+                            if (!player.inventory.addItemStackToInventory(stack))
+                            {
+                                InventoryUtility.dropItemStack(new Location((TileEntity) this), stack);
+                            }
+                        }
+                    }
+                    player.inventoryContainer.detectAndSendChanges();
+                }
+                return true;
+            }
+            else if(!player.isSneaking())
+            {
+                return true;
+            }
         }
-        else if (state == BurnState.DONE)
+        else if (!player.isSneaking())
         {
-            //TODO add translation key - Dark
-            player.addChatComponentMessage(new ChatComponentText("*It looks like its finally cooled down*"));
+            if (isServer())
+            {
+                if (state == BurnState.DONE)
+                {
+                    //TODO add translation key - Dark
+                    player.addChatComponentMessage(new ChatComponentText("*It looks like its finally cooled down*"));
+                }
+                else if (state == BurnState.COOLING)
+                {
+                    //TODO add translation key - Dark
+                    player.addChatComponentMessage(new ChatComponentText("*It looks a bit hot, best not touch it*"));
+                }
+                else if (state == BurnState.COOKING)
+                {
+                    //TODO add translation key - Dark
+                    player.addChatComponentMessage(new ChatComponentText("*Just waiting for it to melt*"));
+                }
+                else if (state == BurnState.SMOLDERING)
+                {
+                    //TODO add translation key - Dark
+                    player.addChatComponentMessage(new ChatComponentText("*Now to break the shell and let the molten core cool*"));
+                }
+            }
+            return true;
         }
-        else if (state == BurnState.COOLING)
-        {
-            //TODO add translation key - Dark
-            player.addChatComponentMessage(new ChatComponentText("*It looks a bit hot, best not touch it*"));
-        }
-        else if (state == BurnState.COOKING)
-        {
-            //TODO add translation key - Dark
-            player.addChatComponentMessage(new ChatComponentText("*Just waiting for it to melt*"));
-        }
-        else if (state == BurnState.SMOLDERING)
-        {
-            //TODO add translation key - Dark
-            player.addChatComponentMessage(new ChatComponentText("*Now to break the shell to let the molten core cool*"));
-        }
+
         return false;
     }
 
@@ -277,7 +334,7 @@ public class TileClayFurnace extends TileModuleMachine
                 world().playSoundEffect(x() + 0.5D, y() + 0.5D, z() + 0.5D, "random.anvil_land", 1.0F, 1.0F);
 
                 // Set ourselves to the end result we should be!
-                ItemStack finalForm = oreToResultMap.get(getStackInSlot(0));
+                ItemStack finalForm = recipeMap.get(new ItemStackWrapper(getStackInSlot(0)));
                 if (finalForm != null)
                 {
                     Block block = Block.getBlockFromItem(finalForm.getItem());
@@ -312,7 +369,7 @@ public class TileClayFurnace extends TileModuleMachine
     public ArrayList<ItemStack> getDrops(int metadata, int fortune)
     {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-        if (state == BurnState.IDLE)
+        if (state == BurnState.IDLE || state == BurnState.COOKING)
         {
             if (dropFurnace)
             {
@@ -339,6 +396,73 @@ public class TileClayFurnace extends TileModuleMachine
     public Tile newTile()
     {
         return new TileClayFurnace();
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public IIcon getIcon()
+    {
+        //Use clay texture for breaking animation
+        return Blocks.hardened_clay.getIcon(0, 0);
+    }
+
+    @Override @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister iconRegister)
+    {
+        //We have no icons to register
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderDynamic(Pos pos, float frame, int pass)
+    {
+        GL11.glPushMatrix();
+        RenderUtility.disableLighting();
+
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(TexturesClayFurnace.getTextureBasedOnState(this, state));
+
+        // If we are a clay furnace we have to shrink our scale, otherwise render normal size.
+        if (state != TileClayFurnace.BurnState.SMOLDERING)
+        {
+            GL11.glTranslatef(pos.xf() + 0.5f, pos.yf() + 0.34f, pos.zf() + 0.5f);
+            GL11.glScalef(0.6F, 0.68F, 0.6F);
+        }
+        else
+        {
+            GL11.glTranslatef(pos.xf() + 0.5f, pos.yf() + 0.5f, pos.zf() + 0.5f);
+            GL11.glScalef(1.0F, 1.0F, 1.0F);
+        }
+
+        //Rotate model based on tile rotation
+        switch (getBlockMetadata() % 4)
+        {
+            case 0:
+                GL11.glRotatef(0, 0.0F, 1.0F, 0.0F);
+                break;
+            case 3:
+                GL11.glRotatef(90, 0.0F, 1.0F, 0.0F);
+                break;
+            case 2:
+                GL11.glRotatef(180, 0.0F, 1.0F, 0.0F);
+                break;
+            case 1:
+                GL11.glRotatef(-90, 0.0F, 1.0F, 0.0F);
+                break;
+        }
+
+        if (state == TileClayFurnace.BurnState.COOLING)
+        {
+            TexturesClayFurnace.MODEL.renderOnly("MoltenBlock");
+        }
+        else if (state == TileClayFurnace.BurnState.DONE)
+        {
+            TexturesClayFurnace.MODEL.renderOnly("MoltenBlockShell");
+        }
+        else
+        {
+            TexturesClayFurnace.MODEL.renderAllExcept("MoltenBlockShell", "MoltenBlock");
+        }
+        RenderUtility.enableLighting();
+        GL11.glPopMatrix();
     }
 
     /**
