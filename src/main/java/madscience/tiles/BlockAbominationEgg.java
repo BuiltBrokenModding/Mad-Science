@@ -36,7 +36,8 @@ public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityPr
         GameRegistry.registerTileEntity(TileEntityAbominationEgg.class, "TileAbominationEgg");
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void onClientRegistered()
     {
 

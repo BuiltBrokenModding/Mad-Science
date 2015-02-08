@@ -15,11 +15,11 @@ public class EntitySelectorAbomination implements IEntitySelector
     @Override
     public boolean isEntityApplicable(Entity entity)
     {
-        if(!(entity instanceof EntityAbomination) && entity instanceof EntityLivingBase)
+        if (!(entity instanceof EntityAbomination) && entity instanceof EntityLivingBase)
         {
-            if(entity instanceof EntityPlayer)
+            if (entity instanceof EntityPlayer)
             {
-                EntityPlayer player = (EntityPlayer)entity;
+                EntityPlayer player = (EntityPlayer) entity;
                 String username = player.getCommandSenderName();
                 if (username.equals("ronwolf") || username.equals("FoxDiller") || username.equals("Prowlerwolf"))
                 {

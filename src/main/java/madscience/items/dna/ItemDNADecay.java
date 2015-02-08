@@ -2,7 +2,6 @@ package madscience.items.dna;
 
 import madscience.MadConfig;
 import madscience.MadScience;
-import madscience.items.ItemComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-/** Prefab for any item that will decay
+/**
+ * Prefab for any item that will decay
  * Created by robert on 2/6/2015.
  */
 public abstract class ItemDNADecay extends ItemDNA
@@ -80,7 +80,7 @@ public abstract class ItemDNADecay extends ItemDNA
     public static void setTicks(ItemStack stack, int ticks)
     {
         if (stack.getTagCompound() == null)
-        stack.setTagCompound(new NBTTagCompound());
+            stack.setTagCompound(new NBTTagCompound());
 
         stack.getTagCompound().setInteger("ticksExist", ticks);
     }

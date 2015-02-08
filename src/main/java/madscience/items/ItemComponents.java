@@ -3,7 +3,6 @@ package madscience.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import madscience.MadScience;
-import madscience.items.ItemComponent;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -22,29 +21,32 @@ public class ItemComponents extends ItemComponent
         this.setHasSubtypes(true);
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public String getUnlocalizedName(ItemStack stack)
     {
-        if(stack.getItemDamage() >= 0 && stack.getItemDamage() < EnumComponents.values().length)
+        if (stack.getItemDamage() >= 0 && stack.getItemDamage() < EnumComponents.values().length)
         {
             return "item." + EnumComponents.values()[stack.getItemDamage()].INTERNAL_NAME;
         }
         return super.getUnlocalizedName();
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg)
     {
-        for(EnumComponents circuit : EnumComponents.values())
+        for (EnumComponents circuit : EnumComponents.values())
         {
             circuit.icon = reg.registerIcon(MadScience.ID + ":" + circuit.INTERNAL_NAME);
         }
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int meta)
     {
-        if(meta >= 0 && meta < EnumComponents.values().length)
+        if (meta >= 0 && meta < EnumComponents.values().length)
         {
             return EnumComponents.values()[meta].icon;
         }
@@ -54,7 +56,7 @@ public class ItemComponents extends ItemComponent
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List items)
     {
-        for(EnumComponents circuit : EnumComponents.values())
+        for (EnumComponents circuit : EnumComponents.values())
         {
             items.add(circuit.stack());
         }

@@ -172,7 +172,7 @@ public enum EnumDNA
 
     public ItemStack getNeedleItem()
     {
-        if(needleItem == null)
+        if (needleItem == null)
         {
             needleItem = new ItemStack(MadScience.itemNeedle, 1, ordinal() + 2);
         }
@@ -181,7 +181,7 @@ public enum EnumDNA
 
     public ItemStack getDnaItem()
     {
-        if(dnaItem == null)
+        if (dnaItem == null)
         {
             dnaItem = new ItemStack(MadScience.itemDNA, 1, ordinal());
         }
@@ -190,7 +190,7 @@ public enum EnumDNA
 
     public ItemStack getGnomeItem()
     {
-        if(gnomeItem == null)
+        if (gnomeItem == null)
         {
             gnomeItem = new ItemStack(MadScience.itemGnome, 1, ordinal() + 1);
         }

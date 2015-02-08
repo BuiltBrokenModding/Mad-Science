@@ -43,6 +43,7 @@ public class MadUtils
     /**
      * Gets the first page from a written book as a string
      * derived from {@link net.minecraft.item.ItemWritableBook#func_150930_a(net.minecraft.nbt.NBTTagCompound)}
+     *
      * @param nbt - tag to read from
      * @return first page of the book as a string
      */

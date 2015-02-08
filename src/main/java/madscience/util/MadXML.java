@@ -1,18 +1,14 @@
 package madscience.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public final class MadXML
 {
@@ -25,20 +21,16 @@ public final class MadXML
             db = dbf.newDocumentBuilder();
             Document doc = db.parse(new URL(theXML_URL).openStream());
             return doc;
-        }
-        catch (ParserConfigurationException e)
+        } catch (ParserConfigurationException e)
         {
             return null;
-        }
-        catch (MalformedURLException e)
+        } catch (MalformedURLException e)
         {
             return null;
-        }
-        catch (SAXException e)
+        } catch (SAXException e)
         {
             return null;
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             return null;
         }

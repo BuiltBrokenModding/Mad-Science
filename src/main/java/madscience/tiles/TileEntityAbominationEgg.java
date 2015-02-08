@@ -1,7 +1,7 @@
 package madscience.tiles;
 
-import madscience.mobs.abomination.EntitySelectorAbomination;
 import madscience.mobs.abomination.EntityAbomination;
+import madscience.mobs.abomination.EntitySelectorAbomination;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,23 +21,23 @@ public class TileEntityAbominationEgg extends TileEntity
     {
         super.updateEntity();
         ticks++;
-        if(ticks + 1 >= Long.MAX_VALUE)
+        if (ticks + 1 >= Long.MAX_VALUE)
             ticks = 1;
 
         //Min delay so eggs don't hatch right away
-        if(!hasMeetHatchTime)
+        if (!hasMeetHatchTime)
         {
             hatchDelay++;
-            if(hatchDelay >= minHatchTime)
+            if (hatchDelay >= minHatchTime)
                 hasMeetHatchTime = true;
         }
         //Every 1 second check for player nearby and hatch
-        else if(ticks % 20 == 0)
+        else if (ticks % 20 == 0)
         {
             AxisAlignedBB box = AxisAlignedBB.getBoundingBox(xCoord - 29, yCoord - 2, zCoord - 29, xCoord + 30, yCoord + 2, zCoord + 30);
             //TODO replace with target select to only hatch if a valid entity to kill is near
             List list = getWorldObj().selectEntitiesWithinAABB(EntityLivingBase.class, box, EntitySelectorAbomination.GENERIC);
-            if(list.size() > 0)
+            if (list.size() > 0)
             {
                 getWorldObj().setBlockToAir(xCoord, yCoord, zCoord);
                 EntityAbomination mob = new EntityAbomination(getWorldObj());
@@ -51,7 +51,7 @@ public class TileEntityAbominationEgg extends TileEntity
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        if(nbt.hasKey("canHatch"))
+        if (nbt.hasKey("canHatch"))
         {
             hasMeetHatchTime = nbt.getBoolean("canHatch");
         }
@@ -65,7 +65,7 @@ public class TileEntityAbominationEgg extends TileEntity
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        if(hasMeetHatchTime)
+        if (hasMeetHatchTime)
         {
             nbt.setBoolean("canHatch", true);
         }

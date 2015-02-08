@@ -22,39 +22,43 @@ public class ItemWeaponPart extends ItemComponent
         this.setHasSubtypes(true);
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public String getUnlocalizedName(ItemStack stack)
     {
-        if(stack.getItemDamage() >= 0 && stack.getItemDamage() < EnumWeaponParts.values().length)
+        if (stack.getItemDamage() >= 0 && stack.getItemDamage() < EnumWeaponParts.values().length)
         {
             return "item." + EnumWeaponParts.values()[stack.getItemDamage()].INTERNAL_NAME;
         }
         return super.getUnlocalizedName();
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister reg)
     {
-        for(EnumWeaponParts circuit : EnumWeaponParts.values())
+        for (EnumWeaponParts circuit : EnumWeaponParts.values())
         {
             circuit.icon = reg.registerIcon(MadScience.ID + ":" + circuit.INTERNAL_NAME);
         }
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int meta)
     {
-        if(meta >= 0 && meta < EnumWeaponParts.values().length)
+        if (meta >= 0 && meta < EnumWeaponParts.values().length)
         {
             return EnumWeaponParts.values()[meta].icon;
         }
         return this.itemIcon;
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List items)
     {
-        for(EnumWeaponParts circuit : EnumWeaponParts.values())
+        for (EnumWeaponParts circuit : EnumWeaponParts.values())
         {
             items.add(circuit.stack());
         }

@@ -2,9 +2,6 @@ package madscience.items.dna;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import madscience.MadScience;
-import madscience.items.ItemComponent;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -89,7 +86,7 @@ public class ItemDNA extends Item
 
     public EnumDNA getDNA(int meta)
     {
-        if(meta >= 0 && meta <= EnumDNA.values().length)
+        if (meta >= 0 && meta <= EnumDNA.values().length)
             return EnumDNA.values()[meta];
         return null;
     }

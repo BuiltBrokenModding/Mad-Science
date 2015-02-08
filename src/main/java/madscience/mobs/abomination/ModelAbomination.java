@@ -1,12 +1,12 @@
 package madscience.mobs.abomination;
 
-import java.util.Random;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
+
+import java.util.Random;
 
 public class ModelAbomination extends ModelBase
 {
@@ -123,7 +123,9 @@ public class ModelAbomination extends ModelBase
         Leg1.render(f5);
     }
 
-    /** Used for easily adding entity-dependent animations. The second and third float params here are the same second and third as in the setRotationAngles method. */
+    /**
+     * Used for easily adding entity-dependent animations. The second and third float params here are the same second and third as in the setRotationAngles method.
+     */
     public void setLivingAnimations(EntityLiving par1EntityLiving, float par2, float par3, float par4)
     {
     }
