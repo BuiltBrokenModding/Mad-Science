@@ -45,26 +45,12 @@ public class MadScience extends AbstractMod
     public static final String VERSION_FULL = V_MAJOR + "." + V_MINOR + V_REVIS + "." + V_BUILD;
 
     // Directories definition for assets and localization files.
-    public static final String RESOURCE_DIRECTORY = "/assets/" + ID + "/";
-    public static final String LANGUAGE_DIRECTORY = RESOURCE_DIRECTORY + "languages/";
-    public static final String BASE_DIRECTORY_NO_SLASH = ID + "/";
-    public static final String BASE_DIRECTORY = "/" + BASE_DIRECTORY_NO_SLASH;
     public static final String ASSET_DIRECTORY = "/assets/" + ID + "/";
-    public static final String TEXTURE_DIRECTORY = "textures/";
-    public static final String GUI_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
-    public static final String BLOCK_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
-    public static final String ITEM_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "items/";
     public static final String MODEL_DIRECTORY = "models/";
     public static final String MODEL_PATH = ASSET_DIRECTORY + MODEL_DIRECTORY;
 
-    // Gradle imprints MD5 of source code into this file upon compilation for integrity check.
-    public static final String FINGERPRINT = "@FINGERPRINT@";
-
     // Excellent reference to how many ticks make up a second.
     public static final int SECOND_IN_TICKS = 20;
-
-    // Hook Forge's standardized logging class so we can report data on the console without standard out.
-    public static Logger logger;
 
     // Proxy that runs commands based on where they are from so we can separate server and client logic easily.
     @SidedProxy(clientSide = "madscience.ClientProxy", serverSide = "madscience.CommonProxy")
@@ -156,7 +142,6 @@ public class MadScience extends AbstractMod
         // -------------
         // TILE ENTITIES
         // -------------
-        logger.info("Creating Tile Entities");
 
         //TODO MadFurnaces.createDNAExtractorTileEntity(MadConfig.DNA_EXTRACTOR);
         //TODO MadFurnaces.createSanitizerTileEntity(MadConfig.SANTITIZER);

@@ -43,7 +43,7 @@ public class ClientProxy extends CommonProxy
         World clientWorld = MadScience.proxy.getClientWorld();
         if (clientWorld == null)
         {
-            MadScience.logger.info("Mad Particle: Could not spawn particle because client world was null!");
+            MadScience.instance.logger().info("Mad Particle: Could not spawn particle because client world was null!");
             return;
         }
 
