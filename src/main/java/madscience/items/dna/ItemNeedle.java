@@ -85,18 +85,6 @@ public class ItemNeedle extends ItemDNADecay implements IRegistryInit
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List info, boolean par4)
-    {
-        String tooltip = StatCollector.translateToLocal(getUnlocalizedName() + ".tooltip");
-
-        if (tooltip != null && tooltip.length() > 0)
-        {
-            info.addAll(MadUtils.splitStringPerWord(tooltip, 5));
-        }
-    }
-
-    @Override
     public String getUnlocalizedName(ItemStack stack)
     {
         if (stack.getItemDamage() == 0)
@@ -107,9 +95,9 @@ public class ItemNeedle extends ItemDNADecay implements IRegistryInit
         {
             return "item.needleDirty";
         }
-        else if (stack.getItemDamage() >= 2 && stack.getItemDamage() < EnumDNA.values().length + 2)
+        else if (getDNA(stack.getItemDamage()) != null)
         {
-            return EnumDNA.values()[stack.getItemDamage() - 2].needleString();
+            return "item." + getDNA(stack.getItemDamage()).needleString();
         }
         return super.getUnlocalizedName();
     }
@@ -139,7 +127,7 @@ public class ItemNeedle extends ItemDNADecay implements IRegistryInit
     public EnumDNA getDNA(int meta)
     {
         if (meta >= 2 && meta <= EnumDNA.values().length + 2)
-            return EnumDNA.values()[meta];
+            return EnumDNA.values()[meta - 2];
         return null;
     }
 

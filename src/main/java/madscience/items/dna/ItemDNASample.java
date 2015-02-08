@@ -9,6 +9,21 @@ import net.minecraft.item.ItemStack;
 
 public class ItemDNASample extends ItemDNADecay
 {
+    public ItemDNASample()
+    {
+        this.setUnlocalizedName(MadScience.ID + ":dnaSample");
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack stack)
+    {
+        if (getDNA(stack.getItemDamage()) != null)
+        {
+            return "item." + getDNA(stack.getItemDamage()).dnaString();
+        }
+        return super.getUnlocalizedName();
+    }
+
     @SideOnly(Side.CLIENT)
     @Override
     public void registerIcons(IIconRegister par1IconRegister)

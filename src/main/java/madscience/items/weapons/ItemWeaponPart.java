@@ -42,8 +42,12 @@ public class ItemWeaponPart extends ItemComponent
     }
 
     @Override @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int p_77617_1_)
+    public IIcon getIconFromDamage(int meta)
     {
+        if(meta >= 0 && meta < EnumWeaponParts.values().length)
+        {
+            return EnumWeaponParts.values()[meta].icon;
+        }
         return this.itemIcon;
     }
 

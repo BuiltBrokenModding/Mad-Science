@@ -278,6 +278,15 @@ item.needleWitch.name=Filled Syringe of Witch DNA
 item.needleWolf.name=Filled Syringe of Wolf DNA
 item.needleZombie.name=Filled Syringe of Zombie DNA
 item.needleMutant.name=Filled Syringe of Mutant DNA
+item.needleGhast.name=Filled Syringe of Ghast DNA
+item.needleDonkey.name=Filled Syringe of Donkey DNA
+item.needleSkeleton.name=Filled Syringe of Skeleton DNA
+item.needleSlime.name=Filled Syringe of Slime
+item.needleAbomination.name=Filled Syringe of Abomination DNA
+item.needleWitherSkeleton.name=Filled Syringe of Wither Skeleton DNA
+item.needleVillagerZombie.name=Filled Syringe of Villager Zombie DNA
+item.needleSkeletonHorse.name=Filled Syringe of Skeleton Horse DNA
+item.needleZombieHorse.name=Filled Syringe of Zombie Horse DNA
 
 # DNA Samples
 item.dnaCaveSpider.name=Sample of Cave Spider DNA
@@ -300,6 +309,12 @@ item.dnaVillager.name=Sample of Villager DNA
 item.dnaWitch.name=Sample of Witch DNA
 item.dnaWolf.name=Sample of Wolf DNA
 item.dnaZombie.name=Sample of Zombie DNA
+item.dnaZombieHorse.name=Sample of Zombie Horse DNA
+item.dnaSkeletonHorse.name=Sample of Skeleton Horse DNA
+item.dnaVillagerZombie.name=Sample of Villager Zombie DNA
+item.dnaWitherSkeleton.name=Sample of Wither Skeleton DNA
+item.dnaAbomination.name=Sample of Abomination DNA
+item.dnaDonkey.name=Sample of Donkey DNA
 
 # Genomes
 item.genomeCaveSpider.name=Sequenced Cave Spider Genome
@@ -323,3 +338,4 @@ item.genomeVillager.name=Sequenced Villager Genome
 item.genomeWitch.name=Sequenced Witch Genome
 item.genomeWolf.name=Sequenced Wolf Genome
 item.genomeZombie.name=Sequenced Zombie Genome
+item.genomeDonkey.name=Sequenced Donkey Genome

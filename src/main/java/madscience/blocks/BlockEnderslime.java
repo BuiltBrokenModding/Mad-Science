@@ -19,6 +19,7 @@ public class BlockEnderslime extends Block
     public BlockEnderslime()
     {
         super(Material.rock);
+        this.setBlockName("enderslimeBlock");
         this.setHardness(5.0F);
         this.setResistance(10.0F);
         this.hasTileEntity(0);

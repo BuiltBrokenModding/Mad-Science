@@ -298,22 +298,25 @@ public class TileClayFurnace extends TileModuleMachine
     public ArrayList<ItemStack> getDrops(int metadata, int fortune)
     {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-        if (dropFurnace)
+        if(state == BurnState.IDLE)
         {
-            items.add(toItemStack());
-        }
-        else
-        {
-            items.add(new ItemStack(Blocks.hardened_clay, Math.max(3 + world().rand.nextInt(5), 8)));
-            items.add(new ItemStack(Blocks.cobblestone, Math.max(3 + world().rand.nextInt(5), 8)));
-        }
-        if (getStackInSlot(0) != null)
-        {
-            items.add(getStackInSlot(0));
-        }
-        if (getStackInSlot(1) != null)
-        {
-            items.add(getStackInSlot(1));
+            if (dropFurnace)
+            {
+                items.add(toItemStack());
+            }
+            else
+            {
+                items.add(new ItemStack(Blocks.hardened_clay, Math.max(3 + world().rand.nextInt(5), 8)));
+                items.add(new ItemStack(Blocks.cobblestone, Math.max(3 + world().rand.nextInt(5), 8)));
+            }
+            if (getStackInSlot(0) != null)
+            {
+                items.add(getStackInSlot(0));
+            }
+            if (getStackInSlot(1) != null)
+            {
+                items.add(getStackInSlot(1));
+            }
         }
         return items;
     }

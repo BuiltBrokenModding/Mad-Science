@@ -117,8 +117,8 @@ public class MadScience extends AbstractMod
             liquidMutantDNA = FluidRegistry.getFluid(liquidMutantDNA_name);
 
         // Blocks
-        blockDNA = getManager().newBlock("maddna", new BlockFluidDNA(liquidDNA));
-        blockMutantDNA = getManager().newBlock("madmutantdna", new BlockFluidDNA(liquidMutantDNA));
+        blockDNA = getManager().newBlock("maddna", new BlockFluidDNA(liquidDNA)).setCreativeTab(null);
+        blockMutantDNA = getManager().newBlock("madmutantdna", new BlockFluidDNA(liquidMutantDNA)).setCreativeTab(null);
         blockAbominationEgg = getManager().newBlock(BlockAbominationEgg.class);
         blockEnderslime = getManager().newBlock(BlockEnderslime.class);
 

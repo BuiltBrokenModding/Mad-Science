@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import madscience.items.dna.MadGenomeInfo;
-
 public class GenomeRegistry
 {
     private static final Map<Short, MadGenomeInfo> genomes = new LinkedHashMap<Short, MadGenomeInfo>();

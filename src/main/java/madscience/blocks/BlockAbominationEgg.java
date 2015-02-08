@@ -25,6 +25,7 @@ public class BlockAbominationEgg extends BlockDragonEgg implements ITileEntityPr
     public BlockAbominationEgg()
     {
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
+        this.setBlockName("abominationEgg");
         this.setHardness(5.0F);
         this.setResistance(1.0F);
     }

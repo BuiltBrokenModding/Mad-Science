@@ -42,8 +42,12 @@ public class ItemCircuits extends ItemComponent
     }
 
     @Override @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int p_77617_1_)
+    public IIcon getIconFromDamage(int meta)
     {
+        if(meta >= 0 && meta < EnumCircuits.values().length)
+        {
+            return EnumCircuits.values()[meta].icon;
+        }
         return this.itemIcon;
     }
 
@@ -63,7 +67,7 @@ public class ItemCircuits extends ItemComponent
     {
         COMPARATOR("circuitComparator"),
         DIAMOND("circuitDiamond"),
-        EMERALID("circuitEmerald"),
+        EMERALD("circuitEmerald"),
         ENDER_EYE("circuitEnderEye"),
         ENDER_PERAL("circuitEnderPearl"),
         GLOWSTONE("circuitGlowstone"),

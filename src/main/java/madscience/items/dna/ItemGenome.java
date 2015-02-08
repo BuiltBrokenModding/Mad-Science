@@ -14,7 +14,6 @@ public class ItemGenome extends ItemDNA
 {
     public ItemGenome()
     {
-        this.setMaxDamage(63);
         this.maxStackSize = 1;
     }
 
@@ -27,6 +26,20 @@ public class ItemGenome extends ItemDNA
         {
             items.add(new ItemStack(item, 1, dna.ordinal() + 1));
         }
+    }
+
+    @Override
+    public String getUnlocalizedName(ItemStack stack)
+    {
+        if (stack.getItemDamage() == 0)
+        {
+            return "item.dataReelEmpty";
+        }
+        else if (getDNA(stack.getItemDamage()) != null)
+        {
+            return "item." + getDNA(stack.getItemDamage()).genomeString();
+        }
+        return super.getUnlocalizedName();
     }
 
     @SideOnly(Side.CLIENT)
@@ -42,7 +55,7 @@ public class ItemGenome extends ItemDNA
     public EnumDNA getDNA(int meta)
     {
         if (meta >= 1 && meta <= EnumDNA.values().length + 1)
-            return EnumDNA.values()[meta];
+            return EnumDNA.values()[meta - 1];
         return null;
     }
 }

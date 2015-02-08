@@ -1,7 +1,6 @@
 package madscience;
 
 import madscience.items.ItemBlockTooltip;
-import madscience.items.dna.MadGenomeInfo;
 import madscience.tileentities.clayfurnace.ClayfurnaceBlock;
 import madscience.tileentities.clayfurnace.ClayfurnaceEntity;
 import madscience.tileentities.clayfurnace.ClayfurnaceRecipes;

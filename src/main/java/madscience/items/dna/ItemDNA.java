@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by robert on 2/6/2015.
  */
-public class ItemDNA extends ItemComponent
+public class ItemDNA extends Item
 {
     @SideOnly(Side.CLIENT)
     protected IIcon layer1;
