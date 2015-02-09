@@ -21,8 +21,7 @@ public class TexturesClayFurnace
                     new ResourceLocation(MadScience.ID, "models/clayFurnace/work0.png"),
                     new ResourceLocation(MadScience.ID, "models/clayFurnace/work1.png"),
                     new ResourceLocation(MadScience.ID, "models/clayFurnace/work2.png"),
-                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work3.png"),
-                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work4.png")
+                    new ResourceLocation(MadScience.ID, "models/clayFurnace/work3.png")
             };
 
     public static ResourceLocation[] TEXTURE_REDHOT = new ResourceLocation[]
@@ -37,40 +36,43 @@ public class TexturesClayFurnace
     public static ResourceLocation getTextureBasedOnState(TileClayFurnace tile, TileClayFurnace.BurnState state)
     {
         // Active state has many textures based on item cook progress.
-        if (tile == null || tile.world() == null || state == TileClayFurnace.BurnState.DONE)
+        if(tile != null && tile.world() != null)
         {
-            // COOLED DOWN (WAITING FOR PLAYER TO HIT US)
-            return TEXTURE_DONE;
-        }
-        else if (state == TileClayFurnace.BurnState.SMOLDERING)
-        {
-            // SMOLDERING FURNACE MODE
-            return TEXTURE_SHELL;
-        }
-        else if (state == TileClayFurnace.BurnState.COOLING || state == TileClayFurnace.BurnState.COOKING)
-        {
-            // COOL DOWN (RED HOT MODE)
-            if (tile.tickRate() % (MadScience.SECOND_IN_TICKS * 5) == 0L)
+            if (state == TileClayFurnace.BurnState.DONE)
+            {
+                // COOLED DOWN (WAITING FOR PLAYER TO HIT US)
+                return TEXTURE_DONE;
+            }
+            else if (state == TileClayFurnace.BurnState.SMOLDERING)
+            {
+                // SMOLDERING FURNACE MODE
+                return TEXTURE_SHELL;
+            }
+            else if (state == TileClayFurnace.BurnState.COOLING || state == TileClayFurnace.BurnState.COOKING)
             {
                 ResourceLocation l;
+
                 if (state == TileClayFurnace.BurnState.COOLING)
                 {
+                    if (tile.animationFrame >= TEXTURE_REDHOT.length)
+                        tile.animationFrame = 0;
                     l = TEXTURE_REDHOT[tile.animationFrame];
                 }
                 else
                 {
+                    if (tile.animationFrame >= TEXTURE_WORK.length)
+                        tile.animationFrame = 0;
                     l = TEXTURE_WORK[tile.animationFrame];
                 }
-                // Update animation frame.
-                ++tile.animationFrame;
-                if (tile.animationFrame >= 5)
+                // COOL DOWN (RED HOT MODE)
+                if (tile.ticks % (MadScience.SECOND_IN_TICKS * 5) == 0)
                 {
-                    tile.animationFrame = 0;
+                    // Update animation frame.
+                    ++tile.animationFrame;
                 }
                 return l;
             }
         }
-
         return TEXTURE_IDLE;
     }
 }

@@ -100,7 +100,7 @@ public class RenderClayfurnace extends TileEntitySpecialRenderer implements ISim
         GL11.glPushMatrix();
 
         // If we are a clay furnace we have to shrink our scale, otherwise render normal size.
-        if (tile.state != TileClayFurnace.BurnState.SMOLDERING)
+        if (tile.getState() != TileClayFurnace.BurnState.SMOLDERING)
         {
             GL11.glTranslatef((float) x + 0.5F, (float) y + 0.34F, (float) z + 0.5F);
             GL11.glScalef(0.6F, 0.68F, 0.6F);
@@ -130,13 +130,13 @@ public class RenderClayfurnace extends TileEntitySpecialRenderer implements ISim
         }
 
 
-        bindTexture(getTextureBasedOnState(tile, tile.state));
+        bindTexture(getTextureBasedOnState(tile, tile.getState()));
 
-        if (tile.state == TileClayFurnace.BurnState.COOLING)
+        if (tile.getState() == TileClayFurnace.BurnState.COOLING)
         {
             MODEL.renderOnly("MoltenBlock");
         }
-        else if (tile.state == TileClayFurnace.BurnState.DONE)
+        else if (tile.getState() == TileClayFurnace.BurnState.DONE)
         {
             MODEL.renderOnly("MoltenBlockShell");
         }
