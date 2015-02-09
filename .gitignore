@@ -16,3 +16,4 @@ output/
 logs/
 settings/
 *.xml
+CompiledWith.txt
