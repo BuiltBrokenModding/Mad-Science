@@ -5,6 +5,7 @@ cache:
     - .gradle
 sudo: false
 before_install:
+  - git submodule update --init --recursive
   - chmod a+x gradlew
 notifications:
  irc:
