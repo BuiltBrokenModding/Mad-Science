@@ -301,17 +301,17 @@ public class RenderClayfurnace extends TileEntitySpecialRenderer implements ISim
                 ResourceLocation l;
                 if (state == TileClayFurnace.BurnState.COOLING)
                 {
-                    l = TEXTURE_REDHOT[tile.animationFrame];
+                    l = TEXTURE_REDHOT[tile.getAnimationFrame()];
                 }
                 else
                 {
-                    l = TEXTURE_WORK[tile.animationFrame];
+                    l = TEXTURE_WORK[tile.getAnimationFrame()];
                 }
                 // Update animation frame.
-                ++tile.animationFrame;
-                if (tile.animationFrame >= 5)
+                tile.setAnimationFrame(tile.getAnimationFrame() + 1);
+                if (tile.getAnimationFrame() >= 5)
                 {
-                    tile.animationFrame = 0;
+                    tile.setAnimationFrame(0);
                 }
                 return l;
             }

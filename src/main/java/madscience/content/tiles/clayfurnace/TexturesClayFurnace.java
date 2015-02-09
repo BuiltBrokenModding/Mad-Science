@@ -36,41 +36,25 @@ public class TexturesClayFurnace
     public static ResourceLocation getTextureBasedOnState(TileClayFurnace tile, TileClayFurnace.BurnState state)
     {
         // Active state has many textures based on item cook progress.
-        if(tile != null && tile.world() != null)
+        if (tile != null && tile.world() != null)
         {
             if (state == TileClayFurnace.BurnState.DONE)
             {
                 // COOLED DOWN (WAITING FOR PLAYER TO HIT US)
-                return TEXTURE_DONE;
+                return TEXTURE_SHELL;
             }
             else if (state == TileClayFurnace.BurnState.SMOLDERING)
             {
                 // SMOLDERING FURNACE MODE
-                return TEXTURE_SHELL;
+                return TEXTURE_DONE;
             }
             else if (state == TileClayFurnace.BurnState.COOLING || state == TileClayFurnace.BurnState.COOKING)
             {
-                ResourceLocation l;
-
                 if (state == TileClayFurnace.BurnState.COOLING)
                 {
-                    if (tile.animationFrame >= TEXTURE_REDHOT.length)
-                        tile.animationFrame = 0;
-                    l = TEXTURE_REDHOT[tile.animationFrame];
+                    return TEXTURE_REDHOT[tile.getAnimationFrame()];
                 }
-                else
-                {
-                    if (tile.animationFrame >= TEXTURE_WORK.length)
-                        tile.animationFrame = 0;
-                    l = TEXTURE_WORK[tile.animationFrame];
-                }
-                // COOL DOWN (RED HOT MODE)
-                if (tile.ticks % (MadScience.SECOND_IN_TICKS * 5) == 0)
-                {
-                    // Update animation frame.
-                    ++tile.animationFrame;
-                }
-                return l;
+                return TEXTURE_WORK[tile.getAnimationFrame()];
             }
         }
         return TEXTURE_IDLE;

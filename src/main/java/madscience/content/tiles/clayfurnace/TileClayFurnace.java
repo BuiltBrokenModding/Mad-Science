@@ -12,7 +12,6 @@ import com.builtbroken.mc.prefab.inventory.InventoryUtility;
 import com.builtbroken.mc.prefab.recipe.ItemStackWrapper;
 import com.builtbroken.mc.prefab.tile.Tile;
 import com.builtbroken.mc.prefab.tile.TileModuleMachine;
-import com.sun.prism.Texture;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -66,9 +65,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
 
     private BurnState state = BurnState.IDLE;
     public int cookTime = 0;
-
-    @SideOnly(Side.CLIENT)
-    public int animationFrame = 0;
+    private int animationFrame = 0;
 
     public TileClayFurnace()
     {
@@ -90,11 +87,11 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     @Override
     public int getLightValue()
     {
-        if(getState() == BurnState.COOKING)
+        if (getState() == BurnState.COOKING)
             return 10;
-        if(getState() == BurnState.COOLING)
+        if (getState() == BurnState.COOLING)
             return 5;
-        if(getState() == BurnState.SMOLDERING)
+        if (getState() == BurnState.SMOLDERING)
             return 3;
         return 0;
     }
@@ -109,8 +106,24 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
             {
                 if (canSmelt())
                 {
-                    cookTime++;
-                    if (cookTime >= MAX_COOK_TIME)
+                    double percent = (double) cookTime / (double) MAX_COOK_TIME;
+                    if (percent >= 75)
+                    {
+                        setAnimationFrame(3);
+                    }
+                    else if (percent >= 50)
+                    {
+                        setAnimationFrame(2);
+                    }
+                    else if (percent >= 25)
+                    {
+                        setAnimationFrame(1);
+                    }
+                    else
+                    {
+                        setAnimationFrame(0);
+                    }
+                    if (cookTime++ >= MAX_COOK_TIME)
                     {
                         cookTime = 0;
                         setState(BurnState.SMOLDERING);
@@ -157,6 +170,27 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
             //TODO Prevent cooling if near lava - Dark
             if (isServer())
             {
+                double percent = (double) cookTime / (double) (MadScience.SECOND_IN_TICKS * 50);
+                if (percent >= 80)
+                {
+                    setAnimationFrame(4);
+                }
+                else if (percent >= 60)
+                {
+                    setAnimationFrame(3);
+                }
+                else if (percent >= 40)
+                {
+                    setAnimationFrame(2);
+                }
+                else if (percent >= 20)
+                {
+                    setAnimationFrame(1);
+                }
+                else
+                {
+                    setAnimationFrame(0);
+                }
                 cookTime++;
                 if (cookTime >= MadScience.SECOND_IN_TICKS * 50)
                 {
@@ -320,39 +354,39 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                 return true;
             }
         }
-        else if(getState() == BurnState.COOKING && player.getHeldItem() != null && player.getHeldItem().getItem() == Items.water_bucket)
+        else if (getState() == BurnState.COOKING && player.getHeldItem() != null)
         {
-            if(isServer())
+            if (player.getHeldItem().getItem() == Items.water_bucket)
             {
-                if(!player.capabilities.isCreativeMode)
+                if (isServer())
                 {
-                    ItemStack bucket = new ItemStack(Items.bucket);
-                    if (player.getHeldItem().stackSize == 1)
-                    {
-                        player.inventory.mainInventory[player.inventory.currentItem] = bucket;
-                    }
-                    else if (player.getHeldItem().stackSize > 1)
-                    {
-                        player.getHeldItem().stackSize--;
-                        if (!player.inventory.addItemStackToInventory(bucket))
-                        {
-                            InventoryUtility.dropItemStack(new Location((TileEntity) this), bucket);
-                        }
-                    }
-                    player.inventoryContainer.detectAndSendChanges();
+                    InventoryUtility.consumeBucketInHand(player);
+                    setState(BurnState.IDLE);
                 }
-                setState(BurnState.IDLE);
+                else
+                {
+                    for (int l = 0; l < 20; ++l)
+                    {
+                        double f = x() + 0.5 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
+                        double f1 = y() + 0.9 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
+                        double f2 = z() + 0.5 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
+                        world().spawnParticle("largesmoke", f, f1, f2, 0.0D, 0.0D, 0.0D);
+                    }
+                    this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", 1.0F, 1.0F);
+                }
             }
-            else if(isClient())
+            else if (player.getHeldItem().getItem() == Items.lava_bucket)
             {
-                for (int l = 0; l < 20; ++l)
+                if (isServer())
                 {
-                    double f = x() + 0.5 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
-                    double f1 = y() + 0.9 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
-                    double f2 = z() + 0.5 + 0.2 * (world().rand.nextFloat() - world().rand.nextFloat());
-                    world().spawnParticle("largesmoke", f, f1, f2, 0.0D, 0.0D, 0.0D);
+                    InventoryUtility.consumeBucketInHand(player);
+                    setState(BurnState.SMOLDERING);
                 }
-                this.worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "random.fizz", 1.0F, 1.0F);
+                else
+                {
+                    world().playSoundEffect(x() + 0.5D, y() + 0.5D, z() + 0.5D, "liquid.lavapop", 1.0F, 1.0F);
+                    world().playSoundEffect(z() + 0.5D, y() + 0.5D, z() + 0.5D, "random.fizz", 1.0F, 1.0F);
+                }
             }
             return true;
         }
@@ -373,7 +407,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                 else if (getState() == BurnState.COOKING)
                 {
                     //TODO add translation key - Dark
-                    int percent = (int)(100 * ((double)cookTime / (double)MAX_COOK_TIME));
+                    int percent = (int) (100 * ((double) cookTime / (double) MAX_COOK_TIME));
 
                     //TODO add witty remarks about the long ass wait time
                     player.addChatComponentMessage(new ChatComponentText("* " + percent + "%  Just waiting for it to melt*"));
@@ -478,7 +512,8 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
         //We have no icons to register
     }
 
-    @Override @SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
     public void renderInventoryItem(IItemRenderer.ItemRenderType type, ItemStack itemStack, Object... data)
     {
         GL11.glPushMatrix();
@@ -530,7 +565,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
 
         // Renders the model in the gameworld at the correct scale.
         TexturesClayFurnace.MODEL.renderAll();
-        if(type == IItemRenderer.ItemRenderType.EQUIPPED)
+        if (type == IItemRenderer.ItemRenderType.EQUIPPED)
         {
             GL11.glEnable(GL11.GL_CULL_FACE);
         }
@@ -547,16 +582,9 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(TexturesClayFurnace.getTextureBasedOnState(this, getState()));
 
         // If we are a clay furnace we have to shrink our scale, otherwise render normal size.
-        if (getState() != TileClayFurnace.BurnState.SMOLDERING)
-        {
-            GL11.glTranslatef(pos.xf() + 0.5f, pos.yf() + 0.34f, pos.zf() + 0.5f);
-            GL11.glScalef(0.6F, 0.68F, 0.6F);
-        }
-        else
-        {
-            GL11.glTranslatef(pos.xf() + 0.5f, pos.yf() + 0.5f, pos.zf() + 0.5f);
-            GL11.glScalef(1.0F, 1.0F, 1.0F);
-        }
+
+        GL11.glTranslatef(pos.xf() + 0.5f, pos.yf() + 0.34f, pos.zf() + 0.5f);
+        GL11.glScalef(0.6F, 0.68F, 0.6F);
 
         //Rotate model based on tile rotation
         switch (getBlockMetadata() % 4)
@@ -593,13 +621,14 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
 
     public void updateClient()
     {
-        sendPacket(getDescPacket());
+        if (isServer())
+            sendPacket(getDescPacket());
     }
 
     @Override
     public PacketTile getDescPacket()
     {
-        return new PacketTile(this, getState().ordinal(), cookTime);
+        return new PacketTile(this, getState().ordinal(), animationFrame);
     }
 
 
@@ -609,7 +638,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
         if (isClient())
         {
             setState(BurnState.get(buf.readInt()));
-            cookTime = buf.readInt();
+            animationFrame = buf.readInt();
         }
     }
 
@@ -617,7 +646,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-        setState(BurnState.get(nbt.getByte("burnState")));
+        state = BurnState.get(nbt.getByte("burnState"));
         cookTime = nbt.getInteger("cookTime");
 
     }
@@ -637,11 +666,22 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
 
     public void setState(BurnState state)
     {
-        if(this.state != state)
+        if (this.state != state)
         {
             this.state = state;
             updateClient();
         }
+    }
+
+    public int getAnimationFrame()
+    {
+        return animationFrame;
+    }
+
+    private void setAnimationFrame(int animationFrame)
+    {
+        this.animationFrame = animationFrame;
+        updateClient();
     }
 
     /**
