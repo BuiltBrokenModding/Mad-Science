@@ -1,5 +1,6 @@
 package madscience;
 
+import com.builtbroken.mc.core.proxy.NEIProxy;
 import com.builtbroken.mc.lib.mod.AbstractMod;
 import com.builtbroken.mc.lib.mod.AbstractProxy;
 import com.builtbroken.mc.lib.mod.ModCreativeTab;
@@ -120,7 +121,9 @@ public class MadScience extends AbstractMod
 
         // Blocks
         blockDNA = getManager().newBlock("maddna", new BlockFluidDNA(liquidDNA)).setCreativeTab(null);
+        NEIProxy.hideItem(blockDNA);
         blockMutantDNA = getManager().newBlock("madmutantdna", new BlockFluidDNA(liquidMutantDNA)).setCreativeTab(null);
+        NEIProxy.hideItem(blockMutantDNA);
         blockAbominationEgg = getManager().newBlock(BlockAbominationEgg.class);
         blockEnderslime = getManager().newBlock(BlockEnderslime.class);
         blockClayFurnace = getManager().newBlock("clayFurnace", TileClayFurnace.class);
