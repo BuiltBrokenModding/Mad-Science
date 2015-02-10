@@ -6,6 +6,7 @@ import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.core.registry.implement.IPostInit;
 import com.builtbroken.mc.lib.render.RenderUtility;
+import com.builtbroken.mc.lib.transform.region.Cuboid;
 import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.inventory.InventoryUtility;
@@ -24,6 +25,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -31,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
@@ -50,6 +53,8 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     //Very simple recipe handling since the furnace only supports ore -> Ingot Block recipes
     public static HashMap<ItemStackWrapper, ItemStack> recipeMap = new HashMap();
     public static List<ItemStackWrapper> validFuels = new ArrayList();
+
+    public static final Cuboid COOLING_BOUNDS = new Cuboid(0.2, 0, 0.2, 0.8, .75, 0.8);
 
     static
     {
@@ -623,6 +628,28 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     {
         if (isServer())
             sendPacket(getDescPacket());
+    }
+
+    @Override
+    public void onCollide(Entity entity)
+    {
+        if(isServer())
+        {
+            if (entity.attackEntityFrom(DamageSource.inFire, 0.1f))
+            {
+                entity.setFire(1);
+            }
+        }
+    }
+
+    @Override
+    public Cuboid getCollisionBounds()
+    {
+        if(state == BurnState.DONE || state == BurnState.COOLING)
+        {
+            return COOLING_BOUNDS;
+        }
+        return super.getCollisionBounds();
     }
 
     @Override
