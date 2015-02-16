@@ -6,7 +6,7 @@ import com.builtbroken.mc.core.network.packet.PacketTile;
 import com.builtbroken.mc.core.network.packet.PacketType;
 import com.builtbroken.mc.core.registry.implement.IPostInit;
 import com.builtbroken.mc.lib.render.RenderUtility;
-import com.builtbroken.mc.lib.transform.region.Cuboid;
+import com.builtbroken.mc.lib.transform.region.Cube;
 import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.inventory.InventoryUtility;
@@ -54,7 +54,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     public static HashMap<ItemStackWrapper, ItemStack> recipeMap = new HashMap();
     public static List<ItemStackWrapper> validFuels = new ArrayList();
 
-    public static final Cuboid COOLING_BOUNDS = new Cuboid(0.2, 0, 0.2, 0.8, .75, 0.8);
+    public static final Cube COOLING_BOUNDS = new Cube(0.2, 0, 0.2, 0.8, .75, 0.8);
 
     static
     {
@@ -643,7 +643,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     }
 
     @Override
-    public Cuboid getCollisionBounds()
+    public Cube getCollisionBounds()
     {
         if(state == BurnState.DONE || state == BurnState.COOLING)
         {
