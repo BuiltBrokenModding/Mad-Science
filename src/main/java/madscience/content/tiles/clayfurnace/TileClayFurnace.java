@@ -318,9 +318,6 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
                             {
                                 player.getCurrentEquippedItem().attemptDamageItem(1, worldObj.rand);
                             }
-
-                            //Send changes to client
-                            updateClient();
                         }
                         else if (getStackInSlot(0) == null)
                         {
