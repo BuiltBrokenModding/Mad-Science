@@ -23,4 +23,3 @@ cache:
 sudo: false
 jdk:
   - oraclejdk7
-  - openjdk6
