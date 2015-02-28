@@ -18,13 +18,10 @@ buildscript {
 
 apply from: './BuiltBrokenScripts/index.gradle'
 apply plugin: 'forge'
-ext.buildProps = file "build.properties"
+
 apply plugin: 'curseforge'
 
-println "Current Minecraft version = " + minecraft.apiVersion
-
-def currentJvm = org.gradle.internal.jvm.Jvm.current()
-println "Current Java version = " + currentJvm
+ext.buildProps = file "build.properties"
 
 buildProps.withReader {
     def prop = new Properties()
@@ -32,7 +29,13 @@ buildProps.withReader {
     ext.config = new ConfigSlurper().parse prop
 }
 
-version = "MC${config.version.minecraft}-F${config.version.forge}_v${config.version.mod.major}.${config.version.mod.minor}${config.version.mod.revis}"
+println "Current Minecraft version = " + minecraft.apiVersion
+def currentJvm = org.gradle.internal.jvm.Jvm.current()
+println "Current Java version = " + currentJvm
+
+
+
+version = "${minecraft.apiVersion}-v${config.version.mod.major}.${config.version.mod.minor}${config.version.mod.revis}"
 group = "madscience"
 archivesBaseName = "MadScience"
 
@@ -60,8 +63,11 @@ if (System.getenv("BUILD_NUMBER") != null) {
     version += ".${System.getenv("BUILD_NUMBER")}";
 }
 else {
-	version = "MC${config.version.minecraft}-F${config.version.forge}_[NIGHTLY]"
+	version += getDate()
 }
+
+println "version = "+ version
+
 
 processResources {
 	from 'build.properties'
@@ -77,7 +83,6 @@ if (new File(projectDir, '.git').exists()) {
 
 jar { 
     manifest.mainAttributes(
-            "Built-By": System.getProperty('user.name'),
             "Created-By": currentJvm,
             "Implementation-Title": archivesBaseName,
             "Implementation-Version": project.version,
@@ -136,8 +141,4 @@ def getDate() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMddHHmmss')
     return formattedDate
-}
-
-wrapper {
-    version = "1.8"
 }
