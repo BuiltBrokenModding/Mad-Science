@@ -89,7 +89,7 @@ public class MadScience extends AbstractMod
 
     public MadScience()
     {
-        super(ID);
+        super(ID, "MadScience");
     }
 
     @EventHandler
