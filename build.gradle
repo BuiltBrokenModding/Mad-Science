@@ -40,31 +40,26 @@ group = "madscience"
 archivesBaseName = "MadScience"
 
 minecraft {
-	
-	replaceIn "MadScience.java"
+
 	replace "@MAJOR@", config.version.mod.major
 	replace "@MINOR@", config.version.mod.minor
 	replace "@REVIS@", config.version.mod.revis
 	
-	if (System.getenv("BUILD_NUMBER") != null) {
-		replace "@BUILD@", System.getenv("BUILD_NUMBER")
+	if (project.hasProperty("bambooBuildNumber")) {
+		replace "@BUILD@", project.bambooBuildNumber
 	}
-	else
-	{
-		replace "@BUILD@", "[NIGHTLY]"
-	}
-	
-	if (project.hasProperty("mad_signature")) {
-        replace "@FINGERPRINT@", project.mad_signature
+	else {
+		replace "@BUILD@", getDate()
 	}
 }
 
-if (System.getenv("BUILD_NUMBER") != null) {
-    version += ".${System.getenv("BUILD_NUMBER")}";
-}
-else {
-	version += getDate()
-}
+// This is used to set the local version
+if (project.hasProperty("bambooBuildNumber"))
+    version += project.bambooBuildNumber
+else
+    version += getDate()
+
+println "version = "+ version
 
 if (project.getProperty("bambooshortPlanName") == "BBM-Dev") {
     group = "dev.builtbroken.madscience"
@@ -73,8 +68,6 @@ if (project.getProperty("bambooshortPlanName") == "BBM-Dev") {
     group = "com.builtbroken.madscience"
     archivesBaseName = "MadScience"
 }
-
-println "version = "+ version
 
 
 processResources {
@@ -134,6 +127,23 @@ task createChangelogJenkins(type: ChangelogTask) {
 		setAuthPassword(new DelayedString(project, 'Xp8k8BkF9UjVsR75A58c82RK'));
 		setTargetBuild({buildNumber.toString()});
 		setOutput(new DelayedFile(project, 'output/' + 'changelog' + '.txt'));
+	}
+}
+
+processResources {
+	from(sourceSets.main.resources.srcDirs) {
+		//include '**/*.lang'
+		include '**/*.info'
+		include '**/*.properties'
+
+		expand 'version': project.version, 'mcversion': project.minecraft.version
+		// replace version and MCVersion
+	}
+
+	// copy everything else, thats not text
+	from(sourceSets.main.resources.srcDirs) {
+		exclude '**/*.info'
+		exclude '**/*.properties'
 	}
 }
 

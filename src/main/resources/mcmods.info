@@ -1,0 +1,16 @@
+[
+{
+  "modid": "madscience",
+  "name": "MadScience",
+  "description": "Create Devious Mobs .",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://madsciencemod.com/",
+  "updateUrl": "",
+  "authorList": ["MaxWolf, DarkGuardsMan, dmodoomsirius "],
+  "credits": "",
+  "logoFile": "assets/madscience/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
