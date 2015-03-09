@@ -66,6 +66,14 @@ else {
 	version += getDate()
 }
 
+if (project.getProperty("bambooshortPlanName") == "BBM-Dev") {
+    group = "dev.builtbroken.madscience"
+    archivesBaseName = "MadScience"
+} else {
+    group = "com.builtbroken.madscience"
+    archivesBaseName = "MadScience"
+}
+
 println "version = "+ version
 
 
