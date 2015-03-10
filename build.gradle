@@ -35,7 +35,8 @@ println "Current Java version = " + currentJvm
 
 
 
-version = "${minecraft.apiVersion}-v${config.version.mod.major}.${config.version.mod.minor}${config.version.mod.revis}"
+version = "${minecraft.apiVersion}-${config.version.mod.major}.${config.version.mod.minor}.${config.version.mod.revis}b"
+
 group = "madscience"
 archivesBaseName = "MadScience"
 
