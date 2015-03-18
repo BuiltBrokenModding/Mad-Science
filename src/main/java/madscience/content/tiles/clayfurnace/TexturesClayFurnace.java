@@ -1,5 +1,6 @@
 package madscience.content.tiles.clayfurnace;
 
+import com.builtbroken.mc.lib.render.model.loader.EngineModelLoader;
 import madscience.MadScience;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
@@ -10,7 +11,7 @@ import net.minecraftforge.client.model.IModelCustom;
  */
 public class TexturesClayFurnace
 {
-    public static IModelCustom MODEL = AdvancedModelLoader.loadModel(new ResourceLocation(MadScience.ID, "models/clayFurnace/clayFurnace.tcn"));
+    public static IModelCustom MODEL = EngineModelLoader.loadModel(new ResourceLocation(MadScience.ID, "models/clayFurnace/clayFurnace.tcn"));
 
     public static ResourceLocation TEXTURE_IDLE = new ResourceLocation(MadScience.ID, "models/clayFurnace/idle.png");
     public static ResourceLocation TEXTURE_SHELL = new ResourceLocation(MadScience.ID, "models/clayFurnace/shell.png");
