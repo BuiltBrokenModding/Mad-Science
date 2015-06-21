@@ -10,7 +10,7 @@ import com.builtbroken.mc.lib.transform.region.Cube;
 import com.builtbroken.mc.lib.transform.vector.Location;
 import com.builtbroken.mc.lib.transform.vector.Pos;
 import com.builtbroken.mc.prefab.inventory.InventoryUtility;
-import com.builtbroken.mc.prefab.recipe.ItemStackWrapper;
+import com.builtbroken.mc.prefab.items.ItemStackWrapper;
 import com.builtbroken.mc.prefab.tile.Tile;
 import com.builtbroken.mc.prefab.tile.TileModuleMachine;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -711,7 +711,7 @@ public class TileClayFurnace extends TileModuleMachine implements IPacketReceive
     /**
      * States of the furnace
      */
-    public static enum BurnState
+    public enum BurnState
     {
         /* Waiting for items and fire */
         IDLE,

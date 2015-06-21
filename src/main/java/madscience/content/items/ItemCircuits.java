@@ -81,7 +81,7 @@ public class ItemCircuits extends ItemComponent
         @SideOnly(Side.CLIENT)
         public IIcon icon;
 
-        private EnumCircuits(String langName)
+        EnumCircuits(String langName)
         {
             this.INTERNAL_NAME = langName;
         }

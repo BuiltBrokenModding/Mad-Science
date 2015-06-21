@@ -78,7 +78,7 @@ public enum EnumDNA
     public ItemStack dnaItem;
     public ItemStack gnomeItem;
 
-    private EnumDNA(String langName, Class<? extends Entity> entity, int p, int s)
+    EnumDNA(String langName, Class<? extends Entity> entity, int p, int s)
     {
         this.INTERNAL_NAME = langName;
         this.ENTITY_CLASS = entity;

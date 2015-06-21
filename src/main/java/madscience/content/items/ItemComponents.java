@@ -83,7 +83,7 @@ public class ItemComponents extends ItemComponent
         @SideOnly(Side.CLIENT)
         public IIcon icon;
 
-        private EnumComponents(String langName)
+        EnumComponents(String langName)
         {
             this.INTERNAL_NAME = langName;
         }

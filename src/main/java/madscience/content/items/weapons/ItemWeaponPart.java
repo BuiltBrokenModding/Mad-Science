@@ -78,7 +78,7 @@ public class ItemWeaponPart extends ItemComponent
         @SideOnly(Side.CLIENT)
         public IIcon icon;
 
-        private EnumWeaponParts(String langName)
+        EnumWeaponParts(String langName)
         {
             this.INTERNAL_NAME = langName;
         }

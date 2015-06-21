@@ -9,79 +9,79 @@ public class MadConfig
     // http://www.minecraftforge.net/wiki/Reference_Mod_File
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgBool
+    private @interface CfgBool
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgDNA
+    private @interface CfgDNA
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgEnergy
+    private @interface CfgEnergy
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgGenomes
+    private @interface CfgGenomes
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgId
+    private @interface CfgId
     {
-        public boolean block() default false;
+        boolean block() default false;
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgInt
-    {
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgUpdates
-    {
-        public boolean isBool() default false;
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgHelp
+    private @interface CfgInt
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgMemories
+    private @interface CfgUpdates
+    {
+        boolean isBool() default false;
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    private @interface CfgHelp
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgMobs
+    private @interface CfgMemories
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgNeedles
+    private @interface CfgMobs
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgProcessing
+    private @interface CfgNeedles
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgCircuits
+    private @interface CfgProcessing
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgComponents
+    private @interface CfgCircuits
     {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
-    private static @interface CfgWeapons
+    private @interface CfgComponents
+    {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    private @interface CfgWeapons
     {
     }
 
