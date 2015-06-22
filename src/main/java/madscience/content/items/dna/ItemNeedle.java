@@ -142,7 +142,7 @@ public class ItemNeedle extends ItemDNADecay implements IRegistryInit
         //TODO SanitizerRecipes.addSmelting(this, new ItemStack(this), 0.15F);
 
         // Shaped.
-        GameRegistry.addRecipe(new ItemStack(this) // Recipe.
+        GameRegistry.addRecipe(new ItemStack(this), // Recipe.
                 "GIG", "G G", " S ",
 
                 // Parameters.
