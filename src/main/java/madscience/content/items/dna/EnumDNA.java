@@ -201,7 +201,7 @@ public enum EnumDNA
     {
         if (spawnItem == null)
         {
-            Field field = ReflectionUtility.getMCField(EntityList.class, "classToIDMapping");
+            Field field = ReflectionUtility.getMCField(EntityList.class, "classToIDMapping", "field_75624_e");
             if (field != null)
             {
                 try
