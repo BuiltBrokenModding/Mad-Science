@@ -16,63 +16,21 @@ buildscript {
     }
 }
 
-apply from: './BuiltBrokenScripts/index.gradle'
+plugins {
+  id 'com.matthewprenger.cursegradle' version '1.0.1'
+  id 'net.saliman.cobertura' version '2.2.5'
+  id 'com.github.kt3k.coveralls' version '2.0.1'
+}
+
+apply from: 'https://raw.githubusercontent.com/BuiltBrokenModding/BuiltBrokenScripts/buildScripts/index.gradle'
 apply plugin: 'forge'
-
 apply plugin: 'curseforge'
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'jacoco'
+apply from: 'https://raw.githubusercontent.com/BuiltBrokenModding/BuiltBrokenScripts/buildScripts/scripts/forge/deps.gradle'
 
-ext.buildProps = file "build.properties"
-
-buildProps.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    ext.config = new ConfigSlurper().parse prop
-}
-
-println "Current Minecraft version = " + minecraft.apiVersion
-def currentJvm = org.gradle.internal.jvm.Jvm.current()
-println "Current Java version = " + currentJvm
-
-
-
-version = "${minecraft.apiVersion}-${config.version.mod.major}.${config.version.mod.minor}.${config.version.mod.revis}b"
-
-group = "madscience"
-archivesBaseName = "MadScience"
-
-minecraft {
-
-	replace "@MAJOR@", config.version.mod.major
-	replace "@MINOR@", config.version.mod.minor
-	replace "@REVIS@", config.version.mod.revis
-	
-	if (project.hasProperty("bambooBuildNumber")) {
-		replace "@BUILD@", project.bambooBuildNumber
-	}
-	else {
-		replace "@BUILD@", getDate()
-	}
-}
-
-// This is used to set the local version
-if (project.hasProperty("bambooBuildNumber"))
-    version += project.bambooBuildNumber
-else
-    version += getDate()
-
-println "version = "+ version
-
-if (project.getProperty("bambooshortPlanName") == "BBM-Dev") {
-    group = "dev.builtbroken.madscience"
-    archivesBaseName = "MadScience"
-} else {
-    group = "com.builtbroken.madscience"
-    archivesBaseName = "MadScience"
-}
-
-
-processResources {
-	from 'build.properties'
+minecraft {    
+    replace "required-after:VoltzEngine", "required-after:VoltzEngine" + voltz_engine_version
 }
 
 import org.ajoberstar.grgit.Grgit
@@ -85,52 +43,22 @@ if (new File(projectDir, '.git').exists()) {
 
 jar { 
     manifest.mainAttributes(
-            "Created-By": currentJvm,
             "Implementation-Title": archivesBaseName,
             "Implementation-Version": project.version,
             "Git-Hash": gitHash,
     )
 }
 
-repositories {
-    maven {
-        name "BuiltBroken"
-        url "http://ci.builtbroken.com/maven/"
+dependencies 
+{
+    if (project.getProperty("bambooshortPlanName") == "BBM-Dev"){
+    compile "dev.builtbroken.voltzengine:VoltzEngine:1.7.10-0.+:deobf-dev"
     }
-    maven {
-        name 'ForgeFS'
-        url 'http://files.minecraftforge.net/maven'
-     }
+    else
+    {
+    compile "com.builtbroken.voltzengine:VoltzEngine:1.7.10-0.+:deobf"}
 }
-
-dependencies {
-	compile "dev.builtbroken.voltzengine:VoltzEngine:1.7.10-0.+:deobf-dev"
-}
-
-import net.minecraftforge.gradle.tasks.dev.ChangelogTask
-import net.minecraftforge.gradle.common.Constants
-import net.minecraftforge.gradle.delayed.*
  
-task createChangelogJenkins(type: ChangelogTask) {
-    def jobName = "${System.getenv().JOB_NAME}";
-    def buildNumber = "1";
-	
-	if (jobName?.trim())
-	{
-		jobName = "Mad Science";
-	}
-	
-	if (System.getenv("BUILD_NUMBER") != null) {
-		buildNumber = "${System.getenv("BUILD_NUMBER")}";
-		setServerRoot(new DelayedString(project, 'http://madsciencemod.com:8080/'));
-		setJobName(new DelayedString(project, jobName.replaceAll("\\s+","%20").toString()));
-		setAuthName(new DelayedString(project, 'MadScienceMod'));
-		setAuthPassword(new DelayedString(project, 'Xp8k8BkF9UjVsR75A58c82RK'));
-		setTargetBuild({buildNumber.toString()});
-		setOutput(new DelayedFile(project, 'output/' + 'changelog' + '.txt'));
-	}
-}
-
 processResources {
 	from(sourceSets.main.resources.srcDirs) {
 		//include '**/*.lang'
@@ -146,14 +74,6 @@ processResources {
 		exclude '**/*.info'
 		exclude '**/*.properties'
 	}
-}
-
-if (System.getenv("BUILD_NUMBER") != null) {
-	build.dependsOn "copyBuildXml", "createChangelog"
-}
-else
-{
-	build.dependsOn "copyBuildXml"
 }
 
 def getDate() {
